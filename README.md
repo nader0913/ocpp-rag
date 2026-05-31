@@ -1,142 +1,18 @@
 # OCPP RAG
 
-RAG (Retrieval-Augmented Generation) knowledge base for EV charging protocols. Covers OCPP 1.6, OCPP 2.0.1, Plug & Charge, and related EV standards.
+MCP server that gives AI assistants deep knowledge of EV charging protocols. Connect it to Claude and ask anything about OCPP 1.6, OCPP 2.0.1, Plug & Charge, and related standards.
 
-Built with [LlamaParse](https://docs.llamaindex.ai/en/stable/llama_cloud/llama_parse/) for document parsing, [ChromaDB](https://www.trychroma.com/) for vector storage, and exposed as an [MCP server](https://modelcontextprotocol.io/) for use with AI assistants.
+**3,800+ indexed chunks** from 13 official documents — use cases, requirements, message schemas, device model variables, test cases, and more.
 
-## Document Coverage
+## Setup
 
-| Document | Version | Status |
-|----------|---------|--------|
-| OCPP 2.0.1 Part 0 - Introduction | Edition 4 | Included |
-| OCPP 2.0.1 Part 1 - Architecture & Topology | Edition 4 | Included |
-| OCPP 2.0.1 Part 2 - Specification | Edition 4 | Included |
-| OCPP 2.0.1 Part 2 - Appendices | v1.5 | Included |
-| OCPP 2.0.1 Part 3 - JSON Schemas | Edition 4 | Included |
-| OCPP 2.0.1 Part 4 - OCPP-J Specification | Edition 4 | Included |
-| OCPP 2.0.1 Part 5 - Certification Profiles | Edition 4 | Included |
-| OCPP 2.0.1 Part 6 - Test Cases | Edition 4 | Included |
-| OCPP 2.0.1 Errata | 2026-04 | Included |
-| OCPP 1.6 Specification | Edition 2 | Included |
-| OCPP-J 1.6 Specification | Edition 2 | Included |
-| ISO 15118 Plug & Charge with OCPP 1.6 (OCA Whitepaper) | v1.0 | Included |
-| Appendices CSV Data (Components, Variables, Reason Codes, Security Events) | v1.5 | Included |
-
-## Architecture
-
-```
-Source PDFs/ZIPs
-       |
-       v
-  LlamaParse          extract_archives.py
-  (parse.py)          (JSON schemas + CSVs)
-       |                      |
-       v                      v
-   Markdown              Structured JSON
-       |                      |
-       +----------+-----------+
-                  |
-                  v
-            chunk.py
-          (smart chunking with metadata)
-                  |
-                  v
-            index.py
-          (ChromaDB vector index)
-                  |
-          +-------+-------+
-          |               |
-          v               v
-     query.py        mcp_server.py
-   (CLI + Claude)    (MCP tools)
-```
-
-## Quick Start
-
-### 1. Install dependencies
+### Claude Code
 
 ```bash
-uv sync
+claude mcp add ocpp-rag -- uvx --from git+https://github.com/nader0913/ocpp-rag python -m ocpp_rag.mcp_server
 ```
 
-### 2. Set up API keys
-
-```bash
-cp .env.example .env
-# Edit .env with your keys:
-#   LLAMA_CLOUD_API_KEY=llx-...   (for parsing PDFs)
-#   ANTHROPIC_API_KEY=sk-ant-...  (for query CLI)
-```
-
-### 3. Get source documents
-
-Place OCPP 2.0.1 documents in `source_docs/OCPP-2.0.1_all_files/`. Download them from [openchargealliance.org](https://openchargealliance.org/download-ocpp/).
-
-Download freely available additional documents:
-
-```bash
-uv run python scripts/download_docs.py
-```
-
-### 4. Extract archives
-
-```bash
-uv run python -m ocpp_rag.extract_archives
-```
-
-### 5. Parse all PDFs
-
-```bash
-# Parse all documents (requires LLAMA_CLOUD_API_KEY)
-uv run python -m ocpp_rag.parse
-
-# Or parse specific documents
-uv run python -m ocpp_rag.parse --doc ocpp201_part2
-
-# List document status
-uv run python -m ocpp_rag.parse --list
-```
-
-### 6. Chunk and index
-
-```bash
-# Chunk all parsed documents
-uv run python -m ocpp_rag.chunk
-
-# Build vector index
-uv run python -m ocpp_rag.index --force
-```
-
-### 7. Query
-
-```bash
-# Interactive mode
-uv run python -m ocpp_rag.query
-
-# Single question
-uv run python -m ocpp_rag.query "How does cold boot work in OCPP 2.0.1?"
-
-# Version-specific query
-uv run python -m ocpp_rag.query --version 1.6 "How does authorization work?"
-```
-
-## MCP Server
-
-The MCP server exposes the knowledge base as tools for AI assistants.
-
-### Tools
-
-| Tool | Description |
-|------|-------------|
-| `search_ocpp` | Semantic search across all documents with optional version/type filters |
-| `get_use_case` | Get all details for a specific use case (e.g. "B01", "K08") |
-| `list_use_cases` | List all use case IDs with filters |
-| `get_message_schema` | Look up JSON schema for an OCPP message |
-| `get_component_variable` | Look up device model components and variables |
-| `list_documents` | List all indexed documents |
-| `compare_versions` | Search a topic across OCPP 1.6 and 2.0.1 |
-
-### Configure in Claude Desktop
+### Claude Desktop
 
 Add to your `claude_desktop_config.json`:
 
@@ -144,53 +20,71 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "ocpp-rag": {
-      "command": "uv",
-      "args": ["--directory", "/path/to/ocpp-rag", "run", "python", "-m", "ocpp_rag.mcp_server"]
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/nader0913/ocpp-rag", "python", "-m", "ocpp_rag.mcp_server"]
     }
   }
 }
 ```
 
-### Configure in Claude Code
+### Local install
 
+```bash
+git clone https://github.com/nader0913/ocpp-rag.git
+cd ocpp-rag
+uv sync
+```
+
+Then add to Claude Code:
 ```bash
 claude mcp add ocpp-rag -- uv --directory /path/to/ocpp-rag run python -m ocpp_rag.mcp_server
 ```
 
-## Development
+The index builds automatically on first run (~30 seconds).
 
-### Run tests
+## Tools
 
-```bash
-uv sync --extra dev
-uv run pytest
+| Tool | What it does |
+|------|-------------|
+| `search_ocpp` | Semantic search across all documents. Filter by version ("1.6" / "2.0.1") or content type. |
+| `get_use_case` | Get full details for a use case — description, sequence diagram, requirements (e.g. "B01", "K08"). |
+| `list_use_cases` | List all use case IDs, filterable by version and functional block. |
+| `get_message_schema` | Look up the JSON schema for any OCPP 2.0.1 message (e.g. "BootNotificationRequest"). |
+| `get_component_variable` | Look up device model components and variables from the appendices. |
+| `list_documents` | List all indexed documents with chunk counts. |
+| `compare_versions` | Search a topic across OCPP 1.6 and 2.0.1 side by side. |
 
-# Skip integration tests
-uv run pytest -m "not integration"
-```
+## Document Coverage
 
-### Project structure
+### OCPP 2.0.1 (Edition 4)
+- Part 0 — Introduction
+- Part 1 — Architecture & Topology
+- Part 2 — Specification (491 pages, 119 use cases, 16 functional blocks A-P)
+- Part 2 — Appendices (components, variables, device model)
+- Part 3 — JSON Schemas (128 message schemas, 64 request/response pairs)
+- Part 4 — OCPP-J Specification (WebSocket/JSON transport)
+- Part 5 — Certification Profiles
+- Part 6 — Test Cases (916 pages)
+- Errata (2026-04)
+- Appendices CSV (82 components, 214 variables, 51 reason codes, 21 security events, 34 units)
 
-```
-src/ocpp_rag/
-  config.py              # Paths, document registry, constants
-  parse.py               # LlamaParse PDF parsing pipeline
-  extract_archives.py    # ZIP extraction (JSON schemas, CSVs)
-  chunk.py               # Smart chunking with metadata
-  index.py               # ChromaDB vector index builder
-  mcp_server.py          # MCP server with 7 tools
-  query.py               # Interactive query CLI
-scripts/
-  download_docs.py       # Download freely available documents
-tests/
-  conftest.py            # Shared fixtures
-  test_config.py         # Config validation
-  test_chunk.py          # Chunking logic tests
-  test_extract_archives.py  # Archive extraction tests
-  test_index.py          # Vector index tests
-  test_mcp_server.py     # MCP server tool tests
-  test_end_to_end.py     # Full pipeline integration tests
-```
+### OCPP 1.6
+- OCPP 1.6 Specification
+- OCPP-J 1.6 Specification
+
+### Other
+- Using ISO 15118 Plug & Charge with OCPP 1.6 (OCA Whitepaper)
+
+## Example Queries
+
+Once connected, ask Claude things like:
+
+- "How does cold boot work in OCPP 2.0.1? Show me the requirements."
+- "What's the JSON schema for TransactionEventRequest?"
+- "Compare authorization between OCPP 1.6 and 2.0.1"
+- "List all Smart Charging use cases"
+- "What device model variables are available for the EVSE component?"
+- "How does Plug & Charge work with ISO 15118?"
 
 ## License
 

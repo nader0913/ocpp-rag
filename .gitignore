@@ -12,11 +12,11 @@ wheels/
 # Secrets
 .env
 
-# Output (large generated files - rebuild with pipeline)
-output/
-
-# Source docs (large PDFs - download separately)
+# Source docs (used for parsing, not needed at runtime)
 source_docs/
+
+# Parse/build artifacts
+output/
 
 # OS files
 .DS_Store

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
@@ -5,9 +6,11 @@ SOURCE_DOCS_DIR = ROOT_DIR / "source_docs"
 OUTPUT_DIR = ROOT_DIR / "output"
 PARSED_DIR = OUTPUT_DIR / "parsed"
 CHUNKS_DIR = OUTPUT_DIR / "chunks"
-CHROMA_DIR = OUTPUT_DIR / "chroma_db"
 SCHEMAS_DIR = OUTPUT_DIR / "schemas"
 APPENDICES_DIR = OUTPUT_DIR / "appendices"
+
+CACHE_DIR = Path(os.environ.get("OCPP_RAG_CACHE_DIR", Path.home() / ".cache" / "ocpp-rag"))
+CHROMA_DIR = CACHE_DIR / "chroma_db"
 
 COLLECTION_NAME = "ocpp_knowledge"
 

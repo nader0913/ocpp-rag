@@ -38,8 +38,9 @@ class TestPaths:
     def test_chunks_dir_under_output(self):
         assert CHUNKS_DIR == OUTPUT_DIR / "chunks"
 
-    def test_chroma_dir_under_output(self):
-        assert CHROMA_DIR == OUTPUT_DIR / "chroma_db"
+    def test_chroma_dir_under_cache(self):
+        from ocpp_rag.config import CACHE_DIR
+        assert CHROMA_DIR == CACHE_DIR / "chroma_db"
 
     def test_schemas_dir_under_output(self):
         assert SCHEMAS_DIR == OUTPUT_DIR / "schemas"

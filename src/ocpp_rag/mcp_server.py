@@ -1,6 +1,8 @@
 """MCP server exposing the OCPP RAG knowledge base as tools for LLM clients."""
 
 import json
+import sys
+from pathlib import Path
 
 import chromadb
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
@@ -8,23 +10,76 @@ from mcp.server.fastmcp import FastMCP
 
 from .config import CHROMA_DIR, COLLECTION_NAME
 
+DATA_DIR = Path(__file__).parent / "data"
+CHUNKS_PATH = DATA_DIR / "chunks.json"
+
 mcp = FastMCP("ocpp-rag")
+
+_collection_cache = None
+
+
+def _ensure_index():
+    """Build the ChromaDB index from bundled chunks if it doesn't exist."""
+    CHROMA_DIR.mkdir(parents=True, exist_ok=True)
+    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    ef = DefaultEmbeddingFunction()
+
+    try:
+        col = client.get_collection(name=COLLECTION_NAME, embedding_function=ef)
+        if col.count() > 0:
+            return col
+    except Exception:
+        pass
+
+    print("Building OCPP knowledge index (first run, ~30 seconds)...", file=sys.stderr)
+
+    with open(CHUNKS_PATH) as f:
+        chunks = json.load(f)
+
+    try:
+        client.delete_collection(COLLECTION_NAME)
+    except Exception:
+        pass
+
+    col = client.create_collection(
+        name=COLLECTION_NAME,
+        embedding_function=ef,
+        metadata={"hnsw:space": "cosine"},
+    )
+
+    batch_size = 100
+    for start in range(0, len(chunks), batch_size):
+        batch = chunks[start : start + batch_size]
+        ids = [f"chunk_{start + i}" for i in range(len(batch))]
+        documents = [c["content"] for c in batch]
+        metadatas = []
+        for c in batch:
+            flat = {}
+            for k, v in c["metadata"].items():
+                if v is None:
+                    continue
+                if isinstance(v, list):
+                    flat[k] = ", ".join(str(x) for x in v)
+                elif isinstance(v, (str, int, float, bool)):
+                    flat[k] = v
+                else:
+                    flat[k] = str(v)
+            metadatas.append(flat)
+        col.add(ids=ids, documents=documents, metadatas=metadatas)
+
+    print(f"Index built: {col.count()} chunks indexed.", file=sys.stderr)
+    return col
 
 
 def get_collection():
-    """Return the ChromaDB collection for querying."""
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-    ef = DefaultEmbeddingFunction()
-    return client.get_collection(name=COLLECTION_NAME, embedding_function=ef)
+    """Return the ChromaDB collection, building the index if needed."""
+    global _collection_cache
+    if _collection_cache is None:
+        _collection_cache = _ensure_index()
+    return _collection_cache
 
 
 def _build_where_clause(filters: dict) -> dict | None:
-    """Build a ChromaDB where clause from a dict of field->value filters.
-
-    Skips any entries where the value is None.  Returns None if no filters
-    remain, a single-condition dict for one filter, or an ``$and`` clause for
-    multiple filters.
-    """
     conditions = [
         {field: value}
         for field, value in filters.items()
@@ -44,23 +99,18 @@ def search_ocpp(
     ocpp_version: str | None = None,
     content_type: str | None = None,
 ) -> list[dict]:
-    """Semantic search across all indexed OCPP documents.
+    """Semantic search across all indexed OCPP and EV charging documents.
 
-    Search the OCPP 1.6 and 2.0.1 knowledge base for information about
-    messages, use cases, requirements, device model components, JSON schemas,
-    and more.
+    Search the OCPP 1.6, OCPP 2.0.1, and Plug & Charge knowledge base for
+    information about messages, use cases, requirements, device model
+    components, JSON schemas, and more.
 
     Args:
         query: Natural-language search query (e.g. "how does remote start transaction work").
         top_k: Maximum number of results to return (default 10).
         ocpp_version: Optional filter - "1.6" or "2.0.1".
         content_type: Optional filter - one of "use_case", "requirements", "json_schema",
-            "message_or_type", "component_variable", "block_intro", "general",
-            "appendix", "datatypes_section", "enumerations_section", "messages_section".
-
-    Returns:
-        A list of matching documents, each with relevance score, heading,
-        content, and metadata.
+            "message_or_type", "component_variable", "block_intro", "general", "appendix".
     """
     collection = get_collection()
     where = _build_where_clause({
@@ -77,7 +127,6 @@ def search_ocpp(
     for i in range(len(results["ids"][0])):
         meta = results["metadatas"][0][i] or {}
         distance = results["distances"][0][i] if results.get("distances") else None
-        # ChromaDB cosine distance is in [0, 2]; convert to a 0-1 relevance score.
         relevance = round(1.0 - (distance / 2.0), 4) if distance is not None else None
 
         output.append({
@@ -105,11 +154,6 @@ def get_use_case(use_case_id: str, ocpp_version: str = "2.0.1") -> dict | None:
     Args:
         use_case_id: The use case identifier, e.g. "A01", "B01", "K08", "E02".
         ocpp_version: OCPP version - defaults to "2.0.1".
-
-    Returns:
-        A dict with the use_case_id, ocpp_version, and a list of chunks
-        (each with heading, content, content_type, and functional_block).
-        Returns None if no chunks are found.
     """
     collection = get_collection()
     where = _build_where_clause({
@@ -148,28 +192,18 @@ def list_use_cases(
 ) -> list[dict]:
     """List all OCPP use cases with their names and functional blocks.
 
-    Useful for discovering which use cases exist before fetching details
-    with ``get_use_case``.
-
     Args:
         ocpp_version: Optional filter - "1.6" or "2.0.1".
         functional_block: Optional filter - e.g. "Security", "SmartCharging",
             "Transactions", "Authorization", "Provisioning".
-
-    Returns:
-        A sorted list of dicts, each with use_case_id, use_case_name,
-        functional_block, and ocpp_version.
     """
     collection = get_collection()
 
-    # We need to find chunks that have a use_case_id. Build filters.
     filters: dict = {"ocpp_version": ocpp_version, "functional_block": functional_block}
     where = _build_where_clause(
         {k: v for k, v in filters.items() if v is not None}
     )
 
-    # ChromaDB get() doesn't support querying "field exists", so we fetch
-    # broadly and filter in Python.
     kwargs: dict = {"include": ["metadatas"]}
     if where is not None:
         kwargs["where"] = where
@@ -208,10 +242,6 @@ def get_message_schema(message_name: str) -> dict | None:
     Args:
         message_name: The message name, e.g. "BootNotificationRequest",
             "AuthorizeResponse", "TransactionEventRequest".
-
-    Returns:
-        A dict with the message name, heading, content (rendered schema),
-        and direction (Request/Response). Returns None if not found.
     """
     collection = get_collection()
     where = _build_where_clause({
@@ -226,7 +256,6 @@ def get_message_schema(message_name: str) -> dict | None:
     if not results["ids"]:
         return None
 
-    # Combine all parts (schema chunks may be split across multiple chunks).
     parts = []
     direction = None
     heading = None
@@ -259,17 +288,10 @@ def get_component_variable(
 ) -> list[dict]:
     """Look up OCPP 2.0.1 device model components and variables.
 
-    Search the appendices for device model component and variable definitions,
-    optionally filtered by component or variable name.
-
     Args:
         component: Optional component name to filter by (e.g. "EVSE", "Connector",
             "ChargingStation").
         variable: Optional variable name to search for in content.
-
-    Returns:
-        A list of matching chunks, each with heading, content, and
-        component_name.
     """
     collection = get_collection()
 
@@ -285,7 +307,6 @@ def get_component_variable(
         meta = results["metadatas"][i] or {}
         content = results["documents"][i]
 
-        # If a variable name is specified, only include chunks that mention it.
         if variable is not None and variable.lower() not in content.lower():
             continue
 
@@ -304,10 +325,6 @@ def list_documents() -> list[dict]:
 
     Returns a summary of every document with its ID, title, OCPP version,
     and the number of chunks it was split into.
-
-    Returns:
-        A list of dicts, each with doc_id, doc_title, ocpp_version, and
-        chunk_count.
     """
     collection = get_collection()
     results = collection.get(include=["metadatas"])
@@ -332,16 +349,11 @@ def compare_versions(topic: str) -> dict:
     """Compare how a topic is covered in OCPP 1.6 vs OCPP 2.0.1.
 
     Performs the same semantic search against both OCPP versions and returns
-    the results side by side, making it easy to see differences in how a
-    feature or concept is handled across versions.
+    the results side by side.
 
     Args:
         topic: The topic to compare (e.g. "smart charging", "authorization",
             "boot notification", "firmware update").
-
-    Returns:
-        A dict with the query, v16_results (OCPP 1.6 matches), and
-        v201_results (OCPP 2.0.1 matches), each containing up to 5 results.
     """
     v16_results = search_ocpp(query=topic, top_k=5, ocpp_version="1.6")
     v201_results = search_ocpp(query=topic, top_k=5, ocpp_version="2.0.1")
