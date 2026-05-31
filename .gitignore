@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets
+.env
+
+# Output (large generated files - rebuild with pipeline)
+output/
+
+# Source docs (large PDFs - download separately)
+source_docs/
+
+# OS files
+.DS_Store
