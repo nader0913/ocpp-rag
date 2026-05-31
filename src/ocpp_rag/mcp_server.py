@@ -1,5 +1,6 @@
 """MCP server exposing the OCPP RAG knowledge base as tools for LLM clients."""
 
+import gzip
 import json
 import sys
 from pathlib import Path
@@ -11,7 +12,7 @@ from mcp.server.fastmcp import FastMCP
 from .config import CHROMA_DIR, COLLECTION_NAME
 
 DATA_DIR = Path(__file__).parent / "data"
-CHUNKS_PATH = DATA_DIR / "chunks.json"
+CHUNKS_PATH = DATA_DIR / "chunks.json.gz"
 
 mcp = FastMCP("ocpp-rag")
 
@@ -33,7 +34,7 @@ def _ensure_index():
 
     print("Building OCPP knowledge index (first run, ~30 seconds)...", file=sys.stderr)
 
-    with open(CHUNKS_PATH) as f:
+    with gzip.open(CHUNKS_PATH, "rt", encoding="utf-8") as f:
         chunks = json.load(f)
 
     try:
