@@ -2,73 +2,91 @@
   "use_case_id": "F04",
   "functional_block": "RemoteControl",
   "use_case_name": "Remote Stop ISO 15118 Charging from CSMS",
+  "structured": {
+    "name": "Remote Stop ISO 15118 Charging from CSMS",
+    "id": "F04",
+    "functional_block": "RemoteControl",
+    "objective": "See ISO15118-1, use case Objective F2, page 38.",
+    "description": "See ISO15118-1, use case Description F2, page 38.",
+    "actors": [
+      "EV",
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [],
+    "prerequisites": "- If authorization according use cases in Functional Block C is applied, it SHALL be finished\nsuccessfully.\nSee ISO15118-1, use case Prerequisites F2, page 38.",
+    "postconditions": "See ISO15118-1, use case End conditions F2, page 38.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "F04.FR.01",
+        "precondition": "When the CSMS receives a remote\nstop transaction trigger (For example\nwhen terminating using a smartphone\napp, exceeding a (non local) prepaid\ncredit.)",
+        "definition": "The CSMS SHALL send a\nRequestStopTransactionRequest to the Charging\nStation with the transactionId of the transaction."
+      },
+      {
+        "id": "F04.FR.02",
+        "precondition": "F04.FR.01",
+        "definition": "The Charging Station SHALL stop the energy offer,\nunlock the cable and send a\nTransactionEventRequest (eventType = Updated) to\nthe CSMS."
+      },
+      {
+        "id": "F04.FR.03",
+        "precondition": "F04.FR.02 AND\nWhen the EV Driver unplugs the cable.",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest (eventType = Ended,\nstoppedReason = Remote) to the CSMS."
+      },
+      {
+        "id": "F04.FR.04",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Ended), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Ended) sent\nto the CSMS to provide more details about\ntransaction usage."
+      },
+      {
+        "id": "F04.FR.05",
+        "precondition": "F04.FR.04\nAND\nThe Charging Station is running low on\nmemory",
+        "definition": "The Charging Station MAY drop meter data."
+      },
+      {
+        "id": "F04.FR.06",
+        "precondition": "F04.FR.05",
+        "definition": "When dropping meter data, the Charging Station\nSHALL drop intermediate values first (2nd value,\n4th value, 6th etc), not drop the start and end values\nfrom the list."
+      }
+    ],
+    "figures": [
+      "fig68.png",
+      "fig69.png",
+      "fig70.png",
+      "fig71.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# F04 - Remote Stop ISO 15118 Charging from CSMS\n\n| No. | Type              | Description                                                                                                                                                                                                                                                                                                                                                                   |\n| --- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name              | Remote Stop ISO 15118 Charging from CSMS                                                                                                                                                                                                                                                                                                                                      |\n| 2   | ID                | F04                                                                                                                                                                                                                                                                                                                                                                           |\n|     | Reference         | ISO15118-1 F2 Charging loop with interrupt from the SECC.                                                                                                                                                                                                                                                                                                                     |\n| 3   | Objective(s)      | See ISO15118-1, use case Objective F2, page 38.                                                                                                                                                                                                                                                                                                                               |\n| 4   | Description       | See ISO15118-1, use case Description F2, page 38.                                                                                                                                                                                                                                                                                                                             |\n|     | Actors            | EV, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                    |\n|     | Combined scenario | OCPP:                                                                                                                                                                                                                                                                                                                                                                         |\n|     | description       | 1. The CSMS sends a RequestStopTransactionRequest to the Charging Station. 2. The Charging Station responds with a RequestStopTransactionResponse. ISO 15118-2: 3. The EV sends a ChargingStatus (in case of AC charging) or CurrentDemandReq (in case of DC Charging) PDU to the Charging Station. 4. The Charging Station responds with an EVSENotification = StopCharging. |",
+      "content": "# F04 - Remote Stop ISO 15118 Charging from CSMS\n\n**Objective:** See ISO15118-1, use case Objective F2, page 38.\n\n**Description:** See ISO15118-1, use case Description F2, page 38.\n\n**Actors:** EV, CSMS, Charging Station\n\n**Prerequisites:** - If authorization according use cases in Functional Block C is applied, it SHALL be finished\nsuccessfully.\nSee ISO15118-1, use case Prerequisites F2, page 38.\n\n**Postconditions:** See ISO15118-1, use case End conditions F2, page 38.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "F04 - Remote Stop ISO 15118 Charging from CSMS",
-        "heading_path": "F04 - Remote Stop ISO 15118 Charging from CSMS",
         "functional_block": "RemoteControl",
         "use_case_id": "F04",
         "use_case_name": "Remote Stop ISO 15118 Charging from CSMS",
-        "use_case_refs": "F04",
-        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 5   | Prerequisites     | - If authorization according use cases in Functional Block C is applied, it SHALL be finished successfully. See ISO15118-1, use case Prerequisites F2, page 38.                                                                                                                                                                                                               |\n| 6   | Postcondition(s)  | See ISO15118-1, use case End conditions F2, page 38.                                                                                                                                                                                                                                                                                                                          |\n| 7   | Error handling    | n/a                                                                                                                                                                                                                                                                                                                                                                           |\n| 8   | Remark(s)         | n/a                                                                                                                                                                                                                                                                                                                                                                           |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F04 - Remote Stop ISO 15118 Charging from CSMS",
-        "heading_path": "F04 - Remote Stop ISO 15118 Charging from CSMS",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F04",
-        "use_case_name": "Remote Stop ISO 15118 Charging from CSMS",
-        "use_case_refs": "F04",
-        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# Sequence Diagram\n\nEV\n\nCharging Station\n\nCSMS\n\nRequestStopTransactionRequest(transactionId)\n\nRequestStopTransactionResponse(Accepted)\n\nalt [if AC Charging]\n\nChargingStatusReq()\n\nChargingStatusRes(EVSENotification=StopCharging)\n\n[if DC Charging]\n\nCurrentDemandReq()\n\nCurrentDemandRes(EVSENotification=StopCharging)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Sequence Diagram",
-        "heading_path": "Sequence Diagram",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F04",
-        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse"
-      }
-    },
-    {
-      "content": "# F04 - Remote Stop ISO 15118 Charging from CSMS - Requirements\n\nThese requirements are normative.\n\n| ID        | Precondition                                                                                                                                            | Requirement definition                                                                                                                                                                                        | Note                                                          |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |\n| F04.FR.01 | When the CSMS receives a remote stop transaction trigger (For example when terminating using a smartphone app, exceeding a (non local) prepaid credit.) | The CSMS SHALL send a RequestStopTransactionRequest to the Charging Station with the transactionId of the transaction.                                                                                        | Same as F03.FR.01                                             |\n| F04.FR.02 | F04.FR.01                                                                                                                                               | The Charging Station SHALL stop the energy offer, unlock the cable and send a TransactionEventRequest (eventType = Updated) to the CSMS.                                                                      | Cable unlocked if not permanently attached. Same as F03.FR.02 |\n| F04.FR.03 | F04.FR.02 AND When the EV Driver unplugs the cable.                                                                                                     | The Charging Station SHALL send a TransactionEventRequest (eventType = Ended, stoppedReason = Remote) to the CSMS.                                                                                            | Same as F03.FR.03                                             |\n| F04.FR.04 | When configured to send meter data in the TransactionEventRequest (eventType = Ended), See: Meter Values - Configuration                                | The Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Ended) sent to the CSMS to provide more details about transaction usage. | Same as E08.FR.09                                             |\n| F04.FR.05 | F04.FR.04 AND The Charging Station is running low on memory                                                                                             | The Charging Station MAY drop meter data.                                                                                                                                                                     | Same as E06.FR.12                                             |\n| F04.FR.06 | F04.FR.05                                                                                                                                               | When dropping meter data, the Charging Station SHALL drop intermediate values first (2nd value, 4th value, 6th etc), not drop the start and end values from the list.                                         | Same as E06.FR.13                                             |",
+      "content": "# F04 - Requirements\n\n**F04.FR.01**\nPrecondition: When the CSMS receives a remote\nstop transaction trigger (For example\nwhen terminating using a smartphone\napp, exceeding a (non local) prepaid\ncredit.)\nThe CSMS SHALL send a\nRequestStopTransactionRequest to the Charging\nStation with the transactionId of the transaction.\n\n**F04.FR.02**\nPrecondition: F04.FR.01\nThe Charging Station SHALL stop the energy offer,\nunlock the cable and send a\nTransactionEventRequest (eventType = Updated) to\nthe CSMS.\n\n**F04.FR.03**\nPrecondition: F04.FR.02 AND\nWhen the EV Driver unplugs the cable.\nThe Charging Station SHALL send a\nTransactionEventRequest (eventType = Ended,\nstoppedReason = Remote) to the CSMS.\n\n**F04.FR.04**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Ended), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Ended) sent\nto the CSMS to provide more details about\ntransaction usage.\n\n**F04.FR.05**\nPrecondition: F04.FR.04\nAND\nThe Charging Station is running low on\nmemory\nThe Charging Station MAY drop meter data.\n\n**F04.FR.06**\nPrecondition: F04.FR.05\nWhen dropping meter data, the Charging Station\nSHALL drop intermediate values first (2nd value,\n4th value, 6th etc), not drop the start and end values\nfrom the list.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "F04 - Remote Stop ISO 15118 Charging from CSMS - Requirements",
-        "heading_path": "F04 - Remote Stop ISO 15118 Charging from CSMS - Requirements",
+        "heading": "F04 - Requirements",
         "functional_block": "RemoteControl",
         "use_case_id": "F04",
         "use_case_name": "Remote Stop ISO 15118 Charging from CSMS",
-        "use_case_refs": "E06, E08, F03, F04",
-        "message_refs": "RequestStopTransactionRequest, TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

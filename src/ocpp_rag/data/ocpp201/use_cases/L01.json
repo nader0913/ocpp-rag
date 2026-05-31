@@ -2,66 +2,266 @@
   "use_case_id": "L01",
   "functional_block": "FirmwareManagement",
   "use_case_name": "Secure Firmware Update",
+  "structured": {
+    "name": "Secure Firmware Update",
+    "id": "L01",
+    "functional_block": "FirmwareManagement",
+    "objective": "Download and install a Secure firmware update.",
+    "description": "Illustrate how a Charging Station processes a Secure firmware update.",
+    "actors": [
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The CSMS sends an UpdateFirmwareRequest message that contains the location of the\nfirmware, the time after which it should be retrieved, and information on how many times the\nCharging Station should retry downloading the firmware.",
+      "2. The Charging Station verifies the validity of the certificate against the Manufacturer root\ncertificate.",
+      "3. If the certificate is valid AND the retrieveDateTime has passed, the Charging Station starts\ndownloading the firmware, and sends a FirmwareStatusNotificationRequest with status\nDownloading.\nIf the certificate is not valid or could not be verified, the Charging Station aborts the firmware\nupdate process and sends a UpdateFirmwareResponse with status InvalidCertificate and a\nSecurityEventNotificationRequest with the security event InvalidFirmwareSigningCertificate (See\npart 2 appendices for the full list of security events).",
+      "4. If the Firmware successfully downloaded, the Charging Station sends a\nFirmwareStatusNotificationRequest with status Downloaded.\nOtherwise, it sends a FirmwareStatusNotificationRequest with status DownloadFailed.",
+      "5. If the verification is successful AND the installDateTime has passed, the Charging Station\nsends a FirmwareStatusNotificationRequest with status Installing.\nIf the verification of the firmware fails or if a signature is missing entirely, the Charging Station\nsends a FirmwareStatusNotificationRequest with status InvalidSignature and a\nSecurityEventNotificationRequest with the security event InvalidFirmwareSignature (See part 2\nappendices for the full list of security events).",
+      "6. If the installation is successful, the Charging Station sends a\nFirmwareStatusNotificationRequest with status Installed.\nOtherwise, it sends a FirmwareStatusNotificationRequest with status InstallationFailed."
+    ],
+    "prerequisites": "The Charging Station Manufacturer provided a firmware update.",
+    "postconditions": "Successful postcondition:\nThe firmware is updated and the Charging Station is in Installed status.\nFailure postconditions:\nThe certificate is not valid or could not be verified and the Charging Station is in InvalidCertificate\nstatus.\nDownloading the firmware failed and the Charging Station is in DownloadFailed status.\nThe verification of the firmware\u2019s digital signature failed and the Charging Station is in\nInvalidSignature status.\nThe installation of the firmware is not successful and the Charging Station is in InstallationFailed\nstatus.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "L01.FR.01",
+        "precondition": "Whenever the Charging Station enters\na new state in the firmware update\nprocess.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nmessage to the CSMS with this new\nstatus. What reason to use is\ndescribed in the description of\nFirmwareStatusEnumType."
+      },
+      {
+        "id": "L01.FR.02",
+        "precondition": "When the Charging Station enters the\nInvalid Certificate state in the\nfirmware process.",
+        "definition": "The Charging Station SHALL send a\nSecurityEventNotificationRequest\nmessage to the CSMS with the\nsecurity event\nInvalidFirmwareSigningCertificate\n(See part 2 appendices for the full list\nof security events)."
+      },
+      {
+        "id": "L01.FR.03",
+        "precondition": "When the Charging Station enters the\nInvalid Signature state.",
+        "definition": "The Charging Station SHALL send a\nSecurityEventNotificationRequest\nmessage to the CSMS with the\nsecurity event\nInvalidFirmwareSignature (See part 2\nappendices for the full list of security\nevents)."
+      },
+      {
+        "id": "L01.FR.04",
+        "precondition": "When the Charging Station has\nsuccessfully downloaded the new\nfirmware",
+        "definition": "The signature SHALL be validated, by\ncalculating the signature over the\nentire firmware file using the RSA-PSS\nor ECSchnorr algorithm for signing,\nand the SHA256 algorithm for\ncalculating hash values."
+      },
+      {
+        "id": "L01.FR.05",
+        "precondition": "L01.FR.04 AND\n( installDateTime is not set OR\ncurrent time >= installDateTime )",
+        "definition": "The Charging Station SHALL install\nthe new firmware as soon as it is able\nto."
+      },
+      {
+        "id": "L01.FR.06",
+        "precondition": "L01.FR.05\nAND\nThe Charging Station has ongoing\ntransactions\nAND\nWhen it is not possible to start\ninstallation of firmware while a\ntransaction is ongoing",
+        "definition": "The Charging Station SHALL wait until\nall transactions have ended, before\ncommencing installation."
+      },
+      {
+        "id": "L01.FR.07",
+        "precondition": "L01.FR.06 or L01.FR.33 AND\nconfiguration variable\nAllowNewSessionsPendingFirmw\nareUpdate is false or does not exist",
+        "definition": "The Charging Station SHALL set all\nEVSE that are not in use to\nUNAVAILABLE while the Charging\nStation waits for the ongoing\ntransactions to end. Until the firmware\nis installed, any EVSE that becomes\navailable SHALL be set to\nUNAVAILABLE."
+      },
+      {
+        "id": "L01.FR.08",
+        "precondition": "",
+        "definition": "It is RECOMMENDED that the\nfirmware is sent encrypted to the\nCharging Station. This can either be\ndone by using a secure protocol (such\nas HTTPS, SFTP, or FTPS) to send the\nfirmware, or by encrypting the\nfirmware itself before sending it."
+      },
+      {
+        "id": "L01.FR.09",
+        "precondition": "",
+        "definition": "Firmware updates SHALL be digitally\nprotected to ensure authenticity and\nto provide proof of origin."
+      },
+      {
+        "id": "L01.FR.10",
+        "precondition": "",
+        "definition": "Every\nFirmwareStatusNotificationRequest\nsent for a firmware update SHALL\ncontain the same requestId as the\nUpdateFirmwareRequest that started\nthis firmware update."
+      },
+      {
+        "id": "L01.FR.11",
+        "precondition": "",
+        "definition": "For security purposes the CSMS\nSHALL include the Firmware Signing\ncertificate (see Keys used in OCPP) in\nthe UpdateFirmwareRequest."
+      },
+      {
+        "id": "L01.FR.12",
+        "precondition": "",
+        "definition": "For verifying the certificate (see\nCertificate Hierarchy) use the rules for\nX.509 certificates [19]. The Charging\nStation MUST verify the file\u2019s digital\nsignature using the Firmware Signing\ncertificate."
+      },
+      {
+        "id": "L01.FR.13",
+        "precondition": "When the Charging Station does not\nstart downloading firmware, because\nit is busy charging or because\nretrieveDateTime is in the future",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadScheduled."
+      },
+      {
+        "id": "L01.FR.14",
+        "precondition": "When the Charging Station enters the\nDownload Paused state.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadPaused."
+      },
+      {
+        "id": "L01.FR.15",
+        "precondition": "When a Charging Station needs to\nreboot before installing the\ndownloaded firmware.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallRebooting, before\nrebooting."
+      },
+      {
+        "id": "L01.FR.16",
+        "precondition": "L01.FR.04 AND\nWhen installDateTime is set to a time\nin the future",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled and\ninstall the firmware at the specified\ninstallation time."
+      },
+      {
+        "id": "L01.FR.20",
+        "precondition": "",
+        "definition": "The field requestId in\nFirmwareStatusNotificationRequest is\nmandatory, unless status = Idle."
+      },
+      {
+        "id": "L01.FR.21",
+        "precondition": "When the Charging Station receives an\nUpdateFirmwareRequest",
+        "definition": "The Charging Station SHALL validate\nthe certificate before accepting the\nmessage."
+      },
+      {
+        "id": "L01.FR.22",
+        "precondition": "L01.FR.21 AND\nthe certificate is invalid",
+        "definition": "The Charging Station SHALL respond\nwith UpdateFirmwareResponse with\nstatus InvalidCertificate."
+      },
+      {
+        "id": "L01.FR.23",
+        "precondition": "When the Charging Station needs to\nreboot during a firmware update AND\nthe bootloader is unable to send OCPP\nmessages",
+        "definition": "The Charging Station MAY omit the\nFirmwareStatusNotificationRequest\nmessage with status Installing."
+      },
+      {
+        "id": "L01.FR.24",
+        "precondition": "When a Charging Station is installing\nnew Firmware OR\nis going to install new Firmware, but\nhas received an UpdateFirmware\ncommand to install it at a later time\nAND\nthe Charging Station receives a new\nUpdateFirmwareRequest",
+        "definition": "The Charging Station SHOULD cancel\nthe ongoing firmware update AND\nrespond with status\nAcceptedCanceled."
+      },
+      {
+        "id": "L01.FR.25",
+        "precondition": "Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad status = Installed",
+        "definition": "Charging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith status = Idle."
+      },
+      {
+        "id": "L01.FR.26",
+        "precondition": "Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad NOT status Installed",
+        "definition": "Charging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith the last sent status."
+      },
+      {
+        "id": "L01.FR.27",
+        "precondition": "L01.FR.24\nAND\nthe Charging Station is unable to\ncancel the firmware installation",
+        "definition": "The Charging Station MAY respond\nwith status = Rejected."
+      },
+      {
+        "id": "L01.FR.28",
+        "precondition": "When the Charging Station has\nsuccessfully installed the new\nfirmware",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status Installed AND\nThe Charging Station SHOULD have\nactivated the new firmware already or\ndo so immediately."
+      },
+      {
+        "id": "L01.FR.29",
+        "precondition": "If the verification of the new firmware\n(e.g. using a checksum or some other\nmeans) fails",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status\nInstallVerificationFailed"
+      },
+      {
+        "id": "L01.FR.30",
+        "precondition": "When the Charging Station has failed\nall retry attempts to download the\nfirmware.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadFailed."
+      },
+      {
+        "id": "L01.FR.31",
+        "precondition": "L01.FR.28",
+        "definition": "The Charging Station SHALL send a\nSecurityEventNotificationRequest\nmessage with type =\n\"FirmwareUpdated\"."
+      },
+      {
+        "id": "L01.FR.32",
+        "precondition": "When a Charging Station has\nsuccessfully installed the new\nfirmware AND\nthe Charging Station needs to reboot\nbefore activating the new firmware",
+        "definition": "The Charging Station SHALL either:\n(a) send an optional\nFirmwareStatusNotificationRequest\nwith status = InstallRebooting\nbefore rebooting and send a\nmandatory\nFirmwareStatusNotificationRequest\nwith status = Installed by the newly\nactivated firmware, or\n(b) only send a\nFirmwareStatusNotificationRequest\nwith status set to Installed without\nreporting the reboot and activation of\nthe new firmware."
+      },
+      {
+        "id": "L01.FR.33",
+        "precondition": "L01.FR.05\nAND\nThe Charging Station has ongoing\ntransactions\nAND\na reboot is needed to activate the\ninstalled firmware",
+        "definition": "The Charging Station SHALL wait until\nall transactions have ended, before\nactivating the installed firmware."
+      },
+      {
+        "id": "L01.FR.34",
+        "precondition": "L01.FR.04 AND\ninstallDateTime is not set AND\nCharging Station is waiting for a\ntransaction to finish",
+        "definition": "The Charging Station MAY send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled."
+      }
+    ],
+    "figures": [
+      "fig115.png",
+      "fig116.png",
+      "fig117.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# L01 - Secure Firmware Update\n\n| No. | Type         | Description                                                           |\n| --- | ------------ | --------------------------------------------------------------------- |\n| 1   | Name         | Secure Firmware Update                                                |\n| 2   | ID           | L01                                                                   |\n| 3   | Objective(s) | Download and install a Secure firmware update.                        |\n| 4   | Description  | Illustrate how a Charging Station processes a Secure firmware update. |\n\nActors: CSMS, Charging Station",
+      "content": "# L01 - Secure Firmware Update\n\n**Objective:** Download and install a Secure firmware update.\n\n**Description:** Illustrate how a Charging Station processes a Secure firmware update.\n\n**Actors:** CSMS, Charging Station\n\n**Scenario:**\n1. The CSMS sends an UpdateFirmwareRequest message that contains the location of the\nfirmware, the time after which it should be retrieved, and information on how many times the\nCharging Station should retry downloading the firmware.\n2. The Charging Station verifies the validity of the certificate against the Manufacturer root\ncertificate.\n3. If the certificate is valid AND the retrieveDateTime has passed, the Charging Station starts\ndownloading the firmware, and sends a FirmwareStatusNotificationRequest with status\nDownloading.\nIf the certificate is not valid or could not be verified, the Charging Station aborts the firmware\nupdate process and sends a UpdateFirmwareResponse with status InvalidCertificate and a\nSecurityEventNotificationRequest with the security event InvalidFirmwareSigningCertificate (See\npart 2 appendices for the full list of security events).\n4. If the Firmware successfully downloaded, the Charging Station sends a\nFirmwareStatusNotificationRequest with status Downloaded.\nOtherwise, it sends a FirmwareStatusNotificationRequest with status DownloadFailed.\n5. If the verification is successful AND the installDateTime has passed, the Charging Station\nsends a FirmwareStatusNotificationRequest with status Installing.\nIf the verification of the firmware fails or if a signature is missing entirely, the Charging Station\nsends a FirmwareStatusNotificationRequest with status InvalidSignature and a\nSecurityEventNotificationRequest with the security event InvalidFirmwareSignature (See part 2\nappendices for the full list of security events).\n6. If the installation is successful, the Charging Station sends a\nFirmwareStatusNotificationRequest with status Installed.\nOtherwise, it sends a FirmwareStatusNotificationRequest with status InstallationFailed.\n\n**Prerequisites:** The Charging Station Manufacturer provided a firmware update.\n\n**Postconditions:** Successful postcondition:\nThe firmware is updated and the Charging Station is in Installed status.\nFailure postconditions:\nThe certificate is not valid or could not be verified and the Charging Station is in InvalidCertificate\nstatus.\nDownloading the firmware failed and the Charging Station is in DownloadFailed status.\nThe verification of the firmware\u2019s digital signature failed and the Charging Station is in\nInvalidSignature status.\nThe installation of the firmware is not successful and the Charging Station is in InstallationFailed\nstatus.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "L01 - Secure Firmware Update",
-        "heading_path": "L01 - Secure Firmware Update",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L01",
         "use_case_name": "Secure Firmware Update",
-        "use_case_refs": "L01"
+        "chunk_part": 1,
+        "total_parts": 5
       }
     },
     {
-      "content": "# Scenario description\n\n1. The CSMS sends an UpdateFirmwareRequest message that contains the location of the firmware, the time after which it should be retrieved, and information on how many times the Charging Station should retry downloading the firmware.\n2. The Charging Station verifies the validity of the certificate against the Manufacturer root certificate.\n3. If the certificate is valid AND the retrieveDateTime has passed, the Charging Station starts downloading the firmware, and sends a FirmwareStatusNotificationRequest with status Downloading. If the certificate is not valid or could not be verified, the Charging Station aborts the firmware update process and sends a UpdateFirmwareResponse with status InvalidCertificate and a SecurityEventNotificationRequest with the security event InvalidFirmwareSigningCertificate (See part 2 appendices for the full list of security events).\n4. If the Firmware successfully downloaded, the Charging Station sends a FirmwareStatusNotificationRequest with status Downloaded. Otherwise, it sends a FirmwareStatusNotificationRequest with status DownloadFailed.\n5. If the verification is successful AND the installDateTime has passed, the Charging Station sends a FirmwareStatusNotificationRequest with status Installing. If the verification of the firmware fails or if a signature is missing entirely, the Charging Station sends a FirmwareStatusNotificationRequest with status InvalidSignature and a SecurityEventNotificationRequest with the security event InvalidFirmwareSignature (See part 2 appendices for the full list of security events).\n6. If the installation is successful, the Charging Station sends a FirmwareStatusNotificationRequest with status Installed. Otherwise, it sends a FirmwareStatusNotificationRequest with status InstallationFailed.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L01",
-        "message_refs": "FirmwareStatusNotificationRequest, SecurityEventNotificationRequest, UpdateFirmwareRequest, UpdateFirmwareResponse"
-      }
-    },
-    {
-      "content": "# Alternative scenario(s)\n\nL02 - Non-Secure Firmware Update\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 5   | Prerequisite(s)  | The Charging Station Manufacturer provided a firmware update.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 6   | Postcondition(s) | **Successful postcondition:** The firmware is updated and the Charging Station is in Installed status. **Failure postconditions:** The certificate is not valid or could not be verified and the Charging Station is in InvalidCertificate status. Downloading the firmware failed and the Charging Station is in DownloadFailed status. The verification of the firmware’s digital signature failed and the Charging Station is in InvalidSignature status. The installation of the firmware is not successful and the Charging Station is in InstallationFailed status. |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Alternative scenario(s)",
-        "heading_path": "Alternative scenario(s)",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L01",
-        "use_case_refs": "L02"
-      }
-    },
-    {
-      "content": "# L01 - Secure Firmware Update - Requirements\n\n| ID        | Precondition                                                                            | Requirement definition                                                                                                                                                                                         | Note |\n| --------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| L01.FR.01 | Whenever the Charging Station enters a new state in the firmware update process.        | The Charging Station SHALL send a FirmwareStatusNotificationRequest message to the CSMS with this new status. What reason to use is described in the description of FirmwareStatusEnumType.                    |      |\n| L01.FR.02 | When the Charging Station enters the Invalid Certificate state in the firmware process. | The Charging Station SHALL send a SecurityEventNotificationRequest message to the CSMS with the security event InvalidFirmwareSigningCertificate (See part 2 appendices for the full list of security events). |      |",
+      "content": "# L01 - Requirements\n\n**L01.FR.01**\nPrecondition: Whenever the Charging Station enters\na new state in the firmware update\nprocess.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nmessage to the CSMS with this new\nstatus. What reason to use is\ndescribed in the description of\nFirmwareStatusEnumType.\n\n**L01.FR.02**\nPrecondition: When the Charging Station enters the\nInvalid Certificate state in the\nfirmware process.\nThe Charging Station SHALL send a\nSecurityEventNotificationRequest\nmessage to the CSMS with the\nsecurity event\nInvalidFirmwareSigningCertificate\n(See part 2 appendices for the full list\nof security events).\n\n**L01.FR.03**\nPrecondition: When the Charging Station enters the\nInvalid Signature state.\nThe Charging Station SHALL send a\nSecurityEventNotificationRequest\nmessage to the CSMS with the\nsecurity event\nInvalidFirmwareSignature (See part 2\nappendices for the full list of security\nevents).\n\n**L01.FR.04**\nPrecondition: When the Charging Station has\nsuccessfully downloaded the new\nfirmware\nThe signature SHALL be validated, by\ncalculating the signature over the\nentire firmware file using the RSA-PSS\nor ECSchnorr algorithm for signing,\nand the SHA256 algorithm for\ncalculating hash values.\n\n**L01.FR.05**\nPrecondition: L01.FR.04 AND\n( installDateTime is not set OR\ncurrent time >= installDateTime )\nThe Charging Station SHALL install\nthe new firmware as soon as it is able\nto.\n\n**L01.FR.06**\nPrecondition: L01.FR.05\nAND\nThe Charging Station has ongoing\ntransactions\nAND\nWhen it is not possible to start\ninstallation of firmware while a\ntransaction is ongoing\nThe Charging Station SHALL wait until\nall transactions have ended, before\ncommencing installation.\n\n**L01.FR.07**\nPrecondition: L01.FR.06 or L01.FR.33 AND\nconfiguration variable\nAllowNewSessionsPendingFirmw\nareUpdate is false or does not exist\nThe Charging Station SHALL set all\nEVSE that are not in use to\nUNAVAILABLE while the Charging\nStation waits for the ongoing\ntransactions to end. Until the firmware\nis installed, any EVSE that becomes\navailable SHALL be set to\nUNAVAILABLE.\n\n**L01.FR.08**\nIt is RECOMMENDED that the\nfirmware is sent encrypted to the\nCharging Station. This can either be\ndone by using a secure protocol (such\nas HTTPS, SFTP, or FTPS) to send the\nfirmware, or by encrypting the\nfirmware itself before sending it.\n\n**L01.FR.09**\nFirmware updates SHALL be digitally\nprotected to ensure authenticity and\nto provide proof of origin.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "L01 - Secure Firmware Update - Requirements",
-        "heading_path": "L01 - Secure Firmware Update - Requirements",
+        "heading": "L01 - Requirements",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L01",
         "use_case_name": "Secure Firmware Update",
-        "use_case_refs": "L01",
-        "message_refs": "FirmwareStatusNotificationRequest, SecurityEventNotificationRequest"
+        "chunk_part": 2,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# L01 - Requirements (continued)\n\n**L01.FR.10**\nEvery\nFirmwareStatusNotificationRequest\nsent for a firmware update SHALL\ncontain the same requestId as the\nUpdateFirmwareRequest that started\nthis firmware update.\n\n**L01.FR.11**\nFor security purposes the CSMS\nSHALL include the Firmware Signing\ncertificate (see Keys used in OCPP) in\nthe UpdateFirmwareRequest.\n\n**L01.FR.12**\nFor verifying the certificate (see\nCertificate Hierarchy) use the rules for\nX.509 certificates [19]. The Charging\nStation MUST verify the file\u2019s digital\nsignature using the Firmware Signing\ncertificate.\n\n**L01.FR.13**\nPrecondition: When the Charging Station does not\nstart downloading firmware, because\nit is busy charging or because\nretrieveDateTime is in the future\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadScheduled.\n\n**L01.FR.14**\nPrecondition: When the Charging Station enters the\nDownload Paused state.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadPaused.\n\n**L01.FR.15**\nPrecondition: When a Charging Station needs to\nreboot before installing the\ndownloaded firmware.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallRebooting, before\nrebooting.\n\n**L01.FR.16**\nPrecondition: L01.FR.04 AND\nWhen installDateTime is set to a time\nin the future\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled and\ninstall the firmware at the specified\ninstallation time.\n\n**L01.FR.20**\nThe field requestId in\nFirmwareStatusNotificationRequest is\nmandatory, unless status = Idle.\n\n**L01.FR.21**\nPrecondition: When the Charging Station receives an\nUpdateFirmwareRequest\nThe Charging Station SHALL validate\nthe certificate before accepting the\nmessage.\n\n**L01.FR.22**\nPrecondition: L01.FR.21 AND\nthe certificate is invalid\nThe Charging Station SHALL respond\nwith UpdateFirmwareResponse with\nstatus InvalidCertificate.\n\n**L01.FR.23**\nPrecondition: When the Charging Station needs to\nreboot during a firmware update AND\nthe bootloader is unable to send OCPP\nmessages\nThe Charging Station MAY omit the\nFirmwareStatusNotificationRequest\nmessage with status Installing.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "L01 - Requirements",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L01",
+        "use_case_name": "Secure Firmware Update",
+        "chunk_part": 3,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# L01 - Requirements (continued)\n\n**L01.FR.24**\nPrecondition: When a Charging Station is installing\nnew Firmware OR\nis going to install new Firmware, but\nhas received an UpdateFirmware\ncommand to install it at a later time\nAND\nthe Charging Station receives a new\nUpdateFirmwareRequest\nThe Charging Station SHOULD cancel\nthe ongoing firmware update AND\nrespond with status\nAcceptedCanceled.\n\n**L01.FR.25**\nPrecondition: Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad status = Installed\nCharging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith status = Idle.\n\n**L01.FR.26**\nPrecondition: Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad NOT status Installed\nCharging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith the last sent status.\n\n**L01.FR.27**\nPrecondition: L01.FR.24\nAND\nthe Charging Station is unable to\ncancel the firmware installation\nThe Charging Station MAY respond\nwith status = Rejected.\n\n**L01.FR.28**\nPrecondition: When the Charging Station has\nsuccessfully installed the new\nfirmware\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status Installed AND\nThe Charging Station SHOULD have\nactivated the new firmware already or\ndo so immediately.\n\n**L01.FR.29**\nPrecondition: If the verification of the new firmware\n(e.g. using a checksum or some other\nmeans) fails\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status\nInstallVerificationFailed\n\n**L01.FR.30**\nPrecondition: When the Charging Station has failed\nall retry attempts to download the\nfirmware.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadFailed.\n\n**L01.FR.31**\nPrecondition: L01.FR.28\nThe Charging Station SHALL send a\nSecurityEventNotificationRequest\nmessage with type =\n\"FirmwareUpdated\".\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "L01 - Requirements",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L01",
+        "use_case_name": "Secure Firmware Update",
+        "chunk_part": 4,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# L01 - Requirements (continued)\n\n**L01.FR.32**\nPrecondition: When a Charging Station has\nsuccessfully installed the new\nfirmware AND\nthe Charging Station needs to reboot\nbefore activating the new firmware\nThe Charging Station SHALL either:\n(a) send an optional\nFirmwareStatusNotificationRequest\nwith status = InstallRebooting\nbefore rebooting and send a\nmandatory\nFirmwareStatusNotificationRequest\nwith status = Installed by the newly\nactivated firmware, or\n(b) only send a\nFirmwareStatusNotificationRequest\nwith status set to Installed without\nreporting the reboot and activation of\nthe new firmware.\n\n**L01.FR.33**\nPrecondition: L01.FR.05\nAND\nThe Charging Station has ongoing\ntransactions\nAND\na reboot is needed to activate the\ninstalled firmware\nThe Charging Station SHALL wait until\nall transactions have ended, before\nactivating the installed firmware.\n\n**L01.FR.34**\nPrecondition: L01.FR.04 AND\ninstallDateTime is not set AND\nCharging Station is waiting for a\ntransaction to finish\nThe Charging Station MAY send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "L01 - Requirements",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L01",
+        "use_case_name": "Secure Firmware Update",
+        "chunk_part": 5,
+        "total_parts": 5
       }
     }
-  ],
-  "figures": []
+  ]
 }

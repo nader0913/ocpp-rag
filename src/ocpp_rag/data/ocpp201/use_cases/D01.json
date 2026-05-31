@@ -2,77 +2,206 @@
   "use_case_id": "D01",
   "functional_block": "LocalAuthorizationListManagement",
   "use_case_name": "Send Local Authorization List",
+  "structured": {
+    "name": "Send Local Authorization List",
+    "id": "D01",
+    "functional_block": "LocalAuthorizationListManagement",
+    "objective": "To enable the CSMS to send a Local Authorization List which a Charging Station can use for the\nauthorization of idTokens.",
+    "description": "The CSMS sends a Local Authorization List which a Charging Station can use for the\nauthorization of idTokens. The list MAY be either a full list to replace the current list in the\nCharging Station or it MAY be a differential list with updates to be applied to the current list in the\nCharging Station.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS sends a SendLocalListRequest to install or update the Local Authorization List.",
+      "2. Upon receipt of the SendLocalListRequest the Charging Station responds with a\nSendLocalListResponse with its status."
+    ],
+    "prerequisites": "Local Authorization List is enabled with Configuration Variable LocalAuthListEnabled.",
+    "postconditions": "Successful postcondition:\n- A new Local Authorization List is installed on the Charging Station.\nFailure postcondition:\n- The Local Authorization List on the Charging Station stays as it was.\n- If the status is Failed or VersionMismatch.",
+    "error_handling": "If the status is Failed or VersionMismatch and the updateType was Differential, the CSMS will\ntransmit the full Local Authorization List. When this list is too large for one message, it will start\nby sending an initial list with updateType Full and adding identifiers using updateType Differential\nuntil the list is completely sent (the amount of identifiers that can be sent in a single\nSendLocalListRequest is limited as described in requirement D01.FR.11).",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "D01.FR.01",
+        "precondition": "",
+        "definition": "SendLocalListRequest SHALL contain the type of\nupdate (updateType) and a version number\n(versionNumber) that the Charging Station MUST\nassociate with the Local Authorization List after it\nhas been updated."
+      },
+      {
+        "id": "D01.FR.02",
+        "precondition": "",
+        "definition": "SendLocalListResponse SHALL indicate whether\nthe Charging Station has accepted the update of\nthe Local Authorization List"
+      },
+      {
+        "id": "D01.FR.03",
+        "precondition": "If the status in\nSendLocalListResponse is Failed or\nVersionMismatch and the\nupdateType was Differential",
+        "definition": "It is RECOMMENDED that the CSMS sends the full\nLocal Authorization List."
+      },
+      {
+        "id": "D01.FR.04",
+        "precondition": "If no localAuthorizationList is given\nand the updateType is Full.",
+        "definition": "The Charging Station SHALL remove all IdTokens\nfrom the list."
+      },
+      {
+        "id": "D01.FR.05",
+        "precondition": "",
+        "definition": "Requesting a Differential update without or with\nempty localAuthorizationList SHALL have no effect\non the list."
+      },
+      {
+        "id": "D01.FR.06",
+        "precondition": "",
+        "definition": "All IdTokens in the Local Authorization List SHALL\nbe unique."
+      },
+      {
+        "id": "D01.FR.09",
+        "precondition": "",
+        "definition": "The Charging Station SHALL NOT modify the\ncontents of the Authorization List by any other\nmeans than upon a the receipt of a SendLocalList\nmessage from the CSMS."
+      },
+      {
+        "id": "D01.FR.10",
+        "precondition": "",
+        "definition": "The Local Authorization List SHOULD be\nmaintained by the Charging Station in non-volatile\nmemory, and SHOULD be persisted across reboots\nand power outages."
+      },
+      {
+        "id": "D01.FR.11",
+        "precondition": "",
+        "definition": "The size of a single SendLocalListRequest is\nlimited by the Configuration Variables\nItemsPerMessageSendLocalList and\nBytesPerMessageSendLocalList."
+      },
+      {
+        "id": "D01.FR.12",
+        "precondition": "",
+        "definition": "A Charging Station that supports Local\nAuthorization List SHALL implement the\nConfiguration Variable: LocalAuthListEntries."
+      },
+      {
+        "id": "D01.FR.13",
+        "precondition": "",
+        "definition": "The Charging Station indicates whether the Local\nAuthorization List is enabled. This is reported and\ncontrolled by the LocalAuthListEnabled\nConfiguration Variable."
+      },
+      {
+        "id": "D01.FR.15",
+        "precondition": "If the Charging Station receives a\nSendLocalListRequest with\nupdateType is Full AND\nlocalAuthorizationList is non-empty",
+        "definition": "The Charging Station SHALL replace its current\nLocal Authorization List with the one in the\nSendLocalListRequest and set the version number\nto the value specified in the message"
+      },
+      {
+        "id": "D01.FR.16",
+        "precondition": "If the Charging Station receives a\nSendLocalListRequest with\nupdateType is Differential AND\nlocalAuthorizationList contains\nAuthorizationData elements with\nidTokenInfo",
+        "definition": "The Charging Station SHALL update its Local\nAuthorization List with these elements and set the\nversion number to the value specified in the\nmessage."
+      },
+      {
+        "id": "D01.FR.17",
+        "precondition": "If the Charging Station receives a\nSendLocalListRequest with\nupdateType is Differential AND\nlocalAuthorizationList contains\nAuthorizationData elements without\nidTokenInfo",
+        "definition": "The Charging Station SHALL remove these\nelements from its Local Authorization List and set\nthe version number to the value specified in the\nmessage."
+      },
+      {
+        "id": "D01.FR.18",
+        "precondition": "",
+        "definition": "versionNumber in a SendLocalListRequest SHALL\nbe greater than 0."
+      },
+      {
+        "id": "D01.FR.19",
+        "precondition": "If the Charging Station receives a\nSendLocalListRequest with\nupdateType = Differential AND\nversionNumber is less or equal to the\nversion number of its Local\nAuthorization List",
+        "definition": "The Charging Station SHALL refuse to update its\nLocal Authorization List and SHALL return a\nSendLocalListResponse with status set to\nVersionMismatch."
+      }
+    ],
+    "figures": [
+      "fig36.png",
+      "fig37.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "To start a transaction when communication is set up between the Charging Station and an EV\n(for example: cable plugged in correctly on both sides)",
+        "steps": [
+          "1. The Charging Station sets up a connection with the EV.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started (even when the driver is not yet known).",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: EVConnected",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "To start a transaction when the EV Driver is authorised to charge.",
+        "steps": [
+          "1. The EV Driver provides his identification",
+          "2. The Charging Station validates the provided identification (for example via the Authorization\nCache or an AuthorizeRequest).",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: Authorized.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S4",
+        "objective": "To start a transaction when the meter has provided the first signed meter values before starting\nwith charging.",
+        "steps": [
+          "1. The EV Driver plugs in the cable at the Charging Station and the EV.",
+          "2. The Charging Station request the Meter for a signed value.",
+          "3. The Meter provides a signed value (this might take some time).",
+          "4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "5. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: DataSigned.\nThe Charging Station has a meter that can sign measured values\nConfiguration Variable: SampledDataSignReadings set to true.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S5",
+        "objective": "To start a transaction when all preconditions have been met to start charging (authorized and\nconnected), but energy does not yet have to be transfered.",
+        "steps": [
+          "1. The EV Driver is authorized by the Charging Station and/or CSMS.",
+          "2. The Charging Station is connected to the EV.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: PowerPathClosed.\nCharging Cable plugged in.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# D01 - Send Local Authorization List\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Send Local Authorization List                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                   | D01                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To enable the CSMS to send a Local Authorization List which a Charging Station can use for the authorization of idTokens.                                                                                                                                                                                                                                                                                                                                                   |\n| 4   | Description          | The CSMS sends a Local Authorization List which a Charging Station can use for the authorization of idTokens. The list MAY be either a full list to replace the current list in the Charging Station or it MAY be a differential list with updates to be applied to the current list in the Charging Station.                                                                                                                                                               |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Scenario description | 1. The CSMS sends a SendLocalListRequest to install or update the Local Authorization List. 2. Upon receipt of the SendLocalListRequest the Charging Station responds with a SendLocalListResponse with its status.                                                                                                                                                                                                                                                         |",
+      "content": "# D01 - Send Local Authorization List\n\n**Objective:** To enable the CSMS to send a Local Authorization List which a Charging Station can use for the\nauthorization of idTokens.\n\n**Description:** The CSMS sends a Local Authorization List which a Charging Station can use for the\nauthorization of idTokens. The list MAY be either a full list to replace the current list in the\nCharging Station or it MAY be a differential list with updates to be applied to the current list in the\nCharging Station.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends a SendLocalListRequest to install or update the Local Authorization List.\n2. Upon receipt of the SendLocalListRequest the Charging Station responds with a\nSendLocalListResponse with its status.\n\n**Prerequisites:** Local Authorization List is enabled with Configuration Variable LocalAuthListEnabled.\n\n**Postconditions:** Successful postcondition:\n- A new Local Authorization List is installed on the Charging Station.\nFailure postcondition:\n- The Local Authorization List on the Charging Station stays as it was.\n- If the status is Failed or VersionMismatch.\n\n**Error handling:** If the status is Failed or VersionMismatch and the updateType was Differential, the CSMS will\ntransmit the full Local Authorization List. When this list is too large for one message, it will start\nby sending an initial list with updateType Full and adding identifiers using updateType Differential\nuntil the list is completely sent (the amount of identifiers that can be sent in a single\nSendLocalListRequest is limited as described in requirement D01.FR.11).",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "D01 - Send Local Authorization List",
-        "heading_path": "D01 - Send Local Authorization List",
         "functional_block": "LocalAuthorizationListManagement",
         "use_case_id": "D01",
         "use_case_name": "Send Local Authorization List",
-        "use_case_refs": "D01",
-        "message_refs": "SendLocalListRequest, SendLocalListResponse",
         "chunk_part": 1,
         "total_parts": 3
       }
     },
     {
-      "content": "| 5   | Prerequisite(s)      | Local Authorization List is enabled with Configuration Variable LocalAuthListEnabled.                                                                                                                                                                                                                                                                                                                                                                                       |\n| 6   | Postcondition(s)     | Successful postcondition: - A new Local Authorization List is installed on the Charging Station. Failure postcondition: - The Local Authorization List on the Charging Station stays as it was. - If the status is Failed or VersionMismatch.                                                                                                                                                                                                                               |\n| 7   | Error handling       | If the status is Failed or VersionMismatch and the updateType was Differential, the CSMS will transmit the full Local Authorization List. When this list is too large for one message, it will start by sending an initial list with updateType Full and adding identifiers using updateType Differential until the list is completely sent (the amount of identifiers that can be sent in a single SendLocalListRequest is limited as described in requirement D01.FR.11). |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "D01 - Send Local Authorization List",
-        "heading_path": "D01 - Send Local Authorization List",
-        "functional_block": "LocalAuthorizationListManagement",
-        "use_case_id": "D01",
-        "use_case_name": "Send Local Authorization List",
-        "use_case_refs": "D01",
-        "message_refs": "SendLocalListRequest, SendLocalListResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "CSMS Charging Station\n\nSendLocalListRequest(versionNumber, updateType,...)\n\nSendLocalListResponse(Accepted)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "D01 - Send Local Authorization List",
-        "heading_path": "D01 - Send Local Authorization List",
-        "functional_block": "LocalAuthorizationListManagement",
-        "use_case_id": "D01",
-        "use_case_name": "Send Local Authorization List",
-        "use_case_refs": "D01",
-        "message_refs": "SendLocalListRequest, SendLocalListResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# D01 - Send Local Authorization List - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                                                        | Note |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| D01.FR.01 |              | SendLocalListRequest SHALL contain the type of update (updateType) and a version number (versionNumber) that the Charging Station MUST associate with the Local Authorization List after it has been updated. |      |\n| D01.FR.02 |              | SendLocalListResponse SHALL indicate whether the Charging Station has accepted the update of the Local Authorization List                                                                                     |      |",
+      "content": "# D01 - Requirements\n\n**D01.FR.01**\nSendLocalListRequest SHALL contain the type of\nupdate (updateType) and a version number\n(versionNumber) that the Charging Station MUST\nassociate with the Local Authorization List after it\nhas been updated.\n\n**D01.FR.02**\nSendLocalListResponse SHALL indicate whether\nthe Charging Station has accepted the update of\nthe Local Authorization List\n\n**D01.FR.03**\nPrecondition: If the status in\nSendLocalListResponse is Failed or\nVersionMismatch and the\nupdateType was Differential\nIt is RECOMMENDED that the CSMS sends the full\nLocal Authorization List.\n\n**D01.FR.04**\nPrecondition: If no localAuthorizationList is given\nand the updateType is Full.\nThe Charging Station SHALL remove all IdTokens\nfrom the list.\n\n**D01.FR.05**\nRequesting a Differential update without or with\nempty localAuthorizationList SHALL have no effect\non the list.\n\n**D01.FR.06**\nAll IdTokens in the Local Authorization List SHALL\nbe unique.\n\n**D01.FR.09**\nThe Charging Station SHALL NOT modify the\ncontents of the Authorization List by any other\nmeans than upon a the receipt of a SendLocalList\nmessage from the CSMS.\n\n**D01.FR.10**\nThe Local Authorization List SHOULD be\nmaintained by the Charging Station in non-volatile\nmemory, and SHOULD be persisted across reboots\nand power outages.\n\n**D01.FR.11**\nThe size of a single SendLocalListRequest is\nlimited by the Configuration Variables\nItemsPerMessageSendLocalList and\nBytesPerMessageSendLocalList.\n\n**D01.FR.12**\nA Charging Station that supports Local\nAuthorization List SHALL implement the\nConfiguration Variable: LocalAuthListEntries.\n\n**D01.FR.13**\nThe Charging Station indicates whether the Local\nAuthorization List is enabled. This is reported and\ncontrolled by the LocalAuthListEnabled\nConfiguration Variable.\n\n**D01.FR.15**\nPrecondition: If the Charging Station receives a\nSendLocalListRequest with\nupdateType is Full AND\nlocalAuthorizationList is non-empty\nThe Charging Station SHALL replace its current\nLocal Authorization List with the one in the\nSendLocalListRequest and set the version number\nto the value specified in the message\n\n**D01.FR.16**\nPrecondition: If the Charging Station receives a\nSendLocalListRequest with\nupdateType is Differential AND\nlocalAuthorizationList contains\nAuthorizationData elements with\nidTokenInfo\nThe Charging Station SHALL update its Local\nAuthorization List with these elements and set the\nversion number to the value specified in the\nmessage.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "D01 - Send Local Authorization List - Requirements",
-        "heading_path": "D01 - Send Local Authorization List - Requirements",
+        "heading": "D01 - Requirements",
         "functional_block": "LocalAuthorizationListManagement",
         "use_case_id": "D01",
         "use_case_name": "Send Local Authorization List",
-        "use_case_refs": "D01",
-        "message_refs": "SendLocalListRequest, SendLocalListResponse"
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# D01 - Requirements (continued)\n\n**D01.FR.17**\nPrecondition: If the Charging Station receives a\nSendLocalListRequest with\nupdateType is Differential AND\nlocalAuthorizationList contains\nAuthorizationData elements without\nidTokenInfo\nThe Charging Station SHALL remove these\nelements from its Local Authorization List and set\nthe version number to the value specified in the\nmessage.\n\n**D01.FR.18**\nversionNumber in a SendLocalListRequest SHALL\nbe greater than 0.\n\n**D01.FR.19**\nPrecondition: If the Charging Station receives a\nSendLocalListRequest with\nupdateType = Differential AND\nversionNumber is less or equal to the\nversion number of its Local\nAuthorization List\nThe Charging Station SHALL refuse to update its\nLocal Authorization List and SHALL return a\nSendLocalListResponse with status set to\nVersionMismatch.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "D01 - Requirements",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D01",
+        "use_case_name": "Send Local Authorization List",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

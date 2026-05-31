@@ -2,77 +2,122 @@
   "use_case_id": "C10",
   "functional_block": "Authorization",
   "use_case_name": "Store Authorization Data in the Authorization Cache",
+  "structured": {
+    "name": "Store Authorization Data in the Authorization Cache",
+    "id": "C10",
+    "functional_block": "Authorization",
+    "objective": "To store all the latest received IdTokens in the Authorization Cache.",
+    "description": "This use case covers how the Charging Station autonomously stores a record of previously\npresented identifiers that have been successfully authorized by the CSMS in the Authorization\nCache. (Successfully meaning: a response received on a message containing an IdToken)",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The Charging Station receives a AuthorizeResponse, ReserveNowRequest or\nTransactionEventResponse response message from the CSMS.",
+      "2. The Cache is updated by the Charging Station using all received IdTokenInfo from the response\nmessage from the CSMS."
+    ],
+    "prerequisites": "An Authorization Cache is implemented and and the value of the AuthCacheEnabled\nConfiguration Variable is set to 'true'.",
+    "postconditions": "Successful postcondition:\nThe Charging Station stored the newly received IdTokenInfo data in the Authorization Cache.\nFailure postcondition:\nThe Charging Station was not able to store the Authorization Cache.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "C10.FR.01",
+        "precondition": "",
+        "definition": "The Authorization Cache SHALL contain all the\nlatest received identifiers (regardless of their\nstatus)."
+      },
+      {
+        "id": "C10.FR.02",
+        "precondition": "",
+        "definition": "Cache values SHOULD be persistent across reboots\nand power outages."
+      },
+      {
+        "id": "C10.FR.03",
+        "precondition": "When an IdToken is presented that is\nstored in the Authorization Cache with\nstatus other than Accepted, and the\nCharging Station is online.",
+        "definition": "AuthorizeRequest SHALL be sent to the CSMS to\ncheck the current state of the IdToken."
+      },
+      {
+        "id": "C10.FR.04",
+        "precondition": "Upon receipt of AuthorizeResponse.",
+        "definition": "The Charging Station SHALL update the\nAuthorisation Cache entry."
+      },
+      {
+        "id": "C10.FR.05",
+        "precondition": "Upon receipt of\nTransactionEventResponse.",
+        "definition": "The Charging Station SHALL update the\nAuthorisation Cache entry."
+      },
+      {
+        "id": "C10.FR.07",
+        "precondition": "",
+        "definition": "The Charging Station SHALL have a mechanism to\naccept new cache entries even when it is full, by\ndeleting older entries."
+      },
+      {
+        "id": "C10.FR.08",
+        "precondition": "When IdTokenInfoType does not\ncontain a value for\ncacheExpiryDateTime",
+        "definition": "The time a token is considered to be present in the\ncache is determined by the Configuration Variable\nAuthCacheLifeTime. This variable indicates how\nlong it takes until a token expires in the\nAuthorization Cache since it is last used."
+      },
+      {
+        "id": "C10.FR.09",
+        "precondition": "The Charging Station supports Tariff &\nCost",
+        "definition": "The Charging Station SHALL NOT store the tariff\ninformation in the Cache."
+      },
+      {
+        "id": "C10.FR.10",
+        "precondition": "NOT C10.FR.13 AND\nwhen more than\nAuthCacheLifeTime seconds have\npassed since idTokenInfo was last\nupdated",
+        "definition": "The Authorization Cache entry SHALL be removed\nfrom the cache or changed to Expired."
+      },
+      {
+        "id": "C10.FR.11",
+        "precondition": "",
+        "definition": "Whether the Authorization Cache is enabled or\ndisabled SHALL be controlled by the\nAuthCacheEnabled Configuration Variable."
+      },
+      {
+        "id": "C10.FR.12",
+        "precondition": "",
+        "definition": "It is RECOMMENDED to store personal information\nin the Authorization Cache securely"
+      },
+      {
+        "id": "C10.FR.13",
+        "precondition": "When IdTokenInfoType contains a\nvalue for cacheExpiryDateTime and\ncurrent time is greater than\nidTokenInfo.cacheExpiryDateTime",
+        "definition": "The Authorization Cache entry SHALL be removed\nfrom the cache or changed to Expired."
+      }
+    ],
+    "figures": [
+      "fig29.png",
+      "fig30.png",
+      "fig31.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C10 - Store Authorization Data in the Authorization Cache\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                  |\n| --- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Store Authorization Data in the Authorization Cache                                                                                                                                                                                                                          |\n| 2   | ID                      | C10                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)            | To store all the latest received IdTokens in the Authorization Cache.                                                                                                                                                                                                        |\n| 4   | Description             | This use case covers how the Charging Station autonomously stores a record of previously presented identifiers that have been successfully authorized by the CSMS in the Authorization Cache. (Successfully meaning: a response received on a message containing an IdToken) |\n|     | Actors                  | Charging Station, CSMS                                                                                                                                                                                                                                                       |\n|     | Scenario description    | 1. The Charging Station receives a AuthorizeResponse, ReserveNowRequest or TransactionEventResponse response message from the CSMS. 2. The Cache is updated by the Charging Station using all received IdTokenInfo from the response message from the CSMS.                  |\n|     | Alternative scenario(s) | n/a                                                                                                                                                                                                                                                                          |\n| 5   | Prerequisite(s)         | An Authorization Cache is implemented and the value of the AuthCacheEnabled Configuration Variable is set to 'true'.                                                                                                                                                         |\n| 6   | Postcondition(s)        | Successful postcondition: The Charging Station stored the newly received IdTokenInfo data in the Authorization Cache. Failure postcondition: The Charging Station was not able to store the Authorization Cache.                                                             |\n| 7   | Error handling          | n/a                                                                                                                                                                                                                                                                          |\n| 8   | Remark(s)               | n/a                                                                                                                                                                                                                                                                          |",
+      "content": "# C10 - Store Authorization Data in the Authorization Cache\n\n**Objective:** To store all the latest received IdTokens in the Authorization Cache.\n\n**Description:** This use case covers how the Charging Station autonomously stores a record of previously\npresented identifiers that have been successfully authorized by the CSMS in the Authorization\nCache. (Successfully meaning: a response received on a message containing an IdToken)\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The Charging Station receives a AuthorizeResponse, ReserveNowRequest or\nTransactionEventResponse response message from the CSMS.\n2. The Cache is updated by the Charging Station using all received IdTokenInfo from the response\nmessage from the CSMS.\n\n**Prerequisites:** An Authorization Cache is implemented and and the value of the AuthCacheEnabled\nConfiguration Variable is set to 'true'.\n\n**Postconditions:** Successful postcondition:\nThe Charging Station stored the newly received IdTokenInfo data in the Authorization Cache.\nFailure postcondition:\nThe Charging Station was not able to store the Authorization Cache.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C10 - Store Authorization Data in the Authorization Cache",
-        "heading_path": "C10 - Store Authorization Data in the Authorization Cache",
         "functional_block": "Authorization",
         "use_case_id": "C10",
         "use_case_name": "Store Authorization Data in the Authorization Cache",
-        "use_case_refs": "C10",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse, ReserveNowRequest, TransactionEventRequest, TransactionEventResponse",
-        "figure_refs": "29",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "Charging Station                 CSMS\n\nalt  [for AuthorizeResponse]\n\nAuthorizeRequest(...)\n\nAuthorizeResponse(idTokenInfo,...)\n\nStore Authorization Data in Authorization Cache()\n\n[for TransactionEventResponse]\n\nTransactionEventRequest(...)\n\nTransactionEventResponse(idTokenInfo,...)\n\nStore Authorization Data in Authorization Cache()\n\nFigure 29. Sequence Diagram: Store Authorization Data in the Authorization Cache",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C10 - Store Authorization Data in the Authorization Cache",
-        "heading_path": "C10 - Store Authorization Data in the Authorization Cache",
-        "functional_block": "Authorization",
-        "use_case_id": "C10",
-        "use_case_name": "Store Authorization Data in the Authorization Cache",
-        "use_case_refs": "C10",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse, ReserveNowRequest, TransactionEventRequest, TransactionEventResponse",
-        "figure_refs": "29",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# C10 - Store Authorization Data in the Authorization Cache - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                  | Note |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------- | ---- |\n| C10.FR.01 |              | The Authorization Cache SHALL contain all the latest received identifiers (regardless of their status). |      |",
+      "content": "# C10 - Requirements\n\n**C10.FR.01**\nThe Authorization Cache SHALL contain all the\nlatest received identifiers (regardless of their\nstatus).\n\n**C10.FR.02**\nCache values SHOULD be persistent across reboots\nand power outages.\n\n**C10.FR.03**\nPrecondition: When an IdToken is presented that is\nstored in the Authorization Cache with\nstatus other than Accepted, and the\nCharging Station is online.\nAuthorizeRequest SHALL be sent to the CSMS to\ncheck the current state of the IdToken.\n\n**C10.FR.04**\nPrecondition: Upon receipt of AuthorizeResponse.\nThe Charging Station SHALL update the\nAuthorisation Cache entry.\n\n**C10.FR.05**\nPrecondition: Upon receipt of\nTransactionEventResponse.\nThe Charging Station SHALL update the\nAuthorisation Cache entry.\n\n**C10.FR.07**\nThe Charging Station SHALL have a mechanism to\naccept new cache entries even when it is full, by\ndeleting older entries.\n\n**C10.FR.08**\nPrecondition: When IdTokenInfoType does not\ncontain a value for\ncacheExpiryDateTime\nThe time a token is considered to be present in the\ncache is determined by the Configuration Variable\nAuthCacheLifeTime. This variable indicates how\nlong it takes until a token expires in the\nAuthorization Cache since it is last used.\n\n**C10.FR.09**\nPrecondition: The Charging Station supports Tariff &\nCost\nThe Charging Station SHALL NOT store the tariff\ninformation in the Cache.\n\n**C10.FR.10**\nPrecondition: NOT C10.FR.13 AND\nwhen more than\nAuthCacheLifeTime seconds have\npassed since idTokenInfo was last\nupdated\nThe Authorization Cache entry SHALL be removed\nfrom the cache or changed to Expired.\n\n**C10.FR.11**\nWhether the Authorization Cache is enabled or\ndisabled SHALL be controlled by the\nAuthCacheEnabled Configuration Variable.\n\n**C10.FR.12**\nIt is RECOMMENDED to store personal information\nin the Authorization Cache securely\n\n**C10.FR.13**\nPrecondition: When IdTokenInfoType contains a\nvalue for cacheExpiryDateTime and\ncurrent time is greater than\nidTokenInfo.cacheExpiryDateTime\nThe Authorization Cache entry SHALL be removed\nfrom the cache or changed to Expired.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C10 - Store Authorization Data in the Authorization Cache - Requirements",
-        "heading_path": "C10 - Store Authorization Data in the Authorization Cache - Requirements",
+        "heading": "C10 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C10",
         "use_case_name": "Store Authorization Data in the Authorization Cache",
-        "use_case_refs": "C10"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "29",
-      "title": "Sequence Diagram: Store Authorization Data in the Authorization Cache",
-      "files": [
-        "fig29_p1_Sequence_Diagram__Store_Authorization_Data_in_the.png",
-        "fig29_p2_Sequence_Diagram__Store_Authorization_Data_in_the.png"
-      ]
-    },
-    {
-      "figure_num": "29",
-      "title": "Sequence Diagram: Store Authorization Data in the Authorization Cache",
-      "files": [
-        "fig29_p1_Sequence_Diagram__Store_Authorization_Data_in_the.png",
-        "fig29_p2_Sequence_Diagram__Store_Authorization_Data_in_the.png"
-      ]
     }
   ]
 }

@@ -1,78 +1,198 @@
 {
   "use_case_id": "N02",
   "functional_block": "Diagnostics",
-  "use_case_name": "Get Monitoring report",
+  "use_case_name": "Get Monitoring Report",
+  "structured": {
+    "name": "Get Monitoring Report",
+    "id": "N02",
+    "functional_block": "Diagnostics",
+    "objective": "To give the CSMS the ability to retrieve a report about configured monitoring settings per\ncomponent and variable.",
+    "description": "This use case describes how the CSMS requests the Charging Station to send a report about\nconfigured monitoring settings per component and variable. Optionally, this list can be filtered on\nmonitoringCriteria and componentVariables.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "CSO"
+    ],
+    "scenario": [
+      "1. The CSO triggers the CSMS to request a monitoring report from a Charging Station.",
+      "2. The CSMS sends a GetMonitoringReportRequest to the Charging Station.",
+      "3. The Charging Station responds with a GetMonitoringReportResponse.",
+      "4. The Charging Station sends a NotifyMonitoringReportRequest to the CSMS.",
+      "5. The CSMS responds with a NotifyMonitoringReportResponse.",
+      "6. Steps #4 and #5 are repeated until all data of the monitoring report has been sent."
+    ],
+    "prerequisites": "Charging Station supports Monitoring",
+    "postconditions": "The CSMS received a report about the configured monitoring settings.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "N02.FR.01",
+        "precondition": "NOT N02.FR.10 AND\nWhen the Charging Station receives a\nGetMonitoringReportRequest for supported\nmonitoringCriteria OR without monitoringCriteria",
+        "definition": "The Charging Station SHALL send a\ngetMonitoringReportResponse with Accepted."
+      },
+      {
+        "id": "N02.FR.02",
+        "precondition": "When the Charging Station receives a\nGetMonitoringReportRequest for not supported\nmonitoringCriteria",
+        "definition": "The Charging Station SHALL send a\ngetMonitoringReportResponse with NotSupported."
+      },
+      {
+        "id": "N02.FR.03",
+        "precondition": "N02.FR.01",
+        "definition": "The Charging Station SHALL send the requested information via\none or more notifyMonitoringReportRequest messages to the\nCSMS."
+      },
+      {
+        "id": "N02.FR.04",
+        "precondition": "N02.FR.01 AND\nThe GetMonitoringReportRequest contained a\nrequestId",
+        "definition": "Every notifyMonitoringReportRequest sent for this\nGetMonitoringReportRequest SHALL contain the same\nrequestId."
+      },
+      {
+        "id": "N02.FR.05",
+        "precondition": "N02.FR.01 AND\nmonitoringCriteria and componentVariables are\nNOT both absent.",
+        "definition": "The set of monitors reported in one or more\nnotifyMonitoringReportRequest messages is limited to the set\ndefined by monitoringCriteria and componentVariables."
+      },
+      {
+        "id": "N02.FR.06",
+        "precondition": "N02.FR.01 AND\nmonitoringCriteria is NOT absent AND\ncomponentVariables is absent.",
+        "definition": "The set of monitors reported in one or more\nnotifyMonitoringReportRequest messages is limited to the set\ndefined by monitoringCriteria."
+      },
+      {
+        "id": "N02.FR.07",
+        "precondition": "",
+        "definition": "The maximum number of componentVariables in one\nGetMonitoringReportRequest message is given by the\nItemsPerMessageGetReport Configuration Variable"
+      },
+      {
+        "id": "N02.FR.08",
+        "precondition": "N02.FR.01 AND\nmonitoringCriteria is absent AND\ncomponentVariables is NOT absent.",
+        "definition": "The set of monitors reported in one or more\nnotifyMonitoringReportRequest messages is limited to the set\ndefined by componentVariables."
+      },
+      {
+        "id": "N02.FR.09",
+        "precondition": "",
+        "definition": "The sequence number contained in the seqNo field of the\nNotifyMonitoringReportRequest is incremental per report. So the\nNotifyMonitoringReportRequest message which contains the\nfirst report part, SHALL have a seqNo with value 0."
+      },
+      {
+        "id": "N02.FR.10",
+        "precondition": "When the Charging Station receives a\nGetMonitoringReportRequest with a\ncombination of criteria which results in an\nempty result set.",
+        "definition": "The Charging Station SHALL respond with a\nGetMonitoringReportResponse(status=EmptyResultSet)."
+      },
+      {
+        "id": "N02.FR.11",
+        "precondition": "N02.FR.01 AND\nmonitoringCriteria is absent AND\ncomponentVariables is absent.",
+        "definition": "The set of all existing monitors is reported in one or more\nnotifyMonitoringReportRequest messages."
+      },
+      {
+        "id": "N02.FR.12",
+        "precondition": "If monitoringCriteria contains\nThresholdMonitoring",
+        "definition": "All monitors with type = UpperThreshold or type =\nLowerThreshold are reported."
+      },
+      {
+        "id": "N02.FR.13",
+        "precondition": "If monitoringCriteria contains\nDeltaMonitoring",
+        "definition": "All monitors with type = Delta, TargetDelta and\nTargetDeltaRelative are reported."
+      },
+      {
+        "id": "N02.FR.14",
+        "precondition": "If monitoringCriteria contains\nPeriodicMonitoring",
+        "definition": "All monitors with type = Periodic or type =\nPeriodicClockAligned are reported."
+      },
+      {
+        "id": "N02.FR.16",
+        "precondition": "When Charging Station receives a\nGetMonitoringReportRequest with\ncomponentVariable elements in which variable is\nmissing",
+        "definition": "The Charging Station SHALL report for every variable of the\ncomponent in componentVariable."
+      },
+      {
+        "id": "N02.FR.17",
+        "precondition": "When Charging Station receives a\nGetMonitoringReportRequest with\ncomponentVariable elements in which variable is\npresent, but instance is missing",
+        "definition": "The Charging Station SHALL report for every instance of the\nvariable of the component in componentVariable."
+      },
+      {
+        "id": "N02.FR.18",
+        "precondition": "N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has a\ncomponent.evse.id, but\ncomponent.evse.connector is missing",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance and component.evse.id\nfor every component.evse.connector, whilst taking into account\nN02.FR.20."
+      },
+      {
+        "id": "N02.FR.19",
+        "precondition": "N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has no\ncomponent.evse.id",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance for every component.evse\nfield (including top level component without component.evse),\nwhilst taking into account N02.FR.20."
+      },
+      {
+        "id": "N02.FR.20",
+        "precondition": "N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has a value\nfor component.instance",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field, whilst\ntaking into account N02.FR.18, N02.FR.19."
+      },
+      {
+        "id": "N02.FR.21",
+        "precondition": "N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has no\ncomponent.instance field",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field or the\ncomponent(s) without component.instance field, whichever is\nthe case, whilst taking into account N02.FR.18, N02.FR.19."
+      }
+    ],
+    "figures": [
+      "fig130.png",
+      "fig131.png",
+      "fig132.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# N02 - Get Monitoring report\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Monitoring Report                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID                   | N02                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 3   | Objective(s)         | To give the CSMS the ability to retrieve a report about configured monitoring settings per component and variable.                                                                                                                                                                                                                                                                                                                                              |\n| 4   | Description          | This use case describes how the CSMS requests the Charging Station to send a report about configured monitoring settings per component and variable. Optionally, this list can be filtered on monitoringCriteria and componentVariables.                                                                                                                                                                                                                        |\n|     | Actors               | Charging Station, CSMS, CSO                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n|     | Scenario description | 1. The CSO triggers the CSMS to request a monitoring report from a Charging Station. 2. The CSMS sends a GetMonitoringReportRequest to the Charging Station. 3. The Charging Station responds with a GetMonitoringReportResponse. 4. The Charging Station sends a NotifyMonitoringReportRequest to the CSMS. 5. The CSMS responds with a NotifyMonitoringReportResponse. 6. Steps #4 and #5 are repeated until all data of the monitoring report has been sent. |",
+      "content": "# N02 - Get Monitoring Report\n\n**Objective:** To give the CSMS the ability to retrieve a report about configured monitoring settings per\ncomponent and variable.\n\n**Description:** This use case describes how the CSMS requests the Charging Station to send a report about\nconfigured monitoring settings per component and variable. Optionally, this list can be filtered on\nmonitoringCriteria and componentVariables.\n\n**Actors:** Charging Station, CSMS, CSO\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a monitoring report from a Charging Station.\n2. The CSMS sends a GetMonitoringReportRequest to the Charging Station.\n3. The Charging Station responds with a GetMonitoringReportResponse.\n4. The Charging Station sends a NotifyMonitoringReportRequest to the CSMS.\n5. The CSMS responds with a NotifyMonitoringReportResponse.\n6. Steps #4 and #5 are repeated until all data of the monitoring report has been sent.\n\n**Prerequisites:** Charging Station supports Monitoring\n\n**Postconditions:** The CSMS received a report about the configured monitoring settings.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "N02 - Get Monitoring report",
-        "heading_path": "N02 - Get Monitoring report",
+        "heading": "N02 - Get Monitoring Report",
         "functional_block": "Diagnostics",
         "use_case_id": "N02",
-        "use_case_name": "Get Monitoring report",
-        "use_case_refs": "N02",
-        "message_refs": "GetMonitoringReportRequest, GetMonitoringReportResponse, NotifyMonitoringReportRequest, NotifyMonitoringReportResponse",
+        "use_case_name": "Get Monitoring Report",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 4
       }
     },
     {
-      "content": "| 5   | Prerequisite(s)      | Charging Station supports Monitoring                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s)     | The CSMS received a report about the configured monitoring settings.                                                                                                                                                                                                                                                                                                                                                                                            |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N02 - Get Monitoring report",
-        "heading_path": "N02 - Get Monitoring report",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N02",
-        "use_case_name": "Get Monitoring report",
-        "use_case_refs": "N02",
-        "message_refs": "GetMonitoringReportRequest, GetMonitoringReportResponse, NotifyMonitoringReportRequest, NotifyMonitoringReportResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "CSO    CSMS    Charging Station\n\nrequest for a monitoring report\n\nGetMonitoringReportRequest(requestId, monitoringCriteria, componentVariables)\n\nGetMonitoringReportResponse(status)\n\nloop [for each report part]\n\nNotifyMonitoringReportRequest(generatedAt, requestId, tbc, reports)\n\nNotifyMonitoringReportResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N02 - Get Monitoring report",
-        "heading_path": "N02 - Get Monitoring report",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N02",
-        "use_case_name": "Get Monitoring report",
-        "use_case_refs": "N02",
-        "message_refs": "GetMonitoringReportRequest, GetMonitoringReportResponse, NotifyMonitoringReportRequest, NotifyMonitoringReportResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# N02 - Get Monitoring Report - Requirements\n\n| ID        | Precondition                                                                                                                                                                                     | Requirement definition                                                                                                        |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |\n| N02.FR.01 | NOT N02.FR.10 AND When the Charging Station receives a GetMonitoringReportRequest for supported monitoringCriteria OR without monitoringCriteria                                                 | The Charging Station SHALL send a getMonitoringReportResponse with Accepted.                                                  |\n| N02.FR.02 | When the Charging Station receives a GetMonitoringReportRequest for not supported monitoringCriteria                                                                                             | The Charging Station SHALL send a getMonitoringReportResponse with NotSupported.                                              |\n| N02.FR.03 | N02.FR.01                                                                                                                                                                                        | The Charging Station SHALL send the requested information via one or more notifyMonitoringReportRequest messages to the CSMS. |\n| N02.FR.04 | N02.FR.01 AND The GetMonitoringReportRequest contained a requestId                                                                                                                               | Every notifyMonitoringReportRequest sent for this GetMonitoringReportRequest SHALL contain the same requestId.                |\n| N02.FR.05 | N02.FR.01 AND The set of monitors reported in one or more notifyMonitoringReportRequest messages is limited to the set defined by monitoringCriteria and componentVariables are NOT both absent. |                                                                                                                               |",
+      "content": "# N02 - Requirements\n\n**N02.FR.01**\nPrecondition: NOT N02.FR.10 AND\nWhen the Charging Station receives a\nGetMonitoringReportRequest for supported\nmonitoringCriteria OR without monitoringCriteria\nThe Charging Station SHALL send a\ngetMonitoringReportResponse with Accepted.\n\n**N02.FR.02**\nPrecondition: When the Charging Station receives a\nGetMonitoringReportRequest for not supported\nmonitoringCriteria\nThe Charging Station SHALL send a\ngetMonitoringReportResponse with NotSupported.\n\n**N02.FR.03**\nPrecondition: N02.FR.01\nThe Charging Station SHALL send the requested information via\none or more notifyMonitoringReportRequest messages to the\nCSMS.\n\n**N02.FR.04**\nPrecondition: N02.FR.01 AND\nThe GetMonitoringReportRequest contained a\nrequestId\nEvery notifyMonitoringReportRequest sent for this\nGetMonitoringReportRequest SHALL contain the same\nrequestId.\n\n**N02.FR.05**\nPrecondition: N02.FR.01 AND\nmonitoringCriteria and componentVariables are\nNOT both absent.\nThe set of monitors reported in one or more\nnotifyMonitoringReportRequest messages is limited to the set\ndefined by monitoringCriteria and componentVariables.\n\n**N02.FR.06**\nPrecondition: N02.FR.01 AND\nmonitoringCriteria is NOT absent AND\ncomponentVariables is absent.\nThe set of monitors reported in one or more\nnotifyMonitoringReportRequest messages is limited to the set\ndefined by monitoringCriteria.\n\n**N02.FR.07**\nThe maximum number of componentVariables in one\nGetMonitoringReportRequest message is given by the\nItemsPerMessageGetReport Configuration Variable\n\n**N02.FR.08**\nPrecondition: N02.FR.01 AND\nmonitoringCriteria is absent AND\ncomponentVariables is NOT absent.\nThe set of monitors reported in one or more\nnotifyMonitoringReportRequest messages is limited to the set\ndefined by componentVariables.\n\n**N02.FR.09**\nThe sequence number contained in the seqNo field of the\nNotifyMonitoringReportRequest is incremental per report. So the\nNotifyMonitoringReportRequest message which contains the\nfirst report part, SHALL have a seqNo with value 0.\n\n**N02.FR.10**\nPrecondition: When the Charging Station receives a\nGetMonitoringReportRequest with a\ncombination of criteria which results in an\nempty result set.\nThe Charging Station SHALL respond with a\nGetMonitoringReportResponse(status=EmptyResultSet).\n\n**N02.FR.11**\nPrecondition: N02.FR.01 AND\nmonitoringCriteria is absent AND\ncomponentVariables is absent.\nThe set of all existing monitors is reported in one or more\nnotifyMonitoringReportRequest messages.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "N02 - Get Monitoring Report - Requirements",
-        "heading_path": "N02 - Get Monitoring Report - Requirements",
+        "heading": "N02 - Requirements",
         "functional_block": "Diagnostics",
         "use_case_id": "N02",
         "use_case_name": "Get Monitoring Report",
-        "use_case_refs": "N02",
-        "message_refs": "GetMonitoringReportRequest, getMonitoringReportResponse, notifyMonitoringReportRequest"
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# N02 - Requirements (continued)\n\n**N02.FR.12**\nPrecondition: If monitoringCriteria contains\nThresholdMonitoring\nAll monitors with type = UpperThreshold or type =\nLowerThreshold are reported.\n\n**N02.FR.13**\nPrecondition: If monitoringCriteria contains\nDeltaMonitoring\nAll monitors with type = Delta, TargetDelta and\nTargetDeltaRelative are reported.\n\n**N02.FR.14**\nPrecondition: If monitoringCriteria contains\nPeriodicMonitoring\nAll monitors with type = Periodic or type =\nPeriodicClockAligned are reported.\n\n**N02.FR.16**\nPrecondition: When Charging Station receives a\nGetMonitoringReportRequest with\ncomponentVariable elements in which variable is\nmissing\nThe Charging Station SHALL report for every variable of the\ncomponent in componentVariable.\n\n**N02.FR.17**\nPrecondition: When Charging Station receives a\nGetMonitoringReportRequest with\ncomponentVariable elements in which variable is\npresent, but instance is missing\nThe Charging Station SHALL report for every instance of the\nvariable of the component in componentVariable.\n\n**N02.FR.18**\nPrecondition: N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has a\ncomponent.evse.id, but\ncomponent.evse.connector is missing\nThe Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance and component.evse.id\nfor every component.evse.connector, whilst taking into account\nN02.FR.20.\n\n**N02.FR.19**\nPrecondition: N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has no\ncomponent.evse.id\nThe Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance for every component.evse\nfield (including top level component without component.evse),\nwhilst taking into account N02.FR.20.\n\n**N02.FR.20**\nPrecondition: N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has a value\nfor component.instance\nThe Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field, whilst\ntaking into account N02.FR.18, N02.FR.19.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N02 - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N02",
+        "use_case_name": "Get Monitoring Report",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# N02 - Requirements (continued)\n\n**N02.FR.21**\nPrecondition: N02.FR.11 AND\nWhen Charging Station receives a\nGetMonitoringReportRequest with a component\nin a componentVariable element that has no\ncomponent.instance field\nThe Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field or the\ncomponent(s) without component.instance field, whichever is\nthe case, whilst taking into account N02.FR.18, N02.FR.19.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N02 - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N02",
+        "use_case_name": "Get Monitoring Report",
+        "chunk_part": 4,
+        "total_parts": 4
       }
     }
-  ],
-  "figures": []
+  ]
 }

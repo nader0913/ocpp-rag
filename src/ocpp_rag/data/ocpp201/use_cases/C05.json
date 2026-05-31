@@ -2,127 +2,91 @@
   "use_case_id": "C05",
   "functional_block": "Authorization",
   "use_case_name": "Authorization for CSMS initiated transactions",
+  "structured": {
+    "name": "Authorization for CSMS initiated transactions",
+    "id": "C05",
+    "functional_block": "Authorization",
+    "objective": "Enable the CSMS to start a transaction on a Charging Station with a server generated IdToken.",
+    "description": "When a CSMS needs to start a Transaction on a Charging Station for a Driver that has no RFID, or\nthe RFID is not known. For Example, the EV Driver uses an App to start a transaction. The CSMS\nneeds to determine an IdToken and tell the Charging Station this is not an RFID, so it should not\nbe cached and an authorization is also not needed.",
+    "actors": [
+      "EV Driver",
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The EV Driver uses his app to start a charging.",
+      "2. The app sends a start request to the CSMS.",
+      "3. The CSMS determines an IdToken. It can generate a unique id to be used as IdToken for this\ntransaction or can use a token that is provided by the app (for example the ID of the contract of\nthe user).",
+      "4. The CSMS sends a RequestStartTransactionRequest with the IdToken from the previous step\nto the Charging Station.",
+      "5. The Charging Station accepts the RequestStartTransactionRequest by sending a\nRequestStartTransactionResponse with Accepted.",
+      "6. The Charging Station starts charging and sends a TransactionEventRequest (eventType =\nUpdated) to notify the CSMS that chargingState has changed."
+    ],
+    "prerequisites": "Cable is plugged in.",
+    "postconditions": "Transaction ongoing on Charging Station",
+    "error_handling": "n/a",
+    "remarks": "IdTokens MAY be (single use) virtual transaction authorization codes or virtual RFID tokens that\ndeliberately use a non-standard UID format to avoid possible conflict with real UID values. These\nvirtual single use IdTokens are sent with type Central and it is pointless to either cache or\nauthorize these tokens.\nThis use case uses an App as example, but this is not a requirement. This use case is valid for\nany RequestStartTransactionRequest with a server generated IdToken.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.\nThis use case assumes that the configuration variable AuthorizeRemoteStart is false. See use\ncases F01 and F02 for requirements with AuthorizeRemoteStart.\nOther idToken types can also be used to remote start charging, such an eMAID of the user that is\nprovided by the app.",
+    "requirements": [
+      {
+        "id": "C05.FR.01",
+        "precondition": "If the Charging Station receives a\nRequestStartTransactionRequest with an\nIdTokenType of type Central.",
+        "definition": "The Charging Station SHALL NOT send an AuthorizeRequest for\nthe received IdTokenType."
+      },
+      {
+        "id": "C05.FR.02",
+        "precondition": "If the Charging Station has implemented an\nAuthorization Cache AND the Charging Station\nreceives IdTokenInfo for an IdTokenType of type\nCentral in any message",
+        "definition": "The Charging Station SHALL NOT store the information in its\nAuthorization Cache. (Same as C03.FR.02)"
+      },
+      {
+        "id": "C05.FR.03",
+        "precondition": "",
+        "definition": "The RemoteStartId SHALL be provided at least once in a\nTransactionEventRequest."
+      },
+      {
+        "id": "C05.FR.04",
+        "precondition": "",
+        "definition": "Language SHALL be specified as RFC-4646 tags, see: [RFC5646],\nexample: US English is: \"en-US\"."
+      },
+      {
+        "id": "C05.FR.05",
+        "precondition": "",
+        "definition": "idToken SHALL also be provided once in the first\nTransactionEventRequest after a\nRequestStartTransactionRequest."
+      }
+    ],
+    "figures": [
+      "fig24.png",
+      "fig25.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C05 - Authorization for CSMS initiated transactions\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Authorization for CSMS initiated transactions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
+      "content": "# C05 - Authorization for CSMS initiated transactions\n\n**Objective:** Enable the CSMS to start a transaction on a Charging Station with a server generated IdToken.\n\n**Description:** When a CSMS needs to start a Transaction on a Charging Station for a Driver that has no RFID, or\nthe RFID is not known. For Example, the EV Driver uses an App to start a transaction. The CSMS\nneeds to determine an IdToken and tell the Charging Station this is not an RFID, so it should not\nbe cached and an authorization is also not needed.\n\n**Actors:** EV Driver, CSMS, Charging Station\n\n**Scenario:**\n1. The EV Driver uses his app to start a charging.\n2. The app sends a start request to the CSMS.\n3. The CSMS determines an IdToken. It can generate a unique id to be used as IdToken for this\ntransaction or can use a token that is provided by the app (for example the ID of the contract of\nthe user).\n4. The CSMS sends a RequestStartTransactionRequest with the IdToken from the previous step\nto the Charging Station.\n5. The Charging Station accepts the RequestStartTransactionRequest by sending a\nRequestStartTransactionResponse with Accepted.\n6. The Charging Station starts charging and sends a TransactionEventRequest (eventType =\nUpdated) to notify the CSMS that chargingState has changed.\n\n**Prerequisites:** Cable is plugged in.\n\n**Postconditions:** Transaction ongoing on Charging Station\n\n**Remarks:** IdTokens MAY be (single use) virtual transaction authorization codes or virtual RFID tokens that\ndeliberately use a non-standard UID format to avoid possible conflict with real UID values. These\nvirtual single use IdTokens are sent with type Central and it is pointless to either cache or\nauthorize these tokens.\nThis use case uses an App as example, but this is not a requirement. This use case is valid for\nany RequestStartTransactionRequest with a server generated IdToken.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.\nThis use case assumes that the configuration variable AuthorizeRemoteStart is false. See use\ncases F01 and F02 for requirements with AuthorizeRemoteStart.\nOther idToken types can also be used to remote start charging, such an eMAID of the user that is\nprovided by the app.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C05 - Authorization for CSMS initiated transactions",
-        "heading_path": "C05 - Authorization for CSMS initiated transactions",
         "functional_block": "Authorization",
         "use_case_id": "C05",
         "use_case_name": "Authorization for CSMS initiated transactions",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15, E01, F01, F02",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 2
       }
     },
     {
-      "content": "| 2   | ID               | C05                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)     | Enable the CSMS to start a transaction on a Charging Station with a server generated IdToken.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
+      "content": "# C05 - Requirements\n\n**C05.FR.01**\nPrecondition: If the Charging Station receives a\nRequestStartTransactionRequest with an\nIdTokenType of type Central.\nThe Charging Station SHALL NOT send an AuthorizeRequest for\nthe received IdTokenType.\n\n**C05.FR.02**\nPrecondition: If the Charging Station has implemented an\nAuthorization Cache AND the Charging Station\nreceives IdTokenInfo for an IdTokenType of type\nCentral in any message\nThe Charging Station SHALL NOT store the information in its\nAuthorization Cache. (Same as C03.FR.02)\n\n**C05.FR.03**\nThe RemoteStartId SHALL be provided at least once in a\nTransactionEventRequest.\n\n**C05.FR.04**\nLanguage SHALL be specified as RFC-4646 tags, see: [RFC5646],\nexample: US English is: \"en-US\".\n\n**C05.FR.05**\nidToken SHALL also be provided once in the first\nTransactionEventRequest after a\nRequestStartTransactionRequest.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C05 - Authorization for CSMS initiated transactions",
-        "heading_path": "C05 - Authorization for CSMS initiated transactions",
+        "content_type": "requirements",
+        "heading": "C05 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C05",
         "use_case_name": "Authorization for CSMS initiated transactions",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15, E01, F01, F02",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
         "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 4   | Description      | When a CSMS needs to start a Transaction on a Charging Station for a Driver that has no RFID, or the RFID is not known. For Example, the EV Driver uses an App to start a transaction. The CSMS needs to determine an IdToken and tell the Charging Station this is not an RFID, so it should not be cached and an authorization is also not needed. **Actors:** EV Driver, CSMS, Charging Station **Scenario description:**) The EV Driver uses his app to start a charging.\n2) The app sends a start request to the CSMS.\n3) The CSMS determines an IdToken. It can generate a unique id to be used as IdToken for this transaction or can use a token that is provided by the app (for example the ID of the contract of the user).\n4) The CSMS sends a RequestStartTransactionRequest with the IdToken from the previous step to the Charging Station.\n5) The Charging Station accepts the RequestStartTransactionRequest by sending a RequestStartTransactionResponse with Accepted.\n6) The Charging Station starts charging and sends a TransactionEventRequest (eventType = Updated) to notify the CSMS that chargingState has changed.**Alternative scenario(s):**- C01 - EV Driver Authorization using RFID\n- C02 - Authorization using a start button\n- C03 - Authorization using credit/debit card\n- C04 - Authorization using PIN-code\n- C06 - Authorization using local id type\n- C07 - Authorization using Contract Certificates\n- C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)\n- C15 - Unknown Offline Authorization |\n| 5   | Prerequisites    | Cable is plugged in.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C05 - Authorization for CSMS initiated transactions",
-        "heading_path": "C05 - Authorization for CSMS initiated transactions",
-        "functional_block": "Authorization",
-        "use_case_id": "C05",
-        "use_case_name": "Authorization for CSMS initiated transactions",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15, E01, F01, F02",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s) | Transaction ongoing on Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C05 - Authorization for CSMS initiated transactions",
-        "heading_path": "C05 - Authorization for CSMS initiated transactions",
-        "functional_block": "Authorization",
-        "use_case_id": "C05",
-        "use_case_name": "Authorization for CSMS initiated transactions",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15, E01, F01, F02",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 8   | Remarks          | IdTokens MAY be (single use) virtual transaction authorization codes or virtual RFID tokens that deliberately use a non-standard UID format to avoid possible conflict with real UID values. These virtual single use IdTokens are sent with type Central and it is pointless to either cache or authorize these tokens. This use case uses an App as example, but this is not a requirement. This use case is valid for any RequestStartTransactionRequest with a server generated IdToken. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: EVConnected. This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use case: E01 - Start Transaction options. This use case assumes that the configuration variable AuthorizeRemoteStart is false. See use cases F01 and F02 for requirements with AuthorizeRemoteStart. Other idToken types can also be used to remote start charging, such an eMAID of the user that is provided by the app.                                                                                                                                                                                                                                                                                                                                                                    |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C05 - Authorization for CSMS initiated transactions",
-        "heading_path": "C05 - Authorization for CSMS initiated transactions",
-        "functional_block": "Authorization",
-        "use_case_id": "C05",
-        "use_case_name": "Authorization for CSMS initiated transactions",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15, E01, F01, F02",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# Charging Station\n\nEV Driver APP CS-001 CSMS\n\nTransaction already started at cable plug-in at EVSE #1\n\nStart Charging\nStart Charging (CS-001, EVSE #1)\n\ndetermine unique id()\nresult = 4444\n\nRequestStartTransactionRequest(evseId = 1\nidToken(id = 4444, type = Central), remoteStartId = 123)\nRequestStartTransactionResponse(Accepted)\nTransactionEventRequest(eventType = Updated, transactionId = AB1234,\ntriggerReason = RemoteStart, remoteStartId = 123, meterValues, ...)\nTransactionEventResponse(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Charging Station",
-        "heading_path": "Charging Station",
-        "functional_block": "Authorization",
-        "use_case_id": "C05",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# C05 - Authorization for CSMS initiated transactions Requirements\n\n| ID.       | Precondition                                                                                                                                                   | Requirement definition                                                                                           |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |\n| C05.FR.01 | If the Charging Station receives a RequestStartTransactionRequest with an IdTokenType of type Central.                                                         | The Charging Station SHALL NOT send an AuthorizeRequest for the received IdTokenType.                            |\n| C05.FR.02 | If the Charging Station has implemented an Authorization Cache AND the Charging Station receives IdTokenInfo for an IdTokenType of type Central in any message | The Charging Station SHALL NOT store the information in its Authorization Cache. (Same as C03.FR.02)             |\n| C05.FR.03 |                                                                                                                                                                | The RemoteStartId SHALL be provided at least once in a TransactionEventRequest.                                  |\n| C05.FR.04 |                                                                                                                                                                | Language SHALL be specified as RFC-4646 tags, see: \\[RFC5646], example: US English is: \"en-US\".                  |\n| C05.FR.05 |                                                                                                                                                                | idToken SHALL also be provided once in the first TransactionEventRequest after a RequestStartTransactionRequest. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C05 - Authorization for CSMS initiated transactions Requirements",
-        "heading_path": "C05 - Authorization for CSMS initiated transactions Requirements",
-        "functional_block": "Authorization",
-        "use_case_id": "C05",
-        "use_case_name": "Authorization for CSMS initiated transactions Requirements",
-        "use_case_refs": "C03, C05",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, TransactionEventRequest"
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

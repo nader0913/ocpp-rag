@@ -2,90 +2,104 @@
   "use_case_id": "C15",
   "functional_block": "Authorization",
   "use_case_name": "Offline Authorization of unknown Id",
+  "structured": {
+    "name": "Offline Authorization of unknown Id",
+    "id": "C15",
+    "functional_block": "Authorization",
+    "objective": "To allow automatic authorization of any \"unknown\" identifiers that cannot be explicitly authorized\nby Authorization Cache entries.",
+    "description": "This use case describes the scenario of presented \"unknown\" identifiers, other than are present in\nan Authorization Cache or Local Cache entry using OfflineTxForUnknownIdEnabled.",
+    "actors": [
+      "Charging Station",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver wants to start charging the EV and presents the IdToken.",
+      "2. The Charging Station checks the Local Authorization List, the IdToken is not present in the\nLocal Authorization List.",
+      "3. The Charging Station checks the Authorization Cache, the IdToken is not present in the\nAuthorization Cache.",
+      "4. The Charging Station accepts the unknown IdToken if OfflineTxForUnknownIdEnabled is\nset True",
+      "5. The Charging Station rejects the unknown IdToken if OfflineTxForUnknownIdEnabled is\nset False"
+    ],
+    "prerequisites": "The Charging Station is Offline.\nUnknown IdToken presented (Not in the Authorization Cache and/or Local Authorization List).",
+    "postconditions": "Successful postcondition:\nThe authorization status in TransactionEventResponse, that is received once the Charging Station\nis online, is Accepted.\nFailure postcondition:\nThe authorization status in TransactionEventResponse that is received once the Charging Station\nis online, is not Accepted, although OfflineTxForUnknownIdEnabled is True.",
+    "error_handling": "n/a",
+    "remarks": "This applies to all types of identifiers, including an eMAID that is presented as part of an ISO\n15118 contract certificate.",
+    "requirements": [
+      {
+        "id": "C15.FR.01",
+        "precondition": "If the identifier is authorized via\nOfflineTxForUnknownIdEnabled",
+        "definition": "The Charging Station SHALL NOT add the token to\nAuthorization Cache"
+      },
+      {
+        "id": "C15.FR.02",
+        "precondition": "When connection to the CSMS is\nrestored",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest for any transaction that\nwas authorized offline."
+      },
+      {
+        "id": "C15.FR.03",
+        "precondition": "C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does NOT contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)",
+        "definition": "The Charging Station SHALL stop the energy\ntransfer and send TransactionEventRequest\n(eventType = Updated) with triggerReason set to\nDeauthorized and chargingState set to\nSuspendedEVSE or preferably to EVConnected."
+      },
+      {
+        "id": "C15.FR.04",
+        "precondition": "C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)",
+        "definition": "The Charging Station SHALL stop the transaction\nand send TransactionEventRequest (eventType =\nEnded) with triggerReason set to Deauthorized and\nstoppedReason set to DeAuthorized."
+      },
+      {
+        "id": "C15.FR.05",
+        "precondition": "C15.FR.04 AND\nIf the Charging Station has the\npossibility to lock the Charging Cable",
+        "definition": "The Charging Station SHOULD keep the Charging\nCable locked until the owner presents his identifier."
+      },
+      {
+        "id": "C15.FR.06",
+        "precondition": "C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is not\nimplemented or has been exceeded.\nTxStopPoint does NOT contain:\nEnergyTransfer",
+        "definition": "The Charging Station SHALL stop the energy\ndelivery to the EV immediately and send\nTransactionEventRequest (eventType = Updated)\nwith triggerReason set to ChargingStateChanged\nand chargingState set to SuspendedEVSE"
+      },
+      {
+        "id": "C15.FR.07",
+        "precondition": "C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is set and\nhas NOT been exceeded.",
+        "definition": "Energy delivery to the EV SHALL be allowed until\nthe amount of energy specified in\nMaxEnergyOnInvalidId has been reached."
+      },
+      {
+        "id": "C15.FR.08",
+        "precondition": "When an unknown identifier is\npresented AND\nOfflineTxForUnknownIdEnabled is set\nto true",
+        "definition": "The Charging Station SHALL accept the presented\nIdToken."
+      }
+    ],
+    "figures": [
+      "fig34.png",
+      "fig35.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C15 - Offline Authorization of unknown Id\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| --- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Offline Authorization of unknown Id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID                      | C15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n|     | Parent use case         | C12 - Start Transaction - Cached Id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)            | To allow automatic authorization of any \"unknown\" identifiers that cannot be explicitly authorized by Authorization Cache entries.                                                                                                                                                                                                                                                                                                                                                                                   |\n| 4   | Description             | This use case describes the scenario of presented \"unknown\" identifiers, other than are present in an Authorization Cache or Local Cache entry using OfflineTxForUnknownIdEnabled.                                                                                                                                                                                                                                                                                                                                   |",
+      "content": "# C15 - Offline Authorization of unknown Id\n\n**Objective:** To allow automatic authorization of any \"unknown\" identifiers that cannot be explicitly authorized\nby Authorization Cache entries.\n\n**Description:** This use case describes the scenario of presented \"unknown\" identifiers, other than are present in\nan Authorization Cache or Local Cache entry using OfflineTxForUnknownIdEnabled.\n\n**Actors:** Charging Station, EV Driver\n\n**Scenario:**\n1. The EV Driver wants to start charging the EV and presents the IdToken.\n2. The Charging Station checks the Local Authorization List, the IdToken is not present in the\nLocal Authorization List.\n3. The Charging Station checks the Authorization Cache, the IdToken is not present in the\nAuthorization Cache.\n4. The Charging Station accepts the unknown IdToken if OfflineTxForUnknownIdEnabled is\nset True\n5. The Charging Station rejects the unknown IdToken if OfflineTxForUnknownIdEnabled is\nset False\n\n**Prerequisites:** The Charging Station is Offline.\nUnknown IdToken presented (Not in the Authorization Cache and/or Local Authorization List).\n\n**Postconditions:** Successful postcondition:\nThe authorization status in TransactionEventResponse, that is received once the Charging Station\nis online, is Accepted.\nFailure postcondition:\nThe authorization status in TransactionEventResponse that is received once the Charging Station\nis online, is not Accepted, although OfflineTxForUnknownIdEnabled is True.\n\n**Remarks:** This applies to all types of identifiers, including an eMAID that is presented as part of an ISO\n15118 contract certificate.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C15 - Offline Authorization of unknown Id",
-        "heading_path": "C15 - Offline Authorization of unknown Id",
         "functional_block": "Authorization",
         "use_case_id": "C15",
         "use_case_name": "Offline Authorization of unknown Id",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C12, C15",
-        "message_refs": "TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 2
       }
     },
     {
-      "content": "|     | Actors                  | Charging Station, EV Driver                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n|     | Scenario description    | 1. The EV Driver wants to start charging the EV and presents the IdToken. 2. The Charging Station checks the Local Authorization List, the IdToken is not present in the Local Authorization List. 3. The Charging Station checks the Authorization Cache, the IdToken is not present in the Authorization Cache. 4. The Charging Station accepts the unknown IdToken if OfflineTxForUnknownIdEnabled is set True. 5. The Charging Station rejects the unknown IdToken if OfflineTxForUnknownIdEnabled is set False. |\n|     | Alternative scenario(s) | C01 - EV Driver Authorization using RFID C02 - Authorization using a start button C03 - Authorization using credit/debit card C04 - Authorization using PIN-code C05 - Authorization for CSMS initiated transactions C06 - Authorization using local id type C07 - Authorization using Contract Certificates C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)                                                                                                                         |\n| 5   | Prerequisite(s)         | The Charging Station is Offline. Unknown IdToken presented (Not in the Authorization Cache and/or Local Authorization List).                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C15 - Offline Authorization of unknown Id",
-        "heading_path": "C15 - Offline Authorization of unknown Id",
-        "functional_block": "Authorization",
-        "use_case_id": "C15",
-        "use_case_name": "Offline Authorization of unknown Id",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C12, C15",
-        "message_refs": "TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s)        | Successful postcondition: The authorization status in TransactionEventResponse, that is received once the Charging Station is online, is Accepted. Failure postcondition: The authorization status in TransactionEventResponse that is received once the Charging Station is online, is not Accepted, although OfflineTxForUnknownIdEnabled is True.                                                                                                                                                                 |\n| 7   | Error handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 8   | Remark(s)               | This applies to all types of identifiers, including an eMAID that is presented as part of an ISO 15118 contract certificate.                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C15 - Offline Authorization of unknown Id",
-        "heading_path": "C15 - Offline Authorization of unknown Id",
-        "functional_block": "Authorization",
-        "use_case_id": "C15",
-        "use_case_name": "Offline Authorization of unknown Id",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C12, C15",
-        "message_refs": "TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# EV Driver Charging Station\n\nThe Charging Station is Offline.\n\n- present IdToken\n- opt [If enabled] check Local Authorization List\n- opt [If implemented & enabled] check Authorization Cache\n- IdToken unknown\n\nalt [OfflineTxForUnknownIdEnabled() = True] accept identifier\n\n- opt notification\n\n[OfflineTxForUnknownIdEnabled() = False] reject identifier\n\n- opt notification",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "EV Driver Charging Station",
-        "heading_path": "EV Driver Charging Station",
-        "functional_block": "Authorization",
-        "use_case_id": "C15"
-      }
-    },
-    {
-      "content": "# C15 - Offline Authorization of unknown Id - Requirements\n\n| ID        | Precondition                                                     | Requirement definition                                                                                     | Note                                                 |\n| --------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |\n| C15.FR.01 | If the identifier is authorized via OfflineTxForUnknownIdEnabled | The Charging Station SHALL NOT add the token to Authorization Cache                                        |                                                      |\n| C15.FR.02 | When connection to the CSMS is restored                          | The Charging Station SHALL send a TransactionEventRequest for any transaction that was authorized offline. | As explained in transaction-related message handling |",
+      "content": "# C15 - Requirements\n\n**C15.FR.01**\nPrecondition: If the identifier is authorized via\nOfflineTxForUnknownIdEnabled\nThe Charging Station SHALL NOT add the token to\nAuthorization Cache\n\n**C15.FR.02**\nPrecondition: When connection to the CSMS is\nrestored\nThe Charging Station SHALL send a\nTransactionEventRequest for any transaction that\nwas authorized offline.\n\n**C15.FR.03**\nPrecondition: C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does NOT contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)\nThe Charging Station SHALL stop the energy\ntransfer and send TransactionEventRequest\n(eventType = Updated) with triggerReason set to\nDeauthorized and chargingState set to\nSuspendedEVSE or preferably to EVConnected.\n\n**C15.FR.04**\nPrecondition: C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)\nThe Charging Station SHALL stop the transaction\nand send TransactionEventRequest (eventType =\nEnded) with triggerReason set to Deauthorized and\nstoppedReason set to DeAuthorized.\n\n**C15.FR.05**\nPrecondition: C15.FR.04 AND\nIf the Charging Station has the\npossibility to lock the Charging Cable\nThe Charging Station SHOULD keep the Charging\nCable locked until the owner presents his identifier.\n\n**C15.FR.06**\nPrecondition: C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is not\nimplemented or has been exceeded.\nTxStopPoint does NOT contain:\nEnergyTransfer\nThe Charging Station SHALL stop the energy\ndelivery to the EV immediately and send\nTransactionEventRequest (eventType = Updated)\nwith triggerReason set to ChargingStateChanged\nand chargingState set to SuspendedEVSE\n\n**C15.FR.07**\nPrecondition: C15.FR.02 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is set and\nhas NOT been exceeded.\nEnergy delivery to the EV SHALL be allowed until\nthe amount of energy specified in\nMaxEnergyOnInvalidId has been reached.\n\n**C15.FR.08**\nPrecondition: When an unknown identifier is\npresented AND\nOfflineTxForUnknownIdEnabled is set\nto true\nThe Charging Station SHALL accept the presented\nIdToken.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C15 - Offline Authorization of unknown Id - Requirements",
-        "heading_path": "C15 - Offline Authorization of unknown Id - Requirements",
+        "heading": "C15 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C15",
         "use_case_name": "Offline Authorization of unknown Id",
-        "use_case_refs": "C15",
-        "message_refs": "TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

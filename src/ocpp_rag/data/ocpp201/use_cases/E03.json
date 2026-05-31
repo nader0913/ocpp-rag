@@ -2,109 +2,209 @@
   "use_case_id": "E03",
   "functional_block": "Transactions",
   "use_case_name": "Start Transaction - IdToken First",
+  "structured": {
+    "name": "Start Transaction - IdToken First",
+    "id": "E03",
+    "functional_block": "Transactions",
+    "objective": "To enable the EV Driver to start a transaction by first presenting an IdToken at the Charging\nStation.",
+    "description": "This use case covers how the EV Driver is first authorized by presenting an IdToken before the\ncable is plugged in and a transaction starts.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver is authorized by the Charging Station and/or CSMS.",
+      "2. The Charging Station informs the CSMS that a transaction has started by sending a\nTransactionEventRequest (eventType = Started).",
+      "3. The EV Driver plugs in the Charging Cable at the Charging Station.",
+      "4. The Charging Station sends StatusNotificationRequest to, and receives\nStatusNotificationResponse from the CSMS.",
+      "5. The Charging Station informs the CSMS that the EV started charging by sending a\nTransactionEventRequest (eventType = Updated, chargingState = Charging).",
+      "6. The CSMS responds with TransactionEventResponse, accepting the transaction."
+    ],
+    "prerequisites": "IdToken is presented prior to plugin cable.",
+    "postconditions": "Successful postcondition:\nA transaction is started and the ChargingState is Charging\nFailure postcondition:\nNo transaction is started",
+    "error_handling": "n/a",
+    "remarks": "It is likely that the CSMS applies sanity checks to the data contained in TransactionEventRequest\nmessages it received. The outcome of such sanity checks SHALL NOT ever cause the CSMS to\nnot respond with a TransactionEventResponse. Failing to do so will only cause the Charging\nStation to try the same message again as specified in E12 - Transaction-related message not\naccepted by CSMS.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: Authorized\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are sent. For more details\nsee the use cases: E01 - Start Transaction options.",
+    "requirements": [
+      {
+        "id": "E03.FR.01",
+        "precondition": "When the IdToken information is\nknown.",
+        "definition": "The next TransactionEventRequest SHALL contain\nIdTokenType information."
+      },
+      {
+        "id": "E03.FR.02",
+        "precondition": "E03.FR.01",
+        "definition": "The CSMS SHALL send a\nTransactionEventResponse that includes an\nauthorization status."
+      },
+      {
+        "id": "E03.FR.03",
+        "precondition": "This transaction ends a reservation for\nthe specific IdToken.",
+        "definition": "The next TransactionEventRequest SHALL contain\nthe reservationId."
+      },
+      {
+        "id": "E03.FR.05",
+        "precondition": "When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint does not contain\nParkingBayOccupancy",
+        "definition": "The Charging Station SHOULD end the transaction\nand send a TransactionEventRequest (eventType =\nEnded, stoppedReason = Timeout, triggerReason =\nEVConnectionTimeout) to the CSMS."
+      },
+      {
+        "id": "E03.FR.06",
+        "precondition": "When a TransactionEventRequest has\nto be created",
+        "definition": "The Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration."
+      },
+      {
+        "id": "E03.FR.07",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is known at start of transaction",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.Begin in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details during the\ntransaction."
+      },
+      {
+        "id": "E03.FR.08",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during the\ntransaction."
+      },
+      {
+        "id": "E03.FR.09",
+        "precondition": "E03.FR.08\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)",
+        "definition": "The Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp."
+      },
+      {
+        "id": "E03.FR.10",
+        "precondition": "SampledDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues."
+      },
+      {
+        "id": "E03.FR.11",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is not known at start of\ntransaction",
+        "definition": "The Charging Station SHALL add the measurands\nfor eventType = Started to the optional\nmeterValue field with context =\nTransaction.Begin in the\nTransactionEventRequest(eventType = Updated)\nthat occurs when charging starts."
+      },
+      {
+        "id": "E03.FR.12",
+        "precondition": "When a transaction-related trigger\nevent occurs, listed in\nTriggerReasonEnumType AND\nthe transaction is ongoing.",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest with a triggerReason\ncorresponding to the occurred event."
+      },
+      {
+        "id": "E03.FR.13",
+        "precondition": "When the energy transfer starts AND\nIf the Charging Station is able to report\nthe number of phases used",
+        "definition": "The Charging Station SHALL provide the number of\nphases used, using the numberOfPhasesUsed field."
+      },
+      {
+        "id": "E03.FR.14",
+        "precondition": "E03.FR.13 AND\nduring the transaction the number of\nphases used changes",
+        "definition": "The Charging Station SHALL provide the adjusted\nnumber of phases used, using the\nnumberOfPhasesUsed field in the next\nTransactionEventRequest."
+      },
+      {
+        "id": "E03.FR.15",
+        "precondition": "When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint contains\nParkingBayOccupancy",
+        "definition": "The Charging Station SHALL deauthorize the\ntransaction and send a TransactionEventRequest\n(triggerReason = EVConnectionTimeout) to the\nCSMS."
+      }
+    ],
+    "figures": [
+      "fig45.png",
+      "fig46.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Stop a transaction when communication between the Charging Station and the EV is lost. (for\nexample: cable unplugged)",
+        "steps": [
+          "1. Communication between Charging Station and the EV is lost (Charging cable is unplugged).",
+          "2. If charging cable unplugged on the Charging Station side: send StatusNotificationRequest to\nthe CSMS to inform it about a Connector that became Available.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: EVConnected"
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Stop a transaction when the driver is no longer authorized.",
+        "steps": [
+          "1. The Charging Station sends a TransactionEventRequest to the CSMS.",
+          "2. An invalid IdToken is received in a TransactionEventResponse.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: Authorized",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S5",
+        "objective": "Stop a transaction when the EV driver is no longer authorized and/or the EV is disconnected.",
+        "steps": [
+          "1. The Charging Station is disconnected from EV and/or the EV driver is no longer authorized.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: PowerPathClosed",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S6",
+        "objective": "Stop a transaction when energy transfer stops. This will also mean the transaction stops when\nthe EV stops taking energy, for example when the battery is too hot.",
+        "steps": [
+          "1. The energy transfer between EV and the Charging Station stops (for example: EV stops\ncharging).",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: EnergyTransfer",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S7",
+        "objective": "Stop a transaction when EV driver ends authorization",
+        "steps": [
+          "1. The EV drivers presents an IdToken to end the charging.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: Authorized (or PowerPathClosed).",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# E03 - Start Transaction - IdToken First\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                 | Start Transaction - IdToken First                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 2   | ID                   | E03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s)         | To enable the EV Driver to start a transaction by first presenting an IdToken at the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "content": "# E03 - Start Transaction - IdToken First\n\n**Objective:** To enable the EV Driver to start a transaction by first presenting an IdToken at the Charging\nStation.\n\n**Description:** This use case covers how the EV Driver is first authorized by presenting an IdToken before the\ncable is plugged in and a transaction starts.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The EV Driver is authorized by the Charging Station and/or CSMS.\n2. The Charging Station informs the CSMS that a transaction has started by sending a\nTransactionEventRequest (eventType = Started).\n3. The EV Driver plugs in the Charging Cable at the Charging Station.\n4. The Charging Station sends StatusNotificationRequest to, and receives\nStatusNotificationResponse from the CSMS.\n5. The Charging Station informs the CSMS that the EV started charging by sending a\nTransactionEventRequest (eventType = Updated, chargingState = Charging).\n6. The CSMS responds with TransactionEventResponse, accepting the transaction.\n\n**Prerequisites:** IdToken is presented prior to plugin cable.\n\n**Postconditions:** Successful postcondition:\nA transaction is started and the ChargingState is Charging\nFailure postcondition:\nNo transaction is started\n\n**Remarks:** It is likely that the CSMS applies sanity checks to the data contained in TransactionEventRequest\nmessages it received. The outcome of such sanity checks SHALL NOT ever cause the CSMS to\nnot respond with a TransactionEventResponse. Failing to do so will only cause the Charging\nStation to try the same message again as specified in E12 - Transaction-related message not\naccepted by CSMS.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: Authorized\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are sent. For more details\nsee the use cases: E01 - Start Transaction options.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E03 - Start Transaction - IdToken First",
-        "heading_path": "E03 - Start Transaction - IdToken First",
         "functional_block": "Transactions",
         "use_case_id": "E03",
         "use_case_name": "Start Transaction - IdToken First",
-        "use_case_refs": "E01, E03, E12",
-        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 3
       }
     },
     {
-      "content": "| 4   | Description          | This use case covers how the EV Driver is first authorized by presenting an IdToken before the cable is plugged in and a transaction starts.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n|     | Actors               | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n|     | Scenario description | 1. The EV Driver is authorized by the Charging Station and/or CSMS. 2. The Charging Station informs the CSMS that a transaction has started by sending a TransactionEventRequest (eventType = Started). 3. The EV Driver plugs in the Charging Cable at the Charging Station. 4. The Charging Station sends StatusNotificationRequest to, and receives StatusNotificationResponse from the CSMS. 5. The Charging Station informs the CSMS that the EV started charging by sending a TransactionEventRequest (eventType = Updated, chargingState = Charging). 6. The CSMS responds with TransactionEventResponse, accepting the transaction.                                                                                                                                                                                    |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E03 - Start Transaction - IdToken First",
-        "heading_path": "E03 - Start Transaction - IdToken First",
-        "functional_block": "Transactions",
-        "use_case_id": "E03",
-        "use_case_name": "Start Transaction - IdToken First",
-        "use_case_refs": "E01, E03, E12",
-        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 5   | Prerequisite(s)      | IdToken is presented prior to plugin cable.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 6   | Postcondition(s)     | Successful postcondition: A transaction is started and the ChargingState is Charging Failure postcondition: No transaction is started                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E03 - Start Transaction - IdToken First",
-        "heading_path": "E03 - Start Transaction - IdToken First",
-        "functional_block": "Transactions",
-        "use_case_id": "E03",
-        "use_case_name": "Start Transaction - IdToken First",
-        "use_case_refs": "E01, E03, E12",
-        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)            | It is likely that the CSMS applies sanity checks to the data contained in TransactionEventRequest messages it received. The outcome of such sanity checks SHALL NOT ever cause the CSMS to not respond with a TransactionEventResponse. Failing to do so will only cause the Charging Station to try the same message again as specified in E12 - Transaction-related message not accepted by CSMS. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: Authorized This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are sent. For more details see the use cases: E01 - Start Transaction options. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E03 - Start Transaction - IdToken First",
-        "heading_path": "E03 - Start Transaction - IdToken First",
-        "functional_block": "Transactions",
-        "use_case_id": "E03",
-        "use_case_name": "Start Transaction - IdToken First",
-        "use_case_refs": "E01, E03, E12",
-        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# CSMS\n\nUser authorization successful.\n\nTransactionEventRequest(eventType = Started, transactionId = AB1234, triggerReason = Authorized, seqNo = N, timestamp, idToken.id = 1234, ...)\n\nTransactionEventResponse(idTokenInfo.status = Accepted,...)\n\nalt [if within ConnectionTimeOut]\n\nplugin cable\n\nStatusNotificationRequest(Occupied)\n\nStatusNotificationResponse()\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp, chargingState = EVConnected, triggerReason = CablePluggedIn, ...)\n\nTransactionEventResponse(...)\n\nalt [if cable not permanently attached]\n\nlock connector\n\nstart energy offer\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp, chargingState = Charging, triggerReason = ChargingStateChanged, ...)\n\nTransactionEventResponse(...)\n\n[if not within Connection Timeout]\n\nTransactionEventRequest(eventType = Ended, triggerReason = EVConnectTimeout, transactionId = AB1234, seqNo = N + 1, timestamp, meterValues, stoppedReason = Timeout)\n\nTransactionEventResponse()\n\nopt notification",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "CSMS",
-        "heading_path": "CSMS",
-        "functional_block": "Transactions",
-        "use_case_id": "E03",
-        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# E03 - Start Transaction - IdToken First - Requirements\n\n| ID        | Precondition                                                                                                                                                                          | Requirement definition                                                                                                                                                            | Note                                                                                                                                                                                                                                                                                                                                 |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| E03.FR.01 | When the IdToken information is known.                                                                                                                                                | The next TransactionEventRequest SHALL contain IdTokenType information.                                                                                                           | (Same as E01.FR.10)                                                                                                                                                                                                                                                                                                                  |\n| E03.FR.02 | E03.FR.01                                                                                                                                                                             | The CSMS SHALL send a TransactionEventResponse that includes an authorization status.                                                                                             |                                                                                                                                                                                                                                                                                                                                      |\n| E03.FR.03 | This transaction ends a reservation for the specific IdToken.                                                                                                                         | The next TransactionEventRequest SHALL contain the reservationId.                                                                                                                 | See H. Reservation.                                                                                                                                                                                                                                                                                                                  |\n| E03.FR.05 | When the EV Driver does not plug-in the charging cable before the timeout set by the Configuration Variable: EVConnectionTimeOut AND TxStopPoint does not contain ParkingBayOccupancy | The Charging Station SHOULD end the transaction and send a TransactionEventRequest (eventType = Ended, stoppedReason = Timeout, triggerReason = EVConnectionTimeout) to the CSMS. | This requirement is an additional safety measure to make sure the transaction is ended when the EVConnectionTimeout is triggered. However it is up to the CSMS to make sure that sensible TxStartPoint / TxStopPoint combinations are configured. E.g. if Authorized is used as TxStartPoint, it should also be used as TxStopPoint. |",
+      "content": "# E03 - Requirements\n\n**E03.FR.01**\nPrecondition: When the IdToken information is\nknown.\nThe next TransactionEventRequest SHALL contain\nIdTokenType information.\n\n**E03.FR.02**\nPrecondition: E03.FR.01\nThe CSMS SHALL send a\nTransactionEventResponse that includes an\nauthorization status.\n\n**E03.FR.03**\nPrecondition: This transaction ends a reservation for\nthe specific IdToken.\nThe next TransactionEventRequest SHALL contain\nthe reservationId.\n\n**E03.FR.05**\nPrecondition: When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint does not contain\nParkingBayOccupancy\nThe Charging Station SHOULD end the transaction\nand send a TransactionEventRequest (eventType =\nEnded, stoppedReason = Timeout, triggerReason =\nEVConnectionTimeout) to the CSMS.\n\n**E03.FR.06**\nPrecondition: When a TransactionEventRequest has\nto be created\nThe Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration.\n\n**E03.FR.07**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is known at start of transaction\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.Begin in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details during the\ntransaction.\n\n**E03.FR.08**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during the\ntransaction.\n\n**E03.FR.09**\nPrecondition: E03.FR.08\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)\nThe Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp.\n\n**E03.FR.10**\nPrecondition: SampledDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E03 - Start Transaction - IdToken First - Requirements",
-        "heading_path": "E03 - Start Transaction - IdToken First - Requirements",
+        "heading": "E03 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E03",
         "use_case_name": "Start Transaction - IdToken First",
-        "use_case_refs": "E01, E03",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# E03 - Requirements (continued)\n\n**E03.FR.11**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is not known at start of\ntransaction\nThe Charging Station SHALL add the measurands\nfor eventType = Started to the optional\nmeterValue field with context =\nTransaction.Begin in the\nTransactionEventRequest(eventType = Updated)\nthat occurs when charging starts.\n\n**E03.FR.12**\nPrecondition: When a transaction-related trigger\nevent occurs, listed in\nTriggerReasonEnumType AND\nthe transaction is ongoing.\nThe Charging Station SHALL send a\nTransactionEventRequest with a triggerReason\ncorresponding to the occurred event.\n\n**E03.FR.13**\nPrecondition: When the energy transfer starts AND\nIf the Charging Station is able to report\nthe number of phases used\nThe Charging Station SHALL provide the number of\nphases used, using the numberOfPhasesUsed field.\n\n**E03.FR.14**\nPrecondition: E03.FR.13 AND\nduring the transaction the number of\nphases used changes\nThe Charging Station SHALL provide the adjusted\nnumber of phases used, using the\nnumberOfPhasesUsed field in the next\nTransactionEventRequest.\n\n**E03.FR.15**\nPrecondition: When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint contains\nParkingBayOccupancy\nThe Charging Station SHALL deauthorize the\ntransaction and send a TransactionEventRequest\n(triggerReason = EVConnectionTimeout) to the\nCSMS.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E03 - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E03",
+        "use_case_name": "Start Transaction - IdToken First",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,105 +2,88 @@
   "use_case_id": "N03",
   "functional_block": "Diagnostics",
   "use_case_name": "Set Monitoring Base",
+  "structured": {
+    "name": "Set Monitoring Base",
+    "id": "N03",
+    "functional_block": "Diagnostics",
+    "objective": "To give the CSMS the ability to request the Charging Station to activate a set of preconfigured\nmonitoring settings, as denoted by the value of MonitoringBase.",
+    "description": "This use case describes how the CSMS requests the Charging Station to activate a set of\npreconfigured monitoring settings, as denoted by the value of MonitoringBase. It is up to the\nmanufacturer of the Charging Station to define which monitoring settings are activated by All,\nFactoryDefault and HardWiredOnly.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "CSO"
+    ],
+    "scenario": [
+      "1. The CSO triggers the CSMS to request a Charging Station to set a monitoring base.",
+      "2. The CSMS sends a SetMonitoringBaseRequest to the Charging Station.",
+      "3. The Charging Station responds with a SetMonitoringBaseResponse."
+    ],
+    "prerequisites": "Charging Station supports Monitoring",
+    "postconditions": "The Charging Station activated the set of monitoring settings, as denoted by the value of\nMonitoringBase.",
+    "error_handling": "n/a",
+    "remarks": "Upon receipt of a SetMonitoringBaseRequest for:\n\u2022 monitoringBase = HardWiredOnly: the Charging Station will deactivate all pre-\nconfigured monitors and remove any previously configured custom monitors. Only the\nHardWiredMonitor monitors remain.\n\u2022 monitoringBase = FactoryDefault: the Charging Station will (re)activate all\nPreconfiguredMonitor monitors and remove all custom monitors.\n\u2022 monitoringBase = All: the Charging Station will activate all pre-configured monitors and\nleave previously configured CustomMonitor monitors intact. This includes the custom\nmonitors that were created when changing an existing pre-configured monitor.",
+    "requirements": [
+      {
+        "id": "N03.FR.01",
+        "precondition": "When the Charging Station accepts a\nsetMonitoringBaseRequest",
+        "definition": "Then the Charging Station SHALL send a\nsetMonitoringBaseResponse with Accepted."
+      },
+      {
+        "id": "N03.FR.02",
+        "precondition": "When the Charging Station receives a\nsetMonitoringBaseRequest for a not supported\nmonitoringBase",
+        "definition": "Then the Charging Station SHALL send a\nsetMonitoringBaseResponse with NotSupported."
+      },
+      {
+        "id": "N03.FR.03",
+        "precondition": "N03.FR.01 AND\nWhen the Charging Station received a\nsetMonitoringBaseRequest with monitoringBase\nAll",
+        "definition": "Then the Charging Station SHALL activate all preconfigured\nmonitoring whilst leaving all installed custom monitors\n(including changed preconfigured monitors) intact."
+      },
+      {
+        "id": "N03.FR.04",
+        "precondition": "N03.FR.01 AND\nWhen the Charging Station received a\nsetMonitoringBaseRequest with monitoringBase\nFactoryDefault",
+        "definition": "Then the Charging Station SHALL delete all custom monitors\n(including overruled pre-configured monitors) and activate the\npre-configured monitors of the Charging Station."
+      },
+      {
+        "id": "N03.FR.05",
+        "precondition": "N03.FR.01 AND\nWhen the Charging Station received a\nsetMonitoringBaseRequest with monitoringBase\nHardWiredOnly",
+        "definition": "Then the Charging Station SHALL clear all custom and disable all\npre-configured monitors. Only hard-wired monitors remain\nactive."
+      }
+    ],
+    "figures": [
+      "fig131.png",
+      "fig132.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# N03 - Set Monitoring Base\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Set Monitoring Base                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 2   | ID               | N03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)     | To give the CSMS the ability to request the Charging Station to activate a set of preconfigured monitoring settings, as denoted by the value of MonitoringBase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 4   | Description      | This use case describes how the CSMS requests the Charging Station to activate a set of preconfigured monitoring settings, as denoted by the value of MonitoringBase. It is up to the manufacturer of the Charging Station to define which monitoring settings are activated by All, FactoryDefault and HardWiredOnly. Actors: Charging Station, CSMS, CSO Scenario description:1) The CSO triggers the CSMS to request a Charging Station to set a monitoring base.",
+      "content": "# N03 - Set Monitoring Base\n\n**Objective:** To give the CSMS the ability to request the Charging Station to activate a set of preconfigured\nmonitoring settings, as denoted by the value of MonitoringBase.\n\n**Description:** This use case describes how the CSMS requests the Charging Station to activate a set of\npreconfigured monitoring settings, as denoted by the value of MonitoringBase. It is up to the\nmanufacturer of the Charging Station to define which monitoring settings are activated by All,\nFactoryDefault and HardWiredOnly.\n\n**Actors:** Charging Station, CSMS, CSO\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a Charging Station to set a monitoring base.\n2. The CSMS sends a SetMonitoringBaseRequest to the Charging Station.\n3. The Charging Station responds with a SetMonitoringBaseResponse.\n\n**Prerequisites:** Charging Station supports Monitoring\n\n**Postconditions:** The Charging Station activated the set of monitoring settings, as denoted by the value of\nMonitoringBase.\n\n**Remarks:** Upon receipt of a SetMonitoringBaseRequest for:\n\u2022 monitoringBase = HardWiredOnly: the Charging Station will deactivate all pre-\nconfigured monitors and remove any previously configured custom monitors. Only the\nHardWiredMonitor monitors remain.\n\u2022 monitoringBase = FactoryDefault: the Charging Station will (re)activate all\nPreconfiguredMonitor monitors and remove all custom monitors.\n\u2022 monitoringBase = All: the Charging Station will activate all pre-configured monitors and\nleave previously configured CustomMonitor monitors intact. This includes the custom\nmonitors that were created when changing an existing pre-configured monitor.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "N03 - Set Monitoring Base",
-        "heading_path": "N03 - Set Monitoring Base",
         "functional_block": "Diagnostics",
         "use_case_id": "N03",
         "use_case_name": "Set Monitoring Base",
-        "use_case_refs": "N03",
-        "message_refs": "SetMonitoringBaseRequest, SetMonitoringBaseResponse",
-        "figure_refs": "131",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 2
       }
     },
     {
-      "content": "2) The CSMS sends a SetMonitoringBaseRequest to the Charging Station.\n3) The Charging Station responds with a SetMonitoringBaseResponse.                                               |\n| 5   | Prerequisite(s)  | Charging Station supports Monitoring                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 6   | Postcondition(s) | The Charging Station activated the set of monitoring settings, as denoted by the value of MonitoringBase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N03 - Set Monitoring Base",
-        "heading_path": "N03 - Set Monitoring Base",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N03",
-        "use_case_name": "Set Monitoring Base",
-        "use_case_refs": "N03",
-        "message_refs": "SetMonitoringBaseRequest, SetMonitoringBaseResponse",
-        "figure_refs": "131",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)        | Upon receipt of a SetMonitoringBaseRequest for: • monitoringBase = HardWiredOnly: the Charging Station will deactivate all pre-configured monitors and remove any previously configured custom monitors. Only the HardWiredMonitor monitors remain. • monitoringBase = FactoryDefault: the Charging Station will (re)activate all PreconfiguredMonitor monitors and remove all custom monitors. • monitoringBase = All: the Charging Station will activate all pre-configured monitors and leave previously configured CustomMonitor monitors intact. This includes the custom monitors that were created when changing an existing pre-configured monitor. |\n\nCSO    CSMS    Charging Station\n\nrequest to set a monitoring base\n\nSetMonitoringBaseRequest(monitoringBase)\n\nSetMonitoringBaseResponse(status)\n\nFigure 131. Sequence Diagram: Set Monitoring Base",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N03 - Set Monitoring Base",
-        "heading_path": "N03 - Set Monitoring Base",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N03",
-        "use_case_name": "Set Monitoring Base",
-        "use_case_refs": "N03",
-        "message_refs": "SetMonitoringBaseRequest, SetMonitoringBaseResponse",
-        "figure_refs": "131",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# N03 - Set Monitoring Base - Requirements\n\n| ID        | Precondition                                                                                        | Requirement definition                                                                                                                                                |\n| --------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N03.FR.01 | When the Charging Station accepts a setMonitoringBaseRequest                                        | Then the Charging Station SHALL send a setMonitoringBaseResponse with Accepted.                                                                                       |\n| N03.FR.02 | When the Charging Station receives a setMonitoringBaseRequest for a not supported monitoringBase    | Then the Charging Station SHALL send a setMonitoringBaseResponse with NotSupported.                                                                                   |\n| N03.FR.03 | N03.FR.01 AND When the Charging Station received a setMonitoringBaseRequest with monitoringBase All | Then the Charging Station SHALL activate all preconfigured monitoring whilst leaving all installed custom monitors (including changed preconfigured monitors) intact. |",
+      "content": "# N03 - Requirements\n\n**N03.FR.01**\nPrecondition: When the Charging Station accepts a\nsetMonitoringBaseRequest\nThen the Charging Station SHALL send a\nsetMonitoringBaseResponse with Accepted.\n\n**N03.FR.02**\nPrecondition: When the Charging Station receives a\nsetMonitoringBaseRequest for a not supported\nmonitoringBase\nThen the Charging Station SHALL send a\nsetMonitoringBaseResponse with NotSupported.\n\n**N03.FR.03**\nPrecondition: N03.FR.01 AND\nWhen the Charging Station received a\nsetMonitoringBaseRequest with monitoringBase\nAll\nThen the Charging Station SHALL activate all preconfigured\nmonitoring whilst leaving all installed custom monitors\n(including changed preconfigured monitors) intact.\n\n**N03.FR.04**\nPrecondition: N03.FR.01 AND\nWhen the Charging Station received a\nsetMonitoringBaseRequest with monitoringBase\nFactoryDefault\nThen the Charging Station SHALL delete all custom monitors\n(including overruled pre-configured monitors) and activate the\npre-configured monitors of the Charging Station.\n\n**N03.FR.05**\nPrecondition: N03.FR.01 AND\nWhen the Charging Station received a\nsetMonitoringBaseRequest with monitoringBase\nHardWiredOnly\nThen the Charging Station SHALL clear all custom and disable all\npre-configured monitors. Only hard-wired monitors remain\nactive.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "N03 - Set Monitoring Base - Requirements",
-        "heading_path": "N03 - Set Monitoring Base - Requirements",
+        "heading": "N03 - Requirements",
         "functional_block": "Diagnostics",
         "use_case_id": "N03",
         "use_case_name": "Set Monitoring Base",
-        "use_case_refs": "N03",
-        "message_refs": "setMonitoringBaseRequest, setMonitoringBaseResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "131",
-      "title": "Sequence Diagram: Set Monitoring Base",
-      "files": [
-        "fig131_p1_Sequence_Diagram__Set_Monitoring_Base.png",
-        "fig131_p2_Sequence_Diagram__Set_Monitoring_Base.png"
-      ]
-    },
-    {
-      "figure_num": "131",
-      "title": "Sequence Diagram: Set Monitoring Base",
-      "files": [
-        "fig131_p1_Sequence_Diagram__Set_Monitoring_Base.png",
-        "fig131_p2_Sequence_Diagram__Set_Monitoring_Base.png"
-      ]
-    },
-    {
-      "figure_num": "131",
-      "title": "Sequence Diagram: Set Monitoring Base",
-      "files": [
-        "fig131_p1_Sequence_Diagram__Set_Monitoring_Base.png",
-        "fig131_p2_Sequence_Diagram__Set_Monitoring_Base.png"
-      ]
     }
   ]
 }

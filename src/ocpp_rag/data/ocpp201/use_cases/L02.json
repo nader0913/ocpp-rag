@@ -2,76 +2,189 @@
   "use_case_id": "L02",
   "functional_block": "FirmwareManagement",
   "use_case_name": "Non-Secure Firmware Update",
+  "structured": {
+    "name": "Non-Secure Firmware Update",
+    "id": "L02",
+    "functional_block": "FirmwareManagement",
+    "objective": "Download and install a Non-Secure firmware update.",
+    "description": "Illustrate how a Charging Station processes a Non-Secure firmware update.",
+    "actors": [
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "L02.FR.01",
+        "precondition": "Whenever the Charging Station enters\na new status in the firmware update\nprocess.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nmessage to the CSMS with this new\nstatus."
+      },
+      {
+        "id": "L02.FR.02",
+        "precondition": "When the Charging Station has\nsuccessfully downloaded the new\nfirmware AND\n( installDateTime is not set OR\ncurrent time >= installDateTime )",
+        "definition": "The Charging Station SHALL install\nthe new firmware as soon as it is able\nto."
+      },
+      {
+        "id": "L02.FR.03",
+        "precondition": "L02.FR.02\nAND\nThe Charging Station has ongoing\ntransactions\nAND\nWhen it is not possible to start\ninstallation of firmware while a\ntransaction is ongoing",
+        "definition": "The Charging Station SHALL wait until\nall transactions have ended, before\ncommencing installation."
+      },
+      {
+        "id": "L02.FR.04",
+        "precondition": "L02.FR.03 or L02.FR.22 AND\nconfiguration variable\nAllowNewSessionsPendingFirmw\nareUpdate is false or does not exist",
+        "definition": "The Charging Station SHALL set all\nEVSE that are not in use to\nUNAVAILABLE while the Charging\nStation waits for the ongoing\ntransactions to end. Until the firmware\nis installed, any EVSE that becomes\navailable SHALL be set to\nUNAVAILABLE."
+      },
+      {
+        "id": "L02.FR.05",
+        "precondition": "",
+        "definition": "It is RECOMMENDED that the\nfirmware is sent encrypted to the\nCharging Station. This can either be\ndone by using a secure protocol (such\nas HTTPS, SFTP, or FTPS) to send the\nfirmware, or by encrypting the\nfirmware itself before sending it."
+      },
+      {
+        "id": "L02.FR.06",
+        "precondition": "",
+        "definition": "Every\nFirmwareStatusNotificationRequest\nsent for a firmware update SHALL\ncontain the same requestId as the\nUpdateFirmwareRequest that started\nthis firmware update."
+      },
+      {
+        "id": "L02.FR.07",
+        "precondition": "When the Charging Station does not\nstart downloading firmware, because\nit is busy charging or because\nretrieveDateTime is in the future",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadScheduled."
+      },
+      {
+        "id": "L02.FR.08",
+        "precondition": "When the Charging Station enters the\nDownload Paused state.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadPaused."
+      },
+      {
+        "id": "L02.FR.09",
+        "precondition": "When a Charging Station needs to\nreboot before installing the\ndownloaded firmware.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallRebooting, before\nrebooting."
+      },
+      {
+        "id": "L02.FR.10",
+        "precondition": "When the Charging Station has\nsuccessfully downloaded the new\nfirmware AND\ninstallDateTime is set to time in the\nfuture",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled and\ninstall the firmware at the specified\ninstallation time."
+      },
+      {
+        "id": "L02.FR.14",
+        "precondition": "",
+        "definition": "The field requestId in\nFirmwareStatusNotificationRequest is\nmandatory, unless status = Idle."
+      },
+      {
+        "id": "L02.FR.15",
+        "precondition": "When a Charging Station is installing\nnew Firmware OR\nis going to install new Firmware, but\nhas received an UpdateFirmware\ncommand to install it at a later time\nAND\nthe Charging Station receives a new\nUpdateFirmwareRequest",
+        "definition": "The Charging Station SHOULD cancel\nthe ongoing firmware update AND\nrespond with status\nAcceptedCanceled."
+      },
+      {
+        "id": "L02.FR.16",
+        "precondition": "Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad status = Installed",
+        "definition": "Charging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith status = Idle."
+      },
+      {
+        "id": "L02.FR.17",
+        "precondition": "Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad NOT status Installed",
+        "definition": "Charging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith the last sent status."
+      },
+      {
+        "id": "L02.FR.18",
+        "precondition": "L02.FR.15\nAND\nthe Charging Station is unable to\ncancel the firmware installation",
+        "definition": "The Charging Station MAY respond\nwith status = Rejected."
+      },
+      {
+        "id": "L02.FR.19",
+        "precondition": "When the Charging Station has failed\nall retry attempts to download the\nfirmware.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadFailed."
+      },
+      {
+        "id": "L02.FR.20",
+        "precondition": "When the Charging Station has\nsuccessfully installed and activated\nthe new firmware",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status Installed."
+      },
+      {
+        "id": "L02.FR.21",
+        "precondition": "When the Charging Station has\nsuccessfully installed the new\nfirmware AND\nthe Charging Station needs to reboot\nbefore activating the new firmware",
+        "definition": "The Charging Station SHALL either:\n(a) send an optional\nFirmwareStatusNotificationRequest\nwith status = InstallRebooting\nbefore rebooting and send a\nmandatory\nFirmwareStatusNotificationRequest\nwith status = Installed by the newly\nactivated firmware, or\n(b) only send a\nFirmwareStatusNotificationRequest\nwith status set to Installed without\nreporting the reboot and activation of\nthe new firmware."
+      },
+      {
+        "id": "L02.FR.22",
+        "precondition": "L02.FR.02\nAND\nThe Charging Station has ongoing\ntransactions\nAND\na reboot is needed to activate the\ninstalled firmware",
+        "definition": "The Charging Station SHALL wait until\nall transactions have ended, before\nactivating the installed firmware."
+      },
+      {
+        "id": "L02.FR.23",
+        "precondition": "When the Charging Station has\nsuccessfully downloaded the firmware\nAND\ninstallDateTime is not set AND\nCharging Station is waiting for a\ntransaction to finish",
+        "definition": "The Charging Station MAY send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled."
+      }
+    ],
+    "figures": [
+      "fig117.png",
+      "fig118.png",
+      "fig119.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# L02 - Non-Secure Firmware Update\n\n| No. | Type         | Description                                                               |\n| --- | ------------ | ------------------------------------------------------------------------- |\n| 1   | Name         | Non-Secure Firmware Update                                                |\n| 2   | ID           | L02                                                                       |\n| 3   | Objective(s) | Download and install a Non-Secure firmware update.                        |\n| 4   | Description  | Illustrate how a Charging Station processes a Non-Secure firmware update. |\n|     | Actors       | CSMS, Charging Station                                                    |",
+      "content": "# L02 - Non-Secure Firmware Update\n\n**Objective:** Download and install a Non-Secure firmware update.\n\n**Description:** Illustrate how a Charging Station processes a Non-Secure firmware update.\n\n**Actors:** CSMS, Charging Station",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "L02 - Non-Secure Firmware Update",
-        "heading_path": "L02 - Non-Secure Firmware Update",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L02",
         "use_case_name": "Non-Secure Firmware Update",
-        "use_case_refs": "L02"
-      }
-    },
-    {
-      "content": "# L02 - Non-Secure Firmware Update - Requirements\n\n| ID        | Precondition                                                                                                                                             | Requirement definition                                                                                                                                                                                                                                  | Note                                                                                      |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |\n| L02.FR.01 | Whenever the Charging Station enters a new status in the firmware update process.                                                                        | The Charging Station SHALL send a FirmwareStatusNotificationRequest message to the CSMS with this new status.                                                                                                                                           | Same as L01.FR.01                                                                         |\n| L02.FR.02 | When the Charging Station has successfully downloaded the new firmware AND ( installDateTime is not set OR current time >= installDateTime )             | The Charging Station SHALL install the new firmware as soon as it is able to.                                                                                                                                                                           | Same as L01.FR.04 and L01.FR.05                                                           |\n| L02.FR.03 | L02.FR.02 AND The Charging Station has ongoing transactions AND When it is not possible to start installation of firmware while a transaction is ongoing | The Charging Station SHALL wait until all transactions have ended, before commencing installation.                                                                                                                                                      | Same as L01.FR.06                                                                         |\n| L02.FR.04 | L02.FR.03 or L02.FR.22 AND configuration variable AllowNewSessionsPendingFirmwareUpdate is false or does not exist                                       | The Charging Station SHALL set all EVSE that are not in use to UNAVAILABLE while the Charging Station waits for the ongoing firmware transactions to end. Until the firmware is installed, any EVSE that becomes available SHALL be set to UNAVAILABLE. | Same as L01.FR.07                                                                         |\n| L02.FR.05 |                                                                                                                                                          | It is RECOMMENDED that the firmware is sent encrypted to the Charging Station. This can either be done by using a secure protocol (such as HTTPS, SFTP, or FTPS) to send the firmware, or by encrypting the firmware itself before sending it.          | Same as L01.FR.08                                                                         |\n| L02.FR.06 |                                                                                                                                                          | Every FirmwareStatusNotificationRequest sent for a firmware update SHALL contain the same requestId as the UpdateFirmwareRequest that started this firmware update.                                                                                     | Same as L01.FR.10                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "L02 - Non-Secure Firmware Update - Requirements",
-        "heading_path": "L02 - Non-Secure Firmware Update - Requirements",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L02",
-        "use_case_name": "Non-Secure Firmware Update",
-        "use_case_refs": "L01, L02",
-        "message_refs": "FirmwareStatusNotificationRequest, UpdateFirmwareRequest",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 4
       }
     },
     {
-      "content": "| L02.FR.07 | When the Charging Station does not start downloading firmware, because it is busy charging or because retrieveDateTime is in the future                  | The Charging Station SHALL send a FirmwareStatusNotificationRequest with status DownloadScheduled.                                                                                                                                                      | Same as L01.FR.13                                                                         |\n| L02.FR.08 | When the Charging Station enters the Download Paused state.                                                                                              | The Charging Station SHALL send a FirmwareStatusNotificationRequest with status DownloadPaused.                                                                                                                                                         | For example when the Charging Station has tasks with higher priorities. Same as L01.FR.14 |\n| L02.FR.09 | When a Charging Station needs to reboot before installing the downloaded firmware.                                                                       | The Charging Station SHALL send a FirmwareStatusNotificationRequest with status InstallRebooting, before rebooting.                                                                                                                                     | Same as L01.FR.15                                                                         |\n| L02.FR.10 | When the Charging Station has successfully downloaded the new firmware AND installDateTime is set to time in the future                                  | The Charging Station SHALL send a FirmwareStatusNotificationRequest with status InstallScheduled and install the firmware at the specified installation time.                                                                                           | Same as L01.FR.04 and L01.FR.16                                                           |",
+      "content": "# L02 - Requirements\n\n**L02.FR.01**\nPrecondition: Whenever the Charging Station enters\na new status in the firmware update\nprocess.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nmessage to the CSMS with this new\nstatus.\n\n**L02.FR.02**\nPrecondition: When the Charging Station has\nsuccessfully downloaded the new\nfirmware AND\n( installDateTime is not set OR\ncurrent time >= installDateTime )\nThe Charging Station SHALL install\nthe new firmware as soon as it is able\nto.\n\n**L02.FR.03**\nPrecondition: L02.FR.02\nAND\nThe Charging Station has ongoing\ntransactions\nAND\nWhen it is not possible to start\ninstallation of firmware while a\ntransaction is ongoing\nThe Charging Station SHALL wait until\nall transactions have ended, before\ncommencing installation.\n\n**L02.FR.04**\nPrecondition: L02.FR.03 or L02.FR.22 AND\nconfiguration variable\nAllowNewSessionsPendingFirmw\nareUpdate is false or does not exist\nThe Charging Station SHALL set all\nEVSE that are not in use to\nUNAVAILABLE while the Charging\nStation waits for the ongoing\ntransactions to end. Until the firmware\nis installed, any EVSE that becomes\navailable SHALL be set to\nUNAVAILABLE.\n\n**L02.FR.05**\nIt is RECOMMENDED that the\nfirmware is sent encrypted to the\nCharging Station. This can either be\ndone by using a secure protocol (such\nas HTTPS, SFTP, or FTPS) to send the\nfirmware, or by encrypting the\nfirmware itself before sending it.\n\n**L02.FR.06**\nEvery\nFirmwareStatusNotificationRequest\nsent for a firmware update SHALL\ncontain the same requestId as the\nUpdateFirmwareRequest that started\nthis firmware update.\n\n**L02.FR.07**\nPrecondition: When the Charging Station does not\nstart downloading firmware, because\nit is busy charging or because\nretrieveDateTime is in the future\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadScheduled.\n\n**L02.FR.08**\nPrecondition: When the Charging Station enters the\nDownload Paused state.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadPaused.\n\n**L02.FR.09**\nPrecondition: When a Charging Station needs to\nreboot before installing the\ndownloaded firmware.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallRebooting, before\nrebooting.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "L02 - Non-Secure Firmware Update - Requirements",
-        "heading_path": "L02 - Non-Secure Firmware Update - Requirements",
+        "heading": "L02 - Requirements",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L02",
         "use_case_name": "Non-Secure Firmware Update",
-        "use_case_refs": "L01, L02",
-        "message_refs": "FirmwareStatusNotificationRequest, UpdateFirmwareRequest",
         "chunk_part": 2,
-        "total_parts": 3
+        "total_parts": 4
       }
     },
     {
-      "content": "| L02.FR.14 |                                                                                                                                                          | The field requestId in FirmwareStatusNotificationRequest is mandatory, unless status = Idle.                                                                                                                                                            | Same as L01.FR.20                                                                         |",
+      "content": "# L02 - Requirements (continued)\n\n**L02.FR.10**\nPrecondition: When the Charging Station has\nsuccessfully downloaded the new\nfirmware AND\ninstallDateTime is set to time in the\nfuture\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled and\ninstall the firmware at the specified\ninstallation time.\n\n**L02.FR.14**\nThe field requestId in\nFirmwareStatusNotificationRequest is\nmandatory, unless status = Idle.\n\n**L02.FR.15**\nPrecondition: When a Charging Station is installing\nnew Firmware OR\nis going to install new Firmware, but\nhas received an UpdateFirmware\ncommand to install it at a later time\nAND\nthe Charging Station receives a new\nUpdateFirmwareRequest\nThe Charging Station SHOULD cancel\nthe ongoing firmware update AND\nrespond with status\nAcceptedCanceled.\n\n**L02.FR.16**\nPrecondition: Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad status = Installed\nCharging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith status = Idle.\n\n**L02.FR.17**\nPrecondition: Charging Station receives a\nTriggerMessageRequest for\nFirmwareStatusNotification\nAND\nlast sent\nFirmwareStatusNotificationRequest\nhad NOT status Installed\nCharging Station SHALL return a\nFirmwareStatusNotificationRequest\nwith the last sent status.\n\n**L02.FR.18**\nPrecondition: L02.FR.15\nAND\nthe Charging Station is unable to\ncancel the firmware installation\nThe Charging Station MAY respond\nwith status = Rejected.\n\n**L02.FR.19**\nPrecondition: When the Charging Station has failed\nall retry attempts to download the\nfirmware.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status DownloadFailed.\n\n**L02.FR.20**\nPrecondition: When the Charging Station has\nsuccessfully installed and activated\nthe new firmware\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest\nwith status Installed.\n\n**L02.FR.21**\nPrecondition: When the Charging Station has\nsuccessfully installed the new\nfirmware AND\nthe Charging Station needs to reboot\nbefore activating the new firmware\nThe Charging Station SHALL either:\n(a) send an optional\nFirmwareStatusNotificationRequest\nwith status = InstallRebooting\nbefore rebooting and send a\nmandatory\nFirmwareStatusNotificationRequest\nwith status = Installed by the newly\nactivated firmware, or\n(b) only send a\nFirmwareStatusNotificationRequest\nwith status set to Installed without\nreporting the reboot and activation of\nthe new firmware.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "L02 - Non-Secure Firmware Update - Requirements",
-        "heading_path": "L02 - Non-Secure Firmware Update - Requirements",
+        "heading": "L02 - Requirements",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L02",
         "use_case_name": "Non-Secure Firmware Update",
-        "use_case_refs": "L01, L02",
-        "message_refs": "FirmwareStatusNotificationRequest, UpdateFirmwareRequest",
         "chunk_part": 3,
-        "total_parts": 3
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# L02 - Requirements (continued)\n\n**L02.FR.22**\nPrecondition: L02.FR.02\nAND\nThe Charging Station has ongoing\ntransactions\nAND\na reboot is needed to activate the\ninstalled firmware\nThe Charging Station SHALL wait until\nall transactions have ended, before\nactivating the installed firmware.\n\n**L02.FR.23**\nPrecondition: When the Charging Station has\nsuccessfully downloaded the firmware\nAND\ninstallDateTime is not set AND\nCharging Station is waiting for a\ntransaction to finish\nThe Charging Station MAY send a\nFirmwareStatusNotificationRequest\nwith status InstallScheduled.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "L02 - Requirements",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L02",
+        "use_case_name": "Non-Secure Firmware Update",
+        "chunk_part": 4,
+        "total_parts": 4
       }
     }
-  ],
-  "figures": []
+  ]
 }

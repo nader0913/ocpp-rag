@@ -2,59 +2,121 @@
   "use_case_id": "G02",
   "functional_block": "Availability",
   "use_case_name": "Heartbeat",
+  "structured": {
+    "name": "Heartbeat",
+    "id": "G02",
+    "functional_block": "Availability",
+    "objective": "To let the CSMS know that a Charging Station is still connected, optionally the Heartbeat can be\nused for time synchronisation.",
+    "description": "This use case describes a way to let the CSMS know the Charging Station is still connected, a\nCharging Station sends a heartbeat after a configurable time interval. Depending on the\nconfiguration the Heartbeat can be used for time synchronisation.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. If there is no activity for a certain time, the Charging Station sends HeartbeatRequest for\nensuring that the CSMS knows that a Charging Station is still alive.",
+      "2. Upon receipt of HeartbeatRequest, the CSMS responds with HeartbeatResponse. The response\nmessage contains the current time of the CSMS, which the Charging Station MAY use to\nsynchronize its internal clock."
+    ],
+    "prerequisites": "The heartbeat interval is set.",
+    "postconditions": "Successful postconditions::\nThe CSMS knows the Charging Station is still connected.\nFailure postconditions:\nThe CSMS concludes that the Charging Station is Offline.",
+    "error_handling": "n/a",
+    "remarks": "With JSON over WebSocket, sending heartbeats is not instrumental to keeping websockets alive,\nsince websockets already provide a mechanism for this. However, if the Charging Station uses\nthe heartbeat for time synchronization, it is advised to at least send one heartbeat per 24 hours.",
+    "requirements": [
+      {
+        "id": "G02.FR.01",
+        "precondition": "When the CSMS responds with\nBootNotificationResponse with a\nstatus Accepted.",
+        "definition": "The Charging Station SHALL adjust the heartbeat\ninterval in accordance with the interval from the\nresponse message."
+      },
+      {
+        "id": "G02.FR.02",
+        "precondition": "",
+        "definition": "The Charging Station SHALL send\nHeartbeatRequest after a configurable time\ninterval."
+      },
+      {
+        "id": "G02.FR.03",
+        "precondition": "",
+        "definition": "The HeartbeatResponse message SHALL contain\nthe current time of the CSMS."
+      },
+      {
+        "id": "G02.FR.04",
+        "precondition": "Whenever a message from a Charging\nStation has been received.",
+        "definition": "The CSMS SHALL assume availability of that\nCharging Station."
+      },
+      {
+        "id": "G02.FR.05",
+        "precondition": "",
+        "definition": "It is RECOMMENDED that the Charging Station\nresets its heartbeat interval timer when another\nmessage has been sent to the CSMS."
+      },
+      {
+        "id": "G02.FR.06",
+        "precondition": "When the Charging Station receives a\nHeartbeatResponse.",
+        "definition": "It is RECOMMENDED that the Charging Station uses\nthe current time to synchronize its internal clock."
+      },
+      {
+        "id": "G02.FR.07",
+        "precondition": "When the heartbeat interval timer is\ncontinuously reset because of\ncontinuous sending of messages\nAND\nHeartbeatRequest is used for time\nsynchronisation",
+        "definition": "It is RECOMMENDED that the Charging Station\nsends a HeartbeatRequest at least once every 24\nhours to synchronise the clock."
+      }
+    ],
+    "figures": [
+      "fig73.png",
+      "fig74.png",
+      "fig75.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Reserve a specific EVSE at a Charging Station",
+        "steps": [
+          "1. EV Driver asks the CSMS to reserve a specific EVSE at the Charging Station.",
+          "2. The CSMS sends ReserveNowRequest with a EVSE to a Charging Station.",
+          "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted.",
+          "4. The Charging Station sends StatusNotificationRequest with the status Reserved for all\nConnectors of that EVSE.",
+          "5. The CSMS responds with StatusNotificationResponse to the Charging Station."
+        ]
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Reserve a connector type at a Charging Station",
+        "steps": [
+          "1. EV Driver asks the CSMS to reserve a connector type at the Charging Station.",
+          "2. The CSMS sends ReserveNowRequest with a connector type to a Charging Station.",
+          "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted."
+        ],
+        "prerequisites": "The Charging Station has at least one available EVSE with the specified connector type",
+        "postconditions": "Successful postcondition:\nThe Charging Station has accepted the ReserveNowRequest\nFailure postcondition:\nThe Charging Station has rejected the ReserveNowRequest"
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# G02 - Heartbeat\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                          |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                 | Heartbeat                                                                                                                                                                                                                                                                                                                                                                            |\n| 2   | ID                   | G02                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)         | To let the CSMS know that a Charging Station is still connected, optionally the Heartbeat can be used for time synchronisation.                                                                                                                                                                                                                                                      |\n| 4   | Description          | This use case describes a way to let the CSMS know the Charging Station is still connected, a Charging Station sends a heartbeat after a configurable time interval. Depending on the configuration the Heartbeat can be used for time synchronisation.                                                                                                                              |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                               |\n|     | Scenario description | 1. If there is no activity for a certain time, the Charging Station sends HeartbeatRequest for ensuring that the CSMS knows that a Charging Station is still alive. 2. Upon receipt of HeartbeatRequest, the CSMS responds with HeartbeatResponse. The response message contains the current time of the CSMS, which the Charging Station MAY use to synchronize its internal clock. |\n| 5   | Prerequisite(s)      | The heartbeat interval is set.                                                                                                                                                                                                                                                                                                                                                       |\n| 6   | Postcondition(s)     | Successful postconditions: The CSMS knows the Charging Station is still connected. Failure postconditions: The CSMS concludes that the Charging Station is Offline.                                                                                                                                                                                                                  |",
+      "content": "# G02 - Heartbeat\n\n**Objective:** To let the CSMS know that a Charging Station is still connected, optionally the Heartbeat can be\nused for time synchronisation.\n\n**Description:** This use case describes a way to let the CSMS know the Charging Station is still connected, a\nCharging Station sends a heartbeat after a configurable time interval. Depending on the\nconfiguration the Heartbeat can be used for time synchronisation.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. If there is no activity for a certain time, the Charging Station sends HeartbeatRequest for\nensuring that the CSMS knows that a Charging Station is still alive.\n2. Upon receipt of HeartbeatRequest, the CSMS responds with HeartbeatResponse. The response\nmessage contains the current time of the CSMS, which the Charging Station MAY use to\nsynchronize its internal clock.\n\n**Prerequisites:** The heartbeat interval is set.\n\n**Postconditions:** Successful postconditions::\nThe CSMS knows the Charging Station is still connected.\nFailure postconditions:\nThe CSMS concludes that the Charging Station is Offline.\n\n**Remarks:** With JSON over WebSocket, sending heartbeats is not instrumental to keeping websockets alive,\nsince websockets already provide a mechanism for this. However, if the Charging Station uses\nthe heartbeat for time synchronization, it is advised to at least send one heartbeat per 24 hours.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "G02 - Heartbeat",
-        "heading_path": "G02 - Heartbeat",
         "functional_block": "Availability",
         "use_case_id": "G02",
         "use_case_name": "Heartbeat",
-        "use_case_refs": "G02",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                  |\n| 8   | Remark(s)            | With JSON over WebSocket, sending heartbeats is not instrumental to keeping websockets alive, since websockets already provide a mechanism for this. However, if the Charging Station uses the heartbeat for time synchronization, it is advised to at least send one heartbeat per 24 hours.                                                                                        |\n\nCharging Station      CSMS\n\nHeartbeatRequest()\n\nHeartbeatResponse(currentTime)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "G02 - Heartbeat",
-        "heading_path": "G02 - Heartbeat",
-        "functional_block": "Availability",
-        "use_case_id": "G02",
-        "use_case_name": "Heartbeat",
-        "use_case_refs": "G02",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# G02 - Heartbeat - Requirements\n\n| ID        | Precondition                                                                 | Requirement definition                                                                                                          | Note                                                                  |\n| --------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |\n| G02.FR.01 | When the CSMS responds with BootNotificationResponse with a status Accepted. | The Charging Station SHALL adjust the heartbeat interval in accordance with the interval from the response message.             |                                                                       |\n| G02.FR.02 |                                                                              | The Charging Station SHALL send HeartbeatRequest after a configurable time interval.                                            | To ensure that the CSMS knows that a Charging Station is still alive. |\n| G02.FR.03 |                                                                              | The HeartbeatResponse message SHALL contain the current time of the CSMS.                                                       |                                                                       |\n| G02.FR.04 | Whenever a message from a Charging Station has been received.                | The CSMS SHALL assume availability of that Charging Station.                                                                    |                                                                       |\n| G02.FR.05 |                                                                              | It is RECOMMENDED that the Charging Station resets its heartbeat interval timer when another message has been sent to the CSMS. |                                                                       |\n| G02.FR.06 | When the Charging Station receives a HeartbeatResponse.                      | It is RECOMMENDED that the Charging Station uses the current time to synchronize its internal clock.                            |                                                                       |\n\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+      "content": "# G02 - Requirements\n\n**G02.FR.01**\nPrecondition: When the CSMS responds with\nBootNotificationResponse with a\nstatus Accepted.\nThe Charging Station SHALL adjust the heartbeat\ninterval in accordance with the interval from the\nresponse message.\n\n**G02.FR.02**\nThe Charging Station SHALL send\nHeartbeatRequest after a configurable time\ninterval.\n\n**G02.FR.03**\nThe HeartbeatResponse message SHALL contain\nthe current time of the CSMS.\n\n**G02.FR.04**\nPrecondition: Whenever a message from a Charging\nStation has been received.\nThe CSMS SHALL assume availability of that\nCharging Station.\n\n**G02.FR.05**\nIt is RECOMMENDED that the Charging Station\nresets its heartbeat interval timer when another\nmessage has been sent to the CSMS.\n\n**G02.FR.06**\nPrecondition: When the Charging Station receives a\nHeartbeatResponse.\nIt is RECOMMENDED that the Charging Station uses\nthe current time to synchronize its internal clock.\n\n**G02.FR.07**\nPrecondition: When the heartbeat interval timer is\ncontinuously reset because of\ncontinuous sending of messages\nAND\nHeartbeatRequest is used for time\nsynchronisation\nIt is RECOMMENDED that the Charging Station\nsends a HeartbeatRequest at least once every 24\nhours to synchronise the clock.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "G02 - Heartbeat - Requirements",
-        "heading_path": "G02 - Heartbeat - Requirements",
+        "heading": "G02 - Requirements",
         "functional_block": "Availability",
         "use_case_id": "G02",
         "use_case_name": "Heartbeat",
-        "use_case_refs": "G02",
-        "message_refs": "BootNotificationResponse, HeartbeatRequest, HeartbeatResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

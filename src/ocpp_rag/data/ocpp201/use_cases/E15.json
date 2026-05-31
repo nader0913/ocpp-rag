@@ -1,40 +1,90 @@
 {
   "use_case_id": "E15",
   "functional_block": "Transactions",
-  "use_case_name": "End of charging process",
+  "use_case_name": "End of charging process.",
+  "structured": {
+    "name": "End of charging process.",
+    "id": "E15",
+    "functional_block": "Transactions",
+    "objective": "See ISO15118-1, use case Objective H1, page 44.",
+    "description": "See ISO15118-1, use case Description H1, page 44.",
+    "actors": [
+      "EV",
+      "Charging Station",
+      "EV Driver"
+    ],
+    "scenario": [
+      "See ISO15118-1, use case Description H1, Basic elementary use case description, first 5 bullets\nand last 2 remarks, page",
+      "4.",
+      "6. The EV driver unplugs the cable from the EV",
+      "7. The Charging Station sends a TransactionEventRequest with eventType eventType = Ended to\nthe CSMS."
+    ],
+    "prerequisites": "See ISO15118-1, use case Prerequisites H1, page 44.",
+    "postconditions": "The CSMS has received all relevant information about the transaction.\nSee ISO15118-1, use case End Conditions H1, page 44.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "E15.FR.01",
+        "precondition": "When configured to send meter data in the\nTransactionEventRequest (eventType = Ended),\nSee: Meter Values - Configuration",
+        "definition": "The Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Ended) sent to the CSMS to provide more details\nabout transaction usage. (Same as E08.FR.09)"
+      },
+      {
+        "id": "E15.FR.02",
+        "precondition": "E15.FR.01\nAND\nThe Charging Station is running low on memory",
+        "definition": "The Charging Station MAY drop meter data in the\nTransactionEventRequest(eventType = Ended) message. (Same\nas E06.FR.12)"
+      },
+      {
+        "id": "E15.FR.03",
+        "precondition": "E15.FR.02",
+        "definition": "When dropping meter data, the Charging Station SHALL drop\nintermediate values first (2nd value, 4th value, 6th etc), not drop\nthe start and end values from the list. (Same as E06.FR.13)"
+      },
+      {
+        "id": "E15.FR.04",
+        "precondition": "When TxStopPoint contains \"Authorized\" or\n\"PowerPathClosed\" or \"EnergyTransfer\" AND\nCharging Station has not yet sent a\nTransactionEventRequest with triggerReason =\nStopAuthorized when it receives a ISO 15118\nSessionStopReq(Terminate) message from the\nEV",
+        "definition": "Charging Station SHALL send a TransactionEventRequest\nmessage with eventType = Ended and triggerReason =\nStopAuthorized and stoppedReason = StoppedByEV to\ninform the CSMS that the charging transaction has been stopped\n(by the EV)."
+      },
+      {
+        "id": "E15.FR.05",
+        "precondition": "When TxStopPoint does not contain\n\"Authorized\" or \"PowerPathClosed\" or\n\"EnergyTransfer\" AND\nCharging Station has not yet sent a\nTransactionEventRequest with triggerReason =\nStopAuthorized when it receives a ISO 15118\nSessionStopReq(Terminate) message from the\nEV",
+        "definition": "Charging Station SHALL send a TransactionEventRequest\nmessage with eventType = Updated and triggerReason =\nStopAuthorized to inform the CSMS that the authorization\nhas ended."
+      }
+    ],
+    "figures": [
+      "fig63.png",
+      "fig64.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# E15 - End of charging process\n\n| No. | Type                 | Description                                                                                                                  |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | End of charging process.                                                                                                     |\n| 2   | ID                   | E15                                                                                                                          |\n|     | Reference            | ISO15118-1 H1 - End of charging process                                                                                      |\n| 3   | Objective(s)         | See ISO15118-1, use case Objective H1, page 44.                                                                              |\n| 4   | Description          | See ISO15118-1, use case Description H1, page 44.                                                                            |\n|     | Actors               | EV, Charging Station, EV Driver                                                                                              |\n|     | Scenario description | See ISO15118-1, use case Description H1, Basic elementary use case description, first 5 bullets and last 2 remarks, page 44. |\n|     |                      | 6. The EV driver unplugs the cable from the EV                                                                               |\n|     |                      | 7. The Charging Station sends a TransactionEventRequest with eventType eventType = Ended to the CSMS.                        |\n| 5   | Prerequisites        | See ISO15118-1, use case Prerequisites H1, page 44.                                                                          |\n| 6   | Postcondition(s)     | The CSMS has received all relevant information about the transaction. See ISO15118-1, use case End Conditions H1, page 44.   |\n| 7   | Error handling       | n/a                                                                                                                          |",
+      "content": "# E15 - End of charging process.\n\n**Objective:** See ISO15118-1, use case Objective H1, page 44.\n\n**Description:** See ISO15118-1, use case Description H1, page 44.\n\n**Actors:** EV, Charging Station, EV Driver\n\n**Scenario:**\nSee ISO15118-1, use case Description H1, Basic elementary use case description, first 5 bullets\nand last 2 remarks, page\n4.\n6. The EV driver unplugs the cable from the EV\n7. The Charging Station sends a TransactionEventRequest with eventType eventType = Ended to\nthe CSMS.\n\n**Prerequisites:** See ISO15118-1, use case Prerequisites H1, page 44.\n\n**Postconditions:** The CSMS has received all relevant information about the transaction.\nSee ISO15118-1, use case End Conditions H1, page 44.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "E15 - End of charging process",
-        "heading_path": "E15 - End of charging process",
+        "heading": "E15 - End of charging process.",
         "functional_block": "Transactions",
         "use_case_id": "E15",
-        "use_case_name": "End of charging process",
-        "use_case_refs": "E15",
-        "message_refs": "TransactionEventRequest"
+        "use_case_name": "End of charging process.",
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# E15 - End of charging process - Requirements\n\n| ID        | Precondition                                                                                                                                                                                                                                                           | Requirement definition                                                                                                                                                                                                                 |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E15.FR.01 | When configured to send meter data in the TransactionEventRequest (eventType = Ended), See: Meter Values - Configuration                                                                                                                                               | The Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest (eventType = Ended) sent to the CSMS to provide more details about transaction usage. (Same as E08.FR.09)     |\n| E15.FR.02 | E15.FR.01 AND The Charging Station is running low on memory                                                                                                                                                                                                            | The Charging Station MAY drop meter data in the TransactionEventRequest(eventType = Ended) message. (Same as E06.FR.12)                                                                                                                |\n| E15.FR.03 | E15.FR.02                                                                                                                                                                                                                                                              | When dropping meter data, the Charging Station SHALL drop intermediate values first (2nd value, 4th value, 6th etc), not drop the start and end values from the list. (Same as E06.FR.13)                                              |\n| E15.FR.04 | When TxStopPoint contains \"Authorized\" or \"PowerPathClosed\" or \"EnergyTransfer\" AND Charging Station has not yet sent a TransactionEventRequest with triggerReason = StopAuthorized when it receives a ISO 15118 SessionStopReq(Terminate) message from the EV         | Charging Station SHALL send a TransactionEventRequest message with eventType = Ended and triggerReason = StopAuthorized and stoppedReason = StoppedByEV to inform the CSMS that the charging transaction has been stopped (by the EV). |\n| E15.FR.05 | When TxStopPoint does not contain \"Authorized\" or \"PowerPathClosed\" or \"EnergyTransfer\" AND Charging Station has not yet sent a TransactionEventRequest with triggerReason = StopAuthorized when it receives a ISO 15118 SessionStopReq(Terminate) message from the EV | Charging Station SHALL send a TransactionEventRequest message with eventType = Updated and triggerReason = StopAuthorized to inform the CSMS that the authorization has ended.                                                         |",
+      "content": "# E15 - Requirements\n\n**E15.FR.01**\nPrecondition: When configured to send meter data in the\nTransactionEventRequest (eventType = Ended),\nSee: Meter Values - Configuration\nThe Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Ended) sent to the CSMS to provide more details\nabout transaction usage. (Same as E08.FR.09)\n\n**E15.FR.02**\nPrecondition: E15.FR.01\nAND\nThe Charging Station is running low on memory\nThe Charging Station MAY drop meter data in the\nTransactionEventRequest(eventType = Ended) message. (Same\nas E06.FR.12)\n\n**E15.FR.03**\nPrecondition: E15.FR.02\nWhen dropping meter data, the Charging Station SHALL drop\nintermediate values first (2nd value, 4th value, 6th etc), not drop\nthe start and end values from the list. (Same as E06.FR.13)\n\n**E15.FR.04**\nPrecondition: When TxStopPoint contains \"Authorized\" or\n\"PowerPathClosed\" or \"EnergyTransfer\" AND\nCharging Station has not yet sent a\nTransactionEventRequest with triggerReason =\nStopAuthorized when it receives a ISO 15118\nSessionStopReq(Terminate) message from the\nEV\nCharging Station SHALL send a TransactionEventRequest\nmessage with eventType = Ended and triggerReason =\nStopAuthorized and stoppedReason = StoppedByEV to\ninform the CSMS that the charging transaction has been stopped\n(by the EV).\n\n**E15.FR.05**\nPrecondition: When TxStopPoint does not contain\n\"Authorized\" or \"PowerPathClosed\" or\n\"EnergyTransfer\" AND\nCharging Station has not yet sent a\nTransactionEventRequest with triggerReason =\nStopAuthorized when it receives a ISO 15118\nSessionStopReq(Terminate) message from the\nEV\nCharging Station SHALL send a TransactionEventRequest\nmessage with eventType = Updated and triggerReason =\nStopAuthorized to inform the CSMS that the authorization\nhas ended.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E15 - End of charging process - Requirements",
-        "heading_path": "E15 - End of charging process - Requirements",
+        "heading": "E15 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E15",
-        "use_case_name": "End of charging process",
-        "use_case_refs": "E06, E08, E15",
-        "message_refs": "TransactionEventRequest"
+        "use_case_name": "End of charging process.",
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

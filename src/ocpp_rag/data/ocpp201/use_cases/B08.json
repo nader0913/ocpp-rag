@@ -2,77 +2,215 @@
   "use_case_id": "B08",
   "functional_block": "Provisioning",
   "use_case_name": "Get Custom Report",
+  "structured": {
+    "name": "Get Custom Report",
+    "id": "B08",
+    "functional_block": "Provisioning",
+    "objective": "To give the CSMS the ability to request a report of all Components and Variables limited to those\nthat match ComponentCriteria and/or the list of ComponentVariables.",
+    "description": "This use case describes how the CSMS requests a Charging Station to send a report of all\nComponents and Variables limited to those that match ComponentCriteria and/or the list of\nComponentVariables. The result will be returned asynchronously in one or more\nNotifyReportRequest messages.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSO triggers the CSMS to request a report from a Charging Station.",
+      "2. The CSMS requests the Charging Station for a report with a GetReportRequest.",
+      "3. The Charging Station responds with a GetReportResponse.",
+      "4. The Charging Station asynchronously sends the results in one or more NotifyReportRequest\nmessages.",
+      "5. The CSMS responds with a NotifyReportResponse."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "Successful postcondition:\nThe Charging Station was able to send the requested report.\nFailure postcondition:\nThe Charging Station was not able to send the requested report.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "B08.FR.01",
+        "precondition": "NOT B08.FR.15 AND\nNOT B08.FR.16 AND\nWhen the Charging Station receives a\nGetReportRequest for supported criteria",
+        "definition": "The Charging Station SHALL send a GetReportResponse with\nAccepted"
+      },
+      {
+        "id": "B08.FR.02",
+        "precondition": "When the Charging Station receives a\nGetReportRequest for not supported criteria",
+        "definition": "The Charging Station SHALL send a GetReportResponse with\nNotSupported"
+      },
+      {
+        "id": "B08.FR.03",
+        "precondition": "B08.FR.01",
+        "definition": "The Charging Station SHALL send the requested information,\nexcluding the value of WriteOnly variables, via one or more\nNotifyReportRequest messages to the CSMS."
+      },
+      {
+        "id": "B08.FR.04",
+        "precondition": "B08.FR.01 AND\nThe GetReportRequest contained a requestId",
+        "definition": "Every NotifyReportRequest sent for this GetReportRequest\nSHALL contain the same requestId."
+      },
+      {
+        "id": "B08.FR.05",
+        "precondition": "B08.FR.01 AND\ncomponentCriteria and componentVariables are\nNOT both empty.",
+        "definition": "Every NotifyReportRequest sent for this GetReportRequest\nSHALL be limited to the set componentCriteria and\ncomponentVariables."
+      },
+      {
+        "id": "B08.FR.06",
+        "precondition": "",
+        "definition": "CSMS SHALL NOT send more componentVariables in one\nGetReportRequest message than is configured in the\nItemsPerMessageGetReport Configuration Variable"
+      },
+      {
+        "id": "B08.FR.07",
+        "precondition": "B08.FR.01 AND\nComponentCriteria contains: Active",
+        "definition": "The Charging Station SHALL report every component that has\nthe variable Active set to true, or does not have the Active\nvariable in a NotifyReportRequest."
+      },
+      {
+        "id": "B08.FR.08",
+        "precondition": "B08.FR.01\nAND\nComponentCriteria contains: Available",
+        "definition": "The Charging Station SHALL report every component that has\nthe variable Available set to true, or does not have the Available\nvariable, in a NotifyReportRequest."
+      },
+      {
+        "id": "B08.FR.09",
+        "precondition": "B08.FR.01 AND\nComponentCriteria contains: Enabled",
+        "definition": "The Charging Station SHALL report every component that has\nthe variable Enabled set to true, or does not have the Enabled\nvariable, in a NotifyReportRequest."
+      },
+      {
+        "id": "B08.FR.10",
+        "precondition": "B08.FR.01 AND\nComponentCriteria contains: Problem",
+        "definition": "The Charging Station SHALL report every component that has\nthe variable Problem set to true in a NotifyReportRequest."
+      },
+      {
+        "id": "B08.FR.11",
+        "precondition": "B08.FR.01 AND\ncomponentCriteria is absent AND\ncomponentVariables is NOT empty.",
+        "definition": "Every NotifyReportRequest sent for this GetReportRequest is\nlimited to the set in componentVariables."
+      },
+      {
+        "id": "B08.FR.12",
+        "precondition": "B08.FR.01",
+        "definition": "The reported variables in NotifyReportRequest SHALL contain\nvariableCharacteristics."
+      },
+      {
+        "id": "B08.FR.13",
+        "precondition": "B08.FR.01 AND\nMore than one componentCriteria is given.",
+        "definition": "The Charging Station SHALL report all components that have at\nleast one of the given criteria (logical OR)."
+      },
+      {
+        "id": "B08.FR.14",
+        "precondition": "",
+        "definition": "The sequence number contained in the seqNo field of the\nNotifyReportRequest is incremental per report. So the\nNotifyReportRequest message which contains the first report\npart, SHALL have a seqNo with value 0."
+      },
+      {
+        "id": "B08.FR.15",
+        "precondition": "When the Charging Station receives a\nGetReportRequest with a combination of criteria\nwhich results in an empty result set.",
+        "definition": "The Charging Station SHALL respond with a\nGetReportResponse(status=EmptyResultSet)."
+      },
+      {
+        "id": "B08.FR.16",
+        "precondition": "When the Charging Station is temporarily unable\nto execute a report request",
+        "definition": "The Charging Station SHALL send a getBaseReportResponse\nwith Rejected."
+      },
+      {
+        "id": "B08.FR.17",
+        "precondition": "Charging Station receives a GetReportRequest\nwith more ComponentVariableType elements\nthan allowed by\nItemsPerMessageGetReport",
+        "definition": "The Charging Station MAY respond with a\nCALLERROR(OccurenceConstraintViolation)"
+      },
+      {
+        "id": "B08.FR.18",
+        "precondition": "Charging Station receives a GetReportRequest\nwith a length of more bytes than allowed by\nBytesPerMessageGetReport",
+        "definition": "The Charging Station MAY respond with a\nCALLERROR(FormatViolation)"
+      },
+      {
+        "id": "B08.FR.20",
+        "precondition": "When Charging Station receives a\nGetReportRequest with componentVariable\nelements in which variable is missing",
+        "definition": "The Charging Station SHALL report for every variable of the\ncomponent in componentVariable."
+      },
+      {
+        "id": "B08.FR.21",
+        "precondition": "When Charging Station receives a\nGetReportRequest with componentVariable\nelements in which variable is present, but\ninstance is missing",
+        "definition": "The Charging Station SHALL report for every instance of the\nvariable of the component in componentVariable."
+      },
+      {
+        "id": "B08.FR.22",
+        "precondition": "B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has a\ncomponent.evse.id, but\ncomponent.evse.connector is missing",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance and component.evse.id\nfor every component.evse.connector, whilst taking into account\nB08.FR.24."
+      },
+      {
+        "id": "B08.FR.23",
+        "precondition": "B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has no\ncomponent.evse.id",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance for every component.evse\nfield (including top level component without component.evse),\nwhilst taking into account B08.FR.24."
+      },
+      {
+        "id": "B08.FR.24",
+        "precondition": "B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has a value for\ncomponent.instance",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field, whilst\ntaking into account B08.FR.22, B08.FR.23."
+      },
+      {
+        "id": "B08.FR.25",
+        "precondition": "B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has no\ncomponent.instance field",
+        "definition": "The Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field or the\ncomponent(s) without component.instance field, whichever is\nthe case, whilst taking into account B08.FR.22, B08.FR.23."
+      }
+    ],
+    "figures": [
+      "fig17.png",
+      "fig18.png",
+      "fig19.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# B08 - Get Custom Report\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Get Custom Report                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 2   | ID               | B08                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)     | To give the CSMS the ability to request a report of all Components and Variables limited to those that match ComponentCriteria and/or the list of ComponentVariables.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "content": "# B08 - Get Custom Report\n\n**Objective:** To give the CSMS the ability to request a report of all Components and Variables limited to those\nthat match ComponentCriteria and/or the list of ComponentVariables.\n\n**Description:** This use case describes how the CSMS requests a Charging Station to send a report of all\nComponents and Variables limited to those that match ComponentCriteria and/or the list of\nComponentVariables. The result will be returned asynchronously in one or more\nNotifyReportRequest messages.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a report from a Charging Station.\n2. The CSMS requests the Charging Station for a report with a GetReportRequest.\n3. The Charging Station responds with a GetReportResponse.\n4. The Charging Station asynchronously sends the results in one or more NotifyReportRequest\nmessages.\n5. The CSMS responds with a NotifyReportResponse.\n\n**Prerequisites:** n/a\n\n**Postconditions:** Successful postcondition:\nThe Charging Station was able to send the requested report.\nFailure postcondition:\nThe Charging Station was not able to send the requested report.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "B08 - Get Custom Report",
-        "heading_path": "B08 - Get Custom Report",
         "functional_block": "Provisioning",
         "use_case_id": "B08",
         "use_case_name": "Get Custom Report",
-        "use_case_refs": "B08",
-        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest, NotifyReportResponse",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 4
       }
     },
     {
-      "content": "| 4   | Description      | This use case describes how the CSMS requests a Charging Station to send a report of all Components and Variables limited to those that match ComponentCriteria and/or the list of ComponentVariables. The result will be returned asynchronously in one or more NotifyReportRequest messages. **Actors:** Charging Station, CSMS **Scenario description:**) The CSO triggers the CSMS to request a report from a Charging Station.\n2) The CSMS requests the Charging Station for a report with a GetReportRequest.\n3) The Charging Station responds with a GetReportResponse.\n4) The Charging Station asynchronously sends the results in one or more NotifyReportRequest messages.\n5) The CSMS responds with a NotifyReportResponse. |\n| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 6   | Postcondition(s) | **Successful postcondition:** The Charging Station was able to send the requested report. **Failure postcondition:** The Charging Station was not able to send the requested report.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B08 - Get Custom Report",
-        "heading_path": "B08 - Get Custom Report",
-        "functional_block": "Provisioning",
-        "use_case_id": "B08",
-        "use_case_name": "Get Custom Report",
-        "use_case_refs": "B08",
-        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest, NotifyReportResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n\nCSO    CSMS    Charging Station\n\nrequest for a custom report\n\nGetReportRequest(requestId, componentCriteria, componentVariables)\n\nGetReportResponse(status)\n\nloop [for each report part]\n\nNotifyReportRequest(generatedAt, requestId, tbc, reportData,...)\n\nNotifyReportResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B08 - Get Custom Report",
-        "heading_path": "B08 - Get Custom Report",
-        "functional_block": "Provisioning",
-        "use_case_id": "B08",
-        "use_case_name": "Get Custom Report",
-        "use_case_refs": "B08",
-        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest, NotifyReportResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# B08 - Get Custom Report - Requirements\n\n| ID        | Precondition                                                                                                     | Requirement definition                                                                                                                                           |\n| --------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B08.FR.01 | NOT B08.FR.15 AND NOT B08.FR.16 AND When the Charging Station receives a GetReportRequest for supported criteria | The Charging Station SHALL send a GetReportResponse with Accepted                                                                                                |\n| B08.FR.02 | When the Charging Station receives a GetReportRequest for not supported criteria                                 | The Charging Station SHALL send a GetReportResponse with NotSupported                                                                                            |\n| B08.FR.03 | B08.FR.01                                                                                                        | The Charging Station SHALL send the requested information, excluding the value of WriteOnly variables, via one or more NotifyReportRequest messages to the CSMS. |",
+      "content": "# B08 - Requirements\n\n**B08.FR.01**\nPrecondition: NOT B08.FR.15 AND\nNOT B08.FR.16 AND\nWhen the Charging Station receives a\nGetReportRequest for supported criteria\nThe Charging Station SHALL send a GetReportResponse with\nAccepted\n\n**B08.FR.02**\nPrecondition: When the Charging Station receives a\nGetReportRequest for not supported criteria\nThe Charging Station SHALL send a GetReportResponse with\nNotSupported\n\n**B08.FR.03**\nPrecondition: B08.FR.01\nThe Charging Station SHALL send the requested information,\nexcluding the value of WriteOnly variables, via one or more\nNotifyReportRequest messages to the CSMS.\n\n**B08.FR.04**\nPrecondition: B08.FR.01 AND\nThe GetReportRequest contained a requestId\nEvery NotifyReportRequest sent for this GetReportRequest\nSHALL contain the same requestId.\n\n**B08.FR.05**\nPrecondition: B08.FR.01 AND\ncomponentCriteria and componentVariables are\nNOT both empty.\nEvery NotifyReportRequest sent for this GetReportRequest\nSHALL be limited to the set componentCriteria and\ncomponentVariables.\n\n**B08.FR.06**\nCSMS SHALL NOT send more componentVariables in one\nGetReportRequest message than is configured in the\nItemsPerMessageGetReport Configuration Variable\n\n**B08.FR.07**\nPrecondition: B08.FR.01 AND\nComponentCriteria contains: Active\nThe Charging Station SHALL report every component that has\nthe variable Active set to true, or does not have the Active\nvariable in a NotifyReportRequest.\n\n**B08.FR.08**\nPrecondition: B08.FR.01\nAND\nComponentCriteria contains: Available\nThe Charging Station SHALL report every component that has\nthe variable Available set to true, or does not have the Available\nvariable, in a NotifyReportRequest.\n\n**B08.FR.09**\nPrecondition: B08.FR.01 AND\nComponentCriteria contains: Enabled\nThe Charging Station SHALL report every component that has\nthe variable Enabled set to true, or does not have the Enabled\nvariable, in a NotifyReportRequest.\n\n**B08.FR.10**\nPrecondition: B08.FR.01 AND\nComponentCriteria contains: Problem\nThe Charging Station SHALL report every component that has\nthe variable Problem set to true in a NotifyReportRequest.\n\n**B08.FR.11**\nPrecondition: B08.FR.01 AND\ncomponentCriteria is absent AND\ncomponentVariables is NOT empty.\nEvery NotifyReportRequest sent for this GetReportRequest is\nlimited to the set in componentVariables.\n\n**B08.FR.12**\nPrecondition: B08.FR.01\nThe reported variables in NotifyReportRequest SHALL contain\nvariableCharacteristics.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "B08 - Get Custom Report - Requirements",
-        "heading_path": "B08 - Get Custom Report - Requirements",
+        "heading": "B08 - Requirements",
         "functional_block": "Provisioning",
         "use_case_id": "B08",
         "use_case_name": "Get Custom Report",
-        "use_case_refs": "B08",
-        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest"
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# B08 - Requirements (continued)\n\n**B08.FR.13**\nPrecondition: B08.FR.01 AND\nMore than one componentCriteria is given.\nThe Charging Station SHALL report all components that have at\nleast one of the given criteria (logical OR).\n\n**B08.FR.14**\nThe sequence number contained in the seqNo field of the\nNotifyReportRequest is incremental per report. So the\nNotifyReportRequest message which contains the first report\npart, SHALL have a seqNo with value 0.\n\n**B08.FR.15**\nPrecondition: When the Charging Station receives a\nGetReportRequest with a combination of criteria\nwhich results in an empty result set.\nThe Charging Station SHALL respond with a\nGetReportResponse(status=EmptyResultSet).\n\n**B08.FR.16**\nPrecondition: When the Charging Station is temporarily unable\nto execute a report request\nThe Charging Station SHALL send a getBaseReportResponse\nwith Rejected.\n\n**B08.FR.17**\nPrecondition: Charging Station receives a GetReportRequest\nwith more ComponentVariableType elements\nthan allowed by\nItemsPerMessageGetReport\nThe Charging Station MAY respond with a\nCALLERROR(OccurenceConstraintViolation)\n\n**B08.FR.18**\nPrecondition: Charging Station receives a GetReportRequest\nwith a length of more bytes than allowed by\nBytesPerMessageGetReport\nThe Charging Station MAY respond with a\nCALLERROR(FormatViolation)\n\n**B08.FR.20**\nPrecondition: When Charging Station receives a\nGetReportRequest with componentVariable\nelements in which variable is missing\nThe Charging Station SHALL report for every variable of the\ncomponent in componentVariable.\n\n**B08.FR.21**\nPrecondition: When Charging Station receives a\nGetReportRequest with componentVariable\nelements in which variable is present, but\ninstance is missing\nThe Charging Station SHALL report for every instance of the\nvariable of the component in componentVariable.\n\n**B08.FR.22**\nPrecondition: B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has a\ncomponent.evse.id, but\ncomponent.evse.connector is missing\nThe Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance and component.evse.id\nfor every component.evse.connector, whilst taking into account\nB08.FR.24.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B08 - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B08",
+        "use_case_name": "Get Custom Report",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# B08 - Requirements (continued)\n\n**B08.FR.23**\nPrecondition: B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has no\ncomponent.evse.id\nThe Charging Station SHALL report the component(s) with this\ncomponent.name, component.instance for every component.evse\nfield (including top level component without component.evse),\nwhilst taking into account B08.FR.24.\n\n**B08.FR.24**\nPrecondition: B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has a value for\ncomponent.instance\nThe Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field, whilst\ntaking into account B08.FR.22, B08.FR.23.\n\n**B08.FR.25**\nPrecondition: B08.FR.11 AND\nWhen Charging Station receives a\nGetReportRequest with a component in a\ncomponentVariable element that has no\ncomponent.instance field\nThe Charging Station SHALL report the component(s) with this\ncomponent.name for every component.instance field or the\ncomponent(s) without component.instance field, whichever is\nthe case, whilst taking into account B08.FR.22, B08.FR.23.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B08 - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B08",
+        "use_case_name": "Get Custom Report",
+        "chunk_part": 4,
+        "total_parts": 4
       }
     }
-  ],
-  "figures": []
+  ]
 }

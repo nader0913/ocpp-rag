@@ -2,185 +2,164 @@
   "use_case_id": "F06",
   "functional_block": "RemoteControl",
   "use_case_name": "Trigger Message",
+  "structured": {
+    "name": "Trigger Message",
+    "id": "F06",
+    "functional_block": "RemoteControl",
+    "objective": "To enable the CSMS to request a Charging Station to send a Charging Station-initiated message.",
+    "description": "This use case describes the use of the TriggerMessageRequest message: how a CSMS can\nrequest a Charging Station to send Charging Station-initiated messages. In the request the CSMS\nindicates which message it wishes to receive.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS sends a TriggerMessageRequest to the Charging Station.",
+      "2. The Charging Station responds with a TriggerMessageResponse, indicating whether it will send\nit or not, by returning Accepted, Rejected or NotImplemented.",
+      "3. Message, requested by the CSMS, that the Charging Station marked as Accepted, is being sent."
+    ],
+    "prerequisites": "The Functional Block Remote Trigger is installed.",
+    "postconditions": "Successful postconditions:\n1. The CSMS has Successfully received a TriggerMessageResponse message.\n2. The CSMS has Successfully received a TriggerMessageResponse message with status\nAccepted AND has Successfully received the requested message.\nFailure postconditions:\n1. The CSMS has NOT received a TriggerMessageResponse message.\n2. The CSMS has Successfully received a TriggerMessageResponse message with status\nAccepted AND has NOT received the requested message.",
+    "error_handling": "n/a",
+    "remarks": "The TriggerMessage mechanism is not intended to retrieve historic data.",
+    "requirements": [
+      {
+        "id": "F06.FR.01",
+        "precondition": "",
+        "definition": "In the TriggerMessageRequest message, the CSMS\nSHALL indicate which message(s) it wishes to\nreceive."
+      },
+      {
+        "id": "F06.FR.02",
+        "precondition": "F06.FR.01.\nFor every such requested message.",
+        "definition": "The CSMS MAY indicate to which EVSE this request\napplies."
+      },
+      {
+        "id": "F06.FR.03",
+        "precondition": "F06.FR.02",
+        "definition": "The requested message SHALL be leading. If the\nspecified evseId is not relevant to the message, it\nSHALL be ignored. In such cases the requested\nmessage SHALL still be sent."
+      },
+      {
+        "id": "F06.FR.04",
+        "precondition": "If a Charging Station receives a\nTriggerMessageRequest.",
+        "definition": "The Charging Station SHALL first send the\nTriggerMessage response, before sending the\nrequested message."
+      },
+      {
+        "id": "F06.FR.05",
+        "precondition": "F06.FR.04",
+        "definition": "In the TriggerMessageResponse the Charging\nStation SHALL indicate whether it will send the\nrequested message or not, by returning Accepted or\nRejected."
+      },
+      {
+        "id": "F06.FR.06",
+        "precondition": "If a Charging Station accepts a\nTriggerMessageRequest with\nrequestedMessage set to: MeterValues",
+        "definition": "The Charging Station SHALL send a\nMeterValuesRequest to the CSMS with the most\nrecent measurements for all measurands\nconfigured in Configuration Variable:\nAlignedDataMeasurands."
+      },
+      {
+        "id": "F06.FR.07",
+        "precondition": "If a Charging Station accepts a\nTriggerMessageRequest with\nrequestedMessage set to:\nTransactionEvent",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest to the CSMS with\ntriggerReason = Trigger, transactionInfo with at\nleast the chargingState, and meterValue with the\nmost recent measurements for all measurands\nconfigured in Configuration Variable:\nSampledDataTxUpdatedMeasurands."
+      },
+      {
+        "id": "F06.FR.08",
+        "precondition": "When the Charging Station receives a\nTriggerMessageRequest with a\nrequestedMessage that it has not\nimplemented",
+        "definition": "The Charging Station SHALL respond with\nTriggerMessageResponse with status\nNotImplemented."
+      },
+      {
+        "id": "F06.FR.09",
+        "precondition": "",
+        "definition": "The messages it triggers SHALL only give current\ninformation."
+      },
+      {
+        "id": "F06.FR.10",
+        "precondition": "",
+        "definition": "Messages that the Charging Station marks as\nAccepted SHALL be sent."
+      },
+      {
+        "id": "F06.FR.11",
+        "precondition": "If the field evse is relevant but absent\nin the TriggerMessageRequest.",
+        "definition": "The Charging Station SHALL interpret this as \"for all\nallowed evse values\"."
+      },
+      {
+        "id": "F06.FR.12",
+        "precondition": "If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nStatusNotification AND\n( evse is omitted OR\nevse.connectorId is omitted )",
+        "definition": "The Charging Station MAY respond with a\nTriggerMessageResponse with status Rejected."
+      },
+      {
+        "id": "F06.FR.13",
+        "precondition": "When sending a\nTriggerMessageRequest with\nrequestedMessage set to:\nStatusNotification",
+        "definition": "The CSMS SHALL set the connectorId field"
+      },
+      {
+        "id": "F06.FR.14",
+        "precondition": "If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nLogStatusNotification AND\nThe Charging Station is uploading a\nlog file",
+        "definition": "The Charging Station SHALL send a\nLogStatusNotificationRequest to the CSMS with\nstatus Uploading."
+      },
+      {
+        "id": "F06.FR.15",
+        "precondition": "If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nLogStatusNotification AND\nThe Charging Station is NOT\nuploading a log file",
+        "definition": "The Charging Station SHALL send a\nLogStatusNotificationRequest to the CSMS with\nstatus Idle."
+      },
+      {
+        "id": "F06.FR.16",
+        "precondition": "If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nFirmwareStatusNotification AND\nThe Charging Station is not\nperforming firmware update related\ntasks.",
+        "definition": "The Charging Station SHALL send a\nFirmwareStatusNotificationRequest to the CSMS\nwith status Idle."
+      },
+      {
+        "id": "F06.FR.17",
+        "precondition": "If Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nBootNotification\nAND the response it received from\nCSMS to the last\nBootNotificationRequest was:\nAccepted",
+        "definition": "Charging Station SHALL respond with a\nTriggerMessageResponse with status Rejected."
+      }
+    ],
+    "figures": [
+      "fig70.png",
+      "fig71.png",
+      "fig72.png",
+      "fig73.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# F06 - Trigger Message\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Trigger Message                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 2   | ID               | F06                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)     | To enable the CSMS to request a Charging Station to send a Charging Station-initiated message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 4   | Description      | This use case describes the use of the TriggerMessageRequest message: how a CSMS can request a Charging Station to send Charging Station-initiated messages. In the request the CSMS indicates which message it wishes to receive. **Actors:** Charging Station, CSMS **Scenario description:**) The CSMS sends a TriggerMessageRequest to the Charging Station.\n2) The Charging Station responds with a TriggerMessageResponse, indicating whether it will send it or not, by returning Accepted, Rejected or NotImplemented.",
+      "content": "# F06 - Trigger Message\n\n**Objective:** To enable the CSMS to request a Charging Station to send a Charging Station-initiated message.\n\n**Description:** This use case describes the use of the TriggerMessageRequest message: how a CSMS can\nrequest a Charging Station to send Charging Station-initiated messages. In the request the CSMS\nindicates which message it wishes to receive.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends a TriggerMessageRequest to the Charging Station.\n2. The Charging Station responds with a TriggerMessageResponse, indicating whether it will send\nit or not, by returning Accepted, Rejected or NotImplemented.\n3. Message, requested by the CSMS, that the Charging Station marked as Accepted, is being sent.\n\n**Prerequisites:** The Functional Block Remote Trigger is installed.\n\n**Postconditions:** Successful postconditions:\n1. The CSMS has Successfully received a TriggerMessageResponse message.\n2. The CSMS has Successfully received a TriggerMessageResponse message with status\nAccepted AND has Successfully received the requested message.\nFailure postconditions:\n1. The CSMS has NOT received a TriggerMessageResponse message.\n2. The CSMS has Successfully received a TriggerMessageResponse message with status\nAccepted AND has NOT received the requested message.\n\n**Remarks:** The TriggerMessage mechanism is not intended to retrieve historic data.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "F06 - Trigger Message",
-        "heading_path": "F06 - Trigger Message",
         "functional_block": "RemoteControl",
         "use_case_id": "F06",
         "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse, TriggerMessageRequest, TriggerMessageResponse",
-        "figure_refs": "70, 71",
         "chunk_part": 1,
         "total_parts": 3
       }
     },
     {
-      "content": "3) Message, requested by the CSMS, that the Charging Station marked as Accepted, is being sent. |\n| 5   | Prerequisite(s)  | The Functional Block Remote Trigger is installed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 6   | Postcondition(s) | **Successful postconditions:**) The CSMS has Successfully received a TriggerMessageResponse message.\n2) The CSMS has Successfully received a TriggerMessageResponse message with status Accepted AND has Successfully received the requested message.**Failure postconditions:**) The CSMS has NOT received a TriggerMessageResponse message.\n2) The CSMS has Successfully received a TriggerMessageResponse message with status Accepted AND has NOT received the requested message.                                                                                                                                    |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
+      "content": "# F06 - Requirements\n\n**F06.FR.01**\nIn the TriggerMessageRequest message, the CSMS\nSHALL indicate which message(s) it wishes to\nreceive.\n\n**F06.FR.02**\nPrecondition: F06.FR.01.\nFor every such requested message.\nThe CSMS MAY indicate to which EVSE this request\napplies.\n\n**F06.FR.03**\nPrecondition: F06.FR.02\nThe requested message SHALL be leading. If the\nspecified evseId is not relevant to the message, it\nSHALL be ignored. In such cases the requested\nmessage SHALL still be sent.\n\n**F06.FR.04**\nPrecondition: If a Charging Station receives a\nTriggerMessageRequest.\nThe Charging Station SHALL first send the\nTriggerMessage response, before sending the\nrequested message.\n\n**F06.FR.05**\nPrecondition: F06.FR.04\nIn the TriggerMessageResponse the Charging\nStation SHALL indicate whether it will send the\nrequested message or not, by returning Accepted or\nRejected.\n\n**F06.FR.06**\nPrecondition: If a Charging Station accepts a\nTriggerMessageRequest with\nrequestedMessage set to: MeterValues\nThe Charging Station SHALL send a\nMeterValuesRequest to the CSMS with the most\nrecent measurements for all measurands\nconfigured in Configuration Variable:\nAlignedDataMeasurands.\n\n**F06.FR.07**\nPrecondition: If a Charging Station accepts a\nTriggerMessageRequest with\nrequestedMessage set to:\nTransactionEvent\nThe Charging Station SHALL send a\nTransactionEventRequest to the CSMS with\ntriggerReason = Trigger, transactionInfo with at\nleast the chargingState, and meterValue with the\nmost recent measurements for all measurands\nconfigured in Configuration Variable:\nSampledDataTxUpdatedMeasurands.\n\n**F06.FR.08**\nPrecondition: When the Charging Station receives a\nTriggerMessageRequest with a\nrequestedMessage that it has not\nimplemented\nThe Charging Station SHALL respond with\nTriggerMessageResponse with status\nNotImplemented.\n\n**F06.FR.09**\nThe messages it triggers SHALL only give current\ninformation.\n\n**F06.FR.10**\nMessages that the Charging Station marks as\nAccepted SHALL be sent.\n\n**F06.FR.11**\nPrecondition: If the field evse is relevant but absent\nin the TriggerMessageRequest.\nThe Charging Station SHALL interpret this as \"for all\nallowed evse values\".\n\n**F06.FR.12**\nPrecondition: If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nStatusNotification AND\n( evse is omitted OR\nevse.connectorId is omitted )\nThe Charging Station MAY respond with a\nTriggerMessageResponse with status Rejected.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F06 - Trigger Message",
-        "heading_path": "F06 - Trigger Message",
+        "content_type": "requirements",
+        "heading": "F06 - Requirements",
         "functional_block": "RemoteControl",
         "use_case_id": "F06",
         "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse, TriggerMessageRequest, TriggerMessageResponse",
-        "figure_refs": "70, 71",
         "chunk_part": 2,
         "total_parts": 3
       }
     },
     {
-      "content": "| 8   | Remark(s)        | The TriggerMessage mechanism is not intended to retrieve historic data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n\nCharging Station      CSMS\n\nTriggerMessageRequest(requestedMessage, ...)\n\nTriggerMessageResponse(status)\n\nFigure 70. Sequence Diagram: Trigger Message\n\nCharging Station      CSMS\n\nTriggerMessageRequest(RequestedMessage: TransactionEvent, evse.id = 1, ...)\n\nTriggerMessageResponse(Status: Accepted)\n\nTransactionEventRequest(eventType = Updated, trigger = Trigger, evse.id = 1, chargingState = Charging, ...)\n\nTransactionEventResponse(...)\n\nFigure 71. Sequence Diagram: Trigger Message Example",
+      "content": "# F06 - Requirements (continued)\n\n**F06.FR.13**\nPrecondition: When sending a\nTriggerMessageRequest with\nrequestedMessage set to:\nStatusNotification\nThe CSMS SHALL set the connectorId field\n\n**F06.FR.14**\nPrecondition: If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nLogStatusNotification AND\nThe Charging Station is uploading a\nlog file\nThe Charging Station SHALL send a\nLogStatusNotificationRequest to the CSMS with\nstatus Uploading.\n\n**F06.FR.15**\nPrecondition: If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nLogStatusNotification AND\nThe Charging Station is NOT\nuploading a log file\nThe Charging Station SHALL send a\nLogStatusNotificationRequest to the CSMS with\nstatus Idle.\n\n**F06.FR.16**\nPrecondition: If a Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nFirmwareStatusNotification AND\nThe Charging Station is not\nperforming firmware update related\ntasks.\nThe Charging Station SHALL send a\nFirmwareStatusNotificationRequest to the CSMS\nwith status Idle.\n\n**F06.FR.17**\nPrecondition: If Charging Station receives a\nTriggerMessageRequest with\nrequestedMessage set to:\nBootNotification\nAND the response it received from\nCSMS to the last\nBootNotificationRequest was:\nAccepted\nCharging Station SHALL respond with a\nTriggerMessageResponse with status Rejected.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F06 - Trigger Message",
-        "heading_path": "F06 - Trigger Message",
+        "content_type": "requirements",
+        "heading": "F06 - Requirements",
         "functional_block": "RemoteControl",
         "use_case_id": "F06",
         "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse, TriggerMessageRequest, TriggerMessageResponse",
-        "figure_refs": "70, 71",
         "chunk_part": 3,
         "total_parts": 3
       }
-    },
-    {
-      "content": "# F06 - Trigger Message - Requirements\n\n| ID        | Precondition                                                                                                                                                   | Requirement definition                                                                                                                                                                                                                                                                         | Note                                                                                                                                                                                                                                                          |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| F06.FR.01 |                                                                                                                                                                | In the TriggerMessageRequest message, the CSMS SHALL indicate which message(s) it wishes to receive.                                                                                                                                                                                           |                                                                                                                                                                                                                                                               |\n| F06.FR.02 | F06.FR.01.                                                                                                                                                     | The CSMS MAY indicate to which EVSE this request applies.                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                               |\n| F06.FR.03 | F06.FR.02                                                                                                                                                      | The requested message SHALL be leading. If the specified evseId is not relevant to the message, it SHALL be ignored. In such cases the requested message SHALL still be sent.                                                                                                                  |                                                                                                                                                                                                                                                               |\n| F06.FR.04 | If a Charging Station receives a TriggerMessageRequest.                                                                                                        | The Charging Station SHALL first send the TriggerMessage response, before sending the requested message.                                                                                                                                                                                       |                                                                                                                                                                                                                                                               |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "F06 - Trigger Message - Requirements",
-        "heading_path": "F06 - Trigger Message - Requirements",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F06",
-        "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "MeterValuesRequest, TransactionEventRequest, TriggerMessageRequest, TriggerMessageResponse",
-        "chunk_part": 1,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| F06.FR.05 | F06.FR.04                                                                                                                                                      | In the TriggerMessageResponse the Charging Station SHALL indicate whether it will send the requested message or not, by returning Accepted or Rejected.                                                                                                                                        | It is up to the Charging Station if it accepts or rejects the request to send.                                                                                                                                                                                |\n| F06.FR.06 | If a Charging Station accepts a TriggerMessageRequest with requestedMessage set to: MeterValues                                                                | The Charging Station SHALL send a MeterValuesRequest to the CSMS with the most recent measurements for all measurands configured in Configuration Variable: AlignedDataMeasurands.                                                                                                             |                                                                                                                                                                                                                                                               |\n| F06.FR.07 | If a Charging Station accepts a TriggerMessageRequest with requestedMessage set to: TransactionEvent                                                           | The Charging Station SHALL send a TransactionEventRequest to the CSMS with triggerReason = Trigger, transactionInfo with at least the chargingState, and meterValue with the most recent measurements for all measurands configured in Configuration Variable: SampledDataTxUpdatedMeasurands. |                                                                                                                                                                                                                                                               |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "F06 - Trigger Message - Requirements",
-        "heading_path": "F06 - Trigger Message - Requirements",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F06",
-        "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "MeterValuesRequest, TransactionEventRequest, TriggerMessageRequest, TriggerMessageResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| F06.FR.08 | When the Charging Station receives a TriggerMessageRequest with a requestedMessage that it has not implemented                                                 | The Charging Station SHALL respond with TriggerMessageResponse with status NotImplemented.                                                                                                                                                                                                     |                                                                                                                                                                                                                                                               |\n| F06.FR.09 |                                                                                                                                                                | The messages it triggers SHALL only give current information.                                                                                                                                                                                                                                  |                                                                                                                                                                                                                                                               |\n| F06.FR.10 | Messages that the Charging Station marks as Accepted                                                                                                           | SHALL be sent.                                                                                                                                                                                                                                                                                 | E.g. the situation could occur that, between accepting the request and actually sending the requested message, that same message gets sent because of normal operations. In such cases the message just sent MAY be considered as complying with the request. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "F06 - Trigger Message - Requirements",
-        "heading_path": "F06 - Trigger Message - Requirements",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F06",
-        "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "MeterValuesRequest, TransactionEventRequest, TriggerMessageRequest, TriggerMessageResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| F06.FR.11 | If the field evse is relevant but absent in the TriggerMessageRequest.                                                                                         | The Charging Station SHALL interpret this as \"for all allowed evse values\".                                                                                                                                                                                                                    | StatusNotifications can only be requested for a specific connector, see F06.FR.12/13                                                                                                                                                                          |\n| F06.FR.12 | If a Charging Station receives a TriggerMessageRequest with requestedMessage set to: StatusNotification AND ( evse is omitted OR evse.connectorId is omitted ) | The Charging Station MAY respond with a TriggerMessageResponse with status Rejected.                                                                                                                                                                                                           | StatusNotification messages can only be requested at connector level.                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "F06 - Trigger Message - Requirements",
-        "heading_path": "F06 - Trigger Message - Requirements",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F06",
-        "use_case_name": "Trigger Message",
-        "use_case_refs": "F06",
-        "message_refs": "MeterValuesRequest, TransactionEventRequest, TriggerMessageRequest, TriggerMessageResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "70",
-      "title": "Sequence Diagram: Trigger Message",
-      "files": [
-        "fig70_p1_Sequence_Diagram__Trigger_Message.png",
-        "fig70_p2_Sequence_Diagram__Trigger_Message.png"
-      ]
-    },
-    {
-      "figure_num": "71",
-      "title": "Sequence Diagram: Trigger Message Example",
-      "files": [
-        "fig71_p1_Sequence_Diagram__Trigger_Message_Example.png",
-        "fig71_p2_Sequence_Diagram__Trigger_Message_Example.png"
-      ]
-    },
-    {
-      "figure_num": "70",
-      "title": "Sequence Diagram: Trigger Message",
-      "files": [
-        "fig70_p1_Sequence_Diagram__Trigger_Message.png",
-        "fig70_p2_Sequence_Diagram__Trigger_Message.png"
-      ]
-    },
-    {
-      "figure_num": "71",
-      "title": "Sequence Diagram: Trigger Message Example",
-      "files": [
-        "fig71_p1_Sequence_Diagram__Trigger_Message_Example.png",
-        "fig71_p2_Sequence_Diagram__Trigger_Message_Example.png"
-      ]
-    },
-    {
-      "figure_num": "70",
-      "title": "Sequence Diagram: Trigger Message",
-      "files": [
-        "fig70_p1_Sequence_Diagram__Trigger_Message.png",
-        "fig70_p2_Sequence_Diagram__Trigger_Message.png"
-      ]
-    },
-    {
-      "figure_num": "71",
-      "title": "Sequence Diagram: Trigger Message Example",
-      "files": [
-        "fig71_p1_Sequence_Diagram__Trigger_Message_Example.png",
-        "fig71_p2_Sequence_Diagram__Trigger_Message_Example.png"
-      ]
     }
   ]
 }

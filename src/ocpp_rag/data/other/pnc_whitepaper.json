@@ -1,21 +1,21 @@
 [
   {
-    "content": "# Using ISO 15118 Plug & Charge with OCPP 1.6.\n\nRelevant for OCPP version: 1.6J.\n\nCopyright © 2020 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "content": "# Using ISO 15118 Plug & Charge with OCPP 1.6.\n\nRelevant for OCPP version: 1.6J.\n\nCopyright \u00a9 2020 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Using ISO 15118 Plug &#x26; Charge with OCPP 1.6.",
       "heading_path": "Using ISO 15118 Plug &#x26; Charge with OCPP 1.6."
     }
   },
   {
-    "content": "# Version History\n\n| VERSION | DATE       | AUTHOR           | DESCRIPTION   |\n| ------- | ---------- | ---------------- | ------------- |\n| 1.0     | 2020-09-16 | Milan Jansen     | Final version |\n|         |            | OCA              |               |\n|         |            | Lonneke Driessen |               |\n|         |            | ElaadNL          |               |\n|         |            | Paul Klapwijk    |               |\n|         |            | OCA              |               |",
+    "content": "# Version History\n\n- VERSION: 1.0; DATE: 2020-09-16; AUTHOR: Milan Jansen; DESCRIPTION: Final version",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Version History",
       "heading_path": "Version History"
@@ -26,7 +26,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "1.1. Reason for this Application Note",
       "heading_path": "1.1. Reason for this Application Note"
@@ -37,7 +37,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "1.3. About this Application Note",
       "heading_path": "1.3. About this Application Note"
@@ -48,18 +48,18 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "2.1. Determining and enabling ISO 15118 PnC support",
       "heading_path": "2.1. Determining and enabling ISO 15118 PnC support"
     }
   },
   {
-    "content": "# 2.2. Generic DataTransfer fields\n\nAs explained in the introduction, the DataTransfer mechanism is used to create vendor-specific custom extensions. To support this application note and to be interoperable with other implementations of this application note, it is important that the DataTransfer.req message fields are used in the same way:\n\n| FIELD NAME | FIELD TYPE      | DESCRIPTION                                                                                                                                                                                                                            |\n| ---------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| messageId  | string\\[0..50]  | The OCPP message name from the following list: - Authorize - CertificateSigned - DeleteCertificate - Get15118EVCertificate - GetCertificateStatus - GetInstalledCertificateIds - InstallCertificate - SignCertificate - TriggerMessage |\n| data       | Text            | The message in JSON format. Length undefined                                                                                                                                                                                           |\n| vendorId   | string\\[0..255] | fixed value: org.openchargealliance.iso15118pnc                                                                                                                                                                                        |\n\nAn example DataTransfer.req message with an ISO 15118 OCPP message could look like this:",
+    "content": "# 2.2. Generic DataTransfer fields\n\nAs explained in the introduction, the DataTransfer mechanism is used to create vendor-specific custom extensions. To support this application note and to be interoperable with other implementations of this application note, it is important that the DataTransfer.req message fields are used in the same way:\n\nstring\\[0..50]: The OCPP message name from the following list: - Authorize - CertificateSigned - DeleteCertificate - Get15118EVCertificate - GetCertificateStatus - GetInstalledCertificateIds - InstallCertificate - SignCertificate - TriggerMessage\nText: The message in JSON format. Length undefined\nstring\\[0..255]: fixed value: org.openchargealliance.iso15118pnc\n\nAn example DataTransfer.req message with an ISO 15118 OCPP message could look like this:",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "2.2. Generic DataTransfer fields",
       "heading_path": "2.2. Generic DataTransfer fields",
@@ -72,7 +72,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "2.2. Generic DataTransfer fields",
       "heading_path": "2.2. Generic DataTransfer fields",
@@ -85,7 +85,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Certificate Authority Server",
       "heading_path": "Certificate Authority Server"
@@ -96,18 +96,18 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "2.3. Using this application note with \"Improved Security for OCPP 1.6J\"",
       "heading_path": "2.3. Using this application note with \"Improved Security for OCPP 1.6J\""
     }
   },
   {
-    "content": "# 3.1.1. Initiated by the Central System\n\nUSE CASE(S) OCPP 2.0.1 A02\n\nScenario description: The installation of an ISO 15118 Charge Point certificate by the initiative of the Central System consists of the following steps:\n\n1. Central System sends a TriggerMessage.req to trigger a SignCertificate.req message to the Charge Point.\n2. The Charge Point generates a new public / private key pair.\n3. Charging station sends a SignCertificate.req message to the Central System.\n4. The Central System requests a Certificate Authority (CA) to sign the Certificate Signing Request that was sent by the Charge Point.\n5. The Central System sends the certificate it has acquired from the CA to the Charge Point, using the CertificateSigned.req message.\n6. The Charge Point verifies the Signed Certificate and if valid, it installs it as its ISO 15118 Charging Point certificate. If the certificate is invalid the Charge Point must reject the CertificateSigned.req message by sending a CertificateSigned.conf message with status Rejected. If the \"Improved Security for OCPP 1.6J\" whitepaper is implemented, the Charge Point must also report a SecurityEvent with security event InvalidChargePointCertificate.\n\nSee OCPP 2.0.1 Specification – A. Security Use Case A02 for further details.\n\nPlease note: in addition to the requirements in OCPP 2.0.1 for this use case, an OCPP 2.0.1 erratum is written, adding two configuration variables, CertSigningWaitMinimum and CertSigningRepeatTimes, with the purpose of providing a back off mechanism for the case when the Charge Point never receives the signed certificate generated from the provided CSR.\n\nMessages wrapped in TriggerMessage, SignCertificate, CertificateSigned DataTransfer messages",
+    "content": "# 3.1.1. Initiated by the Central System\n\nUSE CASE(S) OCPP 2.0.1 A02\n\nScenario description: The installation of an ISO 15118 Charge Point certificate by the initiative of the Central System consists of the following steps:\n\n1. Central System sends a TriggerMessage.req to trigger a SignCertificate.req message to the Charge Point.\n2. The Charge Point generates a new public / private key pair.\n3. Charging station sends a SignCertificate.req message to the Central System.\n4. The Central System requests a Certificate Authority (CA) to sign the Certificate Signing Request that was sent by the Charge Point.\n5. The Central System sends the certificate it has acquired from the CA to the Charge Point, using the CertificateSigned.req message.\n6. The Charge Point verifies the Signed Certificate and if valid, it installs it as its ISO 15118 Charging Point certificate. If the certificate is invalid the Charge Point must reject the CertificateSigned.req message by sending a CertificateSigned.conf message with status Rejected. If the \"Improved Security for OCPP 1.6J\" whitepaper is implemented, the Charge Point must also report a SecurityEvent with security event InvalidChargePointCertificate.\n\nSee OCPP 2.0.1 Specification \u2013 A. Security Use Case A02 for further details.\n\nPlease note: in addition to the requirements in OCPP 2.0.1 for this use case, an OCPP 2.0.1 erratum is written, adding two configuration variables, CertSigningWaitMinimum and CertSigningRepeatTimes, with the purpose of providing a back off mechanism for the case when the Charge Point never receives the signed certificate generated from the provided CSR.\n\nMessages wrapped in TriggerMessage, SignCertificate, CertificateSigned DataTransfer messages",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "3.1.1. Initiated by the Central System",
       "heading_path": "3.1.1. Initiated by the Central System",
@@ -115,11 +115,11 @@
     }
   },
   {
-    "content": "# Scenario description\n\nThe installation of an ISO 15118 Charge Point certificate by the initiative of the Charge Point consists of the following steps:\n\n1. The Charge Point generates a new public / private key pair.\n2. Charging station sends a SignCertificate.req message to the Central System.\n3. The Central System requests a Certificate Authority (CA) to sign the Certificate Signing Request that was sent by the Charge Point.\n4. The Central System sends the certificate it has acquired from the CA to the Charge Point, using the CertificateSigned.req message.\n5. The Charge Point verifies the Signed Certificate and if valid, it installs it as its ISO 15118 Charging Point certificate. If the certificate is invalid the Charge Point must reject the CertificateSigned.req message by sending a CertificateSigned.conf message with status Rejected. If the \"Improved Security for OCPP 1.6J\" whitepaper is implemented, the Charge Point must also report a SecurityEvent with security event InvalidChargePointCertificate.\n\nSee OCPP 2.0.1 Specification – A. Security Use Case A03 for further details.\n\nPlease note: in addition to the requirements in OCPP 2.0.1 for this use case, an OCPP 2.0.1 erratum is written, adding two configuration variables, CertSigningWaitMinimum and CertSigningRepeatTimes, with the purpose of providing a back off mechanism for the case when the Charge Point never receives the signed certificate generated from the provided CSR.\n\nMessages wrapped in SignCertificate, CertificateSigned DataTransfer messages\n\n© Open Charge Alliance 2020 5/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# Scenario description\n\nThe installation of an ISO 15118 Charge Point certificate by the initiative of the Charge Point consists of the following steps:\n\n1. The Charge Point generates a new public / private key pair.\n2. Charging station sends a SignCertificate.req message to the Central System.\n3. The Central System requests a Certificate Authority (CA) to sign the Certificate Signing Request that was sent by the Charge Point.\n4. The Central System sends the certificate it has acquired from the CA to the Charge Point, using the CertificateSigned.req message.\n5. The Charge Point verifies the Signed Certificate and if valid, it installs it as its ISO 15118 Charging Point certificate. If the certificate is invalid the Charge Point must reject the CertificateSigned.req message by sending a CertificateSigned.conf message with status Rejected. If the \"Improved Security for OCPP 1.6J\" whitepaper is implemented, the Charge Point must also report a SecurityEvent with security event InvalidChargePointCertificate.\n\nSee OCPP 2.0.1 Specification \u2013 A. Security Use Case A03 for further details.\n\nPlease note: in addition to the requirements in OCPP 2.0.1 for this use case, an OCPP 2.0.1 erratum is written, adding two configuration variables, CertSigningWaitMinimum and CertSigningRepeatTimes, with the purpose of providing a back off mechanism for the case when the Charge Point never receives the signed certificate generated from the provided CSR.\n\nMessages wrapped in SignCertificate, CertificateSigned DataTransfer messages\n\n\u00a9 Open Charge Alliance 2020 5/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Scenario description",
       "heading_path": "Scenario description",
@@ -127,24 +127,23 @@
     }
   },
   {
-    "content": "# Scenario description\n\nThe installation or update of a ContractCertificate in an EV consists of the following steps:\n\n1. The EV sends an CertificateInstallationReq message to the Charge Point.\n2. Based on this, the Charge Point sends an Get15118EVCertificate.req message to Central System. In case of Certificate installation, the action must be 'Install', in case of a certificate update, the action must be 'Update'\n3. The Central System retrieves the right certificate and responds with a Get15118EVCertificate.conf message to the Charge Point. In case that an error occurs when fetching the exiResponse by the Central System or a timeout occurs, the Central System will respond with a Get15118EVCertificate.conf message with a status Failed to the Charge Point.\n\nSee OCPP 2.0.1 Specification – M. ISO 15118 CertificateManagement Use Case M01/M02 for further details.\n\nMessages wrapped in Get15118EVCertificate DataTransfer messages\n\n© Open Charge Alliance 2020 6/23",
+    "content": "# Scenario description\n\nThe installation or update of a ContractCertificate in an EV consists of the following steps:\n\n1. The EV sends an CertificateInstallationReq message to the Charge Point.\n2. Based on this, the Charge Point sends an Get15118EVCertificate.req message to Central System. In case of Certificate installation, the action must be 'Install', in case of a certificate update, the action must be 'Update'\n3. The Central System retrieves the right certificate and responds with a Get15118EVCertificate.conf message to the Charge Point. In case that an error occurs when fetching the exiResponse by the Central System or a timeout occurs, the Central System will respond with a Get15118EVCertificate.conf message with a status Failed to the Charge Point.\n\nSee OCPP 2.0.1 Specification \u2013 M. ISO 15118 CertificateManagement Use Case M01/M02 for further details.\n\nMessages wrapped in Get15118EVCertificate DataTransfer messages\n\n\u00a9 Open Charge Alliance 2020 6/23",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Scenario description",
       "heading_path": "Scenario description",
-      "use_case_refs": "M01, M02",
-      "message_refs": "exiResponse"
+      "use_case_refs": "M01, M02"
     }
   },
   {
-    "content": "# Scenario description\n\nRetrieving a list of currently installed certificates consists of the following steps:\n\n1. The Central System sends a GetInstalledCertificateIds.req message to the Charge Point.\n2. The Charge Point responds with a GetInstalledCertificateIds.conf message containing the requested certificate hashes.\n\nSee OCPP 2.0.1 Specification – M. ISO 15118 CertificateManagement Use Case M03 for further details.\n\nMessages wrapped in GetInstalledCertificateIds DataTransfer messages",
+    "content": "# Scenario description\n\nRetrieving a list of currently installed certificates consists of the following steps:\n\n1. The Central System sends a GetInstalledCertificateIds.req message to the Charge Point.\n2. The Charge Point responds with a GetInstalledCertificateIds.conf message containing the requested certificate hashes.\n\nSee OCPP 2.0.1 Specification \u2013 M. ISO 15118 CertificateManagement Use Case M03 for further details.\n\nMessages wrapped in GetInstalledCertificateIds DataTransfer messages",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Scenario description",
       "heading_path": "Scenario description",
@@ -152,11 +151,11 @@
     }
   },
   {
-    "content": "# Scenario description\n\nDeleting a certificate from the Charge Point consists of the following steps:\n\n1. The Central System sends a DeleteCertificate.req message to the Charge Point.\n2. The Charge Point responds with a DeleteCertificate.conf message.\n\nSee OCPP 2.0.1 Specification – M. ISO 15118 CertificateManagement Use Case M04 for further details.\n\nPlease note: in addition to the requirements in OCPP 2.0.1 for this use case, an erratum is written, adding that a Charge Point may reject the request to prevent the deletion of a certificate, if it is the last one from its certificate type.\n\nMessages wrapped in DeleteCertificate DataTransfer messages",
+    "content": "# Scenario description\n\nDeleting a certificate from the Charge Point consists of the following steps:\n\n1. The Central System sends a DeleteCertificate.req message to the Charge Point.\n2. The Charge Point responds with a DeleteCertificate.conf message.\n\nSee OCPP 2.0.1 Specification \u2013 M. ISO 15118 CertificateManagement Use Case M04 for further details.\n\nPlease note: in addition to the requirements in OCPP 2.0.1 for this use case, an erratum is written, adding that a Charge Point may reject the request to prevent the deletion of a certificate, if it is the last one from its certificate type.\n\nMessages wrapped in DeleteCertificate DataTransfer messages",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Scenario description",
       "heading_path": "Scenario description",
@@ -164,11 +163,11 @@
     }
   },
   {
-    "content": "# Scenario description\n\nInstalling a Root CA certificate in the Charge Point consists of the following steps:\n\n1. The Central System sends an InstallCertificate.req message to the Charge Point.\n2. The Charge Point responds with an InstallCertificate.conf message.\n\nSee OCPP 2.0.1 Specification – M. ISO 15118 CertificateManagement Use Case M05 for further details.\n\nMessages wrapped in InstallCertificate DataTransfer messages",
+    "content": "# Scenario description\n\nInstalling a Root CA certificate in the Charge Point consists of the following steps:\n\n1. The Central System sends an InstallCertificate.req message to the Charge Point.\n2. The Charge Point responds with an InstallCertificate.conf message.\n\nSee OCPP 2.0.1 Specification \u2013 M. ISO 15118 CertificateManagement Use Case M05 for further details.\n\nMessages wrapped in InstallCertificate DataTransfer messages",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Scenario description",
       "heading_path": "Scenario description",
@@ -176,11 +175,11 @@
     }
   },
   {
-    "content": "# Scenario description\n\nRetrieving an OCSP response containing the certificate status consists of the following steps:\n\n1. The Charge Point sends an GetCertificateStatus.req message to the Central System.\n2. The Central System responds with an GetCertificateStatus.conf message containing the OCSP response.\n\nSee OCPP 2.0.1 Specification – M. ISO 15118 CertificateManagement Use Case M06 for further details.\n\nMessages wrapped in GetCertificateStatus DataTransfer messages",
+    "content": "# Scenario description\n\nRetrieving an OCSP response containing the certificate status consists of the following steps:\n\n1. The Charge Point sends an GetCertificateStatus.req message to the Central System.\n2. The Central System responds with an GetCertificateStatus.conf message containing the OCSP response.\n\nSee OCPP 2.0.1 Specification \u2013 M. ISO 15118 CertificateManagement Use Case M06 for further details.\n\nMessages wrapped in GetCertificateStatus DataTransfer messages",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Scenario description",
       "heading_path": "Scenario description",
@@ -188,11 +187,11 @@
     }
   },
   {
-    "content": "# USE CASE(S) OCPP 2.0.1 C07\n\nScenario description Plug and Charge authorization consists of the following steps:\n\n1. When it is plugged in, the EV sends a ContractCertificate and eMAID to the Charge Point.\n2. The Charge Point checks this offline (see below) or it sends an Authorize.req message wrapped in DataTransfer.req to the Central System containing the eMAID and data needed for the contract certificate validation: this can be the information in the OCSPRequestDataType so that the Central System can do an OCSP request with regards to the ContractCertificate and Certificate Chain. Alternatively, if the Charge Point is not able to validate a contract certificate, because it does not have the associated root certificate and the configuration key CentralContractValidationAllowed is true, the Charge Point MUST pass the contract certificate to the Central System in the certificate attribute (in PEM format) for validation by the Central System. When using ISO 15118 Plug and Charge authorization the Authorize message wrapped in a DataTransfer replaces the regular Authorize.req message.\n3. The Central System replies with an agreement or non-agreement, and the certificate status.\n\nSee OCPP 2.0.1 Specification – C. Authorization Use Case C07 for further details.\n\nPlease note: Using the DataTransfer.req with the wrapped Authorize message is mandatory, the regular command Authorize.req SHALL NOT be used and the (regular) StartTransaction.req MUST use the eMAID in the idTag. When using ISO 15118 with External Identification Means (EIM), the regular Authorize.req message MUST be used.",
+    "content": "# USE CASE(S) OCPP 2.0.1 C07\n\nScenario description Plug and Charge authorization consists of the following steps:\n\n1. When it is plugged in, the EV sends a ContractCertificate and eMAID to the Charge Point.\n2. The Charge Point checks this offline (see below) or it sends an Authorize.req message wrapped in DataTransfer.req to the Central System containing the eMAID and data needed for the contract certificate validation: this can be the information in the OCSPRequestDataType so that the Central System can do an OCSP request with regards to the ContractCertificate and Certificate Chain. Alternatively, if the Charge Point is not able to validate a contract certificate, because it does not have the associated root certificate and the configuration key CentralContractValidationAllowed is true, the Charge Point MUST pass the contract certificate to the Central System in the certificate attribute (in PEM format) for validation by the Central System. When using ISO 15118 Plug and Charge authorization the Authorize message wrapped in a DataTransfer replaces the regular Authorize.req message.\n3. The Central System replies with an agreement or non-agreement, and the certificate status.\n\nSee OCPP 2.0.1 Specification \u2013 C. Authorization Use Case C07 for further details.\n\nPlease note: Using the DataTransfer.req with the wrapped Authorize message is mandatory, the regular command Authorize.req SHALL NOT be used and the (regular) StartTransaction.req MUST use the eMAID in the idTag. When using ISO 15118 with External Identification Means (EIM), the regular Authorize.req message MUST be used.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "USE CASE(S) OCPP 2.0.1 C07",
       "heading_path": "USE CASE(S) OCPP 2.0.1 C07",
@@ -200,11 +199,11 @@
     }
   },
   {
-    "content": "# Offline behavior\n\nWhen the Charge Point is offline, the contract certificate cannot be verified at the CSMS. Offline contract certificate validation is configurable on the Charge Point side. The Configuration key ContractValidationOffline is available for this. Basically it verifies the contract offline and then applies the regular behavior of the Local Authorization List and Authorization Cache to the eMAID.\n\nThe following more detailed rules apply to this key:\n\n| When the Charge Point is offline AND | The Charge Point SHALL NOT allow charging.                               |\n| ------------------------------------ | ------------------------------------------------------------------------ |\n| ContractValidationOffline is false   |                                                                          |\n| When Charge Point is offline AND     | The Charge Point SHALL try to validate the contract certificate locally. |\n| ContractValidationOffline is true    |                                                                          |\n\nIn the situation that the Charge Point is offline and the ContractValidationOffline key is set to true, the Charge Point thus locally validates the contract certificate. If the certificate is valid, the Local Authorization List and Authorization Cache mechanisms can be used according to the regular OCPP 1.6 offline behaviour, using the eMAID.\n\nIn more detail, the following rules apply:\n\n| If LocalAuthorizeOffline is true                                                               | The Charge Point SHALL lookup the eMAID in the Local Authorization List or the Authorization Cache.                 |\n| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |\n| If LocalAuthorizeOffline is true and the eMAID is found in the Local Authorization List        | The Charge Point SHALL treat this as a regular OCPP 1.6 offline authorization through the Local Authorization List. |\n| If LocalAuthorizeOffline is true and the eMAID is found in the Authorization Cache             | The Charge Point SHALL treat this as a regular OCPP 1.6 offline authorization through the Authorization Cache.      |\n| If LocalAuthorizeOffline is true, the eMAID is not found and AllowOfflineTxForUnknownId = true | The Charge Point SHALL allow charging according to regular behavior of this configuration key.                      |",
+    "content": "# Offline behavior\n\nWhen the Charge Point is offline, the contract certificate cannot be verified at the CSMS. Offline contract certificate validation is configurable on the Charge Point side. The Configuration key ContractValidationOffline is available for this. Basically it verifies the contract offline and then applies the regular behavior of the Local Authorization List and Authorization Cache to the eMAID.\n\nThe following more detailed rules apply to this key:\n\nContractValidationOffline is false: \nWhen Charge Point is offline AND: The Charge Point SHALL try to validate the contract certificate locally.\nContractValidationOffline is true: \n\nIn the situation that the Charge Point is offline and the ContractValidationOffline key is set to true, the Charge Point thus locally validates the contract certificate. If the certificate is valid, the Local Authorization List and Authorization Cache mechanisms can be used according to the regular OCPP 1.6 offline behaviour, using the eMAID.\n\nIn more detail, the following rules apply:\n\nIf LocalAuthorizeOffline is true and the eMAID is found in the Local Authorization List: The Charge Point SHALL treat this as a regular OCPP 1.6 offline authorization through the Local Authorization List.\nIf LocalAuthorizeOffline is true and the eMAID is found in the Authorization Cache: The Charge Point SHALL treat this as a regular OCPP 1.6 offline authorization through the Authorization Cache.\nIf LocalAuthorizeOffline is true, the eMAID is not found and AllowOfflineTxForUnknownId = true: The Charge Point SHALL allow charging according to regular behavior of this configuration key.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Offline behavior",
       "heading_path": "Offline behavior",
@@ -213,11 +212,11 @@
     }
   },
   {
-    "content": "Please note: since the eMAID is linked to a contract with an expiration date, it is up to the Central System to remove eMAIDs from the Local Authorization List once the validity has expired. Furthermore, OCPP 1.6 knows 1 IdToken type, so it is up to the Central System to take into account to only send IdTokens in the Local Authorization List that are supported by the Charge Point.\n\n© Open Charge Alliance 2020 9/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "Please note: since the eMAID is linked to a contract with an expiration date, it is up to the Central System to remove eMAIDs from the Local Authorization List once the validity has expired. Furthermore, OCPP 1.6 knows 1 IdToken type, so it is up to the Central System to take into account to only send IdTokens in the Local Authorization List that are supported by the Charge Point.\n\n\u00a9 Open Charge Alliance 2020 9/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Offline behavior",
       "heading_path": "Offline behavior",
@@ -226,267 +225,264 @@
     }
   },
   {
-    "content": "# 6.1.1. Authorize.req\n\nThis contains the field definition of the Authorize.req that is wrapped in the DataTransfer PDU sent by the Charge Point to the Central System.\n\n| FIELD NAME                  | FIELD TYPE          | CARD. | DESCRIPTION                                                                               |\n| --------------------------- | ------------------- | ----- | ----------------------------------------------------------------------------------------- |\n| certificate                 | string\\[0..5500]    | 0..1  | Optional. The X.509 certificated presented by EV and encoded in PEM format.               |\n| idToken                     | IdTokenType         | 1..1  | Required. This contains the identifier that needs to be authorized.                       |\n| iso15118CertificateHashData | OCSPRequestDataType | 0..4  | Optional. Contains the information needed to verify the EV Contract Certificate via OCSP. |",
+    "content": "# 6.1.1. Authorize.req\n\nThis contains the field definition of the Authorize.req that is wrapped in the DataTransfer PDU sent by the Charge Point to the Central System.\n\nstring\\[0..5500]: 0..1\nIdTokenType: 1..1\nOCSPRequestDataType: 0..4",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.1.1. Authorize.req",
       "heading_path": "6.1.1. Authorize.req"
     }
   },
   {
-    "content": "# 6.1.2. Authorize.conf\n\nThis contains the field definition of the Authorize.conf that is wrapped in the DataTransfer PDU sent by the Central System to the Charge Point in response to an Authorize.req.\n\n| FIELD NAME        | FIELD TYPE                         | CARD. | DESCRIPTION                                                                                                                                                          |\n| ----------------- | ---------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| certificateStatus | AuthorizeCertificateStatusEnumType | 0..1  | Optional. Certificate status information. - if all certificates are valid: return 'Accepted'. - if one of the certificates was revoked, return 'CertificateRevoked'. |\n| idTokenInfo       | IdTokenInfoType                    | 1..1  | Required. This contains information about authorization status, expiry and group id.                                                                                 |",
+    "content": "# 6.1.2. Authorize.conf\n\nThis contains the field definition of the Authorize.conf that is wrapped in the DataTransfer PDU sent by the Central System to the Charge Point in response to an Authorize.req.\n\nAuthorizeCertificateStatusEnumType: 0..1\nIdTokenInfoType: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.1.2. Authorize.conf",
       "heading_path": "6.1.2. Authorize.conf"
     }
   },
   {
-    "content": "# 6.2.1. CertificateSigned.req\n\nThis contains the field definition of the CertificateSigned.req that is wrapped in the DataTransfer PDU sent by the Central System to the Charge Point.\n\n| FIELD NAME       | FIELD TYPE        | CARD. | DESCRIPTION                                                                                                                                                                                                                                                                                                                         |\n| ---------------- | ----------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| certificateChain | string\\[0..10000] | 1..1  | Required. The signed PEM encoded X.509 certificate. This can also contain the necessary sub CA certificates. In that case, the order of the bundle should follow the certificate chain, starting from the leaf certificate. The Configuration Variable MaxCertificateChainSize can be used to limit the maximum size of this field. |",
+    "content": "# 6.2.1. CertificateSigned.req\n\nThis contains the field definition of the CertificateSigned.req that is wrapped in the DataTransfer PDU sent by the Central System to the Charge Point.\n\nstring\\[0..10000]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.2.1. CertificateSigned.req",
       "heading_path": "6.2.1. CertificateSigned.req"
     }
   },
   {
-    "content": "# 6.2.2. CertificateSigned.conf\n\nThis contains the field definition of the CertificateSigned.conf that is wrapped in the DataTransfer PDU sent by the Charge Point to the Central System in response to a CertificateSigned.req that is wrapped in a DataTransfer PDU.\n\n| FIELD NAME | FIELD TYPE                      | CARD. | DESCRIPTION                                                                          |\n| ---------- | ------------------------------- | ----- | ------------------------------------------------------------------------------------ |\n| status     | CertificateSignedStatusEnumType | 1..1  | Required. Returns whether certificate signing has been accepted, otherwise rejected. |",
+    "content": "# 6.2.2. CertificateSigned.conf\n\nThis contains the field definition of the CertificateSigned.conf that is wrapped in the DataTransfer PDU sent by the Charge Point to the Central System in response to a CertificateSigned.req that is wrapped in a DataTransfer PDU.\n\nCertificateSignedStatusEnumType: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.2.2. CertificateSigned.conf",
       "heading_path": "6.2.2. CertificateSigned.conf"
     }
   },
   {
-    "content": "# 6.3.1. DeleteCertificate.req\n\nMessage wrapped in the DataTransfer PDU by the Central System to request deletion of an installed certificate on a Charge Point.\n\n| FIELD NAME          | FIELD TYPE              | CARD. | DESCRIPTION                                                         |\n| ------------------- | ----------------------- | ----- | ------------------------------------------------------------------- |\n| certificateHashData | CertificateHashDataType | 1..1  | Required. Indicates the certificate of which deletion is requested. |",
+    "content": "# 6.3.1. DeleteCertificate.req\n\nMessage wrapped in the DataTransfer PDU by the Central System to request deletion of an installed certificate on a Charge Point.\n\nCertificateHashDataType: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.3.1. DeleteCertificate.req",
       "heading_path": "6.3.1. DeleteCertificate.req"
     }
   },
   {
-    "content": "# 6.3.2. DeleteCertificate.conf\n\nResponse to a DeleteCertificate.req.\n\n| FIELD NAME | FIELD TYPE                      | CARD. | DESCRIPTION                                                     |\n| ---------- | ------------------------------- | ----- | --------------------------------------------------------------- |\n| status     | DeleteCertificateStatusEnumType | 1..1  | Required. Charge Point indicates if it can process the request. |",
+    "content": "# 6.3.2. DeleteCertificate.conf\n\nResponse to a DeleteCertificate.req.\n\nDeleteCertificateStatusEnumType: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.3.2. DeleteCertificate.conf",
       "heading_path": "6.3.2. DeleteCertificate.conf"
     }
   },
   {
-    "content": "# 6.4.1. Get15118EVCertificate.req\n\nThis message is sent (wrapped in the DataTransfer PDU) by the Charge Point to the Central System if an ISO 15118 vehicle selects the service Certificate installation. NOTE: This message is based on CertificateInstallationReq Res from ISO 15118-2.\n\n| FIELD NAME            | FIELD TYPE                | CARD. | DESCRIPTION                                                                                                                                            |\n| --------------------- | ------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| iso15118SchemaVersion | string\\[0..50]            | 1..1  | Required. Schema version currently used for the 15118 session between EV and Charge Point. Needed for parsing of the EXI stream by the Central System. |\n| action                | CertificateActionEnumType | 1..1  | Required. Defines whether certificate needs to be installed or updated.                                                                                |\n| exiRequest            | string\\[0..5600]          | 1..1  | Required. Raw CertificateInstallationReq request from EV, Base64 encoded.                                                                              |",
+    "content": "# 6.4.1. Get15118EVCertificate.req\n\nThis message is sent (wrapped in the DataTransfer PDU) by the Charge Point to the Central System if an ISO 15118 vehicle selects the service Certificate installation. NOTE: This message is based on CertificateInstallationReq Res from ISO 15118-2.\n\nstring\\[0..50]: 1..1\nCertificateActionEnumType: 1..1\nstring\\[0..5600]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.4.1. Get15118EVCertificate.req",
-      "heading_path": "6.4.1. Get15118EVCertificate.req",
-      "message_refs": "exiRequest"
+      "heading_path": "6.4.1. Get15118EVCertificate.req"
     }
   },
   {
-    "content": "# 6.4.2. Get15118EVCertificate.conf\n\nResponse message (in a DataTransfer PDU) from Central System to Charge Point containing the status and optionally new certificate. NOTE: This message is based on CertificateInstallationReq Res from ISO 15118-2.\n\n| FIELD NAME  | FIELD TYPE                       | CARD. | DESCRIPTION                                                                   |\n| ----------- | -------------------------------- | ----- | ----------------------------------------------------------------------------- |\n| status      | Iso15118EVCertificateStatusEnumT | 1..1  | Required. Indicates whether the message was processed properly.               |\n| exiResponse | string\\[0..5600]                 | 1..1  | Required. Raw CertificateInstallationRes response for the EV, Base64 encoded. |",
+    "content": "# 6.4.2. Get15118EVCertificate.conf\n\nResponse message (in a DataTransfer PDU) from Central System to Charge Point containing the status and optionally new certificate. NOTE: This message is based on CertificateInstallationReq Res from ISO 15118-2.\n\nIso15118EVCertificateStatusEnumT: 1..1\nstring\\[0..5600]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.4.2. Get15118EVCertificate.conf",
-      "heading_path": "6.4.2. Get15118EVCertificate.conf",
-      "message_refs": "exiResponse"
+      "heading_path": "6.4.2. Get15118EVCertificate.conf"
     }
   },
   {
-    "content": "# 6.5.1. GetCertificateStatus.req\n\nThis contains the field definition of the GetCertificateStatus.req that is wrapped in the DataTransfer PDU sent by the Charge Point to the Central System.\n\n| FIELD NAME      | FIELD TYPE          | CARD. | DESCRIPTION                                                           |\n| --------------- | ------------------- | ----- | --------------------------------------------------------------------- |\n| ocspRequestData | OCSPRequestDataType | 1..1  | Required. Indicates the certificate of which the status is requested. |",
+    "content": "# 6.5.1. GetCertificateStatus.req\n\nThis contains the field definition of the GetCertificateStatus.req that is wrapped in the DataTransfer PDU sent by the Charge Point to the Central System.\n\nOCSPRequestDataType: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.5.1. GetCertificateStatus.req",
       "heading_path": "6.5.1. GetCertificateStatus.req"
     }
   },
   {
-    "content": "# 6.5.2. GetCertificateStatus.conf\n\nThis contains the field definition of the GetCertificateStatus.conf that is wrapped in the DataTransfer PDU sent by the Central System to the Charge Point.\n\n| FIELD NAME | FIELD TYPE                   | CARD. | DESCRIPTION                                                                                                                                                                    |\n| ---------- | ---------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| status     | GetCertificateStatusEnumType | 1..1  | Required. This indicates whether the charging station was able to retrieve the OCSP certificate status.                                                                        |\n| ocspResult | string\\[0..5500]             | 0..1  | Optional. OCSPResponse class as defined in IETF RFC 6960. DER encoded (as defined in IETF RFC 6960), and then base64 encoded. MAY only be omitted when status is not Accepted. |",
+    "content": "# 6.5.2. GetCertificateStatus.conf\n\nThis contains the field definition of the GetCertificateStatus.conf that is wrapped in the DataTransfer PDU sent by the Central System to the Charge Point.\n\nGetCertificateStatusEnumType: 1..1\nstring\\[0..5500]: 0..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.5.2. GetCertificateStatus.conf",
-      "heading_path": "6.5.2. GetCertificateStatus.conf",
-      "message_refs": "OCSPResponse"
+      "heading_path": "6.5.2. GetCertificateStatus.conf"
     }
   },
   {
-    "content": "# 6.6.1. GetInstalledCertificateIds.req\n\nUsed by the Central System to request an overview of the installed certificates on a Charge Point.\n\n| FIELD NAME      | FIELD TYPE                  | CARD. | DESCRIPTION                                                                                                |\n| --------------- | --------------------------- | ----- | ---------------------------------------------------------------------------------------------------------- |\n| certificateType | GetCertificateIdUseEnumType | 0..\\* | Optional. Indicates the type of certificates requested. When omitted, all certificate types are requested. |",
+    "content": "# 6.6.1. GetInstalledCertificateIds.req\n\nUsed by the Central System to request an overview of the installed certificates on a Charge Point.\n\nGetCertificateIdUseEnumType: 0..\\*",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.6.1. GetInstalledCertificateIds.req",
       "heading_path": "6.6.1. GetInstalledCertificateIds.req"
     }
   },
   {
-    "content": "# 6.6.2. GetInstalledCertificateIds.conf\n\nResponse to a GetInstalledCertificateIDs.req (wrapped in a DataTransfer PDU).\n\n| FIELD NAME               | FIELD TYPE                            | CARD. | DESCRIPTION                                                                                     |\n| ------------------------ | ------------------------------------- | ----- | ----------------------------------------------------------------------------------------------- |\n| status                   | GetInstalledCertificateStatusEnumType | 1..1  | Required. Charge Point indicates if it can process the request.                                 |\n| certificateHashDataChain | CertificateHashDataChainType          | 0..\\* | Optional. The Charge Point includes the Certificate information for each available certificate. |",
+    "content": "# 6.6.2. GetInstalledCertificateIds.conf\n\nResponse to a GetInstalledCertificateIDs.req (wrapped in a DataTransfer PDU).\n\nGetInstalledCertificateStatusEnumType: 1..1\nCertificateHashDataChainType: 0..\\*",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.6.2. GetInstalledCertificateIds.conf",
       "heading_path": "6.6.2. GetInstalledCertificateIds.conf"
     }
   },
   {
-    "content": "# 6.7.1. InstallCertificate.req\n\nUsed by the Central System to request installation of a certificate on a Charge Point.\n\n| FIELD NAME      | FIELD TYPE                    | CARD. | DESCRIPTION                                            |\n| --------------- | ----------------------------- | ----- | ------------------------------------------------------ |\n| certificateType | InstallCertificateUseEnumType | 1..1  | Required. Indicates the certificate type that is sent. |\n| certificate     | string\\[0..5500]              | 1..1  | Required. A PEM encoded X.509 certificate.             |",
+    "content": "# 6.7.1. InstallCertificate.req\n\nUsed by the Central System to request installation of a certificate on a Charge Point.\n\nInstallCertificateUseEnumType: 1..1\nstring\\[0..5500]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.7.1. InstallCertificate.req",
       "heading_path": "6.7.1. InstallCertificate.req"
     }
   },
   {
-    "content": "# 6.7.2. InstallCertificate.conf\n\nThe response to a InstallCertificate.req that is wrapped in a DataTransfer PDU, sent by the Charge Point to the Central System.\n\n| FIELD NAME | FIELD TYPE                       | CARD. | DESCRIPTION                                                      |\n| ---------- | -------------------------------- | ----- | ---------------------------------------------------------------- |\n| status     | InstallCertificateStatusEnumType | 1..1  | Required. Charge Point indicates if installation was successful. |",
+    "content": "# 6.7.2. InstallCertificate.conf\n\nThe response to a InstallCertificate.req that is wrapped in a DataTransfer PDU, sent by the Charge Point to the Central System.\n\nInstallCertificateStatusEnumType: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.7.2. InstallCertificate.conf",
       "heading_path": "6.7.2. InstallCertificate.conf"
     }
   },
   {
-    "content": "# 6.8.1. SignCertificate.req\n\nSent (wrapped in a DataTransfer PDU) by the Charge Point to the Central System to request that the Certificate Authority signs the public key into a certificate.\n\n| FIELD NAME | FIELD TYPE       | CARD. | DESCRIPTION                                                                                                                                                                                     |\n| ---------- | ---------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| csr        | string\\[0..5500] | 1..1  | Required. The Charge Point SHALL send the public key in form of a Certificate Signing Request (CSR) as described in RFC 2986 \\[22] and then PEM encoded, using the SignCertificate.req message. |",
+    "content": "# 6.8.1. SignCertificate.req\n\nSent (wrapped in a DataTransfer PDU) by the Charge Point to the Central System to request that the Certificate Authority signs the public key into a certificate.\n\nstring\\[0..5500]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.8.1. SignCertificate.req",
       "heading_path": "6.8.1. SignCertificate.req"
     }
   },
   {
-    "content": "# 6.8.2. SignCertificate.conf\n\nSent (wrapped in a DataTransfer PDU) by the Central System to the Charge Point in response to the SignCertificate.req message that was wrapped in a DataTransfer PDU.\n\n| FIELD NAME | FIELD TYPE            | CARD. | DESCRIPTION                                                             |\n| ---------- | --------------------- | ----- | ----------------------------------------------------------------------- |\n| status     | GenericStatusEnumType | 1..1  | Required. Specifies whether the Central System can process the request. |\n\n© Open Charge Alliance 2020\n\nUsing ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# 6.8.2. SignCertificate.conf\n\nSent (wrapped in a DataTransfer PDU) by the Central System to the Charge Point in response to the SignCertificate.req message that was wrapped in a DataTransfer PDU.\n\nGenericStatusEnumType: 1..1\n\n\u00a9 Open Charge Alliance 2020\n\nUsing ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.8.2. SignCertificate.conf",
       "heading_path": "6.8.2. SignCertificate.conf"
     }
   },
   {
-    "content": "# 6.9.2. TriggerMessage.conf\n\nThis contains the field definition of the TriggerMessage.conf that is wrapped in a DataTransfer PDU sent by the Charge Point to the Central System in response to TriggerMessage.conf.\n\n| FIELD NAME | FIELD TYPE                   | CARD. | DESCRIPTION                                                                               |\n| ---------- | ---------------------------- | ----- | ----------------------------------------------------------------------------------------- |\n| status     | TriggerMessageStatusEnumType | 1..1  | Required. Indicates whether the Charge Point will send the requested notification or not. |\n\n© Open Charge Alliance 2020\n\n14/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# 6.9.2. TriggerMessage.conf\n\nThis contains the field definition of the TriggerMessage.conf that is wrapped in a DataTransfer PDU sent by the Charge Point to the Central System in response to TriggerMessage.conf.\n\nTriggerMessageStatusEnumType: 1..1\n\n\u00a9 Open Charge Alliance 2020\n\n14/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "6.9.2. TriggerMessage.conf",
       "heading_path": "6.9.2. TriggerMessage.conf"
     }
   },
   {
-    "content": "# 7.1. CertificateHashDataChainType\n\n| FIELD NAME               | FIELD TYPE                  | CARD. | DESCRIPTION                                                   |\n| ------------------------ | --------------------------- | ----- | ------------------------------------------------------------- |\n| certificateType          | GetCertificateIdUseEnumType | 1..1  | Required. Indicates the type of the requested certificate(s). |\n| certificateHashData      | CertificateHashDataType     | 1..1  | Required. Information to identify a certificate.              |\n| childCertificateHashData | CertificateHashDataType     | 0..4  | Optional. Information to identify the child certificate(s).   |",
+    "content": "# 7.1. CertificateHashDataChainType\n\nGetCertificateIdUseEnumType: 1..1\nCertificateHashDataType: 1..1\nCertificateHashDataType: 0..4",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "7.1. CertificateHashDataChainType",
       "heading_path": "7.1. CertificateHashDataChainType"
     }
   },
   {
-    "content": "# 7.2. CertificateHashDataType\n\n| FIELD NAME     | FIELD TYPE                | CARD. | DESCRIPTION                                                   |\n| -------------- | ------------------------- | ----- | ------------------------------------------------------------- |\n| hashAlgorithm  | HashAlgorithmEnumType     | 1..1  | Required. Used algorithms for the hashes provided.            |\n| issuerNameHash | identifierString\\[0..128] | 1..1  | Required. Hashed value of the Issuer DN (Distinguished Name). |\n| issuerKeyHash  | string\\[0..128]           | 1..1  | Required. Hashed value of the issuers public key              |\n| serialNumber   | identifierString\\[0..40]  | 1..1  | Required. The serial number of the certificate.               |",
+    "content": "# 7.2. CertificateHashDataType\n\nHashAlgorithmEnumType: 1..1\nidentifierString\\[0..128]: 1..1\nstring\\[0..128]: 1..1\nidentifierString\\[0..40]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "7.2. CertificateHashDataType",
       "heading_path": "7.2. CertificateHashDataType"
     }
   },
   {
-    "content": "# 7.3. IdTokenType\n\nClass\n\nContains a case insensitive identifier to use for the authorization.\n\n| FIELD NAME | FIELD TYPE               | CARD. | DESCRIPTION                                                                                                              |\n| ---------- | ------------------------ | ----- | ------------------------------------------------------------------------------------------------------------------------ |\n| idToken    | identifierString\\[0..20] | 1..1  | Required. IdToken is case insensitive. Might hold the hidden id of an RFID tag, but can for example also contain a UUID. |",
+    "content": "# 7.3. IdTokenType\n\nClass\n\nContains a case insensitive identifier to use for the authorization.\n\nidentifierString\\[0..20]: 1..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "7.3. IdTokenType",
       "heading_path": "7.3. IdTokenType"
     }
   },
   {
-    "content": "# 7.4. IdTokenInfoType\n\nClass\n\nContains status information about an identifier.\n\n| FIELD NAME          | FIELD TYPE                  | CARD. | DESCRIPTION                                                               |\n| ------------------- | --------------------------- | ----- | ------------------------------------------------------------------------- |\n| status              | AuthorizationStatusEnumType | 1..1  | Required. Current status of the ID Token.                                 |\n| cacheExpiryDateTime | dateTime                    | 0..1  | Optional. Date and Time after which the token must be considered invalid. |",
+    "content": "# 7.4. IdTokenInfoType\n\nClass\n\nContains status information about an identifier.\n\nAuthorizationStatusEnumType: 1..1\ndateTime: 0..1",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "7.4. IdTokenInfoType",
       "heading_path": "7.4. IdTokenInfoType"
     }
   },
   {
-    "content": "# 7.5. OCSPRequestDataType\n\nClass\n\n| FIELD NAME     | FIELD TYPE                | CARD. | DESCRIPTION                                                   |\n| -------------- | ------------------------- | ----- | ------------------------------------------------------------- |\n| hashAlgorithm  | HashAlgorithmEnumType     | 1..1  | Required. Used algorithms for the hashes provided.            |\n| issuerNameHash | identifierString\\[0..128] | 1..1  | Required. Hashed value of the Issuer DN (Distinguished Name). |\n| issuerKeyHash  | string\\[0..128]           | 1..1  | Required. Hashed value of the issuers public key.             |\n| serialNumber   | identifierString\\[0..40]  | 1..1  | Required. The serial number of the certificate.               |\n| responderURL   | string\\[0..512]           | 1..1  | Required. This contains the responder URL (Case insensitive). |\n\n© Open Charge Alliance 2020\n\n15/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# 7.5. OCSPRequestDataType\n\nClass\n\nHashAlgorithmEnumType: 1..1\nidentifierString\\[0..128]: 1..1\nstring\\[0..128]: 1..1\nidentifierString\\[0..40]: 1..1\nstring\\[0..512]: 1..1\n\n\u00a9 Open Charge Alliance 2020\n\n15/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "7.5. OCSPRequestDataType",
       "heading_path": "7.5. OCSPRequestDataType"
     }
   },
   {
-    "content": "# 8.1. AuthorizationStatusEnumType\n\nEnumeration\n\nStatus of an authorization response.\n\n| VALUE        | DESCRIPTION                                                                                      |\n| ------------ | ------------------------------------------------------------------------------------------------ |\n| Accepted     | Identifier is allowed for charging.                                                              |\n| Blocked      | Identifier has been blocked. Not allowed for charging.                                           |\n| ConcurrentTx | Identifier is already involved in another transaction and multiple transactions are not allowed. |\n| Expired      | Identifier has expired. Not allowed for charging.                                                |\n| Invalid      | Identifier is invalid. Not allowed for charging.                                                 |",
+    "content": "# 8.1. AuthorizationStatusEnumType\n\nEnumeration\n\nStatus of an authorization response.\n\nAccepted: Identifier is allowed for charging.\nBlocked: Identifier has been blocked. Not allowed for charging.\nConcurrentTx: Identifier is already involved in another transaction and multiple transactions are not allowed.\nExpired: Identifier has expired. Not allowed for charging.\nInvalid: Identifier is invalid. Not allowed for charging.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.1. AuthorizationStatusEnumType",
       "heading_path": "8.1. AuthorizationStatusEnumType"
     }
   },
   {
-    "content": "# 8.2. AuthorizeCertificateStatusEnumType\n\nEnumeration\n\nStatus of the EV Contract certificate.\n\n| VALUE                  | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Accepted               | Positive response                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| SignatureError         | If the validation of the Security element in the message header failed.                                                                                                                                                                                                                                                                                                                                                                                                |\n| CertificateExpired     | If the OEMProvisioningCert in the CertificateInstallationReq, the Contract Certificate in the CertificateUpdateReq, or the ContractCertificate in the PaymentDetailsReq is expired.                                                                                                                                                                                                                                                                                    |\n| CertificateRevoked     | Used when the SECC or Central System matches the ContractCertificate contained in a CertificateUpdateReq or PaymentDetailsReq with a CRL and the Contract Certificate is marked as revoked, OR when the SECC or Central System matches the OEM Provisioning Certificate contained in a CertificateInstallationReq with a CRL and the OEM Provisioning Certificate is marked as revoked. The revocation status can alternatively be obtained through an OCSP responder. |\n| NoCertificateAvailable | If the new certificate cannot be retrieved from secondary actor within the specified timeout                                                                                                                                                                                                                                                                                                                                                                           |\n| CertChainError         | If the ContractSignatureCertChain contained in the CertificateInstallationReq message is not valid.                                                                                                                                                                                                                                                                                                                                                                    |",
+    "content": "# 8.2. AuthorizeCertificateStatusEnumType\n\nEnumeration\n\nStatus of the EV Contract certificate.\n\nAccepted: Positive response\nSignatureError: If the validation of the Security element in the message header failed.\nCertificateExpired: If the OEMProvisioningCert in the CertificateInstallationReq, the Contract Certificate in the CertificateUpdateReq, or the ContractCertificate in the PaymentDetailsReq is expired.\nCertificateRevoked: Used when the SECC or Central System matches the ContractCertificate contained in a CertificateUpdateReq or PaymentDetailsReq with a CRL and the Contract Certificate is marked as revoked, OR when the SECC or Central System matches the OEM Provisioning Certificate contained in a CertificateInstallationReq with a CRL and the OEM Provisioning Certificate is marked as revoked. The revocation status can alternatively be obtained through an OCSP responder.\nNoCertificateAvailable: If the new certificate cannot be retrieved from secondary actor within the specified timeout\nCertChainError: If the ContractSignatureCertChain contained in the CertificateInstallationReq message is not valid.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.2. AuthorizeCertificateStatusEnumType",
       "heading_path": "8.2. AuthorizeCertificateStatusEnumType",
@@ -495,11 +491,11 @@
     }
   },
   {
-    "content": "| ContractCancelled      | If the EMAID provided by EVCC during CertificateUpdateReq is not accepted by secondary actor.                                                                                                                                                                                                                                                                                                                                                                          |\n\n© Open Charge Alliance 2020\n\n17/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "| ContractCancelled      | If the EMAID provided by EVCC during CertificateUpdateReq is not accepted by secondary actor.                                                                                                                                                                                                                                                                                                                                                                          |\n\n\u00a9 Open Charge Alliance 2020\n\n17/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.2. AuthorizeCertificateStatusEnumType",
       "heading_path": "8.2. AuthorizeCertificateStatusEnumType",
@@ -508,133 +504,132 @@
     }
   },
   {
-    "content": "# 8.3. CertificateActionEnumType\n\nEnumeration\n\n| VALUE   | DESCRIPTION                       |\n| ------- | --------------------------------- |\n| Install | Install the provided certificate. |\n| Update  | Update the provided certificate.  |",
+    "content": "# 8.3. CertificateActionEnumType\n\nEnumeration\n\nInstall: Install the provided certificate.\nUpdate: Update the provided certificate.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.3. CertificateActionEnumType",
       "heading_path": "8.3. CertificateActionEnumType"
     }
   },
   {
-    "content": "# 8.4. CertificateSignedStatusEnumType\n\nEnumeration\n\nStatus in CertificateSigned.conf.\n\n| VALUE    | DESCRIPTION                    |\n| -------- | ------------------------------ |\n| Accepted | Signed certificate is valid.   |\n| Rejected | Signed certificate is invalid. |",
+    "content": "# 8.4. CertificateSignedStatusEnumType\n\nEnumeration\n\nStatus in CertificateSigned.conf.\n\nAccepted: Signed certificate is valid.\nRejected: Signed certificate is invalid.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.4. CertificateSignedStatusEnumType",
       "heading_path": "8.4. CertificateSignedStatusEnumType"
     }
   },
   {
-    "content": "# 8.5. DeleteCertificateStatusEnumType\n\nEnumeration\n\n| VALUE    | DESCRIPTION                               |\n| -------- | ----------------------------------------- |\n| Accepted | Normal successful completion (no errors). |\n| Failed   | Processing failure.                       |\n| NotFound | Requested resource not found.             |",
+    "content": "# 8.5. DeleteCertificateStatusEnumType\n\nEnumeration\n\nAccepted: Normal successful completion (no errors).\nFailed: Processing failure.\nNotFound: Requested resource not found.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.5. DeleteCertificateStatusEnumType",
       "heading_path": "8.5. DeleteCertificateStatusEnumType"
     }
   },
   {
-    "content": "# 8.6. GenericStatusEnumType\n\nEnumeration\n\nGeneric message response status\n\n| VALUE    | DESCRIPTION                                             |\n| -------- | ------------------------------------------------------- |\n| Accepted | Request has been accepted and will be executed.         |\n| Rejected | Request has not been accepted and will not be executed. |\n\n© Open Charge Alliance 2020\n\n18/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# 8.6. GenericStatusEnumType\n\nEnumeration\n\nGeneric message response status\n\nAccepted: Request has been accepted and will be executed.\nRejected: Request has not been accepted and will not be executed.\n\n\u00a9 Open Charge Alliance 2020\n\n18/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.6. GenericStatusEnumType",
       "heading_path": "8.6. GenericStatusEnumType"
     }
   },
   {
-    "content": "# 8.7. GetCertificateIdUseEnumType\n\nEnumeration\n\n| VALUE               | DESCRIPTION                                                                                                                                                                  |\n| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| V2GRootCertificate  | Use for certificate of the V2G Root.                                                                                                                                         |\n| MORootCertificate   | Use for certificate from an eMobility Service provider. To support PnC charging with contracts from service providers that not derived their certificates from the V2G root. |\n| V2GCertificateChain | ISO 15118 V2G certificate chain (excluding the V2GRootCertificate).                                                                                                          |",
+    "content": "# 8.7. GetCertificateIdUseEnumType\n\nEnumeration\n\nV2GRootCertificate: Use for certificate of the V2G Root.\nMORootCertificate: Use for certificate from an eMobility Service provider. To support PnC charging with contracts from service providers that not derived their certificates from the V2G root.\nV2GCertificateChain: ISO 15118 V2G certificate chain (excluding the V2GRootCertificate).",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.7. GetCertificateIdUseEnumType",
       "heading_path": "8.7. GetCertificateIdUseEnumType"
     }
   },
   {
-    "content": "# 8.8. GetCertificateStatusEnumType\n\nEnumeration\n\n| VALUE    | DESCRIPTION                                         |\n| -------- | --------------------------------------------------- |\n| Accepted | Successfully retrieved the OCSP certificate status. |\n| Failed   | Failed to retrieve the OCSP certificate status.     |",
+    "content": "# 8.8. GetCertificateStatusEnumType\n\nEnumeration\n\nAccepted: Successfully retrieved the OCSP certificate status.\nFailed: Failed to retrieve the OCSP certificate status.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "8.8. GetCertificateStatusEnumType",
       "heading_path": "8.8. GetCertificateStatusEnumType"
     }
   },
   {
-    "content": "# Enumeration\n\n| VALUE    | DESCRIPTION                               |\n| -------- | ----------------------------------------- |\n| Accepted | Normal successful completion (no errors). |\n| NotFound | Requested resource not found.             |",
+    "content": "# Enumeration\n\nAccepted: Normal successful completion (no errors).\nNotFound: Requested resource not found.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Enumeration",
       "heading_path": "Enumeration"
     }
   },
   {
-    "content": "# Enumeration\n\n| VALUE  | DESCRIPTION             |\n| ------ | ----------------------- |\n| SHA256 | SHA-256 hash algorithm. |\n| SHA384 | SHA-384 hash algorithm. |\n| SHA512 | SHA-512 hash algorithm. |",
+    "content": "# Enumeration\n\nSHA256: SHA-256 hash algorithm.\nSHA384: SHA-384 hash algorithm.\nSHA512: SHA-512 hash algorithm.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Enumeration",
       "heading_path": "Enumeration"
     }
   },
   {
-    "content": "# Enumeration\n\n| VALUE    | DESCRIPTION                                                                                             |\n| -------- | ------------------------------------------------------------------------------------------------------- |\n| Accepted | The installation of the certificate succeeded.                                                          |\n| Rejected | The certificate is invalid and/or incorrect OR the CSO tries to install more certificates than allowed. |\n| Failed   | The certificate is valid and correct, but there is another reason the installation did not succeed.     |",
+    "content": "# Enumeration\n\nAccepted: The installation of the certificate succeeded.\nRejected: The certificate is invalid and/or incorrect OR the CSO tries to install more certificates than allowed.\nFailed: The certificate is valid and correct, but there is another reason the installation did not succeed.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Enumeration",
       "heading_path": "Enumeration"
     }
   },
   {
-    "content": "# Enumeration\n\n| VALUE              | DESCRIPTION                                                                                                                                                                  |\n| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| V2GRootCertificate | Use for certificate of the V2G Root, a V2G Charge Point Certificate MUST be derived from one of the installed V2GRootCertificate certificates.                               |\n| MORootCertificate  | Use for certificate from an eMobility Service provider. To support PnC charging with contracts from service providers that not derived their certificates from the V2G root. |\n\n© Open Charge Alliance 2020\n\n19/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# Enumeration\n\nV2GRootCertificate: Use for certificate of the V2G Root, a V2G Charge Point Certificate MUST be derived from one of the installed V2GRootCertificate certificates.\nMORootCertificate: Use for certificate from an eMobility Service provider. To support PnC charging with contracts from service providers that not derived their certificates from the V2G root.\n\n\u00a9 Open Charge Alliance 2020\n\n19/23 Using ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Enumeration",
       "heading_path": "Enumeration"
     }
   },
   {
-    "content": "# Enumeration\n\nIso15118EVCertificateStatusEnumType is used by: get15118EVCertificate:Get15118EVCertificate.conf\n\n| VALUE    | DESCRIPTION                                                                                                                  |\n| -------- | ---------------------------------------------------------------------------------------------------------------------------- |\n| Accepted | exiResponse included. This is no indication whether the update was successful, just that the message was processed properly. |\n| Failed   | Processing of the message was not successful, no exiResponse included.                                                       |",
+    "content": "# Enumeration\n\nIso15118EVCertificateStatusEnumType is used by: get15118EVCertificate:Get15118EVCertificate.conf\n\nAccepted: exiResponse included. This is no indication whether the update was successful, just that the message was processed properly.\nFailed: Processing of the message was not successful, no exiResponse included.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Enumeration",
-      "heading_path": "Enumeration",
-      "message_refs": "exiResponse"
+      "heading_path": "Enumeration"
     }
   },
   {
-    "content": "# Enumeration\n\nStatus in TriggerMessage.conf.\n\nTriggerMessageStatusEnumType is used by: triggerMessage:TriggerMessage.conf\n\n| VALUE          | DESCRIPTION                                                                       |\n| -------------- | --------------------------------------------------------------------------------- |\n| Accepted       | Requested message will be sent.                                                   |\n| Rejected       | Requested message will not be sent.                                               |\n| NotImplemented | Requested message cannot be sent because it is either not implemented or unknown. |",
+    "content": "# Enumeration\n\nStatus in TriggerMessage.conf.\n\nTriggerMessageStatusEnumType is used by: triggerMessage:TriggerMessage.conf\n\nAccepted: Requested message will be sent.\nRejected: Requested message will not be sent.\nNotImplemented: Requested message cannot be sent because it is either not implemented or unknown.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "Enumeration",
       "heading_path": "Enumeration"
@@ -645,7 +640,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.1. CentralContractValidationAllowed",
       "heading_path": "9.1. CentralContractValidationAllowed"
@@ -656,7 +651,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.2. CertificateSignedMaxChainSize",
       "heading_path": "9.2. CertificateSignedMaxChainSize"
@@ -667,7 +662,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.3. CertSigningWaitMinimum",
       "heading_path": "9.3. CertSigningWaitMinimum"
@@ -678,7 +673,7 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.4. CertSigningRepeatTimes",
       "heading_path": "9.4. CertSigningRepeatTimes"
@@ -689,29 +684,29 @@
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.5. CertificateStoreMaxLength",
       "heading_path": "9.5. CertificateStoreMaxLength"
     }
   },
   {
-    "content": "# 9.6. ContractValidationOffline\n\n| Required/optional | Required                                                                                                        |\n| ----------------- | --------------------------------------------------------------------------------------------------------------- |\n| Accessibility     | RW                                                                                                              |\n| Type              | Boolean                                                                                                         |\n| Description       | If this variable is true, then the Charge Point will try to validate a contract certificate when it is offline. |",
+    "content": "# 9.6. ContractValidationOffline\n\nAccessibility: RW\nType: Boolean\nDescription: If this variable is true, then the Charge Point will try to validate a contract certificate when it is offline.",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.6. ContractValidationOffline",
       "heading_path": "9.6. ContractValidationOffline"
     }
   },
   {
-    "content": "# 9.7. ISO15118PnCEnabled\n\n| Required/optional | Required                                                                                                                                                              |\n| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Accessibility     | RW                                                                                                                                                                    |\n| Type              | Boolean                                                                                                                                                               |\n| Description       | If this variable set to true, then the Charge Point supports ISO 15118 plug and charge messages via the DataTransfer mechanism as described in this application note. |\n\n© Open Charge Alliance 2020\n\n\nUsing ISO 15118 Plug & Charge with OCPP 1.6",
+    "content": "# 9.7. ISO15118PnCEnabled\n\nAccessibility: RW\nType: Boolean\nDescription: If this variable set to true, then the Charge Point supports ISO 15118 plug and charge messages via the DataTransfer mechanism as described in this application note.\n\n\u00a9 Open Charge Alliance 2020\n\n\nUsing ISO 15118 Plug & Charge with OCPP 1.6",
     "metadata": {
       "doc_id": "pnc_whitepaper",
       "doc_title": "Using ISO 15118 Plug & Charge with OCPP 1.6",
-      "ocpp_version": null,
+      "ocpp_version": "1.6",
       "content_type": "general",
       "heading": "9.7. ISO15118PnCEnabled",
       "heading_path": "9.7. ISO15118PnCEnabled"

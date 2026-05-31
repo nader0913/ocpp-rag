@@ -1,170 +1,117 @@
 {
   "use_case_id": "B10",
   "functional_block": "Provisioning",
-  "use_case_name": "Migrate to new CSMS",
+  "use_case_name": "Migrate to new CSMS, using a different NetworkConnectionProfile.",
+  "structured": {
+    "name": "Migrate to new CSMS, using a different NetworkConnectionProfile.",
+    "id": "B10",
+    "functional_block": "Provisioning",
+    "objective": "After completion of this use case, the Charging Station connects to a new CSMS.",
+    "description": "This use case describes how a Charging Station can be instructed to connect to a new CSMS, by\nchanging the order of NetworkConnectionProfiles in NetworkConfigurationPriority.",
+    "actors": [
+      "Charging Station",
+      "CSMS 1",
+      "CSMS 2"
+    ],
+    "scenario": [
+      "A Charging Station supports at least two network configuration slots, that are identified by a\nnumber. The available slot numbers are reported by the Charging Station in the valuesList of\nvariable NetworkConfigurationPriority.\nFor example: valuesList = \"0,1,2\" in the base report tells CSMS that three configuration slots,\nnumbered 0, 1 and 2, are available (but not necessarily set).\nThe value of NetworkConfigurationPriority reports the order in which network configurations are\ntried to make a connection.\nFor example: value = \"1,0\" means that Charging Station will first try configuration slot 1 and if that\nfails after the number of attempts configured in NetworkProfileConnectionAttempts, it will try to\nconnect with configuration slot",
+      "0.",
+      "1. CSMS 1 sets a new value for the NetworkConfigurationPriority Configuration Variable\nvia SetVariablesRequest, such that the NetworkConnectionProfile for CSMS 2 becomes first in the\nlist and the existing connection to CSMS 1 becomes second in the list.",
+      "2. The Charging Station responds with a SetVariablesResponse with status Accepted",
+      "3. CSMS 1 instructs the Charging Station to perform a Reset OnIdle.",
+      "4. The Charging Station reboots and connects via the new primary NetworkConnectionProfile to\nCSMS 2."
+    ],
+    "prerequisites": "Use case B09 - Setting a new NetworkConnectionProfile was executed successfully prior to this\nuse case\nThe data supplied by the CSMS matches the Charging Station\u2019s capabilities",
+    "postconditions": "The Charging Station is connected via a different NetworkConnectionProfile.",
+    "error_handling": "n/a",
+    "remarks": "As in line with B12 - Reset - With Ongoing Transaction, when there are ongoing transactions, the\nCharging Station waits for these to be finished before performing the Reset and then connecting\nto a different CSMS.\nWhen an operator wants to perform an immediate switch, he should stop the transactions first.",
+    "requirements": [
+      {
+        "id": "B10.FR.01",
+        "precondition": "On receipt of a\nSetVariablesRequest,\ncontaining Configuration\nVariable\nNetworkConfigurationPri\nority\nAND the NetworkProfile slots in\nthe message all contain valid\nconfigurations",
+        "definition": "The Charging Station SHALL send\nSetVariablesResponse with status\nAccepted, or RebootRequired."
+      },
+      {
+        "id": "B10.FR.02",
+        "precondition": "On receipt of a\nSetVariablesRequest,\ncontaining Configuration\nVariable\nNetworkConfigurationPri\nority\nAND any of the NetworkProfile\nslots in the message does not\ncontain a valid configuration",
+        "definition": "The Charging Station SHALL send\nSetVariablesResponse with status\nRejected and an optional\nstatusInfo.reasonCode."
+      },
+      {
+        "id": "B10.FR.03",
+        "precondition": "After a reboot OR\nWhen connection to CSMS is\nlost",
+        "definition": "The Charging Station SHALL make the\nnumber of attempts as configured in\nNetworkProfileConnectionAttem\npts per entry of\nNetworkConfigurationPriority."
+      },
+      {
+        "id": "B10.FR.04",
+        "precondition": "( B10.FR.01 OR B09.FR.01 )\nAND\nAfter a reboot",
+        "definition": "The Charging Station SHALL begin\nconnecting to the first entry of\nNetworkConfigurationPriority"
+      },
+      {
+        "id": "B10.FR.05",
+        "precondition": "",
+        "definition": "It is RECOMMENDED to set the\nCharging Station to Inoperative (via\nChangeAvailabilityRequest) to ensure\nthat no new transactions can be started\nand wait until the transaction message\nqueue in the Charging Station is empty\nbefore sending the ResetRequest.\nOtherwise the Charging Station might\nsend transaction related messages to\nthe new CSMS that has not received the\nstart of the Transaction, and the old\nsystem will miss the ended messages.\nTo determine if there are still\ntransaction for an ongoing transaction\nin the queue, the\ngetTransactionStatusRequest message\ncan be used."
+      },
+      {
+        "id": "B10.FR.06",
+        "precondition": "",
+        "definition": "The Charging Station SHALL disconnect\nfrom the old CSMS, before trying to\nconnect to the new CSMS."
+      },
+      {
+        "id": "B10.FR.07",
+        "precondition": "B10.FR.09",
+        "definition": "The Charging Station SHOULD fallback\nand start 'reconnecting' to the\nNetworkConnectionProfile for which the\nlast successful connection was made."
+      },
+      {
+        "id": "B10.FR.08",
+        "precondition": "B10.FR.09",
+        "definition": "The Charging Station SHOULD restart\nconnecting with all configured entries of\nthe\nNetworkConfigurationPriority"
+      },
+      {
+        "id": "B10.FR.09",
+        "precondition": "B10.FR.03 AND\nAll\nNetworkProfileConnectio\nnAttempts for every entry of\nNetworkConfigurationPri\nority failed.",
+        "definition": "The Charging Station SHOULD NOT\nstop trying to reconnect to the CSMS.\nThe Charging Station SHOULD\nimplement the reconnecting\nmechanism described at requirement\nB10.FR.07 or B10.FR.08."
+      },
+      {
+        "id": "B10.FR.10",
+        "precondition": "B10.FR.03 AND\nCharging Station successfully\nconnected after having\nswitched to a different\nNetworkConnectionProfile",
+        "definition": "Charging Station SHALL send a\nBootNotificationRequest to CSMS to\nreestablish its registration status, even\nif it has not rebooted since last being\naccepted by any CSMS."
+      }
+    ],
+    "figures": [
+      "fig19.png",
+      "fig20.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# B10 - Migrate to new CSMS\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Migrate to new CSMS, using a different NetworkConnectionProfile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "content": "# B10 - Migrate to new CSMS, using a different NetworkConnectionProfile.\n\n**Objective:** After completion of this use case, the Charging Station connects to a new CSMS.\n\n**Description:** This use case describes how a Charging Station can be instructed to connect to a new CSMS, by\nchanging the order of NetworkConnectionProfiles in NetworkConfigurationPriority.\n\n**Actors:** Charging Station, CSMS 1, CSMS 2\n\n**Scenario:**\nA Charging Station supports at least two network configuration slots, that are identified by a\nnumber. The available slot numbers are reported by the Charging Station in the valuesList of\nvariable NetworkConfigurationPriority.\nFor example: valuesList = \"0,1,2\" in the base report tells CSMS that three configuration slots,\nnumbered 0, 1 and 2, are available (but not necessarily set).\nThe value of NetworkConfigurationPriority reports the order in which network configurations are\ntried to make a connection.\nFor example: value = \"1,0\" means that Charging Station will first try configuration slot 1 and if that\nfails after the number of attempts configured in NetworkProfileConnectionAttempts, it will try to\nconnect with configuration slot\n0.\n1. CSMS 1 sets a new value for the NetworkConfigurationPriority Configuration Variable\nvia SetVariablesRequest, such that the NetworkConnectionProfile for CSMS 2 becomes first in the\nlist and the existing connection to CSMS 1 becomes second in the list.\n2. The Charging Station responds with a SetVariablesResponse with status Accepted\n3. CSMS 1 instructs the Charging Station to perform a Reset OnIdle.\n4. The Charging Station reboots and connects via the new primary NetworkConnectionProfile to\nCSMS 2.\n\n**Prerequisites:** Use case B09 - Setting a new NetworkConnectionProfile was executed successfully prior to this\nuse case\nThe data supplied by the CSMS matches the Charging Station\u2019s capabilities\n\n**Postconditions:** The Charging Station is connected via a different NetworkConnectionProfile.\n\n**Remarks:** As in line with B12 - Reset - With Ongoing Transaction, when there are ongoing transactions, the\nCharging Station waits for these to be finished before performing the Reset and then connecting\nto a different CSMS.\nWhen an operator wants to perform an immediate switch, he should stop the transactions first.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "B10 - Migrate to new CSMS",
-        "heading_path": "B10 - Migrate to new CSMS",
+        "heading": "B10 - Migrate to new CSMS, using a different NetworkConnectionProfile.",
         "functional_block": "Provisioning",
         "use_case_id": "B10",
-        "use_case_name": "Migrate to new CSMS",
-        "use_case_refs": "B09, B10, B12",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse",
+        "use_case_name": "Migrate to new CSMS, using a different NetworkConnectionProfile.",
         "chunk_part": 1,
-        "total_parts": 6
+        "total_parts": 2
       }
     },
     {
-      "content": "| 2   | ID               | B10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 3   | Objective(s)     | After completion of this use case, the Charging Station connects to a new CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
+      "content": "# B10 - Requirements\n\n**B10.FR.01**\nPrecondition: On receipt of a\nSetVariablesRequest,\ncontaining Configuration\nVariable\nNetworkConfigurationPri\nority\nAND the NetworkProfile slots in\nthe message all contain valid\nconfigurations\nThe Charging Station SHALL send\nSetVariablesResponse with status\nAccepted, or RebootRequired.\n\n**B10.FR.02**\nPrecondition: On receipt of a\nSetVariablesRequest,\ncontaining Configuration\nVariable\nNetworkConfigurationPri\nority\nAND any of the NetworkProfile\nslots in the message does not\ncontain a valid configuration\nThe Charging Station SHALL send\nSetVariablesResponse with status\nRejected and an optional\nstatusInfo.reasonCode.\n\n**B10.FR.03**\nPrecondition: After a reboot OR\nWhen connection to CSMS is\nlost\nThe Charging Station SHALL make the\nnumber of attempts as configured in\nNetworkProfileConnectionAttem\npts per entry of\nNetworkConfigurationPriority.\n\n**B10.FR.04**\nPrecondition: ( B10.FR.01 OR B09.FR.01 )\nAND\nAfter a reboot\nThe Charging Station SHALL begin\nconnecting to the first entry of\nNetworkConfigurationPriority\n\n**B10.FR.05**\nIt is RECOMMENDED to set the\nCharging Station to Inoperative (via\nChangeAvailabilityRequest) to ensure\nthat no new transactions can be started\nand wait until the transaction message\nqueue in the Charging Station is empty\nbefore sending the ResetRequest.\nOtherwise the Charging Station might\nsend transaction related messages to\nthe new CSMS that has not received the\nstart of the Transaction, and the old\nsystem will miss the ended messages.\nTo determine if there are still\ntransaction for an ongoing transaction\nin the queue, the\ngetTransactionStatusRequest message\ncan be used.\n\n**B10.FR.06**\nThe Charging Station SHALL disconnect\nfrom the old CSMS, before trying to\nconnect to the new CSMS.\n\n**B10.FR.07**\nPrecondition: B10.FR.09\nThe Charging Station SHOULD fallback\nand start 'reconnecting' to the\nNetworkConnectionProfile for which the\nlast successful connection was made.\n\n**B10.FR.08**\nPrecondition: B10.FR.09\nThe Charging Station SHOULD restart\nconnecting with all configured entries of\nthe\nNetworkConfigurationPriority\n\n**B10.FR.09**\nPrecondition: B10.FR.03 AND\nAll\nNetworkProfileConnectio\nnAttempts for every entry of\nNetworkConfigurationPri\nority failed.\nThe Charging Station SHOULD NOT\nstop trying to reconnect to the CSMS.\nThe Charging Station SHOULD\nimplement the reconnecting\nmechanism described at requirement\nB10.FR.07 or B10.FR.08.\n\n**B10.FR.10**\nPrecondition: B10.FR.03 AND\nCharging Station successfully\nconnected after having\nswitched to a different\nNetworkConnectionProfile\nCharging Station SHALL send a\nBootNotificationRequest to CSMS to\nreestablish its registration status, even\nif it has not rebooted since last being\naccepted by any CSMS.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B10 - Migrate to new CSMS",
-        "heading_path": "B10 - Migrate to new CSMS",
+        "content_type": "requirements",
+        "heading": "B10 - Requirements",
         "functional_block": "Provisioning",
         "use_case_id": "B10",
-        "use_case_name": "Migrate to new CSMS",
-        "use_case_refs": "B09, B10, B12",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse",
+        "use_case_name": "Migrate to new CSMS, using a different NetworkConnectionProfile.",
         "chunk_part": 2,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 4   | Description      | This use case describes how a Charging Station can be instructed to connect to a new CSMS, by changing the order of NetworkConnectionProfiles in NetworkConfigurationPriority. **Actors:** Charging Station, CSMS 1, CSMS 2 **Scenario description:** A Charging Station supports at least two network configuration slots, that are identified by a number. The available slot numbers are reported by the Charging Station in the valuesList of variable NetworkConfigurationPriority. For example: valuesList = \"0,1,2\" in the base report tells CSMS that three configuration slots, numbered 0, 1 and 2, are available (but not necessarily set). The value of NetworkConfigurationPriority reports the order in which network configurations are tried to make a connection. For example: value = \"1,0\" means that Charging Station will first try configuration slot 1 and if that fails after the number of attempts configured in NetworkProfileConnectionAttempts, it will try to connect with configuration slot 0. 1. CSMS 1 sets a new value for the NetworkConfigurationPriority Configuration Variable via SetVariablesRequest, such that the NetworkConnectionProfile for CSMS 2 becomes first in the list and the existing connection to CSMS 1 becomes second in the list. 2. The Charging Station responds with a SetVariablesResponse with status Accepted. 3. CSMS 1 instructs the Charging Station to perform a Reset OnIdle. 4. The Charging Station reboots and connects via the new primary NetworkConnectionProfile to CSMS 2. |\n| 5   | Prerequisites    | Use case B09 - Setting a new NetworkConnectionProfile was executed successfully prior to this use case. The data supplied by the CSMS matches the Charging Station’s capabilities.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B10 - Migrate to new CSMS",
-        "heading_path": "B10 - Migrate to new CSMS",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new CSMS",
-        "use_case_refs": "B09, B10, B12",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse",
-        "chunk_part": 3,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s) | The Charging Station is connected via a different NetworkConnectionProfile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B10 - Migrate to new CSMS",
-        "heading_path": "B10 - Migrate to new CSMS",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new CSMS",
-        "use_case_refs": "B09, B10, B12",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse",
-        "chunk_part": 4,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 8   | Remarks          | As in line with B12 - Reset - With Ongoing Transaction, when there are ongoing transactions, the Charging Station waits for these to be finished before performing the Reset and then connecting to a different CSMS. When an operator wants to perform an immediate switch, he should stop the transactions first.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n\nOperator    CSMS 1  CSMS 2    Charging Station\n\nChange Network Config\n\nSetVariablesRequest(NetworkConfigurationPriority)\n\nSetVariablesResponse(status: RebootRequired)\n\nResetRequest(OnIdle)\n\nResetResponse(Accepted)\n\nReboot\n\nBootNotificationRequest(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B10 - Migrate to new CSMS",
-        "heading_path": "B10 - Migrate to new CSMS",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new CSMS",
-        "use_case_refs": "B09, B10, B12",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse",
-        "chunk_part": 5,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "BootNotificationResponse(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B10 - Migrate to new CSMS",
-        "heading_path": "B10 - Migrate to new CSMS",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new CSMS",
-        "use_case_refs": "B09, B10, B12",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse",
-        "chunk_part": 6,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "# B10 - Migrate to new NetworkConnectionProfile - Requirements\n\n| ID        | Precondition                                                                                                                                                                                  | Requirement definition                                                                                                                                                                                                                                        | Note                                                                                                                                                                                                                                                                                                                                  |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B10.FR.01 | On receipt of a SetVariablesRequest, containing Configuration Variable NetworkConfigurationPriority AND the NetworkProfile slots in the message all contain valid configurations              | The Charging Station SHALL send SetVariablesResponse with status Accepted, or RebootRequired.                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                       |\n| B10.FR.02 | On receipt of a SetVariablesRequest, containing Configuration Variable NetworkConfigurationPriority AND any of the NetworkProfile slots in the message does not contain a valid configuration | The Charging Station SHALL send SetVariablesResponse with status Rejected and an optional statusInfo.reasonCode.                                                                                                                                              | Recommended reasonCode to use is \"InvalidNetworkConf\". The field additionalInfo is recommended to be used to convey which configuration slot and which configuration parameter is invalid and why.                                                                                                                                    |\n| B10.FR.03 | After a reboot OR When connection to CSMS is lost                                                                                                                                             | The Charging Station SHALL make the number of attempts as configured in NetworkProfileConnectionAttempts per entry of NetworkConfigurationPriority.                                                                                                           |                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "B10 - Migrate to new NetworkConnectionProfile - Requirements",
-        "heading_path": "B10 - Migrate to new NetworkConnectionProfile - Requirements",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new NetworkConnectionProfile",
-        "use_case_refs": "A05, B09, B10",
-        "message_refs": "ChangeAvailabilityRequest, ResetRequest, SetVariablesRequest, SetVariablesResponse, getTransactionStatusRequest",
-        "chunk_part": 1,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| B10.FR.04 | ( B10.FR.01 OR B09.FR.01 ) AND After a reboot                                                                                                                                                 | The Charging Station SHALL begin connecting to the first entry of NetworkConfigurationPriority                                                                                                                                                                | Same as A05.FR.05                                                                                                                                                                                                                                                                                                                     |\n| B10.FR.05 |                                                                                                                                                                                               | It is RECOMMENDED to set the Charging Station to Inoperative (via ChangeAvailabilityRequest) to ensure that no new transactions can be started and wait until the transaction message queue in the Charging Station is empty before sending the ResetRequest. | Otherwise the Charging Station might send transaction related messages to the new CSMS that has not received the start of the Transaction, and the old system will miss the ended messages. To determine if there are still transaction for an ongoing transaction in the queue, the getTransactionStatusRequest message can be used. |\n| B10.FR.06 |                                                                                                                                                                                               | The Charging Station SHALL disconnect from the old CSMS, before trying to connect to the new CSMS.                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "B10 - Migrate to new NetworkConnectionProfile - Requirements",
-        "heading_path": "B10 - Migrate to new NetworkConnectionProfile - Requirements",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new NetworkConnectionProfile",
-        "use_case_refs": "A05, B09, B10",
-        "message_refs": "ChangeAvailabilityRequest, ResetRequest, SetVariablesRequest, SetVariablesResponse, getTransactionStatusRequest",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| B10.FR.07 | B10.FR.09                                                                                                                                                                                     | The Charging Station SHOULD fallback and start 'reconnecting' to the NetworkConnectionProfile for which the last successful connection was made.                                                                                                              | 'reconnecting' in this requirement, refers to the reconnection mechanism described at section 5.3. Reconnecting from \"Part 4 - JSON over WebSockets implementation guide\".                                                                                                                                                            |\n| B10.FR.08 | B10.FR.09                                                                                                                                                                                     | The Charging Station SHOULD restart connecting with all configured entries of the NetworkConfigurationPriority                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "B10 - Migrate to new NetworkConnectionProfile - Requirements",
-        "heading_path": "B10 - Migrate to new NetworkConnectionProfile - Requirements",
-        "functional_block": "Provisioning",
-        "use_case_id": "B10",
-        "use_case_name": "Migrate to new NetworkConnectionProfile",
-        "use_case_refs": "A05, B09, B10",
-        "message_refs": "ChangeAvailabilityRequest, ResetRequest, SetVariablesRequest, SetVariablesResponse, getTransactionStatusRequest",
-        "chunk_part": 3,
-        "total_parts": 3
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,131 +2,96 @@
   "use_case_id": "M04",
   "functional_block": "CertificateManagement",
   "use_case_name": "Delete a specific certificate from a Charging Station",
+  "structured": {
+    "name": "Delete a specific certificate from a Charging Station",
+    "id": "M04",
+    "functional_block": "CertificateManagement",
+    "objective": "To enable the CSMS to request the Charging Station to delete an installed certificate.",
+    "description": "To facilitate the management of the Charging Station\u2019s installed certificates, a method of deleting\nan installed certificate is provided. The CSMS requests the Charging Station to delete a specific\ncertificate.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS requests the Charging Station to delete an installed certificate by sending a\nDeleteCertificateRequest.",
+      "2. The Charging Station responds with a DeleteCertificateResponse."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "The requested certificate was deleted from the Charging Station.",
+    "error_handling": "n/a",
+    "remarks": "For installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station\nCertificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the\nCharging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This\nSHOULD be installed using Use case M05 - Install CA certificate in a Charging Station.\nIt is possible to delete the last (every) installed CSMSRootCertificates. When all\nCSMSRootCertificates are deleted, the Charging Station cannot validate CSMS Certificates, so it\nwill not be able to connect to a CSMS. Before a CSMS would ever send a DeleteCertificateRequest\nthat would delete the last/all CSMSRootCertificates the CSMS is ADVISED to make very sure that\nthis is what is really wanted.\nIt is possible to delete the last (every) installed ManufacturerRootCertificates, when all\nManufacturerRootCertificates are deleted, no \"Signed Firmware\" can be installed in the Charging\nStation.",
+    "requirements": [
+      {
+        "id": "M04.FR.01",
+        "precondition": "After receiving a\nDeleteCertificateRequest",
+        "definition": "The Charging Station SHALL respond with a\nDeleteCertificateResponse."
+      },
+      {
+        "id": "M04.FR.02",
+        "precondition": "M04.FR.01 AND The requested\ncertificate was found",
+        "definition": "The Charging Station SHALL attempt to delete\nit, and indicate success by setting status to\nAccepted in the DeleteCertificateResponse."
+      },
+      {
+        "id": "M04.FR.03",
+        "precondition": "M04.FR.01 AND (The deletion fails\nOR\nthe Charging Station rejects the\nrequest to delete the specified\ncertificate.)",
+        "definition": "The Charging Station SHALL indicate failure by\nsetting status to Failed in the\nDeleteCertificateResponse."
+      },
+      {
+        "id": "M04.FR.04",
+        "precondition": "M04.FR.01 AND\nThe requested certificate was not\nfound",
+        "definition": "The Charging Station SHALL indicate failure by\nsetting status to NotFound in the\nDeleteCertificateResponse."
+      },
+      {
+        "id": "M04.FR.06",
+        "precondition": "M04.FR.01 AND\nWhen certificateHashData refers to\nthe Charging Station Certificate\n(see use case A)",
+        "definition": "Charging Station SHALL respond with\nDeleteCertificateReponse with status =\nFailed."
+      },
+      {
+        "id": "M04.FR.07",
+        "precondition": "When deleting a certificate",
+        "definition": "The CSMS SHALL use the same hashAlgorithm\nas the Charging Station uses to report the\ncertificateHashData for the certificate in the\nGetInstalledCertificateIdsResponse."
+      },
+      {
+        "id": "M04.FR.08",
+        "precondition": "M04.FR.02 AND\nCertificate to delete is a sub-CA or\nroot certificate",
+        "definition": "Charging Station MAY also delete all child\ncertificates."
+      }
+    ],
+    "figures": [
+      "fig126.png",
+      "fig127.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# M04 - Delete a specific certificate from a Charging Station\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Delete a specific certificate from a Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 2   | ID                   | M04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "content": "# M04 - Delete a specific certificate from a Charging Station\n\n**Objective:** To enable the CSMS to request the Charging Station to delete an installed certificate.\n\n**Description:** To facilitate the management of the Charging Station\u2019s installed certificates, a method of deleting\nan installed certificate is provided. The CSMS requests the Charging Station to delete a specific\ncertificate.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to delete an installed certificate by sending a\nDeleteCertificateRequest.\n2. The Charging Station responds with a DeleteCertificateResponse.\n\n**Prerequisites:** n/a\n\n**Postconditions:** The requested certificate was deleted from the Charging Station.\n\n**Remarks:** For installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station\nCertificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the\nCharging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This\nSHOULD be installed using Use case M05 - Install CA certificate in a Charging Station.\nIt is possible to delete the last (every) installed CSMSRootCertificates. When all\nCSMSRootCertificates are deleted, the Charging Station cannot validate CSMS Certificates, so it\nwill not be able to connect to a CSMS. Before a CSMS would ever send a DeleteCertificateRequest\nthat would delete the last/all CSMSRootCertificates the CSMS is ADVISED to make very sure that\nthis is what is really wanted.\nIt is possible to delete the last (every) installed ManufacturerRootCertificates, when all\nManufacturerRootCertificates are deleted, no \"Signed Firmware\" can be installed in the Charging\nStation.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "M04 - Delete a specific certificate from a Charging Station",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station",
         "functional_block": "CertificateManagement",
         "use_case_id": "M04",
         "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "A02, A03, M04, M05",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse",
         "chunk_part": 1,
-        "total_parts": 6
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)         | To enable the CSMS to request the Charging Station to delete an installed certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 4   | Description          | To facilitate the management of the Charging Station’s installed certificates, a method of deleting an installed certificate is provided. The CSMS requests the Charging Station to delete a specific certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M04 - Delete a specific certificate from a Charging Station",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M04",
-        "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "A02, A03, M04, M05",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse",
-        "chunk_part": 2,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n|     | Scenario description | 1. The CSMS requests the Charging Station to delete an installed certificate by sending a DeleteCertificateRequest. 2. The Charging Station responds with a DeleteCertificateResponse.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M04 - Delete a specific certificate from a Charging Station",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M04",
-        "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "A02, A03, M04, M05",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse",
-        "chunk_part": 3,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 6   | Postcondition(s)     | The requested certificate was deleted from the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M04 - Delete a specific certificate from a Charging Station",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M04",
-        "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "A02, A03, M04, M05",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse",
-        "chunk_part": 4,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 8   | Remark(s)            | For installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This SHOULD be installed using Use case M05 - Install CA certificate in a Charging Station. It is possible to delete the last (every) installed CSMSRootCertificates. When all CSMSRootCertificates are deleted, the Charging Station cannot validate CSMS Certificates, so it will not be able to connect to a CSMS. Before a CSMS would ever send a DeleteCertificateRequest that would delete the last/all CSMSRootCertificates the CSMS is ADVISED to make very sure that this is what is really wanted. It is possible to delete the last (every) installed ManufacturerRootCertificates, when all ManufacturerRootCertificates are deleted, no \"Signed Firmware\" can be installed in the Charging Station. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M04 - Delete a specific certificate from a Charging Station",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M04",
-        "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "A02, A03, M04, M05",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse",
-        "chunk_part": 5,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "CSMS Charging Station\n\nDeleteCertificateRequest(certificateHashData)\n\nDeleteCertificateResponse(status)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M04 - Delete a specific certificate from a Charging Station",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M04",
-        "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "A02, A03, M04, M05",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse",
-        "chunk_part": 6,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "# M04 - Delete a specific certificate from a Charging Station - Requirements\n\n| ID        | Precondition                               | Requirement definition                                               | Note |\n| --------- | ------------------------------------------ | -------------------------------------------------------------------- | ---- |\n| M04.FR.01 | After receiving a DeleteCertificateRequest | The Charging Station SHALL respond with a DeleteCertificateResponse. |      |",
+      "content": "# M04 - Requirements\n\n**M04.FR.01**\nPrecondition: After receiving a\nDeleteCertificateRequest\nThe Charging Station SHALL respond with a\nDeleteCertificateResponse.\n\n**M04.FR.02**\nPrecondition: M04.FR.01 AND The requested\ncertificate was found\nThe Charging Station SHALL attempt to delete\nit, and indicate success by setting status to\nAccepted in the DeleteCertificateResponse.\n\n**M04.FR.03**\nPrecondition: M04.FR.01 AND (The deletion fails\nOR\nthe Charging Station rejects the\nrequest to delete the specified\ncertificate.)\nThe Charging Station SHALL indicate failure by\nsetting status to Failed in the\nDeleteCertificateResponse.\n\n**M04.FR.04**\nPrecondition: M04.FR.01 AND\nThe requested certificate was not\nfound\nThe Charging Station SHALL indicate failure by\nsetting status to NotFound in the\nDeleteCertificateResponse.\n\n**M04.FR.06**\nPrecondition: M04.FR.01 AND\nWhen certificateHashData refers to\nthe Charging Station Certificate\n(see use case A)\nCharging Station SHALL respond with\nDeleteCertificateReponse with status =\nFailed.\n\n**M04.FR.07**\nPrecondition: When deleting a certificate\nThe CSMS SHALL use the same hashAlgorithm\nas the Charging Station uses to report the\ncertificateHashData for the certificate in the\nGetInstalledCertificateIdsResponse.\n\n**M04.FR.08**\nPrecondition: M04.FR.02 AND\nCertificate to delete is a sub-CA or\nroot certificate\nCharging Station MAY also delete all child\ncertificates.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "M04 - Delete a specific certificate from a Charging Station - Requirements",
-        "heading_path": "M04 - Delete a specific certificate from a Charging Station - Requirements",
+        "heading": "M04 - Requirements",
         "functional_block": "CertificateManagement",
         "use_case_id": "M04",
         "use_case_name": "Delete a specific certificate from a Charging Station",
-        "use_case_refs": "M04",
-        "message_refs": "DeleteCertificateRequest, DeleteCertificateResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

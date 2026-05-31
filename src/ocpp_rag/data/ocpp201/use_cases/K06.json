@@ -1,38 +1,77 @@
 {
   "use_case_id": "K06",
   "functional_block": "SmartCharging",
-  "use_case_name": "Offline Behavior Smart Charging During Transaction",
+  "use_case_name": "Requirements",
+  "structured": {
+    "name": "Requirements",
+    "id": "K06",
+    "functional_block": "SmartCharging",
+    "objective": "To enable the Charging Station to continue to use the current ChargingProfile for the duration of\nthe transaction while it is Offline.",
+    "description": "If a Charging Station goes Offline after having received a transaction-specific ChargingProfile with\npurpose TxProfile, then it continues to use this profile for the duration of the transaction or until\nthe TxProfile reaches its expiration, depending on which occurs first.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV"
+    ],
+    "scenario": [
+      "1. The CSMS sends a SetChargingProfileRequest to the Charging Station with a TxProfile.",
+      "2. The Charging Station responds with a SetChargingProfileResponse.",
+      "3. While charging is in progress the EVSE will continuously adapt the maximum current or power\naccording to the installed ChargingProfiles.",
+      "4. The Charging Station is Offline and operates stand-alone.",
+      "5. While charging is in progress the EVSE will continuously adapt the maximum current or power\naccording to the already installed ChargingProfiles."
+    ],
+    "prerequisites": "A transaction is ongoing.\nThe Functional Block Smart Charging is installed.",
+    "postconditions": "Successful postcondition:\nThe Charging Station continues to use the charging profiles which are available.\nFailure postcondition:\nn/a",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K06.FR.01",
+        "precondition": "If the Charging Station goes Offline\nafter having received a transaction-\nspecific ChargingProfile with\npurpose TxProfile.",
+        "definition": "The Charging Station SHALL continue to use this profile for the duration of\nthe transaction or until the TxProfile reaches its expiration, depending on\nwhich occurs first."
+      },
+      {
+        "id": "K06.FR.02",
+        "precondition": "If the Charging Station goes Offline,\nwithout having any charging profiles.",
+        "definition": "The Charging Station SHALL execute the transaction as if no constraints\napply."
+      }
+    ],
+    "figures": [
+      "fig103.png",
+      "fig104.png",
+      "fig105.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K06 - Offline Behavior Smart Charging During Transaction\n\n| No. | Type | Description                                        |\n| --- | ---- | -------------------------------------------------- |\n| 1   | Name | Offline Behavior Smart Charging During Transaction |",
+      "content": "# K06 - Requirements\n\n**Objective:** To enable the Charging Station to continue to use the current ChargingProfile for the duration of\nthe transaction while it is Offline.\n\n**Description:** If a Charging Station goes Offline after having received a transaction-specific ChargingProfile with\npurpose TxProfile, then it continues to use this profile for the duration of the transaction or until\nthe TxProfile reaches its expiration, depending on which occurs first.\n\n**Actors:** Charging Station, CSMS, EV\n\n**Scenario:**\n1. The CSMS sends a SetChargingProfileRequest to the Charging Station with a TxProfile.\n2. The Charging Station responds with a SetChargingProfileResponse.\n3. While charging is in progress the EVSE will continuously adapt the maximum current or power\naccording to the installed ChargingProfiles.\n4. The Charging Station is Offline and operates stand-alone.\n5. While charging is in progress the EVSE will continuously adapt the maximum current or power\naccording to the already installed ChargingProfiles.\n\n**Prerequisites:** A transaction is ongoing.\nThe Functional Block Smart Charging is installed.\n\n**Postconditions:** Successful postcondition:\nThe Charging Station continues to use the charging profiles which are available.\nFailure postcondition:\nn/a",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "K06 - Offline Behavior Smart Charging During Transaction",
-        "heading_path": "K06 - Offline Behavior Smart Charging During Transaction",
+        "heading": "K06 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K06",
-        "use_case_name": "Offline Behavior Smart Charging During Transaction",
-        "use_case_refs": "K06"
+        "use_case_name": "Requirements",
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# K06 - Offline Behavior Smart Charging During Transaction - Requirements\n\n| ID        | Precondition                          | Requirement definition                                                                                                                                                      |\n| --------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| K06.FR.01 | If the Charging Station goes Offline  | The Charging Station SHALL continue to use this profile for the duration of the transaction or until the TxProfile reaches its expiration, depending on which occurs first. |\n| K06.FR.02 | If the Charging Station goes Offline, | The Charging Station SHALL execute the transaction as if no constraints apply.                                                                                              |",
+      "content": "# K06 - Requirements\n\n**K06.FR.01**\nPrecondition: If the Charging Station goes Offline\nafter having received a transaction-\nspecific ChargingProfile with\npurpose TxProfile.\nThe Charging Station SHALL continue to use this profile for the duration of\nthe transaction or until the TxProfile reaches its expiration, depending on\nwhich occurs first.\n\n**K06.FR.02**\nPrecondition: If the Charging Station goes Offline,\nwithout having any charging profiles.\nThe Charging Station SHALL execute the transaction as if no constraints\napply.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K06 - Offline Behavior Smart Charging During Transaction - Requirements",
-        "heading_path": "K06 - Offline Behavior Smart Charging During Transaction - Requirements",
+        "heading": "K06 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K06",
-        "use_case_name": "Offline Behavior Smart Charging During Transaction",
-        "use_case_refs": "K06"
+        "use_case_name": "Requirements",
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

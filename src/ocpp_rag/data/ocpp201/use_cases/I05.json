@@ -2,56 +2,73 @@
   "use_case_id": "I05",
   "functional_block": "TariffAndCost",
   "use_case_name": "Show Fallback Total Cost Message",
+  "structured": {
+    "name": "Show Fallback Total Cost Message",
+    "id": "I05",
+    "functional_block": "TariffAndCost",
+    "objective": "To show an EV Driver a message instead of the actual total cost when the Charging Station is\nOffline when a transaction is stopped.",
+    "description": "When an EV Driver wants to stop an ongoing transaction, but the Charging Station is Offline. The\ntransaction will be stopped as described earlier. The Charging Station cannot retrieve the total\ncost for the stopped transaction. The EV Driver needs to be given some message, this message\ncan be configured in the Configuration Variable: TotalCostFallbackMessage.",
+    "actors": [
+      "Charging Station",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver presents IdTokenType to stop the transaction.",
+      "2. The Charging Station stops the energy offer.",
+      "3. The Charging Station shows the TotalCostFallbackMessage to the EV Driver."
+    ],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "I05.FR.01",
+        "precondition": "",
+        "definition": "The CSMS MAY configure the fallback total cost information\nmessage via the Configuration Variable:\nTotalCostFallbackMessage."
+      },
+      {
+        "id": "I05.FR.02",
+        "precondition": "When the Charging Station cannot retrieve the\ntotal cost for the stopped transaction, because\nthe Charging Station is offline.",
+        "definition": "The Charging Station SHALL show a fallback total cost\ninformation message to the EV Driver."
+      }
+    ],
+    "figures": [
+      "fig87.png",
+      "fig88.png",
+      "fig89.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# I05 - Show Fallback Total Cost Message\n\n| No. | Type         | Description                                                                                                                                                                                                                                                                                                                                                               |\n| --- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Show Fallback Total Cost Message                                                                                                                                                                                                                                                                                                                                          |\n| 2   | ID           | I05                                                                                                                                                                                                                                                                                                                                                                       |\n| 3   | Objective(s) | To show an EV Driver a message instead of the actual total cost when the Charging Station is Offline when a transaction is stopped.                                                                                                                                                                                                                                       |\n| 4   | Description  | When an EV Driver wants to stop an ongoing transaction, but the Charging Station is Offline. The transaction will be stopped as described earlier. The Charging Station cannot retrieve the total cost for the stopped transaction. The EV Driver needs to be given some message, this message can be configured in the Configuration Variable: TotalCostFallbackMessage. |",
+      "content": "# I05 - Show Fallback Total Cost Message\n\n**Objective:** To show an EV Driver a message instead of the actual total cost when the Charging Station is\nOffline when a transaction is stopped.\n\n**Description:** When an EV Driver wants to stop an ongoing transaction, but the Charging Station is Offline. The\ntransaction will be stopped as described earlier. The Charging Station cannot retrieve the total\ncost for the stopped transaction. The EV Driver needs to be given some message, this message\ncan be configured in the Configuration Variable: TotalCostFallbackMessage.\n\n**Actors:** Charging Station, EV Driver\n\n**Scenario:**\n1. The EV Driver presents IdTokenType to stop the transaction.\n2. The Charging Station stops the energy offer.\n3. The Charging Station shows the TotalCostFallbackMessage to the EV Driver.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "I05 - Show Fallback Total Cost Message",
-        "heading_path": "I05 - Show Fallback Total Cost Message",
         "functional_block": "TariffAndCost",
         "use_case_id": "I05",
         "use_case_name": "Show Fallback Total Cost Message",
-        "use_case_refs": "I05",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "Actors: Charging Station, EV Driver\n\nScenario description:\n\n1. The EV Driver presents IdTokenType to stop the transaction.\n2. The Charging Station stops the energy offer.\n3. The Charging Station shows the TotalCostFallbackMessage to the EV Driver.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I05 - Show Fallback Total Cost Message",
-        "heading_path": "I05 - Show Fallback Total Cost Message",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I05",
-        "use_case_name": "Show Fallback Total Cost Message",
-        "use_case_refs": "I05",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# I05 - Show Fallback Total Cost Message - Requirements\n\n| ID.       | Precondition                                                                                                                   | Requirements                                                                                                                 |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |\n| I05.FR.01 |                                                                                                                                | The CSMS MAY configure the fallback total cost information message via the Configuration Variable: TotalCostFallbackMessage. |\n| I05.FR.02 | When the Charging Station cannot retrieve the total cost for the stopped transaction, because the Charging Station is offline. | The Charging Station SHALL show a fallback total cost information message to the EV Driver.                                  |",
+      "content": "# I05 - Requirements\n\n**I05.FR.01**\nThe CSMS MAY configure the fallback total cost information\nmessage via the Configuration Variable:\nTotalCostFallbackMessage.\n\n**I05.FR.02**\nPrecondition: When the Charging Station cannot retrieve the\ntotal cost for the stopped transaction, because\nthe Charging Station is offline.\nThe Charging Station SHALL show a fallback total cost\ninformation message to the EV Driver.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "I05 - Show Fallback Total Cost Message - Requirements",
-        "heading_path": "I05 - Show Fallback Total Cost Message - Requirements",
+        "heading": "I05 - Requirements",
         "functional_block": "TariffAndCost",
         "use_case_id": "I05",
         "use_case_name": "Show Fallback Total Cost Message",
-        "use_case_refs": "I05"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

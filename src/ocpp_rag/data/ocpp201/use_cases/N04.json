@@ -2,59 +2,194 @@
   "use_case_id": "N04",
   "functional_block": "Diagnostics",
   "use_case_name": "Set Variable Monitoring",
+  "structured": {
+    "name": "Set Variable Monitoring",
+    "id": "N04",
+    "functional_block": "Diagnostics",
+    "objective": "To give the CSMS the ability to request the Charging Station to set monitoring triggers on\nVariables.",
+    "description": "This use case describes how the CSMS requests the Charging Station to set monitoring triggers\non Variables. Multiple triggers can be set for upper or lower thresholds, delta changes or periodic\nreporting.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "CSO"
+    ],
+    "scenario": [
+      "1. The CSO triggers the CSMS to request a Charging Station to set a variable monitoring setting.",
+      "2. The CSMS sends a SetVariableMonitoringRequest to the Charging Station.",
+      "3. The Charging Station responds with a SetVariableMonitoringResponse."
+    ],
+    "prerequisites": "Charging Station supports Monitoring\nThe specific Variable supports Monitoring",
+    "postconditions": "The Charging Station activated the set of monitoring triggers on the Variables.",
+    "error_handling": "n/a",
+    "remarks": "All variableMonitoring settings are persistent across reboot.\nA variableMonitoring setting is persistent after a firmware update, if the monitored variable still\nexists and it is still monitor-able. Otherwise the variableMonitoring setting is removed.",
+    "requirements": [
+      {
+        "id": "N04.FR.01",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with an\nX number of SetMonitoringData\nelements",
+        "definition": "The Charging Station SHALL respond with an\nSetVariableMonitoringResponse with an equal (X)\nnumber of SetMonitoringResult elements, one for\nevery SetMonitoringData element in the\nSetVariableMonitoringRequest."
+      },
+      {
+        "id": "N04.FR.02",
+        "precondition": "N04.FR.01",
+        "definition": "Every SetMonitoringResult element in the\nSetVariableMonitoringResponse SHALL contain the\nsame component and variable combination as one\nof the SetVariableMonitoringRequest elements in\nthe SetVariableMonitoringRequest."
+      },
+      {
+        "id": "N04.FR.03",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with an\nunknown Component in\nSetMonitoringData",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nUnknownComponent."
+      },
+      {
+        "id": "N04.FR.04",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with a\nVariable that is unknown for the given\nComponent in SetMonitoringData",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nUnknownVariable."
+      },
+      {
+        "id": "N04.FR.05",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with an\nMonitorType which is not supported\nby the specific Variable",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nUnsupportedMonitorType."
+      },
+      {
+        "id": "N04.FR.06",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with\n( monitor type = UpperThreshold\nAND\nvalue < minLimit OR\nvalue > maxLimit ) OR\n( monitor type = LowerThreshold\nAND\nvalue < minLimit OR\nvalue > maxLimit )",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nRejected."
+      },
+      {
+        "id": "N04.FR.07",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest for a\nmonitor that conflicts with safety\nrequirements.",
+        "definition": "The Charging Station MAY set the attributeStatus\nfield in the corresponding SetMonitoringResult to: <\nRejected."
+      },
+      {
+        "id": "N04.FR.08",
+        "precondition": "When the Charging Station was able\nto set the given value in the\nSetMonitoringData",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nAccepted."
+      },
+      {
+        "id": "N04.FR.09",
+        "precondition": "",
+        "definition": "The maximum size and number of items of\nmonitoringData in one\nSetVariableMonitoringRequest message is\ndetermined by the\nItemsPerMessageSetVariableMonitoring\nand\nBytesPerMessageSetVariableMonitoring\nConfiguration Variables."
+      },
+      {
+        "id": "N04.FR.10",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest for a\ncomponent/variable combination for\nwhich a monitor with the same type\nand severity already exists with a\ndifferent id.",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nDuplicate."
+      },
+      {
+        "id": "N04.FR.11",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest without\nan Id AND\nN04.FR.08",
+        "definition": "The Charging Station will generate an Id and return\nit in the SetVariableMonitoringResponse."
+      },
+      {
+        "id": "N04.FR.12",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with an\nId AND\nA monitor exists matching the given Id\nAND\nThe given Component/Variable\ncombination corresponds with the\nexisting VariableMonitor.",
+        "definition": "The Charging Station SHALL replace the monitor."
+      },
+      {
+        "id": "N04.FR.13",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with an\nId AND\nNo monitor exists matching the given\nId.",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nRejected."
+      },
+      {
+        "id": "N04.FR.14",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with\ntype Delta and value contains a\nnegative value.",
+        "definition": "The Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nRejected."
+      },
+      {
+        "id": "N04.FR.15",
+        "precondition": "N04.FR.12 AND\nThe replaced VariableMonitor\nbelonged to the\n'PreconfiguredMonitors'.",
+        "definition": "The new VariableMonitor shall be classified as a\n'CustomMonitor', until reset by a\nSetMonitoringBaseRequest."
+      },
+      {
+        "id": "N04.FR.16",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with an\nId AND\na monitor exists matching the given Id\nAND\nthe given Component/Variable\ncombination does NOT correspond\nwith the existing VariableMonitor.",
+        "definition": "The Charging Station SHALL respond with\nRejected AND NOT replace the VariableMonitor."
+      },
+      {
+        "id": "N04.FR.17",
+        "precondition": "When the CSMS sends a\nSetVariableMonitoringRequest with\ntype Delta for a Variable that is NOT of\na numeric type",
+        "definition": "It is RECOMMENDED to use a value of 1."
+      },
+      {
+        "id": "N04.FR.18",
+        "precondition": "N04.FR.12 AND\nThe id in the\nSetVariableMonitoringRequest refers\nto a HardWiredMonitor",
+        "definition": "The Charging Station SHALL respond with\nRejected AND NOT replace the VariableMonitor."
+      },
+      {
+        "id": "N04.FR.19",
+        "precondition": "The Charging Station has rebooted",
+        "definition": "The CSMS IS RECOMMENDED to send a\nGetMonitoringReportRequest message to get a new\nlist of monitors."
+      },
+      {
+        "id": "N04.FR.20",
+        "precondition": "When the Charging Station receives a\nSetVariableMonitoringRequest with\ntype Delta and the value is zero.",
+        "definition": "The Charging Station SHOULD set the\nattributeStatus field in the corresponding\nSetMonitoringResult to: Rejected."
+      }
+    ],
+    "figures": [
+      "fig132.png",
+      "fig133.png",
+      "fig134.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# N04 - Set Variable Monitoring\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Set Variable Monitoring                                                                                                                                                                                                                                     |\n| 2   | ID                   | N04                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To give the CSMS the ability to request the Charging Station to set monitoring triggers on Variables.                                                                                                                                                       |\n| 4   | Description          | This use case describes how the CSMS requests the Charging Station to set monitoring triggers on Variables. Multiple triggers can be set for upper or lower thresholds, delta changes or periodic reporting.                                                |\n|     | Actors               | Charging Station, CSMS, CSO                                                                                                                                                                                                                                 |\n|     | Scenario description | 1. The CSO triggers the CSMS to request a Charging Station to set a variable monitoring setting. 2. The CSMS sends a SetVariableMonitoringRequest to the Charging Station. 3. The Charging Station responds with a SetVariableMonitoringResponse.           |\n| 5   | Prerequisite(s)      | Charging Station supports Monitoring The specific Variable supports Monitoring                                                                                                                                                                              |\n| 6   | Postcondition(s)     | The Charging Station activated the set of monitoring triggers on the Variables.                                                                                                                                                                             |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)            | All variableMonitoring settings are persistent across reboot. A variableMonitoring setting is persistent after a firmware update, if the monitored variable still exists and it is still monitor-able. Otherwise the variableMonitoring setting is removed. |",
+      "content": "# N04 - Set Variable Monitoring\n\n**Objective:** To give the CSMS the ability to request the Charging Station to set monitoring triggers on\nVariables.\n\n**Description:** This use case describes how the CSMS requests the Charging Station to set monitoring triggers\non Variables. Multiple triggers can be set for upper or lower thresholds, delta changes or periodic\nreporting.\n\n**Actors:** Charging Station, CSMS, CSO\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a Charging Station to set a variable monitoring setting.\n2. The CSMS sends a SetVariableMonitoringRequest to the Charging Station.\n3. The Charging Station responds with a SetVariableMonitoringResponse.\n\n**Prerequisites:** Charging Station supports Monitoring\nThe specific Variable supports Monitoring\n\n**Postconditions:** The Charging Station activated the set of monitoring triggers on the Variables.\n\n**Remarks:** All variableMonitoring settings are persistent across reboot.\nA variableMonitoring setting is persistent after a firmware update, if the monitored variable still\nexists and it is still monitor-able. Otherwise the variableMonitoring setting is removed.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "N04 - Set Variable Monitoring",
-        "heading_path": "N04 - Set Variable Monitoring",
         "functional_block": "Diagnostics",
         "use_case_id": "N04",
         "use_case_name": "Set Variable Monitoring",
-        "use_case_refs": "N04",
-        "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
         "chunk_part": 1,
-        "total_parts": 2
+        "total_parts": 4
       }
     },
     {
-      "content": "CSO request to set a monitoring setting for a variable\n\nCSMS SetVariableMonitoringRequest(MonitoringData)\n\nCharging Station SetVariableMonitoringResponse(setMonitoringResult)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N04 - Set Variable Monitoring",
-        "heading_path": "N04 - Set Variable Monitoring",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N04",
-        "use_case_name": "Set Variable Monitoring",
-        "use_case_refs": "N04",
-        "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# N04 - Set Variable Monitoring - Requirements\n\n| ID        | Precondition                                                                                                     | Requirement definition                                                                                                                                                                                                    | Note |\n| --------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| N04.FR.01 | When the Charging Station receives a SetVariableMonitoringRequest with an X number of SetMonitoringData elements | The Charging Station SHALL respond with an SetVariableMonitoringResponse with an equal (X) number of SetMonitoringResult elements, one for every SetMonitoringData element in the SetVariableMonitoringRequest.           |      |\n| N04.FR.02 | N04.FR.01                                                                                                        | Every SetMonitoringResult element in the SetVariableMonitoringResponse SHALL contain the same component and variable combination as one of the SetVariableMonitoringRequest elements in the SetVariableMonitoringRequest. |      |",
+      "content": "# N04 - Requirements\n\n**N04.FR.01**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with an\nX number of SetMonitoringData\nelements\nThe Charging Station SHALL respond with an\nSetVariableMonitoringResponse with an equal (X)\nnumber of SetMonitoringResult elements, one for\nevery SetMonitoringData element in the\nSetVariableMonitoringRequest.\n\n**N04.FR.02**\nPrecondition: N04.FR.01\nEvery SetMonitoringResult element in the\nSetVariableMonitoringResponse SHALL contain the\nsame component and variable combination as one\nof the SetVariableMonitoringRequest elements in\nthe SetVariableMonitoringRequest.\n\n**N04.FR.03**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with an\nunknown Component in\nSetMonitoringData\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nUnknownComponent.\n\n**N04.FR.04**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with a\nVariable that is unknown for the given\nComponent in SetMonitoringData\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nUnknownVariable.\n\n**N04.FR.05**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with an\nMonitorType which is not supported\nby the specific Variable\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nUnsupportedMonitorType.\n\n**N04.FR.06**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with\n( monitor type = UpperThreshold\nAND\nvalue < minLimit OR\nvalue > maxLimit ) OR\n( monitor type = LowerThreshold\nAND\nvalue < minLimit OR\nvalue > maxLimit )\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nRejected.\n\n**N04.FR.07**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest for a\nmonitor that conflicts with safety\nrequirements.\nThe Charging Station MAY set the attributeStatus\nfield in the corresponding SetMonitoringResult to: <\nRejected.\n\n**N04.FR.08**\nPrecondition: When the Charging Station was able\nto set the given value in the\nSetMonitoringData\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nAccepted.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "N04 - Set Variable Monitoring - Requirements",
-        "heading_path": "N04 - Set Variable Monitoring - Requirements",
+        "heading": "N04 - Requirements",
         "functional_block": "Diagnostics",
         "use_case_id": "N04",
         "use_case_name": "Set Variable Monitoring",
-        "use_case_refs": "N04",
-        "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse"
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# N04 - Requirements (continued)\n\n**N04.FR.09**\nThe maximum size and number of items of\nmonitoringData in one\nSetVariableMonitoringRequest message is\ndetermined by the\nItemsPerMessageSetVariableMonitoring\nand\nBytesPerMessageSetVariableMonitoring\nConfiguration Variables.\n\n**N04.FR.10**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest for a\ncomponent/variable combination for\nwhich a monitor with the same type\nand severity already exists with a\ndifferent id.\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nDuplicate.\n\n**N04.FR.11**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest without\nan Id AND\nN04.FR.08\nThe Charging Station will generate an Id and return\nit in the SetVariableMonitoringResponse.\n\n**N04.FR.12**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with an\nId AND\nA monitor exists matching the given Id\nAND\nThe given Component/Variable\ncombination corresponds with the\nexisting VariableMonitor.\nThe Charging Station SHALL replace the monitor.\n\n**N04.FR.13**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with an\nId AND\nNo monitor exists matching the given\nId.\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nRejected.\n\n**N04.FR.14**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with\ntype Delta and value contains a\nnegative value.\nThe Charging Station SHALL set the attributeStatus\nfield in the corresponding SetMonitoringResult to:\nRejected.\n\n**N04.FR.15**\nPrecondition: N04.FR.12 AND\nThe replaced VariableMonitor\nbelonged to the\n'PreconfiguredMonitors'.\nThe new VariableMonitor shall be classified as a\n'CustomMonitor', until reset by a\nSetMonitoringBaseRequest.\n\n**N04.FR.16**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with an\nId AND\na monitor exists matching the given Id\nAND\nthe given Component/Variable\ncombination does NOT correspond\nwith the existing VariableMonitor.\nThe Charging Station SHALL respond with\nRejected AND NOT replace the VariableMonitor.\n\n**N04.FR.17**\nPrecondition: When the CSMS sends a\nSetVariableMonitoringRequest with\ntype Delta for a Variable that is NOT of\na numeric type\nIt is RECOMMENDED to use a value of 1.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N04 - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N04",
+        "use_case_name": "Set Variable Monitoring",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# N04 - Requirements (continued)\n\n**N04.FR.18**\nPrecondition: N04.FR.12 AND\nThe id in the\nSetVariableMonitoringRequest refers\nto a HardWiredMonitor\nThe Charging Station SHALL respond with\nRejected AND NOT replace the VariableMonitor.\n\n**N04.FR.19**\nPrecondition: The Charging Station has rebooted\nThe CSMS IS RECOMMENDED to send a\nGetMonitoringReportRequest message to get a new\nlist of monitors.\n\n**N04.FR.20**\nPrecondition: When the Charging Station receives a\nSetVariableMonitoringRequest with\ntype Delta and the value is zero.\nThe Charging Station SHOULD set the\nattributeStatus field in the corresponding\nSetMonitoringResult to: Rejected.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N04 - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N04",
+        "use_case_name": "Set Variable Monitoring",
+        "chunk_part": 4,
+        "total_parts": 4
       }
     }
-  ],
-  "figures": []
+  ]
 }

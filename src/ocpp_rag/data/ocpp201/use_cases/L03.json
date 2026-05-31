@@ -1,140 +1,121 @@
 {
   "use_case_id": "L03",
   "functional_block": "FirmwareManagement",
-  "use_case_name": "Publish Firmware file on Local Controller",
+  "use_case_name": "Publish Firmware file on Local Controller.",
+  "structured": {
+    "name": "Publish Firmware file on Local Controller.",
+    "id": "L03",
+    "functional_block": "FirmwareManagement",
+    "objective": "To allow Charging Stations to download a firmware update directly from the Local Controller.",
+    "description": "The Local Controller downloads and publishes a firmware update at the specified URL. This\nallows the CSMS to send UpdateFirmwareRequests with the URI pointing to the Local Controller,\nto any Charging Station connected to the Local Controller. This allows the site to save bandwidth\nand data on the WAN interface.",
+    "actors": [
+      "Local Controller",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS sends a PublishFirmwareRequest to instruct the Local Controller to download and\npublish the firmware, including an MD5 checksum of the firmware file.",
+      "2. Upon receipt of PublishFirmwareRequest, the Local Controller responds with\nPublishFirmwareResponse.",
+      "3. The Local Controller starts downloading the firmware.",
+      "4. The Local Controller verifies the MD5 checksum.",
+      "5. The Local Controller publishes the firmware file at the URI(s) stated in\nPublishFirmwareStatusNotificationRequest.",
+      "6. The CSMS instructs Charging Stations to update their firmware, as described in Use Case L01 -\nSecure Firmware Update"
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "Successful postcondition:\nThe firmware is successfully published by the Local Controller.\nFailure postcondition:\nThe Local Controller could not download the firmware file, and has sent the DownloadFailed\nstatus.\nThe Local Controller could not verify the MD5 checksum, and has sent the InvalidChecksum\nstatus.\nThe Local Controller could not publish the firmware file, and has sent the PublishFailed status.",
+    "error_handling": "n/a",
+    "remarks": "For information about MD5 checksum see RFC-1321 [RFC1321].",
+    "requirements": [
+      {
+        "id": "L03.FR.01",
+        "precondition": "",
+        "definition": "Whenever the Local Controller enters a new status in the publishing\nprocess, it SHALL send a PublishFirmwareStatusNotificationRequest\nmessage to the CSMS."
+      },
+      {
+        "id": "L03.FR.02",
+        "precondition": "",
+        "definition": "The MD5 checksum SHALL be calculated over the entire firmware file."
+      },
+      {
+        "id": "L03.FR.03",
+        "precondition": "",
+        "definition": "The Local Controller SHALL publish the firmware file using all its\nsupported protocols (e.g. HTTP, HTTPS, and FTP)"
+      },
+      {
+        "id": "L03.FR.04",
+        "precondition": "",
+        "definition": "The Local Controller SHALL set URI\u2019s for all supported protocols (e.g.\nHTTP, HTTPS, and FTP) in the location field of the\nPublishFirmwareStatusNotificationRequest message with status\nPublished."
+      },
+      {
+        "id": "L03.FR.05",
+        "precondition": "Upon receipt of a\nPublishFirmwareRequest message.",
+        "definition": "The Local Controller SHALL respond with a PublishFirmwareResponse\nmessage, indicating whether it has accepted the request."
+      },
+      {
+        "id": "L03.FR.06",
+        "precondition": "If the Local Controller cannot\ndownload the firmware file.",
+        "definition": "The Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status DownloadFailed."
+      },
+      {
+        "id": "L03.FR.07",
+        "precondition": "If the Local Controller cannot verify\nthe MD5 checksum.",
+        "definition": "The Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status InvalidChecksum."
+      },
+      {
+        "id": "L03.FR.08",
+        "precondition": "If the Local Controller cannot\npublish the firmware file.",
+        "definition": "The Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status PublishFailed."
+      },
+      {
+        "id": "L03.FR.09",
+        "precondition": "After successfully publishing the\nfirmware file.",
+        "definition": "The Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status Published."
+      },
+      {
+        "id": "L03.FR.10",
+        "precondition": "Charging Station receives a\nTriggerMessageRequest for\nPublishFirmwareStatusNotifi\ncation\nAND\nlast sent\nPublishFirmwareStatusNotificationR\nequest had status = Published",
+        "definition": "Charging Station SHALL return a\nPublishFirmwareStatusNotificationRequest with status = Idle."
+      },
+      {
+        "id": "L03.FR.11",
+        "precondition": "Charging Station receives a\nTriggerMessageRequest for\nPublishFirmwareStatusNotifi\ncation\nAND\nlast sent\nPublishFirmwareStatusNotificationR\nequest had NOT status Published",
+        "definition": "Charging Station SHALL return a\nPublishFirmwareStatusNotificationRequest with the last sent status."
+      }
+    ],
+    "figures": [
+      "fig118.png",
+      "fig119.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# L03 - Publish Firmware file on Local Controller\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| --- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Publish Firmware file on Local Controller.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 2   | ID               | L03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "content": "# L03 - Publish Firmware file on Local Controller.\n\n**Objective:** To allow Charging Stations to download a firmware update directly from the Local Controller.\n\n**Description:** The Local Controller downloads and publishes a firmware update at the specified URL. This\nallows the CSMS to send UpdateFirmwareRequests with the URI pointing to the Local Controller,\nto any Charging Station connected to the Local Controller. This allows the site to save bandwidth\nand data on the WAN interface.\n\n**Actors:** Local Controller, CSMS\n\n**Scenario:**\n1. The CSMS sends a PublishFirmwareRequest to instruct the Local Controller to download and\npublish the firmware, including an MD5 checksum of the firmware file.\n2. Upon receipt of PublishFirmwareRequest, the Local Controller responds with\nPublishFirmwareResponse.\n3. The Local Controller starts downloading the firmware.\n4. The Local Controller verifies the MD5 checksum.\n5. The Local Controller publishes the firmware file at the URI(s) stated in\nPublishFirmwareStatusNotificationRequest.\n6. The CSMS instructs Charging Stations to update their firmware, as described in Use Case L01 -\nSecure Firmware Update\n\n**Prerequisites:** n/a\n\n**Postconditions:** Successful postcondition:\nThe firmware is successfully published by the Local Controller.\nFailure postcondition:\nThe Local Controller could not download the firmware file, and has sent the DownloadFailed\nstatus.\nThe Local Controller could not verify the MD5 checksum, and has sent the InvalidChecksum\nstatus.\nThe Local Controller could not publish the firmware file, and has sent the PublishFailed status.\n\n**Remarks:** For information about MD5 checksum see RFC-1321 [RFC1321].",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "L03 - Publish Firmware file on Local Controller",
-        "heading_path": "L03 - Publish Firmware file on Local Controller",
+        "heading": "L03 - Publish Firmware file on Local Controller.",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L03",
-        "use_case_name": "Publish Firmware file on Local Controller",
-        "use_case_refs": "L01, L03",
-        "message_refs": "PublishFirmwareRequest, PublishFirmwareResponse, PublishFirmwareStatusNotificationRequest",
+        "use_case_name": "Publish Firmware file on Local Controller.",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)     | To allow Charging Stations to download a firmware update directly from the Local Controller.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 4   | Description      | The Local Controller downloads and publishes a firmware update at the specified URL. This allows the CSMS to send UpdateFirmwareRequests with the URI pointing to the Local Controller, to any Charging Station connected to the Local Controller. This allows the site to save bandwidth and data on the WAN interface. Actors: Local Controller, CSMS Scenario description:1) The CSMS sends a PublishFirmwareRequest to instruct the Local Controller to download and publish the firmware, including an MD5 checksum of the firmware file.\n2) Upon receipt of PublishFirmwareRequest, the Local Controller responds with PublishFirmwareResponse.\n3) The Local Controller starts downloading the firmware.\n4) The Local Controller verifies the MD5 checksum.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "L03 - Publish Firmware file on Local Controller",
-        "heading_path": "L03 - Publish Firmware file on Local Controller",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L03",
-        "use_case_name": "Publish Firmware file on Local Controller",
-        "use_case_refs": "L01, L03",
-        "message_refs": "PublishFirmwareRequest, PublishFirmwareResponse, PublishFirmwareStatusNotificationRequest",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "5) The Local Controller publishes the firmware file at the URI(s) stated in PublishFirmwareStatusNotificationRequest.\n6) The CSMS instructs Charging Stations to update their firmware, as described in Use Case L01 - Secure Firmware Update. |\n| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 6   | Postcondition(s) | Successful postcondition: The firmware is successfully published by the Local Controller. Failure postcondition:- The Local Controller could not download the firmware file, and has sent the DownloadFailed status.\n- The Local Controller could not verify the MD5 checksum, and has sent the InvalidChecksum status.\n- The Local Controller could not publish the firmware file, and has sent the PublishFailed status.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "L03 - Publish Firmware file on Local Controller",
-        "heading_path": "L03 - Publish Firmware file on Local Controller",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L03",
-        "use_case_name": "Publish Firmware file on Local Controller",
-        "use_case_refs": "L01, L03",
-        "message_refs": "PublishFirmwareRequest, PublishFirmwareResponse, PublishFirmwareStatusNotificationRequest",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 8   | Remark(s)        | For information about MD5 checksum see RFC-1321 \\[RFC1321].                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "L03 - Publish Firmware file on Local Controller",
-        "heading_path": "L03 - Publish Firmware file on Local Controller",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L03",
-        "use_case_name": "Publish Firmware file on Local Controller",
-        "use_case_refs": "L01, L03",
-        "message_refs": "PublishFirmwareRequest, PublishFirmwareResponse, PublishFirmwareStatusNotificationRequest",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# Local Controller\n\nPublishFirmwareRequest()\nPublishFirmwareResponse()\nPublishFirmwareStatusNotificationRequest(status = Downloading)\nPublishFirmwareStatusNotificationResponse()\nDownload firmware\nDownloading firmware\nPublishFirmwareStatusNotificationRequest(status = Downloaded)\nPublishFirmwareStatusNotificationResponse()\nVerify checksum\nVerify MD5 checksum\nPublishFirmwareStatusNotificationRequest(status = ChecksumVerified)\nPublishFirmwareStatusNotificationResponse()\nPublish FW on publish URL\nFirmwareStatusNotificationRequest(status = Published, location)\nFirmwareStatusNotificationResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Local Controller",
-        "heading_path": "Local Controller",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L03",
-        "message_refs": "FirmwareStatusNotificationRequest, FirmwareStatusNotificationResponse, PublishFirmwareRequest, PublishFirmwareResponse, PublishFirmwareStatusNotificationRequest, PublishFirmwareStatusNotificationResponse"
-      }
-    },
-    {
-      "content": "# L03.FR.10\n\nCharging Station receives a TriggerMessageRequest for PublishFirmwareStatusNotification AND last sent PublishFirmwareStatusNotificationRequest had status = Published\n\nCharging Station SHALL return a PublishFirmwareStatusNotificationRequest with status = Idle.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "L03.FR.10",
-        "heading_path": "L03.FR.10",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L03",
-        "use_case_refs": "L03",
-        "message_refs": "PublishFirmwareStatusNotificationRequest, TriggerMessageRequest"
-      }
-    },
-    {
-      "content": "# L03.FR.11\n\nCharging Station receives a TriggerMessageRequest for PublishFirmwareStatusNotification AND last sent PublishFirmwareStatusNotificationRequest had NOT status Published\n\nCharging Station SHALL return a PublishFirmwareStatusNotificationRequest with the last sent status.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "L03.FR.11",
-        "heading_path": "L03.FR.11",
-        "functional_block": "FirmwareManagement",
-        "use_case_id": "L03",
-        "use_case_refs": "L03",
-        "message_refs": "PublishFirmwareStatusNotificationRequest, TriggerMessageRequest"
-      }
-    },
-    {
-      "content": "# L03 - Publish Firmware file on Local Controller - Requirements\n\n| ID        | Precondition                                               | Requirement definition                                                                                                                                                                            |\n| --------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| L03.FR.01 |                                                            | Whenever the Local Controller enters a new status in the publishing process, it SHALL send a PublishFirmwareStatusNotificationRequest message to the CSMS.                                        |\n| L03.FR.02 |                                                            | The MD5 checksum SHALL be calculated over the entire firmware file.                                                                                                                               |\n| L03.FR.03 |                                                            | The Local Controller SHALL publish the firmware file using all its supported protocols (e.g. HTTP, HTTPS, and FTP).                                                                               |\n| L03.FR.04 |                                                            | The Local Controller SHALL set URI’s for all supported protocols (e.g. HTTP, HTTPS, and FTP) in the location field of the PublishFirmwareStatusNotificationRequest message with status Published. |\n| L03.FR.05 | Upon receipt of a PublishFirmwareRequest message.          | The Local Controller SHALL respond with a PublishFirmwareResponse message, indicating whether it has accepted the request.                                                                        |\n| L03.FR.06 | If the Local Controller cannot download the firmware file. | The Local Controller SHALL send a PublishFirmwareStatusNotificationRequest with status DownloadFailed.                                                                                            |\n| L03.FR.07 | If the Local Controller cannot verify the MD5 checksum.    | The Local Controller SHALL send a PublishFirmwareStatusNotificationRequest with status InvalidChecksum.                                                                                           |\n| L03.FR.08 | If the Local Controller cannot publish the firmware file.  | The Local Controller SHALL send a PublishFirmwareStatusNotificationRequest with status PublishFailed.                                                                                             |\n| L03.FR.09 | After successfully publishing the firmware file.           | The Local Controller SHALL send a PublishFirmwareStatusNotificationRequest with status Published.                                                                                                 |",
+      "content": "# L03 - Requirements\n\n**L03.FR.01**\nWhenever the Local Controller enters a new status in the publishing\nprocess, it SHALL send a PublishFirmwareStatusNotificationRequest\nmessage to the CSMS.\n\n**L03.FR.02**\nThe MD5 checksum SHALL be calculated over the entire firmware file.\n\n**L03.FR.03**\nThe Local Controller SHALL publish the firmware file using all its\nsupported protocols (e.g. HTTP, HTTPS, and FTP)\n\n**L03.FR.04**\nThe Local Controller SHALL set URI\u2019s for all supported protocols (e.g.\nHTTP, HTTPS, and FTP) in the location field of the\nPublishFirmwareStatusNotificationRequest message with status\nPublished.\n\n**L03.FR.05**\nPrecondition: Upon receipt of a\nPublishFirmwareRequest message.\nThe Local Controller SHALL respond with a PublishFirmwareResponse\nmessage, indicating whether it has accepted the request.\n\n**L03.FR.06**\nPrecondition: If the Local Controller cannot\ndownload the firmware file.\nThe Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status DownloadFailed.\n\n**L03.FR.07**\nPrecondition: If the Local Controller cannot verify\nthe MD5 checksum.\nThe Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status InvalidChecksum.\n\n**L03.FR.08**\nPrecondition: If the Local Controller cannot\npublish the firmware file.\nThe Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status PublishFailed.\n\n**L03.FR.09**\nPrecondition: After successfully publishing the\nfirmware file.\nThe Local Controller SHALL send a\nPublishFirmwareStatusNotificationRequest with status Published.\n\n**L03.FR.10**\nPrecondition: Charging Station receives a\nTriggerMessageRequest for\nPublishFirmwareStatusNotifi\ncation\nAND\nlast sent\nPublishFirmwareStatusNotificationR\nequest had status = Published\nCharging Station SHALL return a\nPublishFirmwareStatusNotificationRequest with status = Idle.\n\n**L03.FR.11**\nPrecondition: Charging Station receives a\nTriggerMessageRequest for\nPublishFirmwareStatusNotifi\ncation\nAND\nlast sent\nPublishFirmwareStatusNotificationR\nequest had NOT status Published\nCharging Station SHALL return a\nPublishFirmwareStatusNotificationRequest with the last sent status.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "L03 - Publish Firmware file on Local Controller - Requirements",
-        "heading_path": "L03 - Publish Firmware file on Local Controller - Requirements",
+        "heading": "L03 - Requirements",
         "functional_block": "FirmwareManagement",
         "use_case_id": "L03",
-        "use_case_name": "Publish Firmware file on Local Controller",
-        "use_case_refs": "L03",
-        "message_refs": "PublishFirmwareRequest, PublishFirmwareResponse, PublishFirmwareStatusNotificationRequest"
+        "use_case_name": "Publish Firmware file on Local Controller.",
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

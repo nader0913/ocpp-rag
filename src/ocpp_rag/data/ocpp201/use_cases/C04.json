@@ -2,113 +2,93 @@
   "use_case_id": "C04",
   "functional_block": "Authorization",
   "use_case_name": "Authorization using PIN-code",
+  "structured": {
+    "name": "Authorization using PIN-code",
+    "id": "C04",
+    "functional_block": "Authorization",
+    "objective": "To make it possible for a Charging Station that has a key entry terminal to authorize the PIN-code.",
+    "description": "When a Charging Station has a PIN-code entry terminal, an EV driver enters his/her PIN-code. This\nPIN-code is sent to the CSMS for validation using an AuthorizeRequest.",
+    "actors": [
+      "EV Driver",
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The EV Driver wants to start or stop charging the EV and enters his/her PIN-code into the\nterminal.",
+      "2. The Charging Station sends an AuthorizeRequest message, with the field idToken.type set to\nKeyCode, to the CSMS to request authorization.",
+      "3. Upon receipt of the AuthorizeRequest, the CSMS responds with an AuthorizeResponse. This\nresponse indicates whether or not the KeyCode is accepted by the CSMS."
+    ],
+    "prerequisites": "Charging Station has a PIN-code entry terminal to start charging of an EV.",
+    "postconditions": "Transaction ongoing on Charging Station, CSMS is aware of transaction.",
+    "error_handling": "n/a",
+    "remarks": "When the PIN-code is validated in the Charging Station, instead of the CSMS, use case C02 -\nAuthorization Using a Start button applies.",
+    "requirements": [
+      {
+        "id": "C04.FR.01",
+        "precondition": "When the CSMS receives an AuthorizeRequest\nwith a keyCode that is not valid at this Charging\nStation",
+        "definition": "The CSMS SHALL respond with an AuthorizeResponse message\nwith status = Invalid."
+      },
+      {
+        "id": "C04.FR.02",
+        "precondition": "When the CSMS receives an AuthorizeRequest\nwith a keyCode that is valid and the EV Driver is\nallowed to charge at this Charging Station",
+        "definition": "The CSMS SHALL respond with an AuthorizeResponse message\nwith status = Accepted."
+      },
+      {
+        "id": "C04.FR.03",
+        "precondition": "",
+        "definition": "A Charging Station MAY store keyCodes in the Authorization\nCache."
+      },
+      {
+        "id": "C04.FR.04",
+        "precondition": "If an idToken of type keyCode is used",
+        "definition": "The Charging Station or CSMS SHALL NOT show the IdToken in\nany logging. key codes should never appear in logs."
+      },
+      {
+        "id": "C04.FR.05",
+        "precondition": "",
+        "definition": "Language SHALL be specified as RFC-5646 tags, see: [RFC5646],\nfor example: US English is: \"en-US\"."
+      },
+      {
+        "id": "C04.FR.06",
+        "precondition": "If an idToken of type keyCode is used",
+        "definition": "It is RECOMMENDED to take measures to prevent brute force\nattacks, for example by increasing backoff times after attempts\nto enter an incorrect keyCode."
+      }
+    ],
+    "figures": [
+      "fig23.png",
+      "fig24.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C04 - Authorization using PIN-code\n\nThis is an informative use case. Its purpose is to demonstrate the use of the idToken.type KeyCode. Another use of KeyCode might be, for example, a licence plate number.\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Authorization using PIN-code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 2   | ID               | C04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+      "content": "# C04 - Authorization using PIN-code\n\n**Objective:** To make it possible for a Charging Station that has a key entry terminal to authorize the PIN-code.\n\n**Description:** When a Charging Station has a PIN-code entry terminal, an EV driver enters his/her PIN-code. This\nPIN-code is sent to the CSMS for validation using an AuthorizeRequest.\n\n**Actors:** EV Driver, Charging Station, CSMS\n\n**Scenario:**\n1. The EV Driver wants to start or stop charging the EV and enters his/her PIN-code into the\nterminal.\n2. The Charging Station sends an AuthorizeRequest message, with the field idToken.type set to\nKeyCode, to the CSMS to request authorization.\n3. Upon receipt of the AuthorizeRequest, the CSMS responds with an AuthorizeResponse. This\nresponse indicates whether or not the KeyCode is accepted by the CSMS.\n\n**Prerequisites:** Charging Station has a PIN-code entry terminal to start charging of an EV.\n\n**Postconditions:** Transaction ongoing on Charging Station, CSMS is aware of transaction.\n\n**Remarks:** When the PIN-code is validated in the Charging Station, instead of the CSMS, use case C02 -\nAuthorization Using a Start button applies.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C04 - Authorization using PIN-code",
-        "heading_path": "C04 - Authorization using PIN-code",
         "functional_block": "Authorization",
         "use_case_id": "C04",
         "use_case_name": "Authorization using PIN-code",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)     | To make it possible for a Charging Station that has a key entry terminal to authorize the PIN-code.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 4   | Description      | When a Charging Station has a PIN-code entry terminal, an EV driver enters his/her PIN-code. This PIN-code is sent to the CSMS for validation using an AuthorizeRequest. Actors: EV Driver, Charging Station, CSMS Scenario description: 1. The EV Driver wants to start or stop charging the EV and enters his/her PIN-code into the terminal. 2. The Charging Station sends an AuthorizeRequest message, with the field idToken.type set to KeyCode, to the CSMS to request authorization. 3. Upon receipt of the AuthorizeRequest, the CSMS responds with an AuthorizeResponse. This response indicates whether or not the KeyCode is accepted by the CSMS. Alternative scenario(s): C01 - EV Driver Authorization using RFID C02 - Authorization using a start button C03 - Authorization using credit/debit card C05 - Authorization for CSMS initiated transactions C06 - Authorization using local id type C07 - Authorization using Contract Certificates C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM) C15 - Unknown Offline Authorization |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C04 - Authorization using PIN-code",
-        "heading_path": "C04 - Authorization using PIN-code",
-        "functional_block": "Authorization",
-        "use_case_id": "C04",
-        "use_case_name": "Authorization using PIN-code",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
-        "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 5   | Prerequisites    | Charging Station has a PIN-code entry terminal to start charging of an EV.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s) | Transaction ongoing on Charging Station, CSMS is aware of transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C04 - Authorization using PIN-code",
-        "heading_path": "C04 - Authorization using PIN-code",
-        "functional_block": "Authorization",
-        "use_case_id": "C04",
-        "use_case_name": "Authorization using PIN-code",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 8   | Remarks          | When the PIN-code is validated in the Charging Station, instead of the CSMS, use case C02 - Authorization Using a Start button applies.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C04 - Authorization using PIN-code",
-        "heading_path": "C04 - Authorization using PIN-code",
-        "functional_block": "Authorization",
-        "use_case_id": "C04",
-        "use_case_name": "Authorization using PIN-code",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "EV Driver     Charging Station     CSMS\n\nenter pin-code(1234)\n\nAuthorizeRequest(idToken(id = 1234, type = KeyCode), ...)\n\nAuthorizeResponse(idTokenInfo.status = Accepted, ...)\n\nopt notification",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C04 - Authorization using PIN-code",
-        "heading_path": "C04 - Authorization using PIN-code",
-        "functional_block": "Authorization",
-        "use_case_id": "C04",
-        "use_case_name": "Authorization using PIN-code",
-        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# C04 - Authorization using PIN-code - Requirements\n\n| ID.       | Precondition                                                                                                                            | Requirement definition                                                           |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |\n| C04.FR.01 | When the CSMS receives an AuthorizeRequest with a keyCode that is not valid at this Charging Station                                    | The CSMS SHALL respond with an AuthorizeResponse message with status = Invalid.  |\n| C04.FR.02 | When the CSMS receives an AuthorizeRequest with a keyCode that is valid and the EV Driver is allowed to charge at this Charging Station | The CSMS SHALL respond with an AuthorizeResponse message with status = Accepted. |",
+      "content": "# C04 - Requirements\n\n**C04.FR.01**\nPrecondition: When the CSMS receives an AuthorizeRequest\nwith a keyCode that is not valid at this Charging\nStation\nThe CSMS SHALL respond with an AuthorizeResponse message\nwith status = Invalid.\n\n**C04.FR.02**\nPrecondition: When the CSMS receives an AuthorizeRequest\nwith a keyCode that is valid and the EV Driver is\nallowed to charge at this Charging Station\nThe CSMS SHALL respond with an AuthorizeResponse message\nwith status = Accepted.\n\n**C04.FR.03**\nA Charging Station MAY store keyCodes in the Authorization\nCache.\n\n**C04.FR.04**\nPrecondition: If an idToken of type keyCode is used\nThe Charging Station or CSMS SHALL NOT show the IdToken in\nany logging. key codes should never appear in logs.\n\n**C04.FR.05**\nLanguage SHALL be specified as RFC-5646 tags, see: [RFC5646],\nfor example: US English is: \"en-US\".\n\n**C04.FR.06**\nPrecondition: If an idToken of type keyCode is used\nIt is RECOMMENDED to take measures to prevent brute force\nattacks, for example by increasing backoff times after attempts\nto enter an incorrect keyCode.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C04 - Authorization using PIN-code - Requirements",
-        "heading_path": "C04 - Authorization using PIN-code - Requirements",
+        "heading": "C04 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C04",
         "use_case_name": "Authorization using PIN-code",
-        "use_case_refs": "C04",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

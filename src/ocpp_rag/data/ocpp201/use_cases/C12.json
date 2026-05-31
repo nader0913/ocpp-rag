@@ -2,110 +2,98 @@
   "use_case_id": "C12",
   "functional_block": "Authorization",
   "use_case_name": "Start Transaction - Cached Id",
+  "structured": {
+    "name": "Start Transaction - Cached Id",
+    "id": "C12",
+    "functional_block": "Authorization",
+    "objective": "To enable the EV Driver to Online start a transaction by using the Authorization Cache. So the\nCharging Station can respond faster, as no AuthorizeRequest is being sent.",
+    "description": "This use case describes how the EV Driver is authorized to start a transaction while the Charging\nStation uses Cached IdToken.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver plugs in the cable.",
+      "2. The Charging Station starts the transaction.",
+      "3. The EV Driver presents an IdToken.",
+      "4. The Charging Station verifies the IdToken with the Authorization Cache.",
+      "5. The Charging Station updates the transaction.",
+      "6. The Charging Station starts charging.",
+      "7. E02 - Start Transaction - Cable Plugin First applies."
+    ],
+    "prerequisites": "AuthCacheEnabled = true\nLocalPreAuthorize = true\nThe Id of the EV Driver is Cached in the Authorization Cache\nId is valid",
+    "postconditions": "Successful postcondition:\nThe EV Driver is authorized to start a transaction by using the Authorization Cache.\nFailure postcondition:\nThe UserId was not found in the Authorization Cache and:\n* Online Charging Station: the Charging Station issues an AuthorizeRequest and that fails too.\n* In an offline situation, behaviour of the Charging Station is defined by Configuration Variable\nOfflineTxForUnknownIdEnabled.",
+    "error_handling": "When the Charging Station has an IdToken in the Authorization Cache, which is valid in the\nAuthorization Cache, but is no longer valid in the CSMS: The Charging Station will receive the\nIdTokenInfo in the TransactionEventResponse which contains the newer invalid status. What\nhappens in such a cases depends on the Configuration Variables: MaxEnergyOnInvalidId and\nStopTxOnInvalidId.",
+    "remarks": "If the Charging Station has implemented an Authorization Cache, then upon receipt of a\nAuthorizeResponse message the Charging Station updates the Cache entry.\nFor a Cached valid IdToken it is not logical to send AuthorizeRequest. The\nTransactioneventResponse message also contains the IdToken information. If the IdToken has\nbecome no longer valid, the Charging Station will learn this from this TransactioneventResponse.\nSo if the IdToken is no longer valid, the Charging Station might decide to stop the energy offering,\nand depending on the configuration even stop the transaction.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.",
+    "requirements": [
+      {
+        "id": "C12.FR.02",
+        "precondition": "When an identifier is presented that is\nstored in the Authorization Cache as\nAccepted.",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest with idToken to the\nCSMS."
+      },
+      {
+        "id": "C12.FR.03",
+        "precondition": "C12.FR.02",
+        "definition": "The CSMS SHALL check the authorization status of\nthe IdToken when processing this\nTransactionEventRequest."
+      },
+      {
+        "id": "C12.FR.04",
+        "precondition": "C12.FR.02 AND\nThe cable is plugged in.",
+        "definition": "The Charging Station SHALL start the energy offer."
+      },
+      {
+        "id": "C12.FR.05",
+        "precondition": "When an identifier is presented that is\nstored in the Authorization Cache with\nstatus other than Accepted, and the\nCharging Station is online.",
+        "definition": "The Charging Station SHALL send an\nAuthorizeRequest to the CSMS."
+      },
+      {
+        "id": "C12.FR.06",
+        "precondition": "When IdTokenInfo is received for an\nidentifier in the Cache.",
+        "definition": "The Authorization Cache SHALL be updated using\nthe received IdTokenInfo."
+      },
+      {
+        "id": "C12.FR.09",
+        "precondition": "IdTokens that have a groupId equal to\nMasterPassGroupId",
+        "definition": "SHALL NOT be allowed to start a transaction."
+      }
+    ],
+    "figures": [
+      "fig31.png",
+      "fig32.png",
+      "fig33.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C12 - Start Transaction - Cached Id\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Start Transaction - Cached Id                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 2   | ID               | C12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "content": "# C12 - Start Transaction - Cached Id\n\n**Objective:** To enable the EV Driver to Online start a transaction by using the Authorization Cache. So the\nCharging Station can respond faster, as no AuthorizeRequest is being sent.\n\n**Description:** This use case describes how the EV Driver is authorized to start a transaction while the Charging\nStation uses Cached IdToken.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The EV Driver plugs in the cable.\n2. The Charging Station starts the transaction.\n3. The EV Driver presents an IdToken.\n4. The Charging Station verifies the IdToken with the Authorization Cache.\n5. The Charging Station updates the transaction.\n6. The Charging Station starts charging.\n7. E02 - Start Transaction - Cable Plugin First applies.\n\n**Prerequisites:** AuthCacheEnabled = true\nLocalPreAuthorize = true\nThe Id of the EV Driver is Cached in the Authorization Cache\nId is valid\n\n**Postconditions:** Successful postcondition:\nThe EV Driver is authorized to start a transaction by using the Authorization Cache.\nFailure postcondition:\nThe UserId was not found in the Authorization Cache and:\n* Online Charging Station: the Charging Station issues an AuthorizeRequest and that fails too.\n* In an offline situation, behaviour of the Charging Station is defined by Configuration Variable\nOfflineTxForUnknownIdEnabled.\n\n**Error handling:** When the Charging Station has an IdToken in the Authorization Cache, which is valid in the\nAuthorization Cache, but is no longer valid in the CSMS: The Charging Station will receive the\nIdTokenInfo in the TransactionEventResponse which contains the newer invalid status. What\nhappens in such a cases depends on the Configuration Variables: MaxEnergyOnInvalidId and\nStopTxOnInvalidId.\n\n**Remarks:** If the Charging Station has implemented an Authorization Cache, then upon receipt of a\nAuthorizeResponse message the Charging Station updates the Cache entry.\nFor a Cached valid IdToken it is not logical to send AuthorizeRequest. The\nTransactioneventResponse message also contains the IdToken information. If the IdToken has\nbecome no longer valid, the Charging Station will learn this from this TransactioneventResponse.\nSo if the IdToken is no longer valid, the Charging Station might decide to stop the energy offering,\nand depending on the configuration even stop the transaction.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C12 - Start Transaction - Cached Id",
-        "heading_path": "C12 - Start Transaction - Cached Id",
         "functional_block": "Authorization",
         "use_case_id": "C12",
         "use_case_name": "Start Transaction - Cached Id",
-        "use_case_refs": "C12, E01, E02",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventResponse, TransactioneventResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)     | To enable the EV Driver to Online start a transaction by using the Authorization Cache. So the Charging Station can respond faster, as no AuthorizeRequest is being sent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 4   | Description      | This use case describes how the EV Driver is authorized to start a transaction while the Charging Station uses Cached IdToken. **Actors:** Charging Station, CSMS, EV Driver **Scenario description:**) The EV Driver plugs in the cable.\n2) The Charging Station starts the transaction.\n3) The EV Driver presents an IdToken.\n4) The Charging Station verifies the IdToken with the Authorization Cache.\n5) The Charging Station updates the transaction.\n6) The Charging Station starts charging.\n7) E02 - Start Transaction - Cable Plugin First applies.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C12 - Start Transaction - Cached Id",
-        "heading_path": "C12 - Start Transaction - Cached Id",
-        "functional_block": "Authorization",
-        "use_case_id": "C12",
-        "use_case_name": "Start Transaction - Cached Id",
-        "use_case_refs": "C12, E01, E02",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventResponse, TransactioneventResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 5   | Prerequisite(s)  | AuthCacheEnabled = true LocalPreAuthorize = true The Id of the EV Driver is Cached in the Authorization Cache Id is valid                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 6   | Postcondition(s) | **Successful postcondition:** The EV Driver is authorized to start a transaction by using the Authorization Cache. **Failure postcondition:** The UserId was not found in the Authorization Cache and: \\* Online Charging Station: the Charging Station issues an AuthorizeRequest and that fails too. \\* In an offline situation, behaviour of the Charging Station is defined by Configuration Variable OfflineTxForUnknownIdEnabled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C12 - Start Transaction - Cached Id",
-        "heading_path": "C12 - Start Transaction - Cached Id",
-        "functional_block": "Authorization",
-        "use_case_id": "C12",
-        "use_case_name": "Start Transaction - Cached Id",
-        "use_case_refs": "C12, E01, E02",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventResponse, TransactioneventResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | When the Charging Station has an IdToken in the Authorization Cache, which is valid in the Authorization Cache, but is no longer valid in the CSMS: The Charging Station will receive the IdTokenInfo in the TransactionEventResponse which contains the newer invalid status. What happens in such a cases depends on the Configuration Variables: MaxEnergyOnInvalidId and StopTxOnInvalidId.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 8   | Remark(s)        | If the Charging Station has implemented an Authorization Cache, then upon receipt of a AuthorizeResponse message the Charging Station updates the Cache entry. For a Cached valid IdToken it is not logical to send AuthorizeRequest. The TransactioneventResponse message also contains the IdToken information. If the IdToken has become no longer valid, the Charging Station will learn this from this TransactioneventResponse. So if the IdToken is no longer valid, the Charging Station might decide to stop the energy offering, and depending on the configuration even stop the transaction. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: EVConnected This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use case: E01 - Start Transaction options. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C12 - Start Transaction - Cached Id",
-        "heading_path": "C12 - Start Transaction - Cached Id",
-        "functional_block": "Authorization",
-        "use_case_id": "C12",
-        "use_case_name": "Start Transaction - Cached Id",
-        "use_case_refs": "C12, E01, E02",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventResponse, TransactioneventResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# CSMS\n\nPlugin cable\n\n- StatusNotificationRequest(Occupied)\n- StatusNotificationResponse()\n- TransactionEventRequest(eventType = Started, triggerReason = CablePluggeIn, ...)\n- TransactionEventResponse(...)\n\nPresent IdToken\n\ncheck authorization cache()\n\nopt\n\nnotification\n\nopt [if cable not permanently attached]\n\nlock connector\n\nStart energy offer\n\n- TransactionEventRequest(eventType = Updated, triggerReason = Authorized, chargingState = Charging,...)\n- TransactionEventResponse(...)\n\ncontinue E01 - Start Transaction - Cable Plugin First",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "CSMS",
-        "heading_path": "CSMS",
-        "functional_block": "Authorization",
-        "use_case_id": "C12",
-        "use_case_refs": "E01",
-        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# C12 - Start Transaction - Cached Id - Requirements\n\n| ID        | Precondition                                                                                                                                   | Requirement definition                                                                                     | Note                                          |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------- |\n| C12.FR.02 | When an identifier is presented that is stored in the Authorization Cache as Accepted.                                                         | The Charging Station SHALL send a TransactionEventRequest with idToken to the CSMS.                        |                                               |\n| C12.FR.03 | C12.FR.02                                                                                                                                      | The CSMS SHALL check the authorization status of the IdToken when processing this TransactionEventRequest. |                                               |\n| C12.FR.04 | C12.FR.02 AND The cable is plugged in.                                                                                                         | The Charging Station SHALL start the energy offer.                                                         |                                               |\n| C12.FR.05 | When an identifier is presented that is stored in the Authorization Cache with status other than Accepted, and the Charging Station is online. | The Charging Station SHALL send an AuthorizeRequest to the CSMS.                                           | To check the current state of the identifier. |\n| C12.FR.06 | When IdTokenInfo is received for an identifier in the Cache.                                                                                   | The Authorization Cache SHALL be updated using the received IdTokenInfo.                                   |                                               |\n| C12.FR.09 | IdTokens that have a groupId equal to MasterPassGroupId                                                                                        | SHALL NOT be allowed to start a transaction.                                                               |                                               |",
+      "content": "# C12 - Requirements\n\n**C12.FR.02**\nPrecondition: When an identifier is presented that is\nstored in the Authorization Cache as\nAccepted.\nThe Charging Station SHALL send a\nTransactionEventRequest with idToken to the\nCSMS.\n\n**C12.FR.03**\nPrecondition: C12.FR.02\nThe CSMS SHALL check the authorization status of\nthe IdToken when processing this\nTransactionEventRequest.\n\n**C12.FR.04**\nPrecondition: C12.FR.02 AND\nThe cable is plugged in.\nThe Charging Station SHALL start the energy offer.\n\n**C12.FR.05**\nPrecondition: When an identifier is presented that is\nstored in the Authorization Cache with\nstatus other than Accepted, and the\nCharging Station is online.\nThe Charging Station SHALL send an\nAuthorizeRequest to the CSMS.\n\n**C12.FR.06**\nPrecondition: When IdTokenInfo is received for an\nidentifier in the Cache.\nThe Authorization Cache SHALL be updated using\nthe received IdTokenInfo.\n\n**C12.FR.09**\nPrecondition: IdTokens that have a groupId equal to\nMasterPassGroupId\nSHALL NOT be allowed to start a transaction.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C12 - Start Transaction - Cached Id - Requirements",
-        "heading_path": "C12 - Start Transaction - Cached Id - Requirements",
+        "heading": "C12 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C12",
         "use_case_name": "Start Transaction - Cached Id",
-        "use_case_refs": "C12",
-        "message_refs": "AuthorizeRequest, TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

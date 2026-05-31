@@ -2,95 +2,75 @@
   "use_case_id": "B04",
   "functional_block": "Provisioning",
   "use_case_name": "Offline Behavior Idle Charging Station",
+  "structured": {
+    "name": "Offline Behavior Idle Charging Station",
+    "id": "B04",
+    "functional_block": "Provisioning",
+    "objective": "To attain stand-alone operation of the Charging Station.",
+    "description": "This use case describes that, in the event of unavailability of the communication, the Charging\nStation is designed to operate stand-alone. In that situation, the Charging Station is said to be\nOffline.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS or communication is unavailable.",
+      "2. The Charging Station operates stand-alone.",
+      "3. The connection is restored.",
+      "4. If the Offline period exceeds the value of the OfflineThreshold Configuration Variable: the\nCharging Station sends a StatusNotificationRequest to the CSMS for each connector. Otherwise it\nonly sends a StatusNotificationRequest for Connectors with a status change during the offline\nperiod.",
+      "5. The Charging Station sends HeartbeatRequest to the CSMS.",
+      "6. The CSMS responds with HeartbeatResponse."
+    ],
+    "prerequisites": "The BootNotification was previously accepted and the Charging Station is able to operate stand-\nalone.",
+    "postconditions": "When connection is restored after a period of Offline behavior, the CSMS knows the Charging\nStations' and EVSEs' state.",
+    "error_handling": "The offline situation is a non-preferred mode of operation that needs to be handled by the\nCharging Station by trying to re-establish the connection.",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "B04.FR.01",
+        "precondition": "After having been Offline AND\nthe Offline period exceeds the value of the\nOfflineThreshold Configuration Variable.",
+        "definition": "The Charging Station SHALL send StatusNotificationRequest to\nreport the current status of all its Connectors."
+      },
+      {
+        "id": "B04.FR.02",
+        "precondition": "After having been Offline AND\nthe Offline period does NOT exceed the value of\nthe OfflineThreshold Configuration Variable.",
+        "definition": "The Charging Station SHALL send StatusNotificationRequest to\nreport the current status of only the Connectors for which a state\nchange occurred."
+      }
+    ],
+    "figures": [
+      "fig13.png",
+      "fig14.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# B04 - Offline Behavior Idle Charging Station\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Offline Behavior Idle Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 2   | ID               | B04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 3   | Objective(s)     | To attain stand-alone operation of the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "content": "# B04 - Offline Behavior Idle Charging Station\n\n**Objective:** To attain stand-alone operation of the Charging Station.\n\n**Description:** This use case describes that, in the event of unavailability of the communication, the Charging\nStation is designed to operate stand-alone. In that situation, the Charging Station is said to be\nOffline.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS or communication is unavailable.\n2. The Charging Station operates stand-alone.\n3. The connection is restored.\n4. If the Offline period exceeds the value of the OfflineThreshold Configuration Variable: the\nCharging Station sends a StatusNotificationRequest to the CSMS for each connector. Otherwise it\nonly sends a StatusNotificationRequest for Connectors with a status change during the offline\nperiod.\n5. The Charging Station sends HeartbeatRequest to the CSMS.\n6. The CSMS responds with HeartbeatResponse.\n\n**Prerequisites:** The BootNotification was previously accepted and the Charging Station is able to operate stand-\nalone.\n\n**Postconditions:** When connection is restored after a period of Offline behavior, the CSMS knows the Charging\nStations' and EVSEs' state.\n\n**Error handling:** The offline situation is a non-preferred mode of operation that needs to be handled by the\nCharging Station by trying to re-establish the connection.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "B04 - Offline Behavior Idle Charging Station",
-        "heading_path": "B04 - Offline Behavior Idle Charging Station",
         "functional_block": "Provisioning",
         "use_case_id": "B04",
         "use_case_name": "Offline Behavior Idle Charging Station",
-        "use_case_refs": "B04",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, StatusNotificationRequest, StatusNotificationResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 4   | Description      | This use case describes that, in the event of unavailability of the communication, the Charging Station is designed to operate stand-alone. In that situation, the Charging Station is said to be Offline. **Actors:** Charging Station, CSMS **Scenario description:**) The CSMS or communication is unavailable.\n2) The Charging Station operates stand-alone.\n3) The connection is restored.\n4) If the Offline period exceeds the value of the OfflineThreshold Configuration Variable: the Charging Station sends a StatusNotificationRequest to the CSMS for each connector. Otherwise it only sends a StatusNotificationRequest for Connectors with a status change during the offline period.\n5) The Charging Station sends HeartbeatRequest to the CSMS.\n6) The CSMS responds with HeartbeatResponse. |\n| 5   | Prerequisite(s)  | The BootNotification was previously accepted and the Charging Station is able to operate stand-alone.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 6   | Postcondition(s) | When connection is restored after a period of Offline behavior, the CSMS knows the Charging Stations' and EVSEs' state.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B04 - Offline Behavior Idle Charging Station",
-        "heading_path": "B04 - Offline Behavior Idle Charging Station",
-        "functional_block": "Provisioning",
-        "use_case_id": "B04",
-        "use_case_name": "Offline Behavior Idle Charging Station",
-        "use_case_refs": "B04",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | The offline situation is a non-preferred mode of operation that needs to be handled by the Charging Station by trying to re-establish the connection.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n\nCSMS                           Charging Station\n\nloop     [while powered up and no other messages]\nHeartbeatRequest()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B04 - Offline Behavior Idle Charging Station",
-        "heading_path": "B04 - Offline Behavior Idle Charging Station",
-        "functional_block": "Provisioning",
-        "use_case_id": "B04",
-        "use_case_name": "Offline Behavior Idle Charging Station",
-        "use_case_refs": "B04",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "HeartbeatResponse(currentTime)\n\nConnection loss\n\nConnection loss can be minutes, but can also be days.\nConnection restored\n\nalt     [Offline period exceeds offline threshold]\nloop    [for all Connectors]\nStatusNotificationRequest(...)\nStatusNotificationResponse()\n\n[When status changed while offline]\nloop     [for each Connector with status changed during offline period]\nStatusNotificationRequest(...)\nStatusNotificationResponse()\n\nloop     [while powered up and no other messages]\nHeartbeatRequest()\nHeartbeatResponse(currentTime)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B04 - Offline Behavior Idle Charging Station",
-        "heading_path": "B04 - Offline Behavior Idle Charging Station",
-        "functional_block": "Provisioning",
-        "use_case_id": "B04",
-        "use_case_name": "Offline Behavior Idle Charging Station",
-        "use_case_refs": "B04",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# B04 - Offline Behavior Idle Charging Station - Requirements\n\n| ID        | Precondition                                                                                                               | Requirement definition                                                                                                                           |\n| --------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |\n| B04.FR.01 | After having been Offline AND the Offline period exceeds the value of the OfflineThreshold Configuration Variable.         | The Charging Station SHALL send StatusNotificationRequest to report the current status of all its Connectors.                                    |\n| B04.FR.02 | After having been Offline AND the Offline period does NOT exceed the value of the OfflineThreshold Configuration Variable. | The Charging Station SHALL send StatusNotificationRequest to report the current status of only the Connectors for which a state change occurred. |",
+      "content": "# B04 - Requirements\n\n**B04.FR.01**\nPrecondition: After having been Offline AND\nthe Offline period exceeds the value of the\nOfflineThreshold Configuration Variable.\nThe Charging Station SHALL send StatusNotificationRequest to\nreport the current status of all its Connectors.\n\n**B04.FR.02**\nPrecondition: After having been Offline AND\nthe Offline period does NOT exceed the value of\nthe OfflineThreshold Configuration Variable.\nThe Charging Station SHALL send StatusNotificationRequest to\nreport the current status of only the Connectors for which a state\nchange occurred.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "B04 - Offline Behavior Idle Charging Station - Requirements",
-        "heading_path": "B04 - Offline Behavior Idle Charging Station - Requirements",
+        "heading": "B04 - Requirements",
         "functional_block": "Provisioning",
         "use_case_id": "B04",
         "use_case_name": "Offline Behavior Idle Charging Station",
-        "use_case_refs": "B04",
-        "message_refs": "StatusNotificationRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,139 +2,146 @@
   "use_case_id": "M05",
   "functional_block": "CertificateManagement",
   "use_case_name": "Install CA certificate in a Charging Station",
+  "structured": {
+    "name": "Install CA certificate in a Charging Station",
+    "id": "M05",
+    "functional_block": "CertificateManagement",
+    "objective": "To facilitate the management of the Charging Station\u2019s installed certificates, a method to install a\nnew CA certificate.",
+    "description": "The CSMS requests the Charging Station to install a new CSMS root certificate, an eMobility\nOperator root certificate, Manufacturer root certificate, or a V2G root certificate.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS requests the Charging Station to install a new certificate by sending an\nInstallCertificateRequest.",
+      "2. The Charging Station responds with an InstallCertificateResponse."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "The new certificate was installed in the Charging Station trust store.",
+    "error_handling": "n/a",
+    "remarks": "Even though the messages CertificateSignedRequest (see use cases A02 - Update Charging\nStation Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by\nthe Charging Station) and InstallCertificateRequest (use case M05) are both used to send\ncertificates, their purposes are different. CertificateSignedRequest is used to return the the\nCharging Stations own public certificate and V2G certificate(s) signed by a Certificate Authority.\nInstallCertificateRequest is used to install Root certificates.\nFor installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station\nCertificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the\nCharging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This\nSHOULD be installed using this use case.\nIt is allowed to have multiple certificates of the same type installed.",
+    "requirements": [
+      {
+        "id": "M05.FR.01",
+        "precondition": "After receiving an InstallCertificateRequest",
+        "definition": "The Charging Station SHALL attempt to install the certificate and\nrespond with an InstallCertificateResponse."
+      },
+      {
+        "id": "M05.FR.02",
+        "precondition": "M05.FR.01 AND\nThe installation was successful",
+        "definition": "The Charging Station SHALL indicate success by setting status\nto Accepted in the InstallCertificateResponse."
+      },
+      {
+        "id": "M05.FR.03",
+        "precondition": "M05.FR.01 AND\nThe installation failed",
+        "definition": "The Charging Station SHALL indicate failure by setting status to\nFailed in the InstallCertificateResponse."
+      },
+      {
+        "id": "M05.FR.06",
+        "precondition": "When a new certificate gets installed AND\nthe CertificateEntries.maxLimit is going to be\nexceeded",
+        "definition": "The Charging Station SHALL respond with status = Rejected."
+      },
+      {
+        "id": "M05.FR.07",
+        "precondition": "M05.FR.01 AND\nThe certificate is invalid.",
+        "definition": "The Charging Station SHALL indicate rejection by setting status\nto Rejected in the InstallCertificateResponse."
+      },
+      {
+        "id": "M05.FR.09",
+        "precondition": "When AdditionalRootCertificateCheck\nis true",
+        "definition": "Only one certificate (plus a temporarily fallback certificate) of\ncertificateType CSMSRootCertificate is allowed to be installed at\na time."
+      },
+      {
+        "id": "M05.FR.10",
+        "precondition": "When AdditionalRootCertificateCheck\nis true AND\ninstalling a new certificate of certificateType\nCSMSRootCertificate",
+        "definition": "The new CSMS Root certificate SHALL replace the old CSMS\nRoot certificate AND the new Root Certificate MUST be signed\nby the old Root Certificate it is replacing"
+      },
+      {
+        "id": "M05.FR.11",
+        "precondition": "M05.FR.10 AND\nthe new CSMS Root certificate is NOT signed by\nthe old CSMS Root certificate",
+        "definition": "The Charging Station SHALL NOT install the new CSMS Root\nCertificate and respond with status = Rejected."
+      },
+      {
+        "id": "M05.FR.12",
+        "precondition": "M05.FR.10 AND\nthe new CSMS Root certificate is signed by the\nold CSMS Root certificate",
+        "definition": "The Charging Station SHALL install the new CSMS Root\nCertificate AND temporarily keep the old CSMS Root certificate\nas a fallback certificate AND respond with status = Accepted"
+      },
+      {
+        "id": "M05.FR.13",
+        "precondition": "M05.FR.12 AND\nthe Charging Station successfully connected to\nthe CSMS using the new CSMS Root certificate",
+        "definition": "The Charging Station SHALL remove the old CSMS Root\n(fallback) certificate."
+      },
+      {
+        "id": "M05.FR.14",
+        "precondition": "M05.FR.12 AND\nThe Charging Station is attempting to reconnect\nto the CSMS (NOT migrating to another CSMS\nwith Use Case B10 - Migrate to new CSMS), but\ndetermines that the server certificate provided\nby the CSMS is invalid when using the new\nCSMS Root certificate to verify it",
+        "definition": "The Charging Station SHALL try to use the old CSMS Root\n(fallback) certificate to verify the server certificate."
+      },
+      {
+        "id": "M05.FR.15",
+        "precondition": "M05.FR.12 AND\nWhen the Charging Station is migrating to\nanother CSMS with Use Case B10 - Migrate to\nnew CSMS, but determines that the server\ncertificate provided by the CSMS is invalid when\nusing the new CSMS Root certificate to verify it",
+        "definition": "The Charging Station SHALL use the\nNetworkProfileConnectionAttempts mechanism as\ndescribed at Use Case B10 - Migrate to new CSMS ."
+      },
+      {
+        "id": "M05.FR.16",
+        "precondition": "M05.FR.15 AND\nIf after the number of attempts the connection\nfails AND\nIf it goes back to the old\nNetworkConnectionProfile\n(See B10.FR.03)",
+        "definition": "The Charging Station SHALL use the old CSMS Root (fallback)\ncertificate to verify the server certificate."
+      },
+      {
+        "id": "M05.FR.17",
+        "precondition": "NOT M05.FR.10 AND\nAfter receiving an InstallCertificateRequest for a\ncertificate that is already present in the\ncertificate trust store of the Charging Station",
+        "definition": "The Charging Station SHALL replace the certificate and respond\nwith InstallCertificateResponse with status = Accepted."
+      }
+    ],
+    "figures": [
+      "fig127.png",
+      "fig128.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# M05 - Install CA certificate in a Charging Station\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Install CA certificate in a Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID               | M05                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 3   | Objective(s)     | To facilitate the management of the Charging Station’s installed certificates, a method to install a new CA certificate.                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 4   | Description      | The CSMS requests the Charging Station to install a new CSMS root certificate, an eMobility Operator root certificate, Manufacturer root certificate, or a V2G root certificate. Actors: Charging Station, CSMS Scenario description: 1. The CSMS requests the Charging Station to install a new certificate by sending an InstallCertificateRequest. 2. The Charging Station responds with an InstallCertificateResponse.                                                                                                                       |\n| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "content": "# M05 - Install CA certificate in a Charging Station\n\n**Objective:** To facilitate the management of the Charging Station\u2019s installed certificates, a method to install a\nnew CA certificate.\n\n**Description:** The CSMS requests the Charging Station to install a new CSMS root certificate, an eMobility\nOperator root certificate, Manufacturer root certificate, or a V2G root certificate.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to install a new certificate by sending an\nInstallCertificateRequest.\n2. The Charging Station responds with an InstallCertificateResponse.\n\n**Prerequisites:** n/a\n\n**Postconditions:** The new certificate was installed in the Charging Station trust store.\n\n**Remarks:** Even though the messages CertificateSignedRequest (see use cases A02 - Update Charging\nStation Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by\nthe Charging Station) and InstallCertificateRequest (use case M05) are both used to send\ncertificates, their purposes are different. CertificateSignedRequest is used to return the the\nCharging Stations own public certificate and V2G certificate(s) signed by a Certificate Authority.\nInstallCertificateRequest is used to install Root certificates.\nFor installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station\nCertificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the\nCharging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This\nSHOULD be installed using this use case.\nIt is allowed to have multiple certificates of the same type installed.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "M05 - Install CA certificate in a Charging Station",
-        "heading_path": "M05 - Install CA certificate in a Charging Station",
         "functional_block": "CertificateManagement",
         "use_case_id": "M05",
         "use_case_name": "Install CA certificate in a Charging Station",
-        "use_case_refs": "A02, A03, M05",
-        "message_refs": "CertificateSignedRequest, InstallCertificateRequest, InstallCertificateResponse",
         "chunk_part": 1,
         "total_parts": 3
       }
     },
     {
-      "content": "| 6   | Postcondition(s) | The new certificate was installed in the Charging Station trust store.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 8   | Remark(s)        | Even though the messages CertificateSignedRequest (see use cases A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station) and InstallCertificateRequest (use case M05) are both used to send certificates, their purposes are different. CertificateSignedRequest is used to return the Charging Station's own public certificate and V2G certificate(s) signed by a Certificate Authority. InstallCertificateRequest is used to install Root certificates. |\n\nFor installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This SHOULD be installed using this use case.",
+      "content": "# M05 - Requirements\n\n**M05.FR.01**\nPrecondition: After receiving an InstallCertificateRequest\nThe Charging Station SHALL attempt to install the certificate and\nrespond with an InstallCertificateResponse.\n\n**M05.FR.02**\nPrecondition: M05.FR.01 AND\nThe installation was successful\nThe Charging Station SHALL indicate success by setting status\nto Accepted in the InstallCertificateResponse.\n\n**M05.FR.03**\nPrecondition: M05.FR.01 AND\nThe installation failed\nThe Charging Station SHALL indicate failure by setting status to\nFailed in the InstallCertificateResponse.\n\n**M05.FR.06**\nPrecondition: When a new certificate gets installed AND\nthe CertificateEntries.maxLimit is going to be\nexceeded\nThe Charging Station SHALL respond with status = Rejected.\n\n**M05.FR.07**\nPrecondition: M05.FR.01 AND\nThe certificate is invalid.\nThe Charging Station SHALL indicate rejection by setting status\nto Rejected in the InstallCertificateResponse.\n\n**M05.FR.09**\nPrecondition: When AdditionalRootCertificateCheck\nis true\nOnly one certificate (plus a temporarily fallback certificate) of\ncertificateType CSMSRootCertificate is allowed to be installed at\na time.\n\n**M05.FR.10**\nPrecondition: When AdditionalRootCertificateCheck\nis true AND\ninstalling a new certificate of certificateType\nCSMSRootCertificate\nThe new CSMS Root certificate SHALL replace the old CSMS\nRoot certificate AND the new Root Certificate MUST be signed\nby the old Root Certificate it is replacing\n\n**M05.FR.11**\nPrecondition: M05.FR.10 AND\nthe new CSMS Root certificate is NOT signed by\nthe old CSMS Root certificate\nThe Charging Station SHALL NOT install the new CSMS Root\nCertificate and respond with status = Rejected.\n\n**M05.FR.12**\nPrecondition: M05.FR.10 AND\nthe new CSMS Root certificate is signed by the\nold CSMS Root certificate\nThe Charging Station SHALL install the new CSMS Root\nCertificate AND temporarily keep the old CSMS Root certificate\nas a fallback certificate AND respond with status = Accepted\n\n**M05.FR.13**\nPrecondition: M05.FR.12 AND\nthe Charging Station successfully connected to\nthe CSMS using the new CSMS Root certificate\nThe Charging Station SHALL remove the old CSMS Root\n(fallback) certificate.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M05 - Install CA certificate in a Charging Station",
-        "heading_path": "M05 - Install CA certificate in a Charging Station",
+        "content_type": "requirements",
+        "heading": "M05 - Requirements",
         "functional_block": "CertificateManagement",
         "use_case_id": "M05",
         "use_case_name": "Install CA certificate in a Charging Station",
-        "use_case_refs": "A02, A03, M05",
-        "message_refs": "CertificateSignedRequest, InstallCertificateRequest, InstallCertificateResponse",
         "chunk_part": 2,
         "total_parts": 3
       }
     },
     {
-      "content": "It is allowed to have multiple certificates of the same type installed.",
+      "content": "# M05 - Requirements (continued)\n\n**M05.FR.14**\nPrecondition: M05.FR.12 AND\nThe Charging Station is attempting to reconnect\nto the CSMS (NOT migrating to another CSMS\nwith Use Case B10 - Migrate to new CSMS), but\ndetermines that the server certificate provided\nby the CSMS is invalid when using the new\nCSMS Root certificate to verify it\nThe Charging Station SHALL try to use the old CSMS Root\n(fallback) certificate to verify the server certificate.\n\n**M05.FR.15**\nPrecondition: M05.FR.12 AND\nWhen the Charging Station is migrating to\nanother CSMS with Use Case B10 - Migrate to\nnew CSMS, but determines that the server\ncertificate provided by the CSMS is invalid when\nusing the new CSMS Root certificate to verify it\nThe Charging Station SHALL use the\nNetworkProfileConnectionAttempts mechanism as\ndescribed at Use Case B10 - Migrate to new CSMS .\n\n**M05.FR.16**\nPrecondition: M05.FR.15 AND\nIf after the number of attempts the connection\nfails AND\nIf it goes back to the old\nNetworkConnectionProfile\n(See B10.FR.03)\nThe Charging Station SHALL use the old CSMS Root (fallback)\ncertificate to verify the server certificate.\n\n**M05.FR.17**\nPrecondition: NOT M05.FR.10 AND\nAfter receiving an InstallCertificateRequest for a\ncertificate that is already present in the\ncertificate trust store of the Charging Station\nThe Charging Station SHALL replace the certificate and respond\nwith InstallCertificateResponse with status = Accepted.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M05 - Install CA certificate in a Charging Station",
-        "heading_path": "M05 - Install CA certificate in a Charging Station",
+        "content_type": "requirements",
+        "heading": "M05 - Requirements",
         "functional_block": "CertificateManagement",
         "use_case_id": "M05",
         "use_case_name": "Install CA certificate in a Charging Station",
-        "use_case_refs": "A02, A03, M05",
-        "message_refs": "CertificateSignedRequest, InstallCertificateRequest, InstallCertificateResponse",
         "chunk_part": 3,
         "total_parts": 3
       }
-    },
-    {
-      "content": "# CSMS Charging Station\n\nInstallCertificateRequest(certificateType, certificate)\nInstallCertificateResponse(installCertificateStatus)\n\nFigure 127. Install CA certificate in a Charging Station",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "CSMS Charging Station",
-        "heading_path": "CSMS Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M05",
-        "message_refs": "InstallCertificateRequest, InstallCertificateResponse",
-        "figure_refs": "127"
-      }
-    },
-    {
-      "content": "# M05 - Install CA certificate in a Charging Station - Requirements\n\n| ID        | Precondition                                                                                                                                                                                                                                                                        | Requirement definition                                                                                                                                                            |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| M05.FR.01 | After receiving an InstallCertificateRequest                                                                                                                                                                                                                                        | The Charging Station SHALL attempt to install the certificate and respond with an InstallCertificateResponse.                                                                     |\n| M05.FR.02 | M05.FR.01 AND The installation was successful                                                                                                                                                                                                                                       | The Charging Station SHALL indicate success by setting status to Accepted in the InstallCertificateResponse.                                                                      |\n| M05.FR.03 | M05.FR.01 AND The installation failed                                                                                                                                                                                                                                               | The Charging Station SHALL indicate failure by setting status to Failed in the InstallCertificateResponse.                                                                        |\n| M05.FR.06 | When a new certificate gets installed AND the CertificateEntries.maxLimit is going to be exceeded                                                                                                                                                                                   | The Charging Station SHALL respond with status = Rejected.                                                                                                                        |\n| M05.FR.07 | M05.FR.01 AND The certificate is invalid.                                                                                                                                                                                                                                           | The Charging Station SHALL indicate rejection by setting status to Rejected in the InstallCertificateResponse.                                                                    |\n| M05.FR.09 | When AdditionalRootCertificateCheck is true                                                                                                                                                                                                                                         | Only one certificate (plus a temporarily fallback certificate) of certificateType CSMSRootCertificate is allowed to be installed at a time.                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "M05 - Install CA certificate in a Charging Station - Requirements",
-        "heading_path": "M05 - Install CA certificate in a Charging Station - Requirements",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M05",
-        "use_case_name": "Install CA certificate in a Charging Station",
-        "use_case_refs": "B10, M05",
-        "message_refs": "InstallCertificateRequest, InstallCertificateResponse",
-        "chunk_part": 1,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| M05.FR.10 | When AdditionalRootCertificateCheck is true AND installing a new certificate of certificateType CSMSRootCertificate                                                                                                                                                                 | The new CSMS Root certificate SHALL replace the old CSMS Root certificate AND the new Root Certificate MUST be signed by the old Root Certificate it is replacing.                |\n| M05.FR.11 | M05.FR.10 AND the new CSMS Root certificate is NOT signed by the old CSMS Root certificate                                                                                                                                                                                          | The Charging Station SHALL NOT install the new CSMS Root Certificate and respond with status = Rejected.                                                                          |\n| M05.FR.12 | M05.FR.10 AND the new CSMS Root certificate is signed by the old CSMS Root certificate                                                                                                                                                                                              | The Charging Station SHALL install the new CSMS Root Certificate AND temporarily keep the old CSMS Root certificate as a fallback certificate AND respond with status = Accepted. |\n| M05.FR.13 | M05.FR.12 AND the Charging Station successfully connected to the CSMS using the new CSMS Root certificate                                                                                                                                                                           | The Charging Station SHALL remove the old CSMS (fallback) certificate.                                                                                                            |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "M05 - Install CA certificate in a Charging Station - Requirements",
-        "heading_path": "M05 - Install CA certificate in a Charging Station - Requirements",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M05",
-        "use_case_name": "Install CA certificate in a Charging Station",
-        "use_case_refs": "B10, M05",
-        "message_refs": "InstallCertificateRequest, InstallCertificateResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| M05.FR.14 | M05.FR.12 AND The Charging Station is attempting to reconnect to the CSMS (NOT migrating to another CSMS with Use Case B10 - Migrate to new CSMS), but determines that the server certificate provided by the CSMS is invalid when using the new CSMS Root certificate to verify it |                                                                                                                                                                                   |\n| M05.FR.15 | M05.FR.12 AND When the Charging Station is migrating to another CSMS with Use Case B10 - Migrate to new CSMS, but determines that the server certificate provided by the CSMS is invalid when using the new CSMS Root certificate to verify it                                      |                                                                                                                                                                                   |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "M05 - Install CA certificate in a Charging Station - Requirements",
-        "heading_path": "M05 - Install CA certificate in a Charging Station - Requirements",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M05",
-        "use_case_name": "Install CA certificate in a Charging Station",
-        "use_case_refs": "B10, M05",
-        "message_refs": "InstallCertificateRequest, InstallCertificateResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "127",
-      "title": "Install CA certificate in a Charging Station",
-      "files": [
-        "fig127_p1_Install_CA_certificate_in_a_Charging_Station.png",
-        "fig127_p2_Install_CA_certificate_in_a_Charging_Station.png"
-      ]
     }
   ]
 }

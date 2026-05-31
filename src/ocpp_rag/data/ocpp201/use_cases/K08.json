@@ -2,93 +2,92 @@
   "use_case_id": "K08",
   "functional_block": "SmartCharging",
   "use_case_name": "Get Composite Schedule",
+  "structured": {
+    "name": "Get Composite Schedule",
+    "id": "K08",
+    "functional_block": "SmartCharging",
+    "objective": "To request the Charging Station to report the composite charging schedule.",
+    "description": "",
+    "actors": [],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K08.FR.01",
+        "precondition": "",
+        "definition": "The CSMS MAY request the Charging Station to report the\nCompositeSchedule by sending GetCompositeScheduleRequest."
+      },
+      {
+        "id": "K08.FR.02",
+        "precondition": "Upon receipt of\nGetCompositeScheduleRequest.",
+        "definition": "The Charging Station SHALL calculate the scheduled time intervals, from\nthe moment of message receipt up to the Duration (in seconds) and send\nthem to the CSMS."
+      },
+      {
+        "id": "K08.FR.03",
+        "precondition": "If the evseId in the\nGetCompositeScheduleRequest is\nset to '0'",
+        "definition": "The Charging Station SHALL report the total expected power or current\nthe Charging Station expects to consume from the grid during the\nrequested time period."
+      },
+      {
+        "id": "K08.FR.04",
+        "precondition": "",
+        "definition": "At any point in time, the available power or current in the\nCompositeSchedule, which is the result of merging the schedules of\ncharging profiles ChargingStationMaxProfile,\nChargingStationExternalConstraints and TxDefaultProfile (or TxProfile),\nSHALL be less than or equal to lowest value of available power or current\nin any of the merged schedules."
+      },
+      {
+        "id": "K08.FR.05",
+        "precondition": "If the Charging Station is not able to\nreport the requested schedule, for\ninstance if the evseId is unknown",
+        "definition": "The Charging Station SHALL respond with the status Rejected."
+      },
+      {
+        "id": "K08.FR.06",
+        "precondition": "K08.FR.02 AND\nWhen there is no transaction active\non an EVSE",
+        "definition": "The Charging Station SHALL calculate the CompositeSchedule as if there\nis a transaction ongoing on the EVSE that is using the TxDefaultProfile (if\nthis profile purpose is set)"
+      },
+      {
+        "id": "K08.FR.07",
+        "precondition": "When receiving a\nGetCompositeScheduleRequest with\na chargingRateUnit, which is not\nconfigured in the configuration\nvariable\nChargingScheduleChargingRat\neUnit",
+        "definition": "The Charging Station SHALL respond with\nGetCompositeScheduleResponse with status Rejected."
+      }
+    ],
+    "figures": [
+      "fig104.png",
+      "fig105.png",
+      "fig106.png",
+      "fig107.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K08 - Get Composite Schedule\n\n| No. | Type         | Description                                                                |\n| --- | ------------ | -------------------------------------------------------------------------- |\n| 1   | Name         | Get Composite Schedule                                                     |\n| 2   | ID           | K08                                                                        |\n| 3   | Objective(s) | To request the Charging Station to report the composite charging schedule. |",
+      "content": "# K08 - Get Composite Schedule\n\n**Objective:** To request the Charging Station to report the composite charging schedule.\n\n**Description:** ",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "K08 - Get Composite Schedule",
-        "heading_path": "K08 - Get Composite Schedule",
         "functional_block": "SmartCharging",
         "use_case_id": "K08",
         "use_case_name": "Get Composite Schedule",
-        "use_case_refs": "K08"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# Description\n\nThis use case describes how the CSMS requests the Charging Station to report the Composite Charging Schedule, as calculated by the Charging Station, by sending GetCompositeScheduleRequest.\n\nThe CompositeSchedule is the result of the calculation of all active schedules and possible local limits present in the Charging Station.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Description",
-        "heading_path": "Description",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K08",
-        "message_refs": "GetCompositeScheduleRequest"
-      }
-    },
-    {
-      "content": "# Scenario description\n\n1. The CSMS requests the Charging Station to report the Composite Charging Schedule by sending a GetCompositeScheduleRequest.\n2. The Charging Station calculates the schedule.\n3. The Charging Station responds with a GetCompositeScheduleResponse with the status and ChargingSchedule.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K08",
-        "message_refs": "GetCompositeScheduleRequest, GetCompositeScheduleResponse"
-      }
-    },
-    {
-      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\nThe CSMS Successfully received the composite schedule from the Charging Station.\n\nFailure postcondition:\n\nThe CSMS did not receive the composite schedule from the Charging Station.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Postcondition(s)",
-        "heading_path": "Postcondition(s)",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K08"
-      }
-    },
-    {
-      "content": "# Remark(s)\n\nPlease note that the charging schedule sent by the Charging Station is only indicative for that point in time. This schedule might change over time due to external causes (e.g. local balancing based on grid connection capacity is active and one EVSE becomes available).\n\nThe Composite Schedule that will guide the charging level is a combination of the prevailing Charging Profiles of the different chargingProfilePurposes.\n\nThis Composite Schedule is calculated by taking the minimum value for each time interval (see: Smart Charging signals to a Charging Station from multiple actors). Time intervals do not have to be of fixed length, nor do they have to be the same for every charging profile purpose. This means that a resulting Composite Schedule MAY contain intervals of different lengths.\n\nThe reported schedule, in GetCompositeScheduleResponse, is the result of the calculation of all active schedules and possible local limits present in the Charging Station.\n\nThe composite schedule reports the expected power or current the Charging Station expects to consume from the grid, for the requested EVSE, during the requested time period. When requested for evseid=0, the Charging Station will calculate the total expected consumption for the grid connection.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Remark(s)",
-        "heading_path": "Remark(s)",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K08",
-        "message_refs": "GetCompositeScheduleResponse"
-      }
-    },
-    {
-      "content": "# K08 - Get Composite Schedule - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                            |\n| --------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |\n| K08.FR.01 |              | The CSMS MAY request the Charging Station to report the CompositeSchedule by sending GetCompositeScheduleRequest. |",
+      "content": "# K08 - Requirements\n\n**K08.FR.01**\nThe CSMS MAY request the Charging Station to report the\nCompositeSchedule by sending GetCompositeScheduleRequest.\n\n**K08.FR.02**\nPrecondition: Upon receipt of\nGetCompositeScheduleRequest.\nThe Charging Station SHALL calculate the scheduled time intervals, from\nthe moment of message receipt up to the Duration (in seconds) and send\nthem to the CSMS.\n\n**K08.FR.03**\nPrecondition: If the evseId in the\nGetCompositeScheduleRequest is\nset to '0'\nThe Charging Station SHALL report the total expected power or current\nthe Charging Station expects to consume from the grid during the\nrequested time period.\n\n**K08.FR.04**\nAt any point in time, the available power or current in the\nCompositeSchedule, which is the result of merging the schedules of\ncharging profiles ChargingStationMaxProfile,\nChargingStationExternalConstraints and TxDefaultProfile (or TxProfile),\nSHALL be less than or equal to lowest value of available power or current\nin any of the merged schedules.\n\n**K08.FR.05**\nPrecondition: If the Charging Station is not able to\nreport the requested schedule, for\ninstance if the evseId is unknown\nThe Charging Station SHALL respond with the status Rejected.\n\n**K08.FR.06**\nPrecondition: K08.FR.02 AND\nWhen there is no transaction active\non an EVSE\nThe Charging Station SHALL calculate the CompositeSchedule as if there\nis a transaction ongoing on the EVSE that is using the TxDefaultProfile (if\nthis profile purpose is set)\n\n**K08.FR.07**\nPrecondition: When receiving a\nGetCompositeScheduleRequest with\na chargingRateUnit, which is not\nconfigured in the configuration\nvariable\nChargingScheduleChargingRat\neUnit\nThe Charging Station SHALL respond with\nGetCompositeScheduleResponse with status Rejected.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K08 - Get Composite Schedule - Requirements",
-        "heading_path": "K08 - Get Composite Schedule - Requirements",
+        "heading": "K08 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K08",
         "use_case_name": "Get Composite Schedule",
-        "use_case_refs": "K08",
-        "message_refs": "GetCompositeScheduleRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

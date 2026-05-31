@@ -2,22 +2,93 @@
   "use_case_id": "C13",
   "functional_block": "Authorization",
   "use_case_name": "Offline Authorization through Local Authorization List",
+  "structured": {
+    "name": "Offline Authorization through Local Authorization List",
+    "id": "C13",
+    "functional_block": "Authorization",
+    "objective": "To authorize an idToken by using the Local Authorization List while Offline.",
+    "description": "This use case describes how to authorize an IdToken, when communication with the CSMS is not\npossible.\nThe Local Authorization List is a list of idTokens that can be synchronized with the CSMS. The list\ncontains the authorization status of a selected set of idTokens as managed by the CSMS.",
+    "actors": [
+      "EV Driver",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The Charging Station is Offline",
+      "2. The EV Driver presents IdToken.",
+      "3. The Charging Station checks if the IdToken is known and has status Accepted in the Local\nAuthorization List.",
+      "4. The Charging Station start charging."
+    ],
+    "prerequisites": "Local Authorization List is available\nLocal Authorization List is enabled via LocalAuthListEnabled\nCharging Station is Offline\nThe Id of the EV Driver is in the Local Authorization List\nId is valid",
+    "postconditions": "Successful postcondition:\nThe Charging Station accepts tokens on the Local Authorization List when it is offline.\nFailure postcondition:\nThe Charging Station does not accept tokens on the Local Authorization List when it is offline.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "C13.FR.01",
+        "precondition": "",
+        "definition": "Where both Authorization Cache and Local\nAuthorization List are supported, a Charging Station\nSHALL treat Local Authorization List entries as\nhaving priority over Authorization Cache entries for\nthe same identifiers."
+      },
+      {
+        "id": "C13.FR.02",
+        "precondition": "If configuration variable\nOfflineTxForUnknownIdEnabled\nis false AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime does not exist or is false",
+        "definition": "Only identifiers that are present in a Local\nAuthorization List that have a status Accepted\nSHALL be allowed to authorize a transaction."
+      },
+      {
+        "id": "C13.FR.03",
+        "precondition": "",
+        "definition": "The Charging Station MAY authorize the IdToken\nlocally without involving the CSMS."
+      },
+      {
+        "id": "C13.FR.04",
+        "precondition": "If configuration variable\nOfflineTxForUnknownIdEnabled\nis true AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime does not exist or is false",
+        "definition": "Any identifier that is present in neither the\nAuthorization Cache nor the Local Authorization\nList SHALL be allowed to authorize a transaction\nAND\nany identifiers that are present in a Local\nAuthorization List that have a status Accepted\nSHALL be allowed to authorize a transaction."
+      },
+      {
+        "id": "C13.FR.05",
+        "precondition": "If configuration variable\nOfflineTxForUnknownIdEnabled\nis false AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime = true",
+        "definition": "Only identifiers that are present in a Local\nAuthorization List that have a status Accepted and\nfor which cacheExpiryDateTime has not passed\nSHALL be allowed to authorize a transaction."
+      },
+      {
+        "id": "C13.FR.06",
+        "precondition": "If configuration variable\nOfflineTxForUnknownIdEnabled\nis true AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime = true",
+        "definition": "Any identifier that is present in neither the\nAuthorization Cache nor the Local Authorization\nList SHALL be allowed to authorize a transaction\nAND\nany identifiers that are present in a Local\nAuthorization List that have a status Accepted and\nfor which cacheExpiryDateTime has not passed\nSHALL be allowed to authorize a transaction."
+      }
+    ],
+    "figures": [
+      "fig32.png",
+      "fig33.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C13 - Offline Authorization through Local Authorization List",
+      "content": "# C13 - Offline Authorization through Local Authorization List\n\n**Objective:** To authorize an idToken by using the Local Authorization List while Offline.\n\n**Description:** This use case describes how to authorize an IdToken, when communication with the CSMS is not\npossible.\nThe Local Authorization List is a list of idTokens that can be synchronized with the CSMS. The list\ncontains the authorization status of a selected set of idTokens as managed by the CSMS.\n\n**Actors:** EV Driver, Charging Station\n\n**Scenario:**\n1. The Charging Station is Offline\n2. The EV Driver presents IdToken.\n3. The Charging Station checks if the IdToken is known and has status Accepted in the Local\nAuthorization List.\n4. The Charging Station start charging.\n\n**Prerequisites:** Local Authorization List is available\nLocal Authorization List is enabled via LocalAuthListEnabled\nCharging Station is Offline\nThe Id of the EV Driver is in the Local Authorization List\nId is valid\n\n**Postconditions:** Successful postcondition:\nThe Charging Station accepts tokens on the Local Authorization List when it is offline.\nFailure postcondition:\nThe Charging Station does not accept tokens on the Local Authorization List when it is offline.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C13 - Offline Authorization through Local Authorization List",
-        "heading_path": "C13 - Offline Authorization through Local Authorization List",
         "functional_block": "Authorization",
         "use_case_id": "C13",
         "use_case_name": "Offline Authorization through Local Authorization List",
-        "use_case_refs": "C13"
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# C13 - Requirements\n\n**C13.FR.01**\nWhere both Authorization Cache and Local\nAuthorization List are supported, a Charging Station\nSHALL treat Local Authorization List entries as\nhaving priority over Authorization Cache entries for\nthe same identifiers.\n\n**C13.FR.02**\nPrecondition: If configuration variable\nOfflineTxForUnknownIdEnabled\nis false AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime does not exist or is false\nOnly identifiers that are present in a Local\nAuthorization List that have a status Accepted\nSHALL be allowed to authorize a transaction.\n\n**C13.FR.03**\nThe Charging Station MAY authorize the IdToken\nlocally without involving the CSMS.\n\n**C13.FR.04**\nPrecondition: If configuration variable\nOfflineTxForUnknownIdEnabled\nis true AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime does not exist or is false\nAny identifier that is present in neither the\nAuthorization Cache nor the Local Authorization\nList SHALL be allowed to authorize a transaction\nAND\nany identifiers that are present in a Local\nAuthorization List that have a status Accepted\nSHALL be allowed to authorize a transaction.\n\n**C13.FR.05**\nPrecondition: If configuration variable\nOfflineTxForUnknownIdEnabled\nis false AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime = true\nOnly identifiers that are present in a Local\nAuthorization List that have a status Accepted and\nfor which cacheExpiryDateTime has not passed\nSHALL be allowed to authorize a transaction.\n\n**C13.FR.06**\nPrecondition: If configuration variable\nOfflineTxForUnknownIdEnabled\nis true AND\nThe Charging Station is offline AND\nLocalAuthListSupportsExpiryD\nateTime = true\nAny identifier that is present in neither the\nAuthorization Cache nor the Local Authorization\nList SHALL be allowed to authorize a transaction\nAND\nany identifiers that are present in a Local\nAuthorization List that have a status Accepted and\nfor which cacheExpiryDateTime has not passed\nSHALL be allowed to authorize a transaction.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C13 - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C13",
+        "use_case_name": "Offline Authorization through Local Authorization List",
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

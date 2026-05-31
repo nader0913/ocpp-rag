@@ -1,0 +1,1088 @@
+[
+  {
+    "content": "# Table of Contents\n\n1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n2. Flexibility for Certification Purposes: Profiles, Features, and Product Types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n3. Resource-constrained devices. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5\n4. Minimizing ROM usage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6\n5. Minimizing RAM usage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12\n6. 1. Limiting message sizes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12\n2. Avoiding data duplication in RAM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12\n3. Reducing TLS communication buffer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13\n4. Data communication and OCPP messages sizes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14\n\nMinimizing persistent memory usage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n7. 1. Persistence of charging profiles. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n2. Minimizing device model size. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "Implementation notes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19\n8. 1. Transaction model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19\n2. Supporting HTTPS in FirmwareUpdate, GetLog, or third-party connections . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n9. APPENDIX A: Summary of messages per section . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24\n10. APPENDIX B: Case study MicroOCPP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26\n11. ROM requirements for a minimal message set . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26\n12. RAM requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27\n13. Memory requirements for Variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31\n14. APPENDIX C: Case study OpenOCPP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32\n15. ROM requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32\n16. RAM requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32\n17. Device model variable size optimizations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34\n18. OCTT test cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# OCA Application Note\n\nCopyright \u00a9 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "OCA Application Note",
+      "heading_path": "OCA Application Note"
+    }
+  },
+  {
+    "content": "# Version History\n\n- Version: 1; Date: March 2025; Description: First edition\n- Version: 2; Date: July 2025; Description: Added case study appendices for MicroOCPP and OpenOCPP",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Version History",
+      "heading_path": "Version History"
+    }
+  },
+  {
+    "content": "# Management summary\n\nThis document addresses the challenges of implementing the Open Charge Point Protocol (OCPP) 2.0.1 on resource-constrained devices, such as microcontrollers used in lightweight electric vehicle charging stations. With limited RAM, ROM, and flash memory available, it is impractical to deploy the entire protocol. The focus is on achieving a minimal yet compliant implementation, prioritizing the \"Core\" profile of OCPP while omitting optional features that are not essential for basic functionality.\n\nKey strategies include minimizing firmware size, reducing memory usage, and optimizing message handling. For example, read-only variables avoid the need for embedded databases, while smaller TLS buffer sizes help reduce memory demands. Real-world benchmarks from MicroOCPP demonstrate that a streamlined implementation can operate within 50 kB of RAM and 200 kB of ROM, making it viable for low-resource environments.\n\nBy tailoring OCPP to resource-limited devices, this approach ensures interoperability with existing systems while enabling cost-effective deployment of charging infrastructure. This balance between efficiency, scalability, and compliance is critical to supporting the growth of EV charging networks.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Management summary",
+      "heading_path": "Management summary"
+    }
+  },
+  {
+    "content": "# 1. Introduction\n\nThe Open Charge Point Protocol (OCPP) is a communication protocol specifically designed for the exchange of information between electric vehicle (EV) charging stations and their management systems. It enables the authentication of EV drivers, manages charging sessions, and monitors the performance of charging stations.\n\nOver the past 15 years, OCPP has evolved in tandem with the electric vehicle charging industry. Currently, the most widely adopted version of OCPP for resource-constrained devices is OCPP 1.6, which was published in 2015. This version encompasses essential functions for authorization and transaction handling, and it provides optional profiles for smart charging, security, and firmware management. Despite being a decade old, OCPP 1.6 remains actively supported by the Open Charge Alliance (OCA), which continues to manage errata, conduct testing events, and enhance the conformance testing tool and certification program. However, no new features are being added to OCPP 1.6; all new development efforts are focused on the OCPP 2.x series, which represents a significant advancement introduced in 2020.\n\nLooking ahead, it is imperative that resource-constrained devices are able to benefit from the ongoing feature development in EV charging, implementing OCPP 2.x in a manner compatible with their hardware. For charging network operators, utilizing a single version of OCPP to manage their entire portfolio of charging stations\u2014from fast chargers to basic wall boxes\u2014will enhance operational efficiency. Furthermore, regulators can reference a single version of OCPP, thereby consolidating efforts and clarifying regulations. This paper will explore the implementation of OCPP 2.0.1 (or OCPP 2.x in general) in the most streamlined manner possible: OCPP 2.Lite.\nThe OCPP 2.0.1 specification comprises over 1,500 pages. In contrast, the OCPP 1.6 release is approximately 150 pages long, which might lead to the assumption that an OCPP 2.0.1 implementation would be ten times larger than that of OCPP 1.6. This is not necessarily accurate. This paper will demonstrate that a \"light\" OCPP 2.0.1 implementation, devoid of optional features, can be of comparable size or only marginally larger than OCPP 1.6.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1. Introduction",
+      "heading_path": "1. Introduction",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Two minimal implementations, that are based upon the recommendation in this paper, have been developed: MicroOCPP [MicroOCPP] and OpenOCPP [OpenOCPP]. Their results suggest that the OCPP protocol stack of these implementations, that support both OCPP 1.6 and 2.0.1, will fit within 200 KB. The size of a full firmware image for a charging station will vary with the capabilities and features or a charging station, but is expected to remain below 2 MB.\n\nThese implementations are ready and available as open source. Their findings have been added as case studies in the appendices of this paper.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1. Introduction",
+      "heading_path": "1. Introduction",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 2. Flexibility for Certification Purposes: Profiles, Features, and Product Types\n\nGlobally, OCPP is utilized across a diverse range of charging stations, from basic to advanced models, and from low-power to high-power systems, including bidirectional charging stations. However, not all features outlined in the OCPP specification are universally required. As such, many features within OCPP are optional, enabling implementers to select functionalities that best align with their specific requirements while still ensuring interoperability with other OCPP implementations, provided that the core components have been implemented.\n\nSome implementers choose to incorporate all features specified in OCPP 2.0.1. For example, providers of OCPP software stacks often deliver a comprehensive range of features to their clients. Similarly, Charging Station Management System providers may choose to support a broad spectrum of charging station types across various regions. Conversely, many implementers may only necessitate a subset of the available features, depending on the type of charger being developed (e.g., for light electric vehicles) or the specific use cases to be supported (e.g., remote start functionality).\n\nThe OCPP specification includes mechanisms to accommodate the diverse needs of implementers:\n\n1. OCPP Profiles: Part 5 of the OCPP specification delineates \"Profiles,\" which define a set of supported functions. The \"Core\" profile encompasses fundamental OCPP functionalities such as security, authentication, charging session management, and charging station management. Additionally, there are seven other profiles that address advanced features, including advanced security, local list management, smart charging, enhanced user interfaces (e.g., displays), advanced device management, charging station reservation, and ISO 15118 support. The forthcoming OCPP 2.1 version will introduce two additional profiles: V2X (bidirectional power transfer) and DER control (utility management of distributed energy resources).\n2. OCPP Features within a Profile: This includes both hardware-related and optional features:",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2. Flexibility for Certification Purposes: Profiles, Features, and Product Types",
+      "heading_path": "2. Flexibility for Certification Purposes: Profiles, Features, and Product Types",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "- Hardware Features: Specific hardware components of a charging station (e.g., fixed charging cables, credit card readers, or displays) may affect OCPP behavior and determine the applicability of certain OCPP functionalities.\n- Optional Features: Numerous behaviors detailed in the OCPP specification are optional. Implementers possess the flexibility to choose which features to support, such as various authentication methods (e.g., RFID, QR code, credit card reader), diverse transaction initiation points (e.g., upon connection of the charging cable or commencement of energy flow), or support for offline transactions.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2. Flexibility for Certification Purposes: Profiles, Features, and Product Types",
+      "heading_path": "2. Flexibility for Certification Purposes: Profiles, Features, and Product Types",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 3. Product Types for Certification:\n\nThe required test suite for certification varies according to the OCPP Product Type:\n\n- Charging station management systems\n- Charging stations\n- Software stacks for a charging station\n- Mode 1/2-only charging stations (lacking communication with the EV)\n\nThese mechanisms provide the EV charging industry freedom to build their charging networks according to their needs, whilst still ensuring interoperability.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3. Product Types for Certification:",
+      "heading_path": "3. Product Types for Certification:"
+    }
+  },
+  {
+    "content": "# 3. Resource-constrained devices\n\nPublic and residential AC charging stations often incorporate a microcontroller for the OCPP communication, for example the Espressif32 or STM32. These microcontrollers are designed for special-purpose systems such as in-field nodes in Internet-of-Things (IoT) networks, but they can also be used as the network controller in charging stations. This class of microcontrollers is constrained in terms of RAM and ROM capacity: usually limited to a few hundred kilobytes of RAM and a few megabytes of ROM.\n\nThe OCPP software that is running on a charging station has an impact on the following resources:\n\n- CPU cycles: a series of steps that the CPU goes through to fetch, decode and execute instructions.\n- RAM (random access memory): A running application will require working memory for a stack and heap to store data.\n- ROM (read-only memory): The OCPP firmware itself is read-only memory.\n- Flash memory: This is persistent memory, which is used, for example, to store configuration settings.\n\nData communication usage does not relate to resource limitations on the device, but we will address it in section Data communication and OCPP messages sizes.\n\nAs it turns out, CPU cycles are not a bottleneck as far as OCPP is concerned. OCPP is about transferring information between charging station and backend (CSMS). CPU cycles are mostly used for work related to TLS encryption/decryption and message parsing and not much else.\n\nThe most serious constraint will be memory. The firmware is stored in read-only memory (ROM); a smaller firmware image requires less ROM. A running application requires working memory for a stack and heap to store data. This is stored in random-access memory (RAM). The last type of memory is persistent memory, which is used, for example, to store configuration settings. Persistent memory in charging stations often is flash memory.\nIn this paper we will focus on:\n\n- Minimizing ROM usage (directly related to size of firmware image)\n- Minimizing RAM usage (working memory)\n- Minimizing persistent memory usage\n- Minimizing device model size (affecting both RAM and persistent memory)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3. Resource-constrained devices",
+      "heading_path": "3. Resource-constrained devices",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "In APPENDIX B: Case study MicroOCPP we provide a case study with real-world data of an example minimal implementation of the OCPP protocol stack optimized for the usage on microcontrollers. This data provides insights into how much memory is used for OCPP. It can be used as a basis for estimating the resource requirements of the OCPP interface and selecting microcontrollers according to the memory needs.\n\nAPPENDIX C: Case study OpenOCPP describes the ROM and RAM resource usage of a minimal implementation for a complete charging station firmware.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3. Resource-constrained devices",
+      "heading_path": "3. Resource-constrained devices",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 4. Minimizing ROM usage\n\nThere are two important factors that help to minimize ROM usage. One is to avoid using an embedded database for the device model. This option is discussed in Minimizing device model size. The other is to minimize the size of the firmware image by reducing the program logic and the associated number of messages that we implement.\n\nThe OCPP functionality has been grouped in a number of profiles that represent a set of related use cases. Any charging station needs to support at least the Core profile in order to be eligible for certification. All other profiles are optional. The certification profiles are defined in [OCPP-Part5] and summarized below in table Certification profiles.\n\nCore: Basic functionality of OCPP\nAdvanced Security: Advanced security with client certificates\nLocal Authorization List: Support for local white lists Management\nSmart Charging: Support for smart charging with charging schedules\nAdvanced Device Management: Variable monitoring and custom reports\nAdvanced User Interface: Support for messages, tariff and cost on display\nReservation: Reservation of an EVSE\nISO 15118 support: Support for ISO 15118-2\n\nIn this section we describe the minimal set of use cases and messages that need to be supported for sections A to P of the specification in [OCPP-Part2]. The data is summarized in the table Minimum message set in APPENDIX A: Summary of messages per section.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4. Minimizing ROM usage",
+      "heading_path": "4. Minimizing ROM usage"
+    }
+  },
+  {
+    "content": "# Section A. Security\n\nSecurity profile 3 is not part of the Core profile. The messages SignCertificate and CertificateSigned are only needed in the context of security profile 3 and can therefore be omitted.\n\nRequired messages:\n\n- SetVariables\n- SecurityEventNotification",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section A. Security",
+      "heading_path": "Section A. Security"
+    }
+  },
+  {
+    "content": "# Section B. Provisioning\n\nIn the OCPP 2.0.1 Core profile the only use case in B that is not mandatory is B08 Get Custom Report. This means that the GetReport message does not require implementing. There is no loss in functionality, since all device model information can be retrieved via the GetBaseReport message.\n\nIn addition, the messages GetVariables and SetVariables can have a slightly simpler implementation if the number of items per message is set to 1 via ItemsPerMessage[Set/GetVariables].",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section B. Provisioning",
+      "heading_path": "Section B. Provisioning"
+    }
+  },
+  {
+    "content": "# Required messages:\n\n- BootNotification\n- SetVariables\n- GetVariables\n- GetBaseReport\n- NotifyReport\n- SetNetworkProfile\n- Reset",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Required messages:",
+      "heading_path": "Required messages:"
+    }
+  },
+  {
+    "content": "# Section C. Authorization\n\nIn the OCPP 2.0.1 Core profile, several authorization methods are described, of which at least one must be implemented. A minimal implementation therefore only has to support a single authorization method. This is likely to be one of C01 (RFID) or C02 (start button), or it only supports remote authorization by CSMS, as described in C04. The use of a local authorization cache to reduce authorization time is optional in the Core profile and can be omitted, since this would require additional persistent storage.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section C. Authorization",
+      "heading_path": "Section C. Authorization"
+    }
+  },
+  {
+    "content": "# Required messages, one or both of:\n\n- Authorize (for C01 or C02), or\n- RequestStartTransaction (for C04)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Required messages, one or both of:",
+      "heading_path": "Required messages, one or both of:"
+    }
+  },
+  {
+    "content": "# Section D. Local Authorization List\n\nSection D of the OCPP 2.0.1 specification describes functionality to authorize a user via a local white list. This can be used when the charging station is offline, or to reduce authorization response time when the charging station is online. Storing a local authorization list requires additional persistent storage, and can be omitted for a \u2018Lite\u2019 implementation. Since Local List Management is a separate optional certification profile in OCPP 2.0.1 anyway, a \u2018Lite\u2019 implementation does not differ from a regular OCPP 2.0.1 Core implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section D. Local Authorization List",
+      "heading_path": "Section D. Local Authorization List"
+    }
+  },
+  {
+    "content": "# Section E. Transactions\n\nTo accommodate for the various business models arising in the EV charging industry, OCPP 2.0.1 added flexible start and stop points of a transaction. This does introduce complexity in the firmware though, because the behavior of certain use cases changes depending on when the transaction starts or ends. This complexity can be removed by fixing the start and stop points of the transaction. If both TxStartPoint and TxStopPoint are set to PowerPathClosed then a transaction is started when the user is authorized and the cable is connected, and the transaction stops when authorization ends or cable is disconnected.\n\nThis is the same behavior as in OCPP 1.6. The use cases E02 and E03 become equivalent. Use case E04 is not supported, because there is no authorization cache or local authorization list. (See Section C. Authorization and Section D. Local Authorization List.)\n\nUse case E14 (GetTransactionStatus) is required for the \"Core\" profile of OCPP. It enables the CSMS to request the status of a transaction and to find out whether there are queued transaction-related messages \u2014 a situation that may occur when the charger has been offline for a while.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section E. Transactions",
+      "heading_path": "Section E. Transactions"
+    }
+  },
+  {
+    "content": "# Required messages:\n\n- TransactionEvent\n- GetTransactionStatus",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Required messages:",
+      "heading_path": "Required messages:"
+    }
+  },
+  {
+    "content": "# Section F. Remote control\n\nRemote control is about remotely authorizing for a transaction and remotely stopping it, remotely unlocking a connector, and triggering a charging station to perform a certain action.\n\nRemote start/stop and unlock connector are required, and may be the only method to start and stop a transaction if local authorization is not implemented. Support for TriggerMessage is optional.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section F. Remote control",
+      "heading_path": "Section F. Remote control"
+    }
+  },
+  {
+    "content": "# Required messages:\n\n- RequestStartTransaction\n- RequestStopTransaction\n- UnlockConnector (only in case of a detachable cable)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Required messages:",
+      "heading_path": "Required messages:"
+    }
+  },
+  {
+    "content": "# Section G. Availability\n\nThe notification of availability status and heartbeats is part of Core functionality and must be implemented.\n\nRequired messages:\n\n- StatusNotification or NotifyEvent\n- Heartbeat\n- ChangeAvailability",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section G. Availability",
+      "heading_path": "Section G. Availability"
+    }
+  },
+  {
+    "content": "# Section H. Reservation\n\nThe functionality of Reservation may not be required for resource-constrained devices. Since \u2018Reservations\u2019 is a separate optional certification profile in OCPP 2.0.1 anyway, a \u2018Lite\u2019 implementation does not differ from a regular OCPP 2.0.1 implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section H. Reservation",
+      "heading_path": "Section H. Reservation"
+    }
+  },
+  {
+    "content": "# Section I. Tariff and Cost\n\nThis Functional Block provides tariff and cost information to an EV Driver, if a Charging Station is capable of showing this on a display. It is assumed that resource-constrained devices either do not have a display or have a display that is not actively managed by the CSMS. Therefore, the Tariff and Cost functionality can be omitted. Since this is a separate optional certification profile in OCPP 2.0.1 anyway, a \u2018Lite\u2019 implementation does not differ from a regular OCPP 2.0.1 implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section I. Tariff and Cost",
+      "heading_path": "Section I. Tariff and Cost"
+    }
+  },
+  {
+    "content": "# Section J. Meter Values\n\nTransaction-related meter values are sent via the TransactionEvent message. There is also a separate MeterValues message that can be used to send clock-aligned meter values outside of a transaction.\n\nRequired messages:\n\n- TransactionEvent\n- MeterValues",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section J. Meter Values",
+      "heading_path": "Section J. Meter Values"
+    }
+  },
+  {
+    "content": "# Section K. Smart Charging\n\nSmart charging is not part of the OCPP \"core\" profile, but there might be a reason to include this in certain minimal implementations anyhow. Home chargers are likely candidates for minimal implementations, and certain in some countries they are required to support smart charging functionality.\n\nA full implementation of smart charging with multiple charging profile kinds and stack levels may be too much for a minimal implementation, so certain limitations are needed in that case:\n\n- The number of charging profiles that a charging station can hold is limited to 1 or 2. That suffices for a TxProfile and/or a TxDefaultProfile.\n- The number of periods in a charging schedules is limited to, for example, 3 periods. (Most charging schedules do not have more than 3 periods, anyhow).\n- Only a single stack level is supported.\n\nThe above reduces memory requirements and simplifies the implementation of a GetCompositeSchedule message.\n\nRequired messages (when supporting smart charging):\n\n- SetChargingProfile\n- ClearChargingProfile\n- GetCompositeSchedule\n- Get/ReportChargingProfiles",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section K. Smart Charging",
+      "heading_path": "Section K. Smart Charging"
+    }
+  },
+  {
+    "content": "# Section L. Firmware Management\n\nA minimal implementation still needs to be able to update its firmware and do this in a secure manner. Use case L01 Secure Firmware Update is part of OCPP Core profile, and is therefore required in a minimal implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section L. Firmware Management",
+      "heading_path": "Section L. Firmware Management"
+    }
+  },
+  {
+    "content": "# Required messages:\n\n- UpdateFirmware\n- FirmwareStatusNotification",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Required messages:",
+      "heading_path": "Required messages:"
+    }
+  },
+  {
+    "content": "# Section M. ISO 15118 Certificate Management\n\nSupport of ISO 15118 is not expected of a minimal implementation. Some functionality of certificate management, however, of this section is required to implement security profile 2, namely use case M05 InstallCertificate to install the CSMS root certificate.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section M. ISO 15118 Certificate Management",
+      "heading_path": "Section M. ISO 15118 Certificate Management"
+    }
+  },
+  {
+    "content": "# Required messages:\n\n- InstallCertificate\n- GetInstalledCertificateIds\n- DeleteCertificate",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Required messages:",
+      "heading_path": "Required messages:"
+    }
+  },
+  {
+    "content": "# Section N. Diagnostics\n\nThe advanced diagnostic features are part of the optional certification profile \u2018Advanced Device Management\u2019. The functionality to download log files (N01 Retrieve Log Information) and to report customer information (N09/N10 Get/Clear Customer Information) are part of the OCPP 2.0.1 Core profile. The use cases N09 and N10 with messages CustomerInformation and NotifyCustomerInformation, however, have a limited use and are not required for normal operation. Functionality to report and clear customer information (N09/N10 Get/Clear Customer Information) was added to adhere to privacy regulation (e.g. GDPR in Europe). If a minimal implementation does not store any customer information, because it does not have the space for this, then implementation of these messages becomes very trivial.\n\nOnly use case N01 Retrieve Log Information is required.\n\nRequired messages:\n\n- GetLog\n- LogStatusNotification\n- CustomerInformation\n- NotifyCustomerInformation",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section N. Diagnostics",
+      "heading_path": "Section N. Diagnostics"
+    }
+  },
+  {
+    "content": "# Section O. Display Messages\n\nThis functional block enables an operator to remotely display a message or a cycle of messages on a charging station. It is assumed that resource-constrained devices either do not have a display or have a display that is not actively managed by the CSMS. Therefore, the Display Message functionality can be omitted. Since this is a separate optional certification profile in OCPP 2.0.1 anyway, a \u2018Lite\u2019 implementation does not differ from a regular OCPP 2.0.1 implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section O. Display Messages",
+      "heading_path": "Section O. Display Messages"
+    }
+  },
+  {
+    "content": "# Section P. DataTransfer\n\nThis functional block describes functionality to send custom message via the DataTransfer message. DataTransfer messages need not be supported, but the minimal implementation must be able to reject them when received.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Section P. DataTransfer",
+      "heading_path": "Section P. DataTransfer"
+    }
+  },
+  {
+    "content": "# 5. Minimizing RAM usage\n\nThis section provides three ways to reduce the required RAM usage: by limiting the sizes of certain message, by avoiding data duplication, and by reducing the size of the TLS buffer.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5. Minimizing RAM usage",
+      "heading_path": "5. Minimizing RAM usage"
+    }
+  },
+  {
+    "content": "# 5.1. Limiting message sizes\n\nRAM memory is used for stack and heap memory. It is used to store data that is processed, for example while decoding incoming messages or encoding messages to be sent. The amount of memory required to decode messages upon receipt or construct messages before sending can be limited by the following configuration variables:\n\n- DeviceDataCtrlr.ItemsPerMessage\n- DeviceDataCtrlr.BytesPerMessage\n- DeviceDataCtrlr.ReportingValueSize\n- MonitoringCtrlr.ItemsPerMessage\n- MonitoringCtrlr.BytesPerMessage\n- SmartChargingCtrlr.PeriodsPerSchedule\n- SampledDataCtrlr.TxStarted/Updated/EndedMeasurands\n- AlignedDataCtrlr.Measurands\n\nThese configuration variables limit the size of potentially very large messages.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.1. Limiting message sizes",
+      "heading_path": "5.1. Limiting message sizes"
+    }
+  },
+  {
+    "content": "# 5.2. Avoiding data duplication in RAM\n\nData transmission in an OCPP implementation takes several steps. For incoming messages, the data is first received on the networking interface, then the TLS library decrypts it, providing the data to a WebSocket client which buffers all data until a JSON message is complete. Depending on the architecture of the OCPP implementation, the JSON message could further be copied and forwarded to message listeners until it is finally consumed. It looks similar in the other direction. This multistep pipeline potentially means that a buffer between any two steps holds a full copy of the payload data sent via OCPP, which is a common pitfall of implementing OCPP.\n\nThere is a significant optimization potential in avoiding copying the unencrypted data in RAM. For incoming messages, that would mean keeping the JSON message in the TLS input buffer, instructing the JSON library to parse the JSON object in place and only copying data when updating the final data model. Of course, the exact approach of avoiding data duplication depends on the software architecture but should be similar to this description. For outgoing messages, the same idea should be considered.\nIt is important to pay special attention to the heap consumption behavior during receipt and sending of messages. Usually, the heap occupation spikes during message processing and for microcontrollers, the worst-case heap occupation is the most relevant aspect to optimize for.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.2. Avoiding data duplication in RAM",
+      "heading_path": "5.2. Avoiding data duplication in RAM"
+    }
+  },
+  {
+    "content": "# 5.3. Reducing TLS communication buffer\n\nA TLS communication by default requires two 16 kB buffers. This buffer can be reduced by adapting the TLS fragment length.\n\nTLS involves sending \"Records\" between peers. Records can be of type \u201cHandshake\u201d, \u201cAlert\u201d, \u201cChangeCipherSpec\u201d, \u201cHeartbeat\u201d or \u201cApplication\u201d. OCPP messages are sent in Application records. The payload contains a \u201cfragment\u201d of the application data. The record layer fragments information blocks into TLSPlaintext records carrying data in chunks of 214 bytes (16kB) or less.\n\nTLS peers need to maintain an input and an output buffer to store an entire fragment of 16 kB. For a low resource device it is a large cost to allocate 32 kB for the TLS connection.\n\nTLS impl.: TLS impl.\nOCPP out\\_buf (16kB) TCP: TCP out\\_buf (16kB) OCPP\nin\\_buf (16kB): in\\_buf (16kB)\n\nFigure 1. Peers allocating standard 16 kB TLS buffers\n\nA TLS extension is defined in TLS Extensions RFC6066 Section 4, that allows the client to ask for a different maximum fragment length than the default 16kB. A client can ask for a maximum fragment length of 0.5 kB, 1 kB, 2 kB or 4 kB. This TLS extension is, however, not widely supported and native managed cloud TLS termination services typically don\u2019t support this.\n\nA resource-constrained Charging Station SHOULD try to negotiate a smaller TLS maximum fragment size, and if that is not accepted by the peer, then Charging Station MAY unilaterally decide to allocate less memory to its TLS output buffer. A TLS maximum fragment length of 2 kB is suggested based on data collection during certification tests, which shows that 99% of the messages fit in a 2 kB buffer. This is described in the next section.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.3. Reducing TLS communication buffer",
+      "heading_path": "5.3. Reducing TLS communication buffer"
+    }
+  },
+  {
+    "content": "# 5.4. Data communication and OCPP messages sizes\n\nThe data communication usage of a charging station is highly dependent on its usage profile and configuration. A residential charging station with one charging session per day generates significantly less data traffic than a busy fast charger. Similarly, some chargers may be configured to provide meter values every 15 minutes, while a fast charger might be set to do this every 30 seconds. Therefore, it is not possible to provide a general estimate of data transmission without specifying the usage profile of the charging station.\n\nThere are no standardized usage profiles for charging stations that allow for an estimated data usage. To offer some insight into the size of OCPP messages, data logs from official OCPP certification tests of 15 charging stations were analyzed. A total of 931 test cases were executed, resulting in the transmission of 32,636 messages.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.4. Data communication and OCPP messages sizes",
+      "heading_path": "5.4. Data communication and OCPP messages sizes"
+    }
+  },
+  {
+    "content": "# Example of an OCPP message\n\n[2,\"38a28818-3a91-4e82-a03a-fbd992a92b11\", \"TransactionEvent\",\n{\"eventType\":\"Started\",\"evse\":{\"connectorId\":1,\"id\":1},\"idToken\":{\"idToken\":\"\n00abf91f\",\"type\":\"ISO14443\"},\"seqNo\":0, \"timestamp\":\"2024-04-\n23T02:06:02.444Z\",\"transactionInfo\":{\"chargingState\":\"Idle\",\"transactionId\":\"\na32ad195-e467-4423-ae0b-61e1e617f1b1\"},\"triggerReason\":\"Authorized\"}]\n\nFrom this data, the following statistics were derived:\n\n- Smallest message length: 25 characters\n- Average message length: 235 characters\n- Largest message length: 64,907 characters\n\nThe largest message resulted from one charging station sending an entire device model report as a single NotifyReport message, rather than breaking it into smaller chunks as is typically done.\n\nNOTE\nThe majority of OCPP messages (~95%) are smaller than 500 characters. The distribution of larger OCPP messages is as follows:\n\n- Message size: > 500 chars; Message count: 1334; Percentage of total (32636): 4%\n- Message size: > 1000 chars; Message count: 306; Percentage of total (32636): 0.94%\n- Message size: > 2000 chars; Message count: 148; Percentage of total (32636): 0.45%\n- Message size: > 4000 chars; Message count: 34; Percentage of total (32636): 0.10%",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Example of an OCPP message",
+      "heading_path": "Example of an OCPP message"
+    }
+  },
+  {
+    "content": "# 6.1. Persistence of charging profiles\n\nOCPP 2.0.1 requires that charging profiles are stored persistently. If a CSMS sends frequent updates of a charging profile, this will eventually wear out flash memory. This is especially concerning for a charging profile of type TxProfile, because that is sent for every transaction. A similar concern applies to charging profile of type ChargingStationExternalConstraints, which originate from an external actor, such like an energy management system.\n\nFor this reason, the requirement for persistence of TxProfile and ChargingStationExternalConstraints charging profiles has been removed from OCPP 2.1, reducing the amount of persistent memory needed.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.1. Persistence of charging profiles",
+      "heading_path": "6.1. Persistence of charging profiles"
+    }
+  },
+  {
+    "content": "# 6.2. Minimizing device model size\n\nThe OCPP device model is a repository of configuration variables (stored in controller components) and components that represent their physical counterparts in the charging station.\n\nA substantial amount of ROM and persistent memory can be saved if the device model is implemented without utilizing an embedded database, and if only mandatory components are supported. For the limited functionality of resource-constrained charging stations, this is a viable option.\n\nOf the more than 50 required variables for OCPP 2.0.1, only 19 require to be writable by CSMS and need to be stored in persistent memory. These are configuration variables that will not be changed often and can therefore easily be stored in a simple file without requiring an embedded database. The remaining variables are either read-only (preconfigured) values that can be part of the firmware, or are real-time state values, like \"Availability\", that do not require to be stored.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.2. Minimizing device model size",
+      "heading_path": "6.2. Minimizing device model size"
+    }
+  },
+  {
+    "content": "# 6.2.1. Mandatory charging infrastructure components\n\nCharging infrastructure components refer to physical components that are used for charging:\n\n- ChargingStation\n- EVSE\n- Connector\n\nThe variables that are required by the OCPP specification for these components can all be treated as read-only variables, which means that their value can be hard-coded in the implementation, either as a fixed value or as a value that is reported based on the system state.\n\nThe SupplyPhases of an EVSE can be hard-coded in a configuration file, because it will not change during operation. The AvailabilityState (Available, Occupied, etc.), will change during operation, but the current state can readily be reported by the application at any time. There is no need to store that in a database.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.2.1. Mandatory charging infrastructure components",
+      "heading_path": "6.2.1. Mandatory charging infrastructure components"
+    }
+  },
+  {
+    "content": "# ChargingStation\n\n- AvailabilityState: reports current state from firmware (read-only)\n- Available: set to true (read-only)\n- SupplyPhases: preconfigured value reported from firmware (read-only)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "ChargingStation",
+      "heading_path": "ChargingStation"
+    }
+  },
+  {
+    "content": "# EVSE\n\n- AvailabilityState: reports current state from firmware (read-only)\n- Available: set to true (read-only)\n- SupplyPhases: preconfigured value reported from firmware (read-only)\n- Power: only maxLimit is required, but actual value can also be reported from firmware (read-only)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "EVSE",
+      "heading_path": "EVSE"
+    }
+  },
+  {
+    "content": "# Connector\n\n- AvailabilityState: reports current state from firmware (read-only)\n- Available: set to true (read-only)\n- SupplyPhases: preconfigured value reported from firmware (read-only)\n- ConnectorType: set to fixed value as part of firmware (read-only)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Connector",
+      "heading_path": "Connector"
+    }
+  },
+  {
+    "content": "# 6.2.2. Controller components\n\nThis section lists the device model components that are required to be implemented even in a minimal implementation. The majority of these variable can be read-only and can therefore be hard-coded in the firmware. The variables that must be configurable by CSMS are shown in boldface.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.2.2. Controller components",
+      "heading_path": "6.2.2. Controller components"
+    }
+  },
+  {
+    "content": "# AlignedDataCtrlr\n\nThe AlignedDataCtrlr is required for the Core profile, but in most cases only the use of SampledDataCtrlr will be enough. Its variables are required to be Read/Write, but can initially be set to values that will cause no MeterValues to be reported for aligned data measurands. This means that:\n\n- Available: set to true\n- Interval: set to 0 (no aligned data to be reported)\n- Measurands: set to empty\n- TxEndedMeasurands: set to empty (no aligned data at end of transaction)\n- TxEndedInterval: set to 86400 (24 hours) (Exact value irrelevant if TxEndedMeasurands is empty)",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "AlignedDataCtrlr",
+      "heading_path": "AlignedDataCtrlr"
+    }
+  },
+  {
+    "content": "# AuthCtrlr\n\nThe AuthCtrlr has three required parameters:\n\n- AuthorizeRemoteStart: can be read-only and set to a fixed value, depending on whether remote start is supported or not.\n- LocalAuthorizeOffline, LocalPreAuthorize: can be read-only. Value is irrelevant, because local authorization cache or authorization list are not supported in a minimal implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "AuthCtrlr",
+      "heading_path": "AuthCtrlr"
+    }
+  },
+  {
+    "content": "# ClockCtrlr\n\nThe ClockCtrlr is only required to present the current time and time source.\n\n- DateTime: a read-only value that reflects current clock time.\n- TimeSource: read-only and set to Hearbeat, because a minimal implementation only supports heartbeat as time source.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "ClockCtrlr",
+      "heading_path": "ClockCtrlr"
+    }
+  },
+  {
+    "content": "# DeviceDataCtrlr\n\nPurpose of the DeviceDataCtrlr is to report limits on messages from a CSMS for device model variables, which can potentially be very large.\n\n- ItemsPerMessage[GetReport/GetVariables/SetVariables]: read-only, set to a fixed small enough value, e.g. 1.\n- BytesPerMessage[GetReport/GetVariables/SetVariables]: read-only, set to a fixed small enough value, e.g. 300.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "DeviceDataCtrlr",
+      "heading_path": "DeviceDataCtrlr"
+    }
+  },
+  {
+    "content": "# OCPPCommCtrlr\n\nThe OCPPCommCtrlr has a set of required variables, some of which must be writable by CSMS. This can be stored in a file that holds the configuration settings.\n\n- FileTransferProtocols: is read-only and set to the supported value(s).\n- MessageTimeout[Default]: is read-only and set to configured value.\n- MessageAttemptInterval[TransactionEvent]: is read-write and supported.\n- MessageAttempts[TransactionEvent]: is read-write and supported.\n- NetworkConfigurationPriority: is read-write and supported.\n- NetworkProfileConnectionAttempts: is read-write and supported.\n- OfflineThreshold: is read-write and supported.\n- ResetRetries: is read-write and supported.\n- UnlockOnEVSideDisconnect: can be read-only and set to supported value.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "OCPPCommCtrlr",
+      "heading_path": "OCPPCommCtrlr"
+    }
+  },
+  {
+    "content": "# SampledDataCtrlr\n\nThe SampledDataCtrlr defines the measurands to report during a transaction. The values must be writable by CSMS and therefore need to be stored in a configuration file.\n\n- TxEndedInterval: is read-write and supported.\n- TxEndedMeasurands: is read-write and supported.\n- TxUpdatedInterval: is read-write and supported.\n- TxUpdatedMeasurands: is read-write and supported.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "SampledDataCtrlr",
+      "heading_path": "SampledDataCtrlr"
+    }
+  },
+  {
+    "content": "# SecurityCtrlr\n\nThe SecurityCtrlr holds properties related to the websocket connection and certificates.\n\n- CertificateEntries: can be read-only set to number of supported certificates.\n- OrganizationName: read-write and set by CSMS.\n- SecurityProfile: can be read-only and reflects current security profile.\n- Identity: is not required, yet recommended to be supported as a read-write variable, because it is part of the connection URL to CSMS.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "SecurityCtrlr",
+      "heading_path": "SecurityCtrlr"
+    }
+  },
+  {
+    "content": "# SmartChargingCtrlr\n\nSmart charging is not part of a basic implementation, but it may be desired to include in a minimal implementation in certain cases. The following is a minimal SmartChargingCtrlr:\n\n- Available: set to true or false (read-only)\n- Entries[ChargingProfiles]: set to number of supported charging profiles, e.g. 1 (read-only)\n- LimitChangeSignificance: needs to be writable by CSMS\n- PeriodsPerSchedule: set to number of periods supported, e.g. 3 (read-only)\n- ProfileStackLevel: set to highest stack level supported, e.g. 0 for only 1 level (read-only)\n- RateUnit: set to rate unit supported, e.g. A (read-only)\nThe TxCtrlr defines start and stop point of a transaction. For a minimal implementation this is best set to PowerPathClosed, which is the same condition that is used in OCPP 1.6.\n\n- EVConnectionTimeout: must be writable by CSMS\n- StopTxOnEVSideDisconnect: read-only, set to true\n- StopTxOnInvalidId: must be writable by CSMS\n- TxStartPoint: can be set to read-only and recommended value PowerPathClosed.\n- TxStopPoint: can be set to read-only and recommended value PowerPathClosed.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "SmartChargingCtrlr",
+      "heading_path": "SmartChargingCtrlr"
+    }
+  },
+  {
+    "content": "# 7.1. Transaction model\n\nOCPP 2.0.1 expands upon the 1.6 transaction model by introducing (among other things) flexible start and stop points and significantly expanding specific requirements for individual use cases. While this improvement increases the specification\u2019s flexibility and precision, it also complicates the process of translating the specification into concrete implementations and defining reasonable abstractions and requirements for operation-level request handlers (for example: collecting all use case requirements into a single \"onRequestStartTransactionRequest\" handler within an implementation). To address this challenge, embedded manufacturers are encouraged to reference existing open-source implementations and associated designs as potential models for reuse.\n\nIn this section we present one possible approach to implementing OCPP 2.0.1 transaction handling with minimal memory usage. The implementation notes will focus on an approach only targeting the minimum recommended support from Section E. Transactions; that is TxStartPoint and TxStopPoint both set to PowerPathClosed with no support for other transaction start/stop points.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.1. Transaction model",
+      "heading_path": "7.1. Transaction model"
+    }
+  },
+  {
+    "content": "# 7.1.1. Authorization\n\nAn authorization instance represents one of the following:\n\n- A RequestStartTransactionRequest sent from the CSMS\n- An RFID tap on the station not already associated with a transaction\n- A custom vendor-specific \"autostart\" extension\n\nWhen any of these operations occur, a authorization instance is created, which will:\n\n- Send out an AuthorizeRequest if necessary to authorize the transaction with the CSMS\n- Be matched against a plugged-in connector to start a transaction\n- Expire after a timeout (such as ConnectionTimeOut)\n\nThe authorization instance is removed when:\n\n- It is used to start a transaction, or\n- It is replaced by a more recent similar request\n\nNote: it may be reasonable for an implementation to only allow a authorize operation on the station as a whole (so that an RFID tap or a RequestStartTransactionRequest would replace any earlier attempts), or to allow multiple requests to co-exist in a limited fashion. For example, it may be reasonable for two RequestStartTransactionRequests for different EVSE IDs (on a multi-connector charger) to co-exist with each other, but it would likely be confusing to allow two RFID taps or an RFID tap and a RequestStartTransactionRequest with no EVSE ID to co-exist with each other.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.1.1. Authorization",
+      "heading_path": "7.1.1. Authorization"
+    }
+  },
+  {
+    "content": "# 7.1.2. Transactions\n\nA transaction represents an on-going (persistent) operation that has been resolved to a single connector. In this model transactions represent authorised charging sessions and while a transaction instance is active energy is offered to the vehicle (according to the active power management rules).\n\nWhile transactions are running various transactions events are sent out in response to the following events:\n\n- When a transaction starts/stops\n- When the charging status changes (for example from Idle to Charging or vice-versa)\n- When a transaction is de-authorised by the CSMS\n- When meter value readings are added (based on the OCPP configuration)\n\nAll of these events must be persisted and replayed to the CSMS in the event the charger goes offline or a power loss occurs. An effective way to do this without dramatically impacting transaction handling is to push transaction events into a pending message queue which queues those messages and delivers them to the CSMS, retrying and persisting as necessary.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.1.2. Transactions",
+      "heading_path": "7.1.2. Transactions"
+    }
+  },
+  {
+    "content": "# 7.1.3. Pending message queue\n\nPending messages can be accumulated in a separate module for storage/retries (see, for example: E11). This is useful to separate the complexity of the transaction state machine from:\n\n- Sending messages\n- Retrying historic messages\n- Discarding old data due to memory or storage space limitations\n- Persisting historic messages to prevent loss during power outages\n\nOne approach to this type of separation is the following:\n\n- Augment pending (transaction) messages with a transaction ID and a \"removal priority\"\n- Remove messages to save space as per E04.FR.08, E11.FR.05, and E12.FR.05:\nNote that this approach typically comes with per message overheads on the order of hundreds of bytes per message. This can rapidly eat into available heap/flash space when attempting to store these records. One approach that was found to be effective in practice was to compress the data using standard gzip compression in memory into reasonable sized blocks. This dramatically improved storage (record size was reduced from roughly 600 bytes uncompressed to roughly 45 bytes compressed) at the cost of some processing time and fixed heap costs while compressing/decompressing (for gzip internals) when attempting to process/remove records (required recompression of the block). The results of one such implementation was the following:\n\n- ZLib window bits: 11\n- ZLib memory level: 1\n- Compression overhead: ~15k heap\n- Decompression overhead: ~7k heap\n- Average decompressed message size: 640.1 bytes\n- Average compressed message size: 51.6 bytes\n\nOther approaches might be:\n\n- Binary encoding of messages internally\n- Custom delta encoding of data in stream\n\nThese approaches may offer a lighter message-specific implementation that may be less resource intensive or may achieve improved compression ratios.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.1.3. Pending message queue",
+      "heading_path": "7.1.3. Pending message queue"
+    }
+  },
+  {
+    "content": "# 7.2. Supporting HTTPS in FirmwareUpdate, GetLog, or third-party connections\n\nThe 2.0.1 specification allows a manufacturer to support a variety of secure and insecure protocols that it accepts as a communication channel for FirmwareUpdate/GetLog connections, such as HTTP, HTTPS, FTP, FTPS, and SFTP. It is clearly beneficial to use common secure protocols here, particularly because both firmware updates and log messages may contain sensitive data \u2014 however that choice often comes with significant additional costs in terms of memory usage.\n\nIncluding a FTPS or SFTP library may involve attempting to pull in large popular open source libraries like libcurl that can be difficult and expensive to integrate into an embedded environment, while HTTPS support often raises questions about certificate management overhead, complexity, and so on, especially in resource constrained lite devices. Note that endpoints provided in those requests (specifically those based on TLS like HTTPS or FTPS) may not use TLS certificates signed by root CAs provided to the charger to secure its CSMS connection in security profile 2/3, and the specification has not yet defined how a manufacturer should secure these TLS connections.\nOne alternative that was found to be effective is to support HTTPS connections to these \"external\" URLs and secure the connections using the certificate bundle support provided by ESP-IDF/Mbed-TLS. This was found to effectively allow secured HTTPS connections with the same level of complexity as supporting HTTP connections, no significant heap overhead, and only a small impact on binary size (approximately 62 KiB, which was small next to the reference firmware sizes of roughly 1 MiB - 1.5 MiB). Similar approaches at varying levels of complexity can likely be adapted to other embedded platforms supporting the Mbed-TLS library (depending on the platform\u2019s level of support for this feature). It\u2019s also worth noting that this approach may be applicable for securing other third-party HTTPS connections a charging station may need to establish outside of the OCPP protocol.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.2. Supporting HTTPS in FirmwareUpdate, GetLog, or third-party connections",
+      "heading_path": "7.2. Supporting HTTPS in FirmwareUpdate, GetLog, or third-party connections"
+    }
+  },
+  {
+    "content": "# Settings for Certificate Bundle Support\n\n- CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=y\n- Enables the CA bundle\n- CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_FULL=y\n- Embeds a complete list of Mozilla\u2019s NSS root certificates\n- Impact on binary size: ~64057 bytes\n- config.crt_bundle_attach = esp_crt_bundle_attach;\n- Uses the CA bundle to verify the server\u2019s certificate in the standard ESP-IDF HTTPS client\nCA bundles should not be used to secure the charging station\u2019s OCPP connection to a back-end in security profile 2/3. Trusting a large number of CA authorities in security profile 2/3 is not considered secure.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Settings for Certificate Bundle Support",
+      "heading_path": "Settings for Certificate Bundle Support"
+    }
+  },
+  {
+    "content": "# References\n\n- [OCPP-Part2] OCPP 2.0.1 Part 2 - Specification\n- [OCPP-Part5] OCPP 2.0.1 Part 5 - Certification Profiles\n- [OCPP-Part6] OCPP 2.0.1 Part 6 - Test Cases\n- [OCPP-16] OCPP 1.6\n- [Sec-WP] OCPP 1.6 Security Whitepaper (3rd edition)\n- [MicroOCPP] OCPP 1.6/2.0.1 protocol stack, https://github.com/matth-x/MicroOcpp\n- [OpenOCPP] OCPP 1.6/2.0.1 implementation by ChargeLab, planned to become open source",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "References",
+      "heading_path": "References"
+    }
+  },
+  {
+    "content": "# Table 2. Minimum message set\n\n- Section: A. Security; Use Cases: \u2022 A00 Security Profile 1 & 2 \u2022 A01 Update CS password \u2022 A04 Security Event; Messages: SetVariables, SecurityEvent\n- Section: B. Provisioning; Use Cases: \u2022 B01/B02/B03 Cold Boot - Accepted, Pending, Rejected \u2022 B04 Offline Idle \u2022 B05 Set Variables \u2022 B06 Get Variables \u2022 B07 Get Base Report \u2022 B09 Set Network Profile \u2022 B10 Migrate to New CSMS \u2022 B11/B12 Reset Charging Station; Messages: BootNotification, SetVariables, GetVariables, GetBaseReport, NotifyReport, SetNetworkProfile, Reset",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 2. Minimum message set",
+      "heading_path": "Table 2. Minimum message set"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n- C01, C02, or C04 Authorization\n- Authorize",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization"
+    }
+  },
+  {
+    "content": "# E. Transactions\n\n- E01 Start Transaction - TransactionEvent, GetTransactionStatus (PowerPathClosed)\n- E05 Start Transaction - id not accepted\n- E06 Stop Transaction (PowerPathClosed)\n- E07 Transaction stop by idToken\n- E08 Transaction stop while offline\n- E09 Transaction Stop - cable disconnect on EV\n- E11 Connection Loss during transaction\n- E12 Inform of offline transactions\n- E13 Transaction message not accepted",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "E. Transactions",
+      "heading_path": "E. Transactions"
+    }
+  },
+  {
+    "content": "# F. Remote Control\u00b9\n\n- F01 Remote Start - Cable First - RequestStartTransaction\n- F02 Remote Start - Start First - RequestStopTransaction, UnlockConnector\n- F03 Remote Stop\n- F05 Remote Unlock\n- C05 Authorization CSMS Initiated Transactions",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "F. Remote Control\u00b9",
+      "heading_path": "F. Remote Control\u00b9"
+    }
+  },
+  {
+    "content": "# G. Availability\n\n- G01 Status Notification - StatusNotification, Heartbeat\n- G02 Heart Beat - ChangeAvailability\n- G04 Change Availability Charging Station",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "G. Availability",
+      "heading_path": "G. Availability"
+    }
+  },
+  {
+    "content": "# J. Meter Values\n\n- J02 Transaction-Related Meter Values - TransactionEvent, MeterValues",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "J. Meter Values",
+      "heading_path": "J. Meter Values"
+    }
+  },
+  {
+    "content": "# APPENDIX B: Case study MicroOCPP\n\nNOTE: The metrics of MicroOCPP have been provided by Matthias Akstaller and are based on the state of development of MicroOCPP as of July 2025.\n\nMicroOCPP (see [MicroOCPP]) is an open source implementation of an OCPP protocol stack in C/C++ for OCPP 1.6 and OCPP 2.0.1. MicroOCPP can be compiled as OCPP 1.6, OCPP 2.0.1 or both. It provides an API to interface with the firmware that controls the charging station. The metrics in this appendix are only about the OCPP protocol stack.\n\nThis appendix presents a size analysis of MicroOCPP which shows the impact of various OCPP 2.Lite features on the total size of the firmware. The numbers provide a reference point for own estimations on the final ROM space required by an OCPP 2.Lite implementation.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "APPENDIX B: Case study MicroOCPP",
+      "heading_path": "APPENDIX B: Case study MicroOCPP"
+    }
+  },
+  {
+    "content": "# ROM requirements for a minimal message set\n\nThe reference implementation for OCPP 2.0.1 has a binary size of ~120 kB in total. For the benchmarks, it was compiled with -Os, no RTTI or exceptions and newlib as the standard C library. A size profiler tool (bloaty) was used to calculate how much binary size each compilation unit adds to the firmware. In the example OCPP 2.Lite implementation shown here, each message type is a separate compilation unit.\n\nThe following functionality, that exists in OCPP 1.6, has not yet been ported to the OCPP 2.0.1 implementation:\n\n- LocalAuthListManagement\n- Reservation\n- FirmwareManagement\n- DataTransfer\n\nDespite those limitations, the numbers are overall significant. If we assume the same size as in OCPP 1.6 for the functionality that is missing in OCPP 2.0.1, then the full scope of OCPP 2.Lite is only ~10% larger than OCPP 1.6. We are confident that the full scope of OCPP 2.Lite remains well under 200 kB of firmware size.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "ROM requirements for a minimal message set",
+      "heading_path": "ROM requirements for a minimal message set"
+    }
+  },
+  {
+    "content": "# Table 3. Module sizes in bytes for MicroOCPP as OCPP 1.6, OCPP 2.0.1 or both\n\n- Module: General library functions; OCPP 1.6: 35388.0; OCPP 2.0.1: 34852.0; Both enabled: 38804.0\n- Module: A - Security; OCPP 1.6: 700.0; OCPP 2.0.1: 732.0; Both enabled: 804.0\n- Module: B - Provisioning - Configuration (v16); OCPP 1.6: 8928.0; Both enabled: 9008.0\n- Module: B - Provisioning - Variables (v201); OCPP 2.0.1: 18060.0; Both enabled: 18004.0\n- Module: B - Provisioning - Other; OCPP 1.6: 3536.0; OCPP 2.0.1: 4300.0; Both enabled: 5848.0\n- Module: C - Authorization; OCPP 1.6: 932.0; OCPP 2.0.1: 868.0; Both enabled: 1640.0\n- Module: D - LocalAuthorizationListManagement; OCPP 1.6: 5532.0; OCPP 2.0.1: t.b.d.; Both enabled: 5568.0\n- Module: E - Transactions; OCPP 1.6: 17016.0; OCPP 2.0.1: 24608.0; Both enabled: 40948.0\n- Module: F - RemoteControl; OCPP 1.6: 3328.0; OCPP 2.0.1: 3440.0; Both enabled: 4916.0\n- Module: G - Availability; 5996.0; OCPP 2.0.1: 3852.0; Both enabled: 8776.0\n- Module: H - Reservation; 3672.0; OCPP 2.0.1: t.b.d.; Both enabled: 3728.0\n- Module: J - MeterValues; 10432.0; OCPP 2.0.1: 5668.0; Both enabled: 13452.0\n- Module: K - SmartCharging; 11768.0; OCPP 2.0.1: 12136.0; Both enabled: 13400.0\n- Module: L - FirmwareManagement; 4944.0; OCPP 2.0.1: t.b.d.; Both enabled: 4984.0\n- Module: M - CertificateManagement; 6420.0; OCPP 2.0.1: 6364.0; Both enabled: 6412.0\n- Module: N - Diagnostics; 7793.0; OCPP 2.0.1: 5745.0; Both enabled: 8057.0\n- Module: P - DataTransfer; 472.0; OCPP 2.0.1: t.b.d.; Both enabled: 476.0\n- Module: Total; 126857.0; OCPP 2.0.1: 120625.0; Both enabled: 184825.0",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 3. Module sizes in bytes for MicroOCPP as OCPP 1.6, OCPP 2.0.1 or both",
+      "heading_path": "Table 3. Module sizes in bytes for MicroOCPP as OCPP 1.6, OCPP 2.0.1 or both"
+    }
+  },
+  {
+    "content": "# Table 4. Module sizes in bytes for MicroOCPP for transactions (E + J)\n\n- Module: E - Transactions; OCPP 1.6: 17016.0; OCPP 2.0.1: 24608.0; Both enabled: 40948.0\n- Module: J - MeterValues; OCPP 1.6: 10432.0; OCPP 2.0.1: 5668.0; Both enabled: 13452.0\n- Module: Total; OCPP 1.6: 27448.0; OCPP 2.0.1: 30276.0; Both enabled: 54400.0\nAn important improvement of OCPP 2.0.1 is the revised transaction mechanism, which addresses the often insufficient flexibility of the version 1.6 Transactions. Most importantly, the backend can now define the start and stop point and query the current transaction status while the charger provides more transaction-related information in intermediate TransactionEvent messages.\n\nIn the MicroOCPP reference implementation, the firmware size in Table 2 increases by 10% for OCPP 2.0.1, but the complexity of the implementation can be reduced significantly, if the implementation would use a fixed value, e.g. PowerPathClosed, as both start and stop point, as is recommended in Section E. Transactions.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 4. Module sizes in bytes for MicroOCPP for transactions (E + J)",
+      "heading_path": "Table 4. Module sizes in bytes for MicroOCPP for transactions (E + J)"
+    }
+  },
+  {
+    "content": "# RAM requirements\n\nThe RAM usage of the OCPP interface is determined by the concrete implementation of the protocol. To allow for an estimation of how much memory such an implementation would need, we present the memory usage statistics of an example OCPP 2.Lite implementation.\n\nThe following table shows the peak memory usage for OCTT test cases which are mentioned in the first column. These are test cases from [OCPP-Part6] and executed using the OCTT testing tool from Open Charge Alliance. The test cases that have passed OCTT testing are marked with \"x\" in the table. Test cases marked with \"-\" have not passed OCTT testing. MicroOCPP will be updated in the coming months to pass all test cases in the table. As a result the recorded heap usage for these test cases may change as the implementation is updated.\n\nFor the full and updated test results, see the official benchmarks page in [MicroOCPP].",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "RAM requirements",
+      "heading_path": "RAM requirements"
+    }
+  },
+  {
+    "content": "# Table 5. RAM usage for an OCPP 2.0.1 implementation\n\n- Testcase: B:Provisioning\n- Testcase: Get Variables - single value; Pass: x; Heap usage (Bytes): 2052\n- Testcase: Get Variables - multiple values; Pass: -; Heap usage (Bytes): 2052\n- Testcase: Set Variables - single value; Pass: x; Heap usage (Bytes): 2052\n- Testcase: Set Variables - multiple values; Pass: -; Heap usage (Bytes): 2387\n- Testcase: Set Variables - invalidly formatted values; Pass: -; Heap usage (Bytes): 1540\n- Testcase: Get Base Report - ConfigurationInventory; Pass: x; Heap usage (Bytes): 5855\n- Testcase: Get Base Report - FullInventory; Pass: x; Heap usage (Bytes): 6065\n- Testcase: Get Variables - Unknown component; Pass: x; Heap usage (Bytes): 1459\n- Testcase: Get Variables - Not supported attribute type; Pass: x; Heap usage (Bytes): 1412\n- Testcase: Set Variables - Unknown component; Pass: x; Heap usage (Bytes): 1459\n- Testcase: Set Variables - Unknown variable; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Set Variables - Not supported attribute type; Pass: x; Heap usage (Bytes): 1536\n- Testcase: Set Variables - Read-only; Pass: -; Heap usage (Bytes): 1536\n- Testcase: C:Authorization\n- Testcase: Local start transaction - Authorization Invalid/Unknown; Pass: x; Heap usage (Bytes): 2973\n- Testcase: Local Stop Transaction - Different idToken; Pass: -; Heap usage (Bytes): 3091\n- Testcase: Local start transaction - Authorization Blocked; Pass: x; Heap usage (Bytes): 2973\n- Testcase: Local start transaction - Authorization Expired; Pass: x; Heap usage (Bytes): 2973\n- Testcase: Stop Transaction with a Master Pass - Without UI; Pass: -; Heap usage (Bytes): 3091",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 5. RAM usage for an OCPP 2.0.1 implementation",
+      "heading_path": "Table 5. RAM usage for an OCPP 2.0.1 implementation"
+    }
+  },
+  {
+    "content": "# E: Transactions",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "E: Transactions",
+      "heading_path": "E: Transactions",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "- Start transaction options - PowerPathClosed: Start transaction options - EnergyTransfer; -: x; 3091: 3090\n- Start transaction options - PowerPathClosed: Local start transaction - Cable plugin first - Success; -: -; 3091: 2835\n- Start transaction options - PowerPathClosed: Local start transaction - Authorization first - Success; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Local start transaction - Authorization first - Cable plugin timeout; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Local Stop Transaction - Accepted; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Stop transaction options - PowerPathClosed - Local stop; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Start transaction options - EVConnected; -: -; 3091: 2021\n- Start transaction options - PowerPathClosed: Start transaction options - Authorized - Remote; -: -; 3091: 2946\n- Start transaction options - PowerPathClosed: Stop transaction options - StopAuthorized - Local; -: -; 3091: 3086\n- Start transaction options - PowerPathClosed: Stop transaction options - Deauthorized - EV side disconnect; -: -; 3091: 3086\n- Start transaction options - PowerPathClosed: Testcase; -: Pass; 3091: Heap usage (Bytes)\n- Start transaction options - PowerPathClosed: Stop transaction options - EVDisconnected - EV side (able to charge IEC 61851-1 EV); -: -; 3091: 3087\n- Start transaction options - PowerPathClosed: Stop transaction options - StopAuthorized - Remote; -: -; 3091: 3086\n- Start transaction options - PowerPathClosed: Disconnect cable on EV-side - Deauthorize transaction - UnlockOnEVSideDisconnect is true; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Disconnect cable on EV-side - Deauthorize transaction - UnlockOnEVSideDisconnect is false; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Check Transaction status - TransactionId unknown; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ongoing - with message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ongoing - without message in queue; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ended - with message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ended - without message in queue; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Check Transaction status - Without transactionId - with message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Without transactionId - without message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Stop transaction options - PowerPathClosed - Remote stop; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Stop transaction options - Deauthorized - timeout; -: x; 3091: 2973",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "E: Transactions",
+      "heading_path": "E: Transactions",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# F: Remote Control\n\n- Remote start transaction - Cable plugin first: Remote start transaction - Remote start first - AuthorizeRemoteStart is true; -: -; 2951: 1536\n- Remote start transaction - Cable plugin first: Remote start transaction - Remote start first - AuthorizeRemoteStart is false; -: -; 2951: 3091\n- Remote start transaction - Cable plugin first: Remote start transaction - Remote start first - Cable plugin timeout; -: -; 2951: 2048\n- Remote start transaction - Cable plugin first: Remote unlock Connector - With ongoing transaction; -: -; 2951: 3091\n- Remote start transaction - Cable plugin first: Remote unlock Connector - Without ongoing transaction - Accepted; -: -; 2951: 1397\n- Remote start transaction - Cable plugin first: Remote unlock Connector - Without ongoing transaction - No cable connected; -: -; 2951: 1397\n- Remote start transaction - Cable plugin first: Remote stop transaction - Success; -: -; 2951: 3091\n- Remote start transaction - Cable plugin first: Remote stop transaction - Rejected; -: -; 2951: 3091\n- Remote start transaction - Cable plugin first: Remote unlock Connector - Without ongoing transaction - UnknownConnector; -: x; 2951: 1397\n- Remote start transaction - Cable plugin first: Trigger message - MeterValues - Specific EVSE; -: -; 2951: 1536\n- Remote start transaction - Cable plugin first: Trigger message - MeterValues - All EVSE; -: -; 2951: 1536\n- Remote start transaction - Cable plugin first: Trigger message - TransactionEvent - Specific EVSE; -: -; 2951: 3121\n- Remote start transaction - Cable plugin first: Trigger message - TransactionEvent - All EVSE; -: -; 2951: 1412\n- Remote start transaction - Cable plugin first: Trigger message - Heartbeat; -: x; 2951: 1397\n- Remote start transaction - Cable plugin first: Trigger message - StatusNotification - Specific EVSE - Available; -: x; 2951: 1397\n- Remote start transaction - Cable plugin first: Trigger message - StatusNotification - Specific EVSE - Occupied; -: x; 2951: 1397",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "F: Remote Control",
+      "heading_path": "F: Remote Control"
+    }
+  },
+  {
+    "content": "# 29\n\n- Testcase: Trigger message - BootNotification - Rejected; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Trigger message - NotImplemented; Pass: x; Heap usage (Bytes): 1397\n- Testcase: G:Availability\n- Testcase: Connector status Notification - Available to Occupied; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Connector status Notification - Occupied to Available; Pass: x; Heap usage (Bytes): 1597\n- Testcase: Change Availability EVSE - Operative to inoperative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability EVSE - Inoperative to operative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Charging Station - Operative to inoperative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Charging Station - Inoperative to operative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Connector - Operative to inoperative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Connector - Inoperative to operative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability EVSE - Operative to operative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability EVSE - Inoperative to inoperative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability EVSE - With ongoing transaction; Pass: -; Heap usage (Bytes): 3091\n- Testcase: Change Availability Charging Station - Operative to operative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Charging Station - Inoperative to inoperative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Charging Station - With ongoing transaction; Pass: -; Heap usage (Bytes): 3091\n- Testcase: Change Availability Connector - Operative to operative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Connector - Inoperative to inoperative; Pass: x; Heap usage (Bytes): 1397\n- Testcase: Change Availability Connector - With ongoing transaction; Pass: -; Heap usage (Bytes): 3091",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "29",
+      "heading_path": "29"
+    }
+  },
+  {
+    "content": "# Sampled Meter Values\n\nContext Transaction.Begin - EVSE not known: 3116\nEventType Updated: 1397\nEventType Ended: 1397",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Sampled Meter Values",
+      "heading_path": "Sampled Meter Values"
+    }
+  },
+  {
+    "content": "# Simulator stats\n\nTest case maximum: 6065\nTotal memory maximum: 21802\n\nThe above table does not include memory usage for TLS and WebSockets. This may vary based on the TLS and WebSocket libraries used. For ways to reduce the TLS memory overhead, refer to paragraph 4.3. Reducing TLS communication buffer.\n\nTo support all the test cases of the table above with some added headroom, the RAM requirement would be about 50 kB for the OCPP 2.Lite client.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Simulator stats",
+      "heading_path": "Simulator stats"
+    }
+  },
+  {
+    "content": "# Memory requirements for Variables\n\nMicroOCPP defines a variable class and instantiates one memory object per variable, so that the memory usage increases linearly with the device model size.\n\nAs suggested in Minimizing device model size, the example implementation stores persistent variables in a plain-text format on flash memory.\n\n- Mutability: Read-only; RAM size per Variable: 94 B; Flash size per Variable: 0 B\n- Mutability: Read-write; RAM size per Variable: 142 B; Flash size per Variable: 107 B\n\nIn the measurement results, read-only variables were of a constant size, because the actual data was stored in ROM and not copied to RAM. Read-write variables need to keep the value in RAM, which increases the total size.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Memory requirements for Variables",
+      "heading_path": "Memory requirements for Variables"
+    }
+  },
+  {
+    "content": "# APPENDIX C: Case study OpenOCPP\n\nNOTE The appendix about OpenOCPP has been provided by Cedric Shui of ChargeLab.\n\nOpenOCPP (see [OpenOCPP]) is an open source multi-platform combined OCPP 1.6 and OCPP 2.0.1 implementation produced by ChargeLab targeting the full core 2.0.1 requirements (not restricted to 2.lite requirements in this document). It serves as a useful point of comparison for general embedded implementations.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "APPENDIX C: Case study OpenOCPP",
+      "heading_path": "APPENDIX C: Case study OpenOCPP"
+    }
+  },
+  {
+    "content": "# ROM requirements\n\nTotal ROM overhead of a feature complete charger binary supporting OCPP 1.6/2.0.1 was found to be approximately 1.6 MiB which was deemed tolerable for the target platform (an ESP32 microcontroller with 4 MB of flash) and was not optimized further. It\u2019s worth noting that approximately 489 KB is consumed by the primary application object while the remainder (~1.1 MB) is consumed by the various ESP-IDF platform libraries necessary to run the firmware. This again highlights the impact of platform versus library overheads.\n\nAn attempt was made to categorize the ROM usage of the \"OCPP library\" portion of the implementation to provide implementers with a sense of the size of the OCPP implementation in isolation (without including platform and non-OCPP costs). This was found to be sensitive to where we drew this boundary around our implementation, however we were able to obtain a reasonable upper and lower bound of ~378 KB and ~182 KB respectively (for OpenOCPP\u2019s combined 1.6 and 2.0 implementation).",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "ROM requirements",
+      "heading_path": "ROM requirements"
+    }
+  },
+  {
+    "content": "# RAM requirements\n\nThe RAM usage of individual components was analyzed by logging platform-level aggregate heap usage across initialization and, in some cases, augmenting them with data from known idle-state accumulated buffers. Additional, for the sake of comparison the impact of ESP-IDF system components was included as well:",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "RAM requirements",
+      "heading_path": "RAM requirements"
+    }
+  },
+  {
+    "content": "# Table 6. RAM usage by component",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 6. RAM usage by component",
+      "heading_path": "Table 6. RAM usage by component",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Security: Platform module: 304 bytes\nNote: does not include contributions from initializing ESP-IDF subsystems (wifi, file-system, etc).: \nProvisioning: Boot notification module: 208 bytes\nTotal:: 400 bytes\nAuthorization: Pending messages module: 440 bytes\nTransactions: Transaction module (1.6): 344 bytes\nRemote Control: Transaction module (2.0): 452 bytes\nMeter Values: Total: 1236 bytes\nNote: heap usage of pending messages module will scale up to 10 KB (of compressed data) to accommodate transaction data while offline.: \nAvailability: Connector status module: 536 bytes\nTotal:: 696 bytes\nSmart Charging: Power management module (1.6): 196 bytes\nTotal:: 1108 bytes\nNote: heap usage of power management modules will scale based on the number of installed profiles, approximately according to the size of the SetChargingProfileRequest objects.: \nFirmware Management: Firmware management module: 376 bytes\nDiagnostics: Get logs module: 3080 bytes\nNote: retains up to 2 KB (or more as configured by the manufacturer) of compressed log messages in-memory for the purpose of responding to GetLog requests.: ",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 6. RAM usage by component",
+      "heading_path": "Table 6. RAM usage by component",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# Table 7. RAM usage additional elements\n\n- Name: Settings; Idle RAM Usage: 5936 bytes; Notes: Defines 126 standard and internal settings for an average per setting heap size of \\~47 bytes.\n- Name: Portal; Idle RAM Usage: 112 bytes; Notes: Does not include HTTP/HTTPS overheads from the ESP-IDF platform (see below)\n- Name: OcppMessageHandler 1.6; Idle RAM Usage: 748 bytes; Notes: Internal component related to OCPP 1.6 message processing\n- Name: OcppMessageHandler 2.0; Idle RAM Usage: 584 bytes; Notes: Internal component related to OCPP 2.0 message processing\n- Name: Wifi/Core; Idle RAM Usage: 42560 bytes; Notes: Include default ESP-IDF event loop creation and wifi STA/AP initialization.\n- Name: Websocket; Idle RAM Usage: 25268 bytes; Notes: Includes initializing and connecting to a single TLS-based websocket connection using esp\\_websocket\\_client\n- Name: HTTPS Server; Idle RAM Usage: 18780 bytes; Notes: Initializing ESP-IDF HTTPS server using self-signed certificate for provisioning/control\n- Name: HTTP Server; Idle RAM Usage: 9988 bytes; Notes: Initializing ESP-IDF HTTP server for provisioning/control\n\nIt\u2019s worth noting that the majority of heap contribution here comes from platform internals with a sufficiently tuned implementation. It is worth noting that many of the implementations/approaches that were deemed reasonable for a 1.6 implementation dramatically increased heap usage within the application and required substantial restructuring.",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 7. RAM usage additional elements",
+      "heading_path": "Table 7. RAM usage additional elements"
+    }
+  },
+  {
+    "content": "# Device model variable size optimizations\n\nThe settings definitions went through several iterations to achieve the final heap requirements of approximately 47 bytes per variable. The primary optimizations that achieved that in our implementation were the following:\n\n- Sharing a single large explicit setting container among modules with concrete variable definitions. This eliminated the overhead in maintaining per-module views of individual, type information, a broad type-agnostic interface, or delegating interpretation of string payloads to callers.\n- Leaving variable metadata defined in generator methods to reduce the size of metadata storage down to a 4-byte function pointer. An example of this is provided below:\n\nSettingString TimeSource {\n {\nreturn SettingMetadata {\n\"TimeSource\",\nSettingConfig::rwPolicy(),\nDeviceModel1_6 {\"TimeSource\"},\nDeviceModel2_0 {{\"ClockCtrlr\"}, {\"TimeSource\"}, {\nstd::nullopt,\nocpp2_0::DataEnumType::kSequenceList,\nstd::nullopt,\nstd::nullopt,\n\"Heartbeat\"\n}},\n\"Heartbeat\"\n};\n},\n {return value == \"Heartbeat\";}\n};",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Device model variable size optimizations",
+      "heading_path": "Device model variable size optimizations"
+    }
+  },
+  {
+    "content": "# OCTT test cases\n\nAt the time of writing all core OCPP 2.0.1 test cases marked as required by the PICS tool were passing (with the exception of TC_B_49 which was failing due to a confirmed OCTT tool bug). Note that full compliance with the Smart Charging certification profile was targeted but not fully implemented at the time of writing (and hence has been excluded from the list of test cases below):",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "OCTT test cases",
+      "heading_path": "OCTT test cases",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Security: TC\\_A\\_01, TC\\_A\\_04, TC\\_A\\_05, TC\\_A\\_06, TC\\_A\\_09, TC\\_A\\_10, TC\\_A\\_19, TC\\_A\\_20, TC\\_A\\_22\nProvisioning: TC\\_B\\_01, TC\\_B\\_02, TC\\_B\\_03, TC\\_B\\_06, TC\\_B\\_07, TC\\_B\\_09, TC\\_B\\_10, TC\\_B\\_11, TC\\_B\\_12, TC\\_B\\_13, TC\\_B\\_20, TC\\_B\\_21, TC\\_B\\_22, TC\\_B\\_23, TC\\_B\\_28, TC\\_B\\_29, TC\\_B\\_30, TC\\_B\\_32, TC\\_B\\_33, TC\\_B\\_34, TC\\_B\\_35, TC\\_B\\_36, TC\\_B\\_37, TC\\_B\\_39, TC\\_B\\_43, TC\\_B\\_45, TC\\_B\\_46, TC\\_B\\_49, TC\\_B\\_50, TC\\_B\\_51, TC\\_B\\_52, TC\\_B\\_53, TC\\_B\\_57\nAuthorization: TC\\_C\\_02, TC\\_C\\_04, TC\\_C\\_06, TC\\_C\\_07, TC\\_C\\_26, TC\\_C\\_39, TC\\_C\\_42, TC\\_C\\_56\nTransactions: TC\\_E\\_01, TC\\_E\\_03, TC\\_E\\_04, TC\\_E\\_05, TC\\_E\\_06, TC\\_E\\_07, TC\\_E\\_09, TC\\_E\\_10, TC\\_E\\_13, TC\\_E\\_15, TC\\_E\\_16, TC\\_E\\_21, TC\\_E\\_28, TC\\_E\\_30, TC\\_E\\_31, TC\\_E\\_32, TC\\_E\\_33, TC\\_E\\_34, TC\\_E\\_35, TC\\_E\\_38, TC\\_E\\_39, TC\\_E\\_40, TC\\_E\\_41, TC\\_E\\_42, TC\\_E\\_43, TC\\_E\\_44, TC\\_E\\_50, TC\\_E\\_51\nRemote Control: TC\\_F\\_01, TC\\_F\\_02, TC\\_F\\_03, TC\\_F\\_04, TC\\_F\\_08, TC\\_F\\_09, TC\\_F\\_13, TC\\_F\\_14, TC\\_F\\_17, TC\\_F\\_18, TC\\_F\\_19, TC\\_F\\_20, TC\\_F\\_23, TC\\_F\\_24, TC\\_F\\_26, TC\\_F\\_27",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "OCTT test cases",
+      "heading_path": "OCTT test cases",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# Availability\n\nTC_G_01, TC_G_02, TC_G_03, TC_G_04, TC_G_05, TC_G_06, TC_G_07, TC_G_08, TC_G_09, TC_G_10, TC_G_11, TC_G_12, TC_G_13, TC_G_14, TC_G_15, TC_G_16, TC_G_17, TC_G_18, TC_G_19, TC_G_21",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Availability",
+      "heading_path": "Availability"
+    }
+  },
+  {
+    "content": "# Meter Values\n\nTC_J_01, TC_J_02, TC_J_03, TC_J_07, TC_J_08, TC_J_09, TC_J_10",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Meter Values",
+      "heading_path": "Meter Values"
+    }
+  },
+  {
+    "content": "# Firmware Management\n\nTC_L_01, TC_L_02, TC_L_03, TC_L_05, TC_L_06, TC_L_07, TC_L_08, TC_L_10, TC_L_15, TC_L_18",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Firmware Management",
+      "heading_path": "Firmware Management"
+    }
+  },
+  {
+    "content": "# Certificate Management\n\nTC_M_01, TC_M_02, TC_M_07, TC_M_12, TC_M_13, TC_M_17, TC_M_18, TC_M_19, TC_M_20, TC_M_22",
+    "metadata": {
+      "doc_id": "ocpp2_lite",
+      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Certificate Management",
+      "heading_path": "Certificate Management"
+    }
+  }
+]

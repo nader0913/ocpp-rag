@@ -2,56 +2,74 @@
   "use_case_id": "I04",
   "functional_block": "TariffAndCost",
   "use_case_name": "Show Fallback Tariff Information",
+  "structured": {
+    "name": "Show Fallback Tariff Information",
+    "id": "I04",
+    "functional_block": "TariffAndCost",
+    "objective": "To show an EV Driver some information, generic tariff, a message etc., when the Charging Station\ncannot retrieve tariff information for this EV Driver.",
+    "description": "When an EV Driver wants to charge an EV, he wants an indication of how much charging will cost\nhim at the Charging Station he is at, but the Charging Station cannot get a specific tariff for this\nEV Driver (for example: the Charging Station is Offline, or no EV Driver-specific tariff is available).\nFor such scenarios, a fallback tariff information message can be configured in the Charging\nStation.",
+    "actors": [
+      "Charging Station",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver wants to charge an EV, he presents his IdTokenType.",
+      "2. The Charging Station authorizes the EV Driver against the Authorization Cache",
+      "3. The Charging Station shows the TariffFallbackMessage to the EV Driver."
+    ],
+    "prerequisites": "The Charging Station supports Tariff Information\nthe Configuration Variable: TariffFallbackMessage is configured.",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "I04.FR.01",
+        "precondition": "When the Charging Station cannot get a specific\ntariff for the EV Driver (for example: the\nCharging Station is Offline, or no EV Driver-\nspecific tariff is available.)",
+        "definition": "The Charging Station SHALL display a fallback tariff information\nmessage to the EV Driver, which is configured in the\nConfiguration Variable: TariffFallbackMessage."
+      },
+      {
+        "id": "I04.FR.02",
+        "precondition": "",
+        "definition": "The CSMS MAY configure the TariffFallbackMessage via the\nConfiguration Variable: TariffFallbackMessage."
+      }
+    ],
+    "figures": [
+      "fig86.png",
+      "fig87.png",
+      "fig88.png",
+      "fig89.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# I04 - Show Fallback Tariff Information\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                      |\n| --- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Show Fallback Tariff Information                                                                                                                                                                                                                                                                                                                                                                                 |\n| 2   | ID                      | I04                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 3   | Objective(s)            | To show an EV Driver some information, generic tariff, a message etc., when the Charging Station cannot retrieve tariff information for this EV Driver.                                                                                                                                                                                                                                                          |\n| 4   | Description             | When an EV Driver wants to charge an EV, he wants an indication of how much charging will cost him at the Charging Station he is at, but the Charging Station cannot get a specific tariff for this EV Driver (for example: the Charging Station is Offline, or no EV Driver-specific tariff is available). For such scenarios, a fallback tariff information message can be configured in the Charging Station. |\n|     | Actors                  | Charging Station, EV Driver                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Scenario description    | 1. The EV Driver wants to charge an EV, he presents his IdTokenType. 2. The Charging Station authorizes the EV Driver against the Authorization Cache 3. The Charging Station shows the TariffFallbackMessage to the EV Driver.                                                                                                                                                                                  |\n|     | Alternative scenario(s) | I01 - Show EV Driver-specific Tariff Information                                                                                                                                                                                                                                                                                                                                                                 |",
+      "content": "# I04 - Show Fallback Tariff Information\n\n**Objective:** To show an EV Driver some information, generic tariff, a message etc., when the Charging Station\ncannot retrieve tariff information for this EV Driver.\n\n**Description:** When an EV Driver wants to charge an EV, he wants an indication of how much charging will cost\nhim at the Charging Station he is at, but the Charging Station cannot get a specific tariff for this\nEV Driver (for example: the Charging Station is Offline, or no EV Driver-specific tariff is available).\nFor such scenarios, a fallback tariff information message can be configured in the Charging\nStation.\n\n**Actors:** Charging Station, EV Driver\n\n**Scenario:**\n1. The EV Driver wants to charge an EV, he presents his IdTokenType.\n2. The Charging Station authorizes the EV Driver against the Authorization Cache\n3. The Charging Station shows the TariffFallbackMessage to the EV Driver.\n\n**Prerequisites:** The Charging Station supports Tariff Information\nthe Configuration Variable: TariffFallbackMessage is configured.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "I04 - Show Fallback Tariff Information",
-        "heading_path": "I04 - Show Fallback Tariff Information",
         "functional_block": "TariffAndCost",
         "use_case_id": "I04",
         "use_case_name": "Show Fallback Tariff Information",
-        "use_case_refs": "I01, I04",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 5   | Prerequisites           | The Charging Station supports Tariff Information the Configuration Variable: TariffFallbackMessage is configured.                                                                                                                                                                                                                                                                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I04 - Show Fallback Tariff Information",
-        "heading_path": "I04 - Show Fallback Tariff Information",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I04",
-        "use_case_name": "Show Fallback Tariff Information",
-        "use_case_refs": "I01, I04",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# I04 - Show Fallback Tariff Information - Requirements\n\n| ID.       | Precondition                                                                                                                                                           | Requirements                                                                                                                                                         |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| I04.FR.01 | When the Charging Station cannot get a specific tariff for the EV Driver (for example: the Charging Station is Offline, or no EV Driver-specific tariff is available.) | The Charging Station SHALL display a fallback tariff information message to the EV Driver, which is configured in the Configuration Variable: TariffFallbackMessage. |\n| I04.FR.02 |                                                                                                                                                                        | The CSMS MAY configure the TariffFallbackMessage via the Configuration Variable: TariffFallbackMessage.                                                              |",
+      "content": "# I04 - Requirements\n\n**I04.FR.01**\nPrecondition: When the Charging Station cannot get a specific\ntariff for the EV Driver (for example: the\nCharging Station is Offline, or no EV Driver-\nspecific tariff is available.)\nThe Charging Station SHALL display a fallback tariff information\nmessage to the EV Driver, which is configured in the\nConfiguration Variable: TariffFallbackMessage.\n\n**I04.FR.02**\nThe CSMS MAY configure the TariffFallbackMessage via the\nConfiguration Variable: TariffFallbackMessage.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "I04 - Show Fallback Tariff Information - Requirements",
-        "heading_path": "I04 - Show Fallback Tariff Information - Requirements",
+        "heading": "I04 - Requirements",
         "functional_block": "TariffAndCost",
         "use_case_id": "I04",
         "use_case_name": "Show Fallback Tariff Information",
-        "use_case_refs": "I04"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

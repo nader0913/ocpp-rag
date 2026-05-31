@@ -2,59 +2,129 @@
   "use_case_id": "B07",
   "functional_block": "Provisioning",
   "use_case_name": "Get Base Report",
+  "structured": {
+    "name": "Get Base Report",
+    "id": "B07",
+    "functional_block": "Provisioning",
+    "objective": "To give the CSMS the ability to request a predefined report as defined in ReportBase.",
+    "description": "This use case describes how the CSMS requests a Charging Station to send a predefined report\nas defined in ReportBase. The result will be returned asynchronously in one or more\nNotifyReportRequest messages.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSO triggers the CSMS to request a report from a Charging Station.",
+      "2. The CSMS requests the Charging Station for a report with GetBaseReportRequest.",
+      "3. The Charging Station responds with GetBaseReportResponse.",
+      "4. The Charging Station asynchronously sends the results in one or more NotifyReportRequest\nmessages.",
+      "5. The CSMS responds with NotifyReportResponse for each NotifyReportRequest."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "Successful postcondition:\nThe Charging Station was able to send the requested report.\nFailure postcondition:\nThe Charging Station was not able to send the requested report.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "B07.FR.01",
+        "precondition": "When the Charging\nStation receives a\ngetBaseReportRequest\nfor a supported\nreportBase\nAND NOT B07.FR.13",
+        "definition": "The Charging Station SHALL send a\ngetBaseReportResponse with\nAccepted."
+      },
+      {
+        "id": "B07.FR.02",
+        "precondition": "When the Charging\nStation receives a\ngetBaseReportRequest\nfor a reportBase that is\nnot supported",
+        "definition": "The Charging Station SHALL send a\ngetBaseReportResponse with\nNotSupported."
+      },
+      {
+        "id": "B07.FR.03",
+        "precondition": "B07.FR.01",
+        "definition": "The Charging Station SHALL send the\nrequested information, excluding the\nvalue of WriteOnly variables, via one or\nmore NotifyReportRequest messages\nto the CSMS."
+      },
+      {
+        "id": "B07.FR.04",
+        "precondition": "B07.FR.01\nAND\nThe\ngetBaseReportRequest\ncontained a requestId",
+        "definition": "Every NotifyReportRequest send for\nthis getBaseReportRequest SHALL\ncontain the same requestId."
+      },
+      {
+        "id": "B07.FR.05",
+        "precondition": "B07.FR.02",
+        "definition": "The Charging Station SHALL NOT\nsend a NotifyReportRequest to the\nCSMS."
+      },
+      {
+        "id": "B07.FR.07",
+        "precondition": "B07.FR.01 AND\nWhen reportBase is\nConfigurationInventory",
+        "definition": "Then the Charging Station SHALL\nrespond with a NotifyReportRequest\nto report on all component-variables\nthat can be set by the operator\nincluding their VariableCharacteristics."
+      },
+      {
+        "id": "B07.FR.08",
+        "precondition": "B07.FR.01 AND\nWhen reportBase is\nFullInventory",
+        "definition": "Then the Charging Station SHALL\nrespond with a NotifyReportRequest\nto report on all component-variables\nincluding their VariableCharacteristics."
+      },
+      {
+        "id": "B07.FR.09",
+        "precondition": "B07.FR.01 AND\nWhen reportBase is\nSummaryInventory",
+        "definition": "Then the Charging Station SHALL\nrespond with a NotifyReportRequest\nto report on components and\nvariables related to the availability and\ncondition of the Charging Station,\nnotably operationalStatus of the\nCharging Station, EVSE and\nConnectors and any error condition."
+      },
+      {
+        "id": "B07.FR.10",
+        "precondition": "",
+        "definition": "The sequence number contained in\nthe seqNo field of the\nNotifyReportRequest is incremental\nper report. So the\nNotifyReportRequest message which\ncontains the first report part, SHALL\nhave a seqNo with value 0."
+      },
+      {
+        "id": "B07.FR.11",
+        "precondition": "B07.FR.08",
+        "definition": "All attribute types of a variable, that\nare supported by the Charging Station,\nSHALL be reported, even if they have\nno value (are unset)."
+      },
+      {
+        "id": "B07.FR.12",
+        "precondition": "",
+        "definition": "The Charging Station SHALL support\nat least the base reports:\nConfigurationInventory and\nFullInventory."
+      },
+      {
+        "id": "B07.FR.13",
+        "precondition": "When the Charging\nStation is temporarily\nunable to execute a\nreport request",
+        "definition": "The Charging Station SHALL send a\ngetBaseReportResponse with\nRejected."
+      },
+      {
+        "id": "B07.FR.14",
+        "precondition": "When a Charging Station\nconnects to CSMS for\nthe first time OR\nwhenever CSMS\nsuspects that the device\nmodel of the Charging\nStation has changed (e.g.\nafter a firmware update\nor hardware change)",
+        "definition": "CSMS SHOULD request a\nGetBaseReportRequest with\nreportBase = FullInventory to\nretrieve a complete list of all its device\nmodel components and variables."
+      }
+    ],
+    "figures": [
+      "fig16.png",
+      "fig17.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# B07 - Get Base Report\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Base Report                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID                   | B07                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To give the CSMS the ability to request a predefined report as defined in ReportBase.                                                                                                                                                                                                                                                                                                                       |\n| 4   | Description          | This use case describes how the CSMS requests a Charging Station to send a predefined report as defined in ReportBase. The result will be returned asynchronously in one or more NotifyReportRequest messages.                                                                                                                                                                                              |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Scenario description | 1. The CSO triggers the CSMS to request a report from a Charging Station. 2. The CSMS requests the Charging Station for a report with GetBaseReportRequest. 3. The Charging Station responds with GetBaseReportResponse. 4. The Charging Station asynchronously sends the results in one or more NotifyReportRequest messages. 5. The CSMS responds with NotifyReportResponse for each NotifyReportRequest. |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "content": "# B07 - Get Base Report\n\n**Objective:** To give the CSMS the ability to request a predefined report as defined in ReportBase.\n\n**Description:** This use case describes how the CSMS requests a Charging Station to send a predefined report\nas defined in ReportBase. The result will be returned asynchronously in one or more\nNotifyReportRequest messages.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a report from a Charging Station.\n2. The CSMS requests the Charging Station for a report with GetBaseReportRequest.\n3. The Charging Station responds with GetBaseReportResponse.\n4. The Charging Station asynchronously sends the results in one or more NotifyReportRequest\nmessages.\n5. The CSMS responds with NotifyReportResponse for each NotifyReportRequest.\n\n**Prerequisites:** n/a\n\n**Postconditions:** Successful postcondition:\nThe Charging Station was able to send the requested report.\nFailure postcondition:\nThe Charging Station was not able to send the requested report.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "B07 - Get Base Report",
-        "heading_path": "B07 - Get Base Report",
         "functional_block": "Provisioning",
         "use_case_id": "B07",
         "use_case_name": "Get Base Report",
-        "use_case_refs": "B07",
-        "message_refs": "GetBaseReportRequest, GetBaseReportResponse, NotifyReportRequest, NotifyReportResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 6   | Postcondition(s)     | Successful postcondition: The Charging Station was able to send the requested report. Failure postcondition: The Charging Station was not able to send the requested report.                                                                                                                                                                                                                                |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                         |\n\nCSMS                          Charging Station\n\nSomething triggers the CSMS to request a report from a Charging Station.\n\nGetBaseReportRequest(requestId, reportBase)\n\nGetBaseReportResponse(status)\n\nloop    [for each report part]\n\nNotifyReportRequest(generatedAt, requestId, tbc, reports,...)\n\nNotifyReportResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B07 - Get Base Report",
-        "heading_path": "B07 - Get Base Report",
-        "functional_block": "Provisioning",
-        "use_case_id": "B07",
-        "use_case_name": "Get Base Report",
-        "use_case_refs": "B07",
-        "message_refs": "GetBaseReportRequest, GetBaseReportResponse, NotifyReportRequest, NotifyReportResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# B07 - Get Base Report - Requirements\n\n| ID        | Precondition                                                                                           | Requirement definition                                                     | Note |\n| --------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | ---- |\n| B07.FR.01 | When the Charging Station receives a getBaseReportRequest for a supported reportBase AND NOT B07.FR.13 | The Charging Station SHALL send a getBaseReportResponse with Accepted.     |      |\n| B07.FR.02 | When the Charging Station receives a getBaseReportRequest for a reportBase that is not supported       | The Charging Station SHALL send a getBaseReportResponse with NotSupported. |      |",
+      "content": "# B07 - Requirements\n\n**B07.FR.01**\nPrecondition: When the Charging\nStation receives a\ngetBaseReportRequest\nfor a supported\nreportBase\nAND NOT B07.FR.13\nThe Charging Station SHALL send a\ngetBaseReportResponse with\nAccepted.\n\n**B07.FR.02**\nPrecondition: When the Charging\nStation receives a\ngetBaseReportRequest\nfor a reportBase that is\nnot supported\nThe Charging Station SHALL send a\ngetBaseReportResponse with\nNotSupported.\n\n**B07.FR.03**\nPrecondition: B07.FR.01\nThe Charging Station SHALL send the\nrequested information, excluding the\nvalue of WriteOnly variables, via one or\nmore NotifyReportRequest messages\nto the CSMS.\n\n**B07.FR.04**\nPrecondition: B07.FR.01\nAND\nThe\ngetBaseReportRequest\ncontained a requestId\nEvery NotifyReportRequest send for\nthis getBaseReportRequest SHALL\ncontain the same requestId.\n\n**B07.FR.05**\nPrecondition: B07.FR.02\nThe Charging Station SHALL NOT\nsend a NotifyReportRequest to the\nCSMS.\n\n**B07.FR.07**\nPrecondition: B07.FR.01 AND\nWhen reportBase is\nConfigurationInventory\nThen the Charging Station SHALL\nrespond with a NotifyReportRequest\nto report on all component-variables\nthat can be set by the operator\nincluding their VariableCharacteristics.\n\n**B07.FR.08**\nPrecondition: B07.FR.01 AND\nWhen reportBase is\nFullInventory\nThen the Charging Station SHALL\nrespond with a NotifyReportRequest\nto report on all component-variables\nincluding their VariableCharacteristics.\n\n**B07.FR.09**\nPrecondition: B07.FR.01 AND\nWhen reportBase is\nSummaryInventory\nThen the Charging Station SHALL\nrespond with a NotifyReportRequest\nto report on components and\nvariables related to the availability and\ncondition of the Charging Station,\nnotably operationalStatus of the\nCharging Station, EVSE and\nConnectors and any error condition.\n\n**B07.FR.10**\nThe sequence number contained in\nthe seqNo field of the\nNotifyReportRequest is incremental\nper report. So the\nNotifyReportRequest message which\ncontains the first report part, SHALL\nhave a seqNo with value 0.\n\n**B07.FR.11**\nPrecondition: B07.FR.08\nAll attribute types of a variable, that\nare supported by the Charging Station,\nSHALL be reported, even if they have\nno value (are unset).\n\n**B07.FR.12**\nThe Charging Station SHALL support\nat least the base reports:\nConfigurationInventory and\nFullInventory.\n\n**B07.FR.13**\nPrecondition: When the Charging\nStation is temporarily\nunable to execute a\nreport request\nThe Charging Station SHALL send a\ngetBaseReportResponse with\nRejected.\n\n**B07.FR.14**\nPrecondition: When a Charging Station\nconnects to CSMS for\nthe first time OR\nwhenever CSMS\nsuspects that the device\nmodel of the Charging\nStation has changed (e.g.\nafter a firmware update\nor hardware change)\nCSMS SHOULD request a\nGetBaseReportRequest with\nreportBase = FullInventory to\nretrieve a complete list of all its device\nmodel components and variables.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "B07 - Get Base Report - Requirements",
-        "heading_path": "B07 - Get Base Report - Requirements",
+        "heading": "B07 - Requirements",
         "functional_block": "Provisioning",
         "use_case_id": "B07",
         "use_case_name": "Get Base Report",
-        "use_case_refs": "B07",
-        "message_refs": "getBaseReportRequest, getBaseReportResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

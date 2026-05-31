@@ -2,83 +2,96 @@
   "use_case_id": "O03",
   "functional_block": "DisplayMessage",
   "use_case_name": "Get All DisplayMessages",
+  "structured": {
+    "name": "Get All DisplayMessages",
+    "id": "O03",
+    "functional_block": "DisplayMessage",
+    "objective": "Enable a CSO to retrieve all messages currently configured in a Charging Station.",
+    "description": "This use case describes how a CSO can request all the installed DisplayMessages configured via\nOCPP in a Charging Station.\nThe Charging Station can remove messages when they are out-dated, or transactions have ended.\nIt can be very useful for a CSO to be able to view to current list of messages, so the CSO knows\nwhich messages are (still) configured.",
+    "actors": [
+      "CSO",
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The CSO asks the CSMS to retrieve all messages.",
+      "2. The CSMS sends a GetDisplayMessagesRequest message to the Charging Station.",
+      "3. The Charging Station responds with a GetDisplayMessagesResponse Accepted, indicating it\nhas configured messages and will send them.",
+      "4. The Charging Station sends one or more NotifyDisplayMessagesRequest messages to the\nCSMS (depending on the amount of messages to be sent).",
+      "5. The CSMS responds to every notify with a NotifyDisplayMessagesResponse message."
+    ],
+    "prerequisites": "There is at least one message configured in the Charging Station",
+    "postconditions": "n/a",
+    "error_handling": "n/a",
+    "remarks": "Only messages configured via OCPP can be retrieved via a GetDisplayMessagesRequest.",
+    "requirements": [
+      {
+        "id": "O03.FR.01",
+        "precondition": "When all fields except requestId in a\nGetDisplayMessagesRequest are omitted AND\nat least one display message is configured.",
+        "definition": "The Charging Station SHALL respond with Accepted."
+      },
+      {
+        "id": "O03.FR.02",
+        "precondition": "O03.FR.01",
+        "definition": "The Charging Station SHALL send all configured\nDisplayMessages via NotifyDisplayMessagesRequest."
+      },
+      {
+        "id": "O03.FR.03",
+        "precondition": "O03.FR.02\nAND\nThere are more DisplayMessages than the\nCharging Station can send in 1\nNotifyDisplayMessagesRequest",
+        "definition": "The Charging Station SHALL split the DisplayMessages over\nmultiple NotifyDisplayMessagesRequest messages."
+      },
+      {
+        "id": "O03.FR.04",
+        "precondition": "O03.FR.03",
+        "definition": "The Charging Station SHALL set the tbc field is true in every\nNotifyDisplayMessagesRequest messages, except the last."
+      },
+      {
+        "id": "O03.FR.05",
+        "precondition": "O03.FR.04",
+        "definition": "The Charging Station SHALL set the requestId field to the same\nvalue as the requestId in the GetDisplayMessagesRequest."
+      },
+      {
+        "id": "O03.FR.06",
+        "precondition": "When NO DisplayMessages are configured",
+        "definition": "The Charging Station SHALL respond with Unknown."
+      }
+    ],
+    "figures": [
+      "fig141.png",
+      "fig142.png",
+      "fig143.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# O03 - Get All DisplayMessages\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get All DisplayMessages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 2   | ID                   | O03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 3   | Objective(s)         | Enable a CSO to retrieve all messages currently configured in a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 4   | Description          | This use case describes how a CSO can request all the installed DisplayMessages configured via OCPP in a Charging Station. The Charging Station can remove messages when they are out-dated, or transactions have ended. It can be very useful for a CSO to be able to view the current list of messages, so the CSO knows which messages are (still) configured.                                                                                                                                         |\n|     | Actors               | CSO, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Scenario description | 1. The CSO asks the CSMS to retrieve all messages. 2. The CSMS sends a GetDisplayMessagesRequest message to the Charging Station. 3. The Charging Station responds with a GetDisplayMessagesResponse Accepted, indicating it has configured messages and will send them. 4. The Charging Station sends one or more NotifyDisplayMessagesRequest messages to the CSMS (depending on the amount of messages to be sent). 5. The CSMS responds to every notify with a NotifyDisplayMessagesResponse message. |",
+      "content": "# O03 - Get All DisplayMessages\n\n**Objective:** Enable a CSO to retrieve all messages currently configured in a Charging Station.\n\n**Description:** This use case describes how a CSO can request all the installed DisplayMessages configured via\nOCPP in a Charging Station.\nThe Charging Station can remove messages when they are out-dated, or transactions have ended.\nIt can be very useful for a CSO to be able to view to current list of messages, so the CSO knows\nwhich messages are (still) configured.\n\n**Actors:** CSO, CSMS, Charging Station\n\n**Scenario:**\n1. The CSO asks the CSMS to retrieve all messages.\n2. The CSMS sends a GetDisplayMessagesRequest message to the Charging Station.\n3. The Charging Station responds with a GetDisplayMessagesResponse Accepted, indicating it\nhas configured messages and will send them.\n4. The Charging Station sends one or more NotifyDisplayMessagesRequest messages to the\nCSMS (depending on the amount of messages to be sent).\n5. The CSMS responds to every notify with a NotifyDisplayMessagesResponse message.\n\n**Prerequisites:** There is at least one message configured in the Charging Station\n\n**Postconditions:** n/a\n\n**Remarks:** Only messages configured via OCPP can be retrieved via a GetDisplayMessagesRequest.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "O03 - Get All DisplayMessages",
-        "heading_path": "O03 - Get All DisplayMessages",
         "functional_block": "DisplayMessage",
         "use_case_id": "O03",
         "use_case_name": "Get All DisplayMessages",
-        "use_case_refs": "O03",
-        "message_refs": "GetDisplayMessagesRequest, GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, NotifyDisplayMessagesResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 5   | Prerequisites        | There is at least one message configured in the Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 6   | Postcondition(s)     | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 7   | Error Handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 8   | Remarks              | Only messages configured via OCPP can be retrieved via a GetDisplayMessagesRequest.                                                                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "O03 - Get All DisplayMessages",
-        "heading_path": "O03 - Get All DisplayMessages",
-        "functional_block": "DisplayMessage",
-        "use_case_id": "O03",
-        "use_case_name": "Get All DisplayMessages",
-        "use_case_refs": "O03",
-        "message_refs": "GetDisplayMessagesRequest, GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, NotifyDisplayMessagesResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# CSO    CSMS                                             Charging Station\n\nGet all messages\n\nGetDisplayMessagesRequest(requestId)\n\nGetDisplayMessagesResponse(Accepted)\n\nloop [for each DisplayMessages part]\n\nNotifyDisplayMessagesRequest(requestId, messageInfo, tbc)\n\nNotifyDisplayMessagesResponse()\n\nopt notification\n\nFigure 141. Get All DisplayMessages sequence diagram",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "CSO    CSMS                                             Charging Station",
-        "heading_path": "CSO    CSMS                                             Charging Station",
-        "functional_block": "DisplayMessage",
-        "use_case_id": "O03",
-        "message_refs": "GetDisplayMessagesRequest, GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, NotifyDisplayMessagesResponse",
-        "figure_refs": "141"
-      }
-    },
-    {
-      "content": "# O03 - Get All DisplayMessages - Requirements\n\n| ID        | Precondition                                                                                                                | Requirement definition                                                                                                |\n| --------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |\n| O03.FR.01 | When all fields except requestId in a GetDisplayMessagesRequest are omitted AND at least one display message is configured. | The Charging Station SHALL respond with Accepted.                                                                     |\n| O03.FR.02 | O03.FR.01                                                                                                                   | The Charging Station SHALL send all configured DisplayMessages via NotifyDisplayMessagesRequest.                      |\n| O03.FR.03 | O03.FR.02                                                                                                                   | The Charging Station SHALL split the DisplayMessages over multiple NotifyDisplayMessagesRequest messages.             |\n| O03.FR.04 | O03.FR.03                                                                                                                   | The Charging Station SHALL set the tbc field is true in every NotifyDisplayMessagesRequest messages, except the last. |",
+      "content": "# O03 - Requirements\n\n**O03.FR.01**\nPrecondition: When all fields except requestId in a\nGetDisplayMessagesRequest are omitted AND\nat least one display message is configured.\nThe Charging Station SHALL respond with Accepted.\n\n**O03.FR.02**\nPrecondition: O03.FR.01\nThe Charging Station SHALL send all configured\nDisplayMessages via NotifyDisplayMessagesRequest.\n\n**O03.FR.03**\nPrecondition: O03.FR.02\nAND\nThere are more DisplayMessages than the\nCharging Station can send in 1\nNotifyDisplayMessagesRequest\nThe Charging Station SHALL split the DisplayMessages over\nmultiple NotifyDisplayMessagesRequest messages.\n\n**O03.FR.04**\nPrecondition: O03.FR.03\nThe Charging Station SHALL set the tbc field is true in every\nNotifyDisplayMessagesRequest messages, except the last.\n\n**O03.FR.05**\nPrecondition: O03.FR.04\nThe Charging Station SHALL set the requestId field to the same\nvalue as the requestId in the GetDisplayMessagesRequest.\n\n**O03.FR.06**\nPrecondition: When NO DisplayMessages are configured\nThe Charging Station SHALL respond with Unknown.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "O03 - Get All DisplayMessages - Requirements",
-        "heading_path": "O03 - Get All DisplayMessages - Requirements",
+        "heading": "O03 - Requirements",
         "functional_block": "DisplayMessage",
         "use_case_id": "O03",
         "use_case_name": "Get All DisplayMessages",
-        "use_case_refs": "O03",
-        "message_refs": "GetDisplayMessagesRequest, NotifyDisplayMessagesRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "141",
-      "title": "Get All DisplayMessages sequence diagram",
-      "files": [
-        "fig141_p1_Get_All_DisplayMessages_sequence_diagram.png",
-        "fig141_p2_Get_All_DisplayMessages_sequence_diagram.png"
-      ]
     }
   ]
 }

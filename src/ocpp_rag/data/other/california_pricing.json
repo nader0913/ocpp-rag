@@ -1,0 +1,1144 @@
+[
+  {
+    "content": "# Table of Contents",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n2. Cost Calculation in OCPP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n3. Tariff and Cost Features in OCPP 1.6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n1. Displaying Price and Cost in OCPP 1.6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n2. Multi-language support for tariffs (new in v3) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8\n3. Timezone for Display. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11\n4. Idle Fees. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11\n5. Direct Payment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14\n6. Sequence diagrams showing the OCPP 1.6 customizations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14\n7. Sequence diagrams for (partly) offline situations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18\n4. Tariff and Cost Features in OCPP 2.0.1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n1. Displaying Price and Cost in OCPP 2.0.1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n2. Device Model Settings for Tariff and Cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26\n3. Multi-language support for tariffs (new in v3) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27\n4. Idle Fees. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29\n5. Direct Payment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31\n6. Sequence diagram showing OCPP 2.0.1 messages. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31\n7. Offline behavior . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33\n5. Checklist Items Requiring Attention . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34\n6. Appendix: Relevant Requirements per Section . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# OCA Application Note\n\nRelevant for OCPP version: 1.6 and 2.0.1.\n\nCopyright \u00a9 2024 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "OCA Application Note",
+      "heading_path": "OCA Application Note"
+    }
+  },
+  {
+    "content": "# Version History\n\n- Version: 1.0; Date: 2020-07-14; Author: Franc Buve (OCA); Description: 1.0 version\n- Version: 2.0; Date: 2021-09-17; Author: Franc Buve (OCA); Description: Extended with support for real-time cost calculation on the charger.\n- Version: 2.1; Date: 2023-06-05; Author: Franc Buve (OCA); Description: Fixed minor typos/inconsistencies in JSON examples\n- Version: 3.0; Date: 2024-02-22; Author: Franc Buve (OCA); Description: Added multi-language support\n- Version: 3.1; Date: 2024-09-13; Author: Franc Buve (OCA); Description: Fixed error in par 3.2 where a configuration variable was referred to as DefaultPrice instead of DefaultPriceText. Fixed fields in TransactionEventResponse (UpdatedPersonalMessage). Removed \"idlePrice\" from DefaultPrice in sequence diagrams.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Version History",
+      "heading_path": "Version History"
+    }
+  },
+  {
+    "content": "# 1. Introduction\n\nThe National Conference on Weights and Measures in the USA has issued a document [1] with checklists and test procedures for electric vehicle fueling systems, which has been adopted by the California Division of Measurement Standards (DMS). Many requirements in the checklists apply to capabilities of the charging station (e.g. having a display or how to display prices), but in some cases it poses requirements for information that is being exchanged between charging station and CSMS (back-office).\n\nThis document explains how price and cost information can be communicated to the customer with OCPP 1.6 by creating a few custom extensions. It continues to show how this can be achieved in OCPP 2.0.1 with standard messages. A customization of a single message is required if real-time cost calculation on the charger is needed.\n\nSection Checklist Items Requiring Attention summarizes the items for which no direct support exists in OCPP and offers alternative solutions. Finally, the Appendix: Relevant Requirements per Section lists all requirements from the checklist that are relevant to OCPP.\n\nBased on experiences from first implementations in the field this document has been updated. The running cost information is now sent in a structured JSON-format, which will result in more standardized implementations. The new format also enables the charging station to calculate and display a running total in between the periodic cost updates that it receives from the back-end.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "1. Introduction",
+      "heading_path": "1. Introduction"
+    }
+  },
+  {
+    "content": "# 2. Cost Calculation in OCPP\n\nSince tariffs can potentially be quite complex with prices depending on things like time of day, power, amount of energy and type of contract, OCPP has adopted the approach of letting the CSMS calculate the cost and communicate this to the charging station. In a situation where CPO and eMSP are not the same party, we have to deal with two different prices: a wholesale price that CPO is charging to the eMSP and a retail price of eMPS to the customer. It is the retail price that has to be communicated on the charging station. Note, that the eMSP retail price can vary from a simple surcharge on the wholesale price to something completely unrelated, like a flat rate. This is something that can only be provided by the CSMS, because the charging station does not have access to this data.\n\nUpon each meter value that the charging station sends, CSMS will send back the calculated running cost of the transaction. This means that the running cost on the display will only be updated after each meter interval. Typically, meter values are sent every 30 to 60 seconds on a fast charger (level 3) and every 5 to 15 minutes on a regular (level 2) charging station. This update frequency is too low to pass CTEP [2] certification. To remedy this situation we provide the charging station with the unit prices that are needed to calculate and show the running cost locally until the next cost update from CSMS arrives.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "2. Cost Calculation in OCPP",
+      "heading_path": "2. Cost Calculation in OCPP"
+    }
+  },
+  {
+    "content": "# 3. Tariff and Cost Features in OCPP 1.6\n\nOCPP 1.6 does not provide any support for the communication of cost or prices. Therefore, extensive customization is needed on both Central System and charge point [3] to transfer the required data. These customizations on both ends need to be perfectly aligned, or it will not work.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3. Tariff and Cost Features in OCPP 1.6",
+      "heading_path": "3. Tariff and Cost Features in OCPP 1.6"
+    }
+  },
+  {
+    "content": "# 3.1. Displaying Price and Cost in OCPP 1.6\n\nIt is possible to use a ChangeConfiguration message to set a default price to be displayed at a charge point. This mechanism is, however, not suitable to display a running cost or final cost message, since these messages depend on the transaction in progress and must only be shown to the user of the transaction and at the right connector.\n\nA better method is therefore to use DataTransfer messages to convey the pricing information to the charge point. A way to implement this, is to use a configuration key for the default price and create a custom SetUserPrice and a RunningCost and FinalCost message in OCPP 1.6 using DataTransfer. This makes it possible to link the pricing information to the user or the transaction.\n\nIt is good practice to define a boolean configuration key (\"CustomDisplayCostAndPrice\"), that a Central System can query to find out if this customization is present and optionally use it to enable or disable the customization:\n\nChangeConfiguration.req( \"CustomDisplayCostAndPrice\", \"true\" )\n\nDataTransfer messages need to have a vendor ID to identify the customization. We advise to use the value \"org.openchargealliance.costmsg\" to identify the customizations that are described in this document.\n\nThe pricing messages are described in the following sections.\n\nNOTE Backslashes that are required to escape quotation marks within a field have been omitted from the command examples for readability.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.1. Displaying Price and Cost in OCPP 1.6",
+      "heading_path": "3.1. Displaying Price and Cost in OCPP 1.6"
+    }
+  },
+  {
+    "content": "# 3.1.1. Default Price\n\nThe default price is displayed when the user has not yet been identified, because authorization has not taken place. Setting of the default price is only needed once, as long as it does not change, and can therefore be done via a configuration variable. This variable is set with a JSON string with three data fields.\n\nThe field priceText holds a text to show on the display. The optional field priceTextOffline can be used to display a different pricing message when the charge point is offline. An optional third field chargingPrice can contain the pricing components that the charge point should use in case a transaction is started while the charge point is offline and cannot receive RunningCost messages. (See Sequence diagrams for (partly) offline situations).\n\nThere is no \"idlePrice\" component in the default price, because when the charge point is offline, the Central System cannot notify the charge point that it should start using idle price. See Idle Time During Transaction for more information on idle time.\n\nAn example message for DefaultPrice with pricing information to use when offline:\n\nChangeConfiguration.req( \"DefaultPrice\", \"{\n\"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\",\n\"priceTextOffline\": \"The station is offline. Charging is possible for 0.15 $/kWh.\",\n\"chargingPrice\": { \"kWhPrice\": 0.15, \"hourPrice\": 0.00, \"flatFee\": 0.00 }\n}\" )\n\nAn example message for DefaultPrice when no cost is calculated when offline:\n\nChangeConfiguration.req( \"DefaultPrice\", \"{\n\"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\",\n\"priceTextOffline\": \"The station is offline. The charging is free-of-charge.\",\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.1.1. Default Price",
+      "heading_path": "3.1.1. Default Price"
+    }
+  },
+  {
+    "content": "# Table 1. data fields in ChangeConfiguration.req for DefaultPrice\n\nstring: 1..1\nstring: 0..1\nChargingPrice: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 1. data fields in ChangeConfiguration.req for DefaultPrice",
+      "heading_path": "Table 1. data fields in ChangeConfiguration.req for DefaultPrice"
+    }
+  },
+  {
+    "content": "# 3.1.2. User-specific Price\n\nWhen the user has been identified, Central System can send the user-specific price. It is linked to the authorization token. This may be a different price than the default price. The user-specific price message is for display only. It has no \"chargingPrice\" and \"idlePrice\" fields, because Central System will send a RunningCost message immediately after the StartTransaction message.\n\nDataTransfer.req( \"vendorId\": \"org.openchargealliance.costmsg\",\n\"messageId\": \"SetUserPrice\",\n\"data\": \"{\n\"idToken\": \"12345678\",\n\"priceText\": \"$0.12/kWh, no idle fee\"\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.1.2. User-specific Price",
+      "heading_path": "3.1.2. User-specific Price"
+    }
+  },
+  {
+    "content": "# Table 2. data fields in DataTransfer.req for SetUserPrice\n\nstring: 1..1\nstring: 1..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 2. data fields in DataTransfer.req for SetUserPrice",
+      "heading_path": "Table 2. data fields in DataTransfer.req for SetUserPrice"
+    }
+  },
+  {
+    "content": "# 3.1.3. Final Cost\n\nThe following message is used to send the final cost. It is linked to the transaction and sent at the end of the transaction. The cost field contains the total cost, which the charge point might use to send to an integrated payment terminal if it is equipped with one. The priceText field contains the message for display at the charge point, which shows the price and its components. It can also contain a URL that points to a location where the user can retrieve an invoice. For convenience this URL can also be provided in the optional qrCodeText field. A charge point that supports it, can then display the URL as a QR code for easy scanning by the user.\n\nDataTransfer.req( \"vendorId\": \"org.openchargealliance.costmsg\",\n\"messageId\": \"FinalCost\",\n\"data\": \"{\n\"transactionId\": 98765,\n\"cost\": 3.31,\n\"priceText\": \"$2.81 @ $0.12/kWh, $0.50 @ $1/h, TOTAL KWH: 23.4\nTIME: 03.50 COST: $3.31.\nVisit www.cpo.com/invoices/13546 for an invoice of your session.\",\n\"qrCodeText\": \"https://www.cpo.com/invoices/13546\"\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.1.3. Final Cost",
+      "heading_path": "3.1.3. Final Cost"
+    }
+  },
+  {
+    "content": "# Table 3. data fields in DataTransfer.req for FinalCost\n\ninteger: 1..1\ndecimal: 1..1\nstring: 1..1\nstring: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 3. data fields in DataTransfer.req for FinalCost",
+      "heading_path": "Table 3. data fields in DataTransfer.req for FinalCost"
+    }
+  },
+  {
+    "content": "# 3.1.4. RunningCost Message\n\nThe RunningCost message is used to display the price and cost during the transaction.\n\nThe Central System sends a DataTransfer message, called \"RunningCost\", immediately after sending the StartTransaction.conf response. This message also has the unit prices that the charging point needs to calculate the running cost locally, so that a real-time display of transaction cost can be shown to the customer.\n\nUpon each meter value it receives from the charge point the Central System updates the running cost of the transaction and sends a RunningCost message, that holds the cost of the transaction up to the meter value that it just received.\n\nThe message has unit prices to be used when the EV is charging and optionally a unit price for an idle fee. It is up the Central System to decide if and when an idle fee shall be charged. This is indicated by the field \"state\", which can be \"Charging\" or \"Idle\". The price for charging is sent in the chargingPrice field; the price for idle in the idlePrice field.\n\nIf the prices change at a certain time of the day, then these can be added in the optional nextPeriod field. There may be other situations when the price might change, however. For that purpose a field triggerMeterValue can be added, which describes when, in addition to the regular sampled meter values, the charging point should send a meter value. Upon receiving a meter value Central System will send a new RunningCost message which contains the updated price information. A triggerMeterValue can be set to a time of day, an energy amount or a power amount.\n\nA full description of the JSON structure for the RunningCost message is shown below:",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.1.4. RunningCost Message",
+      "heading_path": "3.1.4. RunningCost Message"
+    }
+  },
+  {
+    "content": "# Table 4. data fields in DataTransfer.req for RunningCost\n\ninteger: 1..1\ndateTime: 1..1\ninteger: 1..1\ndecimal: 1..1\nstring: 1..1\nChargingPrice: 1..1\nIdlePrice: 0..1\nNextPeriod: 0..1\nTriggers: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 4. data fields in DataTransfer.req for RunningCost",
+      "heading_path": "Table 4. data fields in DataTransfer.req for RunningCost"
+    }
+  },
+  {
+    "content": "# Table 5. ChargingPrice\n\ndecimal: 0..1\ndecimal: 0..1\ndecimal: 0..1\nType: Card.\ninteger: 0..1\ndecimal: 0..1\n\ndateTime: 1..1\nChargingPrice: 1..1\nIdlePrice: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 5. ChargingPrice",
+      "heading_path": "Table 5. ChargingPrice",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "dateTime: 0..1\ndecimal: 0..1\ndecimal: 0..1\nstring: 0..6",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 5. ChargingPrice",
+      "heading_path": "Table 5. ChargingPrice",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# RunningCost (full example)\n\nDataTransfer.req(\"vendorId\": \"org.openchargealliance.costmsg\",\n\"messageId\": \"RunningCost\",\n\"data\": \"{\n\"transactionId\": 12345,\n\"timestamp\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000,\n\"cost\": 1.00,\n\"state\": \"Charging\",\n\"chargingPrice\": {\n\"kWhPrice\": 0.123, \"hourPrice\": 0.00, \"flatFee\": 0.00 },\n\"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 },\n\"nextPeriod\": {\n\"atTime\": \"2021-03-19T19:00:00Z\",\n\"chargingPrice\": {\n\"kWhPrice\": 0.100, \"hourPrice\": 0.00, \"flatFee\": 0.00 },\n\"idlePrice\": { \"hourPrice\": 0.00 }\n},\n\"triggerMeterValue\": {\n\"atTime\": \"2021-03-19T23:00:00Z\",\n\"atEnergykWh\": 50.0,\n\"atPowerkW\": 0.1,\n\"atCPStatus\": [ \"SuspendedEV\", \"SuspendedEVSE\" ]\n}\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "RunningCost (full example)",
+      "heading_path": "RunningCost (full example)"
+    }
+  },
+  {
+    "content": "# RunningCost (minimal example, only kWh price)\n\nDataTransfer.req(\"vendorId\": \"org.openchargealliance.costmsg\",\n\"messageId\": \"RunningCost\",\n\"data\": \"{\n\"transactionId\": 12345,\n\"timestamp\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000,\n\"cost\": 1.00,\n\"state\": \"Charging\",\n\"chargingPrice\": { \"kWhPrice\": 0.123 }\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "RunningCost (minimal example, only kWh price)",
+      "heading_path": "RunningCost (minimal example, only kWh price)"
+    }
+  },
+  {
+    "content": "# RunningCost (realistic example, kWh price, idle fee, future price change)\n\nDataTransfer.req(\"vendorId\": \"org.openchargealliance.costmsg\",\n\"messageId\": \"RunningCost\",\n\"data\": \"{\n\"transactionId\": 12345,\n\"timestamp\": \"2021-03-19T14:00:00Z\", \"meterValue\": 1234567,\n\"cost\": 1.00,\n\"state\": \"Idle\",\n\"chargingPrice\": { \"kWhPrice\": 0.123 },\n\"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 },\n\"nextPeriod\": {\n\"atTime\": \"2021-03-19T19:00:00Z\",\n\"chargingPrice\": { \"kWhPrice\": 0.100 },\n\"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 }\n}\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "RunningCost (realistic example, kWh price, idle fee, future price change)",
+      "heading_path": "RunningCost (realistic example, kWh price, idle fee, future price change)"
+    }
+  },
+  {
+    "content": "# 3.2. Multi-language support for tariffs (new in v3)\n\nNOTE A charge point that provides multi-language support for tariffs will report the configuration key \"CustomMultiLanguageMessages\" as true.\n\nThe Central System can check if a charge point provides multi-language support as follows:\n\nGetConfiguration.req( \"CustomMultiLanguageMessages\" )\n\nThis will return a value \"true\" when this customization is supported.\n\nIn order to minimize the impact of adding the multi-language customization, the existing priceText field remains valid, and a new field priceTextExtra is added to support different languages. The CTEP customization allows for a maximum of 4 languages to be sent in addition to the default language.\n\nThe Central System needs to be able to retrieve the list of languages that are supported by the UI of the charging station. To allow for this, a configuration key is added through which a charging station conveys how many and which languages it can support. (Shown values are only an example).\n\nLanguage codes shall be specified as IETF RFC5646 (as in OCPP 2.0.1).\n\nChangeConfiguration.req( \"SupportedLanguages\", \"en,de,fr,nl,sv\" )\n\nThis leads to the following overview of configuration variables for the multi-language support.\n\nboolean: RO\nstring: RW\nCSL: RO",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.2. Multi-language support for tariffs (new in v3)",
+      "heading_path": "3.2. Multi-language support for tariffs (new in v3)"
+    }
+  },
+  {
+    "content": "# 3.2.1. Multi-language default tariffs/pricing information\n\nThe default pricing is set as follows:\n\nChangeConfiguration.req( \"DefaultPrice\", \"{ \"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\", \"priceTextOffline\": \"The station is offline. Charging is possible for 0.15 $/kWh.\", \"chargingPrice\": { \"kWhPrice\": 0.15, \"hourPrice\": 0.00, \"flatFee\": 0.00 } }\" )\n\nFields priceTextOffline and chargingPrice have a cardinality [0..1], as they are only needed when supporting offline operations.\n\nThere are limitations on how long the value part of a configuration key can be, so we need multiple keys for multi-lingual support, one per language. The name of the key is \"DefaultPriceText,language code>\". The standard configuration key \"DefaultPrice\" is still used to define the chargingPrice to ensure that the same pricing will be used for all languages.\nChangeConfiguration.req( \"DefaultPriceText,language code>\", \"{\n\n\"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\",\n\n\"priceTextOffline\": \"The station is offline. Charging is possible for 0.15$/kWh.\"\n\n}\" )\n\nwhere language code> is the language code per RFC5646. Thus, we could for instance have the following configuration keys:\n\n- DefaultPrice               -- text in default language and chargingPrice\n- DefaultPriceText,en-US     -- text for English language in US\n- DefaultPriceText,fr-CA     -- text for French language in Canada\n- DefaultPriceText,sv        -- text for Swedish language\n\nAll depends on which languages we need to support, and if multiple variants of the same language are needed.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.2.1. Multi-language default tariffs/pricing information",
+      "heading_path": "3.2.1. Multi-language default tariffs/pricing information"
+    }
+  },
+  {
+    "content": "# 3.2.2. Multi-language driver/user-specific pricing\n\nDriver/user specific pricing in the default language is sent as follows:\n\nDataTransfer.req( \"org.openchargealliance.costmsg\", \"SetUserPrice\", \"{\n\n\"idToken\": \"12345678\",\n\n\"priceText\": \"\u20ac0.12/kWh, no idle fee\"\n\n}\" )\n\nSince DataTransfer message does not have the size limitations of a configuration key, we can add multiple languages in the same message. When the configuration \"CustomMultiLanguageMessages\" was reported as \"true\", the DataTransfer.req will add the field priceTextExtra, which is a variant of priceText with format, language and content fields. priceTextExtra is used for text in other languages than the default language.\n\nDataTransfer.req( \"org.openchargealliance.costmsg\", \"SetUserPrice\", \"{\n\n\"idToken\": \"12345678\",\n\n\"priceText\": \"GBP 0.12/kWh, no idle fee\",\n\n\"priceTextExtra\": [{\"format\": \"UTF8\", \"language\": \"nl\",\n\n\"content\": \"\u20ac0.12/kWh, geen idle fee\"},\n\n{\"format\": \"UTF8\", \"language\": \"de\",\n\n\"content\": \"\u20ac0,12/kWh, keine Leerlaufgeb\u00fchr\"},\n\n...]\n\n}\" )",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.2.2. Multi-language driver/user-specific pricing",
+      "heading_path": "3.2.2. Multi-language driver/user-specific pricing"
+    }
+  },
+  {
+    "content": "# 3.2. Price Text Extra\n\nThe field priceTextExtra has the same format as MessageContentType in OCPP 2.0.1:\n\nstring: 1..1\nstring: 1..1\nstring: 1..1\n\nThe supported languages are constrained by the configuration keys described in Multi-language support for tariffs (new in v3).",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.2. Price Text Extra",
+      "heading_path": "3.2. Price Text Extra"
+    }
+  },
+  {
+    "content": "# 3.2.3. Multi-language final cost\n\nThe priceTextExtra field for FinalCost is treated in exactly the same way as above.\n\nDataTransfer.req( \"org.openchargealliance.costmsg\", \"FinalCost\", \"{\n\"transactionId\": 98765,\n\"cost\": 3.31,\n\"priceText\": \"GBP 2.81 @ 0.12/kWh, GBP 0.50 @ 1/h, TOTAL KWH: 23.4\nTIME: 03.50 COST: GBP 3.31.\nVisit www.cpo.com/invoices/13546 for an invoice of your session.\",\n\"priceTextExtra\": [\n{\"format\": \"UTF8\", \"language\": \"nl\",\n\"content\": \"\u20ac2.81 @ \u20ac0.12/kWh, \u20ac0.50 @ \u20ac1/h, TOTAL KWH: 23.4\nTIME: 03.50 COST: \u20ac3.31.\nBezoek www.cpo.com/invoices/13546 voor een factuur van\nuw laadsessie.\"},\n{\"format\": \"UTF8\", \"language\": \"de\",\n\"content\": \"\u20ac2,81 @ \u20ac0,12/kWh, \u20ac0,50 @ \u20ac1/h, GESAMT-KWH: 23,4\nZEIT: 03:50 KOSTEN: \u20ac3,31.\nBesuchen Sie www.cpo.com/invoices/13546 um eine Rechnung\nf\u00fcr Ihren Ladevorgang zu erhalten.\u201c}\n]\n\"qrCodeText\": \"https://www.cpo.com/invoices/13546\"\n}\"",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.2.3. Multi-language final cost",
+      "heading_path": "3.2.3. Multi-language final cost"
+    }
+  },
+  {
+    "content": "# 3.3. Timezone for Display\n\nOCPP 1.6 does not have built-in support for timezones. It may be desirable to set a timezone when displaying\ntime related to pricing information. The timezone of the charge point can be set using the following\nconfiguration variables:\n\nTimeOffset:\nChangeConfiguration.req( \"TimeOffset\", \"-05:00\" )\n\nNextTimeOffsetTransitionDateTime:\nWhen to change to summer or winter time.\nChangeConfiguration.req( \"NextTimeOffsetTransitionDateTime\",\n\"2021-03-28T02:00:00+01:00\"\n\nTimeOffsetNextTransition:\nChangeConfiguration.req( \"TimeOffsetNextTransition\", \"-04:00\" )\nThis is similar to how time offsets are set as device model variables in OCPP 2.0.1.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.3. Timezone for Display",
+      "heading_path": "3.3. Timezone for Display"
+    }
+  },
+  {
+    "content": "# 3.4. Idle Fees\n\nNOTE  Idle fee calculation is not a DMS requirement.\n\nIf the pricing model needs to calculate an idle fee, i.e. charge a fee for being connected after charging has\ncompleted, then there are two different scenarios that can occur. There is idle time within the transaction and",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.4. Idle Fees",
+      "heading_path": "3.4. Idle Fees"
+    }
+  },
+  {
+    "content": "# 3.4.1. Idle Time During Transaction\n\nDMS or CTEP do not define how idle time should be measured if an idle fee is charged. It is up to Central System and not the charge point, to decide when a transaction is considered to be in idle time. The reason for this is, that charging may have been suspended on request of Central System due to a demand response event or a smart charging algorithm. In that case it would not be fair to charge an idle fee to the customer.\n\nCentral System can detect that an EV is no longer charging when it sees that meter values stay the same. Depending on the meter value interval, it can take many minutes before it is noticed, unless the charge point sends a status notification SuspendedEV or SuspendedEVSE.\n\nNOTE It is up to the CSO to decide whether both SuspendedEV and SuspendedEVSE are counted as idle time, or only SuspendedEV is considered idle time.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.4.1. Idle Time During Transaction",
+      "heading_path": "3.4.1. Idle Time During Transaction"
+    }
+  },
+  {
+    "content": "# Detect idle by low power usage\n\nCentral System can request the charge point to send a meter value whenever the vehicle charges with less than a certain power by setting the atPowerkW trigger (e.g. at a value of 0.1 kW). If the charge point has been configured to send not only the measurand \"Energy.Active.Import.Register\", but also \"Power.Active.Import\", then Central System will immediately know from the power reading, that the EV has stopped charging. If only the register reading is provided, then Central System will have to wait until the next meter value to know that the EV has stopped charging. This is still quicker than via the regular meter intervals, though.\n\nNOTE A meter value is triggered to be sent every time the atPowerkW threshold is crossed in upward or downward direction. Some logic in the Central System is required to determine the direction in which the threshold is crossed.\nIf a charging suspension is caused by local load-balancing and not initiated by the Central System, then the Central System will not know, based on power consumption alone, whether the suspension is caused by EV or EVSE, unless it also monitors the StatusNotifications for SuspendedEV or SuspendedEVSE. In that situation it is convenient to use the atCPStatus trigger.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Detect idle by low power usage",
+      "heading_path": "Detect idle by low power usage"
+    }
+  },
+  {
+    "content": "# 3.4. Detect idle by charge point status change\n\nWhen a charge point goes into a SuspendedEV or SuspendedEVSE state, then Central System knows that charging has paused when it receives a StatusNotification.req. If the Central System needs to know the meter value at start of pausing, then the RunningCost messages should contain the atCPStatus trigger with the values SuspendedEV and SuspendedEVSE, in order to trigger the charge point to send a meter value at that moment.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.4. Detect idle by charge point status change",
+      "heading_path": "3.4. Detect idle by charge point status change"
+    }
+  },
+  {
+    "content": "# 3.4.1. Switch between Idle and Charging\n\nWhen Central System detects that charging has paused, it will send a new RunningCost message with state set to \"Idle\". From that moment on, the charge point will charge the idle time according to the parameters in idlePrice.\n\nWhen the EV resumes charging, the charge point may send a status notification \"Charging\" or it will after some time send a meter value. (Sending of the meter value can be forced by setting the atPowerkW or atCPStatus triggers). Central System will then send a new RunningCost message with state set to \"Charging\" and the charge point will use the chargingPrice information to calculate cost to show on the display.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.4.1. Switch between Idle and Charging",
+      "heading_path": "3.4.1. Switch between Idle and Charging"
+    }
+  },
+  {
+    "content": "# 3.4.2. Idle Time When Transaction Has Ended\n\nIt is more difficult to detect idle time that occurs after the transaction has finished and the EV remains connected. A tempting solution in OCPP 1.6 would be to wait for a StatusNotification \"Available\" to signal that the vehicle has been unplugged. This is, however, not reliable. In the event that the charge point is offline when the transaction is stopped, the StatusNotifications may never reach Central System, since they are not required to be queued by the charge point.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.4.2. Idle Time When Transaction Has Ended",
+      "heading_path": "3.4.2. Idle Time When Transaction Has Ended"
+    }
+  },
+  {
+    "content": "# 3.4.3. Reliable Connector Unplug Message\n\nUsing the StatusNotification to detect unplugging is not always reliable, since this message is not guaranteed to be queued when the charge point is offline. A work-around for this is to define a DataTransfer message \"ConnectorUnplugged\", which the charge point sends to signal that the connector has been unplugged and the idle fee calculation can be stopped.\n\nSuch a DataTransfer message looks like this:\n\nDataTransfer.req( \"vendorId\": \"org.openchargealliance.costmsg\",\n\"messageId\": \"ConnectorUnplugged\",\n\"data\": \"{\"transactionId\": 123456, \"timestamp\": \"2020-06-01T12:34:00Z\"}\"\n)\nThis DataTransfer \"ConnectorUnplugged\" message does not replace the existing StatusNotification.req message. The DataTransfer \"ConnectorUnplugged\" is sent as an additional reliable message that is queued as long as the charge point is offline, like other transaction-related messages.\n\nA charge point still needs to send the StatusNotification.req when the connector becomes available, since a Central System might depend on it to report accurate connector status. It also ensures maximum compatibility in case a Central System does not support the new DataTransfer message.\n\nA Central System normally ends a transaction upon receiving the StopTransaction.req message. If the customization to calculate an idle fee after a transaction has stopped (until connector is unplugged) has been implemented, then this must be reported in a boolean configuration key \"CustomIdleFeeAfterStop\" that reports \"true\" to the Central System, so that it knows, that it has to extend the transaction until receipt of the DataTransfer \"ConnectorUnplugged\".\n\nChangeConfiguration.req( \"CustomIdleFeeAfterStop\", \"true\" )\nThis same configuration key can be used by the Central System to switch this behavior off, when it does not",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.4.3. Reliable Connector Unplug Message",
+      "heading_path": "3.4.3. Reliable Connector Unplug Message"
+    }
+  },
+  {
+    "content": "# 3.5. Direct Payment\n\nNormally, it is the eMSP that invoices the customer, but in the event of direct payment with credit or debit card or other means, then the CPO acts as an eMSP. In that case there must be a way to make a printable receipt available to the customer upon request. (See [EVSE_S.2.6])\n\nSince a charge point is not normally equipped with a printer, the solution is to display a message that directs the customer to a website where the receipt can be downloaded.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.5. Direct Payment",
+      "heading_path": "3.5. Direct Payment"
+    }
+  },
+  {
+    "content": "# 3.6. Sequence diagrams showing the OCPP 1.6 customizations\n\nThe following diagram shows the sequence of events to report price and cost during a transaction.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6. Sequence diagrams showing the OCPP 1.6 customizations",
+      "heading_path": "3.6. Sequence diagrams showing the OCPP 1.6 customizations"
+    }
+  },
+  {
+    "content": "# 3.6.1. Price calculation during transaction\n\nCentral System sends calculated cost and price for current and optionally next period. Charge point uses this to calculate intermediate cost values.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6.1. Price calculation during transaction",
+      "heading_path": "3.6.1. Price calculation during transaction",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "opt \\[Install new default price]: \nChangeConfiguration.req( \"DefaultPrice\", \"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\", \"chargingPrice\": { \"kWhPrice\": 0.15, \"hourPrice\": 0.00, \"flatFee\": 0.00 } ): \nChangeConfiguration.conf( Accepted ): \nStarting transaction: User authorizes on #1\nAuthorize.req( \\<idToken> ): \nAuthorize.conf( Accepted ): \nCentral System sends user-specific price: \nDataTransfer.req( \"SetUserPrice\", \\<idToken>, \"$0.123 per kWh, 1$/hour idle fee\" ): \nDataTransfer.conf( Accepted ): \nStartTransaction.req( 1, \\<idToken>, meterValue=1234000 ): User plugs in\nStartTransaction.conf( Accepted, \\<txId> ): \nCentral System sends cost and unit price with triggers for price change at 19:00H and at idle threshold: \nDataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000, \"cost\": 0.00, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 }, \"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 }, \"nextPeriod\": { \"atTime\": \"2021-03-19T19:00:00Z\", ... }, \"triggerMeterValue\": { \"atPowerkW\": 0.1 } } ): \nDataTransfer.conf( Accepted ): \nloop \\[Display usage and cost]: \ncalculate and display cost based on locally measured usage: \nReceiving meter values: \nloop \\[During transaction]: \nMeterValue.req( 1235000 ): CP sends new meter value\nMeterValue.conf(): \nDataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:10:00Z\", \"meterValue\": 1235000, \"cost\": 1.23, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 }, \"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 }, \"nextPeriod\": { \"atTime\": \"2021-03-19T19:00:00Z\", ... }, \"triggerMeterValue\": { \"atPowerkW\": 0.1 } } ): \nDataTransfer.conf( Accepted ): \nloop: \ncalibrate locally calculated *cost* with central cost: \nloop \\[Display usage and cost]: \ncalculate and display cost based on locally measured usage: \nTransaction continues: ",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6.1. Price calculation during transaction",
+      "heading_path": "3.6.1. Price calculation during transaction",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "Figure 1. Price calculation during transaction",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6.1. Price calculation during transaction",
+      "heading_path": "3.6.1. Price calculation during transaction",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# 3.6.2. Price calculation when EV stops and resumes\n\nWhen Central System discovers that EV has stopped charging, it sends a RunningCost for state 'Idle' with grace period, idle costs and charging costs. Charging costs are included so that Charge point can start counting again as soon as EV resumes charging.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6.2. Price calculation when EV stops and resumes",
+      "heading_path": "3.6.2. Price calculation when EV stops and resumes",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "EV has stopped charging: \nEV stops charging: \nMeterValue.req( 1236789 ): EV sends meter value when charging drops below atPowerkW watts\nMeterValue.conf(): \nMeterValue.req( 1236789 ): EV sends regular sampled meter value\nMeterValue.conf(): \nCentral System detects *starts* grace and idle period: \nCentral System sends updated cost and unit price: \nDataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T14:00:00Z\", \"meterValue\": 1236789, \"cost\": 2.00, \"state\": \"Idle\",\"chargingPrice\": {\"kWhPrice\": 0.123 }, \"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 }, \"triggerMeterValue\": { \"atPowerkW\": 0.1 } } ): \nDataTransfer.conf( Accepted ): \nloop \\[Grace period of 30 minutes]: \nno cost for idle: \nloop \\[Idle period]: \ncalculate and display cost for idle time: \nEV resumes charging: \nEV resumes charging: \nMeterValue.req( 1236790 ): EV sends meter value when charging rises above atPowerkW watts\nMeterValue.conf(): \nMeterValue.req( 1236800 ): EV sends regular sampled meter value\nMeterValue.conf(): \nCentral System detects *stops* charging idle fee: \nCentral System sends updated cost and next period price: \nDataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T15:00:00Z\", \"meterValue\": 1236800, \"cost\": 2.50, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 }, \"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 }, \"triggerMeterValue\": { \"atPowerkW\": 0.1 } } ): \nDataTransfer.conf( Accepted ): \nloop: \ncalibrate locally calculated *cost* with central cost: \nloop \\[Display usage and cost]: \ncalculate and display cost based on locally measured usage: \nTransaction continues: ",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6.2. Price calculation when EV stops and resumes",
+      "heading_path": "3.6.2. Price calculation when EV stops and resumes",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 3.6.3. Price calculation at stop of transaction\n\nStopTransaction.req( txId, meterValue=1260100 ): User stops transaction\nStopTransaction.conf(): \n\nCalculate idle fee after stop until plugged out (optional)\n\nCentral System sends\n\nDataTransfer.req( \"RunningCost\", \"{ \"transactionId\": txId>, \"time\": \"2021-03-19T15:30:00Z\", \"meterValue\": 1260100,\n\"cost\": 3.50,\n\"state\": \"Idle\",\n\"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 } } )\nupdated cost and unit price for idle.\n\nOther fields are no longer applicable and MAY be omitted.\n\ncalibrate locally calculated *cost* with central cost: \n\nStart charging grace/idle time\n\nloop  [Display usage and cost]\n\ncalculate and display cost for grace/idle time\n\nStatusNotification.conf(): \nDataTransfer.req( \"ConnectorUnplugged\", \\<txId>, \\<timestamp> ): CP reliably signals connector unplugged\nDataTransfer.conf( Accepted ): ",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.6.3. Price calculation at stop of transaction",
+      "heading_path": "3.6.3. Price calculation at stop of transaction"
+    }
+  },
+  {
+    "content": "# 3.7. Sequence diagrams for (partly) offline situations\n\nDifferent operators may implement different behavior for offline situations. This may also be governed by local legislation. The sequence diagrams shown in this chapter are meant to illustrate which messages can be sent in partly offline situations. These are not normative.\n\nThe final cost is calculated by Central System. Without a connection the charge point can only show the cost that it has calculated locally. This should be the same as the cost from Central System, but that is not guaranteed. Several approaches are possible:\n\n- No charge\nWhen the final cost cannot be displayed, nothing is charged for the transaction.\n- Partial charge\nWhen the final cost cannot be displayed, only charge up to the last meter value received during the transaction.\n- Regular charge\nWhen the final cost cannot be displayed, show a message to the customer, that the cost shown on the display may deviate slightly from the final cost on the invoice, because the system currently has no connection with the back-office. Or alternatively, do not show any cost at all due to lack of connectivity.\n\nDislay final cost\nCentral System DataTransfer.req( \"FinalCost\", txId>, 3.70, \"$3.20 @ $0.123/kWh, $0.50 @ $1/h, TOTAL KWH: 26.1 TIME: 03:30H COST: $3.70\" ) } sends final cost\n\nDataTransfer.conf( Accepted )\n\ndisplay total cost and quantity\n\nFigure 3. Price calculation at stop of transaction",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7. Sequence diagrams for (partly) offline situations",
+      "heading_path": "3.7. Sequence diagrams for (partly) offline situations"
+    }
+  },
+  {
+    "content": "# 3.7.1. Price calculation when temporarily offline\n\nThe charge point can continue with its calculations for current and next period, and final cost can be displayed, because it is back online before the transaction finishes.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.1. Price calculation when temporarily offline",
+      "heading_path": "3.7.1. Price calculation when temporarily offline",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "Transaction is in progress Receiving a meter value loop \\[During transaction] MeterValue.req( 1234000 ) MeterValue.conf() Central System sends DataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000, \"cost\": 3.12, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 } } ) updated cost and unit price DataTransfer.conf( Accepted ): CP sends new meter value CP recalibrates cost calibrate locally calculated *cost* with central cost loop \\[Display usage and cost] calculate and display cost based on locally measured usage\nConnection to Central System is lost Charge Point goes offline MeterValue.req(): loop \\[While offline] calculate and display cost based on known prices for current and next period\nConnection to Central System is restored Charge Point back online loop \\[During transaction] MeterValue.req( 1244000 ) MeterValue.conf() Central System sends DataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T14:00:00Z\", \"meterValue\": 1244000, \"cost\": 1.23, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 } } ) updated cost and next period price DataTransfer.conf( Accepted ): CP sends new meter value CP recalibrates cost calibrate locally calculated *cost* with central cost loop \\[Display usage and cost] calculate and display cost based on locally measured usage\nContinuing as online transaction: ",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.1. Price calculation when temporarily offline",
+      "heading_path": "3.7.1. Price calculation when temporarily offline",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "Figure 4. Price calculation when temporarily offline",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.1. Price calculation when temporarily offline",
+      "heading_path": "3.7.1. Price calculation when temporarily offline",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# 3.7.2. Price calculation for offline stopped transaction\n\nThe charge point has calculated the price, but final cost cannot be displayed until the charge point is online again.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.2. Price calculation for offline stopped transaction",
+      "heading_path": "3.7.2. Price calculation for offline stopped transaction",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Transaction is in progress Receiving a meter value loop \\[During transaction] MeterValue.req( 1234000 ) MeterValue.conf() Central System sends DataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000, \"cost\": 3.12, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 } } ) next period price DataTransfer.conf( Accepted ): CP sends new meter value CP recalibrates cost calibrate locally calculated *cost* with central cost loop \\[Display usage and cost] calculate and display cost based on locally measured usage\nConnection to Central System is lost Charge Point goes offline MeterValue.req(): loop \\[While offline] calculate and display cost based on unit price for charging. No idle fee calculation.\nUser stops transaction StopTransaction.req( txId, meterValue=1244000 ) CP queues message: Later, when connection to Central System is restored Charge Point back online StopTransaction.req( txId, meterValue=1244000 ) CP sends stop notification StopTransaction.conf()\nCentral System sends DataTransfer.req( \"FinalCost\", \\<txId>, 1.23, \"$1.23 @ $0.123/kWh, $0.00 @ $1/h, TOTAL KWH: 10.0 TIME: 01:30H COST: $1.23\" ): DataTransfer.conf( Accepted ) CP only displays information if this is the most recent transaction and no other transaction in progress",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.2. Price calculation for offline stopped transaction",
+      "heading_path": "3.7.2. Price calculation for offline stopped transaction",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 3.7.3. Price calculation for offline started transaction\n\nUser-specific price is not known. Charge point cannot show running costs, unless it has been configured with unit prices for the default pricing. The user agrees to use default pricing. If the charge point gets back online, Central System continues to use the default price scheme.\n\nNOTE Alternatively, charging could be disallowed or be free of charge while offline.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.3. Price calculation for offline started transaction",
+      "heading_path": "3.7.3. Price calculation for offline started transaction",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Central System: Charge Point\nDefault price was installed previously ChangeConfiguration.req( \"DefaultPrice\", \"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\", \"chargingPrice\": { \"kWhPrice\": 0.15, \"hourPrice\": 0.00, \"flatFee\": 0.00 } ) ChangeConfiguration.conf( Accepted ): CP goes offline Transaction is started while offline\nCharge Point is offline Authorize.req( \\<idToken> ): User tries to authorize lookup \\<idToken> in cache/*local* list\nCP authorizes offline \"No price information of user is known Using default pricing. Agree? Y/N\": StartTransaction.req( 1, \\<idToken> ) User plugs in\nCP caches start notification: loop \\[Display usage and cost] calculate and display cost based on locally measured usage. Cannot charge idle fee *while* offline.\nConnection to Central System is restored: Charge Point back online StartTransaction.req( 1, \\<idToken>, meterValue=1234000 )\nCentral Systems notices that transaction was started offline StartTransaction.conf( Accepted, \\<txId> ) DataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000, \"cost\": 0.00, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.150 }, \"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 } } ) DataTransfer.conf( Accepted ): \nloop \\[During transaction] MeterValue.req( 1234100 ): CP sends new meter value\nMeterValue.conf() DataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:10:00Z\", \"meterValue\": 1234100, \"cost\": 0.15, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.150 }, \"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 } } ) DataTransfer.conf( Accepted ): \nloop \\[While offline] calculate and display cost *based* on unit prices: StopTransaction.req( txId, meterValue=1244000 ) User stops transaction\nStopTransaction.conf() Display final cost Central System *DataTransfer.req( \"FinalCost\", \\<txId>, 1.50, \"$1.50 @ $0.150/kWh, $0.00 @ $1/h, TOTAL KWH: 10.0 TIME: 01:00H COST: $1.50\" )* sends final cost: DataTransfer.conf( Accepted ) display total cost and quantity",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.3. Price calculation for offline started transaction",
+      "heading_path": "3.7.3. Price calculation for offline started transaction",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 3.7.4. Price calculation for completely offline transaction\n\nUser-specific price is not known. Charge point cannot show running costs, unless it has been configured with unit prices for the default pricing. User agrees to use default pricing. When Central System later receives the offline start/stop transaction messages, it calculates cost using the default price scheme.\n\nNOTE Alternatively, charging could be disallowed or be free of charge while offline.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.4. Price calculation for completely offline transaction",
+      "heading_path": "3.7.4. Price calculation for completely offline transaction",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Central System: Charge Point\nDefault price was installed previously ChangeConfiguration.req( \"DefaultPrice\", \"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\", \"chargingPrice\": { \"kWhPrice\": 0.15, \"hourPrice\": 0.00, \"flatFee\": 0.00 } ) ChangeConfiguration.conf( Accepted ): CP goes offline Transaction is started while offline\nCharge Point is offline Authorize.req( \\<idToken> ): User tries to authorize lookup \\<idToken> in cache/*local* list\nCP authorizes offline \"No price information of user is known Using default pricing. Agree? Y/N\": StartTransaction.req( 1, \\<idToken> ) User plugs in\nCP caches start notification: loop \\[Display usage and cost] calculate and display cost based on locally measured usage. No idle fee calculation *while* offline.\nStopTransaction.req( txId ) User stops transaction: Connection to Central System is restored",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "3.7.4. Price calculation for completely offline transaction",
+      "heading_path": "3.7.4. Price calculation for completely offline transaction",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# Charge Point back online\n\nStartTransaction.req( 1, idToken>, meterValue=1234000 )\n\nCP sends transaction messages\n\nCentral System notices that transaction started offline\n\nStartTransaction.conf( Accepted, txId> )\n\nStopTransaction.req( txId, meterValue=1244000 )\n\nCentral System notices that transaction finished offline\n\nCalculates cost using default prices 10 kWh @ 0.15/kWh\n\nStopTransaction.conf()\n\nNo FinalCost message is sent, because entire transaction was offline. EV driver most likely not present anymore.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Charge Point back online",
+      "heading_path": "Charge Point back online"
+    }
+  },
+  {
+    "content": "# Figure 7. Price calculation for completely offline transaction",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Figure 7. Price calculation for completely offline transaction",
+      "heading_path": "Figure 7. Price calculation for completely offline transaction"
+    }
+  },
+  {
+    "content": "# 4.1. Displaying Price and Cost in OCPP 2.0.1\n\nOCPP 2.0.1 offers the following standard messages to communicate pricing information to the charging station:\n\n- SetDisplayMessageRequest\n- OCPP provides a mechanism to display messages on a charging station. This can be used to display generic (i.e. not customer-specific) pricing information. Alternatively, or when it is offline, the charging station can display the price message that is configured in the TariffFallbackMessage of component TariffCostCtrlr.\n\nAuthorizeResponse\n- Customer-specific pricing information can be returned upon successful authorization. CSMS requests this information at the eMSP of the associated charging contract that has just been authorized. It then formats this a 512 character message for display at the charging station.\n\nCostUpdatedRequest",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.1. Displaying Price and Cost in OCPP 2.0.1",
+      "heading_path": "4.1. Displaying Price and Cost in OCPP 2.0.1"
+    }
+  },
+  {
+    "content": "# TransactionEventResponse (eventType Update)\n\nWhen the tariff changes during the transaction, for example, in case of a \u2018time of use\u2019 based price, then CSMS sends the updated price in the updatedPersonalMessage of TransactionEventResponse.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "TransactionEventResponse (eventType Update)",
+      "heading_path": "TransactionEventResponse (eventType Update)"
+    }
+  },
+  {
+    "content": "# TransactionEventResponse (eventType Ended)\n\nCSMS shows the final total cost of a transaction in totalCost in the TransactionEvent message that marks the end of the transaction. The field updatedPersonalMessage contains the text for the display that shows the final price and its price components. It might also contain a URL that points to a location where the user can retrieve an invoice. For convenience this URL can optionally be provided in a customData qrCodeText field. A charging station that supports it, can then display the URL as a QR code for easy scanning by the user.\n\nA TransactionEventResponse with such a customData extension looks as follows:\n\nTransactionEventResponse( \"totalCost\": 3.31,\n\"updatedPersonalMessage\": {\"format\": \"UTF8\", \"language\": \"en\",\n\"content\": \"$2.81 @ $0.12/kWh, $0.50 @ $1/h,TOTAL KWH: 23.4 TIME: 03.50\nCOST: $3.31.\nVisit www.cpo.com/invoices/13546 for an invoice of your session.\"},\n\"customData\": {\n\"vendorId\": \"org.openchargealliance.org.qrcode\",\n\"qrCodeText\": \"https://www.cpo.com/invoices/13546\"\n}\n)\n\nWe recommend using a boolean device model variable QRCodeDisplayCapable on the DisplayMessageCtrlr component to tell CSMS whether the station can display QR codes or not.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "TransactionEventResponse (eventType Ended)",
+      "heading_path": "TransactionEventResponse (eventType Ended)"
+    }
+  },
+  {
+    "content": "# 4.1.1. CustomData Extension of CostUpdatedRequest\n\nA charging station that supports this customization will report the device model variable CustomizationCtrlr.CustomImplementationEnabled with instance \"org.openchargealliance.costmsg\" as true.\n\nThe CostUpdatedRequest is extended with customData fields. These are the same fields as are used in the DataTransfer customization for OCPP 1.6, with the exception of the fields for cost and transaction id, which are already part of the message, and without the trigger atCPStatus, because a charging station with OCPP 2.0.1 already sends a TransactionEventRequest with a meter value when the charging state changes.\n\nThe CSMS will send a CostUpdatedRequest as soon as the driver is authorized and the EV is connected to an EVSE. At that point the tariff for the user and EVSE in use are known and a CostUpdatedRequest with chargingPrice and other fields can be sent.\n\nIf all optional fields are used, it looks as follows:",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.1.1. CustomData Extension of CostUpdatedRequest",
+      "heading_path": "4.1.1. CustomData Extension of CostUpdatedRequest"
+    }
+  },
+  {
+    "content": "# CostUpdatedRequest (full example)\n\nCostUpdatedRequest( \"totalCost\": 1.00, \"transactionId\": \"12345\",\n\"customData\": {\n\"vendorId\": \"org.openchargealliance.costmsg\",\n\"timestamp\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000,\n\"state\": \"Charging\",\n\"chargingPrice\": {\n\"kWhPrice\": 0.123, \"hourPrice\": 0.00, \"flatFee\": 0.00 },\n\"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 },\n\"nextPeriod\": {\n\"atTime\": \"2021-03-19T19:00:00Z\",\n\"chargingPrice\": {\n\"kWhPrice\": 0.100, \"hourPrice\": 0.00, \"flatFee\": 0.00 },\n\"idlePrice\": { \"graceMinutes\": 30, \"hourPrice\": 1.00 }\n},\n\"triggerMeterValue\": {\n\"atTime\": \"2021-03-19T23:00:00Z\",\n\"atEnergykWh\": 50.0,\n\"atPowerkW\": 0.1\n}\n}\n)\nThe JSON in customData has the following structure:",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "CostUpdatedRequest (full example)",
+      "heading_path": "CostUpdatedRequest (full example)"
+    }
+  },
+  {
+    "content": "# Table 10. customData fields\n\nstring: 1..1\ndateTime: 1..1\ninteger: 1..1\nstring: 1..1\nChargingPrice: 1..1\nIdlePrice: 0..1\nNextPeriod: 0..1\nTriggers: 0..1\nType: Card.\ndecimal: 0..1\ndecimal: 0..1\ndecimal: 0..1\n\ninteger: 0..1\ndecimal: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 10. customData fields",
+      "heading_path": "Table 10. customData fields",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "dateTime: 1..1\nChargingPrice: 1..1\nIdlePrice: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 10. customData fields",
+      "heading_path": "Table 10. customData fields",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "dateTime: 0..1\ndecimal: 0..1\ndecimal: 0..1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Table 10. customData fields",
+      "heading_path": "Table 10. customData fields",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# 4.2. Device Model Settings for Tariff and Cost\n\nThe following table shows the device model variables on the component TariffCostCtrlr that need to be set in order to activate the showing of tariff and cost on the charging station.\n\n- Variable: Enabled; Instance: \"Tariff\"; Description: When true this enables showing of tariffs.\n- Variable: Enabled; Instance: \"Cost\"; Description: When true this enables showing of cost.\n- Variable: TariffFallbackMessage; Description: Message (and/or tariff information) to be shown to an EV Driver when there is no driver specific tariff information.\n- Variable: TotalCostFallbackMessage; Description: Message to be shown to an EV Driver when the Charging Station cannot retrieve the cost for a transaction at the end of the transaction.\n- Variable: Currency; Description: Currency used for tariff and cost information.\n\nSome additional information is needed to let the charging station know which prices to use when a transaction is started while the charging station is offline and cannot receive RunningCost messages. (See Sequence diagrams for (partly) offline situations).\n\nAn advantage of the device model is, that new variables can easily be introduced. Rather than using a JSON structure to communicate charging and idle prices for use when the charging station is offline, like we do with DefaultPrice in OCPP 1.6, we can use variables of the TariffCostCtrlr component for this. The offline energy and time prices are presented as instances of the OfflineChargingPrice variable. These are set by the CSMS and are usually not changed often.\n\nThere is no \"OfflineIdlePrice\" variable, because when the charge station is offline, the CSMS cannot notify the charge station that it should start using the idle price. See Idle Time During Transaction for more information on idle time.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.2. Device Model Settings for Tariff and Cost",
+      "heading_path": "4.2. Device Model Settings for Tariff and Cost",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "- Variable: TariffFallbackMessage; Instance: \"Offline\"; Description: Optional alternative message to be shown to an EV Driver when the charging station is offline.\n- Variable: OfflineChargingPrice; Instance: \"kWhPrice\"; Description: The energy (kWh) price for transactions started while offline.\n- Variable: OfflineChargingPrice; Instance: \"hourPrice\"; Description: The time (hour) price for transactions started while offline.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.2. Device Model Settings for Tariff and Cost",
+      "heading_path": "4.2. Device Model Settings for Tariff and Cost",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 4.3. Multi-language support for tariffs (new in v3)\n\nA charging station that provides multi-language support for tariffs will not only report the device model variable CustomizationCtrlr.CustomImplementationEnabled with instance \"org.openchargealliance.costmsg\" as true, but also the same variable with instance \"org.openchargealliance.multilanguage\" as true.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.3. Multi-language support for tariffs (new in v3)",
+      "heading_path": "4.3. Multi-language support for tariffs (new in v3)"
+    }
+  },
+  {
+    "content": "# 4.3.1. Device Model Variables\n\nIn order to support multiple languages for TariffFallbackMessage and TotalCostfallbackMessage an instance per message is created. Since the instance is used to designate the language, we can no longer use the instance \"Offline\" to set the message to display when the charging station is offline. A new variable is introduced to hold the offline fallback message.\n\n\\<language code>: string\n\\<language code>: string\n\\<language code>: string\n\nE.g.:\n\n- Variables: TariffFallbackMessage; Instance: \"en-US\"; Description: \"$0.12/kWh, no idle fee\"\n- Variables: TariffFallbackMessage; Instance: \"es-MX\"; Description: \"$0.12/kWh, sin tarifa de inactividad\"\n- Variables: TariffFallbackMessage; Instance: \"fr-CA\"; Description: \"$0,12/kWh, pas de frais d\u2019inactivit\u00e9\"\n\nLanguage codes shall be specified as RFC5646 (per OCPP 2.0.1). This allows eg en, es, and fr to be sufficient if no regional variant is needed.\nAs instances aren\u2019t dynamic in the device model, the station will need to expose all languages that it supports.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.3.1. Device Model Variables",
+      "heading_path": "4.3.1. Device Model Variables"
+    }
+  },
+  {
+    "content": "# 4.3.2. Multi-language driver/user specific tariffs\n\nDriver specific tariffs / pricing information can be returned in the AuthorizeResponse message. The standard message includes a field idTokenInfo of type IdTokenInfoType. That type contains the preferred language of this customer and a personal message.\n\nAuthorizationStatusEnumType: 1..1\nstring\\[0-8]: 0..1\nstring\\[0-8]: 0..1\nMessageContentType: 0..1\n\npersonalMessage is the field that is suitable for sending tariff/pricing information to be displayed to the EV Driver. Note that there is also a field, updatedPersonalMessage, in TransactionEventResponse of the same type that can be used to send updated tariffs/pricing information.\n\nMessageFormatEnumType: 1..1\nstring\\[0-8]: 0..1\nstring\\[0-512]: 1..1\nIn order to support multiple languages, the following customData extension is added to the idTokenInfoType in the AuthorizeResponse:",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.3.2. Multi-language driver/user specific tariffs",
+      "heading_path": "4.3.2. Multi-language driver/user specific tariffs",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.3.2. Multi-language driver/user specific tariffs",
+      "heading_path": "4.3.2. Multi-language driver/user specific tariffs",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 4.3.3. Multi-language final cost\n\nThe TransactionEventResponse allows the CSMS to send the final cost and information about that. In the same way as described above, the TransactionEventResponse will be extended with a customData extension, as follows:\n\n",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.3.3. Multi-language final cost",
+      "heading_path": "4.3.3. Multi-language final cost"
+    }
+  },
+  {
+    "content": "# 4.3.4. Default UI language\n\nThe DisplayMessageCtrlr component is extended with a \"Language\" variable to report the languages supported by the charging station UI.\n\nDisplayMessageCtrlr.Language holds the default language. This can be changed by CSMS. The variableCharacteristics.valuesList of DisplayMessageCtrlr.Language holds the list of supported languages. This cannot be changed by CSMS.\n\nA maximum of 4 additional messages in other languages can be provided in a personalMessage of an AuthorizationResponse or an updatedPersonalMessage of a TransactionEventResponse.\n\nThe standard field idTokenInfo.personalMessage holds the message text in the default language. All other languages are part of the custom field idTokenInfo.customdata.personalMessageExtra[].\n\n- Required: yes; Component: componentName; Variable: DisplayMessageCtrlr; Variable Attributes: variableName; Description: Language\n\nDescription: Default language code, per RFC 5646, of this Charging Station. Value must be one of valuesList. The set of language codes in valuesList is the full set of languages that is supported by the Charging Station.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.3.4. Default UI language",
+      "heading_path": "4.3.4. Default UI language"
+    }
+  },
+  {
+    "content": "# 4.4. Idle Fees\n\nNOTE Idle fee calculation is not a DMS requirement.\n\nIf the pricing model needs to calculate an idle fee, i.e. charge a fee for being connected after charging has completed, then there are two different scenarios that can occur. There is idle time within the transaction and idle time after the transaction has ended while the vehicle remains connected to the charging station.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.4. Idle Fees",
+      "heading_path": "4.4. Idle Fees"
+    }
+  },
+  {
+    "content": "# 4.4.1. Idle Time During Transaction\n\nDMS or CTEP do not define how idle time should be measured if an idle fee is charged. It is up to the CSMS and not the charging station, to decide when a transaction is considered to be in idle time. The reason for this is, that charging may have been suspended on request of the CSMS due to a demand response event or a smart charging algorithm. In that case it would not be fair to charge an idle fee to the customer.\n\nCSMS can detect that an EV is no longer charging when it sees that meter values stay the same. Depending on the meter value interval, it can take many minutes before it is noticed, unless the charging station sends a TransactionEventRequest with a chargingState of SuspendedEV or SuspendedEVSE.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.4.1. Idle Time During Transaction",
+      "heading_path": "4.4.1. Idle Time During Transaction"
+    }
+  },
+  {
+    "content": "# Detect idle by low power usage\n\nCSMS can request the charging station to send a meter value whenever the vehicle charges with less than a certain power by setting the atPowerkW trigger (e.g. at a value of 0.1 kW). If the charging station has been configured to send not only the measurand \"Energy.Active.Import.Register\", but also \"Power.Active.Import\", then the CSMS will immediately know from the power reading, that the EV has stopped charging. If only the register reading is provided, then the CSMS will have to wait until the next meter value to know that the EV has stopped charging. This is still quicker than via the regular meter intervals, though.\n\nA meter value is triggered to be sent every time the atPowerkW threshold is crossed in upward NOTE or downward direction. Some logic in the CSMS is required to determine the direction in which the threshold is crossed.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Detect idle by low power usage",
+      "heading_path": "Detect idle by low power usage"
+    }
+  },
+  {
+    "content": "# Detect idle by chargingState change\n\nWhen a charging station goes into a SuspendedEV or SuspendedEVSE state, then CSMS knows that charging has paused when it receives a TransactionEventRequest with that chargingState. This message also contains the current meter value.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Detect idle by chargingState change",
+      "heading_path": "Detect idle by chargingState change"
+    }
+  },
+  {
+    "content": "# Switch between Idle and Charging\n\nWhen CSMS detects that charging has paused, it will send a new RunningCost message with state set to \"Idle\". From that moment on, the charging station will charge the idle time according to the parameters in idlePrice.\n\nWhen the EV resumes charging, the charging station may send a TransactionEventRequest with chargingState \"Charging\" if it was in a suspended state before, or it will after some time send a TransactionEventRequest with a new sampled meter value. (Sending of the TransacationEvent message with meter value can be forced by setting the atPowerkW trigger). The CSMS will then send a new CostUpdatedRequest message with state set to \"Charging\" and the charging station will use the chargingPrice information to calculate cost to show on the display.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Switch between Idle and Charging",
+      "heading_path": "Switch between Idle and Charging"
+    }
+  },
+  {
+    "content": "# 4.4.2. Idle Time When Transaction Has Ended\n\nA major difference between OCPP 2.0.1 and 1.6 is, that OCPP 2.0.1 allows the CSO to configure the start and stop moments of a transaction. When a CSO wishes to charge an idle fee for the period that an EV is not charging, but remains connected to the charging station, then it suffices to set the configuration variable TxCtrlr::TxStopPoint to \"EVConnected\". This will cause the transaction to remain active, until the EV disconnects. For a charging station that has parking bay occupancy detection, this can even be set to ParkingBayOccupancy, such that a fee can be charged for as long as the parking spot is occupied.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.4.2. Idle Time When Transaction Has Ended",
+      "heading_path": "4.4.2. Idle Time When Transaction Has Ended"
+    }
+  },
+  {
+    "content": "# 4.5. Direct Payment\n\nNormally, it is the eMSP that invoices the customer, but in the event of direct payment with credit or debit card or other means, then the CPO acts as an eMSP. In that case there must be a way to make a printable receipt available to the customer upon request. (See [EVSE_S.2.6])\n\nSince a charging station is not normally equipped with a printer, the solution is to display a message that directs the customer to a website where the receipt can be downloaded.\nThe field updatedPersonalMessage in the TransactionEventResponse at end of the transaction contains a text field to display a cost-breakdown and information on how to retrieve an invoice. Optionally, a customData field qrCodeText can be added, that contains a URL for the invoice as a QR code that can be scanned by the user.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.5. Direct Payment",
+      "heading_path": "4.5. Direct Payment"
+    }
+  },
+  {
+    "content": "# 4.6. Sequence diagram showing OCPP 2.0.1 messages\n\nThe following diagram shows the sequence of events to report price and cost during a transaction, including the optional part to record an idle fee. This assumes that the TxStartPoint and TxStopPoint have both been set to \"EVConnected\".",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.6. Sequence diagram showing OCPP 2.0.1 messages",
+      "heading_path": "4.6. Sequence diagram showing OCPP 2.0.1 messages",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "- CSMS: opt; \\[Install new default price message]; Charging Station: SetDisplayMessageRequest( 1, AlwaysFront, \"$0.15 per kWh\" ); SetDisplayMessageResponse( Accepted )\n- CSMS: CSMS returns; AuthorizeResponse( Accepted, \"$0.123/kWh, idle fee: $1/h\" )\n- CSMS: CSMS provides cost; CostUpdatedRequest( 0.00, \\<txId>, (customData) \"time\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000,\n- CSMS: loop; \\[During transaction]; Charging Station: TransactionEventRequest( Updated, metervalue=1234100, \\<txId>, ... )\n- CSMS: opt; \\[Calculate idle fee before stop]; Charging Station: TransactionEventRequest( Updated, metervalue=1235000, \\<txId>, ... )\n- CSMS: CostUpdatedRequest( 1.20, \\<txId>, (customData) \"time\": \"2021-03-19T13:00:00Z\", \"meterValue\": 1235000,\n- CSMS: *start*harging for idle after grace period; loop; Charging Station: \\[Until stop]; loop\n- CSMS: opt; \\[Calculate idle fee after stop until plugged out]; Charging Station: loop; \\[Until plugged out]\n- CSMS: CSMS periodically sends; CostUpdatedRequest( 1.70, \\<txId>, (customData) \"time\": \"2021-03-19T14:00:00Z\", \"meterValue\": 1235000,\n- CSMS: TransactionEventRequest( Ended, EVCommunicationLost, ... ); User plugs out\n- CSMS: TransactionEventResponse( 3.31, \"$2.81 @ $0.12/kWh, $0.50 @ $1/h, TOTAL KWH: 23.4 TIME: 03.50 COST: $3.31\" )\n- CSMS: Charging Station displays total cost and quantity",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.6. Sequence diagram showing OCPP 2.0.1 messages",
+      "heading_path": "4.6. Sequence diagram showing OCPP 2.0.1 messages",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# 4.7. Offline behavior\n\nBehavior in offline situations is the same as shown in Sequence diagrams for (partly) offline situations for OCPP 1.6.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "4.7. Offline behavior",
+      "heading_path": "4.7. Offline behavior"
+    }
+  },
+  {
+    "content": "# 5. Checklist Items Requiring Attention\n\nAnalysis of the checklist learns that almost all relevant information can be provided using the above-mentioned messages of OCPP.\n\nThe following checklist items require special attention, since they refer to data that cannot be transferred between charging station and CSMS using OCPP. The data can be communicated using other means, however.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "5. Checklist Items Requiring Attention",
+      "heading_path": "5. Checklist Items Requiring Attention"
+    }
+  },
+  {
+    "content": "# Checklist item 1.7: Selection of Unit Price\n\nThere is no message in OCPP to communicate a choice of unit price by the user, if the charging station supports a choice between multiple unit prices. However, it is not required to be able to show multiple prices. In fact this is not needed for the most common situation, namely to distinguish credit card payment and eMSP charge card payment. The credit card tariff (for which the CPO acts as eMSP) can be shown as the default tariff on the charging station. Only when a customer authorizes using an eMSP charge card will CSMS retrieve the tariff that applies for that eMSP and communicate it on the charging station.\n\nIf there is a need to select a price from multiple unit prices, for example, to distinguish between regular charging and smart charging, then the following solutions are possible:\n\n- Provide a mobile phone app to display and select the price to use. This app communicates the selected price with its own protocol to the CSMS.\n- Create a customization using OCPP device model or DataTransfer to communicate the user\u2019s choice.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Checklist item 1.7: Selection of Unit Price",
+      "heading_path": "Checklist item 1.7: Selection of Unit Price"
+    }
+  },
+  {
+    "content": "# Checklist item 1.8: In case TOU unit price modifications are allowed\n\nIn case TOU unit price modifications are allowed, the following customer options shall be offered before a charging session could be started:\n\n1. Customer accepts TOU based rate increases\n2. Customer elects to terminate charge session when a TOU rate increase occurs.\n3. Customer does not accept any TOU option.\n\nThere is no message in OCPP to communicate whether the customer accepts TOU based rate increases. This is, of course, only an issue when TOU based rate increases are present on the charging station. If that is the case, then one of the above-mentioned solutions, like a smartphone app or an OCPP customization, is needed.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Checklist item 1.8: In case TOU unit price modifications are allowed",
+      "heading_path": "Checklist item 1.8: In case TOU unit price modifications are allowed"
+    }
+  },
+  {
+    "content": "# Checklist item 1.31: The system must provide a receipt\n\nFor transactions conducted with point-of-sale systems or devices activated by credit cards, debit cards, electronic payment (ApplePay) or other electronic payment method recorded representation containing information about the transaction shall be available to the customer as outlined in the following items.\n\nPrintable receipt must always be available to the customer upon request. The system must provide a receipt to be made available to the customer at the completion of the transaction through either:\n\n- a built-in recording element OR\n- a separate recording element that is part of the system OR\n- an electronic device (phone, computer, etc.) accessible by the system.\n\nSince a charging station is not normally equipped with a printer, the solution is to display a message that directs the customer to a website where the receipt can be downloaded.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Checklist item 1.31: The system must provide a receipt",
+      "heading_path": "Checklist item 1.31: The system must provide a receipt"
+    }
+  },
+  {
+    "content": "# 6. Appendix: Relevant Requirements per Section\n\nThis section lists the checklist requirements that are relevant in relation to OCPP. A comment in italic font describes how OCPP can help to fulfill this checklist requirement.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "6. Appendix: Relevant Requirements per Section",
+      "heading_path": "6. Appendix: Relevant Requirements per Section"
+    }
+  },
+  {
+    "content": "# Section 1. Primary Indicating and Recording Elements",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Section 1. Primary Indicating and Recording Elements",
+      "heading_path": "Section 1. Primary Indicating and Recording Elements"
+    }
+  },
+  {
+    "content": "# S.1.2 EVSE indicating Elements\n\n1.1. An electronic digital indicating element shall\n\n- 1.1.2. Displays for a minimum of 15 seconds after activation by the user\n- 1.1.3. All indications and representations of energy sold are clearly identified\n- 1.1.4. All indications and representations of time-based charges are clearly identified\n\nOCPP 1.6 Can be achieved by setting a custom configuration key that holds the price description. During the transaction unit prices are provided in the RunningCost message. See Displaying Price and Cost in OCPP 1.6. OCPP 2.0.1 Can be achieved with DisplayMessageRequest or AuthorizeResponse.PersonalMessage. During the transaction unit prices are provided in the CostUpdated message. See Displaying Price and Cost in OCPP 2.0.1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "S.1.2 EVSE indicating Elements",
+      "heading_path": "S.1.2 EVSE indicating Elements"
+    }
+  },
+  {
+    "content": "# S.1.3.2 Value of Smallest Unit\n\nThe value of the smallest unit of indicated delivery by an EVSE, and recorded delivery if the EVSE is equipped to record, shall be no greater than 0.0005 MJ or 0.0001 kWh.\n\nOCPP 1.6 The meter values in StartTransaction and StopTransaction are integer values in Wh. In order to provide these meter values in 0.1 Wh accuracy, the start and stop meter values must be provided in the transactionData field of StopTransaction.req. OCPP 2.0.1 Meter values in TransactionEventRequests are decimals and can be provided in 0.1 Wh accuracy.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "S.1.3.2 Value of Smallest Unit",
+      "heading_path": "S.1.3.2 Value of Smallest Unit"
+    }
+  },
+  {
+    "content": "# S.2.4.3 Selection of Unit Price\n\n1.7. An EVSE may be equipped with means for selecting more than one unit price, provided that the selected unit price cannot be changed after the initial flow begins.\n\nOCPP 1.6  OCPP 2.0.1 OCPP can provide a message for the selection of multiple prices, however, it does not provide a means for the user to select one price or the other. However, it is not required to be able to show multiple prices. In fact this is not needed for the most common situation to distinguish credit card payment and eMSP charge card payment. The credit card tariff (for which the CPO acts as eMSP) can be shown as the default tariff on the charging station. Only when a customer authorizes using an eMSP charge card will CSMS retrieve the tariff that applies for that eMSP and communicate it on the charging station.\nIf there is a need to select a price from multiple unit prices, for example, to distinguish between regular charging and smart charging, then the following solutions are possible:\n\n- Provide a smartphone app to display and select the price to use. This app communicates the selected price with its own protocol to the CSMS.\n- Create a customization using OCPP device model or DataTransfer to communicate the user\u2019s choice.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "S.2.4.3 Selection of Unit Price",
+      "heading_path": "S.2.4.3 Selection of Unit Price"
+    }
+  },
+  {
+    "content": "# 1.8.\n\nThe selected unit price must be made clearly evident on the EVSE. Once selected the unit price cannot be changed at the point of sales prior to or during the delivery except when the change is triggered by a notified Time Of Use (TOU) modification.\n\nIf TOU base rated increases are present on the charging station, then the customer must be allowed to select one of the following options:\n\n- 1.8.1. Customer accepts TOU based rate increases\n- 1.8.2. Customer elects to terminate charge session when a TOU rate increase occurs.\n- 1.8.3. Customer does not accept any TOU option.\n\nOCPP 1.6  OCPP 2.0.1 It is not required to support TOU based rate changes, but if they are implemented, then the solutions mentioned in the previous paragraph (1.7) can be used to facilitate this.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "1.8.",
+      "heading_path": "1.8."
+    }
+  },
+  {
+    "content": "# 1.10.\n\nWhen a delivery is completed, the total price and quantity for that transaction shall be displayed on the face of the EVSE for at least 5 minutes or until the next transaction is initiated by using controls on the device or other user-activated (e.g., customer-activated) controls.\n\nOCPP 1.6 The total price when delivery is complete is the last update of total price, that the charging station received via the custom message that was implemented for that purpose. Quantity in kWh and/or time is known by the charging station. Both can be displayed by charging station. See Displaying Price and Cost in OCPP 1.6\n\nOCPP 2.0.1 The total price has been sent by CSMS as part of the last TransactionEventRequest message. Quantity in kWh and/or time is known by the charging station. Both can be displayed by charging station. See Displaying Price and Cost in OCPP 2.0.1",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "1.10.",
+      "heading_path": "1.10."
+    }
+  },
+  {
+    "content": "# 1.15.\n\nThe quantity and total sales price shall be recallable for 15 minutes after the power failure.\n\nOCPP 1.6  OCPP 2.0.1 Since price calculation is done at the CSMS, this information is not lost during a power failure at the charging station.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "1.15.",
+      "heading_path": "1.15."
+    }
+  },
+  {
+    "content": "# 1.17.\n\nThe quantity and total sales price values shall be correct if the delivery is continued after a power failure.\n\nOCPP 1.6  OCPP 2.0.1 Since price calculation is done at the CSMS, this information is not lost during a power failure at the charging station.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "1.17.",
+      "heading_path": "1.17."
+    }
+  },
+  {
+    "content": "# S.2.4.1. Display of Unit Price\n\n1.25. Means shall be provided to display the unit price on the face of the device.\n\nOCPP 1.6 Can be achieved by setting a custom configuration key that holds the price description. See Displaying Price and Cost in OCPP 1.6\n\nOCPP 2.0.1 This can be displayed via the DisplayMessageRequest or AuthorizeResponse.PersonalMessage. The display can either display prices for all units as one message or let the user step through the various units. CSMS will send all information in one message, though. See Displaying Price and Cost in OCPP 2.0.1\n\n1.26. The unit price shall be expressed in dollars and decimals of dollars using a dollar sign.\n\nOCPP 1.6 Can be achieved by setting a custom configuration key that holds the currency. OCPP 2.0.1 The currency is configured via the device model variable TariffCostCtrlr::Currency.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "S.2.4.1. Display of Unit Price",
+      "heading_path": "S.2.4.1. Display of Unit Price"
+    }
+  },
+  {
+    "content": "# S. 2.4.3. Selection of Unit Price\n\n1.29. Prior to delivery using controls on the device. OR\n\n1.30. Through deliberate action of the purchaser using\n\n1. controls on the device;\n2. personal or vehicle mounted electronic equipment communicating with the system; or\n3. verbal instructions\n\nThe same remarks as OCPP 1.6 OCPP 2.0.1 for checklist item 1.7 apply here.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "S. 2.4.3. Selection of Unit Price",
+      "heading_path": "S. 2.4.3. Selection of Unit Price"
+    }
+  },
+  {
+    "content": "# S.2.6. Recorded Representations\n\nFor transactions conducted with point-of-sale systems or devices activated by credit cards, debit cards, electronic payment (ApplePay) or other electronic payment method recorded representation containing information about the transaction shall be available to the customer as outlined in the following items. Printable receipt must always be available to the customer upon request.\n\n1.31. The system must provide a receipt to be made available to the customer at the completion of the transaction through either\n\n1. a built-in recording element OR a separate recording element that is part of the system OR an electronic device (phone, computer, etc.) accessible by the system.\n\nOCPP 1.6  OCPP 2.0.1 Charging station can display a message to point the customer to a website where the receipt can be downloaded.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "S.2.6. Recorded Representations",
+      "heading_path": "S.2.6. Recorded Representations"
+    }
+  },
+  {
+    "content": "# Section 3. Measuring Elements\n\nNo requirements for OCPP.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Section 3. Measuring Elements",
+      "heading_path": "Section 3. Measuring Elements"
+    }
+  },
+  {
+    "content": "# Section 4. Test of the EVSE System (Hb44 N and T Sections)\n\nNo requirements for OCPP.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Section 4. Test of the EVSE System (Hb44 N and T Sections)",
+      "heading_path": "Section 4. Test of the EVSE System (Hb44 N and T Sections)"
+    }
+  },
+  {
+    "content": "# Annex # EVSEs with parking time charging functionality\n\n1.1 The EVSE shall indicate and record, the time in minutes for time intervals of 60 minutes or less and in hours and minutes for time intervals greater than 60 minutes.\n\nOCPP 1.6  OCPP 2.0.1 EVSE can display parking time continuously, since start of transaction. CSMS also knows when transaction starts and ends and can add this to the receipt.\n\n[1] NCWM Publication No.14, National Type Evaluation Program: Technical Policy Checklists and Test Procedures, draft 201902\n\n[2] California Type Evaluation Program\n\n[3] In line with the terminology of OCPP 1.6 we will use Central System and charge point, instead of CSMS and charging station in this section.",
+    "metadata": {
+      "doc_id": "california_pricing",
+      "doc_title": "OCPP & California Pricing Requirements v3.1",
+      "ocpp_version": null,
+      "content_type": "general",
+      "heading": "Annex # EVSEs with parking time charging functionality"
+    }
+  }
+]

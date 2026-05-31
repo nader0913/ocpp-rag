@@ -1,146 +1,175 @@
 {
   "use_case_id": "K15",
   "functional_block": "SmartCharging",
-  "use_case_name": "Charging with load leveling based on High Level Communication",
+  "use_case_name": "Charging with load leveling based on High Level Communication.",
+  "structured": {
+    "name": "Charging with load leveling based on High Level Communication.",
+    "id": "K15",
+    "functional_block": "SmartCharging",
+    "objective": "See ISO15118-1, use case Objective E1, page 29.",
+    "description": "See ISO15118-1, use case Description E1, page 29.",
+    "actors": [
+      "EV",
+      "Charging Station",
+      "CSMS."
+    ],
+    "scenario": [],
+    "prerequisites": "Both the Charging Station and the EV support ISO 15118.\nThe configured TxStartPoint needs to contain at least one of ParkingBayOccupied, EVConnected,\nAuthorized or PowerPathClosed, such that the OCPP transaction is started before\nChargeParameterDiscoverReq is sent by EV, such that CSMS can send a TxProfile charging\nprofile.",
+    "postconditions": "See ISO15118-1, use case End conditions E1, page 29.",
+    "error_handling": "The Charging Station needs to use the information from the SetChargingProfileRequest message\nto create the response to the ISO 15118 ChargeParameterDiscoveryReq towards the EV. This\nmessage has a timeout of 60 seconds, which means the SetChargingProfileRequest has to be\nsent well within 60 seconds after receiving the NotifyEVChargingNeedsRequest. If the Charging\nStation does not receive the SetChargingProfileRequest in time or when the\nNotifyEVChargingNeedsResponse has status = Processing, then the Charging Station will return\na schedule in ChargeParameterDiscoverRes that matches the capabilities of the EVSE. When\nCSMS sends the SetChargingProfileRequest at a later time, then this will trigger a renegotiation\naccording to use case K16 - Renegotiation initiated by CSMS.",
+    "remarks": "Signed SalesTariffs are currently not supported. If these are needed please use P01 - Data\nTransfer to the Charging Station to send these to the Charging Station.",
+    "requirements": [
+      {
+        "id": "K15.FR.01",
+        "precondition": "When the Charging\nStation receives\ncharging needs from\nthe EV",
+        "definition": "The Charging Station SHALL send a\nNotifyEVChargingNeedsRequest to the CSMS."
+      },
+      {
+        "id": "K15.FR.02",
+        "precondition": "K15.FR.01",
+        "definition": "In response to a\nNotifyEVChargingNeedsRequest the CSMS\nSHALL send a\nNotifyEVChargingNeedsResponse."
+      },
+      {
+        "id": "K15.FR.03",
+        "precondition": "K15.FR.02",
+        "definition": "If the CSMS is able to provide a charging\nschedule, it SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\nAccepted."
+      },
+      {
+        "id": "K15.FR.04",
+        "precondition": "K15.FR.02",
+        "definition": "If the CSMS is not going to provide a charging\nschedule, it SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\nRejected."
+      },
+      {
+        "id": "K15.FR.05",
+        "precondition": "K15.FR.02",
+        "definition": "If the CSMS is able to provide a charging\nschedule; but needs processing time, it SHALL\nindicate this by setting the status field in the\nNotifyEVChargingNeedsResponse to\nProcessing."
+      },
+      {
+        "id": "K15.FR.06",
+        "precondition": "",
+        "definition": "A NotifyEVChargingNeedsRequest SHALL\ncontain either ACChargingParameters or\nDCChargingParameters."
+      },
+      {
+        "id": "K15.FR.07",
+        "precondition": "K15.FR.03 or\nK15.FR.05",
+        "definition": "The CSMS SHALL send a\nSetChargingProfileRequest with\nchargingProfilePurpose = TxProfile and a\ntransactionId and at most three\nchargingSchedule and optional salesTariff\nelements, that each contain no more periods\nthan specified by maxScheduleTuples in\nNotifyEVChargingNeedsRequest and by device\nmodel variable\nSmartChargingCtrlr.PeriodsPerSched\nule."
+      },
+      {
+        "id": "K15.FR.08",
+        "precondition": "K15.FR.01",
+        "definition": "The CSMS SHOULD send a\nSetChargingProfileRequest to the Charging\nStation within 60 seconds."
+      },
+      {
+        "id": "K15.FR.09",
+        "precondition": "K15.FR.07\nAND\nEV returns a charging\nprofile",
+        "definition": "Charging Station SHALL verify that provided\ncharging profile is within boundaries of the\nChargingSchedule from CSMS."
+      },
+      {
+        "id": "K15.FR.10",
+        "precondition": "K15.FR.09",
+        "definition": "Charging Station SHALL send the EV charging\nprofile in a NotifyEVChargingScheduleRequest\nmessage to CSMS."
+      },
+      {
+        "id": "K15.FR.11",
+        "precondition": "K15.FR.10\nAND\nEV charging profile is\nwithin limits of CSMS\nChargingSchedule",
+        "definition": "CSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Accepted to Charging Station."
+      },
+      {
+        "id": "K15.FR.12",
+        "precondition": "K15.FR.10\nAND\nEV charging profile is\nNOT within limits of\nCSMS\nChargingSchedule",
+        "definition": "CSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Rejected to Charging Station."
+      },
+      {
+        "id": "K15.FR.13",
+        "precondition": "K15.FR.12",
+        "definition": "CSMS starts new renegotiation as per use\ncase K16."
+      },
+      {
+        "id": "K15.FR.14",
+        "precondition": "K15.FR.11",
+        "definition": "The Charging Station SHOULD take the\nschedule from the\nNotifyEVChargingScheduleRequest into\naccount when calculating the actual\nComposite schedule."
+      },
+      {
+        "id": "K15.FR.15",
+        "precondition": "K15.FR.01\nAND\nCharging Station is\noffline",
+        "definition": "The Charging Station SHALL use the\nTxDefaultProfile (if present) and generate a\ncharging schedule within the limits of its\ncomposite schedule."
+      },
+      {
+        "id": "K15.FR.16",
+        "precondition": "K15.FR.07",
+        "definition": "It is RECOMMENDED to configure the Charging\nStation, such that a TransactionEvent with\nidToken has been sent prior to the\nNotifyEVChargingNeedsRequest Message, so\nthat CSMS can take the user into account\nwhen creating a charging schedule."
+      },
+      {
+        "id": "K15.FR.17",
+        "precondition": "When Charging Station\nreceives a\nSetChargingProfileReq\nuest immediately after\nthe transaction has\nstarted and before it\nhas sent the\nNotifyEVChargingNeed\nsRequest to CSMS",
+        "definition": "The Charging Station SHOULD respond with\nSetChargingProfileResponse with status =\nRejected and a statusInfo with reasonCode=\nInvalidMessageSeq."
+      },
+      {
+        "id": "K15.FR.18",
+        "precondition": "K15.FR.03 OR\nK15.FR.05",
+        "definition": "CSMS IS RECOMMENDED to use only one\nchargingSchedule in a\nSetChargingProfileRequest."
+      },
+      {
+        "id": "K15.FR.19",
+        "precondition": "K15.FR.07\nAND\nEV does not return a\ncharging profile",
+        "definition": "Charging Station IS RECOMMENDED to return\nan EV charging profile as a chargingSchedule\nin a NotifyEVChargingScheduleRequest\nmessage to CSMS that matches the charging\nschedule that was selected by the EV (i.e. the\nOCPP charging schedule that is represented by\nthe SAScheduleTupleId that EV sent in the\nPowerDeliveryReq.)"
+      },
+      {
+        "id": "K15.FR.22",
+        "precondition": "When calculating\nCompositeSchedule(s)\nto create a\nSAScheduleList for\nISO 15118-2 to send to\nEV AND\nmultiple\nChargingProfileTypes\nof\nchargingProfilePurpos\ne = TxProfile with\ndifferent stackLevels\nare valid AND\nsome or all these\nChargingProfileTypes\nhave more than one\nchargingSchedule",
+        "definition": "Charging Station SHALL create up to three\nCompositeSchedules as defined in K08.FR.04,\nby combining the first chargingSchedule with\nthe first chargingSchedule of other stack\nlevels, the second with second (if existing), the\nthird with the third (if existing), based on their\norder in the ChargingProfileTypes."
+      }
+    ],
+    "figures": [
+      "fig112.png",
+      "fig113.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K15 - Charging with load leveling based on High Level Communication\n\n| No. | Type                          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                          | Charging with load leveling based on High Level Communication.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                            | K15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
+      "content": "# K15 - Charging with load leveling based on High Level Communication.\n\n**Objective:** See ISO15118-1, use case Objective E1, page 29.\n\n**Description:** See ISO15118-1, use case Description E1, page 29.\n\n**Actors:** EV, Charging Station, CSMS.\n\n**Prerequisites:** Both the Charging Station and the EV support ISO 15118.\nThe configured TxStartPoint needs to contain at least one of ParkingBayOccupied, EVConnected,\nAuthorized or PowerPathClosed, such that the OCPP transaction is started before\nChargeParameterDiscoverReq is sent by EV, such that CSMS can send a TxProfile charging\nprofile.\n\n**Postconditions:** See ISO15118-1, use case End conditions E1, page 29.\n\n**Error handling:** The Charging Station needs to use the information from the SetChargingProfileRequest message\nto create the response to the ISO 15118 ChargeParameterDiscoveryReq towards the EV. This\nmessage has a timeout of 60 seconds, which means the SetChargingProfileRequest has to be\nsent well within 60 seconds after receiving the NotifyEVChargingNeedsRequest. If the Charging\nStation does not receive the SetChargingProfileRequest in time or when the\nNotifyEVChargingNeedsResponse has status = Processing, then the Charging Station will return\na schedule in ChargeParameterDiscoverRes that matches the capabilities of the EVSE. When\nCSMS sends the SetChargingProfileRequest at a later time, then this will trigger a renegotiation\naccording to use case K16 - Renegotiation initiated by CSMS.\n\n**Remarks:** Signed SalesTariffs are currently not supported. If these are needed please use P01 - Data\nTransfer to the Charging Station to send these to the Charging Station.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "K15 - Charging with load leveling based on High Level Communication",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication",
+        "heading": "K15 - Charging with load leveling based on High Level Communication.",
         "functional_block": "SmartCharging",
         "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16, P01",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest",
+        "use_case_name": "Charging with load leveling based on High Level Communication.",
         "chunk_part": 1,
-        "total_parts": 6
+        "total_parts": 3
       }
     },
     {
-      "content": "|     | Reference                     | ISO15118-1 E1 AC Charging with load leveling based on High Level Communication, and E4 DC charging with load leveling based on High Level Communication.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 3   | Objective(s)                  | See ISO15118-1, use case Objective E1, page 29.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K15 - Charging with load leveling based on High Level Communication",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16, P01",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest",
-        "chunk_part": 2,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 4   | Description                   | See ISO15118-1, use case Description E1, page 29.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n|     | Actors                        | EV, Charging Station, CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K15 - Charging with load leveling based on High Level Communication",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16, P01",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest",
-        "chunk_part": 3,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "|     | Combined scenario description | 1. The EV sends a ChargeParameterDiscoveryReq message to the Charging Station. 2. The Charging Station sends a NotifyEVChargingNeedsRequest message to the CSMS. 3. The CSMS sends a NotifyEVChargingNeedsResponse message to the Charging Station. 4. The CSMS sends a SetChargingProfileRequest message to the Charging Station. 5. The Charging Station sends a SetChargingProfileResponse message to the CSMS. 6. The Charging Station responds to the EV with a ChargeParameterDiscoveryRes message to the EV. 7. The EV sends a PowerDeliveryReq message to the Charging Station with ChargeProgress=Start. This marks the point in time when the EVSE provides voltage to its output power outlet and the EV can start to recharge its battery. 8. The contactor is closed. 9. The transaction is updated with a TransactionEventRequest message. 10. A PowerdeliveryRes message is sent to the EV. 11. Optionally, the Charging Station sends a NotifyEVChargingScheduleRequest message to the CSMS. |\n| 5   | Prerequisites                 | Both the Charging Station and the EV support ISO 15118. The configured TxStartPoint needs to contain at least one of ParkingBayOccupied, EVConnected, Authorized or PowerPathClosed, such that the OCPP transaction is started before ChargeParameterDiscoverReq is sent by EV, such that CSMS can send a TxProfile charging profile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K15 - Charging with load leveling based on High Level Communication",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16, P01",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest",
-        "chunk_part": 4,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s)              | See ISO15118-1, use case End conditions E1, page 29.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 7   | Error handling                | The Charging Station needs to use the information from the SetChargingProfileRequest message to create the response to the ISO 15118 ChargeParameterDiscoveryReq towards the EV. This message has a timeout of 60 seconds, which means the SetChargingProfileRequest has to be sent well within 60 seconds after receiving the NotifyEVChargingNeedsRequest. If the Charging Station does not receive the SetChargingProfileRequest in time or when the NotifyEVChargingNeedsResponse has status = Processing, then the Charging Station will return a schedule in ChargeParameterDiscoverRes that matches the capabilities of the EVSE. When CSMS sends the SetChargingProfileRequest at a later time, then this will trigger a renegotiation according to use case K16 - Renegotiation initiated by CSMS.                                                                                                                                                                                                  |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K15 - Charging with load leveling based on High Level Communication",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16, P01",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest",
-        "chunk_part": 5,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)                     | Signed SalesTariffs are currently not supported. If these are needed please use P01 - Data Transfer to the Charging Station to send these to the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K15 - Charging with load leveling based on High Level Communication",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16, P01",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest",
-        "chunk_part": 6,
-        "total_parts": 6
-      }
-    },
-    {
-      "content": "# EV Charging Station CSMS\n\nTransactionEventRequest(eventType = Started, ...)\nTransactionEventResponse(...)\nChargeParameterDiscoveryReq(EnergyTransferMode, EVChargeParam)\nNotifyEVChargingNeedsRequest(evseId, chargingNeeds)\nNotifyEVChargingNeedsResponse(Accepted)\nloop [Until SetChargingProfileRequest]\nChargeParameterDiscoveryRes(Ongoing)\nChargeParameterDiscoveryReq(EnergyTransferMode, EVChargeParam)\nSetChargingProfileRequest(evseId, chargingProfile)\nSetChargingProfileResponse(Accepted)\nChargeParameterDiscoveryRes(Finished, SAScheduleList)\nPowerDeliveryReq(Start, ChargingProfile, EVPowerDeliveryParam)\nContactor close\nPowerDeliveryRes(OK)\nopt [If EV provides a charging schedule]\nNotifyEVChargingScheduleRequest(...)\nNotifyEVChargingScheduleResponse(Accepted)\nTransactionEventRequest(...)\nTransactionEventResponse(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "EV Charging Station CSMS",
-        "heading_path": "EV Charging Station CSMS",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K15",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, NotifyEVChargingScheduleResponse, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# K15 - Charging with load leveling based on High Level Communication - Requirements\n\n| ID        | Precondition                                                  | Requirements                                                                                                                                                                          | Note                                                                                                                                                   |\n| --------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| K15.FR.01 | When the Charging Station receives charging needs from the EV | The Charging Station SHALL send a NotifyEVChargingNeedsRequest to the CSMS.                                                                                                           |                                                                                                                                                        |\n| K15.FR.02 | K15.FR.01                                                     | In response to a NotifyEVChargingNeedsRequest the CSMS SHALL send a NotifyEVChargingNeedsResponse.                                                                                    |                                                                                                                                                        |\n| K15.FR.03 | K15.FR.02                                                     | If the CSMS is able to provide a charging schedule, it SHALL indicate this by setting the status field in the NotifyEVChargingNeedsResponse to Accepted.                              |                                                                                                                                                        |\n| K15.FR.04 | K15.FR.02                                                     | If the CSMS is not going to provide a charging schedule, it SHALL indicate this by setting the status field in the NotifyEVChargingNeedsResponse to Rejected.                         | Charging Station will use a TxDefaultProfile or provide a schedule with unlimited power.                                                               |\n| K15.FR.05 | K15.FR.02                                                     | If the CSMS is able to provide a charging schedule; but needs processing time, it SHALL indicate this by setting the status field in the NotifyEVChargingNeedsResponse to Processing. | The Charging Station does not have to wait for the SetChargingProfileRequest. CSMS will send it later and trigger a renegotiation as per use case K16. |\n| K15.FR.06 |                                                               | A NotifyEVChargingNeedsRequest SHALL contain either ACChargingParameters or DCChargingParameters.                                                                                     |                                                                                                                                                        |",
+      "content": "# K15 - Requirements\n\n**K15.FR.01**\nPrecondition: When the Charging\nStation receives\ncharging needs from\nthe EV\nThe Charging Station SHALL send a\nNotifyEVChargingNeedsRequest to the CSMS.\n\n**K15.FR.02**\nPrecondition: K15.FR.01\nIn response to a\nNotifyEVChargingNeedsRequest the CSMS\nSHALL send a\nNotifyEVChargingNeedsResponse.\n\n**K15.FR.03**\nPrecondition: K15.FR.02\nIf the CSMS is able to provide a charging\nschedule, it SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\nAccepted.\n\n**K15.FR.04**\nPrecondition: K15.FR.02\nIf the CSMS is not going to provide a charging\nschedule, it SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\nRejected.\n\n**K15.FR.05**\nPrecondition: K15.FR.02\nIf the CSMS is able to provide a charging\nschedule; but needs processing time, it SHALL\nindicate this by setting the status field in the\nNotifyEVChargingNeedsResponse to\nProcessing.\n\n**K15.FR.06**\nA NotifyEVChargingNeedsRequest SHALL\ncontain either ACChargingParameters or\nDCChargingParameters.\n\n**K15.FR.07**\nPrecondition: K15.FR.03 or\nK15.FR.05\nThe CSMS SHALL send a\nSetChargingProfileRequest with\nchargingProfilePurpose = TxProfile and a\ntransactionId and at most three\nchargingSchedule and optional salesTariff\nelements, that each contain no more periods\nthan specified by maxScheduleTuples in\nNotifyEVChargingNeedsRequest and by device\nmodel variable\nSmartChargingCtrlr.PeriodsPerSched\nule.\n\n**K15.FR.08**\nPrecondition: K15.FR.01\nThe CSMS SHOULD send a\nSetChargingProfileRequest to the Charging\nStation within 60 seconds.\n\n**K15.FR.09**\nPrecondition: K15.FR.07\nAND\nEV returns a charging\nprofile\nCharging Station SHALL verify that provided\ncharging profile is within boundaries of the\nChargingSchedule from CSMS.\n\n**K15.FR.10**\nPrecondition: K15.FR.09\nCharging Station SHALL send the EV charging\nprofile in a NotifyEVChargingScheduleRequest\nmessage to CSMS.\n\n**K15.FR.11**\nPrecondition: K15.FR.10\nAND\nEV charging profile is\nwithin limits of CSMS\nChargingSchedule\nCSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Accepted to Charging Station.\n\n**K15.FR.12**\nPrecondition: K15.FR.10\nAND\nEV charging profile is\nNOT within limits of\nCSMS\nChargingSchedule\nCSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Rejected to Charging Station.\n\n**K15.FR.13**\nPrecondition: K15.FR.12\nCSMS starts new renegotiation as per use\ncase K16.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K15 - Charging with load leveling based on High Level Communication - Requirements",
-        "heading_path": "K15 - Charging with load leveling based on High Level Communication - Requirements",
+        "heading": "K15 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K15",
-        "use_case_name": "Charging with load leveling based on High Level Communication",
-        "use_case_refs": "K15, K16",
-        "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, SetChargingProfileRequest"
+        "use_case_name": "Charging with load leveling based on High Level Communication.",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# K15 - Requirements (continued)\n\n**K15.FR.14**\nPrecondition: K15.FR.11\nThe Charging Station SHOULD take the\nschedule from the\nNotifyEVChargingScheduleRequest into\naccount when calculating the actual\nComposite schedule.\n\n**K15.FR.15**\nPrecondition: K15.FR.01\nAND\nCharging Station is\noffline\nThe Charging Station SHALL use the\nTxDefaultProfile (if present) and generate a\ncharging schedule within the limits of its\ncomposite schedule.\n\n**K15.FR.16**\nPrecondition: K15.FR.07\nIt is RECOMMENDED to configure the Charging\nStation, such that a TransactionEvent with\nidToken has been sent prior to the\nNotifyEVChargingNeedsRequest Message, so\nthat CSMS can take the user into account\nwhen creating a charging schedule.\n\n**K15.FR.17**\nPrecondition: When Charging Station\nreceives a\nSetChargingProfileReq\nuest immediately after\nthe transaction has\nstarted and before it\nhas sent the\nNotifyEVChargingNeed\nsRequest to CSMS\nThe Charging Station SHOULD respond with\nSetChargingProfileResponse with status =\nRejected and a statusInfo with reasonCode=\nInvalidMessageSeq.\n\n**K15.FR.18**\nPrecondition: K15.FR.03 OR\nK15.FR.05\nCSMS IS RECOMMENDED to use only one\nchargingSchedule in a\nSetChargingProfileRequest.\n\n**K15.FR.19**\nPrecondition: K15.FR.07\nAND\nEV does not return a\ncharging profile\nCharging Station IS RECOMMENDED to return\nan EV charging profile as a chargingSchedule\nin a NotifyEVChargingScheduleRequest\nmessage to CSMS that matches the charging\nschedule that was selected by the EV (i.e. the\nOCPP charging schedule that is represented by\nthe SAScheduleTupleId that EV sent in the\nPowerDeliveryReq.)\n\n**K15.FR.22**\nPrecondition: When calculating\nCompositeSchedule(s)\nto create a\nSAScheduleList for\nISO 15118-2 to send to\nEV AND\nmultiple\nChargingProfileTypes\nof\nchargingProfilePurpos\ne = TxProfile with\ndifferent stackLevels\nare valid AND\nsome or all these\nChargingProfileTypes\nhave more than one\nchargingSchedule\nCharging Station SHALL create up to three\nCompositeSchedules as defined in K08.FR.04,\nby combining the first chargingSchedule with\nthe first chargingSchedule of other stack\nlevels, the second with second (if existing), the\nthird with the third (if existing), based on their\norder in the ChargingProfileTypes.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K15 - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K15",
+        "use_case_name": "Charging with load leveling based on High Level Communication.",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,39 +2,100 @@
   "use_case_id": "K10",
   "functional_block": "SmartCharging",
   "use_case_name": "Clear Charging Profile",
+  "structured": {
+    "name": "Clear Charging Profile",
+    "id": "K10",
+    "functional_block": "SmartCharging",
+    "objective": "To clear some or all of the charging profiles.",
+    "description": "If the CSMS wishes to clear some or all of the charging profiles that were previously sent to the\nCharging Station, then the CSMS sends a ClearChargingProfileRequest to the Charging Station.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K10.FR.01",
+        "precondition": "If the Charging Station does\nnot have any matching\nChargingProfile.",
+        "definition": "Upon receipt of a ClearChargingProfileRequest, the\nCharging Station SHALL respond with the status\nUnknown."
+      },
+      {
+        "id": "K10.FR.02",
+        "precondition": "",
+        "definition": "The CSMS SHALL either specify a chargingProfile.id OR\ninclude one or more of the fields stackLevel, evseId and\nchargingProfilePurpose in the\nClearChargingProfileRequest to specify which Charging\nProfiles need to be cleared."
+      },
+      {
+        "id": "K10.FR.03",
+        "precondition": "Upon receipt of a\nClearChargingProfileReques\nt with a specified\nchargingProfileId AND\nthe chargingProfilePurpose\nof the referenced\nChargingProfile is NOT\nChargingStationExter\nnalConstraints",
+        "definition": "The Charging Station SHALL clear the Charging Profile\nwith the matching id and respond with a\nClearChargingProfileResponse message with status =\nAccepted."
+      },
+      {
+        "id": "K10.FR.04",
+        "precondition": "NOT K10.FR.03 AND\nNOT K10.FR.08 AND\nUpon receipt of a\nClearChargingProfileReques\nt, with optional values for\nevseId,\nchargingProfilePurpose,\nstackLevel",
+        "definition": "The Charging Station SHALL clear the ChargingProfile(s)\nthat match (as logical AND) the values in the request,\nexcept those for that have ChargingProfile =\nChargingStationExternalConstraints and\nrespond with a ClearChargingProfileResponse message\nwith status = Accepted."
+      },
+      {
+        "id": "K10.FR.05",
+        "precondition": "After clearing one or more\nCharging Profiles.",
+        "definition": "The Charging Station SHALL recalculate its composite\nschedule and set the resulting maximum power/current\nvalues to all ongoing transactions."
+      },
+      {
+        "id": "K10.FR.07",
+        "precondition": "K10.FR.05\nAND the cleared profile has\nchargingProfilePurpose =\nTxDefaultProfile",
+        "definition": "The Charging Station SHALL continue any active\ntransaction, that started with a TxDefaultProfile, as if it\nwas started without a TxDefaultProfile."
+      },
+      {
+        "id": "K10.FR.08",
+        "precondition": "Upon receipt of a\nClearChargingProfileReques\nt, with optional values for\nevseId,\nchargingProfilePurpose,\nstackLevel AND\nthe matched\nChargingProfile(s) all have\nChargingProfile =\nChargingStationExter\nnalConstraints",
+        "definition": "The Charging Station SHALL respond with a\nClearChargingProfileResponse message with status =\nUnknown."
+      },
+      {
+        "id": "K10.FR.09",
+        "precondition": "Upon receipt of a\nClearChargingProfileReques\nt with a specified\nchargingProfileId AND\nthe chargingProfilePurpose\nof the referenced\nChargingProfile =\nChargingStationExter\nnalConstraints",
+        "definition": "The Charging Station SHALL respond with a\nClearChargingProfileResponse message with status =\nUnknown."
+      }
+    ],
+    "figures": [
+      "fig106.png",
+      "fig107.png",
+      "fig108.png",
+      "fig109.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K10 - Clear Charging Profile\n\n| No. | Type         | Description                                                                                                                                                                                    |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Clear Charging Profile                                                                                                                                                                         |\n| 2   | ID           | K10                                                                                                                                                                                            |\n| 3   | Objective(s) | To clear some or all of the charging profiles.                                                                                                                                                 |\n| 4   | Description  | If the CSMS wishes to clear some or all of the charging profiles that were previously sent to the Charging Station, then the CSMS sends a ClearChargingProfileRequest to the Charging Station. |\n|     | Actors       | Charging Station, CSMS                                                                                                                                                                         |",
+      "content": "# K10 - Clear Charging Profile\n\n**Objective:** To clear some or all of the charging profiles.\n\n**Description:** If the CSMS wishes to clear some or all of the charging profiles that were previously sent to the\nCharging Station, then the CSMS sends a ClearChargingProfileRequest to the Charging Station.\n\n**Actors:** Charging Station, CSMS",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "K10 - Clear Charging Profile",
-        "heading_path": "K10 - Clear Charging Profile",
         "functional_block": "SmartCharging",
         "use_case_id": "K10",
         "use_case_name": "Clear Charging Profile",
-        "use_case_refs": "K10",
-        "message_refs": "ClearChargingProfileRequest"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# K10 - Clear Charging Profile - Requirements\n\n| ID        | Precondition                                                                                                                                                                                | Requirement definition                                                                                                                                                                                                                                                         | Note |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- |\n| K10.FR.01 | If the Charging Station does not have any matching ChargingProfile.                                                                                                                         | Upon receipt of a ClearChargingProfileRequest, the Charging Station SHALL respond with the status Unknown.                                                                                                                                                                     |      |\n| K10.FR.02 |                                                                                                                                                                                             | The CSMS SHALL either specify a chargingProfile.id OR include one or more of the fields stackLevel, evseId and chargingProfilePurpose in the ClearChargingProfileRequest to specify which Charging Profiles need to be cleared.                                                |      |\n| K10.FR.03 | Upon receipt of a ClearChargingProfileRequest with a specified chargingProfileId AND the chargingProfilePurpose of the referenced ChargingProfile is NOT ChargingStationExternalConstraints | The Charging Station SHALL clear the Charging Profile with the matching id and respond with a ClearChargingProfileResponse message with status = Accepted.                                                                                                                     |      |\n| K10.FR.04 | NOT K10.FR.03 AND NOT K10.FR.08 AND Upon receipt of a ClearChargingProfileRequest, with optional values for evseId, chargingProfilePurpose, stackLevel                                      | The Charging Station SHALL clear the ChargingProfile(s) that match (as logical AND) the values in the request, except those for that have ChargingProfile = and ChargingStationExternalConstraints respond with a ClearChargingProfileResponse message with status = Accepted. |      |\n| K10.FR.05 | After clearing one or more Charging Profiles.                                                                                                                                               | The Charging Station SHALL recalculate its composite schedule and set the resulting maximum power/current values to all ongoing transactions.                                                                                                                                  |      |\n| K10.FR.07 | K10.FR.05 AND the cleared profile has chargingProfilePurpose = TxDefaultProfile                                                                                                             | The Charging Station SHALL continue any active transaction, that started with a TxDefaultProfile, as if it was started without a TxDefaultProfile.                                                                                                                             |      |",
+      "content": "# K10 - Requirements\n\n**K10.FR.01**\nPrecondition: If the Charging Station does\nnot have any matching\nChargingProfile.\nUpon receipt of a ClearChargingProfileRequest, the\nCharging Station SHALL respond with the status\nUnknown.\n\n**K10.FR.02**\nThe CSMS SHALL either specify a chargingProfile.id OR\ninclude one or more of the fields stackLevel, evseId and\nchargingProfilePurpose in the\nClearChargingProfileRequest to specify which Charging\nProfiles need to be cleared.\n\n**K10.FR.03**\nPrecondition: Upon receipt of a\nClearChargingProfileReques\nt with a specified\nchargingProfileId AND\nthe chargingProfilePurpose\nof the referenced\nChargingProfile is NOT\nChargingStationExter\nnalConstraints\nThe Charging Station SHALL clear the Charging Profile\nwith the matching id and respond with a\nClearChargingProfileResponse message with status =\nAccepted.\n\n**K10.FR.04**\nPrecondition: NOT K10.FR.03 AND\nNOT K10.FR.08 AND\nUpon receipt of a\nClearChargingProfileReques\nt, with optional values for\nevseId,\nchargingProfilePurpose,\nstackLevel\nThe Charging Station SHALL clear the ChargingProfile(s)\nthat match (as logical AND) the values in the request,\nexcept those for that have ChargingProfile =\nChargingStationExternalConstraints and\nrespond with a ClearChargingProfileResponse message\nwith status = Accepted.\n\n**K10.FR.05**\nPrecondition: After clearing one or more\nCharging Profiles.\nThe Charging Station SHALL recalculate its composite\nschedule and set the resulting maximum power/current\nvalues to all ongoing transactions.\n\n**K10.FR.07**\nPrecondition: K10.FR.05\nAND the cleared profile has\nchargingProfilePurpose =\nTxDefaultProfile\nThe Charging Station SHALL continue any active\ntransaction, that started with a TxDefaultProfile, as if it\nwas started without a TxDefaultProfile.\n\n**K10.FR.08**\nPrecondition: Upon receipt of a\nClearChargingProfileReques\nt, with optional values for\nevseId,\nchargingProfilePurpose,\nstackLevel AND\nthe matched\nChargingProfile(s) all have\nChargingProfile =\nChargingStationExter\nnalConstraints\nThe Charging Station SHALL respond with a\nClearChargingProfileResponse message with status =\nUnknown.\n\n**K10.FR.09**\nPrecondition: Upon receipt of a\nClearChargingProfileReques\nt with a specified\nchargingProfileId AND\nthe chargingProfilePurpose\nof the referenced\nChargingProfile =\nChargingStationExter\nnalConstraints\nThe Charging Station SHALL respond with a\nClearChargingProfileResponse message with status =\nUnknown.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K10 - Clear Charging Profile - Requirements",
-        "heading_path": "K10 - Clear Charging Profile - Requirements",
+        "heading": "K10 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K10",
         "use_case_name": "Clear Charging Profile",
-        "use_case_refs": "K10",
-        "message_refs": "ClearChargingProfileRequest, ClearChargingProfileResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,132 +2,176 @@
   "use_case_id": "J01",
   "functional_block": "MeterValues",
   "use_case_name": "Sending Meter Values not related to a transaction",
+  "structured": {
+    "name": "Sending Meter Values not related to a transaction",
+    "id": "J01",
+    "functional_block": "MeterValues",
+    "objective": "To sample the electrical meter or other sensor/transducer hardware to provide information about\nthe Charging Stations' Meter Values.",
+    "description": "The Charging Station samples the electrical meter or other sensor/transducer hardware to\nprovide information about its Meter Values. Depending on configuration settings, the Charging\nStation will send Meter Values.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The Charging Station sends a MeterValuesRequest message, for offloading Meter Values to\nthe CSMS.",
+      "2. Upon receipt of a MeterValuesRequest message, the CSMS responds with a\nMeterValuesResponse message."
+    ],
+    "prerequisites": "The Charging Station is configured to send Meter values every XX seconds.\nNo transaction is running.",
+    "postconditions": "Successful postcondition:\nn/a\nFailure postcondition:\nn/a",
+    "error_handling": "n/a",
+    "remarks": "The phase field is not applicable to all Measurands.\nThe phase rotation of a Connector relative to the grid connection can be derived by querying the\nPhaseRotation Configuration Variables of all components in the chain from grid connection up\nto Connector.\nThe nature of each sampledValue is determined by the optional Measurand, context, location, unit\nand phase fields.\nThe optional SignedMeterValue field can contain digitally signed binary meter value data.",
+    "requirements": [
+      {
+        "id": "J01.FR.01",
+        "precondition": "",
+        "definition": "The Charging Station MAY sample the energy\nmeter (or other sensor/transducer hardware) to\nprovide extra information about its Meter Values."
+      },
+      {
+        "id": "J01.FR.02",
+        "precondition": "",
+        "definition": "The MeterValuesRequest message SHALL contain\nthe id of the EVSE from which samples were taken."
+      },
+      {
+        "id": "J01.FR.03",
+        "precondition": "J01.FR.02 AND\nThe evseId is 0.",
+        "definition": "The MeterValuesRequest message SHALL be\nassociated with the entire Charging Station."
+      },
+      {
+        "id": "J01.FR.04",
+        "precondition": "J01.FR.03 AND\nMeasurand is energy related.",
+        "definition": "The sample SHALL be taken from the main energy\nmeter."
+      },
+      {
+        "id": "J01.FR.05",
+        "precondition": "If all captured at the same point in\ntime.",
+        "definition": "Each MeterValue element SHALL contain a\ntimestamp."
+      },
+      {
+        "id": "J01.FR.06",
+        "precondition": "If all captured at the same point in\ntime.",
+        "definition": "Each MeterValue(s) element SHALL contain a set\nof one or more individual SampledValue elements."
+      },
+      {
+        "id": "J01.FR.07",
+        "precondition": "",
+        "definition": "The optional measurand field SHALL specify the\ntype of value being measured/reported."
+      },
+      {
+        "id": "J01.FR.08",
+        "precondition": "",
+        "definition": "The optional context field SHALL specify the\nreason/event triggering the reading."
+      },
+      {
+        "id": "J01.FR.09",
+        "precondition": "",
+        "definition": "The optional location field SHALL specify where the\nmeasurement is taken."
+      },
+      {
+        "id": "J01.FR.10",
+        "precondition": "",
+        "definition": "The optional phase field SHALL specify to which\nphase or phases of the electric installation the\nvalue applies."
+      },
+      {
+        "id": "J01.FR.11",
+        "precondition": "",
+        "definition": "The Charging Station SHALL report all phase\nnumber dependent values from the electrical meter\n(or grid connection when absent) point of view."
+      },
+      {
+        "id": "J01.FR.13",
+        "precondition": "When reporting phase rotation of a\ncomponent",
+        "definition": "The Charging Station SHALL report the phase\nrotation relative to the grid connection"
+      },
+      {
+        "id": "J01.FR.14",
+        "precondition": "When AlignedDataCtrlr.Interval > 0\nAND\nEVSE for which measurands are sent,\nis not involved in a transaction",
+        "definition": "The Charging Station SHALL send a\nMeterValuesRequest message to the CSMS for the\nmeasurands in AlignedDataCtrlr.Measurands at\nevery AlignedDataCtrlr.Interval for all evseIds,\nlocations and phases for which a configured\nmeasurand is supported."
+      },
+      {
+        "id": "J01.FR.15",
+        "precondition": "J01.FR.14\nAND\nAmount of measurands is too much\nfor 1 MeterValuesRequest",
+        "definition": "The Charging Station MAY use multiple\nMeterValuesRequest messages to send all\nmeasurands."
+      },
+      {
+        "id": "J01.FR.17",
+        "precondition": "",
+        "definition": "The timestamp of a MeterValue SHALL apply to all\nits SampledValues."
+      },
+      {
+        "id": "J01.FR.18",
+        "precondition": "When CSMS receives a\nMeterValuesRequest",
+        "definition": "CSMS SHALL respond with MeterValuesResponse."
+      },
+      {
+        "id": "J01.FR.19",
+        "precondition": "If AlignedDataSendDuringIdle is\nset to true for an EVSE AND\nthe specified EVSE has an ongoing\ntransaction.",
+        "definition": "The Charging Station SHALL stop sending the clock\naligned meter values for this EVSE."
+      },
+      {
+        "id": "J01.FR.20",
+        "precondition": "If AlignedDataSendDuringIdle is\nset to true for a Charging Station AND\nthe Charging Station has an ongoing\ntransaction.",
+        "definition": "The Charging Station SHALL stop sending the clock\naligned meter values for all EVSEs and the main\npower meter."
+      },
+      {
+        "id": "J01.FR.21",
+        "precondition": "AlignedDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter\nvalues from components that support data signing\nand put them in the signedMeterValue field."
+      },
+      {
+        "id": "J01.FR.22",
+        "precondition": "When AlignedDataCtrlr.Interval > 0\nAND\nEVSE for which measurands are sent,\nis involved in a transaction",
+        "definition": "The Charging Station SHALL send either:\n- a MeterValuesRequest message or\n- a TransactionEventRequest with triggerReason =\nSample.Clock\nto the CSMS for the measurands in\nAlignedDataCtrlr.Measurands at every\nAlignedDataCtrlr.Interval."
+      }
+    ],
+    "figures": [
+      "fig90.png",
+      "fig91.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# J01 - Sending Meter Values not related to a transaction\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Sending Meter Values not related to a transaction                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID               | J01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 3   | Objective(s)     | To sample the electrical meter or other sensor/transducer hardware to provide information about the Charging Stations' Meter Values.                                                                                                                                                                                                                                                                                                                                                            |\n| 4   | Description      | The Charging Station samples the electrical meter or other sensor/transducer hardware to provide information about its Meter Values. Depending on configuration settings, the Charging Station will send Meter Values. **Actors:** Charging Station, CSMS **Scenario description:** 1. The Charging Station sends a MeterValuesRequest message, for offloading Meter Values to the CSMS. 2. Upon receipt of a MeterValuesRequest message, the CSMS responds with a MeterValuesResponse message. |\n| 5   | Prerequisite(s)  | The Charging Station is configured to send Meter values every XX seconds. No transaction is running.                                                                                                                                                                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s) | Successful postcondition: n/a Failure postcondition: n/a                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "content": "# J01 - Sending Meter Values not related to a transaction\n\n**Objective:** To sample the electrical meter or other sensor/transducer hardware to provide information about\nthe Charging Stations' Meter Values.\n\n**Description:** The Charging Station samples the electrical meter or other sensor/transducer hardware to\nprovide information about its Meter Values. Depending on configuration settings, the Charging\nStation will send Meter Values.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The Charging Station sends a MeterValuesRequest message, for offloading Meter Values to\nthe CSMS.\n2. Upon receipt of a MeterValuesRequest message, the CSMS responds with a\nMeterValuesResponse message.\n\n**Prerequisites:** The Charging Station is configured to send Meter values every XX seconds.\nNo transaction is running.\n\n**Postconditions:** Successful postcondition:\nn/a\nFailure postcondition:\nn/a\n\n**Remarks:** The phase field is not applicable to all Measurands.\nThe phase rotation of a Connector relative to the grid connection can be derived by querying the\nPhaseRotation Configuration Variables of all components in the chain from grid connection up\nto Connector.\nThe nature of each sampledValue is determined by the optional Measurand, context, location, unit\nand phase fields.\nThe optional SignedMeterValue field can contain digitally signed binary meter value data.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "J01 - Sending Meter Values not related to a transaction",
-        "heading_path": "J01 - Sending Meter Values not related to a transaction",
         "functional_block": "MeterValues",
         "use_case_id": "J01",
         "use_case_name": "Sending Meter Values not related to a transaction",
-        "use_case_refs": "J01",
-        "message_refs": "MeterValuesRequest, MeterValuesResponse",
-        "figure_refs": "90",
         "chunk_part": 1,
-        "total_parts": 2
+        "total_parts": 3
       }
     },
     {
-      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 8   | Remark(s)        | The phase field is not applicable to all Measurands. The phase rotation of a Connector relative to the grid connection can be derived by querying the PhaseRotation Configuration Variables of all components in the chain from grid connection up to Connector. The nature of each sampledValue is determined by the optional Measurand, context, location, unit and phase fields. The optional SignedMeterValue field can contain digitally signed binary meter value data.                   |\n\nCharging Station      CSMS\n\nMeterValuesRequest(evseId, meterValue)\n\nMeterValuesResponse()\n\nFigure 90. Sequence Diagram: Sending Meter Values",
+      "content": "# J01 - Requirements\n\n**J01.FR.01**\nThe Charging Station MAY sample the energy\nmeter (or other sensor/transducer hardware) to\nprovide extra information about its Meter Values.\n\n**J01.FR.02**\nThe MeterValuesRequest message SHALL contain\nthe id of the EVSE from which samples were taken.\n\n**J01.FR.03**\nPrecondition: J01.FR.02 AND\nThe evseId is 0.\nThe MeterValuesRequest message SHALL be\nassociated with the entire Charging Station.\n\n**J01.FR.04**\nPrecondition: J01.FR.03 AND\nMeasurand is energy related.\nThe sample SHALL be taken from the main energy\nmeter.\n\n**J01.FR.05**\nPrecondition: If all captured at the same point in\ntime.\nEach MeterValue element SHALL contain a\ntimestamp.\n\n**J01.FR.06**\nPrecondition: If all captured at the same point in\ntime.\nEach MeterValue(s) element SHALL contain a set\nof one or more individual SampledValue elements.\n\n**J01.FR.07**\nThe optional measurand field SHALL specify the\ntype of value being measured/reported.\n\n**J01.FR.08**\nThe optional context field SHALL specify the\nreason/event triggering the reading.\n\n**J01.FR.09**\nThe optional location field SHALL specify where the\nmeasurement is taken.\n\n**J01.FR.10**\nThe optional phase field SHALL specify to which\nphase or phases of the electric installation the\nvalue applies.\n\n**J01.FR.11**\nThe Charging Station SHALL report all phase\nnumber dependent values from the electrical meter\n(or grid connection when absent) point of view.\n\n**J01.FR.13**\nPrecondition: When reporting phase rotation of a\ncomponent\nThe Charging Station SHALL report the phase\nrotation relative to the grid connection\n\n**J01.FR.14**\nPrecondition: When AlignedDataCtrlr.Interval > 0\nAND\nEVSE for which measurands are sent,\nis not involved in a transaction\nThe Charging Station SHALL send a\nMeterValuesRequest message to the CSMS for the\nmeasurands in AlignedDataCtrlr.Measurands at\nevery AlignedDataCtrlr.Interval for all evseIds,\nlocations and phases for which a configured\nmeasurand is supported.\n\n**J01.FR.15**\nPrecondition: J01.FR.14\nAND\nAmount of measurands is too much\nfor 1 MeterValuesRequest\nThe Charging Station MAY use multiple\nMeterValuesRequest messages to send all\nmeasurands.\n\n**J01.FR.17**\nThe timestamp of a MeterValue SHALL apply to all\nits SampledValues.\n\n**J01.FR.18**\nPrecondition: When CSMS receives a\nMeterValuesRequest\nCSMS SHALL respond with MeterValuesResponse.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "J01 - Sending Meter Values not related to a transaction",
-        "heading_path": "J01 - Sending Meter Values not related to a transaction",
+        "content_type": "requirements",
+        "heading": "J01 - Requirements",
         "functional_block": "MeterValues",
         "use_case_id": "J01",
         "use_case_name": "Sending Meter Values not related to a transaction",
-        "use_case_refs": "J01",
-        "message_refs": "MeterValuesRequest, MeterValuesResponse",
-        "figure_refs": "90",
         "chunk_part": 2,
-        "total_parts": 2
+        "total_parts": 3
       }
     },
     {
-      "content": "# J01 - Sending Meter Values not related to a transaction - Requirements\n\n| ID        | Precondition                                                                                                | Requirement definition                                                                                                                                                                                                                             | Note                                                                                                                                                                                                    |\n| --------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| J01.FR.01 |                                                                                                             | The Charging Station MAY sample the energy meter (or other sensor/transducer hardware) to provide extra information about its Meter Values.                                                                                                        | It is up to the Charging Station when it will send Meter Values. This can be configured using the SetVariablesRequest message to data acquisition intervals and specify data to be acquired & reported. |\n| J01.FR.02 |                                                                                                             | The MeterValuesRequest message SHALL contain the id of the EVSE from which samples were taken.                                                                                                                                                     |                                                                                                                                                                                                         |\n| J01.FR.03 | J01.FR.02 AND The evseId is 0.                                                                              | The MeterValuesRequest message SHALL be associated with the entire Charging Station.                                                                                                                                                               |                                                                                                                                                                                                         |\n| J01.FR.04 | J01.FR.03 AND Measurand is energy related.                                                                  | The sample SHALL be taken from the main energy meter.                                                                                                                                                                                              |                                                                                                                                                                                                         |\n| J01.FR.05 | If all captured at the same point in time.                                                                  | Each MeterValue element SHALL contain a timestamp.                                                                                                                                                                                                 |                                                                                                                                                                                                         |",
+      "content": "# J01 - Requirements (continued)\n\n**J01.FR.19**\nPrecondition: If AlignedDataSendDuringIdle is\nset to true for an EVSE AND\nthe specified EVSE has an ongoing\ntransaction.\nThe Charging Station SHALL stop sending the clock\naligned meter values for this EVSE.\n\n**J01.FR.20**\nPrecondition: If AlignedDataSendDuringIdle is\nset to true for a Charging Station AND\nthe Charging Station has an ongoing\ntransaction.\nThe Charging Station SHALL stop sending the clock\naligned meter values for all EVSEs and the main\npower meter.\n\n**J01.FR.21**\nPrecondition: AlignedDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter\nvalues from components that support data signing\nand put them in the signedMeterValue field.\n\n**J01.FR.22**\nPrecondition: When AlignedDataCtrlr.Interval > 0\nAND\nEVSE for which measurands are sent,\nis involved in a transaction\nThe Charging Station SHALL send either:\n- a MeterValuesRequest message or\n- a TransactionEventRequest with triggerReason =\nSample.Clock\nto the CSMS for the measurands in\nAlignedDataCtrlr.Measurands at every\nAlignedDataCtrlr.Interval.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "heading": "J01 - Requirements",
         "functional_block": "MeterValues",
         "use_case_id": "J01",
         "use_case_name": "Sending Meter Values not related to a transaction",
-        "use_case_refs": "J01",
-        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
-        "chunk_part": 1,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| J01.FR.06 | If all captured at the same point in time.                                                                  | Each MeterValue(s) element SHALL contain a set of one or more individual SampledValue elements.                                                                                                                                                    |                                                                                                                                                                                                         |\n| J01.FR.07 |                                                                                                             | The optional measurand field SHALL specify the type of value being measured/reported.                                                                                                                                                              |                                                                                                                                                                                                         |\n| J01.FR.08 |                                                                                                             | The optional context field SHALL specify the reason/event triggering the reading.                                                                                                                                                                  |                                                                                                                                                                                                         |\n| J01.FR.09 |                                                                                                             | The optional location field SHALL specify where the (e.g. Inlet, Outlet) measurement is taken.                                                                                                                                                     |                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "functional_block": "MeterValues",
-        "use_case_id": "J01",
-        "use_case_name": "Sending Meter Values not related to a transaction",
-        "use_case_refs": "J01",
-        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| J01.FR.10 |                                                                                                             | The optional phase field SHALL specify to which phase or phases of the electric installation the value applies.                                                                                                                                    |                                                                                                                                                                                                         |\n| J01.FR.11 |                                                                                                             | The Charging Station SHALL report all phase number dependent values from the electrical meter (or grid connection when absent) point of view.                                                                                                      |                                                                                                                                                                                                         |\n| J01.FR.13 | When reporting phase rotation of a component                                                                | The Charging Station SHALL report the phase rotation relative to the grid connection.                                                                                                                                                              |                                                                                                                                                                                                         |\n| J01.FR.14 | When AlignedDataCtrlr.Interval > 0 AND EVSE for which measurands are sent, is not involved in a transaction | The Charging Station SHALL send a MeterValuesRequest message to the CSMS for the measurands in AlignedDataCtrlr.Measurands at every AlignedDataCtrlr.Interval for all evseIds, locations and phases for which a configured measurand is supported. | It is possible that certain measurands are not available for every location. For example, evseId = 0 (grid meter) will not have a \"Current.Offered\" or \"SoC\" measurand. See also J01.FR.22              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "functional_block": "MeterValues",
-        "use_case_id": "J01",
-        "use_case_name": "Sending Meter Values not related to a transaction",
-        "use_case_refs": "J01",
-        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
         "chunk_part": 3,
-        "total_parts": 4
+        "total_parts": 3
       }
-    },
-    {
-      "content": "| J01.FR.15 | J01.FR.14 AND Amount of measurands is too much for 1 MeterValuesRequest                                     | The Charging Station MAY use multiple MeterValuesRequest messages to send all measurands.                                                                                                                                                          |                                                                                                                                                                                                         |\n| J01.FR.17 |                                                                                                             | The timestamp of a MeterValue SHALL apply to all its SampledValues.                                                                                                                                                                                |                                                                                                                                                                                                         |\n| J01.FR.18 | When CSMS receives a MeterValuesRequest                                                                     | CSMS SHALL respond with MeterValuesResponse.                                                                                                                                                                                                       | Failing to respond with MeterValuesResponse might cause the Charging Station to try the same message again.                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
-        "functional_block": "MeterValues",
-        "use_case_id": "J01",
-        "use_case_name": "Sending Meter Values not related to a transaction",
-        "use_case_refs": "J01",
-        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "90",
-      "title": "Sequence Diagram: Sending Meter Values",
-      "files": [
-        "fig90_Sequence_Diagram__Sending_Meter_Values.png"
-      ]
-    },
-    {
-      "figure_num": "90",
-      "title": "Sequence Diagram: Sending Meter Values",
-      "files": [
-        "fig90_Sequence_Diagram__Sending_Meter_Values.png"
-      ]
     }
   ]
 }

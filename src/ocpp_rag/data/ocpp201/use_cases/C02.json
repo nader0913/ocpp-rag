@@ -2,95 +2,81 @@
   "use_case_id": "C02",
   "functional_block": "Authorization",
   "use_case_name": "Authorization using a start button",
+  "structured": {
+    "name": "Authorization using a start button",
+    "id": "C02",
+    "functional_block": "Authorization",
+    "objective": "Make it possible for a Charging Station that has a start button to start charging.",
+    "description": "For some chargers authorization of a user might not be a requirement. A simple charger might\nhave a button instead of a more expensive RFID reader to start charging. When such a Charging\nStation starts charging, it is not needed to send an AuthorizeRequest. In the\nTransactionEventRequest (eventType = Started), IdTokenType information needs to be given,\nwhich the CSMS then cannot reject.",
+    "actors": [
+      "EV Driver",
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The EV Driver plugs in the charging cable between EV and Charging Station.",
+      "2. The Charging Station sends a StatusNotificationRequest and TransactionEventRequest\n(eventType = Started) to notify the CSMS about the cable being plugged in.",
+      "3. The EV Driver presses the start button to start Charging.",
+      "4. The Charging Station starts Charging of the EV.",
+      "5. The Charging Station sends a TransactionEventRequest (eventType = Updated) message with\nidToken.type = NoAuthorization to the CSMS to notify the CSMS of the charging that has\nstarted.",
+      "6. Upon receipt of TransactionEventRequest (eventType = Updated), the CSMS responds with\nTransactionEventResponse with: IdTokenInfo.status set to Accepted"
+    ],
+    "prerequisites": "Charging Station has a start button, instead of an RFID reader to start charging of an EV.",
+    "postconditions": "Transaction ongoing on Charging Station, CSMS is aware of transaction.",
+    "error_handling": "n/a",
+    "remarks": "The start button might also be a mechanical key or something similar.\nNote that the start button can even be omitted if the Charging Station is configured to start\ncharging upon cable connection.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.",
+    "requirements": [
+      {
+        "id": "C02.FR.01",
+        "precondition": "When a transaction is started with a button.",
+        "definition": "The Charging Station SHALL send TransactionEventRequest\nwith an IdTokenType of type: NoAuthorization and the field\nidToken left empty (empty string)."
+      },
+      {
+        "id": "C02.FR.02",
+        "precondition": "CSMS receives a TransactionEventRequest with\nan IdTokenType of type: NoAuthorization",
+        "definition": "The CSMS SHALL respond with a TransactionEventResponse\nwith IdTokenInfo.status set Accepted."
+      },
+      {
+        "id": "C02.FR.03",
+        "precondition": "If the Charging Station has implemented an\nAuthorization Cache AND the Charging Station\nreceives IdTokenInfo for an IdTokenType of type\nNoAuthorization in any message",
+        "definition": "The Charging Station SHALL NOT store the information in its\nAuthorization Cache."
+      }
+    ],
+    "figures": [
+      "fig22.png",
+      "fig23.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C02 - Authorization using a start button\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Authorization using a start button                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 2   | ID               | C02                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "content": "# C02 - Authorization using a start button\n\n**Objective:** Make it possible for a Charging Station that has a start button to start charging.\n\n**Description:** For some chargers authorization of a user might not be a requirement. A simple charger might\nhave a button instead of a more expensive RFID reader to start charging. When such a Charging\nStation starts charging, it is not needed to send an AuthorizeRequest. In the\nTransactionEventRequest (eventType = Started), IdTokenType information needs to be given,\nwhich the CSMS then cannot reject.\n\n**Actors:** EV Driver, Charging Station, CSMS\n\n**Scenario:**\n1. The EV Driver plugs in the charging cable between EV and Charging Station.\n2. The Charging Station sends a StatusNotificationRequest and TransactionEventRequest\n(eventType = Started) to notify the CSMS about the cable being plugged in.\n3. The EV Driver presses the start button to start Charging.\n4. The Charging Station starts Charging of the EV.\n5. The Charging Station sends a TransactionEventRequest (eventType = Updated) message with\nidToken.type = NoAuthorization to the CSMS to notify the CSMS of the charging that has\nstarted.\n6. Upon receipt of TransactionEventRequest (eventType = Updated), the CSMS responds with\nTransactionEventResponse with: IdTokenInfo.status set to Accepted\n\n**Prerequisites:** Charging Station has a start button, instead of an RFID reader to start charging of an EV.\n\n**Postconditions:** Transaction ongoing on Charging Station, CSMS is aware of transaction.\n\n**Remarks:** The start button might also be a mechanical key or something similar.\nNote that the start button can even be omitted if the Charging Station is configured to start\ncharging upon cable connection.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C02 - Authorization using a start button",
-        "heading_path": "C02 - Authorization using a start button",
         "functional_block": "Authorization",
         "use_case_id": "C02",
         "use_case_name": "Authorization using a start button",
-        "use_case_refs": "C02, E01",
-        "message_refs": "AuthorizeRequest, StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)     | Make it possible for a Charging Station that has a start button to start charging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 4   | Description      | For some chargers authorization of a user might not be a requirement. A simple charger might have a button instead of a more expensive RFID reader to start charging. When such a Charging Station starts charging, it is not needed to send an AuthorizeRequest. In the TransactionEventRequest (eventType = Started), IdTokenType information needs to be given, which the CSMS then cannot reject. Actors: EV Driver, Charging Station, CSMS Scenario description: 1. The EV Driver plugs in the charging cable between EV and Charging Station. 2. The Charging Station sends a StatusNotificationRequest and TransactionEventRequest (eventType = Started) to notify the CSMS about the cable being plugged in. 3. The EV Driver presses the start button to start Charging. 4. The Charging Station starts Charging of the EV. 5. The Charging Station sends a TransactionEventRequest (eventType = Updated) message with idToken.type = NoAuthorization to the CSMS to notify the CSMS of the charging that has started. 6. Upon receipt of TransactionEventRequest (eventType = Updated), the CSMS responds with TransactionEventResponse with: IdTokenInfo.status set to Accepted |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C02 - Authorization using a start button",
-        "heading_path": "C02 - Authorization using a start button",
-        "functional_block": "Authorization",
-        "use_case_id": "C02",
-        "use_case_name": "Authorization using a start button",
-        "use_case_refs": "C02, E01",
-        "message_refs": "AuthorizeRequest, StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 5   | Prerequisites    | Charging Station has a start button, instead of an RFID reader to start charging of an EV.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 6   | Postcondition(s) | Transaction ongoing on Charging Station, CSMS is aware of transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C02 - Authorization using a start button",
-        "heading_path": "C02 - Authorization using a start button",
-        "functional_block": "Authorization",
-        "use_case_id": "C02",
-        "use_case_name": "Authorization using a start button",
-        "use_case_refs": "C02, E01",
-        "message_refs": "AuthorizeRequest, StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 8   | Remarks          | The start button might also be a mechanical key or something similar. Note that the start button can even be omitted if the Charging Station is configured to start charging upon cable connection. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: EVConnected This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use case: E01 - Start Transaction options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C02 - Authorization using a start button",
-        "heading_path": "C02 - Authorization using a start button",
-        "functional_block": "Authorization",
-        "use_case_id": "C02",
-        "use_case_name": "Authorization using a start button",
-        "use_case_refs": "C02, E01",
-        "message_refs": "AuthorizeRequest, StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# C02 - Authorization using a start button - Requirements\n\n| ID.       | Precondition                                                                         | Requirement definition                                                                                                                                |\n| --------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| C02.FR.01 | When a transaction is started with a button.                                         | The Charging Station SHALL send TransactionEventRequest with an IdTokenType of type: NoAuthorization and the field idToken left empty (empty string). |\n| C02.FR.02 | CSMS receives a TransactionEventRequest with an IdTokenType of type: NoAuthorization | The CSMS SHALL respond with a TransactionEventResponse with IdTokenInfo.status set Accepted.                                                          |",
+      "content": "# C02 - Requirements\n\n**C02.FR.01**\nPrecondition: When a transaction is started with a button.\nThe Charging Station SHALL send TransactionEventRequest\nwith an IdTokenType of type: NoAuthorization and the field\nidToken left empty (empty string).\n\n**C02.FR.02**\nPrecondition: CSMS receives a TransactionEventRequest with\nan IdTokenType of type: NoAuthorization\nThe CSMS SHALL respond with a TransactionEventResponse\nwith IdTokenInfo.status set Accepted.\n\n**C02.FR.03**\nPrecondition: If the Charging Station has implemented an\nAuthorization Cache AND the Charging Station\nreceives IdTokenInfo for an IdTokenType of type\nNoAuthorization in any message\nThe Charging Station SHALL NOT store the information in its\nAuthorization Cache.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C02 - Authorization using a start button - Requirements",
-        "heading_path": "C02 - Authorization using a start button - Requirements",
+        "heading": "C02 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C02",
         "use_case_name": "Authorization using a start button",
-        "use_case_refs": "C02",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,78 +2,105 @@
   "use_case_id": "E11",
   "functional_block": "Transactions",
   "use_case_name": "Connection Loss During Transaction",
+  "structured": {
+    "name": "Connection Loss During Transaction",
+    "id": "E11",
+    "functional_block": "Transactions",
+    "objective": "To enable a Charging Station to continue a transaction while the Charging Station loses its\nconnection",
+    "description": "This use cases describes how a Charging Station can continue an ongoing transaction while\nlosing and regaining the connection with the CSMS.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The connection of the Charging Station is lost, while a transaction is ongoing.",
+      "2. The transaction events of the Charging Station are stored.",
+      "3. The connection with the CSMS is restored.",
+      "4. The Charging Station sends the stored transaction events to the CSMS using\nTransactionEventRequest (offline = TRUE).",
+      "5. The Charging Station resumes regular communication."
+    ],
+    "prerequisites": "Transaction ongoing and connection lost.",
+    "postconditions": "Successful postcondition:\nThe Charging Station resumes regular communication.\nFailure postcondition:\nn/a",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "E11.FR.01",
+        "precondition": "When Offline",
+        "definition": "The Charging Station MUST queue all TransactionEventRequest\nmessages, that it would have sent to the CSMS if the Charging\nStation had been online. (Same as E12.FR.01)"
+      },
+      {
+        "id": "E11.FR.02",
+        "precondition": "After the connection is restored.",
+        "definition": "The Charging Station MUST send queued\nTransactionEventRequest messages with the flag offline set to\nTRUE. (Same as E12.FR.02)"
+      },
+      {
+        "id": "E11.FR.03",
+        "precondition": "When configured to send meter data in the\nTransactionEventRequest(eventType =\nUpdated), See: Meter Values - Configuration",
+        "definition": "The Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Updated) sent to the CSMS to provide more details\nduring the transaction. (Same as J02.FR.11)"
+      },
+      {
+        "id": "E11.FR.04",
+        "precondition": "E11.FR.03\nAND\nOffline\nAND\nThe Charging Station is running low on memory",
+        "definition": "The Charging Station MAY drop TransactionEventRequest\n(eventType = Updated) messages. (Same as J02.FR.12)"
+      },
+      {
+        "id": "E11.FR.05",
+        "precondition": "E11.FR.04",
+        "definition": "When dropping TransactionEventRequest(eventType = Updated)\nmessages, the Charging Station SHALL drop intermediate\nmessages first (2nd message, 4th message, 6th message etc.),\nnot start dropping messages from the start or stop adding\nmessages to the queue. (Same as J02.FR.13)"
+      },
+      {
+        "id": "E11.FR.06",
+        "precondition": "E11.FR.03\nAND\nAmount of meter data is too much for 1\nTransactionEventRequest(eventType = Updated)",
+        "definition": "The Charging Station MAY split the meter data over multiple\nTransactionEventRequest(eventType = Updated) messages with\nthe same timestamp. (Same as J02.FR.14)"
+      },
+      {
+        "id": "E11.FR.07",
+        "precondition": "",
+        "definition": "If the Charging Station goes offline, every message that is still in\nthe queue SHALL be set Offline."
+      },
+      {
+        "id": "E11.FR.08",
+        "precondition": "SampledDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter values and\nput them in the signedMeterValue field of sampledValues. (Same\nas E02.FR.14)"
+      }
+    ],
+    "figures": [
+      "fig59.png",
+      "fig60.png",
+      "fig61.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# E11 - Connection Loss During Transaction\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Connection Loss During Transaction                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID                   | E11                                                                                                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)         | To enable a Charging Station to continue a transaction while the Charging Station loses its connection                                                                                                                                                                                                                                                                       |\n| 4   | Description          | This use case describes how a Charging Station can continue an ongoing transaction while losing and regaining the connection with the CSMS.                                                                                                                                                                                                                                  |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                       |\n|     | Scenario description | 1. The connection of the Charging Station is lost, while a transaction is ongoing. 2. The transaction events of the Charging Station are stored. 3. The connection with the CSMS is restored. 4. The Charging Station sends the stored transaction events to the CSMS using TransactionEventRequest (offline = TRUE). 5. The Charging Station resumes regular communication. |\n| 5   | Prerequisite(s)      | Transaction ongoing and connection lost.                                                                                                                                                                                                                                                                                                                                     |\n| 6   | Postcondition(s)     | Successful postcondition: The Charging Station resumes regular communication. Failure postcondition: n/a                                                                                                                                                                                                                                                                     |",
+      "content": "# E11 - Connection Loss During Transaction\n\n**Objective:** To enable a Charging Station to continue a transaction while the Charging Station loses its\nconnection\n\n**Description:** This use cases describes how a Charging Station can continue an ongoing transaction while\nlosing and regaining the connection with the CSMS.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The connection of the Charging Station is lost, while a transaction is ongoing.\n2. The transaction events of the Charging Station are stored.\n3. The connection with the CSMS is restored.\n4. The Charging Station sends the stored transaction events to the CSMS using\nTransactionEventRequest (offline = TRUE).\n5. The Charging Station resumes regular communication.\n\n**Prerequisites:** Transaction ongoing and connection lost.\n\n**Postconditions:** Successful postcondition:\nThe Charging Station resumes regular communication.\nFailure postcondition:\nn/a",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E11 - Connection Loss During Transaction",
-        "heading_path": "E11 - Connection Loss During Transaction",
         "functional_block": "Transactions",
         "use_case_id": "E11",
         "use_case_name": "Connection Loss During Transaction",
-        "use_case_refs": "E11",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "figure_refs": "59",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                          |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                          |\n\nCharging Station    CSMS\n\nA transaction is ongoing.\n\nConnection loss.\n\nopt\nloop  [while transaction running]\nstore TransactionEventRequest() messages\n\nConnection restored.\n\nloop  [for all stored TransactionEventRequest() messages]\nTransactionEventRequest(offline = true)\n\nTransactionEventResponse()\n\nResume regular communication\n\nFigure 59. Sequence Diagram: Connection Loss During Transaction",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E11 - Connection Loss During Transaction",
-        "heading_path": "E11 - Connection Loss During Transaction",
-        "functional_block": "Transactions",
-        "use_case_id": "E11",
-        "use_case_name": "Connection Loss During Transaction",
-        "use_case_refs": "E11",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "figure_refs": "59",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# E11 - Connection Loss During Transaction - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                 |\n| --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E11.FR.01 | When Offline | The Charging Station MUST queue all TransactionEventRequest messages, that it would have sent to the CSMS if the Charging Station had been online. (Same as E12.FR.01) |",
+      "content": "# E11 - Requirements\n\n**E11.FR.01**\nPrecondition: When Offline\nThe Charging Station MUST queue all TransactionEventRequest\nmessages, that it would have sent to the CSMS if the Charging\nStation had been online. (Same as E12.FR.01)\n\n**E11.FR.02**\nPrecondition: After the connection is restored.\nThe Charging Station MUST send queued\nTransactionEventRequest messages with the flag offline set to\nTRUE. (Same as E12.FR.02)\n\n**E11.FR.03**\nPrecondition: When configured to send meter data in the\nTransactionEventRequest(eventType =\nUpdated), See: Meter Values - Configuration\nThe Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Updated) sent to the CSMS to provide more details\nduring the transaction. (Same as J02.FR.11)\n\n**E11.FR.04**\nPrecondition: E11.FR.03\nAND\nOffline\nAND\nThe Charging Station is running low on memory\nThe Charging Station MAY drop TransactionEventRequest\n(eventType = Updated) messages. (Same as J02.FR.12)\n\n**E11.FR.05**\nPrecondition: E11.FR.04\nWhen dropping TransactionEventRequest(eventType = Updated)\nmessages, the Charging Station SHALL drop intermediate\nmessages first (2nd message, 4th message, 6th message etc.),\nnot start dropping messages from the start or stop adding\nmessages to the queue. (Same as J02.FR.13)\n\n**E11.FR.06**\nPrecondition: E11.FR.03\nAND\nAmount of meter data is too much for 1\nTransactionEventRequest(eventType = Updated)\nThe Charging Station MAY split the meter data over multiple\nTransactionEventRequest(eventType = Updated) messages with\nthe same timestamp. (Same as J02.FR.14)\n\n**E11.FR.07**\nIf the Charging Station goes offline, every message that is still in\nthe queue SHALL be set Offline.\n\n**E11.FR.08**\nPrecondition: SampledDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter values and\nput them in the signedMeterValue field of sampledValues. (Same\nas E02.FR.14)",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E11 - Connection Loss During Transaction - Requirements",
-        "heading_path": "E11 - Connection Loss During Transaction - Requirements",
+        "heading": "E11 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E11",
         "use_case_name": "Connection Loss During Transaction",
-        "use_case_refs": "E11, E12",
-        "message_refs": "TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "59",
-      "title": "Sequence Diagram: Connection Loss During Transaction",
-      "files": [
-        "fig59_p1_Sequence_Diagram__Connection_Loss_During_Transacti.png",
-        "fig59_p2_Sequence_Diagram__Connection_Loss_During_Transacti.png"
-      ]
-    },
-    {
-      "figure_num": "59",
-      "title": "Sequence Diagram: Connection Loss During Transaction",
-      "files": [
-        "fig59_p1_Sequence_Diagram__Connection_Loss_During_Transacti.png",
-        "fig59_p2_Sequence_Diagram__Connection_Loss_During_Transacti.png"
-      ]
     }
   ]
 }

@@ -2,59 +2,82 @@
   "use_case_id": "A04",
   "functional_block": "Security",
   "use_case_name": "Security Event Notification",
+  "structured": {
+    "name": "Security Event Notification",
+    "id": "A04",
+    "functional_block": "Security",
+    "objective": "To inform the CSMS of critical security events.",
+    "description": "This use case allows the Charging Station to immediately inform the CSMS of changes in the\nsystem security.",
+    "actors": [
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. A critical security event happens.",
+      "2. The Charging Station sends a SecurityEventNotificationRequest to the CSMS.",
+      "3. The CSMS responds with SecurityEventNotificationResponse to the Charging Station."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "The Charging Station successfully informs the CSMS of critical security events by sending a\nSecurityEventNotificationRequest to the CSMS.",
+    "error_handling": "n/a",
+    "remarks": "A list of security related events and their 'criticality' is provided in the Appendices (Appendix 1.\nSecurity Events)",
+    "requirements": [
+      {
+        "id": "A04.FR.01",
+        "precondition": "When a critical security\nevent happens",
+        "definition": "The Charging Station SHALL inform the CSMS of the\nsecurity events by sending a\nSecurityEventNotificationRequest to the CSMS."
+      },
+      {
+        "id": "A04.FR.02",
+        "precondition": "A04.FR.01 AND\nthe Charging Station is\ndisconnected.",
+        "definition": "Security event notifications MUST be queued with a\nguaranteed delivery at the CSMS."
+      },
+      {
+        "id": "A04.FR.03",
+        "precondition": "A04.FR.01",
+        "definition": "The CSMS SHALL confirm the receipt of the notification\nusing the SecurityEventNotificationResponse message."
+      },
+      {
+        "id": "A04.FR.04",
+        "precondition": "When a security event\nhappens (also non-critical)",
+        "definition": "The Charging Station SHALL store the security event in a\nsecurity log."
+      }
+    ],
+    "figures": [
+      "fig8.png",
+      "fig9.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# A04 - Security Event Notification\n\n| No. | Type                 | Description                                                                                                                                                                                              |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Security Event Notification                                                                                                                                                                              |\n| 2   | ID                   | A04                                                                                                                                                                                                      |\n| 3   | Objective(s)         | To inform the CSMS of critical security events.                                                                                                                                                          |\n| 4   | Description          | This use case allows the Charging Station to immediately inform the CSMS of changes in the system security.                                                                                              |\n|     | Actors               | CSMS, Charging Station                                                                                                                                                                                   |\n|     | Scenario description | 1. A critical security event happens. 2. The Charging Station sends a SecurityEventNotificationRequest to the CSMS. 3. The CSMS responds with SecurityEventNotificationResponse to the Charging Station. |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                      |\n| 6   | Postcondition(s)     | The Charging Station successfully informs the CSMS of critical security events by sending a SecurityEventNotificationRequest to the CSMS.                                                                |\n| 7   | Error handling       | n/a                                                                                                                                                                                                      |\n| 8   | Remark(s)            | A list of security related events and their 'criticality' is provided in the Appendices (Appendix 1. Security Events)                                                                                    |",
+      "content": "# A04 - Security Event Notification\n\n**Objective:** To inform the CSMS of critical security events.\n\n**Description:** This use case allows the Charging Station to immediately inform the CSMS of changes in the\nsystem security.\n\n**Actors:** CSMS, Charging Station\n\n**Scenario:**\n1. A critical security event happens.\n2. The Charging Station sends a SecurityEventNotificationRequest to the CSMS.\n3. The CSMS responds with SecurityEventNotificationResponse to the Charging Station.\n\n**Prerequisites:** n/a\n\n**Postconditions:** The Charging Station successfully informs the CSMS of critical security events by sending a\nSecurityEventNotificationRequest to the CSMS.\n\n**Remarks:** A list of security related events and their 'criticality' is provided in the Appendices (Appendix 1.\nSecurity Events)",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "A04 - Security Event Notification",
-        "heading_path": "A04 - Security Event Notification",
         "functional_block": "Security",
         "use_case_id": "A04",
         "use_case_name": "Security Event Notification",
-        "use_case_refs": "A04",
-        "message_refs": "SecurityEventNotificationRequest, SecurityEventNotificationResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "Charging Station                      CSMS\n\nA security related event occurred\n\nsee part 2 Appendices for security related events\n\nopt  [critical security event]\n\nSecurityEventNotificationRequest()\n\nSecurityEventNotificationResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "A04 - Security Event Notification",
-        "heading_path": "A04 - Security Event Notification",
-        "functional_block": "Security",
-        "use_case_id": "A04",
-        "use_case_name": "Security Event Notification",
-        "use_case_refs": "A04",
-        "message_refs": "SecurityEventNotificationRequest, SecurityEventNotificationResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# A04 - Security Event Notification - Requirements\n\n| ID        | Precondition                                        | Requirement definition                                                                                                       | Note                                                         |\n| --------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |\n| A04.FR.01 | When a critical security event happens              | The Charging Station SHALL inform the CSMS of the security events by sending a SecurityEventNotificationRequest to the CSMS. |                                                              |\n| A04.FR.02 | A04.FR.01 AND the Charging Station is disconnected. | Security event notifications MUST be queued with a guaranteed delivery at the CSMS.                                          |                                                              |\n| A04.FR.03 | A04.FR.01                                           | The CSMS SHALL confirm the receipt of the notification using the SecurityEventNotificationResponse message.                  |                                                              |\n| A04.FR.04 | When a security event happens (also non-critical)   | The Charging Station SHALL store the security event in a security log.                                                       | It is recommended to implement this log in a rolling format. |",
+      "content": "# A04 - Requirements\n\n**A04.FR.01**\nPrecondition: When a critical security\nevent happens\nThe Charging Station SHALL inform the CSMS of the\nsecurity events by sending a\nSecurityEventNotificationRequest to the CSMS.\n\n**A04.FR.02**\nPrecondition: A04.FR.01 AND\nthe Charging Station is\ndisconnected.\nSecurity event notifications MUST be queued with a\nguaranteed delivery at the CSMS.\n\n**A04.FR.03**\nPrecondition: A04.FR.01\nThe CSMS SHALL confirm the receipt of the notification\nusing the SecurityEventNotificationResponse message.\n\n**A04.FR.04**\nPrecondition: When a security event\nhappens (also non-critical)\nThe Charging Station SHALL store the security event in a\nsecurity log.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "A04 - Security Event Notification - Requirements",
-        "heading_path": "A04 - Security Event Notification - Requirements",
+        "heading": "A04 - Requirements",
         "functional_block": "Security",
         "use_case_id": "A04",
         "use_case_name": "Security Event Notification",
-        "use_case_refs": "A04",
-        "message_refs": "SecurityEventNotificationRequest, SecurityEventNotificationResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

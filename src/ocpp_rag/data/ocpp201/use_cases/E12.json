@@ -2,95 +2,118 @@
   "use_case_id": "E12",
   "functional_block": "Transactions",
   "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+  "structured": {
+    "name": "Inform CSMS of an Offline Occurred Transaction",
+    "id": "E12",
+    "functional_block": "Transactions",
+    "objective": "To enable the Charging Station to inform the CSMS that a transaction occurred while the\nCharging Station was Offline.",
+    "description": "This use case covers how the Charging Station starts and stops a transaction since connection\nloss.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The connection with the CSMS is restored.",
+      "2. The Charging Station sends a Heartbeat message to the CSMS.",
+      "3. The Charging Station sends TransactionEventRequest (eventType = Started, offline = TRUE) to\nthe CSMS.",
+      "4. The CSMS responds with TransactionEventResponse, accepting the transaction.",
+      "5. The Charging Station sends TransactionEventRequest (eventType = Updated, offline = TRUE)",
+      "6. The CSMS responds with TransactionEventResponse.",
+      "7. The Charging Station sends TransactionEventRequest (eventType = Ended, offline = TRUE)",
+      "8. The CSMS responds with TransactionEventResponse."
+    ],
+    "prerequisites": "At least one Offline transaction has taken place.",
+    "postconditions": "Successful postcondition:\nThe CSMS has processed all transactions that occurred Offline.\nFailure postcondition:\nn/a",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "E12.FR.01",
+        "precondition": "When Offline",
+        "definition": "The Charging Station MUST queue all TransactionEventRequest\nmessages, that it would have sent to the CSMS if the Charging\nStation had been online."
+      },
+      {
+        "id": "E12.FR.02",
+        "precondition": "After the connection is restored.",
+        "definition": "The Charging Station MUST send queued\nTransactionEventRequest messages with the flag offline set to\nTRUE."
+      },
+      {
+        "id": "E12.FR.03",
+        "precondition": "When configured to send meter data in the\nTransactionEventRequest(eventType =\nUpdated), See: Meter Values - Configuration",
+        "definition": "The Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Updated) sent to the CSMS to provide more details\nduring the transaction. (Same as J02.FR.11)"
+      },
+      {
+        "id": "E12.FR.04",
+        "precondition": "E12.FR.03\nAND\nOffline\nAND\nThe Charging Station is running low on memory",
+        "definition": "The Charging Station MAY drop TransactionEventRequest\n(eventType = Updated) messages. (Same as J02.FR.12)"
+      },
+      {
+        "id": "E12.FR.05",
+        "precondition": "E12.FR.04",
+        "definition": "When dropping TransactionEventRequest(eventType = Updated)\nmessages, the Charging Station SHALL drop intermediate\nmessages first (2nd message, 4th message, 6th message etc.),\nnot start dropping messages from the start or stop adding\nmessages to the queue. (Same as J02.FR.13)"
+      },
+      {
+        "id": "E12.FR.06",
+        "precondition": "E12.FR.03\nAND\nAmount of meter data is too much for 1\nTransactionEventRequest(eventType = Updated)",
+        "definition": "The Charging Station MAY split the meter data over multiple\nTransactionEventRequest(eventType = Updated) messages with\nthe same timestamp. (Same as J02.FR.14)"
+      },
+      {
+        "id": "E12.FR.07",
+        "precondition": "When configured to send meter data in the\nTransactionEventRequest(eventType = Ended),\nSee: Meter Values - Configuration",
+        "definition": "The Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Ended) sent to the CSMS to provide more details\nabout transaction usage. (Same as E08.FR.09)"
+      },
+      {
+        "id": "E12.FR.08",
+        "precondition": "E12.FR.07\nAND\nThe Charging Station is running low on memory",
+        "definition": "The Charging Station MAY drop meter data in the\nTransactionEventRequest(eventType = Ended) message. (Same\nas E06.FR.12)"
+      },
+      {
+        "id": "E12.FR.09",
+        "precondition": "E12.FR.08",
+        "definition": "When dropping meter data, the Charging Station SHALL drop\nintermediate values first (2nd value, 4th value, 6th etc), not drop\nthe start and end values from the list. (Same as E06.FR.13)"
+      },
+      {
+        "id": "E12.FR.10",
+        "precondition": "SampledDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter values and\nput them in the signedMeterValue field of sampledValues. (Same\nas E06.FR.14)"
+      }
+    ],
+    "figures": [
+      "fig60.png",
+      "fig61.png",
+      "fig62.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# E12 - Inform CSMS of an Offline Occurred Transaction\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Inform CSMS of an Offline Occurred Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID               | E12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 3   | Objective(s)     | To enable the Charging Station to inform the CSMS that a transaction occurred while the Charging Station was Offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |",
+      "content": "# E12 - Inform CSMS of an Offline Occurred Transaction\n\n**Objective:** To enable the Charging Station to inform the CSMS that a transaction occurred while the\nCharging Station was Offline.\n\n**Description:** This use case covers how the Charging Station starts and stops a transaction since connection\nloss.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The connection with the CSMS is restored.\n2. The Charging Station sends a Heartbeat message to the CSMS.\n3. The Charging Station sends TransactionEventRequest (eventType = Started, offline = TRUE) to\nthe CSMS.\n4. The CSMS responds with TransactionEventResponse, accepting the transaction.\n5. The Charging Station sends TransactionEventRequest (eventType = Updated, offline = TRUE)\n6. The CSMS responds with TransactionEventResponse.\n7. The Charging Station sends TransactionEventRequest (eventType = Ended, offline = TRUE)\n8. The CSMS responds with TransactionEventResponse.\n\n**Prerequisites:** At least one Offline transaction has taken place.\n\n**Postconditions:** Successful postcondition:\nThe CSMS has processed all transactions that occurred Offline.\nFailure postcondition:\nn/a",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
         "functional_block": "Transactions",
         "use_case_id": "E12",
         "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
-        "use_case_refs": "E12",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 4   | Description      | This use case covers how the Charging Station starts and stops a transaction since connection loss. **Actors:** Charging Station, CSMS **Scenario description:**) The connection with the CSMS is restored.\n2) The Charging Station sends a Heartbeat message to the CSMS.\n3) The Charging Station sends TransactionEventRequest (eventType = Started, offline = TRUE) to the CSMS.\n4) The CSMS responds with TransactionEventResponse, accepting the transaction.\n5) The Charging Station sends TransactionEventRequest (eventType = Updated, offline = TRUE).\n6) The CSMS responds with TransactionEventResponse.\n7) The Charging Station sends TransactionEventRequest (eventType = Ended, offline = TRUE).\n8) The CSMS responds with TransactionEventResponse. |\n| 5   | Prerequisite(s)  | At least one Offline transaction has taken place.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 6   | Postcondition(s) | **Successful postcondition:** The CSMS has processed all transactions that occurred Offline. **Failure postcondition:** n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "functional_block": "Transactions",
-        "use_case_id": "E12",
-        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
-        "use_case_refs": "E12",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n\nCharging Station\nCSMS\n\nCharging Station is Offline and a transaction has occurred.\n\nConnection restored.\n\nHeartbeatRequest()\nHeartbeatResponse()\nsend queued message()\n\nloop [for all queued TransactionEvent messages since connection loss]",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "functional_block": "Transactions",
-        "use_case_id": "E12",
-        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
-        "use_case_refs": "E12",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "TransactionEventRequest(transactionId = X, offline = true)\nTransactionEventResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
-        "functional_block": "Transactions",
-        "use_case_id": "E12",
-        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
-        "use_case_refs": "E12",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# E12 - Inform CSMS of an Offline Occurred Transaction - Requirements\n\n| ID        | Precondition                      | Requirement definition                                                                                                                             |\n| --------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E12.FR.01 | When Offline                      | The Charging Station MUST queue all TransactionEventRequest messages, that it would have sent to the CSMS if the Charging Station had been online. |\n| E12.FR.02 | After the connection is restored. | The Charging Station MUST send queued TransactionEventRequest messages with the flag offline set to TRUE.                                          |",
+      "content": "# E12 - Requirements\n\n**E12.FR.01**\nPrecondition: When Offline\nThe Charging Station MUST queue all TransactionEventRequest\nmessages, that it would have sent to the CSMS if the Charging\nStation had been online.\n\n**E12.FR.02**\nPrecondition: After the connection is restored.\nThe Charging Station MUST send queued\nTransactionEventRequest messages with the flag offline set to\nTRUE.\n\n**E12.FR.03**\nPrecondition: When configured to send meter data in the\nTransactionEventRequest(eventType =\nUpdated), See: Meter Values - Configuration\nThe Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Updated) sent to the CSMS to provide more details\nduring the transaction. (Same as J02.FR.11)\n\n**E12.FR.04**\nPrecondition: E12.FR.03\nAND\nOffline\nAND\nThe Charging Station is running low on memory\nThe Charging Station MAY drop TransactionEventRequest\n(eventType = Updated) messages. (Same as J02.FR.12)\n\n**E12.FR.05**\nPrecondition: E12.FR.04\nWhen dropping TransactionEventRequest(eventType = Updated)\nmessages, the Charging Station SHALL drop intermediate\nmessages first (2nd message, 4th message, 6th message etc.),\nnot start dropping messages from the start or stop adding\nmessages to the queue. (Same as J02.FR.13)\n\n**E12.FR.06**\nPrecondition: E12.FR.03\nAND\nAmount of meter data is too much for 1\nTransactionEventRequest(eventType = Updated)\nThe Charging Station MAY split the meter data over multiple\nTransactionEventRequest(eventType = Updated) messages with\nthe same timestamp. (Same as J02.FR.14)\n\n**E12.FR.07**\nPrecondition: When configured to send meter data in the\nTransactionEventRequest(eventType = Ended),\nSee: Meter Values - Configuration\nThe Charging Station SHALL add the configured measurands to\nthe optional meterValue field in the TransactionEventRequest\n(eventType = Ended) sent to the CSMS to provide more details\nabout transaction usage. (Same as E08.FR.09)\n\n**E12.FR.08**\nPrecondition: E12.FR.07\nAND\nThe Charging Station is running low on memory\nThe Charging Station MAY drop meter data in the\nTransactionEventRequest(eventType = Ended) message. (Same\nas E06.FR.12)\n\n**E12.FR.09**\nPrecondition: E12.FR.08\nWhen dropping meter data, the Charging Station SHALL drop\nintermediate values first (2nd value, 4th value, 6th etc), not drop\nthe start and end values from the list. (Same as E06.FR.13)\n\n**E12.FR.10**\nPrecondition: SampledDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter values and\nput them in the signedMeterValue field of sampledValues. (Same\nas E06.FR.14)",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction - Requirements",
-        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction - Requirements",
+        "heading": "E12 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E12",
         "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
-        "use_case_refs": "E12",
-        "message_refs": "TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

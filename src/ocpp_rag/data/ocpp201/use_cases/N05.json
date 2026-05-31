@@ -2,39 +2,71 @@
   "use_case_id": "N05",
   "functional_block": "Diagnostics",
   "use_case_name": "Set Monitoring Level",
+  "structured": {
+    "name": "Set Monitoring Level",
+    "id": "N05",
+    "functional_block": "Diagnostics",
+    "objective": "To give the CSMS the ability to request the Charging Station to restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a severity number lower than or equal\nto a certain severity.",
+    "description": "",
+    "actors": [],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "N05.FR.01",
+        "precondition": "When the Charging Station accepts a\nsetMonitoringLevelRequest",
+        "definition": "The Charging Station SHALL send a\nsetMonitoringLevelResponse with Accepted."
+      },
+      {
+        "id": "N05.FR.02",
+        "precondition": "When the Charging Station receives a\nsetMonitoringLevelRequest for a severity that is\nout of range",
+        "definition": "The Charging Station SHALL send a\nsetMonitoringLevelResponse with Rejected ."
+      },
+      {
+        "id": "N05.FR.03",
+        "precondition": "N05.FR.01",
+        "definition": "The Charging Station SHALL restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a\nseverity number lower than or equal to the given severity."
+      }
+    ],
+    "figures": [
+      "fig133.png",
+      "fig134.png",
+      "fig135.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# N05 - Set Monitoring Level\n\n| No. | Type         | Description                                                                                                                                                                                                                |\n| --- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Set Monitoring Level                                                                                                                                                                                                       |\n| 2   | ID           | N05                                                                                                                                                                                                                        |\n| 3   | Objective(s) | To give the CSMS the ability to request the Charging Station to restrict the reporting of monitoring events by NotifyEventRequest to only those monitors with a severity number lower than or equal to a certain severity. |",
+      "content": "# N05 - Set Monitoring Level\n\n**Objective:** To give the CSMS the ability to request the Charging Station to restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a severity number lower than or equal\nto a certain severity.\n\n**Description:** ",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "N05 - Set Monitoring Level",
-        "heading_path": "N05 - Set Monitoring Level",
         "functional_block": "Diagnostics",
         "use_case_id": "N05",
         "use_case_name": "Set Monitoring Level",
-        "use_case_refs": "N05",
-        "message_refs": "NotifyEventRequest"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# N05 - Set Monitoring Level - Requirements\n\n| ID        | Precondition                                                                                       | Requirement definition                                                                                                                                                                |\n| --------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N05.FR.01 | When the Charging Station accepts a setMonitoringLevelRequest                                      | The Charging Station SHALL send a setMonitoringLevelResponse with Accepted.                                                                                                           |\n| N05.FR.02 | When the Charging Station receives a setMonitoringLevelRequest for a severity that is out of range | The Charging Station SHALL send a setMonitoringLevelResponse with Rejected.                                                                                                           |\n| N05.FR.03 | N05.FR.01                                                                                          | The Charging Station SHALL restrict the reporting of monitoring events by NotifyEventRequest to only those monitors with a severity number lower than or equal to the given severity. |",
+      "content": "# N05 - Requirements\n\n**N05.FR.01**\nPrecondition: When the Charging Station accepts a\nsetMonitoringLevelRequest\nThe Charging Station SHALL send a\nsetMonitoringLevelResponse with Accepted.\n\n**N05.FR.02**\nPrecondition: When the Charging Station receives a\nsetMonitoringLevelRequest for a severity that is\nout of range\nThe Charging Station SHALL send a\nsetMonitoringLevelResponse with Rejected .\n\n**N05.FR.03**\nPrecondition: N05.FR.01\nThe Charging Station SHALL restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a\nseverity number lower than or equal to the given severity.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "N05 - Set Monitoring Level - Requirements",
-        "heading_path": "N05 - Set Monitoring Level - Requirements",
+        "heading": "N05 - Requirements",
         "functional_block": "Diagnostics",
         "use_case_id": "N05",
         "use_case_name": "Set Monitoring Level",
-        "use_case_refs": "N05",
-        "message_refs": "NotifyEventRequest, setMonitoringLevelRequest, setMonitoringLevelResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

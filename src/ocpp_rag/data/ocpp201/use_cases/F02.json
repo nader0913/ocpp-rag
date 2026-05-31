@@ -1,53 +1,223 @@
 {
   "use_case_id": "F02",
   "functional_block": "RemoteControl",
-  "use_case_name": "Remote Start Transaction - Remote Start First",
+  "use_case_name": "Remote Start Transaction - Remote Start first",
+  "structured": {
+    "name": "Remote Start Transaction - Remote Start first",
+    "id": "F02",
+    "functional_block": "RemoteControl",
+    "objective": "",
+    "description": "",
+    "actors": [],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "F02.FR.01",
+        "precondition": "When a transaction is started as a\nresult of a\nRequestStartTransactionRequest.",
+        "definition": "The Charging Station SHALL put the remoteStartId\nin the first TransactionEventRequest it sends for\nthis new transaction."
+      },
+      {
+        "id": "F02.FR.02",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details at the\nstart of the transaction."
+      },
+      {
+        "id": "F02.FR.03",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during\nupdates of the transaction."
+      },
+      {
+        "id": "F02.FR.04",
+        "precondition": "F02.FR.03\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)",
+        "definition": "The Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp."
+      },
+      {
+        "id": "F02.FR.05",
+        "precondition": "When the IdToken information is\nknown.",
+        "definition": "The next TransactionEventRequest SHALL contain\nIdTokenType information."
+      },
+      {
+        "id": "F02.FR.06",
+        "precondition": "This transaction ends a reservation for\nthe specific IdToken.",
+        "definition": "The next TransactionEventRequest SHALL contain\nthe reservationId."
+      },
+      {
+        "id": "F02.FR.07",
+        "precondition": "When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint does not contain\nParkingBayOccupancy",
+        "definition": "The Charging Station SHALL end the transaction\nand send a TransactionEventRequest (eventType =\nEnded, stoppedReason = Timeout, triggerReason =\nEVConnectionTimeout) to the CSMS."
+      },
+      {
+        "id": "F02.FR.08",
+        "precondition": "When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint contains\nParkingBayOccupancy",
+        "definition": "The Charging Station SHALL deauthorize the\ntransaction and send a TransactionEventRequest\n(triggerReason = EVConnectionTimeout) to the\nCSMS."
+      },
+      {
+        "id": "F02.FR.09",
+        "precondition": "Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = true\nAND\nidToken.type is NOT Central or\nNoAuthorization )",
+        "definition": "The Charging Station SHALL behave as if in\nresponse to a local action at the Charging Station\nto start a transaction after successful authorization\nof the IdToken given in\nRequestStartTransactionRequest message."
+      },
+      {
+        "id": "F02.FR.10",
+        "precondition": "Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = false\nOR\nidToken.type is Central or\nNoAuthorization )",
+        "definition": "The Charging Station SHALL start a transaction for\nthe IdToken given in\nRequestStartTransactionRequest message without\nchecking authorization."
+      },
+      {
+        "id": "F02.FR.11",
+        "precondition": "F02.FR.09 OR F02.FR.10",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest to the CSMS, and the\nCSMS will check the authorization status of the\nIdToken when processing this\nTransactionEventRequest."
+      },
+      {
+        "id": "F02.FR.12",
+        "precondition": "",
+        "definition": "RequestStartTransactionRequest SHALL contain an\nIdToken, which Charging Station SHALL use, if it is\nable to start a transaction, in the\nTransactionEventRequest sent to the CSMS."
+      },
+      {
+        "id": "F02.FR.13",
+        "precondition": "",
+        "definition": "The transaction SHALL be started in the same way\nas described in E03 - Start Transaction - Id Token\nFirst."
+      },
+      {
+        "id": "F02.FR.14",
+        "precondition": "",
+        "definition": "RequestStartTransactionRequest MAY contain an\nevseId if the transaction is to be started on a\nspecific EVSE."
+      },
+      {
+        "id": "F02.FR.15",
+        "precondition": "If the\nRequestStartTransactionRequest\ndoes not contain an evseId.",
+        "definition": "The Charging Station MAY reject the\nRequestStartTransactionRequest."
+      },
+      {
+        "id": "F02.FR.16",
+        "precondition": "",
+        "definition": "The CSMS MAY include a ChargingProfile in the\nRequestStartTransactionRequest."
+      },
+      {
+        "id": "F02.FR.17",
+        "precondition": "F02.FR.16",
+        "definition": "The purpose of this ChargingProfile SHALL be set\nto TxProfile."
+      },
+      {
+        "id": "F02.FR.18",
+        "precondition": "F02.FR.16",
+        "definition": "The Charging Station SHALL use this\nChargingProfile for the transaction that is started\nby this RequestStartTransaction."
+      },
+      {
+        "id": "F02.FR.19",
+        "precondition": "F02.FR.16",
+        "definition": "The transactionId in the ChargingProfile SHALL\nNOT be set."
+      },
+      {
+        "id": "F02.FR.20",
+        "precondition": "If a Charging Station without support\nfor Smart Charging receives a\nRequestStartTransactionRequest with\na ChargingProfile.",
+        "definition": "The Charging Station SHALL ignore the specified\nChargingProfile."
+      },
+      {
+        "id": "F02.FR.21",
+        "precondition": "When a\nRequestStartTransactionRequest is\nreceived.",
+        "definition": "The next TransactionEventRequest SHALL contain\ntriggerReason: RemoteStart and the\nremoteStartId from the\nRequestStartTransactionRequest."
+      },
+      {
+        "id": "F02.FR.22",
+        "precondition": "If the\nRequestStartTransactionRequest\ndoes not contain an evseId AND\nthe Charging Station is capable of\nselecting an EVSE or accepts a plug-in\nat an arbitrary EVSE",
+        "definition": "The Charging Station SHALL report in later\nTransactionEventRequests the selected EVSE or\nthe EVSE where cable is plugged in."
+      },
+      {
+        "id": "F02.FR.23",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nhas no reservation for a groupIdToken",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F02.FR.24",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nis Reserved for a groupIdToken that\ndiffers from groupIdToken in the\nrequest",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F02.FR.25",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nUnavailable or Faulted",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F02.FR.26",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nOccupied AND\nthis evseId has a transaction that has\nbeen authorized",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F02.FR.27",
+        "precondition": "If a Charging Station with support for\nSmart Charging receives a\nRequestStartTransactionRequest with\nan invalid ChargingProfile.",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected and optionally with reasonCode =\n\"InvalidProfile\" or \"InvalidSchedule\"."
+      }
+    ],
+    "figures": [
+      "fig65.png",
+      "fig66.png",
+      "fig67.png",
+      "fig68.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# F02 - Remote Start Transaction - Remote Start First\n\n| No. | Type            | Description                                         |\n| --- | --------------- | --------------------------------------------------- |\n| 1   | Name            | Remote Start Transaction - Remote Start first       |\n| 2   | ID              | F02                                                 |\n|     | Parent use case | F01 - Remote Start Transaction - Cable Plugin First |",
+      "content": "# F02 - Remote Start Transaction - Remote Start first\n\n**Objective:** \n\n**Description:** ",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "F02 - Remote Start Transaction - Remote Start First",
-        "heading_path": "F02 - Remote Start Transaction - Remote Start First",
+        "heading": "F02 - Remote Start Transaction - Remote Start first",
         "functional_block": "RemoteControl",
         "use_case_id": "F02",
-        "use_case_name": "Remote Start Transaction - Remote Start First",
-        "use_case_refs": "F01, F02"
+        "use_case_name": "Remote Start Transaction - Remote Start first",
+        "chunk_part": 1,
+        "total_parts": 4
       }
     },
     {
-      "content": "# Requirement definition\n\nThe Charging Station SHALL put the remoteStartId in the first TransactionEventRequest it sends for this new transaction.\n\nThe Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Started) sent to the CSMS to provide more details at the start of the transaction.\n\nThe Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Updated) sent to the CSMS to provide more details during updates of the transaction.\n\nThe Charging Station MAY split meter data over multiple TransactionEventRequest(eventType = Updated) messages with the same timestamp.\n\nThe next TransactionEventRequest SHALL contain IdTokenType information.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Requirement definition",
-        "heading_path": "Requirement definition",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F02",
-        "message_refs": "TransactionEventRequest"
-      }
-    },
-    {
-      "content": "# F02 - Remote Start Transaction - Remote Start First - Requirements\n\n| ID        | Precondition                                                                                                               |\n| --------- | -------------------------------------------------------------------------------------------------------------------------- |\n| F02.FR.01 | When a transaction is started as a result of a RequestStartTransactionRequest.                                             |\n| F02.FR.02 | When configured to send meter data in the TransactionEventRequest (eventType = Started), See: Meter Values - Configuration |\n| F02.FR.03 | When configured to send meter data in the TransactionEventRequest (eventType = Updated), See: Meter Values - Configuration |\n| F02.FR.04 | F02.FR.03 AND Amount of meter data is too much for 1 TransactionEventRequest (eventType = Updated)                         |\n| F02.FR.05 | When the IdToken information is known.                                                                                     |",
+      "content": "# F02 - Requirements\n\n**F02.FR.01**\nPrecondition: When a transaction is started as a\nresult of a\nRequestStartTransactionRequest.\nThe Charging Station SHALL put the remoteStartId\nin the first TransactionEventRequest it sends for\nthis new transaction.\n\n**F02.FR.02**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details at the\nstart of the transaction.\n\n**F02.FR.03**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during\nupdates of the transaction.\n\n**F02.FR.04**\nPrecondition: F02.FR.03\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)\nThe Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp.\n\n**F02.FR.05**\nPrecondition: When the IdToken information is\nknown.\nThe next TransactionEventRequest SHALL contain\nIdTokenType information.\n\n**F02.FR.06**\nPrecondition: This transaction ends a reservation for\nthe specific IdToken.\nThe next TransactionEventRequest SHALL contain\nthe reservationId.\n\n**F02.FR.07**\nPrecondition: When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint does not contain\nParkingBayOccupancy\nThe Charging Station SHALL end the transaction\nand send a TransactionEventRequest (eventType =\nEnded, stoppedReason = Timeout, triggerReason =\nEVConnectionTimeout) to the CSMS.\n\n**F02.FR.08**\nPrecondition: When the EV Driver does not plug-in\nthe charging cable before the timeout\nset by the Configuration Variable:\nEVConnectionTimeOut AND\nTxStopPoint contains\nParkingBayOccupancy\nThe Charging Station SHALL deauthorize the\ntransaction and send a TransactionEventRequest\n(triggerReason = EVConnectionTimeout) to the\nCSMS.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "F02 - Remote Start Transaction - Remote Start First - Requirements",
-        "heading_path": "F02 - Remote Start Transaction - Remote Start First - Requirements",
+        "heading": "F02 - Requirements",
         "functional_block": "RemoteControl",
         "use_case_id": "F02",
-        "use_case_name": "Remote Start Transaction - Remote Start First",
-        "use_case_refs": "F02",
-        "message_refs": "RequestStartTransactionRequest, TransactionEventRequest"
+        "use_case_name": "Remote Start Transaction - Remote Start first",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# F02 - Requirements (continued)\n\n**F02.FR.09**\nPrecondition: Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = true\nAND\nidToken.type is NOT Central or\nNoAuthorization )\nThe Charging Station SHALL behave as if in\nresponse to a local action at the Charging Station\nto start a transaction after successful authorization\nof the IdToken given in\nRequestStartTransactionRequest message.\n\n**F02.FR.10**\nPrecondition: Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = false\nOR\nidToken.type is Central or\nNoAuthorization )\nThe Charging Station SHALL start a transaction for\nthe IdToken given in\nRequestStartTransactionRequest message without\nchecking authorization.\n\n**F02.FR.11**\nPrecondition: F02.FR.09 OR F02.FR.10\nThe Charging Station SHALL send a\nTransactionEventRequest to the CSMS, and the\nCSMS will check the authorization status of the\nIdToken when processing this\nTransactionEventRequest.\n\n**F02.FR.12**\nRequestStartTransactionRequest SHALL contain an\nIdToken, which Charging Station SHALL use, if it is\nable to start a transaction, in the\nTransactionEventRequest sent to the CSMS.\n\n**F02.FR.13**\nThe transaction SHALL be started in the same way\nas described in E03 - Start Transaction - Id Token\nFirst.\n\n**F02.FR.14**\nRequestStartTransactionRequest MAY contain an\nevseId if the transaction is to be started on a\nspecific EVSE.\n\n**F02.FR.15**\nPrecondition: If the\nRequestStartTransactionRequest\ndoes not contain an evseId.\nThe Charging Station MAY reject the\nRequestStartTransactionRequest.\n\n**F02.FR.16**\nThe CSMS MAY include a ChargingProfile in the\nRequestStartTransactionRequest.\n\n**F02.FR.17**\nPrecondition: F02.FR.16\nThe purpose of this ChargingProfile SHALL be set\nto TxProfile.\n\n**F02.FR.18**\nPrecondition: F02.FR.16\nThe Charging Station SHALL use this\nChargingProfile for the transaction that is started\nby this RequestStartTransaction.\n\n**F02.FR.19**\nPrecondition: F02.FR.16\nThe transactionId in the ChargingProfile SHALL\nNOT be set.\n\n**F02.FR.20**\nPrecondition: If a Charging Station without support\nfor Smart Charging receives a\nRequestStartTransactionRequest with\na ChargingProfile.\nThe Charging Station SHALL ignore the specified\nChargingProfile.\n\n**F02.FR.21**\nPrecondition: When a\nRequestStartTransactionRequest is\nreceived.\nThe next TransactionEventRequest SHALL contain\ntriggerReason: RemoteStart and the\nremoteStartId from the\nRequestStartTransactionRequest.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F02 - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F02",
+        "use_case_name": "Remote Start Transaction - Remote Start first",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# F02 - Requirements (continued)\n\n**F02.FR.22**\nPrecondition: If the\nRequestStartTransactionRequest\ndoes not contain an evseId AND\nthe Charging Station is capable of\nselecting an EVSE or accepts a plug-in\nat an arbitrary EVSE\nThe Charging Station SHALL report in later\nTransactionEventRequests the selected EVSE or\nthe EVSE where cable is plugged in.\n\n**F02.FR.23**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nhas no reservation for a groupIdToken\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F02.FR.24**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nis Reserved for a groupIdToken that\ndiffers from groupIdToken in the\nrequest\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F02.FR.25**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nUnavailable or Faulted\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F02.FR.26**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nOccupied AND\nthis evseId has a transaction that has\nbeen authorized\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F02.FR.27**\nPrecondition: If a Charging Station with support for\nSmart Charging receives a\nRequestStartTransactionRequest with\nan invalid ChargingProfile.\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected and optionally with reasonCode =\n\"InvalidProfile\" or \"InvalidSchedule\".\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F02 - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F02",
+        "use_case_name": "Remote Start Transaction - Remote Start first",
+        "chunk_part": 4,
+        "total_parts": 4
       }
     }
-  ],
-  "figures": []
+  ]
 }

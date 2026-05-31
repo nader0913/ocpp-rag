@@ -2,59 +2,84 @@
   "use_case_id": "I02",
   "functional_block": "TariffAndCost",
   "use_case_name": "Show EV Driver Running Total Cost During Charging",
+  "structured": {
+    "name": "Show EV Driver Running Total Cost During Charging",
+    "id": "I02",
+    "functional_block": "TariffAndCost",
+    "objective": "To show an EV Driver the running total cost during charging",
+    "description": "While a transaction is ongoing, the driver wants to know how much the running total cost is,\nupdated at a relevant interval.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. Every Y seconds the CSMS sends a CostUpdatedRequest to the Charging Station to update the\ncurrent total cost.",
+      "2. Upon receipt of the CostUpdatedRequest, the Charging Station responds with a\nCostUpdatedResponse.",
+      "3. The Charging Station shows the current total cost to the EV Driver."
+    ],
+    "prerequisites": "The Charging Station supports Tariff Information\nOngoing transaction and uses central cost calculation by CSMS.",
+    "postconditions": "Successful postcondition:\nThe EV Driver knows the running total cost during charging.\nFailure postcondition:\nTotal cost not known to the EV Driver during charging.",
+    "error_handling": "n/a",
+    "remarks": "Updating the running cost very often will create a lot of messages, which might result in high\nmobile data cost.",
+    "requirements": [
+      {
+        "id": "I02.FR.01",
+        "precondition": "",
+        "definition": "The CSMS SHALL send either a CostUpdatedRequest at a\nrelevant interval/moment or return the running cost in a\nTransactionEventResponse. This might depend on the charging\nspeed, running cost, etc."
+      },
+      {
+        "id": "I02.FR.02",
+        "precondition": "Upon receipt of a CostUpdatedRequest\nmessage.",
+        "definition": "The Charging Station SHALL respond with a\nCostUpdatedResponse message."
+      },
+      {
+        "id": "I02.FR.03",
+        "precondition": "I02.FR.02",
+        "definition": "The Charging Station SHALL show the current total cost to the\nEV Driver."
+      },
+      {
+        "id": "I02.FR.04",
+        "precondition": "When running cost is reported in\nTransactionEventResponse",
+        "definition": "The Charging Station SHALL show the current running cost to\nthe EV Driver."
+      }
+    ],
+    "figures": [
+      "fig85.png",
+      "fig86.png",
+      "fig87.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# I02 - Show EV Driver Running Total Cost During Charging\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                  |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Show EV Driver Running Total Cost During Charging                                                                                                                                                                                                                                            |\n| 2   | ID                   | I02                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)         | To show an EV Driver the running total cost during charging                                                                                                                                                                                                                                  |\n| 4   | Description          | While a transaction is ongoing, the driver wants to know how much the running total cost is, updated at a relevant interval.                                                                                                                                                                 |\n|     | Actors               | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                            |\n|     | Scenario description | 1. Every Y seconds the CSMS sends a CostUpdatedRequest to the Charging Station to update the current total cost. 2. Upon receipt of the CostUpdatedRequest, the Charging Station responds with a CostUpdatedResponse. 3. The Charging Station shows the current total cost to the EV Driver. |\n|     | Alternative scenario | 1. Upon receipt of a TransactionEventRequest with eventType = Updated the CSMS returns the running cost corresponding to the timestamp and meterValue in the field totalCost in the TransactionEventResponse. 2. The Charging Station shows the current total cost to the EV Driver.         |\n| 5   | Prerequisites        | The Charging Station supports Tariff Information Ongoing transaction and uses central cost calculation by CSMS.                                                                                                                                                                              |\n| 6   | Postcondition(s)     | Successful postcondition: The EV Driver knows the running total cost during charging. Failure postcondition: Total cost not known to the EV Driver during charging.                                                                                                                          |\n| 7   | Error Handling       | n/a                                                                                                                                                                                                                                                                                          |",
+      "content": "# I02 - Show EV Driver Running Total Cost During Charging\n\n**Objective:** To show an EV Driver the running total cost during charging\n\n**Description:** While a transaction is ongoing, the driver wants to know how much the running total cost is,\nupdated at a relevant interval.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. Every Y seconds the CSMS sends a CostUpdatedRequest to the Charging Station to update the\ncurrent total cost.\n2. Upon receipt of the CostUpdatedRequest, the Charging Station responds with a\nCostUpdatedResponse.\n3. The Charging Station shows the current total cost to the EV Driver.\n\n**Prerequisites:** The Charging Station supports Tariff Information\nOngoing transaction and uses central cost calculation by CSMS.\n\n**Postconditions:** Successful postcondition:\nThe EV Driver knows the running total cost during charging.\nFailure postcondition:\nTotal cost not known to the EV Driver during charging.\n\n**Remarks:** Updating the running cost very often will create a lot of messages, which might result in high\nmobile data cost.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "I02 - Show EV Driver Running Total Cost During Charging",
-        "heading_path": "I02 - Show EV Driver Running Total Cost During Charging",
         "functional_block": "TariffAndCost",
         "use_case_id": "I02",
         "use_case_name": "Show EV Driver Running Total Cost During Charging",
-        "use_case_refs": "I02",
-        "message_refs": "CostUpdatedRequest, CostUpdatedResponse, TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 8   | Remarks              | Updating the running cost very often will create a lot of messages, which might result in high mobile data cost.                                                                                                                                                                             |\n\nCSMS    Charging Station  EV Driver\n\nOngoing transaction\n\nloop    [while transaction ongoing, every Y seconds]\n\nCostUpdatedRequest(transactionId, cost = X.XX)\n\nCostUpdatedResponse()\n\nshow cost: X.XX",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I02 - Show EV Driver Running Total Cost During Charging",
-        "heading_path": "I02 - Show EV Driver Running Total Cost During Charging",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I02",
-        "use_case_name": "Show EV Driver Running Total Cost During Charging",
-        "use_case_refs": "I02",
-        "message_refs": "CostUpdatedRequest, CostUpdatedResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# I02 - Show EV Driver Running Total Cost During Charging - Requirements\n\n| ID.       | Precondition                                              | Requirements                                                                                                                                                                                        |\n| --------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| I02.FR.01 |                                                           | The CSMS SHALL send either a CostUpdatedRequest at a relevant interval/moment or return the running cost in a TransactionEventResponse. This might depend on the charging speed, running cost, etc. |\n| I02.FR.02 | Upon receipt of a CostUpdatedRequest message.             | The Charging Station SHALL respond with a CostUpdatedResponse message.                                                                                                                              |\n| I02.FR.03 | I02.FR.02                                                 | The Charging Station SHALL show the current total cost to the EV Driver.                                                                                                                            |\n| I02.FR.04 | When running cost is reported in TransactionEventResponse | The Charging Station SHALL show the current running cost to the EV Driver.                                                                                                                          |",
+      "content": "# I02 - Requirements\n\n**I02.FR.01**\nThe CSMS SHALL send either a CostUpdatedRequest at a\nrelevant interval/moment or return the running cost in a\nTransactionEventResponse. This might depend on the charging\nspeed, running cost, etc.\n\n**I02.FR.02**\nPrecondition: Upon receipt of a CostUpdatedRequest\nmessage.\nThe Charging Station SHALL respond with a\nCostUpdatedResponse message.\n\n**I02.FR.03**\nPrecondition: I02.FR.02\nThe Charging Station SHALL show the current total cost to the\nEV Driver.\n\n**I02.FR.04**\nPrecondition: When running cost is reported in\nTransactionEventResponse\nThe Charging Station SHALL show the current running cost to\nthe EV Driver.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "I02 - Show EV Driver Running Total Cost During Charging - Requirements",
-        "heading_path": "I02 - Show EV Driver Running Total Cost During Charging - Requirements",
+        "heading": "I02 - Requirements",
         "functional_block": "TariffAndCost",
         "use_case_id": "I02",
         "use_case_name": "Show EV Driver Running Total Cost During Charging",
-        "use_case_refs": "I02",
-        "message_refs": "CostUpdatedRequest, CostUpdatedResponse, TransactionEventResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

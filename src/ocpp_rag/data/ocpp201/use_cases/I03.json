@@ -2,127 +2,90 @@
   "use_case_id": "I03",
   "functional_block": "TariffAndCost",
   "use_case_name": "Show EV Driver Final Total Cost After Charging",
+  "structured": {
+    "name": "Show EV Driver Final Total Cost After Charging",
+    "id": "I03",
+    "functional_block": "TariffAndCost",
+    "objective": "To show an EV Driver the total cost after the transaction is finished.",
+    "description": "An EV Driver stops an ongoing transaction by presenting his identification token (for example\nRFID). The transaction is stopped and the total cost of the transaction is shown to the EV Driver.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver presents an IdTokenType to stop the transaction.",
+      "2. The Charging Station sends TransactionEventRequest (eventType = Ended)",
+      "3. The CSMS responds with TransactionEventResponse containing the total cost of the\ntransaction.",
+      "4. The Charging Station shows the total cost to the EV Driver."
+    ],
+    "prerequisites": "The Charging Station supports Tariff Information\nOngoing transaction and uses central cost calculation by CSMS.",
+    "postconditions": "Successful postcondition:\nThe EV Driver knows the total cost of the transaction.\nFailure postcondition:\nThe EV Driver does NOT know the total cost of the transaction.",
+    "error_handling": "n/a",
+    "remarks": "If the Charging Station was offline when the transaction ended and the\nTransactionEventResponse with totalCost is received when the Charging Station comes back\nonline some time after that, then there is no use in displaying the cost, because the driver has\nlikely left already. A similar situation applies when TxStopPoint is defined as\nParkingBayOccupancy, in which case the EV must leave the Charging Station to cause the\ntransaction to end.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor stop transaction being configured as follows.\nTxStopPoint: ParkingBayOccupancy, EVConnected, Authorized\nThis use-case is also valid for other configurations, but then the transaction might stop at another\nmoment, which might change the sequence in which message are send. For more details see the\nuse case: E06 - Stop Transaction options",
+    "requirements": [
+      {
+        "id": "I03.FR.01",
+        "precondition": "When transaction is stopped",
+        "definition": "The Charging Station SHALL send a TransactionEventRequest\n(eventType = Ended) to the CSMS."
+      },
+      {
+        "id": "I03.FR.02",
+        "precondition": "I03.FR.01 AND\nWhen Total Cost is known to the CSMS.",
+        "definition": "The CSMS SHALL send the total cost of the transaction in the\ntotalCost field of the TransactionEventResponse message."
+      },
+      {
+        "id": "I03.FR.03",
+        "precondition": "I03.FR.02 AND\nCharging Station was online when transaction\nstopped",
+        "definition": "The Charging Station SHALL display the total cost to the EV\nDriver."
+      },
+      {
+        "id": "I03.FR.04",
+        "precondition": "",
+        "definition": "To indicate a free transaction, the CSMS SHALL set totalCost to\n0.00. Thus omitting totalCost does not imply that the transaction\nwas free."
+      },
+      {
+        "id": "I03.FR.05",
+        "precondition": "I02.FR.02 AND\nTxStopPoint is defined as\nParkingBayOccupancy",
+        "definition": "The Charging Station SHOULD NOT display the total cost to the\nEV Driver. (Driver has left already)."
+      }
+    ],
+    "figures": [
+      "fig86.png",
+      "fig87.png",
+      "fig88.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# I03 - Show EV Driver Final Total Cost After Charging\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Show EV Driver Final Total Cost After Charging                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 2   | ID                      | I03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s)            | To show an EV Driver the total cost after the transaction is finished.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "content": "# I03 - Show EV Driver Final Total Cost After Charging\n\n**Objective:** To show an EV Driver the total cost after the transaction is finished.\n\n**Description:** An EV Driver stops an ongoing transaction by presenting his identification token (for example\nRFID). The transaction is stopped and the total cost of the transaction is shown to the EV Driver.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The EV Driver presents an IdTokenType to stop the transaction.\n2. The Charging Station sends TransactionEventRequest (eventType = Ended)\n3. The CSMS responds with TransactionEventResponse containing the total cost of the\ntransaction.\n4. The Charging Station shows the total cost to the EV Driver.\n\n**Prerequisites:** The Charging Station supports Tariff Information\nOngoing transaction and uses central cost calculation by CSMS.\n\n**Postconditions:** Successful postcondition:\nThe EV Driver knows the total cost of the transaction.\nFailure postcondition:\nThe EV Driver does NOT know the total cost of the transaction.\n\n**Remarks:** If the Charging Station was offline when the transaction ended and the\nTransactionEventResponse with totalCost is received when the Charging Station comes back\nonline some time after that, then there is no use in displaying the cost, because the driver has\nlikely left already. A similar situation applies when TxStopPoint is defined as\nParkingBayOccupancy, in which case the EV must leave the Charging Station to cause the\ntransaction to end.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor stop transaction being configured as follows.\nTxStopPoint: ParkingBayOccupancy, EVConnected, Authorized\nThis use-case is also valid for other configurations, but then the transaction might stop at another\nmoment, which might change the sequence in which message are send. For more details see the\nuse case: E06 - Stop Transaction options",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "I03 - Show EV Driver Final Total Cost After Charging",
-        "heading_path": "I03 - Show EV Driver Final Total Cost After Charging",
         "functional_block": "TariffAndCost",
         "use_case_id": "I03",
         "use_case_name": "Show EV Driver Final Total Cost After Charging",
-        "use_case_refs": "E06, I03, I05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 2
       }
     },
     {
-      "content": "| 4   | Description             | An EV Driver stops an ongoing transaction by presenting his identification token (for example RFID). The transaction is stopped and the total cost of the transaction is shown to the EV Driver.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Actors                  | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I03 - Show EV Driver Final Total Cost After Charging",
-        "heading_path": "I03 - Show EV Driver Final Total Cost After Charging",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I03",
-        "use_case_name": "Show EV Driver Final Total Cost After Charging",
-        "use_case_refs": "E06, I03, I05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "|     | Scenario description    | 1. The EV Driver presents an IdTokenType to stop the transaction. 2. The Charging Station sends TransactionEventRequest (eventType = Ended) 3. The CSMS responds with TransactionEventResponse containing the total cost of the transaction. 4. The Charging Station shows the total cost to the EV Driver.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n|     | Alternative scenario(s) | I05 - Show Fallback Total Cost Message                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I03 - Show EV Driver Final Total Cost After Charging",
-        "heading_path": "I03 - Show EV Driver Final Total Cost After Charging",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I03",
-        "use_case_name": "Show EV Driver Final Total Cost After Charging",
-        "use_case_refs": "E06, I03, I05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 5   | Prerequisites           | The Charging Station supports Tariff Information Ongoing transaction and uses central cost calculation by CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 6   | Postcondition(s)        | Successful postcondition: The EV Driver knows the total cost of the transaction. Failure postcondition: The EV Driver does NOT know the total cost of the transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I03 - Show EV Driver Final Total Cost After Charging",
-        "heading_path": "I03 - Show EV Driver Final Total Cost After Charging",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I03",
-        "use_case_name": "Show EV Driver Final Total Cost After Charging",
-        "use_case_refs": "E06, I03, I05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 7   | Error Handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 8   | Remarks                 | If the Charging Station was offline when the transaction ended and the TransactionEventResponse with totalCost is received when the Charging Station comes back online some time after that, then there is no use in displaying the cost, because the driver has likely left already. A similar situation applies when TxStopPoint is defined as ParkingBayOccupancy, in which case the EV must leave the Charging Station to cause the transaction to end. The scenario description and sequence diagram above are based on the Configuration Variable for stop transaction being configured as follows. TxStopPoint: ParkingBayOccupancy, EVConnected, Authorized This use-case is also valid for other configurations, but then the transaction might stop at another moment, which might change the sequence in which message are send. For more details see the use case: E06 - Stop Transaction options. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I03 - Show EV Driver Final Total Cost After Charging",
-        "heading_path": "I03 - Show EV Driver Final Total Cost After Charging",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I03",
-        "use_case_name": "Show EV Driver Final Total Cost After Charging",
-        "use_case_refs": "E06, I03, I05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# EV Driver Charging Station CSMS\n\nOngoing transaction\n\nPresent IdToken\n\nopt notification\n\nTransactionEvent / NotifyEvent\n\nmessages left out for readability\n\nTransactionEventRequest(eventType = Ended, ...)\n\nTransactionEventResponse([idTokenInfo], totalCost = X.XX,...)\n\nshow cost: X.XX",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "EV Driver Charging Station CSMS",
-        "heading_path": "EV Driver Charging Station CSMS",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I03",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# I03 - Show EV Driver Final Total Cost After Charging - Requirements\n\n| ID        | Precondition                                                       | Requirements                                                                                                                                |\n| --------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |\n| I03.FR.01 | When transaction is stopped                                        | The Charging Station SHALL send a TransactionEventRequest (eventType = Ended) to the CSMS.                                                  |\n| I03.FR.02 | I03.FR.01 AND When Total Cost is known to the CSMS.                | The CSMS SHALL send the total cost of the transaction in the totalCost field of the TransactionEventResponse message.                       |\n| I03.FR.03 | I03.FR.02 AND Charging Station was online when transaction stopped | The Charging Station SHALL display the total cost to the EV Driver.                                                                         |\n| I03.FR.04 |                                                                    | To indicate a free transaction, the CSMS SHALL set totalCost to 0.00. Thus omitting totalCost does not imply that the transaction was free. |\n| I03.FR.05 | I02.FR.02 AND TxStopPoint is defined as ParkingBayOccupancy        | The Charging Station SHOULD NOT display the total cost to the EV Driver. (Driver has left already).                                         |",
+      "content": "# I03 - Requirements\n\n**I03.FR.01**\nPrecondition: When transaction is stopped\nThe Charging Station SHALL send a TransactionEventRequest\n(eventType = Ended) to the CSMS.\n\n**I03.FR.02**\nPrecondition: I03.FR.01 AND\nWhen Total Cost is known to the CSMS.\nThe CSMS SHALL send the total cost of the transaction in the\ntotalCost field of the TransactionEventResponse message.\n\n**I03.FR.03**\nPrecondition: I03.FR.02 AND\nCharging Station was online when transaction\nstopped\nThe Charging Station SHALL display the total cost to the EV\nDriver.\n\n**I03.FR.04**\nTo indicate a free transaction, the CSMS SHALL set totalCost to\n0.00. Thus omitting totalCost does not imply that the transaction\nwas free.\n\n**I03.FR.05**\nPrecondition: I02.FR.02 AND\nTxStopPoint is defined as\nParkingBayOccupancy\nThe Charging Station SHOULD NOT display the total cost to the\nEV Driver. (Driver has left already).",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "I03 - Show EV Driver Final Total Cost After Charging - Requirements",
-        "heading_path": "I03 - Show EV Driver Final Total Cost After Charging - Requirements",
+        "heading": "I03 - Requirements",
         "functional_block": "TariffAndCost",
         "use_case_id": "I03",
         "use_case_name": "Show EV Driver Final Total Cost After Charging",
-        "use_case_refs": "I02, I03",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

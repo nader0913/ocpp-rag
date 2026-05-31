@@ -4,8 +4,7 @@
     "title": "OCPP Charging Transaction definition",
     "caption_page": 23,
     "files": [
-      "fig1_p1_OCPP_Charging_Transaction_definition.png",
-      "fig1_p2_OCPP_Charging_Transaction_definition.png"
+      "fig1_OCPP_Charging_Transaction_definition.png"
     ]
   },
   {
@@ -13,8 +12,7 @@
     "title": "Sequence Diagram: HTTP Basic Authentication sequence diagram",
     "caption_page": 29,
     "files": [
-      "fig2_p1_Sequence_Diagram__HTTP_Basic_Authentication_sequen.png",
-      "fig2_p2_Sequence_Diagram__HTTP_Basic_Authentication_sequen.png"
+      "fig2_Sequence_Diagram_HTTP_Basic_Authentication_sequenc.png"
     ]
   },
   {
@@ -22,8 +20,7 @@
     "title": "Sequence Diagram: TLS with Basic Authentication sequence diagram",
     "caption_page": 30,
     "files": [
-      "fig3_p1_Sequence_Diagram__TLS_with_Basic_Authentication_se.png",
-      "fig3_p2_Sequence_Diagram__TLS_with_Basic_Authentication_se.png"
+      "fig3_Sequence_Diagram_TLS_with_Basic_Authentication_seq.png"
     ]
   },
   {
@@ -31,8 +28,7 @@
     "title": "Sequence Diagram: TLS with Client Side Certificates",
     "caption_page": 33,
     "files": [
-      "fig4_p1_Sequence_Diagram__TLS_with_Client_Side_Certificate.png",
-      "fig4_p2_Sequence_Diagram__TLS_with_Client_Side_Certificate.png"
+      "fig4_Sequence_Diagram_TLS_with_Client_Side_Certificates.png"
     ]
   },
   {
@@ -40,8 +36,7 @@
     "title": "Update Charging Station Password for HTTP Basic Authentication (happy flow)",
     "caption_page": 40,
     "files": [
-      "fig5_p1_Update_Charging_Station_Password_for_HTTP_Basic_Au.png",
-      "fig5_p2_Update_Charging_Station_Password_for_HTTP_Basic_Au.png"
+      "fig5_Update_Charging_Station_Password_for_HTTP_Basic_Au.png"
     ]
   },
   {
@@ -49,8 +44,7 @@
     "title": "Update Charging Station Certificate",
     "caption_page": 43,
     "files": [
-      "fig6_p1_Update_Charging_Station_Certificate.png",
-      "fig6_p2_Update_Charging_Station_Certificate.png"
+      "fig6_Update_Charging_Station_Certificate.png"
     ]
   },
   {
@@ -58,8 +52,7 @@
     "title": "Update Charging Station Certificate initiated by Charging Station",
     "caption_page": 47,
     "files": [
-      "fig7_p1_Update_Charging_Station_Certificate_initiated_by_C.png",
-      "fig7_p2_Update_Charging_Station_Certificate_initiated_by_C.png"
+      "fig7_Update_Charging_Station_Certificate_initiated_by_C.png"
     ]
   },
   {
@@ -67,8 +60,7 @@
     "title": "Security Event Notification",
     "caption_page": 50,
     "files": [
-      "fig8_p1_Security_Event_Notification.png",
-      "fig8_p2_Security_Event_Notification.png"
+      "fig8_Security_Event_Notification.png"
     ]
   },
   {
@@ -76,8 +68,7 @@
     "title": "Upgrade Charging Station Security Profile",
     "caption_page": 51,
     "files": [
-      "fig9_p1_Upgrade_Charging_Station_Security_Profile.png",
-      "fig9_p2_Upgrade_Charging_Station_Security_Profile.png"
+      "fig9_Upgrade_Charging_Station_Security_Profile.png"
     ]
   },
   {
@@ -85,8 +76,7 @@
     "title": "Sequence Diagram: Cold Boot Charging Station",
     "caption_page": 56,
     "files": [
-      "fig10_p1_Sequence_Diagram__Cold_Boot_Charging_Station.png",
-      "fig10_p2_Sequence_Diagram__Cold_Boot_Charging_Station.png"
+      "fig10_Sequence_Diagram_Cold_Boot_Charging_Station.png"
     ]
   },
   {
@@ -94,8 +84,7 @@
     "title": "Sequence Diagram: Cold Boot Charging Station - Pending",
     "caption_page": 58,
     "files": [
-      "fig11_p1_Sequence_Diagram__Cold_Boot_Charging_Station___Pen.png",
-      "fig11_p2_Sequence_Diagram__Cold_Boot_Charging_Station___Pen.png"
+      "fig11_Sequence_Diagram_Cold_Boot_Charging_Station__Pendi.png"
     ]
   },
   {
@@ -103,8 +92,7 @@
     "title": "Sequence Diagram: Cold Boot Charging Station - Rejected",
     "caption_page": 60,
     "files": [
-      "fig12_p1_Sequence_Diagram__Cold_Boot_Charging_Station___Rej.png",
-      "fig12_p2_Sequence_Diagram__Cold_Boot_Charging_Station___Rej.png"
+      "fig12_Sequence_Diagram_Cold_Boot_Charging_Station__Rejec.png"
     ]
   },
   {
@@ -112,8 +100,7 @@
     "title": "Sequence Diagram: Offline Behavior Idle Charging Station",
     "caption_page": 62,
     "files": [
-      "fig13_p1_Sequence_Diagram__Offline_Behavior_Idle_Charging_S.png",
-      "fig13_p2_Sequence_Diagram__Offline_Behavior_Idle_Charging_S.png"
+      "fig13_Sequence_Diagram_Offline_Behavior_Idle_Charging_St.png"
     ]
   },
   {
@@ -121,8 +108,7 @@
     "title": "Sequence Diagram: Set Variables",
     "caption_page": 64,
     "files": [
-      "fig14_p1_Sequence_Diagram__Set_Variables.png",
-      "fig14_p2_Sequence_Diagram__Set_Variables.png"
+      "fig14_Sequence_Diagram_Set_Variables.png"
     ]
   },
   {
@@ -130,8 +116,7 @@
     "title": "Sequence Diagram: Get Variables",
     "caption_page": 66,
     "files": [
-      "fig15_p1_Sequence_Diagram__Get_Variables.png",
-      "fig15_p2_Sequence_Diagram__Get_Variables.png"
+      "fig15_Sequence_Diagram_Get_Variables.png"
     ]
   },
   {
@@ -139,8 +124,7 @@
     "title": "Sequence Diagram: Get Base Report",
     "caption_page": 68,
     "files": [
-      "fig16_p1_Sequence_Diagram__Get_Base_Report.png",
-      "fig16_p2_Sequence_Diagram__Get_Base_Report.png"
+      "fig16_Sequence_Diagram_Get_Base_Report.png"
     ]
   },
   {
@@ -148,8 +132,7 @@
     "title": "Sequence Diagram: Get Custom Report",
     "caption_page": 71,
     "files": [
-      "fig17_p1_Sequence_Diagram__Get_Custom_Report.png",
-      "fig17_p2_Sequence_Diagram__Get_Custom_Report.png"
+      "fig17_Sequence_Diagram_Get_Custom_Report.png"
     ]
   },
   {
@@ -157,8 +140,7 @@
     "title": "Sequence Diagram: Set Network Connection Profile",
     "caption_page": 74,
     "files": [
-      "fig18_p1_Sequence_Diagram__Set_Network_Connection_Profile.png",
-      "fig18_p2_Sequence_Diagram__Set_Network_Connection_Profile.png"
+      "fig18_Sequence_Diagram_Set_Network_Connection_Profile.png"
     ]
   },
   {
@@ -166,8 +148,7 @@
     "title": "Sequence Diagram: Migrate to new ConnectionProfile",
     "caption_page": 76,
     "files": [
-      "fig19_p1_Sequence_Diagram__Migrate_to_new_ConnectionProfile.png",
-      "fig19_p2_Sequence_Diagram__Migrate_to_new_ConnectionProfile.png"
+      "fig19_Sequence_Diagram_Migrate_to_new_ConnectionProfile.png"
     ]
   },
   {
@@ -175,8 +156,7 @@
     "title": "Sequence Diagram: Reset Without Transaction",
     "caption_page": 79,
     "files": [
-      "fig20_p1_Sequence_Diagram__Reset_Without_Transaction.png",
-      "fig20_p2_Sequence_Diagram__Reset_Without_Transaction.png"
+      "fig20_Sequence_Diagram_Reset_Without_Transaction.png"
     ]
   },
   {
@@ -184,8 +164,7 @@
     "title": "Sequence Diagram: EV Driver Authorization",
     "caption_page": 90,
     "files": [
-      "fig21_p1_Sequence_Diagram__EV_Driver_Authorization.png",
-      "fig21_p2_Sequence_Diagram__EV_Driver_Authorization.png"
+      "fig21_Sequence_Diagram_EV_Driver_Authorization.png"
     ]
   },
   {
@@ -193,8 +172,7 @@
     "title": "Sequence Diagram: Authorization using credit/debit card",
     "caption_page": 96,
     "files": [
-      "fig22_p1_Sequence_Diagram__Authorization_using_credit_debit.png",
-      "fig22_p2_Sequence_Diagram__Authorization_using_credit_debit.png"
+      "fig22_Sequence_Diagram_Authorization_using_creditdebit_c.png"
     ]
   },
   {
@@ -202,8 +180,7 @@
     "title": "Sequence Diagram: Authorization using PIN-code",
     "caption_page": 97,
     "files": [
-      "fig23_p1_Sequence_Diagram__Authorization_using_PIN_code.png",
-      "fig23_p2_Sequence_Diagram__Authorization_using_PIN_code.png"
+      "fig23_Sequence_Diagram_Authorization_using_PINcode.png"
     ]
   },
   {
@@ -211,8 +188,7 @@
     "title": "Sequence Diagram: Authorization for CSMS initiated transactions",
     "caption_page": 100,
     "files": [
-      "fig24_p1_Sequence_Diagram__Authorization_for_CSMS_initiated.png",
-      "fig24_p2_Sequence_Diagram__Authorization_for_CSMS_initiated.png"
+      "fig24_Sequence_Diagram_Authorization_for_CSMS_initiated_.png"
     ]
   },
   {
@@ -220,8 +196,7 @@
     "title": "Sequence Diagram: Authorization using local id type",
     "caption_page": 102,
     "files": [
-      "fig25_p1_Sequence_Diagram__Authorization_using_local_id_typ.png",
-      "fig25_p2_Sequence_Diagram__Authorization_using_local_id_typ.png"
+      "fig25_Sequence_Diagram_Authorization_using_local_id_type.png"
     ]
   },
   {
@@ -229,8 +204,7 @@
     "title": "Authorization using Contract Certificates",
     "caption_page": 104,
     "files": [
-      "fig26_p1_Authorization_using_Contract_Certificates.png",
-      "fig26_p2_Authorization_using_Contract_Certificates.png"
+      "fig26_Authorization_using_Contract_Certificates.png"
     ]
   },
   {
@@ -238,8 +212,7 @@
     "title": "Sequence Diagram: Authorization at EVSE using external credentials performed with help of SA.",
     "caption_page": 107,
     "files": [
-      "fig27_p1_Sequence_Diagram__Authorization_at_EVSE_using_exte.png",
-      "fig27_p2_Sequence_Diagram__Authorization_at_EVSE_using_exte.png"
+      "fig27_Sequence_Diagram_Authorization_at_EVSE_using_exter.png"
     ]
   },
   {
@@ -247,8 +220,7 @@
     "title": "Sequence Diagram:  Authorization by GroupId",
     "caption_page": 108,
     "files": [
-      "fig28_p1_Sequence_Diagram___Authorization_by_GroupId.png",
-      "fig28_p2_Sequence_Diagram___Authorization_by_GroupId.png"
+      "fig28_Sequence_Diagram__Authorization_by_GroupId.png"
     ]
   },
   {
@@ -256,8 +228,7 @@
     "title": "Sequence Diagram: Store Authorization Data in the Authorization Cache",
     "caption_page": 110,
     "files": [
-      "fig29_p1_Sequence_Diagram__Store_Authorization_Data_in_the.png",
-      "fig29_p2_Sequence_Diagram__Store_Authorization_Data_in_the.png"
+      "fig29_Sequence_Diagram_Store_Authorization_Data_in_the_A.png"
     ]
   },
   {
@@ -265,8 +236,7 @@
     "title": "Sequence Diagram: Clear Authorization Data in Authorization Cache",
     "caption_page": 112,
     "files": [
-      "fig30_p1_Sequence_Diagram__Clear_Authorization_Data_in_Auth.png",
-      "fig30_p2_Sequence_Diagram__Clear_Authorization_Data_in_Auth.png"
+      "fig30_Sequence_Diagram_Clear_Authorization_Data_in_Autho.png"
     ]
   },
   {
@@ -274,8 +244,7 @@
     "title": "Sequence Diagram: Start Transaction - Cached Id",
     "caption_page": 114,
     "files": [
-      "fig31_p1_Sequence_Diagram__Start_Transaction___Cached_Id.png",
-      "fig31_p2_Sequence_Diagram__Start_Transaction___Cached_Id.png"
+      "fig31_Sequence_Diagram_Start_Transaction__Cached_Id.png"
     ]
   },
   {
@@ -283,8 +252,7 @@
     "title": "Sequence Diagram: Offline Authorization through Local Authorization List",
     "caption_page": 115,
     "files": [
-      "fig32_p1_Sequence_Diagram__Offline_Authorization_through_Lo.png",
-      "fig32_p2_Sequence_Diagram__Offline_Authorization_through_Lo.png"
+      "fig32_Sequence_Diagram_Offline_Authorization_through_Loc.png"
     ]
   },
   {
@@ -292,8 +260,7 @@
     "title": "Sequence Diagram: Online Authorization through Local Authorization List",
     "caption_page": 117,
     "files": [
-      "fig33_p1_Sequence_Diagram__Online_Authorization_through_Loc.png",
-      "fig33_p2_Sequence_Diagram__Online_Authorization_through_Loc.png"
+      "fig33_Sequence_Diagram_Online_Authorization_through_Loca.png"
     ]
   },
   {
@@ -301,8 +268,7 @@
     "title": "Sequence Diagram: Start Transaction - Unknown Offline Authorization",
     "caption_page": 119,
     "files": [
-      "fig34_p1_Sequence_Diagram__Start_Transaction___Unknown_Offl.png",
-      "fig34_p2_Sequence_Diagram__Start_Transaction___Unknown_Offl.png"
+      "fig34_Sequence_Diagram_Start_Transaction__Unknown_Offlin.png"
     ]
   },
   {
@@ -310,8 +276,7 @@
     "title": "Sequence Diagram: Stop Transaction with a Master Pass",
     "caption_page": 122,
     "files": [
-      "fig35_p1_Sequence_Diagram__Stop_Transaction_with_a_Master_P.png",
-      "fig35_p2_Sequence_Diagram__Stop_Transaction_with_a_Master_P.png"
+      "fig35_Sequence_Diagram_Stop_Transaction_with_a_Master_Pa.png"
     ]
   },
   {
@@ -319,7 +284,7 @@
     "title": "Sequence Diagram: Send Local Authorization List",
     "caption_page": 125,
     "files": [
-      "fig36_Sequence_Diagram__Send_Local_Authorization_List.png"
+      "fig36_Sequence_Diagram_Send_Local_Authorization_List.png"
     ]
   },
   {
@@ -327,8 +292,7 @@
     "title": "Sequence Diagram: Get Local List Version",
     "caption_page": 128,
     "files": [
-      "fig37_p1_Sequence_Diagram__Get_Local_List_Version.png",
-      "fig37_p2_Sequence_Diagram__Get_Local_List_Version.png"
+      "fig37_Sequence_Diagram_Get_Local_List_Version.png"
     ]
   },
   {
@@ -336,7 +300,7 @@
     "title": "Sequence Diagram: Start Transaction options - ParkingBayOccupancy",
     "caption_page": 134,
     "files": [
-      "fig38_Sequence_Diagram__Start_Transaction_options___Park.png"
+      "fig38_Sequence_Diagram_Start_Transaction_options__Parkin.png"
     ]
   },
   {
@@ -344,8 +308,7 @@
     "title": "Sequence Diagram: Start Transaction options - EVConnected",
     "caption_page": 135,
     "files": [
-      "fig39_p1_Sequence_Diagram__Start_Transaction_options___EVCo.png",
-      "fig39_p2_Sequence_Diagram__Start_Transaction_options___EVCo.png"
+      "fig39_Sequence_Diagram_Start_Transaction_options__EVConn.png"
     ]
   },
   {
@@ -353,8 +316,7 @@
     "title": "Sequence Diagram: Start Transaction options - Authorized",
     "caption_page": 136,
     "files": [
-      "fig40_p1_Sequence_Diagram__Start_Transaction_options___Auth.png",
-      "fig40_p2_Sequence_Diagram__Start_Transaction_options___Auth.png"
+      "fig40_Sequence_Diagram_Start_Transaction_options__Author.png"
     ]
   },
   {
@@ -362,8 +324,7 @@
     "title": "Sequence Diagram: Start Transaction options - DataSigned",
     "caption_page": 137,
     "files": [
-      "fig41_p1_Sequence_Diagram__Start_Transaction_options___Data.png",
-      "fig41_p2_Sequence_Diagram__Start_Transaction_options___Data.png"
+      "fig41_Sequence_Diagram_Start_Transaction_options__DataSi.png"
     ]
   },
   {
@@ -371,8 +332,7 @@
     "title": "Sequence Diagram: Start Transaction options - PowerPathClosed",
     "caption_page": 138,
     "files": [
-      "fig42_p1_Sequence_Diagram__Start_Transaction_options___Powe.png",
-      "fig42_p2_Sequence_Diagram__Start_Transaction_options___Powe.png"
+      "fig42_Sequence_Diagram_Start_Transaction_options__PowerP.png"
     ]
   },
   {
@@ -380,8 +340,7 @@
     "title": "Sequence Diagram: Start Transaction options - EnergyTransfer",
     "caption_page": 139,
     "files": [
-      "fig43_p1_Sequence_Diagram__Start_Transaction_options___Ener.png",
-      "fig43_p2_Sequence_Diagram__Start_Transaction_options___Ener.png"
+      "fig43_Sequence_Diagram_Start_Transaction_options__Energy.png"
     ]
   },
   {
@@ -389,8 +348,7 @@
     "title": "Sequence Diagram: Start Transaction - Cable Plugin First",
     "caption_page": 143,
     "files": [
-      "fig44_p1_Sequence_Diagram__Start_Transaction___Cable_Plugin.png",
-      "fig44_p2_Sequence_Diagram__Start_Transaction___Cable_Plugin.png"
+      "fig44_Sequence_Diagram_Start_Transaction__Cable_Plugin_F.png"
     ]
   },
   {
@@ -398,8 +356,7 @@
     "title": "Sequence Diagram: Start Transaction - IdToken First",
     "caption_page": 147,
     "files": [
-      "fig45_p1_Sequence_Diagram__Start_Transaction___IdToken_Firs.png",
-      "fig45_p2_Sequence_Diagram__Start_Transaction___IdToken_Firs.png"
+      "fig45_Sequence_Diagram_Start_Transaction__IdToken_First.png"
     ]
   },
   {
@@ -407,8 +364,7 @@
     "title": "Sequence Diagram: Transaction started while Charging Station is offline",
     "caption_page": 150,
     "files": [
-      "fig46_p1_Sequence_Diagram__Transaction_started_while_Chargi.png",
-      "fig46_p2_Sequence_Diagram__Transaction_started_while_Chargi.png"
+      "fig46_Sequence_Diagram_Transaction_started_while_Chargin.png"
     ]
   },
   {
@@ -416,8 +372,7 @@
     "title": "Sequence Diagram: Start Transaction - Id not Accepted",
     "caption_page": 153,
     "files": [
-      "fig47_p1_Sequence_Diagram__Start_Transaction___Id_not_Accep.png",
-      "fig47_p2_Sequence_Diagram__Start_Transaction___Id_not_Accep.png"
+      "fig47_Sequence_Diagram_Start_Transaction__Id_not_Accepte.png"
     ]
   },
   {
@@ -425,8 +380,7 @@
     "title": "Sequence Diagram: Stop Transaction options - ParkingBayOccupancy",
     "caption_page": 155,
     "files": [
-      "fig48_p1_Sequence_Diagram__Stop_Transaction_options___Parki.png",
-      "fig48_p2_Sequence_Diagram__Stop_Transaction_options___Parki.png"
+      "fig48_Sequence_Diagram_Stop_Transaction_options__Parking.png"
     ]
   },
   {
@@ -434,8 +388,7 @@
     "title": "Sequence Diagram: Stop Transaction options - EVConnected",
     "caption_page": 156,
     "files": [
-      "fig49_p1_Sequence_Diagram__Stop_Transaction_options___EVCon.png",
-      "fig49_p2_Sequence_Diagram__Stop_Transaction_options___EVCon.png"
+      "fig49_Sequence_Diagram_Stop_Transaction_options__EVConne.png"
     ]
   },
   {
@@ -443,8 +396,7 @@
     "title": "Sequence Diagram: Stop Transaction options - Deauthorized",
     "caption_page": 157,
     "files": [
-      "fig50_p1_Sequence_Diagram__Stop_Transaction_options___Deaut.png",
-      "fig50_p2_Sequence_Diagram__Stop_Transaction_options___Deaut.png"
+      "fig50_Sequence_Diagram_Stop_Transaction_options__Deautho.png"
     ]
   },
   {
@@ -452,8 +404,7 @@
     "title": "Sequence Diagram: Stop Transaction options - PowerPathClosed",
     "caption_page": 157,
     "files": [
-      "fig51_p1_Sequence_Diagram__Stop_Transaction_options___Power.png",
-      "fig51_p2_Sequence_Diagram__Stop_Transaction_options___Power.png"
+      "fig51_Sequence_Diagram_Stop_Transaction_options__PowerPa.png"
     ]
   },
   {
@@ -461,8 +412,7 @@
     "title": "Sequence Diagram: Stop Transaction options - EnergyTransfer",
     "caption_page": 158,
     "files": [
-      "fig52_p1_Sequence_Diagram__Stop_Transaction_options___Energ.png",
-      "fig52_p2_Sequence_Diagram__Stop_Transaction_options___Energ.png"
+      "fig52_Sequence_Diagram_Stop_Transaction_options__EnergyT.png"
     ]
   },
   {
@@ -470,8 +420,7 @@
     "title": "Sequence Diagram: Stop Transaction options - Authorized",
     "caption_page": 159,
     "files": [
-      "fig53_p1_Sequence_Diagram__Stop_Transaction_options___Autho.png",
-      "fig53_p2_Sequence_Diagram__Stop_Transaction_options___Autho.png"
+      "fig53_Sequence_Diagram_Stop_Transaction_options__Authori.png"
     ]
   },
   {
@@ -479,8 +428,7 @@
     "title": "Sequence Diagram: Transaction locally stopped by IdToken with TransactionEventRequest reported strictly by TxStopPoint",
     "caption_page": 161,
     "files": [
-      "fig54_p1_Sequence_Diagram__Transaction_locally_stopped_by_I.png",
-      "fig54_p2_Sequence_Diagram__Transaction_locally_stopped_by_I.png"
+      "fig54_Sequence_Diagram_Transaction_locally_stopped_by_Id.png"
     ]
   },
   {
@@ -488,8 +436,7 @@
     "title": "Sequence Diagram: Transaction locally stopped by IdToken with delayed TransactionEventRequest eventType = Ended for",
     "caption_page": 162,
     "files": [
-      "fig55_p1_Sequence_Diagram__Transaction_locally_stopped_by_I.png",
-      "fig55_p2_Sequence_Diagram__Transaction_locally_stopped_by_I.png"
+      "fig55_Sequence_Diagram_Transaction_locally_stopped_by_Id.png"
     ]
   },
   {
@@ -497,8 +444,7 @@
     "title": "Sequence Diagram: Transaction stopped while Charging Station is offline",
     "caption_page": 165,
     "files": [
-      "fig56_p1_Sequence_Diagram__Transaction_stopped_while_Chargi.png",
-      "fig56_p2_Sequence_Diagram__Transaction_stopped_while_Chargi.png"
+      "fig56_Sequence_Diagram_Transaction_stopped_while_Chargin.png"
     ]
   },
   {
@@ -506,8 +452,7 @@
     "title": "Sequence Diagram: When cable disconnected on EV-side: Stop Transaction",
     "caption_page": 168,
     "files": [
-      "fig57_p1_Sequence_Diagram__When_cable_disconnected_on_EV_si.png",
-      "fig57_p2_Sequence_Diagram__When_cable_disconnected_on_EV_si.png"
+      "fig57_Sequence_Diagram_When_cable_disconnected_on_EVside.png"
     ]
   },
   {
@@ -515,8 +460,7 @@
     "title": "Sequence Diagram: When cable disconnected on EV-side: Suspend Transaction",
     "caption_page": 172,
     "files": [
-      "fig58_p1_Sequence_Diagram__When_cable_disconnected_on_EV_si.png",
-      "fig58_p2_Sequence_Diagram__When_cable_disconnected_on_EV_si.png"
+      "fig58_Sequence_Diagram_When_cable_disconnected_on_EVside.png"
     ]
   },
   {
@@ -524,8 +468,7 @@
     "title": "Sequence Diagram: Connection Loss During Transaction",
     "caption_page": 174,
     "files": [
-      "fig59_p1_Sequence_Diagram__Connection_Loss_During_Transacti.png",
-      "fig59_p2_Sequence_Diagram__Connection_Loss_During_Transacti.png"
+      "fig59_Sequence_Diagram_Connection_Loss_During_Transactio.png"
     ]
   },
   {
@@ -533,8 +476,7 @@
     "title": "Sequence Diagram: Inform CSMS of an Offline Occurred Transaction",
     "caption_page": 176,
     "files": [
-      "fig60_p1_Sequence_Diagram__Inform_CSMS_of_an_Offline_Occurr.png",
-      "fig60_p2_Sequence_Diagram__Inform_CSMS_of_an_Offline_Occurr.png"
+      "fig60_Sequence_Diagram_Inform_CSMS_of_an_Offline_Occurre.png"
     ]
   },
   {
@@ -542,8 +484,7 @@
     "title": "Sequence Diagram: Transaction-related message not accepted by CSMS",
     "caption_page": 178,
     "files": [
-      "fig61_p1_Sequence_Diagram__Transaction_related_message_not.png",
-      "fig61_p2_Sequence_Diagram__Transaction_related_message_not.png"
+      "fig61_Sequence_Diagram_Transactionrelated_message_not_ac.png"
     ]
   },
   {
@@ -551,8 +492,7 @@
     "title": "Sequence Diagram: Check transaction status",
     "caption_page": 180,
     "files": [
-      "fig62_p1_Sequence_Diagram__Check_transaction_status.png",
-      "fig62_p2_Sequence_Diagram__Check_transaction_status.png"
+      "fig62_Sequence_Diagram_Check_transaction_status.png"
     ]
   },
   {
@@ -560,8 +500,7 @@
     "title": "End of charging process",
     "caption_page": 182,
     "files": [
-      "fig63_p1_End_of_charging_process.png",
-      "fig63_p2_End_of_charging_process.png"
+      "fig63_End_of_charging_process.png"
     ]
   },
   {
@@ -569,8 +508,7 @@
     "title": "Sequence Diagram: Remote Start Transaction - Cable Plugged in First",
     "caption_page": 186,
     "files": [
-      "fig64_p1_Sequence_Diagram__Remote_Start_Transaction___Cable.png",
-      "fig64_p2_Sequence_Diagram__Remote_Start_Transaction___Cable.png"
+      "fig64_Sequence_Diagram_Remote_Start_Transaction__Cable_P.png"
     ]
   },
   {
@@ -578,8 +516,7 @@
     "title": "Sequence Diagram: Remote Start Transaction - Remote Start First with TxStartPoint=Authorized",
     "caption_page": 190,
     "files": [
-      "fig65_p1_Sequence_Diagram__Remote_Start_Transaction___Remot.png",
-      "fig65_p2_Sequence_Diagram__Remote_Start_Transaction___Remot.png"
+      "fig65_Sequence_Diagram_Remote_Start_Transaction__Remote_.png"
     ]
   },
   {
@@ -587,8 +524,7 @@
     "title": "Sequence Diagram: Remote Start Transaction - Remote Start First with TxStartPoint=EVConnected",
     "caption_page": 191,
     "files": [
-      "fig66_p1_Sequence_Diagram__Remote_Start_Transaction___Remot.png",
-      "fig66_p2_Sequence_Diagram__Remote_Start_Transaction___Remot.png"
+      "fig66_Sequence_Diagram_Remote_Start_Transaction__Remote_.png"
     ]
   },
   {
@@ -596,8 +532,7 @@
     "title": "Sequence Diagram: Remote Stop Transaction",
     "caption_page": 195,
     "files": [
-      "fig67_p1_Sequence_Diagram__Remote_Stop_Transaction.png",
-      "fig67_p2_Sequence_Diagram__Remote_Stop_Transaction.png"
+      "fig67_Sequence_Diagram_Remote_Stop_Transaction.png"
     ]
   },
   {
@@ -605,8 +540,7 @@
     "title": "Charging loop with interrupt from the Charging Station",
     "caption_page": 196,
     "files": [
-      "fig68_p1_Charging_loop_with_interrupt_from_the_Charging_Sta.png",
-      "fig68_p2_Charging_loop_with_interrupt_from_the_Charging_Sta.png"
+      "fig68_Charging_loop_with_interrupt_from_the_Charging_Sta.png"
     ]
   },
   {
@@ -614,8 +548,7 @@
     "title": "Sequence Diagram: Unlock Connector",
     "caption_page": 198,
     "files": [
-      "fig69_p1_Sequence_Diagram__Unlock_Connector.png",
-      "fig69_p2_Sequence_Diagram__Unlock_Connector.png"
+      "fig69_Sequence_Diagram_Unlock_Connector.png"
     ]
   },
   {
@@ -623,8 +556,7 @@
     "title": "Sequence Diagram: Trigger Message",
     "caption_page": 200,
     "files": [
-      "fig70_p1_Sequence_Diagram__Trigger_Message.png",
-      "fig70_p2_Sequence_Diagram__Trigger_Message.png"
+      "fig70_Sequence_Diagram_Trigger_Message.png"
     ]
   },
   {
@@ -632,8 +564,7 @@
     "title": "Sequence Diagram: Trigger Message Example",
     "caption_page": 200,
     "files": [
-      "fig71_p1_Sequence_Diagram__Trigger_Message_Example.png",
-      "fig71_p2_Sequence_Diagram__Trigger_Message_Example.png"
+      "fig71_Sequence_Diagram_Trigger_Message_Example.png"
     ]
   },
   {
@@ -641,7 +572,7 @@
     "title": "Sequence Diagram: Status Notification",
     "caption_page": 205,
     "files": [
-      "fig72_Sequence_Diagram__Status_Notification.png"
+      "fig72_Sequence_Diagram_Status_Notification.png"
     ]
   },
   {
@@ -649,8 +580,7 @@
     "title": "Sequence Diagram: Heartbeat",
     "caption_page": 207,
     "files": [
-      "fig73_p1_Sequence_Diagram__Heartbeat.png",
-      "fig73_p2_Sequence_Diagram__Heartbeat.png"
+      "fig73_Sequence_Diagram_Heartbeat.png"
     ]
   },
   {
@@ -658,8 +588,7 @@
     "title": "Sequence Diagram: Change Availability",
     "caption_page": 209,
     "files": [
-      "fig74_p1_Sequence_Diagram__Change_Availability.png",
-      "fig74_p2_Sequence_Diagram__Change_Availability.png"
+      "fig74_Sequence_Diagram_Change_Availability.png"
     ]
   },
   {
@@ -667,8 +596,7 @@
     "title": "Sequence Diagram: Change Availability Charging Station",
     "caption_page": 211,
     "files": [
-      "fig75_p1_Sequence_Diagram__Change_Availability_Charging_Sta.png",
-      "fig75_p2_Sequence_Diagram__Change_Availability_Charging_Sta.png"
+      "fig75_Sequence_Diagram_Change_Availability_Charging_Stat.png"
     ]
   },
   {
@@ -676,8 +604,7 @@
     "title": "Sequence Diagram: Lock Failure",
     "caption_page": 213,
     "files": [
-      "fig76_p1_Sequence_Diagram__Lock_Failure.png",
-      "fig76_p2_Sequence_Diagram__Lock_Failure.png"
+      "fig76_Sequence_Diagram_Lock_Failure.png"
     ]
   },
   {
@@ -685,7 +612,7 @@
     "title": "Sequence Diagram: S1 - Reserve a unspecified EVSE at a Charging Station",
     "caption_page": 216,
     "files": [
-      "fig77_Sequence_Diagram__S1___Reserve_a_unspecified_EVSE.png"
+      "fig77_Sequence_Diagram_S1__Reserve_a_unspecified_EVSE_at.png"
     ]
   },
   {
@@ -693,8 +620,7 @@
     "title": "Sequence Diagram: S2 - Reserve a specified EVSE at a Charging Station",
     "caption_page": 217,
     "files": [
-      "fig78_p1_Sequence_Diagram__S2___Reserve_a_specified_EVSE_at.png",
-      "fig78_p2_Sequence_Diagram__S2___Reserve_a_specified_EVSE_at.png"
+      "fig78_Sequence_Diagram_S2__Reserve_a_specified_EVSE_at_a.png"
     ]
   },
   {
@@ -702,8 +628,7 @@
     "title": "Sequence Diagram: S3 - Reserve a connector type at a Charging Station",
     "caption_page": 218,
     "files": [
-      "fig79_p1_Sequence_Diagram__S3___Reserve_a_connector_type_at.png",
-      "fig79_p2_Sequence_Diagram__S3___Reserve_a_connector_type_at.png"
+      "fig79_Sequence_Diagram_S3__Reserve_a_connector_type_at_a.png"
     ]
   },
   {
@@ -711,8 +636,7 @@
     "title": "Sequence Diagram: Cancel Reservation",
     "caption_page": 220,
     "files": [
-      "fig80_p1_Sequence_Diagram__Cancel_Reservation.png",
-      "fig80_p2_Sequence_Diagram__Cancel_Reservation.png"
+      "fig80_Sequence_Diagram_Cancel_Reservation.png"
     ]
   },
   {
@@ -720,8 +644,7 @@
     "title": "Sequence Diagram: Use a reserved EVSE with IdToken",
     "caption_page": 222,
     "files": [
-      "fig81_p1_Sequence_Diagram__Use_a_reserved_EVSE_with_IdToken.png",
-      "fig81_p2_Sequence_Diagram__Use_a_reserved_EVSE_with_IdToken.png"
+      "fig81_Sequence_Diagram_Use_a_reserved_EVSE_with_IdToken.png"
     ]
   },
   {
@@ -729,8 +652,7 @@
     "title": "Sequence Diagram: Use a reserved EVSE with GroupId",
     "caption_page": 223,
     "files": [
-      "fig82_p1_Sequence_Diagram__Use_a_reserved_EVSE_with_GroupId.png",
-      "fig82_p2_Sequence_Diagram__Use_a_reserved_EVSE_with_GroupId.png"
+      "fig82_Sequence_Diagram_Use_a_reserved_EVSE_with_GroupId.png"
     ]
   },
   {
@@ -738,8 +660,7 @@
     "title": "Sequence Diagram: Reservation Ended, not used",
     "caption_page": 225,
     "files": [
-      "fig83_p1_Sequence_Diagram__Reservation_Ended__not_used.png",
-      "fig83_p2_Sequence_Diagram__Reservation_Ended__not_used.png"
+      "fig83_Sequence_Diagram_Reservation_Ended_not_used.png"
     ]
   },
   {
@@ -747,7 +668,7 @@
     "title": "Sequence Diagram: Show EV Driver-specific tariff information",
     "caption_page": 228,
     "files": [
-      "fig84_Sequence_Diagram__Show_EV_Driver_specific_tariff_i.png"
+      "fig84_Sequence_Diagram_Show_EV_Driverspecific_tariff_inf.png"
     ]
   },
   {
@@ -755,8 +676,7 @@
     "title": "Sequence Diagram: Show EV Driver Running Total Cost During Charging",
     "caption_page": 229,
     "files": [
-      "fig85_p1_Sequence_Diagram__Show_EV_Driver_Running_Total_Cos.png",
-      "fig85_p2_Sequence_Diagram__Show_EV_Driver_Running_Total_Cos.png"
+      "fig85_Sequence_Diagram_Show_EV_Driver_Running_Total_Cost.png"
     ]
   },
   {
@@ -764,8 +684,7 @@
     "title": "Sequence Diagram: Show EV Driver Final Total Cost After Charging",
     "caption_page": 231,
     "files": [
-      "fig86_p1_Sequence_Diagram__Show_EV_Driver_Final_Total_Cost.png",
-      "fig86_p2_Sequence_Diagram__Show_EV_Driver_Final_Total_Cost.png"
+      "fig86_Sequence_Diagram_Show_EV_Driver_Final_Total_Cost_A.png"
     ]
   },
   {
@@ -773,8 +692,7 @@
     "title": "Sequence Diagram: Show Fallback Tariff Information",
     "caption_page": 232,
     "files": [
-      "fig87_p1_Sequence_Diagram__Show_Fallback_Tariff_Information.png",
-      "fig87_p2_Sequence_Diagram__Show_Fallback_Tariff_Information.png"
+      "fig87_Sequence_Diagram_Show_Fallback_Tariff_Information.png"
     ]
   },
   {
@@ -782,8 +700,7 @@
     "title": "Sequence Diagram: Show Fallback Total Cost Message",
     "caption_page": 233,
     "files": [
-      "fig88_p1_Sequence_Diagram__Show_Fallback_Total_Cost_Message.png",
-      "fig88_p2_Sequence_Diagram__Show_Fallback_Total_Cost_Message.png"
+      "fig88_Sequence_Diagram_Show_Fallback_Total_Cost_Message.png"
     ]
   },
   {
@@ -791,8 +708,7 @@
     "title": "Sequence Diagram: Update Tariff Information During Transaction",
     "caption_page": 234,
     "files": [
-      "fig89_p1_Sequence_Diagram__Update_Tariff_Information_During.png",
-      "fig89_p2_Sequence_Diagram__Update_Tariff_Information_During.png"
+      "fig89_Sequence_Diagram_Update_Tariff_Information_During_.png"
     ]
   },
   {
@@ -800,7 +716,7 @@
     "title": "Sequence Diagram: Sending Meter Values",
     "caption_page": 240,
     "files": [
-      "fig90_Sequence_Diagram__Sending_Meter_Values.png"
+      "fig90_Sequence_Diagram_Sending_Meter_Values.png"
     ]
   },
   {
@@ -808,8 +724,7 @@
     "title": "Sequence Diagram: Sending transaction related Meter Values",
     "caption_page": 243,
     "files": [
-      "fig91_p1_Sequence_Diagram__Sending_transaction_related_Mete.png",
-      "fig91_p2_Sequence_Diagram__Sending_transaction_related_Mete.png"
+      "fig91_Sequence_Diagram_Sending_transaction_related_Meter.png"
     ]
   },
   {
@@ -817,8 +732,7 @@
     "title": "Charging Loop with metering information exchange",
     "caption_page": 246,
     "files": [
-      "fig92_p1_Charging_Loop_with_metering_information_exchange.png",
-      "fig92_p2_Charging_Loop_with_metering_information_exchange.png"
+      "fig92_Charging_Loop_with_metering_information_exchange.png"
     ]
   },
   {
@@ -842,8 +756,7 @@
     "title": "Local Smart Charging Topology",
     "caption_page": 250,
     "files": [
-      "fig95_p1_Local_Smart_Charging_Topology.png",
-      "fig95_p2_Local_Smart_Charging_Topology.png"
+      "fig95_Local_Smart_Charging_Topology.png"
     ]
   },
   {
@@ -851,8 +764,7 @@
     "title": "EMS control directly to Charging Stations",
     "caption_page": 250,
     "files": [
-      "fig96_p1_EMS_control_directly_to_Charging_Stations.png",
-      "fig96_p2_EMS_control_directly_to_Charging_Stations.png"
+      "fig96_EMS_control_directly_to_Charging_Stations.png"
     ]
   },
   {
@@ -860,8 +772,7 @@
     "title": "Multiple valid charging profiles - situation 1",
     "caption_page": 252,
     "files": [
-      "fig97_p1_Multiple_valid_charging_profiles___situation_1.png",
-      "fig97_p2_Multiple_valid_charging_profiles___situation_1.png"
+      "fig97_Multiple_valid_charging_profiles__situation_1.png"
     ]
   },
   {
@@ -869,8 +780,7 @@
     "title": "Multiple valid charging profiles - situation 2",
     "caption_page": 252,
     "files": [
-      "fig98_p1_Multiple_valid_charging_profiles___situation_2.png",
-      "fig98_p2_Multiple_valid_charging_profiles___situation_2.png"
+      "fig98_Multiple_valid_charging_profiles__situation_2.png"
     ]
   },
   {
@@ -878,8 +788,7 @@
     "title": "Sequence Diagram: SetChargingProfile",
     "caption_page": 257,
     "files": [
-      "fig99_p1_Sequence_Diagram__SetChargingProfile.png",
-      "fig99_p2_Sequence_Diagram__SetChargingProfile.png"
+      "fig99_Sequence_Diagram_SetChargingProfile.png"
     ]
   },
   {
@@ -887,8 +796,7 @@
     "title": "Sequence Diagram: Central Smart Charging",
     "caption_page": 264,
     "files": [
-      "fig100_p1_Sequence_Diagram__Central_Smart_Charging.png",
-      "fig100_p2_Sequence_Diagram__Central_Smart_Charging.png"
+      "fig100_Sequence_Diagram_Central_Smart_Charging.png"
     ]
   },
   {
@@ -896,8 +804,7 @@
     "title": "Local Controller performing local load-balancing",
     "caption_page": 268,
     "files": [
-      "fig101_p1_Local_Controller_performing_local_load_balancing.png",
-      "fig101_p2_Local_Controller_performing_local_load_balancing.png"
+      "fig101_Local_Controller_performing_local_loadbalancing.png"
     ]
   },
   {
@@ -905,8 +812,7 @@
     "title": "Sequence Diagram: Remote Start Transaction with Charging Profile",
     "caption_page": 272,
     "files": [
-      "fig102_p1_Sequence_Diagram__Remote_Start_Transaction_with_Ch.png",
-      "fig102_p2_Sequence_Diagram__Remote_Start_Transaction_with_Ch.png"
+      "fig102_Sequence_Diagram_Remote_Start_Transaction_with_Cha.png"
     ]
   },
   {
@@ -914,8 +820,7 @@
     "title": "Sequence Diagram: Offline Behavior Smart Charging",
     "caption_page": 273,
     "files": [
-      "fig103_p1_Sequence_Diagram__Offline_Behavior_Smart_Charging.png",
-      "fig103_p2_Sequence_Diagram__Offline_Behavior_Smart_Charging.png"
+      "fig103_Sequence_Diagram_Offline_Behavior_Smart_Charging.png"
     ]
   },
   {
@@ -923,8 +828,7 @@
     "title": "Sequence Diagram: Offline Behavior Smart Charging",
     "caption_page": 275,
     "files": [
-      "fig104_p1_Sequence_Diagram__Offline_Behavior_Smart_Charging.png",
-      "fig104_p2_Sequence_Diagram__Offline_Behavior_Smart_Charging.png"
+      "fig104_Sequence_Diagram_Offline_Behavior_Smart_Charging.png"
     ]
   },
   {
@@ -932,8 +836,7 @@
     "title": "Sequence Diagram: Get Composite Schedule",
     "caption_page": 276,
     "files": [
-      "fig105_p1_Sequence_Diagram__Get_Composite_Schedule.png",
-      "fig105_p2_Sequence_Diagram__Get_Composite_Schedule.png"
+      "fig105_Sequence_Diagram_Get_Composite_Schedule.png"
     ]
   },
   {
@@ -941,8 +844,7 @@
     "title": "Sequence diagram of the use case \"Get Charging Profiles\"",
     "caption_page": 278,
     "files": [
-      "fig106_p1_Sequence_diagram_of_the_use_case__Get_Charging_Pro.png",
-      "fig106_p2_Sequence_diagram_of_the_use_case__Get_Charging_Pro.png"
+      "fig106_Sequence_diagram_of_the_use_case_Get_Charging_Prof.png"
     ]
   },
   {
@@ -950,8 +852,7 @@
     "title": "Sequence Diagram of the use case \"Clear Charging Profile\"",
     "caption_page": 279,
     "files": [
-      "fig107_p1_Sequence_Diagram_of_the_use_case__Clear_Charging_P.png",
-      "fig107_p2_Sequence_Diagram_of_the_use_case__Clear_Charging_P.png"
+      "fig107_Sequence_Diagram_of_the_use_case_Clear_Charging_Pr.png"
     ]
   },
   {
@@ -959,8 +860,7 @@
     "title": "Sequence diagram of the use case \"Setting / Updating External Charging Limit with Ongoing Transaction\"",
     "caption_page": 282,
     "files": [
-      "fig108_p1_Sequence_diagram_of_the_use_case__Setting___Updati.png",
-      "fig108_p2_Sequence_diagram_of_the_use_case__Setting___Updati.png"
+      "fig108_Sequence_diagram_of_the_use_case_Setting__Updating.png"
     ]
   },
   {
@@ -968,8 +868,7 @@
     "title": "Sequence diagram of the use case \"Set / Update External Charging Limit Without Ongoing Transaction\"",
     "caption_page": 283,
     "files": [
-      "fig109_p1_Sequence_diagram_of_the_use_case__Set___Update_Ext.png",
-      "fig109_p2_Sequence_diagram_of_the_use_case__Set___Update_Ext.png"
+      "fig109_Sequence_diagram_of_the_use_case_Set__Update_Exter.png"
     ]
   },
   {
@@ -977,8 +876,7 @@
     "title": "Sequence diagram of the use case \"Release / Reset External Charging Limit\"",
     "caption_page": 285,
     "files": [
-      "fig110_p1_Sequence_diagram_of_the_use_case__Release___Reset.png",
-      "fig110_p2_Sequence_diagram_of_the_use_case__Release___Reset.png"
+      "fig110_Sequence_diagram_of_the_use_case_Release__Reset_Ex.png"
     ]
   },
   {
@@ -986,8 +884,7 @@
     "title": "Sequence Diagram: External Charging Limit with Local Controller.",
     "caption_page": 286,
     "files": [
-      "fig111_p1_Sequence_Diagram__External_Charging_Limit_with_Loc.png",
-      "fig111_p2_Sequence_Diagram__External_Charging_Limit_with_Loc.png"
+      "fig111_Sequence_Diagram_External_Charging_Limit_with_Loca.png"
     ]
   },
   {
@@ -995,8 +892,7 @@
     "title": "Sequence Diagram: Charging with load leveling based on High Level Communication",
     "caption_page": 289,
     "files": [
-      "fig112_p1_Sequence_Diagram__Charging_with_load_leveling_base.png",
-      "fig112_p2_Sequence_Diagram__Charging_with_load_leveling_base.png"
+      "fig112_Sequence_Diagram_Charging_with_load_leveling_based.png"
     ]
   },
   {
@@ -1004,8 +900,7 @@
     "title": "Renegotiation initiated by CSMS when using ISO 15118-2",
     "caption_page": 292,
     "files": [
-      "fig113_p1_Renegotiation_initiated_by_CSMS_when_using_ISO_151.png",
-      "fig113_p2_Renegotiation_initiated_by_CSMS_when_using_ISO_151.png"
+      "fig113_Renegotiation_initiated_by_CSMS_when_using_ISO_151.png"
     ]
   },
   {
@@ -1013,8 +908,7 @@
     "title": "Renegotiation initiated by EV when using ISO 15118-2",
     "caption_page": 294,
     "files": [
-      "fig114_p1_Renegotiation_initiated_by_EV_when_using_ISO_15118.png",
-      "fig114_p2_Renegotiation_initiated_by_EV_when_using_ISO_15118.png"
+      "fig114_Renegotiation_initiated_by_EV_when_using_ISO_15118.png"
     ]
   },
   {
@@ -1022,8 +916,7 @@
     "title": "Sequence diagram secure firmware upgrade (happy flow)",
     "caption_page": 301,
     "files": [
-      "fig115_p1_Sequence_diagram_secure_firmware_upgrade__happy_fl.png",
-      "fig115_p2_Sequence_diagram_secure_firmware_upgrade__happy_fl.png"
+      "fig115_Sequence_diagram_secure_firmware_upgrade_happy_flo.png"
     ]
   },
   {
@@ -1031,7 +924,7 @@
     "title": "Firmware status transitions",
     "caption_page": 302,
     "files": [
-      "fig116_p2_Firmware_status_transitions.png"
+      "fig116_Firmware_status_transitions.png"
     ]
   },
   {
@@ -1039,8 +932,7 @@
     "title": "Sequence diagram Non-Secure firmware upgrade",
     "caption_page": 307,
     "files": [
-      "fig117_p1_Sequence_diagram_Non_Secure_firmware_upgrade.png",
-      "fig117_p2_Sequence_diagram_Non_Secure_firmware_upgrade.png"
+      "fig117_Sequence_diagram_NonSecure_firmware_upgrade.png"
     ]
   },
   {
@@ -1048,8 +940,7 @@
     "title": "Sequence Diagram: showing publishing of firmware (happy flow)",
     "caption_page": 311,
     "files": [
-      "fig118_p1_Sequence_Diagram__showing_publishing_of_firmware.png",
-      "fig118_p2_Sequence_Diagram__showing_publishing_of_firmware.png"
+      "fig118_Sequence_Diagram_showing_publishing_of_firmware_ha.png"
     ]
   },
   {
@@ -1057,8 +948,7 @@
     "title": "Sequence Diagram: Unpublishing a firmware file",
     "caption_page": 312,
     "files": [
-      "fig119_p1_Sequence_Diagram__Unpublishing_a_firmware_file.png",
-      "fig119_p2_Sequence_Diagram__Unpublishing_a_firmware_file.png"
+      "fig119_Sequence_Diagram_Unpublishing_a_firmware_file.png"
     ]
   },
   {
@@ -1074,7 +964,7 @@
     "title": "PKIs applied for Plug & Charge identification mode",
     "caption_page": 318,
     "files": [
-      "fig121_PKIs_applied_for_Plug___Charge_identification_mode.png"
+      "fig121_PKIs_applied_for_Plug__Charge_identification_mode.png"
     ]
   },
   {
@@ -1082,8 +972,7 @@
     "title": "Communication set-up",
     "caption_page": 320,
     "files": [
-      "fig122_p1_Communication_set_up.png",
-      "fig122_p2_Communication_set_up.png"
+      "fig122_Communication_setup.png"
     ]
   },
   {
@@ -1091,8 +980,7 @@
     "title": "Certificate installation with ISO 15118-2",
     "caption_page": 323,
     "files": [
-      "fig123_p1_Certificate_installation_with_ISO_15118_2.png",
-      "fig123_p2_Certificate_installation_with_ISO_15118_2.png"
+      "fig123_Certificate_installation_with_ISO_151182.png"
     ]
   },
   {
@@ -1100,8 +988,7 @@
     "title": "Certificate Update",
     "caption_page": 324,
     "files": [
-      "fig124_p1_Certificate_Update.png",
-      "fig124_p2_Certificate_Update.png"
+      "fig124_Certificate_Update.png"
     ]
   },
   {
@@ -1109,8 +996,7 @@
     "title": "Retrieve list of available certificates from a Charging Station",
     "caption_page": 325,
     "files": [
-      "fig125_p1_Retrieve_list_of_available_certificates_from_a_Cha.png",
-      "fig125_p2_Retrieve_list_of_available_certificates_from_a_Cha.png"
+      "fig125_Retrieve_list_of_available_certificates_from_a_Cha.png"
     ]
   },
   {
@@ -1118,8 +1004,7 @@
     "title": "Delete Installed Certificate",
     "caption_page": 326,
     "files": [
-      "fig126_p1_Delete_Installed_Certificate.png",
-      "fig126_p2_Delete_Installed_Certificate.png"
+      "fig126_Delete_Installed_Certificate.png"
     ]
   },
   {
@@ -1127,8 +1012,7 @@
     "title": "Install CA certificate in a Charging Station",
     "caption_page": 328,
     "files": [
-      "fig127_p1_Install_CA_certificate_in_a_Charging_Station.png",
-      "fig127_p2_Install_CA_certificate_in_a_Charging_Station.png"
+      "fig127_Install_CA_certificate_in_a_Charging_Station.png"
     ]
   },
   {
@@ -1136,8 +1020,7 @@
     "title": "Get V2G Charging Station Certificate status",
     "caption_page": 330,
     "files": [
-      "fig128_p1_Get_V2G_Charging_Station_Certificate_status.png",
-      "fig128_p2_Get_V2G_Charging_Station_Certificate_status.png"
+      "fig128_Get_V2G_Charging_Station_Certificate_status.png"
     ]
   },
   {
@@ -1145,8 +1028,7 @@
     "title": "Sequence Diagram: Get Diagnostics",
     "caption_page": 334,
     "files": [
-      "fig129_p1_Sequence_Diagram__Get_Diagnostics.png",
-      "fig129_p2_Sequence_Diagram__Get_Diagnostics.png"
+      "fig129_Sequence_Diagram_Get_Diagnostics.png"
     ]
   },
   {
@@ -1154,8 +1036,7 @@
     "title": "Sequence Diagram: Get Monitoring Report",
     "caption_page": 336,
     "files": [
-      "fig130_p1_Sequence_Diagram__Get_Monitoring_Report.png",
-      "fig130_p2_Sequence_Diagram__Get_Monitoring_Report.png"
+      "fig130_Sequence_Diagram_Get_Monitoring_Report.png"
     ]
   },
   {
@@ -1163,8 +1044,7 @@
     "title": "Sequence Diagram: Set Monitoring Base",
     "caption_page": 338,
     "files": [
-      "fig131_p1_Sequence_Diagram__Set_Monitoring_Base.png",
-      "fig131_p2_Sequence_Diagram__Set_Monitoring_Base.png"
+      "fig131_Sequence_Diagram_Set_Monitoring_Base.png"
     ]
   },
   {
@@ -1172,8 +1052,7 @@
     "title": "Sequence Diagram: Set Variable Monitoring",
     "caption_page": 339,
     "files": [
-      "fig132_p1_Sequence_Diagram__Set_Variable_Monitoring.png",
-      "fig132_p2_Sequence_Diagram__Set_Variable_Monitoring.png"
+      "fig132_Sequence_Diagram_Set_Variable_Monitoring.png"
     ]
   },
   {
@@ -1181,8 +1060,7 @@
     "title": "Sequence Diagram: Set Monitoring Level",
     "caption_page": 342,
     "files": [
-      "fig133_p1_Sequence_Diagram__Set_Monitoring_Level.png",
-      "fig133_p2_Sequence_Diagram__Set_Monitoring_Level.png"
+      "fig133_Sequence_Diagram_Set_Monitoring_Level.png"
     ]
   },
   {
@@ -1190,8 +1068,7 @@
     "title": "Sequence Diagram: Clear / Remove Monitoring",
     "caption_page": 343,
     "files": [
-      "fig134_p1_Sequence_Diagram__Clear___Remove_Monitoring.png",
-      "fig134_p2_Sequence_Diagram__Clear___Remove_Monitoring.png"
+      "fig134_Sequence_Diagram_Clear__Remove_Monitoring.png"
     ]
   },
   {
@@ -1199,8 +1076,7 @@
     "title": "Sequence Diagram: Alert Event",
     "caption_page": 344,
     "files": [
-      "fig135_p1_Sequence_Diagram__Alert_Event.png",
-      "fig135_p2_Sequence_Diagram__Alert_Event.png"
+      "fig135_Sequence_Diagram_Alert_Event.png"
     ]
   },
   {
@@ -1208,8 +1084,7 @@
     "title": "Sequence Diagram: Periodic Event",
     "caption_page": 346,
     "files": [
-      "fig136_p1_Sequence_Diagram__Periodic_Event.png",
-      "fig136_p2_Sequence_Diagram__Periodic_Event.png"
+      "fig136_Sequence_Diagram_Periodic_Event.png"
     ]
   },
   {
@@ -1217,8 +1092,7 @@
     "title": "Sequence Diagram: Get Customer Information",
     "caption_page": 348,
     "files": [
-      "fig137_p1_Sequence_Diagram__Get_Customer_Information.png",
-      "fig137_p2_Sequence_Diagram__Get_Customer_Information.png"
+      "fig137_Sequence_Diagram_Get_Customer_Information.png"
     ]
   },
   {
@@ -1226,8 +1100,7 @@
     "title": "Sequence Diagram: Clear Customer Information",
     "caption_page": 350,
     "files": [
-      "fig138_p1_Sequence_Diagram__Clear_Customer_Information.png",
-      "fig138_p2_Sequence_Diagram__Clear_Customer_Information.png"
+      "fig138_Sequence_Diagram_Clear_Customer_Information.png"
     ]
   },
   {
@@ -1243,8 +1116,7 @@
     "title": "Set DisplayMessage for transaction sequence diagram",
     "caption_page": 356,
     "files": [
-      "fig140_p1_Set_DisplayMessage_for_transaction_sequence_diagra.png",
-      "fig140_p2_Set_DisplayMessage_for_transaction_sequence_diagra.png"
+      "fig140_Set_DisplayMessage_for_transaction_sequence_diagra.png"
     ]
   },
   {
@@ -1252,8 +1124,7 @@
     "title": "Get All DisplayMessages sequence diagram",
     "caption_page": 358,
     "files": [
-      "fig141_p1_Get_All_DisplayMessages_sequence_diagram.png",
-      "fig141_p2_Get_All_DisplayMessages_sequence_diagram.png"
+      "fig141_Get_All_DisplayMessages_sequence_diagram.png"
     ]
   },
   {
@@ -1261,8 +1132,7 @@
     "title": "Get a specific DisplayMessages sequence diagram",
     "caption_page": 360,
     "files": [
-      "fig142_p1_Get_a_specific_DisplayMessages_sequence_diagram.png",
-      "fig142_p2_Get_a_specific_DisplayMessages_sequence_diagram.png"
+      "fig142_Get_a_specific_DisplayMessages_sequence_diagram.png"
     ]
   },
   {
@@ -1270,8 +1140,7 @@
     "title": "Clear a DisplayMessage sequence diagram",
     "caption_page": 362,
     "files": [
-      "fig143_p1_Clear_a_DisplayMessage_sequence_diagram.png",
-      "fig143_p2_Clear_a_DisplayMessage_sequence_diagram.png"
+      "fig143_Clear_a_DisplayMessage_sequence_diagram.png"
     ]
   },
   {
@@ -1279,8 +1148,7 @@
     "title": "Replace DisplayMessage sequence diagram",
     "caption_page": 363,
     "files": [
-      "fig144_p1_Replace_DisplayMessage_sequence_diagram.png",
-      "fig144_p2_Replace_DisplayMessage_sequence_diagram.png"
+      "fig144_Replace_DisplayMessage_sequence_diagram.png"
     ]
   },
   {
@@ -1288,7 +1156,7 @@
     "title": "Sequence Diagram: Data Transfer to the Charging Station",
     "caption_page": 366,
     "files": [
-      "fig145_Sequence_Diagram__Data_Transfer_to_the_Charging_St.png"
+      "fig145_Sequence_Diagram_Data_Transfer_to_the_Charging_Sta.png"
     ]
   },
   {
@@ -1296,8 +1164,7 @@
     "title": "Sequence Diagram: Data Transfer to the CSMS",
     "caption_page": 368,
     "files": [
-      "fig146_p1_Sequence_Diagram__Data_Transfer_to_the_CSMS.png",
-      "fig146_p2_Sequence_Diagram__Data_Transfer_to_the_CSMS.png"
+      "fig146_Sequence_Diagram_Data_Transfer_to_the_CSMS.png"
     ]
   }
 ]

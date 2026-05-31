@@ -2,126 +2,70 @@
   "use_case_id": "J03",
   "functional_block": "MeterValues",
   "use_case_name": "Charging Loop with metering information exchange",
+  "structured": {
+    "name": "Charging Loop with metering information exchange",
+    "id": "J03",
+    "functional_block": "MeterValues",
+    "objective": "See ISO15118-1, use case Objective F1, page 37.",
+    "description": "See ISO15118-1, use case Description F1, page 37.",
+    "actors": [
+      "EV",
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "J03.FR.04",
+        "precondition": "When the Charging Station\nreceives ISO 15118 signed\nMeteringReceiptReq message\nfrom EV",
+        "definition": "The Charging Station SHOULD NOT pass the\nmeter value from the MeteringReceiptReq\nmessage to CSMS in a\nTransactionEventRequest (eventType =\nUpdated) message. Instead, Charging Station\nsends transaction-related meter values as\ndescribed in use case J02."
+      }
+    ],
+    "figures": [
+      "fig92.png",
+      "fig93.png",
+      "fig94.png",
+      "fig95.png",
+      "fig96.png",
+      "fig97.png",
+      "fig98.png",
+      "fig99.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# J03 - Charging Loop with metering information exchange\n\n| No. | Type              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| --- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name              | Charging Loop with metering information exchange                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 2   | ID                | J03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n|     | Reference         | ISO15118-1 F1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 3   | Objective(s)      | See ISO15118-1, use case Objective F1, page 37.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 4   | Description       | See ISO15118-1, use case Description F1, page 37.                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Actors            | EV, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "content": "# J03 - Charging Loop with metering information exchange\n\n**Objective:** See ISO15118-1, use case Objective F1, page 37.\n\n**Description:** See ISO15118-1, use case Description F1, page 37.\n\n**Actors:** EV, CSMS, Charging Station",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "J03 - Charging Loop with metering information exchange",
-        "heading_path": "J03 - Charging Loop with metering information exchange",
         "functional_block": "MeterValues",
         "use_case_id": "J03",
         "use_case_name": "Charging Loop with metering information exchange",
-        "use_case_refs": "J03",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "|     | Combined scenario | 15118                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n|     | description       | 1a. The EV sends a ChargingStatusReq (in case of AC charging) message to the Charging Station, upon which EVSE returns a ChargingStatusRes containing the meter value from the fiscal meter. 1b. The EV sends a CurrentDemandReq (in case of DC charging) message to the Charging Station, upon which EVSE returns a CurrentDemandRes containing the meter value from the fiscal meter. 2. The EV sends a MeteringReceiptReq to the Charging Station to acknowledge receipt of the meter value. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "J03 - Charging Loop with metering information exchange",
-        "heading_path": "J03 - Charging Loop with metering information exchange",
-        "functional_block": "MeterValues",
-        "use_case_id": "J03",
-        "use_case_name": "Charging Loop with metering information exchange",
-        "use_case_refs": "J03",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# Chapter 1. Introduction\n\nThis Functional Block describes all the functionalities that enable the CSO (or a third party) to influence the charging current/power transferred during a transaction, or set limits to the amount of current/power a Charging Station can draw from the grid.\n\nSmart Charging in general has more than one definition. It can mean that the grid capacity is used in such a manner that consumers are able to charge their batteries fully at any time, even if large groups of consumers wish to ‘fill up’ simultaneously. Smart can also mean that energy prices can be taken into consideration when charging. Or again smart can be taken as using a local supply of sustainable energy from solar panels. And it is even 'smarter' when the Electric Vehicle (EV) driver wishes to be part of the solution. Within OCPP, Smart Charging means that a CSMS gains the ability to influence the (de-)charging power or current of a specific EV, or the total allowed energy consumption on an entire Charging Station / a group of Charging Stations. Different setups can be used. The following four typical kinds of smart charging will be used to illustrate the possible behavior of smart charging using OCPP:\n\n- Internal Load Balancing\n- Central Smart Charging\n- Local Smart Charging\n- External Smart Charging Control Signals\n\nThese types will be explained in Types of Smart Charging. Of course, more complex use cases are possible in which two or more of the above use cases are combined into one more complex system.\n\nNOTE A mapping of the ISO 15118 and OCPP terminology is provided in ISO 15118 and OCPP terminology mapping",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Chapter 1. Introduction",
-        "heading_path": "Chapter 1. Introduction",
-        "functional_block": "MeterValues",
-        "use_case_id": "J03"
-      }
-    },
-    {
-      "content": "# 2.1. Internal Load Balancing\n\nThe simplest form of smart charging is the Load Balancing use case. This concerns internal load balancing within the Charging Station, where the Charging Station controls current/power per EVSE. The Charging Station is configured with a fixed limit, e.g. the maximum current of the connection to the grid. The Charging Station in this case is responsible for optimizing charging for all its EVSEs. When a charging station is not directly connected to the grid, the energy system of a client will be responsible for the power supply. This setup is typically used to set limits that are necessary due to known physical limits.\n\n| Charging Station: CS10                            | Control Pilot signal                         | EVSE             | or ISO 15118 | 1            | EV1 |     |\n| ------------------------------------------------- | -------------------------------------------- | ---------------- | ------------ | ------------ | --- | --- |\n| CSMS sets known physical grid connections limits. |                                              | Charging Station | EVSE         | or ISO 15118 | 2   | EV2 |\n| OCPP charging profile CS10                        |                                              |                  |              |              |     |     |\n| CSMS                                              | OCPP charging profile Charging Station: CS11 |                  |              |              |     |     |\n| Charging Station                                  | CS11                                         | 1                | EVSE 2       |              |     |     |\n\nFigure 93. Internal Load Balancing Smart Charging Topology",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "2.1. Internal Load Balancing",
-        "heading_path": "2.1. Internal Load Balancing",
-        "functional_block": "MeterValues",
-        "use_case_id": "J03",
-        "figure_refs": "93"
-      }
-    },
-    {
-      "content": "# 2.2. Central Smart Charging\n\nThe next level in smart charging is when the CSMS has the ability to influence the charging power or current of a specific EV, the total allowed energy consumption on an entire Charging Station or a group of Charging Stations. Central Smart Charging assumes that charge limits are controlled by the CSMS. This could for example be based on a grid connection, energy availability on the grid (e.g. capacity forecast from the grid operator (DSO)) or the wiring of a building. In this setup, the CSMS can optimize charging not only on one Charging Station, but one level \"up\": it can optimize more than one Charging Station that share a connection and thus calculate a more efficient schedule for charging.\n\nCSMS receives a capacity forecast from an external party (e.g. DSO).\n\n| CSMS | OCPP charging profile | Charging Station | CS10                 |              |\n| ---- | --------------------- | ---------------- | -------------------- | ------------ |\n|      |                       |                  | Control Pilot signal | or ISO 15118 |\n|      | Charging Station      | CS11             | EV1                  |              |\n|      | Control Pilot signal  | Charging Station | CS12                 | EV2          |\n\nFigure 94. Central Smart Charging Topology\n\nCentral Smart Charging can be done with a Control Pilot signal, albeit with some limitations, because an EV cannot communicate its charging needs via the Control Pilot signal. In analogy to the Local Smart Charging use case, an EVSE can execute a charging schedule by the Control Pilot signal.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "2.2. Central Smart Charging",
-        "heading_path": "2.2. Central Smart Charging",
-        "functional_block": "MeterValues",
-        "use_case_id": "J03",
-        "figure_refs": "94"
-      }
-    },
-    {
-      "content": "# 2.3. Local Smart Charging\n\nLocal Smart Charging describes a use case in which smart charging enabled Charging Stations have charging limits controlled locally by a Local Controller, not the CSMS. This type of smart charging assumes the existence of a Local Controller, which is a",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "2.3. Local Smart Charging",
-        "heading_path": "2.3. Local Smart Charging",
-        "functional_block": "MeterValues",
-        "use_case_id": "J03"
-      }
-    },
-    {
-      "content": "# J03 - Charging Loop with metering information exchange - Requirements\n\n| ID        | Precondition                                                                           | Requirement definition                                                                                                                                                                                                                                      | Note                                                                                                                                                                                                                                                                                                                |\n| --------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| J03.FR.04 | When the Charging Station receives ISO 15118 signed MeteringReceiptReq message from EV | The Charging Station SHOULD NOT pass the meter value from the MeteringReceiptReq message to CSMS in a TransactionEventRequest (eventType = Updated) message. Instead, Charging Station sends transaction-related meter values as described in use case J02. | This does not imply that a Charging Station cannot require EV to send MeteringReceiptReq messages. An implementation at a Charging Station can be such, that every meter value from the fiscal meter that is sent to CSMS (as per use case J02) must first have been acknowledged by a MeterReceiptReq from the EV. |",
+      "content": "# J03 - Requirements\n\n**J03.FR.04**\nPrecondition: When the Charging Station\nreceives ISO 15118 signed\nMeteringReceiptReq message\nfrom EV\nThe Charging Station SHOULD NOT pass the\nmeter value from the MeteringReceiptReq\nmessage to CSMS in a\nTransactionEventRequest (eventType =\nUpdated) message. Instead, Charging Station\nsends transaction-related meter values as\ndescribed in use case J02.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "J03 - Charging Loop with metering information exchange - Requirements",
-        "heading_path": "J03 - Charging Loop with metering information exchange - Requirements",
+        "heading": "J03 - Requirements",
         "functional_block": "MeterValues",
         "use_case_id": "J03",
         "use_case_name": "Charging Loop with metering information exchange",
-        "use_case_refs": "J02, J03",
-        "message_refs": "TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "93",
-      "title": "Internal Load Balancing Smart Charging Topology",
-      "files": [
-        "fig93_Internal_Load_Balancing_Smart_Charging_Topology.png"
-      ]
-    },
-    {
-      "figure_num": "94",
-      "title": "Central Smart Charging Topology",
-      "files": [
-        "fig94_Central_Smart_Charging_Topology.png"
-      ]
     }
   ]
 }

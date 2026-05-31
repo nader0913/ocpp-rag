@@ -2,59 +2,87 @@
   "use_case_id": "M03",
   "functional_block": "CertificateManagement",
   "use_case_name": "Retrieve list of available certificates from a Charging Station",
+  "structured": {
+    "name": "Retrieve list of available certificates from a Charging Station",
+    "id": "M03",
+    "functional_block": "CertificateManagement",
+    "objective": "To enable the CSMS to retrieve a list of available certificates from a Charging Station.",
+    "description": "To facilitate the management of the Charging Station\u2019s installed certificates, a method of\nretrieving the installed certificates is provided. The CSMS requests the Charging Station to send a\nlist of installed certificates",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS requests the Charging Station to send a list of installed certificates by sending a\nGetInstalledCertificateIdsRequest",
+      "2. The Charging Station responds with a GetInstalledCertificateIdsResponse"
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "The CSMS received a list of installed certificates",
+    "error_handling": "n/a",
+    "remarks": "For installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station\nCertificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the\nCharging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This\nSHOULD be installed using Use case M05 - Install CA certificate in a Charging Station.",
+    "requirements": [
+      {
+        "id": "M03.FR.01",
+        "precondition": "After receiving a\nGetInstalledCertificateIdsRequest",
+        "definition": "The Charging Station SHALL respond with a\nGetInstalledCertificateIdsResponse."
+      },
+      {
+        "id": "M03.FR.02",
+        "precondition": "M03.FR.01 AND\nNo certificate matching certificateType was\nfound",
+        "definition": "The Charging Station SHALL indicate this by setting status in the\nGetInstalledCertificateIdsResponse to NotFound."
+      },
+      {
+        "id": "M03.FR.03",
+        "precondition": "M03.FR.01 AND\nA certificate matching certificateType was found",
+        "definition": "The Charging Station SHALL indicate this by setting status in the\nGetInstalledCertificateIdsResponse to Accepted."
+      },
+      {
+        "id": "M03.FR.04",
+        "precondition": "M03.FR.03",
+        "definition": "The Charging Station SHALL include the hash data for each\nmatching installed certificate in the\nGetInstalledCertificateIdsResponse."
+      },
+      {
+        "id": "M03.FR.05",
+        "precondition": "When the Charging Station receives a\nGetInstalledCertificateIdsRequest with\ncertificateType V2GCertificateChain",
+        "definition": "The Charging Station SHALL include the hash data for each\ninstalled certificate belonging to a V2G certificate chain. Sub CA\ncertificates SHALL be placed as a childCertificate under the V2G\nCharging Station certificate."
+      }
+    ],
+    "figures": [
+      "fig125.png",
+      "fig126.png",
+      "fig127.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# M03 - Retrieve list of available certificates from a Charging Station\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                         |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Retrieve list of available certificates from a Charging Station                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID                   | M03                                                                                                                                                                                                                                                                                                                                                                                 |\n| 3   | Objective(s)         | To enable the CSMS to retrieve a list of available certificates from a Charging Station.                                                                                                                                                                                                                                                                                            |\n| 4   | Description          | To facilitate the management of the Charging Station’s installed certificates, a method of retrieving the installed certificates is provided. The CSMS requests the Charging Station to send a list of installed certificates.                                                                                                                                                      |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                              |\n|     | Scenario description | 1. The CSMS requests the Charging Station to send a list of installed certificates by sending a GetInstalledCertificateIdsRequest 2. The Charging Station responds with a GetInstalledCertificateIdsResponse                                                                                                                                                                        |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                 |\n| 6   | Postcondition(s)     | The CSMS received a list of installed certificates                                                                                                                                                                                                                                                                                                                                  |",
+      "content": "# M03 - Retrieve list of available certificates from a Charging Station\n\n**Objective:** To enable the CSMS to retrieve a list of available certificates from a Charging Station.\n\n**Description:** To facilitate the management of the Charging Station\u2019s installed certificates, a method of\nretrieving the installed certificates is provided. The CSMS requests the Charging Station to send a\nlist of installed certificates\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to send a list of installed certificates by sending a\nGetInstalledCertificateIdsRequest\n2. The Charging Station responds with a GetInstalledCertificateIdsResponse\n\n**Prerequisites:** n/a\n\n**Postconditions:** The CSMS received a list of installed certificates\n\n**Remarks:** For installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station\nCertificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the\nCharging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This\nSHOULD be installed using Use case M05 - Install CA certificate in a Charging Station.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "M03 - Retrieve list of available certificates from a Charging Station",
-        "heading_path": "M03 - Retrieve list of available certificates from a Charging Station",
         "functional_block": "CertificateManagement",
         "use_case_id": "M03",
         "use_case_name": "Retrieve list of available certificates from a Charging Station",
-        "use_case_refs": "A02, A03, M03, M05",
-        "message_refs": "GetInstalledCertificateIdsRequest, GetInstalledCertificateIdsResponse",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                 |\n| 8   | Remark(s)            | For installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This SHOULD be installed using Use case M05 - Install CA certificate in a Charging Station. |\n\nCSMS                                                          Charging Station\n\nGetInstalledCertificateIdsRequest(certificateType)\nCompute hashes and list matching certificates\n\nGetInstalledCertificateIdsResponse(status, certificateHashData)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M03 - Retrieve list of available certificates from a Charging Station",
-        "heading_path": "M03 - Retrieve list of available certificates from a Charging Station",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M03",
-        "use_case_name": "Retrieve list of available certificates from a Charging Station",
-        "use_case_refs": "A02, A03, M03, M05",
-        "message_refs": "GetInstalledCertificateIdsRequest, GetInstalledCertificateIdsResponse",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# M03 - Retrieve list of available certificates from a Charging Station - Requirements\n\n| ID        | Precondition                                                    | Requirement definition                                                                                            |\n| --------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |\n| M03.FR.01 | After receiving a GetInstalledCertificateIdsRequest             | The Charging Station SHALL respond with a GetInstalledCertificateIdsResponse.                                     |\n| M03.FR.02 | M03.FR.01 AND No certificate matching certificateType was found | The Charging Station SHALL indicate this by setting status in the GetInstalledCertificateIdsResponse to NotFound. |\n| M03.FR.03 | M03.FR.01 AND A certificate matching certificateType was found  | The Charging Station SHALL indicate this by setting status in the GetInstalledCertificateIdsResponse to Accepted. |",
+      "content": "# M03 - Requirements\n\n**M03.FR.01**\nPrecondition: After receiving a\nGetInstalledCertificateIdsRequest\nThe Charging Station SHALL respond with a\nGetInstalledCertificateIdsResponse.\n\n**M03.FR.02**\nPrecondition: M03.FR.01 AND\nNo certificate matching certificateType was\nfound\nThe Charging Station SHALL indicate this by setting status in the\nGetInstalledCertificateIdsResponse to NotFound.\n\n**M03.FR.03**\nPrecondition: M03.FR.01 AND\nA certificate matching certificateType was found\nThe Charging Station SHALL indicate this by setting status in the\nGetInstalledCertificateIdsResponse to Accepted.\n\n**M03.FR.04**\nPrecondition: M03.FR.03\nThe Charging Station SHALL include the hash data for each\nmatching installed certificate in the\nGetInstalledCertificateIdsResponse.\n\n**M03.FR.05**\nPrecondition: When the Charging Station receives a\nGetInstalledCertificateIdsRequest with\ncertificateType V2GCertificateChain\nThe Charging Station SHALL include the hash data for each\ninstalled certificate belonging to a V2G certificate chain. Sub CA\ncertificates SHALL be placed as a childCertificate under the V2G\nCharging Station certificate.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "M03 - Retrieve list of available certificates from a Charging Station - Requirements",
-        "heading_path": "M03 - Retrieve list of available certificates from a Charging Station - Requirements",
+        "heading": "M03 - Requirements",
         "functional_block": "CertificateManagement",
         "use_case_id": "M03",
         "use_case_name": "Retrieve list of available certificates from a Charging Station",
-        "use_case_refs": "M03",
-        "message_refs": "GetInstalledCertificateIdsRequest, GetInstalledCertificateIdsResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

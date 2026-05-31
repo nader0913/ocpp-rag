@@ -1,78 +1,70 @@
 {
   "use_case_id": "M01",
   "functional_block": "CertificateManagement",
-  "use_case_name": "Certificate installation EV",
+  "use_case_name": "Certificate Installation",
+  "structured": {
+    "name": "Certificate Installation",
+    "id": "M01",
+    "functional_block": "CertificateManagement",
+    "objective": "To install a new certificate from the CSMS in the EV.",
+    "description": "The EV initiates installing a new certificate. The Charging Station forwards the request for a new\ncertificate to the CSMS.\nSee also ISO15118-1, use case Description C2, page 22.",
+    "actors": [
+      "EV",
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "15118:\nSee ISO15118-1, use case Description C2, Scenario Description, first 3 bullets, page",
+      "2.\nOCPP:\n- The Charging Station sends Get15118EVCertificateRequest message with action = Install to\nthe CSMS.\n- The CSMS responds with Get15118EVCertificateResponse to the Charging Station."
+    ],
+    "prerequisites": "- Communication between EV and EVSE SHALL be established successfully.\n- Online connection between Charging Station and CSMS SHALL be possible.\n- CSMS should be able to communicate with a third party that can process the\nCertificateInstallationRequest, for example a contract certificate pool.",
+    "postconditions": "See ISO15118-1, use case End conditions C2, page 23.",
+    "error_handling": "In case the CSMS is not able to respond within the specified time, the Charging Station SHALL\nindicate failure to the EV.",
+    "remarks": "The message timeout in ISO15118-2 for CertificateInstallationReq is 5 seconds.\nThere may be alternative communication paths for doing a certificate installation. However, these\nare outside the scope of this standard.",
+    "requirements": [
+      {
+        "id": "M01.FR.01",
+        "precondition": "Upon receiving an ISO\n15118\nCertificateInstallationReq",
+        "definition": "The Charging Station SHALL forward the request to\nthe CSMS using the Get15118EVCertificateRequest\nmessage with action = Install."
+      }
+    ],
+    "figures": [
+      "fig123.png",
+      "fig124.png",
+      "fig125.png",
+      "fig126.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# M01 - Certificate installation EV\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                           |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Certificate Installation                                                                                                                                                                                                                                                                              |\n| 2   | ID                   | M01                                                                                                                                                                                                                                                                                                   |\n|     | Reference            | ISO15118-1 C2                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To install a new certificate from the CSMS in the EV.                                                                                                                                                                                                                                                 |\n| 4   | Description          | The EV initiates installing a new certificate. The Charging Station forwards the request for a new certificate to the CSMS. See also ISO15118-1, use case Description C2, page 22.                                                                                                                    |\n|     | Actors               | EV, Charging Station, CSMS                                                                                                                                                                                                                                                                            |\n|     | Scenario description | 15118: See ISO15118-1, use case Description C2, Scenario Description, first 3 bullets, page 22. OCPP: - The Charging Station sends Get15118EVCertificateRequest message with action = Install to the CSMS. - The CSMS responds with Get15118EVCertificateResponse to the Charging Station.            |\n| 5   | Prerequisites        | - Communication between EV and EVSE SHALL be established successfully. - Online connection between Charging Station and CSMS SHALL be possible. - CSMS should be able to communicate with a third party that can process the CertificateInstallationRequest, for example a contract certificate pool. |\n| 6   | Postcondition(s)     | See ISO15118-1, use case End conditions C2, page 23.                                                                                                                                                                                                                                                  |\n| 7   | Error handling       | In case the CSMS is not able to respond within the specified time, the Charging Station SHALL indicate failure to the EV.                                                                                                                                                                             |",
+      "content": "# M01 - Certificate Installation\n\n**Objective:** To install a new certificate from the CSMS in the EV.\n\n**Description:** The EV initiates installing a new certificate. The Charging Station forwards the request for a new\ncertificate to the CSMS.\nSee also ISO15118-1, use case Description C2, page 22.\n\n**Actors:** EV, Charging Station, CSMS\n\n**Scenario:**\n15118:\nSee ISO15118-1, use case Description C2, Scenario Description, first 3 bullets, page\n2.\nOCPP:\n- The Charging Station sends Get15118EVCertificateRequest message with action = Install to\nthe CSMS.\n- The CSMS responds with Get15118EVCertificateResponse to the Charging Station.\n\n**Prerequisites:** - Communication between EV and EVSE SHALL be established successfully.\n- Online connection between Charging Station and CSMS SHALL be possible.\n- CSMS should be able to communicate with a third party that can process the\nCertificateInstallationRequest, for example a contract certificate pool.\n\n**Postconditions:** See ISO15118-1, use case End conditions C2, page 23.\n\n**Error handling:** In case the CSMS is not able to respond within the specified time, the Charging Station SHALL\nindicate failure to the EV.\n\n**Remarks:** The message timeout in ISO15118-2 for CertificateInstallationReq is 5 seconds.\nThere may be alternative communication paths for doing a certificate installation. However, these\nare outside the scope of this standard.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "M01 - Certificate installation EV",
-        "heading_path": "M01 - Certificate installation EV",
+        "heading": "M01 - Certificate Installation",
         "functional_block": "CertificateManagement",
         "use_case_id": "M01",
-        "use_case_name": "Certificate installation EV",
-        "use_case_refs": "M01",
-        "message_refs": "CertificateInstallationRequest, Get15118EVCertificateRequest, Get15118EVCertificateResponse, exiRequest, exiResponse",
-        "figure_refs": "123",
+        "use_case_name": "Certificate Installation",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 8   | Remark(s)            | The message timeout in ISO15118-2 for CertificateInstallationReq is 5 seconds. There may be alternative communication paths for doing a certificate installation. However, these are outside the scope of this standard.                                                                              |\n\nCSMS Charging Station EV\n\nCertificateInstallationReq()\n\nGet15118EVCertificateRequest(15118SchemaVersion, install, exiRequest)\n\nGet15118EVCertificateResponse(status, exiResponse)\n\nCertificateInstallationRes()\n\nFigure 123. Certificate installation with ISO 15118-2\n\nSource: ISO15118-1",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M01 - Certificate installation EV",
-        "heading_path": "M01 - Certificate installation EV",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M01",
-        "use_case_name": "Certificate installation EV",
-        "use_case_refs": "M01",
-        "message_refs": "CertificateInstallationRequest, Get15118EVCertificateRequest, Get15118EVCertificateResponse, exiRequest, exiResponse",
-        "figure_refs": "123",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# M01 - Certificate installation - Requirements\n\n|   |\n| - |",
+      "content": "# M01 - Requirements\n\n**M01.FR.01**\nPrecondition: Upon receiving an ISO\n15118\nCertificateInstallationReq\nThe Charging Station SHALL forward the request to\nthe CSMS using the Get15118EVCertificateRequest\nmessage with action = Install.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "M01 - Certificate installation - Requirements",
-        "heading_path": "M01 - Certificate installation - Requirements",
+        "heading": "M01 - Requirements",
         "functional_block": "CertificateManagement",
         "use_case_id": "M01",
-        "use_case_name": "Certificate installation",
-        "use_case_refs": "M01"
+        "use_case_name": "Certificate Installation",
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "123",
-      "title": "Certificate installation with ISO 15118-2",
-      "files": [
-        "fig123_p1_Certificate_installation_with_ISO_15118_2.png",
-        "fig123_p2_Certificate_installation_with_ISO_15118_2.png"
-      ]
-    },
-    {
-      "figure_num": "123",
-      "title": "Certificate installation with ISO 15118-2",
-      "files": [
-        "fig123_p1_Certificate_installation_with_ISO_15118_2.png",
-        "fig123_p2_Certificate_installation_with_ISO_15118_2.png"
-      ]
     }
   ]
 }

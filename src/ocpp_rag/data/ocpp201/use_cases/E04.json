@@ -2,91 +2,168 @@
   "use_case_id": "E04",
   "functional_block": "Transactions",
   "use_case_name": "Transaction started while Charging Station is offline",
+  "structured": {
+    "name": "Transaction started while Charging Station is offline",
+    "id": "E04",
+    "functional_block": "Transactions",
+    "objective": "To enable the EV Driver to start a transaction while the Charging Station is Offline.",
+    "description": "This use case covers how the Charging Station, while Offline, is able to start a transaction using\nthe Local Authorization List or the Authorization Cache.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The transaction starts.",
+      "2. The TransactionEventRequest (eventType = Started) is stored/queued by the Charging Station.",
+      "3. The connection between Charging Station and CSMS is restored.",
+      "4. The Charging Station starts to send queued messages",
+      "5. The stored TransactionEventRequest is sent, notifying the CSMS about the transaction that\nwas started."
+    ],
+    "prerequisites": "The Charging Station is Offline.\nThe EV Driver is offline/locally authorized by the Charging Station.",
+    "postconditions": "Successful postcondition:\nThe TransactionEventRequest has been responded to by the CSMS AND has been removed from\nthe queue of the Charging Station.\nFailure postcondition:\nThe TransactionEventRequest was NOT responded to by the CSMS AND remains in the queue of\nthe Charging Station.",
+    "error_handling": "n/a",
+    "remarks": "The scenario description and sequence diagram above are not based on a specific\nTxStartPoint. For more details see the use cases: E01 - Start Transaction options.",
+    "requirements": [
+      {
+        "id": "E04.FR.01",
+        "precondition": "When Offline.",
+        "definition": "The Charging Station MUST queue any\nTransactionEventRequest messages."
+      },
+      {
+        "id": "E04.FR.02",
+        "precondition": "After the connection is restored.",
+        "definition": "The Charging Station MUST send queued\nTransactionEventRequest messages."
+      },
+      {
+        "id": "E04.FR.03",
+        "precondition": "E04.FR.02",
+        "definition": "The flag: \"offline\" SHALL be set to TRUE for any\nTransactionEventRequest that occurred while the\nCharging Station was offline."
+      },
+      {
+        "id": "E04.FR.04",
+        "precondition": "When a TransactionEventRequest has\nto be created",
+        "definition": "The Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration."
+      },
+      {
+        "id": "E04.FR.05",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is known at start of transaction",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.Begin in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details during the\ntransaction."
+      },
+      {
+        "id": "E04.FR.06",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during the\ntransaction."
+      },
+      {
+        "id": "E04.FR.09",
+        "precondition": "E04.FR.06\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)",
+        "definition": "The Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp."
+      },
+      {
+        "id": "E04.FR.10",
+        "precondition": "SampledDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues."
+      },
+      {
+        "id": "E04.FR.11",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is not known at start of\ntransaction",
+        "definition": "The Charging Station SHALL add the measurands\nfor eventType = Started to the optional\nmeterValue field with context =\nTransaction.Begin in the\nTransactionEventRequest(eventType = Updated)\nthat occurs when charging starts."
+      }
+    ],
+    "figures": [
+      "fig46.png",
+      "fig47.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Stop a transaction when communication between the Charging Station and the EV is lost. (for\nexample: cable unplugged)",
+        "steps": [
+          "1. Communication between Charging Station and the EV is lost (Charging cable is unplugged).",
+          "2. If charging cable unplugged on the Charging Station side: send StatusNotificationRequest to\nthe CSMS to inform it about a Connector that became Available.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: EVConnected"
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Stop a transaction when the driver is no longer authorized.",
+        "steps": [
+          "1. The Charging Station sends a TransactionEventRequest to the CSMS.",
+          "2. An invalid IdToken is received in a TransactionEventResponse.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: Authorized",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S5",
+        "objective": "Stop a transaction when the EV driver is no longer authorized and/or the EV is disconnected.",
+        "steps": [
+          "1. The Charging Station is disconnected from EV and/or the EV driver is no longer authorized.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: PowerPathClosed",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S6",
+        "objective": "Stop a transaction when energy transfer stops. This will also mean the transaction stops when\nthe EV stops taking energy, for example when the battery is too hot.",
+        "steps": [
+          "1. The energy transfer between EV and the Charging Station stops (for example: EV stops\ncharging).",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: EnergyTransfer",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S7",
+        "objective": "Stop a transaction when EV driver ends authorization",
+        "steps": [
+          "1. The EV drivers presents an IdToken to end the charging.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: Authorized (or PowerPathClosed).",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# E04 - Transaction started while Charging Station is offline\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Transaction started while Charging Station is offline                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID               | E04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 3   | Objective(s)     | To enable the EV Driver to start a transaction while the Charging Station is Offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 4   | Description      | This use case covers how the Charging Station, while Offline, is able to start a transaction using the Local Authorization List or the Authorization Cache. **Actors:** Charging Station, CSMS, EV Driver **Scenario description:**) The transaction starts.\n2) The TransactionEventRequest (eventType = Started) is stored/queued by the Charging Station.",
+      "content": "# E04 - Transaction started while Charging Station is offline\n\n**Objective:** To enable the EV Driver to start a transaction while the Charging Station is Offline.\n\n**Description:** This use case covers how the Charging Station, while Offline, is able to start a transaction using\nthe Local Authorization List or the Authorization Cache.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The transaction starts.\n2. The TransactionEventRequest (eventType = Started) is stored/queued by the Charging Station.\n3. The connection between Charging Station and CSMS is restored.\n4. The Charging Station starts to send queued messages\n5. The stored TransactionEventRequest is sent, notifying the CSMS about the transaction that\nwas started.\n\n**Prerequisites:** The Charging Station is Offline.\nThe EV Driver is offline/locally authorized by the Charging Station.\n\n**Postconditions:** Successful postcondition:\nThe TransactionEventRequest has been responded to by the CSMS AND has been removed from\nthe queue of the Charging Station.\nFailure postcondition:\nThe TransactionEventRequest was NOT responded to by the CSMS AND remains in the queue of\nthe Charging Station.\n\n**Remarks:** The scenario description and sequence diagram above are not based on a specific\nTxStartPoint. For more details see the use cases: E01 - Start Transaction options.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E04 - Transaction started while Charging Station is offline",
-        "heading_path": "E04 - Transaction started while Charging Station is offline",
         "functional_block": "Transactions",
         "use_case_id": "E04",
         "use_case_name": "Transaction started while Charging Station is offline",
-        "use_case_refs": "E01, E04, E10",
-        "message_refs": "TransactionEventRequest",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 2
       }
     },
     {
-      "content": "3) The connection between Charging Station and CSMS is restored.\n4) The Charging Station starts to send queued messages.\n5) The stored TransactionEventRequest is sent, notifying the CSMS about the transaction that was started.**Alternative scenario(s):** E10 - Connection Loss During Transaction |\n| 5   | Prerequisite(s)  | The Charging Station is Offline. The EV Driver is offline/locally authorized by the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 6   | Postcondition(s) | **Successful postcondition:** The TransactionEventRequest has been responded to by the CSMS AND has been removed from the queue of the Charging Station. **Failure postcondition:** The TransactionEventRequest was NOT responded to by the CSMS AND remains in the queue of the Charging Station.                                                                                                                                                                                                                                                                                                                                                                        |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E04 - Transaction started while Charging Station is offline",
-        "heading_path": "E04 - Transaction started while Charging Station is offline",
-        "functional_block": "Transactions",
-        "use_case_id": "E04",
-        "use_case_name": "Transaction started while Charging Station is offline",
-        "use_case_refs": "E01, E04, E10",
-        "message_refs": "TransactionEventRequest",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)        | The scenario description and sequence diagram above are not based on a specific TxStartPoint. For more details see the use cases: E01 - Start Transaction options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E04 - Transaction started while Charging Station is offline",
-        "heading_path": "E04 - Transaction started while Charging Station is offline",
-        "functional_block": "Transactions",
-        "use_case_id": "E04",
-        "use_case_name": "Transaction started while Charging Station is offline",
-        "use_case_refs": "E01, E04, E10",
-        "message_refs": "TransactionEventRequest",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# EV Driver Charging Station CSMS\n\nCharging Station is Offline\n\nOffline user authorization successful\n\n- opt notification\n- lock connector\n- start energy offer\n- store TransactionEventRequest(offline = true)\n\nConnection loss can be minutes, but can also be days.\n\nConnection restored.\n\n- HeartbeatRequest()\n- HeartbeatResponse()\n- send queued message()\n\nloop  [for all queued transaction messages]\n\n- TransactionEventRequest(offline = true)\n- TransactionEventResponse(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "EV Driver Charging Station CSMS",
-        "heading_path": "EV Driver Charging Station CSMS",
-        "functional_block": "Transactions",
-        "use_case_id": "E04",
-        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# E04 - Transaction started while Charging Station is offline - Requirements\n\n| ID        | Precondition                      | Requirement definition                                                                                                         | Note              |\n| --------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------- |\n| E04.FR.01 | When Offline.                     | The Charging Station MUST queue any TransactionEventRequest messages.                                                          | Same as E12.FR.01 |\n| E04.FR.02 | After the connection is restored. | The Charging Station MUST send queued TransactionEventRequest messages.                                                        | Same as E12.FR.02 |\n| E04.FR.03 | E04.FR.02                         | The flag: \"offline\" SHALL be set to TRUE for any TransactionEventRequest that occurred while the Charging Station was offline. | Same as E12.FR.02 |",
+      "content": "# E04 - Requirements\n\n**E04.FR.01**\nPrecondition: When Offline.\nThe Charging Station MUST queue any\nTransactionEventRequest messages.\n\n**E04.FR.02**\nPrecondition: After the connection is restored.\nThe Charging Station MUST send queued\nTransactionEventRequest messages.\n\n**E04.FR.03**\nPrecondition: E04.FR.02\nThe flag: \"offline\" SHALL be set to TRUE for any\nTransactionEventRequest that occurred while the\nCharging Station was offline.\n\n**E04.FR.04**\nPrecondition: When a TransactionEventRequest has\nto be created\nThe Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration.\n\n**E04.FR.05**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is known at start of transaction\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.Begin in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details during the\ntransaction.\n\n**E04.FR.06**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during the\ntransaction.\n\n**E04.FR.09**\nPrecondition: E04.FR.06\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)\nThe Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp.\n\n**E04.FR.10**\nPrecondition: SampledDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues.\n\n**E04.FR.11**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nAND\nEVSE is not known at start of\ntransaction\nThe Charging Station SHALL add the measurands\nfor eventType = Started to the optional\nmeterValue field with context =\nTransaction.Begin in the\nTransactionEventRequest(eventType = Updated)\nthat occurs when charging starts.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E04 - Transaction started while Charging Station is offline - Requirements",
-        "heading_path": "E04 - Transaction started while Charging Station is offline - Requirements",
+        "heading": "E04 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E04",
         "use_case_name": "Transaction started while Charging Station is offline",
-        "use_case_refs": "E04, E12",
-        "message_refs": "TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

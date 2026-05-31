@@ -2,78 +2,87 @@
   "use_case_id": "C11",
   "functional_block": "Authorization",
   "use_case_name": "Clear Authorization Data in Authorization Cache",
+  "structured": {
+    "name": "Clear Authorization Data in Authorization Cache",
+    "id": "C11",
+    "functional_block": "Authorization",
+    "objective": "To clear all IdTokens in the Authorization Cache.",
+    "description": "This use case covers how the CSMS can request a Charging Station to clear its Authorization\nCache.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS requests the Charging Station to clear its Authorization Cache by sending\nClearCacheRequest.",
+      "2. The Charging Station responds with the status Accepted."
+    ],
+    "prerequisites": "Authorization Cache is supported and enabled by the AuthCacheEnabled Configuration\nVariable.",
+    "postconditions": "Successful postcondition:\nThe Charging Station Successfully cleared the Authorization Cache.\nFailure postcondition:\nThe Charging Station was not able to clear the Authorization Cache.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "C11.FR.01",
+        "precondition": "If the CSMS sends a ClearCacheRequest.",
+        "definition": "The Charging Station SHALL attempt to clear its Authorization\nCache."
+      },
+      {
+        "id": "C11.FR.02",
+        "precondition": "C11.FR.01",
+        "definition": "The Charging Station SHALL send ClearCacheResponse\nmessage indicating whether it was able to clear its Authorization\nCache."
+      },
+      {
+        "id": "C11.FR.03",
+        "precondition": "C11.FR.02 AND\nCharging Station successfully cleared its\nAuthorization Cache.",
+        "definition": "The Charging Station SHALL send ClearCacheResponse\nmessage with the status Accepted."
+      },
+      {
+        "id": "C11.FR.04",
+        "precondition": "C11.FR.02 AND\nConfiguration variable AuthCacheEnabled is\nfalse",
+        "definition": "The Charging Station SHALL send ClearCacheResponse\nmessage with the status Rejected."
+      },
+      {
+        "id": "C11.FR.05",
+        "precondition": "C11.FR.02 AND\nCharging Station failed to clear its Authorization\nCache.",
+        "definition": "The Charging Station SHALL send ClearCacheResponse\nmessage with the status Rejected."
+      }
+    ],
+    "figures": [
+      "fig30.png",
+      "fig31.png",
+      "fig32.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C11 - Clear Authorization Data in Authorization Cache\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                             |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Clear Authorization Data in Authorization Cache                                                                                                                                                                                                                                                                                         |\n| 2   | ID               | C11                                                                                                                                                                                                                                                                                                                                     |\n| 3   | Objective(s)     | To clear all IdTokens in the Authorization Cache.                                                                                                                                                                                                                                                                                       |\n| 4   | Description      | This use case covers how the CSMS can request a Charging Station to clear its Authorization Cache. **Actors:** Charging Station, CSMS **Scenario description:**) The CSMS requests the Charging Station to clear its Authorization Cache by sending ClearCacheRequest.\n2) The Charging Station responds with the status Accepted. |",
+      "content": "# C11 - Clear Authorization Data in Authorization Cache\n\n**Objective:** To clear all IdTokens in the Authorization Cache.\n\n**Description:** This use case covers how the CSMS can request a Charging Station to clear its Authorization\nCache.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to clear its Authorization Cache by sending\nClearCacheRequest.\n2. The Charging Station responds with the status Accepted.\n\n**Prerequisites:** Authorization Cache is supported and enabled by the AuthCacheEnabled Configuration\nVariable.\n\n**Postconditions:** Successful postcondition:\nThe Charging Station Successfully cleared the Authorization Cache.\nFailure postcondition:\nThe Charging Station was not able to clear the Authorization Cache.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C11 - Clear Authorization Data in Authorization Cache",
-        "heading_path": "C11 - Clear Authorization Data in Authorization Cache",
         "functional_block": "Authorization",
         "use_case_id": "C11",
         "use_case_name": "Clear Authorization Data in Authorization Cache",
-        "use_case_refs": "C11",
-        "message_refs": "ClearCacheRequest, ClearCacheResponse",
-        "figure_refs": "30",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 5   | Prerequisite(s)  | Authorization Cache is supported and enabled by the AuthCacheEnabled Configuration Variable.                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s) | **Successful postcondition:** The Charging Station Successfully cleared the Authorization Cache. **Failure postcondition:** The Charging Station was not able to clear the Authorization Cache.                                                                                                                                         |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                     |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                     |\n\nCharging Station      CSMS\n\nClearCacheRequest()\n\nClearCacheResponse(status)\n\nFigure 30. Sequence Diagram: Clear Authorization Data in Authorization Cache",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C11 - Clear Authorization Data in Authorization Cache",
-        "heading_path": "C11 - Clear Authorization Data in Authorization Cache",
-        "functional_block": "Authorization",
-        "use_case_id": "C11",
-        "use_case_name": "Clear Authorization Data in Authorization Cache",
-        "use_case_refs": "C11",
-        "message_refs": "ClearCacheRequest, ClearCacheResponse",
-        "figure_refs": "30",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# C11 - Clear Authorization Data in Authorization Cache - Requirements\n\n| ID        | Precondition                                                                 | Requirement definition                                                                                                      |\n| --------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |\n| C11.FR.01 | If the CSMS sends a ClearCacheRequest.                                       | The Charging Station SHALL attempt to clear its Authorization Cache.                                                        |\n| C11.FR.02 | C11.FR.01                                                                    | The Charging Station SHALL send ClearCacheResponse message indicating whether it was able to clear its Authorization Cache. |\n| C11.FR.03 | C11.FR.02 AND Charging Station successfully cleared its Authorization Cache. | The Charging Station SHALL send ClearCacheResponse message with the status Accepted.                                        |\n| C11.FR.04 | C11.FR.02 AND Configuration variable AuthCacheEnabled is false               | The Charging Station SHALL send ClearCacheResponse message with the status Rejected.                                        |\n| C11.FR.05 | C11.FR.02 AND Charging Station failed to clear its Authorization Cache.      | The Charging Station SHALL send ClearCacheResponse message with the status Rejected.                                        |",
+      "content": "# C11 - Requirements\n\n**C11.FR.01**\nPrecondition: If the CSMS sends a ClearCacheRequest.\nThe Charging Station SHALL attempt to clear its Authorization\nCache.\n\n**C11.FR.02**\nPrecondition: C11.FR.01\nThe Charging Station SHALL send ClearCacheResponse\nmessage indicating whether it was able to clear its Authorization\nCache.\n\n**C11.FR.03**\nPrecondition: C11.FR.02 AND\nCharging Station successfully cleared its\nAuthorization Cache.\nThe Charging Station SHALL send ClearCacheResponse\nmessage with the status Accepted.\n\n**C11.FR.04**\nPrecondition: C11.FR.02 AND\nConfiguration variable AuthCacheEnabled is\nfalse\nThe Charging Station SHALL send ClearCacheResponse\nmessage with the status Rejected.\n\n**C11.FR.05**\nPrecondition: C11.FR.02 AND\nCharging Station failed to clear its Authorization\nCache.\nThe Charging Station SHALL send ClearCacheResponse\nmessage with the status Rejected.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C11 - Clear Authorization Data in Authorization Cache - Requirements",
-        "heading_path": "C11 - Clear Authorization Data in Authorization Cache - Requirements",
+        "heading": "C11 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C11",
         "use_case_name": "Clear Authorization Data in Authorization Cache",
-        "use_case_refs": "C11",
-        "message_refs": "ClearCacheRequest, ClearCacheResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "30",
-      "title": "Sequence Diagram: Clear Authorization Data in Authorization Cache",
-      "files": [
-        "fig30_p1_Sequence_Diagram__Clear_Authorization_Data_in_Auth.png",
-        "fig30_p2_Sequence_Diagram__Clear_Authorization_Data_in_Auth.png"
-      ]
-    },
-    {
-      "figure_num": "30",
-      "title": "Sequence Diagram: Clear Authorization Data in Authorization Cache",
-      "files": [
-        "fig30_p1_Sequence_Diagram__Clear_Authorization_Data_in_Auth.png",
-        "fig30_p2_Sequence_Diagram__Clear_Authorization_Data_in_Auth.png"
-      ]
     }
   ]
 }

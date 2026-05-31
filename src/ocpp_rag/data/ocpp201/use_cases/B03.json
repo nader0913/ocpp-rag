@@ -2,94 +2,103 @@
   "use_case_id": "B03",
   "functional_block": "Provisioning",
   "use_case_name": "Cold Boot Charging Station - Rejected",
+  "structured": {
+    "name": "Cold Boot Charging Station - Rejected",
+    "id": "B03",
+    "functional_block": "Provisioning",
+    "objective": "To inform the Charging Station that its not (yet) accepted by the CSMS: Rejected status.",
+    "description": "This use case describes the behavior of the CSMS and a Charging Station, when the Charging\nStation is informed by the CSMS that it is not (yet) accepted using the Rejected status.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The Charging Station is powered up.",
+      "2. The Charging Station sends BootNotificationRequest to the CSMS.\n3 The CSMS responds with BootNotificationResponse with the status Rejected to the Charging\nStation.",
+      "4. The Charging Station will resend BootNotificationRequest after the number of seconds\nindicated by the interval field. (Interval from BootNotificationResponse)."
+    ],
+    "prerequisites": "1. The CSMS requires to set the Charging Station in the Rejected status.\n2. The Charging Station is powered down.",
+    "postconditions": "The Charging Station remains in the Rejected status.",
+    "error_handling": "When there is no response or a time-out from the CSMS: The Charging Station resends\nBootNotificationRequest after a waiting interval. This waiting interval can be based on the interval\nfrom a previous BootNotificationResponse or chosen by the Charging Station itself. In the latter\ncase, the Charging Station chooses this interval in a way that avoids flooding the CSMS with\nrequests.",
+    "remarks": "During the status Rejected, the Charging Station may no longer be reachable from the CSMS. The\nCharging Station MAY e.g. close its communication channel or shut down its communication\nhardware.\nAdditionally, the CSMS MAY close the communication channel, for instance to free up system\nresources.\nIt is advised not to accept any transactions until the BootNotification of the Charging Station has\nbeen accepted by the CSMS. See: Transactions before being accepted by a CSMS\nWhen the CSMS returns with BootNotificationResponse with the status Accepted, B01 - Cold Boot\nCharging Station applies.",
+    "requirements": [
+      {
+        "id": "B03.FR.01",
+        "precondition": "If the Charging Station is configured to accept\nTransactions before being accepted by a CSMS",
+        "definition": "The Charging Station MAY allow locally authorized transactions."
+      },
+      {
+        "id": "B03.FR.02",
+        "precondition": "If the CSMS returns the status Rejected. For\nexample when a Charging Station is blacklisted.",
+        "definition": "The Charging Station SHALL NOT send any OCPP message to\nthe CSMS until the retry interval has expired."
+      },
+      {
+        "id": "B03.FR.03",
+        "precondition": "When the CSMS has Rejected the\nBootNotificationRequest from the Charging\nStation.",
+        "definition": "The CSMS SHALL NOT initiate any messages."
+      },
+      {
+        "id": "B03.FR.04",
+        "precondition": "B03.FR.03",
+        "definition": "The Charging Station MAY close the connection until it needs to\nsend the next BootNotificationRequest."
+      },
+      {
+        "id": "B03.FR.05",
+        "precondition": "If the interval in the BootNotificationResponse\nequals 0, and the status is other than Accepted",
+        "definition": "The Charging Station SHALL choose a waiting interval on its\nown, in a way that avoids flooding the CSMS with requests."
+      },
+      {
+        "id": "B03.FR.06",
+        "precondition": "If the interval in the BootNotificationResponse is\ngreater than 0, and the status is other than\nAccepted",
+        "definition": "The Charging Station SHALL send a BootNotificationRequest\nafter the set interval has passed."
+      },
+      {
+        "id": "B03.FR.07",
+        "precondition": "B03.FR.03\nAND\nCharging Station sends a message that is not a\nBootNotificationRequest",
+        "definition": "CSMS SHALL respond with RPC Framework: CALLERROR:\nSecurityError."
+      },
+      {
+        "id": "B03.FR.08",
+        "precondition": "B03.FR.03\nAND\nCSMS sends a message that is not a response\nto a BootNotificationRequest from Charging\nStation",
+        "definition": "Charging Station SHALL respond with RPC Framework:\nCALLERROR: SecurityError."
+      }
+    ],
+    "figures": [
+      "fig12.png",
+      "fig13.png",
+      "fig14.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# B03 - Cold Boot Charging Station - Rejected\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Cold Boot Charging Station - Rejected                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID                   | B03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Parent use case      | B01 - Cold Boot Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)         | To inform the Charging Station that its not (yet) accepted by the CSMS: Rejected status.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
+      "content": "# B03 - Cold Boot Charging Station - Rejected\n\n**Objective:** To inform the Charging Station that its not (yet) accepted by the CSMS: Rejected status.\n\n**Description:** This use case describes the behavior of the CSMS and a Charging Station, when the Charging\nStation is informed by the CSMS that it is not (yet) accepted using the Rejected status.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The Charging Station is powered up.\n2. The Charging Station sends BootNotificationRequest to the CSMS.\n3 The CSMS responds with BootNotificationResponse with the status Rejected to the Charging\nStation.\n4. The Charging Station will resend BootNotificationRequest after the number of seconds\nindicated by the interval field. (Interval from BootNotificationResponse).\n\n**Prerequisites:** 1. The CSMS requires to set the Charging Station in the Rejected status.\n2. The Charging Station is powered down.\n\n**Postconditions:** The Charging Station remains in the Rejected status.\n\n**Error handling:** When there is no response or a time-out from the CSMS: The Charging Station resends\nBootNotificationRequest after a waiting interval. This waiting interval can be based on the interval\nfrom a previous BootNotificationResponse or chosen by the Charging Station itself. In the latter\ncase, the Charging Station chooses this interval in a way that avoids flooding the CSMS with\nrequests.\n\n**Remarks:** During the status Rejected, the Charging Station may no longer be reachable from the CSMS. The\nCharging Station MAY e.g. close its communication channel or shut down its communication\nhardware.\nAdditionally, the CSMS MAY close the communication channel, for instance to free up system\nresources.\nIt is advised not to accept any transactions until the BootNotification of the Charging Station has\nbeen accepted by the CSMS. See: Transactions before being accepted by a CSMS\nWhen the CSMS returns with BootNotificationResponse with the status Accepted, B01 - Cold Boot\nCharging Station applies.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "B03 - Cold Boot Charging Station - Rejected",
-        "heading_path": "B03 - Cold Boot Charging Station - Rejected",
         "functional_block": "Provisioning",
         "use_case_id": "B03",
         "use_case_name": "Cold Boot Charging Station - Rejected",
-        "use_case_refs": "B01, B03",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 4   | Description          | This use case describes the behavior of the CSMS and a Charging Station, when the Charging Station is informed by the CSMS that it is not (yet) accepted using the Rejected status.                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n|     | Scenario description | 1. The Charging Station is powered up. 2. The Charging Station sends BootNotificationRequest to the CSMS. 3. The CSMS responds with BootNotificationResponse with the status Rejected to the Charging Station. 4. The Charging Station will resend BootNotificationRequest after the number of seconds indicated by the interval field. (Interval from BootNotificationResponse).                                                                                                                                                                                                                                 |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B03 - Cold Boot Charging Station - Rejected",
-        "heading_path": "B03 - Cold Boot Charging Station - Rejected",
-        "functional_block": "Provisioning",
-        "use_case_id": "B03",
-        "use_case_name": "Cold Boot Charging Station - Rejected",
-        "use_case_refs": "B01, B03",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 5   | Prerequisite(s)      | 1. The CSMS requires to set the Charging Station in the Rejected status. 2. The Charging Station is powered down.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 6   | Postcondition(s)     | The Charging Station remains in the Rejected status.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 7   | Error handling       | When there is no response or a time-out from the CSMS: The Charging Station resends BootNotificationRequest after a waiting interval. This waiting interval can be based on the interval from a previous BootNotificationResponse or chosen by the Charging Station itself. In the latter case, the Charging Station chooses this interval in a way that avoids flooding the CSMS with requests.                                                                                                                                                                                                                  |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B03 - Cold Boot Charging Station - Rejected",
-        "heading_path": "B03 - Cold Boot Charging Station - Rejected",
-        "functional_block": "Provisioning",
-        "use_case_id": "B03",
-        "use_case_name": "Cold Boot Charging Station - Rejected",
-        "use_case_refs": "B01, B03",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)            | During the status Rejected, the Charging Station may no longer be reachable from the CSMS. The Charging Station MAY e.g. close its communication channel or shut down its communication hardware. Additionally, the CSMS MAY close the communication channel, for instance to free up system resources. It is advised not to accept any transactions until the BootNotification of the Charging Station has been accepted by the CSMS. See: Transactions before being accepted by a CSMS. When the CSMS returns with BootNotificationResponse with the status Accepted, B01 - Cold Boot Charging Station applies. |\n\nCSMS\n\nBootNotificationRequest(...)\n\nBootNotificationResponse(status = Rejected, interval = X,...)\n\nloop [with interval X while \"Rejected\"]\n\nBootNotificationRequest(...)\n\nBootNotificationResponse(status = Rejected, interval = X,...)\n\nContinue B01 - Cold Boot Charging Station",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B03 - Cold Boot Charging Station - Rejected",
-        "heading_path": "B03 - Cold Boot Charging Station - Rejected",
-        "functional_block": "Provisioning",
-        "use_case_id": "B03",
-        "use_case_name": "Cold Boot Charging Station - Rejected",
-        "use_case_refs": "B01, B03",
-        "message_refs": "BootNotificationRequest, BootNotificationResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# B03 - Cold Boot Charging Station - Rejected - Requirements\n\n| ID        | Precondition                                                                                 | Requirement definition                                          |\n| --------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |\n| B03.FR.01 | If the Charging Station is configured to accept Transactions before being accepted by a CSMS | The Charging Station MAY allow locally authorized transactions. |",
+      "content": "# B03 - Requirements\n\n**B03.FR.01**\nPrecondition: If the Charging Station is configured to accept\nTransactions before being accepted by a CSMS\nThe Charging Station MAY allow locally authorized transactions.\n\n**B03.FR.02**\nPrecondition: If the CSMS returns the status Rejected. For\nexample when a Charging Station is blacklisted.\nThe Charging Station SHALL NOT send any OCPP message to\nthe CSMS until the retry interval has expired.\n\n**B03.FR.03**\nPrecondition: When the CSMS has Rejected the\nBootNotificationRequest from the Charging\nStation.\nThe CSMS SHALL NOT initiate any messages.\n\n**B03.FR.04**\nPrecondition: B03.FR.03\nThe Charging Station MAY close the connection until it needs to\nsend the next BootNotificationRequest.\n\n**B03.FR.05**\nPrecondition: If the interval in the BootNotificationResponse\nequals 0, and the status is other than Accepted\nThe Charging Station SHALL choose a waiting interval on its\nown, in a way that avoids flooding the CSMS with requests.\n\n**B03.FR.06**\nPrecondition: If the interval in the BootNotificationResponse is\ngreater than 0, and the status is other than\nAccepted\nThe Charging Station SHALL send a BootNotificationRequest\nafter the set interval has passed.\n\n**B03.FR.07**\nPrecondition: B03.FR.03\nAND\nCharging Station sends a message that is not a\nBootNotificationRequest\nCSMS SHALL respond with RPC Framework: CALLERROR:\nSecurityError.\n\n**B03.FR.08**\nPrecondition: B03.FR.03\nAND\nCSMS sends a message that is not a response\nto a BootNotificationRequest from Charging\nStation\nCharging Station SHALL respond with RPC Framework:\nCALLERROR: SecurityError.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "B03 - Cold Boot Charging Station - Rejected - Requirements",
-        "heading_path": "B03 - Cold Boot Charging Station - Rejected - Requirements",
+        "heading": "B03 - Requirements",
         "functional_block": "Provisioning",
         "use_case_id": "B03",
         "use_case_name": "Cold Boot Charging Station - Rejected",
-        "use_case_refs": "B03"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

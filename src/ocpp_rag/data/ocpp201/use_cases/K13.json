@@ -2,91 +2,81 @@
   "use_case_id": "K13",
   "functional_block": "SmartCharging",
   "use_case_name": "Reset / Release External Charging Limit",
+  "structured": {
+    "name": "Reset / Release External Charging Limit",
+    "id": "K13",
+    "functional_block": "SmartCharging",
+    "objective": "To release a charging limit that was previously imposed.",
+    "description": "An external control system sends a signal to release a previously imposed charging limit to a\nCharging Station. The Charging Station notifies the CSMS about this.",
+    "actors": [
+      "External control system",
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. External control system releases/removes a charging limit/schedule on the Charging Station",
+      "2. When a transaction is ongoing, the Charging Station calculates the new Charging Schedule and\nadjusts charging speed.",
+      "3. The Charging Station sends a ClearedChargingLimitRequest to notify the CSMS.",
+      "4. The CSMS acknowledges with a ClearedChargingLimitResponse to the Charging Station.",
+      "5. When the change has impact on an ongoing charging transaction and is more than:\nLimitChangeSignificance, the Charging Station sends a TransactionEventRequest to notify\nthe CSMS.",
+      "6. The CSMS acknowledges with a TransactionEventResponse to the Charging Station."
+    ],
+    "prerequisites": "Previously, a charging limit was sent to the Charging Station under consideration.\nAn external system that can set/clear a charging limit/schedule on the Charging Station.",
+    "postconditions": "The previously received charging limit is not limiting charging anymore.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K13.FR.01",
+        "precondition": "External charging limit is\nreleased/removed",
+        "definition": "The Charging Station SHALL NOT limit charging anymore based on the\npreviously received limit."
+      },
+      {
+        "id": "K13.FR.02",
+        "precondition": "K13.FR.01",
+        "definition": "The Charging Station SHALL notify the CSMS by sending a\nClearedChargingLimitRequest message."
+      },
+      {
+        "id": "K13.FR.03",
+        "precondition": "K13.FR.01 AND\nA transaction is ongoing AND\nCharging rate changed by more\nthan: LimitChangeSignificance",
+        "definition": "The Charging Station SHALL send a TransactionEventRequest message to\nthe CSMS with trigger = ChargingRateChanged."
+      }
+    ],
+    "figures": [
+      "fig110.png",
+      "fig111.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K13 - Reset / Release External Charging Limit\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                 | Reset / Release External Charging Limit                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 2   | ID                   | K13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 3   | Objective(s)         | To release a charging limit that was previously imposed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 4   | Description          | An external control system sends a signal to release a previously imposed charging limit to a Charging Station. The Charging Station notifies the CSMS about this.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "content": "# K13 - Reset / Release External Charging Limit\n\n**Objective:** To release a charging limit that was previously imposed.\n\n**Description:** An external control system sends a signal to release a previously imposed charging limit to a\nCharging Station. The Charging Station notifies the CSMS about this.\n\n**Actors:** External control system, Charging Station, CSMS\n\n**Scenario:**\n1. External control system releases/removes a charging limit/schedule on the Charging Station\n2. When a transaction is ongoing, the Charging Station calculates the new Charging Schedule and\nadjusts charging speed.\n3. The Charging Station sends a ClearedChargingLimitRequest to notify the CSMS.\n4. The CSMS acknowledges with a ClearedChargingLimitResponse to the Charging Station.\n5. When the change has impact on an ongoing charging transaction and is more than:\nLimitChangeSignificance, the Charging Station sends a TransactionEventRequest to notify\nthe CSMS.\n6. The CSMS acknowledges with a TransactionEventResponse to the Charging Station.\n\n**Prerequisites:** Previously, a charging limit was sent to the Charging Station under consideration.\nAn external system that can set/clear a charging limit/schedule on the Charging Station.\n\n**Postconditions:** The previously received charging limit is not limiting charging anymore.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "K13 - Reset / Release External Charging Limit",
-        "heading_path": "K13 - Reset / Release External Charging Limit",
         "functional_block": "SmartCharging",
         "use_case_id": "K13",
         "use_case_name": "Reset / Release External Charging Limit",
-        "use_case_refs": "K13",
-        "message_refs": "ClearedChargingLimitRequest, ClearedChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 2
       }
     },
     {
-      "content": "|     | Actors               | External control system, Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n|     | Scenario description | 1. External control system releases/removes a charging limit/schedule on the Charging Station 2. When a transaction is ongoing, the Charging Station calculates the new Charging Schedule and adjusts charging speed. 3. The Charging Station sends a ClearedChargingLimitRequest to notify the CSMS. 4. The CSMS acknowledges with a ClearedChargingLimitResponse to the Charging Station. 5. When the change has impact on an ongoing charging transaction and is more than: LimitChangeSignificance, the Charging Station sends a TransactionEventRequest to notify the CSMS. 6. The CSMS acknowledges with a TransactionEventResponse to the Charging Station. |\n| 5   | Prerequisites        | Previously, a charging limit was sent to the Charging Station under consideration. An external system that can set/clear a charging limit/schedule on the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K13 - Reset / Release External Charging Limit",
-        "heading_path": "K13 - Reset / Release External Charging Limit",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K13",
-        "use_case_name": "Reset / Release External Charging Limit",
-        "use_case_refs": "K13",
-        "message_refs": "ClearedChargingLimitRequest, ClearedChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s)     | The previously received charging limit is not limiting charging anymore.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 7   | Error Handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n\n\nNo.     Type                      Description\n\n8       Remarks                   The external system could, for example, IEC 61850 [IEC61850-7-420] or OpenADR [OPENADR] to release the grid limit, but this could be any protocol. Furthermore, an example of an external system is given, in this case a DSO that might set an external charging limit in case of grid problems, but this could be any other external system or reason to set a charging limit.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "K13 - Reset / Release External Charging Limit",
-        "heading_path": "K13 - Reset / Release External Charging Limit",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K13",
-        "use_case_name": "Reset / Release External Charging Limit",
-        "use_case_refs": "K13",
-        "message_refs": "ClearedChargingLimitRequest, ClearedChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# External Control System\n\n(example DSO)        Charging Station                                                                              CSMS\n\nrelease grid limit\n\nopt    [if transaction ongoing]\n\nopt\n\nrecalculate charging schedule\n\nrelease charging limit\n\nClearedChargingLimitRequest(evseId, chargingLimitSource)\n\nClearedChargingLimitResponse()\n\nopt     [if charging rate changed more than: LimitChangeSignificance]\n\nTransactionEventRequest(eventType = Updated, trigger = ChargingRateChanged, ...)\n\nTransactionEventResponse(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "External Control System",
-        "heading_path": "External Control System",
-        "functional_block": "SmartCharging",
-        "use_case_id": "K13",
-        "message_refs": "ClearedChargingLimitRequest, ClearedChargingLimitResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# K13 - Reset / Release External Charging Limit - Requirements\n\n| ID        | Precondition                                                                                           | Requirements                                                                                                      |\n| --------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |\n| K13.FR.01 | External charging limit is released/removed                                                            | The Charging Station SHALL NOT limit charging anymore based on the previously received limit.                     |\n| K13.FR.02 | K13.FR.01                                                                                              | The Charging Station SHALL notify the CSMS by sending a ClearedChargingLimitRequest message.                      |\n| K13.FR.03 | K13.FR.01 AND A transaction is ongoing AND Charging rate changed by more than: LimitChangeSignificance | The Charging Station SHALL send a TransactionEventRequest message to the CSMS with trigger = ChargingRateChanged. |",
+      "content": "# K13 - Requirements\n\n**K13.FR.01**\nPrecondition: External charging limit is\nreleased/removed\nThe Charging Station SHALL NOT limit charging anymore based on the\npreviously received limit.\n\n**K13.FR.02**\nPrecondition: K13.FR.01\nThe Charging Station SHALL notify the CSMS by sending a\nClearedChargingLimitRequest message.\n\n**K13.FR.03**\nPrecondition: K13.FR.01 AND\nA transaction is ongoing AND\nCharging rate changed by more\nthan: LimitChangeSignificance\nThe Charging Station SHALL send a TransactionEventRequest message to\nthe CSMS with trigger = ChargingRateChanged.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K13 - Reset / Release External Charging Limit - Requirements",
-        "heading_path": "K13 - Reset / Release External Charging Limit - Requirements",
+        "heading": "K13 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K13",
         "use_case_name": "Reset / Release External Charging Limit",
-        "use_case_refs": "K13",
-        "message_refs": "ClearedChargingLimitRequest, TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

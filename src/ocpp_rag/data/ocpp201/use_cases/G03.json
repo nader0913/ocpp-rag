@@ -2,152 +2,133 @@
   "use_case_id": "G03",
   "functional_block": "Availability",
   "use_case_name": "Change Availability EVSE/Connector",
+  "structured": {
+    "name": "Change Availability EVSE/Connector",
+    "id": "G03",
+    "functional_block": "Availability",
+    "objective": "To enable the CSMS to change the availability of an EVSE or Connector to Operative or\nInoperative .",
+    "description": "This use case covers how the CSMS requests the Charging Station to change the availability of\none of the EVSEs or Connectors to Operative or Inoperative. An EVSE/Connector is\nconsidered Operative in any status other than Faulted and Unavailable.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS sends ChangeAvailabilityRequest requesting a Charging Station to change the\navailability of an EVSE or Connector.",
+      "2. The Charging Station changes the availability to the EVSE/Connector to the requested\noperationalStatus from the ChangeAvailabilityRequest.",
+      "3. Upon receipt of ChangeAvailabilityRequest, the Charging Station responds with\nChangeAvailabilityResponse. In case that the status 'Scheduled' is reported in the\nChangeAvailabilityResponse, a transaction was running and this will be finished first.",
+      "4. The Charging Station reports the status of the EVSE/Connector using a NotifyEventRequest."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "Successful postcondition:\nWhen changing the availability of an EVSE/Connector to Operative, the status of the EVSE has\nchanged to Available, Occupied or Reserved.\nWhen changing the availability of an EVSE/Connector to Inoperative , the status of the EVSE\nhas changed to Unavailable.\nFailure postcondition:\nThe status of the EVSE is as it was just before the Charging Station received\nChangeAvailabilityRequest and not according to the requested Availability.",
+    "error_handling": "n/a",
+    "remarks": "Availabilty state set by ChangeAvailabilityRequest persists after a reboot. For example, if EVSE is\nset to Unavailable it remains unavailable after reboot.",
+    "requirements": [
+      {
+        "id": "G03.FR.01",
+        "precondition": "Upon receipt of\nChangeAvailabilityRequest.",
+        "definition": "The Charging Station SHALL respond with\nChangeAvailabilityResponse."
+      },
+      {
+        "id": "G03.FR.02",
+        "precondition": "G03.FR.01",
+        "definition": "This response message SHALL indicate whether\nthe Charging Station is able to change to the\nrequested availability."
+      },
+      {
+        "id": "G03.FR.03",
+        "precondition": "In the event that CSMS requests the\nCharging Station to change an EVSE\nor Connector to the state it is already\nin.",
+        "definition": "The Charging Station SHALL respond with\navailability status Accepted."
+      },
+      {
+        "id": "G03.FR.04",
+        "precondition": "When an availability change request\nwith ChangeAvailabilityRequest has\nchanged the state of a Connector.",
+        "definition": "The Charging Station SHALL inform the CSMS of its\nnew Connector availability status with\nStatusNotificationRequest or NotifyEventRequest."
+      },
+      {
+        "id": "G03.FR.05",
+        "precondition": "When a transaction is in progress\nAND NOT G03.FR.03",
+        "definition": "The Charging Station SHALL respond with\navailability status Scheduled to indicate that it is\nscheduled to occur after the transaction has\nfinished."
+      },
+      {
+        "id": "G03.FR.06",
+        "precondition": "When the availability of an EVSE\nbecomes Inoperative (Unavailable,\nFaulted)",
+        "definition": "All operative connectors (i.e. not Faulted) of that\nEVSE SHALL become Unavailable."
+      },
+      {
+        "id": "G03.FR.07",
+        "precondition": "When the availability of an EVSE\nbecomes Operative",
+        "definition": "The Charging Station SHALL revert the status of all\nconnectors of that EVSE to their original status."
+      },
+      {
+        "id": "G03.FR.08",
+        "precondition": "When the availability of an EVSE or\nConnector has been set explicitly via\nChangeAvailabilityRequest",
+        "definition": "The set availability state SHALL be persistent\nacross reboot/power loss."
+      },
+      {
+        "id": "G03.FR.09",
+        "precondition": "The connector is Reserved when an\nEV is connecting AND\nEV driver has not presented an\nIdToken matching the reservation",
+        "definition": "Connector status SHALL NOT change."
+      }
+    ],
+    "figures": [
+      "fig74.png",
+      "fig75.png",
+      "fig76.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Reserve a specific EVSE at a Charging Station",
+        "steps": [
+          "1. EV Driver asks the CSMS to reserve a specific EVSE at the Charging Station.",
+          "2. The CSMS sends ReserveNowRequest with a EVSE to a Charging Station.",
+          "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted.",
+          "4. The Charging Station sends StatusNotificationRequest with the status Reserved for all\nConnectors of that EVSE.",
+          "5. The CSMS responds with StatusNotificationResponse to the Charging Station."
+        ]
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Reserve a connector type at a Charging Station",
+        "steps": [
+          "1. EV Driver asks the CSMS to reserve a connector type at the Charging Station.",
+          "2. The CSMS sends ReserveNowRequest with a connector type to a Charging Station.",
+          "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted."
+        ],
+        "prerequisites": "The Charging Station has at least one available EVSE with the specified connector type",
+        "postconditions": "Successful postcondition:\nThe Charging Station has accepted the ReserveNowRequest\nFailure postcondition:\nThe Charging Station has rejected the ReserveNowRequest"
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# G03 - Change Availability EVSE/Connector\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| --- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Change Availability EVSE/Connector                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID                      | G03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 3   | Objective(s)            | To enable the CSMS to change the availability of an EVSE or Connector to Operative or Inoperative.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 4   | Description             | This use case covers how the CSMS requests the Charging Station to change the availability of one of the EVSEs or Connectors to Operative or Inoperative. An EVSE/Connector is considered Operative in any status other than Faulted and Unavailable.                                                                                                                                                                                                                                                                                                                                                                               |",
+      "content": "# G03 - Change Availability EVSE/Connector\n\n**Objective:** To enable the CSMS to change the availability of an EVSE or Connector to Operative or\nInoperative .\n\n**Description:** This use case covers how the CSMS requests the Charging Station to change the availability of\none of the EVSEs or Connectors to Operative or Inoperative. An EVSE/Connector is\nconsidered Operative in any status other than Faulted and Unavailable.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends ChangeAvailabilityRequest requesting a Charging Station to change the\navailability of an EVSE or Connector.\n2. The Charging Station changes the availability to the EVSE/Connector to the requested\noperationalStatus from the ChangeAvailabilityRequest.\n3. Upon receipt of ChangeAvailabilityRequest, the Charging Station responds with\nChangeAvailabilityResponse. In case that the status 'Scheduled' is reported in the\nChangeAvailabilityResponse, a transaction was running and this will be finished first.\n4. The Charging Station reports the status of the EVSE/Connector using a NotifyEventRequest.\n\n**Prerequisites:** n/a\n\n**Postconditions:** Successful postcondition:\nWhen changing the availability of an EVSE/Connector to Operative, the status of the EVSE has\nchanged to Available, Occupied or Reserved.\nWhen changing the availability of an EVSE/Connector to Inoperative , the status of the EVSE\nhas changed to Unavailable.\nFailure postcondition:\nThe status of the EVSE is as it was just before the Charging Station received\nChangeAvailabilityRequest and not according to the requested Availability.\n\n**Remarks:** Availabilty state set by ChangeAvailabilityRequest persists after a reboot. For example, if EVSE is\nset to Unavailable it remains unavailable after reboot.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "G03 - Change Availability EVSE/Connector",
-        "heading_path": "G03 - Change Availability EVSE/Connector",
         "functional_block": "Availability",
         "use_case_id": "G03",
         "use_case_name": "Change Availability EVSE/Connector",
-        "use_case_refs": "G03, G04",
-        "message_refs": "ChangeAvailabilityRequest, ChangeAvailabilityResponse, NotifyEventRequest, StatusNotificationRequest, StatusNotificationResponse",
-        "figure_refs": "74",
-        "chunk_part": 1,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "|     | Actors                  | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n|     | Scenario description    | 1. The CSMS sends ChangeAvailabilityRequest requesting a Charging Station to change the availability of an EVSE or Connector. 2. The Charging Station changes the availability to the EVSE/Connector to the requested operationalStatus from the ChangeAvailabilityRequest. 3. Upon receipt of ChangeAvailabilityRequest, the Charging Station responds with ChangeAvailabilityResponse. In case that the status 'Scheduled' is reported in the ChangeAvailabilityResponse, a transaction was running and this will be finished first. 4. The Charging Station reports the status of the EVSE/Connector using a NotifyEventRequest. |\n|     | Alternative scenario(s) | G04 - Change Availability Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "G03 - Change Availability EVSE/Connector",
-        "heading_path": "G03 - Change Availability EVSE/Connector",
-        "functional_block": "Availability",
-        "use_case_id": "G03",
-        "use_case_name": "Change Availability EVSE/Connector",
-        "use_case_refs": "G03, G04",
-        "message_refs": "ChangeAvailabilityRequest, ChangeAvailabilityResponse, NotifyEventRequest, StatusNotificationRequest, StatusNotificationResponse",
-        "figure_refs": "74",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 5   | Prerequisite(s)         | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 6   | Postcondition(s)        | Successful postcondition: When changing the availability of an EVSE/Connector to Operative, the status of the EVSE has changed to Available, Occupied or Reserved. When changing the availability of an EVSE/Connector to Inoperative, the status of the EVSE has changed to Unavailable. Failure postcondition: The status of the EVSE is as it was just before the Charging Station received ChangeAvailabilityRequest and not according to the requested Availability.                                                                                                                                                           |\n| 7   | Error handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "G03 - Change Availability EVSE/Connector",
-        "heading_path": "G03 - Change Availability EVSE/Connector",
-        "functional_block": "Availability",
-        "use_case_id": "G03",
-        "use_case_name": "Change Availability EVSE/Connector",
-        "use_case_refs": "G03, G04",
-        "message_refs": "ChangeAvailabilityRequest, ChangeAvailabilityResponse, NotifyEventRequest, StatusNotificationRequest, StatusNotificationResponse",
-        "figure_refs": "74",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)               | Availability state set by ChangeAvailabilityRequest persists after a reboot. For example, if EVSE is set to Unavailable it remains unavailable after reboot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n\nCharging Station      CSMS\n\nChangeAvailabilityRequest(EVSE.id, type)\n\nChangeAvailabilityResponse(status)\n\nalt  [if availability changed]\n\nalt  [if a transaction is ongoing]\n\nWait for transaction on EVSE to finish.\n\nloop      [for all Connectors of the specified EVSE]\n\nStatusNotificationRequest(evseId, connectorId, connectorStatus)\n\nStatusNotificationResponse()\n\nFigure 74. Sequence Diagram: Change Availability",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "G03 - Change Availability EVSE/Connector",
-        "heading_path": "G03 - Change Availability EVSE/Connector",
-        "functional_block": "Availability",
-        "use_case_id": "G03",
-        "use_case_name": "Change Availability EVSE/Connector",
-        "use_case_refs": "G03, G04",
-        "message_refs": "ChangeAvailabilityRequest, ChangeAvailabilityResponse, NotifyEventRequest, StatusNotificationRequest, StatusNotificationResponse",
-        "figure_refs": "74",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# G03 - Change Availability EVSE - Requirements\n\n| ID        | Precondition                                                                                                           | Requirement definition                                                                                                                              | Note                                                                                             |\n| --------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |\n| G03.FR.01 | Upon receipt of ChangeAvailabilityRequest.                                                                             | The Charging Station SHALL respond with ChangeAvailabilityResponse.                                                                                 | As described in ChangeAvailabilityStatus EnumType.                                               |\n| G03.FR.02 | G03.FR.01                                                                                                              | This response message SHALL indicate whether the Charging Station is able to change to the requested availability.                                  |                                                                                                  |\n| G03.FR.03 | In the event that CSMS requests the Charging Station to change an EVSE or Connector to the state it is already in.     | The Charging Station SHALL respond with availability status Accepted.                                                                               |                                                                                                  |\n| G03.FR.04 | When an availability change request with ChangeAvailabilityRequest has changed the state of a Connector.               | The Charging Station SHALL inform the CSMS of its new Connector availability status with StatusNotificationRequest or NotifyEventRequest.           |                                                                                                  |\n| G03.FR.05 | When a transaction is in progress AND NOT G03.FR.03                                                                    | The Charging Station SHALL respond with availability status Scheduled to indicate that it is scheduled to occur after the transaction has finished. |                                                                                                  |\n| G03.FR.06 | When the availability of an EVSE becomes Inoperative (Unavailable, Faulted)                                            | All operative connectors (i.e. not Faulted) of that EVSE SHALL become Unavailable.                                                                  |                                                                                                  |\n| G03.FR.07 | When the availability of an EVSE becomes Operative                                                                     | The Charging Station SHALL revert the status of all connectors of that EVSE to their original status.                                               | See Note 1.                                                                                      |\n| G03.FR.08 | When the availability of an EVSE or Connector has been set explicitly via ChangeAvailabilityRequest                    | The set availability state SHALL be persistent across reboot/power loss.                                                                            |                                                                                                  |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "G03 - Change Availability EVSE - Requirements",
-        "heading_path": "G03 - Change Availability EVSE - Requirements",
-        "functional_block": "Availability",
-        "use_case_id": "G03",
-        "use_case_name": "Change Availability EVSE",
-        "use_case_refs": "G03",
-        "message_refs": "ChangeAvailabilityRequest, ChangeAvailabilityResponse, NotifyEventRequest, StatusNotificationRequest",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| G03.FR.09 | The connector is Reserved when an EV is connecting AND EV driver has not presented an IdToken matching the reservation | Connector status SHALL NOT change.                                                                                                                  | Connector stays reserved until IdToken matching reservation is presented or reservation expires. |\n\n1. The Charging Station, EVSEs and Connectors have separate / individual states. This means (for example) that when setting a connector to Inoperative, then setting the connected EVSE to Inoperative and thereafter change the EVSE back to operative, the connector will remain Inoperative.\n\n2. It is only required to report a status change of a connector. StatusNotificationRequest only supports the reporting of connector statuses.",
+      "content": "# G03 - Requirements\n\n**G03.FR.01**\nPrecondition: Upon receipt of\nChangeAvailabilityRequest.\nThe Charging Station SHALL respond with\nChangeAvailabilityResponse.\n\n**G03.FR.02**\nPrecondition: G03.FR.01\nThis response message SHALL indicate whether\nthe Charging Station is able to change to the\nrequested availability.\n\n**G03.FR.03**\nPrecondition: In the event that CSMS requests the\nCharging Station to change an EVSE\nor Connector to the state it is already\nin.\nThe Charging Station SHALL respond with\navailability status Accepted.\n\n**G03.FR.04**\nPrecondition: When an availability change request\nwith ChangeAvailabilityRequest has\nchanged the state of a Connector.\nThe Charging Station SHALL inform the CSMS of its\nnew Connector availability status with\nStatusNotificationRequest or NotifyEventRequest.\n\n**G03.FR.05**\nPrecondition: When a transaction is in progress\nAND NOT G03.FR.03\nThe Charging Station SHALL respond with\navailability status Scheduled to indicate that it is\nscheduled to occur after the transaction has\nfinished.\n\n**G03.FR.06**\nPrecondition: When the availability of an EVSE\nbecomes Inoperative (Unavailable,\nFaulted)\nAll operative connectors (i.e. not Faulted) of that\nEVSE SHALL become Unavailable.\n\n**G03.FR.07**\nPrecondition: When the availability of an EVSE\nbecomes Operative\nThe Charging Station SHALL revert the status of all\nconnectors of that EVSE to their original status.\n\n**G03.FR.08**\nPrecondition: When the availability of an EVSE or\nConnector has been set explicitly via\nChangeAvailabilityRequest\nThe set availability state SHALL be persistent\nacross reboot/power loss.\n\n**G03.FR.09**\nPrecondition: The connector is Reserved when an\nEV is connecting AND\nEV driver has not presented an\nIdToken matching the reservation\nConnector status SHALL NOT change.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "G03 - Change Availability EVSE - Requirements",
-        "heading_path": "G03 - Change Availability EVSE - Requirements",
+        "heading": "G03 - Requirements",
         "functional_block": "Availability",
         "use_case_id": "G03",
-        "use_case_name": "Change Availability EVSE",
-        "use_case_refs": "G03",
-        "message_refs": "ChangeAvailabilityRequest, ChangeAvailabilityResponse, NotifyEventRequest, StatusNotificationRequest",
+        "use_case_name": "Change Availability EVSE/Connector",
         "chunk_part": 2,
         "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "74",
-      "title": "Sequence Diagram: Change Availability",
-      "files": [
-        "fig74_p1_Sequence_Diagram__Change_Availability.png",
-        "fig74_p2_Sequence_Diagram__Change_Availability.png"
-      ]
-    },
-    {
-      "figure_num": "74",
-      "title": "Sequence Diagram: Change Availability",
-      "files": [
-        "fig74_p1_Sequence_Diagram__Change_Availability.png",
-        "fig74_p2_Sequence_Diagram__Change_Availability.png"
-      ]
-    },
-    {
-      "figure_num": "74",
-      "title": "Sequence Diagram: Change Availability",
-      "files": [
-        "fig74_p1_Sequence_Diagram__Change_Availability.png",
-        "fig74_p2_Sequence_Diagram__Change_Availability.png"
-      ]
-    },
-    {
-      "figure_num": "74",
-      "title": "Sequence Diagram: Change Availability",
-      "files": [
-        "fig74_p1_Sequence_Diagram__Change_Availability.png",
-        "fig74_p2_Sequence_Diagram__Change_Availability.png"
-      ]
     }
   ]
 }

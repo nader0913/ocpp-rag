@@ -2,77 +2,80 @@
   "use_case_id": "I01",
   "functional_block": "TariffAndCost",
   "use_case_name": "Show EV Driver-specific Tariff Information",
+  "structured": {
+    "name": "Show EV Driver-specific Tariff Information",
+    "id": "I01",
+    "functional_block": "TariffAndCost",
+    "objective": "To show an EV Driver-specific tariff before the start of a transaction.",
+    "description": "When an EV Driver wants to charge an EV he wants to know how much charging will cost him at\nthe Charging Station he is at. The EV Driver is authenticated by his (RFID) token. The Charging\nStation asks the CSMS for information about the presented token. The CSMS returns information\nabout the token, including the tariff applicable to this EV Driver.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. The EV Driver wants to charge an EV, he presents his IdTokenType.",
+      "2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization.",
+      "3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response\nmessage indicates whether or not the IdTokenType is accepted by the CSMS, and reports the EV\nDriver-specific tariff in the IdTokenInfo.personalMessage field.",
+      "4. The Charging Station shows the EV Driver-specific tariff to the EV Driver."
+    ],
+    "prerequisites": "The Charging Station supports Tariff Information and uses central cost calculation by CSMS.",
+    "postconditions": "Successful postcondition:\nThe EV Driver is authorized, knows which tariff is applicable for him/her and can start charging.\nFailure postcondition:\nIf the authorization status is other than Accepted, the EV Driver can not start and might not know\nthe tariff.",
+    "error_handling": "n/a",
+    "remarks": "The tariff information presented might be the same for any token presented.\nIf known, and applicable, it is advisable to show the tariff information in a language understood by\nthe EV Driver.\nIt is advisable to give the driver the option to cancel the transaction when he does not agree with\nthe tariff. This could be not plugging in the cable, or a cancel button in the user interface etc. As\nlong at it is clear to the driver how a transaction can be canceled.",
+    "requirements": [
+      {
+        "id": "I01.FR.01",
+        "precondition": "",
+        "definition": "The CSMS MAY send EV Driver-specific tariff information in the\nIdTokenInfo.personalMessage field of an AuthorizeResponse\nmessage."
+      },
+      {
+        "id": "I01.FR.02",
+        "precondition": "",
+        "definition": "The CSMS SHALL only send the tariff information if the Charging\nStation supports the tariff or DisplayMessage functionality."
+      },
+      {
+        "id": "I01.FR.03",
+        "precondition": "I01.FR.01",
+        "definition": "The Charging Station SHALL show the EV Driver-specific tariff\ninformation to the EV Driver."
+      }
+    ],
+    "figures": [
+      "fig84.png",
+      "fig85.png",
+      "fig86.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# I01 - Show EV Driver-specific Tariff Information\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| --- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Show EV Driver-specific Tariff Information                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 2   | ID                      | I01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 3   | Objective(s)            | To show an EV Driver-specific tariff before the start of a transaction.                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 4   | Description             | When an EV Driver wants to charge an EV he wants to know how much charging will cost him at the Charging Station he is at. The EV Driver is authenticated by his (RFID) token. The Charging Station asks the CSMS for information about the presented token. The CSMS returns information about the token, including the tariff applicable to this EV Driver.                                                                                                                                      |\n|     | Actors                  | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n|     | Scenario description    | 1. The EV Driver wants to charge an EV, he presents his IdTokenType. 2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization. 3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response message indicates whether or not the IdTokenType is accepted by the CSMS, and reports the EV Driver-specific tariff in the IdTokenInfo.personalMessage field. 4. The Charging Station shows the EV Driver-specific tariff to the EV Driver. |",
+      "content": "# I01 - Show EV Driver-specific Tariff Information\n\n**Objective:** To show an EV Driver-specific tariff before the start of a transaction.\n\n**Description:** When an EV Driver wants to charge an EV he wants to know how much charging will cost him at\nthe Charging Station he is at. The EV Driver is authenticated by his (RFID) token. The Charging\nStation asks the CSMS for information about the presented token. The CSMS returns information\nabout the token, including the tariff applicable to this EV Driver.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The EV Driver wants to charge an EV, he presents his IdTokenType.\n2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization.\n3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response\nmessage indicates whether or not the IdTokenType is accepted by the CSMS, and reports the EV\nDriver-specific tariff in the IdTokenInfo.personalMessage field.\n4. The Charging Station shows the EV Driver-specific tariff to the EV Driver.\n\n**Prerequisites:** The Charging Station supports Tariff Information and uses central cost calculation by CSMS.\n\n**Postconditions:** Successful postcondition:\nThe EV Driver is authorized, knows which tariff is applicable for him/her and can start charging.\nFailure postcondition:\nIf the authorization status is other than Accepted, the EV Driver can not start and might not know\nthe tariff.\n\n**Remarks:** The tariff information presented might be the same for any token presented.\nIf known, and applicable, it is advisable to show the tariff information in a language understood by\nthe EV Driver.\nIt is advisable to give the driver the option to cancel the transaction when he does not agree with\nthe tariff. This could be not plugging in the cable, or a cancel button in the user interface etc. As\nlong at it is clear to the driver how a transaction can be canceled.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "I01 - Show EV Driver-specific Tariff Information",
-        "heading_path": "I01 - Show EV Driver-specific Tariff Information",
         "functional_block": "TariffAndCost",
         "use_case_id": "I01",
         "use_case_name": "Show EV Driver-specific Tariff Information",
-        "use_case_refs": "I01, I04",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 2
       }
     },
     {
-      "content": "|     | Alternative scenario(s) | I04 - Show Fallback Tariff Information                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 5   | Prerequisite(s)         | The Charging Station supports Tariff Information and uses central cost calculation by CSMS.                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 6   | Postcondition(s)        | Successful postcondition: The EV Driver is authorized, knows which tariff is applicable for him/her and can start charging. Failure postcondition: If the authorization status is other than Accepted, the EV Driver can not start and might not know the tariff.                                                                                                                                                                                                                                  |\n| 7   | Error Handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I01 - Show EV Driver-specific Tariff Information",
-        "heading_path": "I01 - Show EV Driver-specific Tariff Information",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I01",
-        "use_case_name": "Show EV Driver-specific Tariff Information",
-        "use_case_refs": "I01, I04",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 8   | Remarks                 | The tariff information presented might be the same for any token presented. If known, and applicable, it is advisable to show the tariff information in a language understood by the EV Driver. It is advisable to give the driver the option to cancel the transaction when he does not agree with the tariff. This could be not plugging in the cable, or a cancel button in the user interface etc. As long at it is clear to the driver how a transaction can be canceled.                     |\n\nEV Driver  Charging Station    CSMS\n\nNo ongoing transaction for this User\n\npresent IdToken\n\nAuthorizeRequest(idToken = '123456')\n\nAuthorizeResponse(status = Accepted, idTokenInfo.personalMessage = '0.25/kWh')\n\ntariff: 0.25/kWh",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "I01 - Show EV Driver-specific Tariff Information",
-        "heading_path": "I01 - Show EV Driver-specific Tariff Information",
-        "functional_block": "TariffAndCost",
-        "use_case_id": "I01",
-        "use_case_name": "Show EV Driver-specific Tariff Information",
-        "use_case_refs": "I01, I04",
-        "message_refs": "AuthorizeRequest, AuthorizeResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# I01 - Show EV Driver-specific Tariff Information - Requirements\n\n| ID.       | Precondition | Requirements                                                                                                                      |\n| --------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- |\n| I01.FR.01 |              | The CSMS MAY send EV Driver-specific tariff information in the IdTokenInfo.personalMessage field of an AuthorizeResponse message. |\n| I01.FR.02 |              | The CSMS SHALL only send the tariff information if the Charging Station supports the tariff or DisplayMessage functionality.      |\n| I01.FR.03 | I01.FR.01    | The Charging Station SHALL show the EV Driver-specific tariff information to the EV Driver.                                       |",
+      "content": "# I01 - Requirements\n\n**I01.FR.01**\nThe CSMS MAY send EV Driver-specific tariff information in the\nIdTokenInfo.personalMessage field of an AuthorizeResponse\nmessage.\n\n**I01.FR.02**\nThe CSMS SHALL only send the tariff information if the Charging\nStation supports the tariff or DisplayMessage functionality.\n\n**I01.FR.03**\nPrecondition: I01.FR.01\nThe Charging Station SHALL show the EV Driver-specific tariff\ninformation to the EV Driver.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "I01 - Show EV Driver-specific Tariff Information - Requirements",
-        "heading_path": "I01 - Show EV Driver-specific Tariff Information - Requirements",
+        "heading": "I01 - Requirements",
         "functional_block": "TariffAndCost",
         "use_case_id": "I01",
         "use_case_name": "Show EV Driver-specific Tariff Information",
-        "use_case_refs": "I01",
-        "message_refs": "AuthorizeResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

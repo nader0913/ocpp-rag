@@ -2,79 +2,149 @@
   "use_case_id": "H03",
   "functional_block": "Reservation",
   "use_case_name": "Use a reserved EVSE",
+  "structured": {
+    "name": "Use a reserved EVSE",
+    "id": "H03",
+    "functional_block": "Reservation",
+    "objective": "Use a reserved EVSE",
+    "description": "This use cases covers how a reserved EVSE can be used based on IdToken and\nGroupIdToken information.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+      "1. The EV Driver connects the cable.",
+      "2. Charging Station starts a transaction, but EVSE connector status remains\nReserved.",
+      "3. The EV Driver presents an IdTokenType at the Charging Station that is the\nsame as the reservation\u2019s IdTokenType",
+      "4. Charging Station matches IdTokenType with the reservation",
+      "5. Connector status becomes Occupied, since reservation has now been\nconsumed",
+      "6. Charging Station optionally authorizes the IdTokenType via an\nAuthorizeRequest",
+      "7. If authorization accepted, or authorization step was skipped:\na. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+    ],
+    "prerequisites": "EVSE has been reserved for IdToken and connector status is Reserved.",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "H03.FR.01",
+        "precondition": "Reservation is pending for a specific\nidToken for a specific evseId",
+        "definition": "The Charging Station SHALL allow charging on that\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation."
+      },
+      {
+        "id": "H03.FR.02",
+        "precondition": "Reservation is pending for a specific\nidToken for a specific connectorType",
+        "definition": "The Charging Station SHALL allow charging on an\nEVSE with a connector of type connectorType when\nIdToken presented for authorization matches the\nspecific idToken from the reservation."
+      },
+      {
+        "id": "H03.FR.03",
+        "precondition": "Reservation is pending for a specific\nidToken without a specific evseId or\nconnectorType",
+        "definition": "The Charging Station SHALL allow charging on an\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation."
+      },
+      {
+        "id": "H03.FR.04",
+        "precondition": "H03.FR.01 AND\nattribute groupIdToken in reservation\nhas a value",
+        "definition": "The Charging Station SHALL allow charging on that\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation\nor when the associated groupIdToken matches."
+      },
+      {
+        "id": "H03.FR.05",
+        "precondition": "H03.FR.02 AND\nattribute groupIdToken in reservation\nhas a value",
+        "definition": "The Charging Station SHALL allow charging on an\nEVSE with a connector of type connectorType when\nIdToken presented for authorization matches the\nspecific idToken from the reservation or when the\nassociated groupIdToken matches."
+      },
+      {
+        "id": "H03.FR.06",
+        "precondition": "H03.FR.03 AND\nattribute groupIdToken in reservation\nhas a value",
+        "definition": "The Charging Station SHALL allow charging on any\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation\nor when the associated groupIdToken matches."
+      },
+      {
+        "id": "H03.FR.07",
+        "precondition": "If attribute groupIdToken in the\nreservation has a value (it is optional).",
+        "definition": "In order to determine the groupIdToken that is\nassociated with an incoming IdToken, the Charging\nStation MAY look it up in its Local Authorization\nList or Authorization Cache."
+      },
+      {
+        "id": "H03.FR.08",
+        "precondition": "H03.FR.07 AND\nIf the incoming IdToken is not found in\nthe Local Authorization List or\nAuthorization Cache.",
+        "definition": "The Charging Station SHALL send an\nAuthorizeRequest for the incoming IdToken to the\nCSMS in order to get its associated groupIdToken.\n(Note: This AuthorizeRequest may already have\nbeen performed when the idToken was presented\nfor authorization.)"
+      },
+      {
+        "id": "H03.FR.09",
+        "precondition": "When an idToken or groupIdToken is\npresented that matches a reservation",
+        "definition": "Charging Station SHALL consider the reservation to\nbe used (consumed)"
+      },
+      {
+        "id": "H03.FR.10",
+        "precondition": "H03.FR.09 AND\nConnector associated with reservation\nhas status Reserved",
+        "definition": "Charging Station SHALL set connector status to\nAvailable if no cable has been plugged-in, or\nOccupied if a cable has already been plugged-in."
+      }
+    ],
+    "figures": [
+      "fig81.png",
+      "fig82.png",
+      "fig83.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Use an EVSE with connector status Reserved, that is reserved for this GroupIdToken",
+        "steps": [
+          "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+          "1. The EV Driver connects the cable.",
+          "2. Charging Station starts a transaction, but connector status remains\nReserved.",
+          "3. The EV Driver presents an IdTokenType at the Charging Station that is not the\nsame as the reservation\u2019s IdTokenType, but the reservation contains a\ngroupIdToken.",
+          "4. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local\nAuthorization List or Authorization Cache, and checks if the groupIdToken of\nthe IdTokenType matches with the reservation.",
+          "5. If groupIdTokens match:\na. Connector status becomes Occupied, since reservation has now been\nconsumed.\nb. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+        ]
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Use an EVSE when Charging Station has a reservation for idToken, but connector\nstatus is Available.\nThis happens when reservation is for an unspecified EVSE and multiple EVSEs are\navailable.",
+        "steps": [
+          "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+          "1. The EV Driver connects the cable",
+          "2. Charging Station reports connector status as Occupied",
+          "3. Charging Station starts a transaction",
+          "4. The EV Driver presents an IdTokenType at the Charging Station that is the\nsame as the reservation\u2019s IdTokenType",
+          "5. Charging Station matches IdTokenType with the reservation",
+          "6. Charging Station optionally authorizes the IdTokenType via an\nAuthorizeRequest",
+          "7. If authorization accepted, or authorization step was skipped:\na. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+        ],
+        "prerequisites": "Unspecified EVSE has been reserved for idToken. EVSE connector status is\nAvailable.",
+        "postconditions": "n/a"
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# H03 - Use a reserved EVSE\n\n| No.    | Type                    | Description                                                                                                         |\n| ------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------- |\n| 1      | Name                    | Use a reserved EVSE                                                                                                 |\n| 2      | ID                      | H03                                                                                                                 |\n| 3      | Objective(s)            | Use a reserved EVSE                                                                                                 |\n| 4      | Description             | This use cases covers how a reserved EVSE can be used based on IdToken and GroupIdToken information.                |\n| Actors |                         | Charging Station, CSMS, EV Driver                                                                                   |\n| S1     | Scenario objective      | Use an EVSE with connector status Reserved, that is reserved for this IdToken                                       |\n|        | Scenario description    | TxStartPoint = \"Authorized\"; IdToken presented first                                                                |\n|        |                         | 1. The EV Driver presents an IdTokenType at the Charging Station that is the same as the reservation’s IdTokenType. |\n|        |                         | 2. Charging Station matches IdTokenType with the reservation.                                                       |\n|        |                         | 3. Connector status becomes Available, since reservation has now been consumed.                                     |\n|        |                         | 4. Charging Station optionally authorizes the IdTokenType via an AuthorizeRequest.                                  |\n|        |                         | 5. If authorization accepted, or authorization step was skipped:                                                    |\n|        |                         | a. Charging Station starts a transaction as in E03 - Start Transaction - IdToken First.                             |\n|        |                         | b. Connector status will become Occupied when cable is connected.                                                   |\n|        | Scenario description #2 | TxStartPoint = \"EVConnected\"; Cable plugged in first                                                                |\n|        |                         | 1. The EV Driver connects the cable.                                                                                |\n|        |                         | 2. Charging Station starts a transaction, but EVSE connector status remains Reserved.                               |\n|        |                         | 3. The EV Driver presents an IdTokenType at the Charging Station that is the same as the reservation’s IdTokenType. |\n|        |                         | 4. Charging Station matches IdTokenType with the reservation.                                                       |\n|        |                         | 5. Connector status becomes Occupied, since reservation has now been consumed.                                      |\n|        |                         | 6. Charging Station optionally authorizes the IdTokenType via an AuthorizeRequest.                                  |\n|        |                         | 7. If authorization accepted, or authorization step was skipped:                                                    |\n|        |                         | a. Charging Station starts a transaction as in E02 - Start Transaction - Cable Plugin First.                        |",
+      "content": "# H03 - Use a reserved EVSE\n\n**Objective:** Use a reserved EVSE\n\n**Description:** This use cases covers how a reserved EVSE can be used based on IdToken and\nGroupIdToken information.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\nTxStartPoint = \"EVConnected\"; Cable plugged in first\n1. The EV Driver connects the cable.\n2. Charging Station starts a transaction, but EVSE connector status remains\nReserved.\n3. The EV Driver presents an IdTokenType at the Charging Station that is the\nsame as the reservation\u2019s IdTokenType\n4. Charging Station matches IdTokenType with the reservation\n5. Connector status becomes Occupied, since reservation has now been\nconsumed\n6. Charging Station optionally authorizes the IdTokenType via an\nAuthorizeRequest\n7. If authorization accepted, or authorization step was skipped:\na. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First\n\n**Prerequisites:** EVSE has been reserved for IdToken and connector status is Reserved.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "H03 - Use a reserved EVSE",
-        "heading_path": "H03 - Use a reserved EVSE",
         "functional_block": "Reservation",
         "use_case_id": "H03",
         "use_case_name": "Use a reserved EVSE",
-        "use_case_refs": "E02, E03, H03",
-        "message_refs": "AuthorizeRequest",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 5      | Prerequisite(s)         | EVSE has been reserved for IdToken and connector status is Reserved.                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H03 - Use a reserved EVSE",
-        "heading_path": "H03 - Use a reserved EVSE",
-        "functional_block": "Reservation",
-        "use_case_id": "H03",
-        "use_case_name": "Use a reserved EVSE",
-        "use_case_refs": "E02, E03, H03",
-        "message_refs": "AuthorizeRequest",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# H03 - Use a reserved EVSE - Requirements\n\n| ID        | Precondition                                                                                               | Requirement definition                                                                                                                                                                                                                                | Note                                                                                                             |\n| --------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |\n| H03.FR.01 | Reservation is pending for a specific idToken for a specific evseId                                        | The Charging Station SHALL allow charging on that EVSE when IdToken presented for authorization matches the specific idToken from the reservation.                                                                                                    |                                                                                                                  |\n| H03.FR.02 | Reservation is pending for a specific idToken for a specific connectorType                                 | The Charging Station SHALL allow charging on an EVSE with a connector of type connectorType when IdToken presented for authorization matches the specific idToken from the reservation.                                                               |                                                                                                                  |\n| H03.FR.03 | Reservation is pending for a specific idToken without a specific evseId or connectorType                   | The Charging Station SHALL allow charging on an EVSE when IdToken presented for authorization matches the specific idToken from the reservation.                                                                                                      |                                                                                                                  |\n| H03.FR.04 | H03.FR.01 AND attribute groupIdToken in reservation has a value                                            | The Charging Station SHALL allow charging on that EVSE when IdToken presented for authorization matches the specific idToken from the reservation or when the associated groupIdToken matches.                                                        |                                                                                                                  |\n| H03.FR.05 | H03.FR.02 AND attribute groupIdToken in reservation has a value                                            | The Charging Station SHALL allow charging on an EVSE with a connector of type connectorType when IdToken presented for authorization matches the specific idToken from the reservation or when the associated groupIdToken matches.                   |                                                                                                                  |\n| H03.FR.06 | H03.FR.03 AND attribute groupIdToken in reservation has a value                                            | The Charging Station SHALL allow charging on any EVSE when IdToken presented for authorization matches the specific idToken from the reservation or when the associated groupIdToken matches.                                                         |                                                                                                                  |",
+      "content": "# H03 - Requirements\n\n**H03.FR.01**\nPrecondition: Reservation is pending for a specific\nidToken for a specific evseId\nThe Charging Station SHALL allow charging on that\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation.\n\n**H03.FR.02**\nPrecondition: Reservation is pending for a specific\nidToken for a specific connectorType\nThe Charging Station SHALL allow charging on an\nEVSE with a connector of type connectorType when\nIdToken presented for authorization matches the\nspecific idToken from the reservation.\n\n**H03.FR.03**\nPrecondition: Reservation is pending for a specific\nidToken without a specific evseId or\nconnectorType\nThe Charging Station SHALL allow charging on an\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation.\n\n**H03.FR.04**\nPrecondition: H03.FR.01 AND\nattribute groupIdToken in reservation\nhas a value\nThe Charging Station SHALL allow charging on that\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation\nor when the associated groupIdToken matches.\n\n**H03.FR.05**\nPrecondition: H03.FR.02 AND\nattribute groupIdToken in reservation\nhas a value\nThe Charging Station SHALL allow charging on an\nEVSE with a connector of type connectorType when\nIdToken presented for authorization matches the\nspecific idToken from the reservation or when the\nassociated groupIdToken matches.\n\n**H03.FR.06**\nPrecondition: H03.FR.03 AND\nattribute groupIdToken in reservation\nhas a value\nThe Charging Station SHALL allow charging on any\nEVSE when IdToken presented for authorization\nmatches the specific idToken from the reservation\nor when the associated groupIdToken matches.\n\n**H03.FR.07**\nPrecondition: If attribute groupIdToken in the\nreservation has a value (it is optional).\nIn order to determine the groupIdToken that is\nassociated with an incoming IdToken, the Charging\nStation MAY look it up in its Local Authorization\nList or Authorization Cache.\n\n**H03.FR.08**\nPrecondition: H03.FR.07 AND\nIf the incoming IdToken is not found in\nthe Local Authorization List or\nAuthorization Cache.\nThe Charging Station SHALL send an\nAuthorizeRequest for the incoming IdToken to the\nCSMS in order to get its associated groupIdToken.\n(Note: This AuthorizeRequest may already have\nbeen performed when the idToken was presented\nfor authorization.)\n\n**H03.FR.09**\nPrecondition: When an idToken or groupIdToken is\npresented that matches a reservation\nCharging Station SHALL consider the reservation to\nbe used (consumed)\n\n**H03.FR.10**\nPrecondition: H03.FR.09 AND\nConnector associated with reservation\nhas status Reserved\nCharging Station SHALL set connector status to\nAvailable if no cable has been plugged-in, or\nOccupied if a cable has already been plugged-in.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "H03 - Use a reserved EVSE - Requirements",
-        "heading_path": "H03 - Use a reserved EVSE - Requirements",
+        "heading": "H03 - Requirements",
         "functional_block": "Reservation",
         "use_case_id": "H03",
         "use_case_name": "Use a reserved EVSE",
-        "use_case_refs": "H03",
-        "message_refs": "AuthorizeRequest",
-        "chunk_part": 1,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "| H03.FR.07 | If attribute groupIdToken in the reservation has a value (it is optional).                                 | In order to determine the groupIdToken that is associated with an incoming IdToken, the Charging Station MAY look it up in its Local Authorization List or Authorization Cache.                                                                       |                                                                                                                  |\n| H03.FR.08 | H03.FR.07 AND If the incoming IdToken is not found in the Local Authorization List or Authorization Cache. | The Charging Station SHALL send an AuthorizeRequest for the incoming IdToken to the CSMS in order to get its associated groupIdToken. (Note: This AuthorizeRequest may already have been performed when the idToken was presented for authorization.) |                                                                                                                  |\n| H03.FR.09 | When an idToken or groupIdToken is presented that matches a reservation                                    | Charging Station SHALL consider the reservation to be used (consumed)                                                                                                                                                                                 | The (group)IdToken can be presented locally at a card reader, but can also be part of a RequestStartTransaction. |\n| H03.FR.10 | H03.FR.09 AND Connector associated with reservation has status Reserved                                    | Charging Station SHALL set connector status to Available if no cable has been plugged-in, or Occupied if a cable has already been plugged-in.                                                                                                         |                                                                                                                  |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "H03 - Use a reserved EVSE - Requirements",
-        "heading_path": "H03 - Use a reserved EVSE - Requirements",
-        "functional_block": "Reservation",
-        "use_case_id": "H03",
-        "use_case_name": "Use a reserved EVSE",
-        "use_case_refs": "H03",
-        "message_refs": "AuthorizeRequest",
         "chunk_part": 2,
         "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

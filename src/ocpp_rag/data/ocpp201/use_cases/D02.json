@@ -2,77 +2,141 @@
   "use_case_id": "D02",
   "functional_block": "LocalAuthorizationListManagement",
   "use_case_name": "Get Local List Version",
+  "structured": {
+    "name": "Get Local List Version",
+    "id": "D02",
+    "functional_block": "LocalAuthorizationListManagement",
+    "objective": "To support synchronization of Local Authorization List.",
+    "description": "The CSMS can request a Charging Station for the version number of the Local Authorization List\nby sending a GetLocalListVersionRequest.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS sends a GetLocalListVersionRequest to request this value.",
+      "2. Upon receipt of the GetLocalListVersionRequest Charging Station responds with a\nGetLocalListVersionResponse containing the version number of its Local Authorization List."
+    ],
+    "prerequisites": "",
+    "postconditions": "The CSMS received the GetLocalListVersionResponse with the Local Authorization List version.",
+    "error_handling": "n/a",
+    "remarks": "A versionNumber of 0 (zero) is reserved to indicate that no local authorization list exists, either\nbecause it is not enabled or because it has not yet received any update from CSMS and thus does\nnot have a version number to return.\nIn contrast, a local authorization list that was emptied, because CSMS sent a\nSendLocalListRequest with an empty localAuthorizationList, does have a versionNumber > 0.",
+    "requirements": [
+      {
+        "id": "D02.FR.01",
+        "precondition": "LocalAuthListEnabled is true",
+        "definition": "When Charging Station receives GetLocalListVersionRequest\nthen Charging Station SHALL respond with a\nGetLocalListVersionResponse containing the version number of\nits Local Authorization List."
+      },
+      {
+        "id": "D02.FR.02",
+        "precondition": "LocalAuthListEnabled is true AND\nthe CSMS has not yet sent any update to the\nCharging Station for Local Authorization List\n(via SendLocalListRequest)",
+        "definition": "When Charging Station receives GetLocalListVersionRequest\nthen Charging Station SHALL respond with a\nGetLocalListVersionResponse with versionNumber is 0 (zero) to\nindicate that there is no Local Authorization List."
+      },
+      {
+        "id": "D02.FR.03",
+        "precondition": "LocalAuthListEnabled is not true",
+        "definition": "When Charging Station receives GetLocalListVersionRequest\nthen Charging Station SHALL respond with a\nGetLocalListVersionResponse with versionNumber is 0 (zero) to\nindicate that there is no Local Authorization List."
+      }
+    ],
+    "figures": [
+      "fig37.png",
+      "fig38.png",
+      "fig39.png",
+      "fig40.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "To start a transaction when communication is set up between the Charging Station and an EV\n(for example: cable plugged in correctly on both sides)",
+        "steps": [
+          "1. The Charging Station sets up a connection with the EV.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started (even when the driver is not yet known).",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: EVConnected",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "To start a transaction when the EV Driver is authorised to charge.",
+        "steps": [
+          "1. The EV Driver provides his identification",
+          "2. The Charging Station validates the provided identification (for example via the Authorization\nCache or an AuthorizeRequest).",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: Authorized.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S4",
+        "objective": "To start a transaction when the meter has provided the first signed meter values before starting\nwith charging.",
+        "steps": [
+          "1. The EV Driver plugs in the cable at the Charging Station and the EV.",
+          "2. The Charging Station request the Meter for a signed value.",
+          "3. The Meter provides a signed value (this might take some time).",
+          "4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "5. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: DataSigned.\nThe Charging Station has a meter that can sign measured values\nConfiguration Variable: SampledDataSignReadings set to true.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S5",
+        "objective": "To start a transaction when all preconditions have been met to start charging (authorized and\nconnected), but energy does not yet have to be transfered.",
+        "steps": [
+          "1. The EV Driver is authorized by the Charging Station and/or CSMS.",
+          "2. The Charging Station is connected to the EV.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "No transaction is ongoing on the EVSE.\nConfiguration Variable: TxStartPoint: PowerPathClosed.\nCharging Cable plugged in.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S6",
+        "objective": "To start a transaction when the energy flow starts.",
+        "steps": [
+          "1. The EV Driver is authorized by the Charging Station and/or CSMS.",
+          "2. The Charging Station closes the power relay.",
+          "3. The EV starts charging, energy flow starts.",
+          "4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started.",
+          "5. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "Configuration Variable: TxStartPoint: EnergyTransfer.",
+        "postconditions": "Successful postcondition:\nThe transaction is ongoing and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is not ongoing, or\nThe CSMS is not informed."
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# D02 - Get Local List Version\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                      |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Local List Version                                                                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID                   | D02                                                                                                                                                                                                                                                                                                                                                                                                              |\n|     | Parent use case      | D01 - Send Local Authorization List                                                                                                                                                                                                                                                                                                                                                                              |\n| 3   | Objective(s)         | To support synchronization of Local Authorization List.                                                                                                                                                                                                                                                                                                                                                          |\n| 4   | Description          | The CSMS can request a Charging Station for the version number of the Local Authorization List by sending a GetLocalListVersionRequest.                                                                                                                                                                                                                                                                          |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                           |\n|     | Scenario description | 1. The CSMS sends a GetLocalListVersionRequest to request this value. 2. Upon receipt of the GetLocalListVersionRequest Charging Station responds with a GetLocalListVersionResponse containing the version number of its Local Authorization List.                                                                                                                                                              |",
+      "content": "# D02 - Get Local List Version\n\n**Objective:** To support synchronization of Local Authorization List.\n\n**Description:** The CSMS can request a Charging Station for the version number of the Local Authorization List\nby sending a GetLocalListVersionRequest.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends a GetLocalListVersionRequest to request this value.\n2. Upon receipt of the GetLocalListVersionRequest Charging Station responds with a\nGetLocalListVersionResponse containing the version number of its Local Authorization List.\n\n**Postconditions:** The CSMS received the GetLocalListVersionResponse with the Local Authorization List version.\n\n**Remarks:** A versionNumber of 0 (zero) is reserved to indicate that no local authorization list exists, either\nbecause it is not enabled or because it has not yet received any update from CSMS and thus does\nnot have a version number to return.\nIn contrast, a local authorization list that was emptied, because CSMS sent a\nSendLocalListRequest with an empty localAuthorizationList, does have a versionNumber > 0.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "D02 - Get Local List Version",
-        "heading_path": "D02 - Get Local List Version",
         "functional_block": "LocalAuthorizationListManagement",
         "use_case_id": "D02",
         "use_case_name": "Get Local List Version",
-        "use_case_refs": "D01, D02",
-        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest",
         "chunk_part": 1,
-        "total_parts": 3
+        "total_parts": 2
       }
     },
     {
-      "content": "| 5   | Prerequisite(s)      |                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 6   | Postcondition(s)     | The CSMS received the GetLocalListVersionResponse with the Local Authorization List version.                                                                                                                                                                                                                                                                                                                     |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 8   | Remark(s)            | A versionNumber of 0 (zero) is reserved to indicate that no local authorization list exists, either because it is not enabled or because it has not yet received any update from CSMS and thus does not have a version number to return. In contrast, a local authorization list that was emptied, because CSMS sent a SendLocalListRequest with an empty localAuthorizationList, does have a versionNumber > 0. |\n\nCharging Station      CSMS",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "D02 - Get Local List Version",
-        "heading_path": "D02 - Get Local List Version",
-        "functional_block": "LocalAuthorizationListManagement",
-        "use_case_id": "D02",
-        "use_case_name": "Get Local List Version",
-        "use_case_refs": "D01, D02",
-        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "GetLocalListVersionRequest()\n\nGetLocalListVersionResponse(versionNumber)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "D02 - Get Local List Version",
-        "heading_path": "D02 - Get Local List Version",
-        "functional_block": "LocalAuthorizationListManagement",
-        "use_case_id": "D02",
-        "use_case_name": "Get Local List Version",
-        "use_case_refs": "D01, D02",
-        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# D02 - Get Local List Version - Requirements\n\n| ID        | Precondition                                                                                                                                          | Requirement definition                                                                                                                                                                                                 |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| D02.FR.01 | LocalAuthListEnabled is true                                                                                                                          | When Charging Station receives GetLocalListVersionRequest then Charging Station SHALL respond with a GetLocalListVersionResponse containing the version number of its Local Authorization List.                        |\n| D02.FR.02 | LocalAuthListEnabled is true AND the CSMS has not yet sent any update to the Charging Station for Local Authorization List (via SendLocalListRequest) | When Charging Station receives GetLocalListVersionRequest then Charging Station SHALL respond with a GetLocalListVersionResponse with versionNumber is 0 to indicate that there is no Local Authorization List.        |\n| D02.FR.03 | LocalAuthListEnabled is not true                                                                                                                      | When Charging Station receives GetLocalListVersionRequest then Charging Station SHALL respond with a GetLocalListVersionResponse with versionNumber is 0 (zero) to indicate that there is no Local Authorization List. |",
+      "content": "# D02 - Requirements\n\n**D02.FR.01**\nPrecondition: LocalAuthListEnabled is true\nWhen Charging Station receives GetLocalListVersionRequest\nthen Charging Station SHALL respond with a\nGetLocalListVersionResponse containing the version number of\nits Local Authorization List.\n\n**D02.FR.02**\nPrecondition: LocalAuthListEnabled is true AND\nthe CSMS has not yet sent any update to the\nCharging Station for Local Authorization List\n(via SendLocalListRequest)\nWhen Charging Station receives GetLocalListVersionRequest\nthen Charging Station SHALL respond with a\nGetLocalListVersionResponse with versionNumber is 0 (zero) to\nindicate that there is no Local Authorization List.\n\n**D02.FR.03**\nPrecondition: LocalAuthListEnabled is not true\nWhen Charging Station receives GetLocalListVersionRequest\nthen Charging Station SHALL respond with a\nGetLocalListVersionResponse with versionNumber is 0 (zero) to\nindicate that there is no Local Authorization List.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "D02 - Get Local List Version - Requirements",
-        "heading_path": "D02 - Get Local List Version - Requirements",
+        "heading": "D02 - Requirements",
         "functional_block": "LocalAuthorizationListManagement",
         "use_case_id": "D02",
         "use_case_name": "Get Local List Version",
-        "use_case_refs": "D02",
-        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

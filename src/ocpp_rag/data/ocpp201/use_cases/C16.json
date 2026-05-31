@@ -2,38 +2,98 @@
   "use_case_id": "C16",
   "functional_block": "Authorization",
   "use_case_name": "Stop Transaction with a Master Pass",
+  "structured": {
+    "name": "Stop Transaction with a Master Pass",
+    "id": "C16",
+    "functional_block": "Authorization",
+    "objective": "Enable stopping of transactions by use of a Master Pass (for example for: Law Enforcement\nofficials).",
+    "description": "This use case covers how somebody with a Master Pass (User) can stop (selected) ongoing\ntransactions, so the cable becomes unlocked. This Master Pass can be configured in:\nMasterPassGroupId.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "User"
+    ],
+    "scenario": [
+      "1. The User (Law Enforcement official) presents his IdToken at the Charging Station.",
+      "2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization.",
+      "3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response\nmessage contains a GroupId that equals the value of the Configuration Variable\nMasterPassGroupId and the idToken is valid.\n4a. If the Charging Station has a UI, then the Charging Station \"Shows\" the Master Pass UI.\n5a. The user selects which transactions to stop.\n6a. The Charging Station stops the selected transaction(s) AND sends a\nTransactionEventRequest (eventType = Ended, stopReason = MasterPass) to the CSMS for every\nstopped transaction.\n7a. Upon receipt of TransactionEventRequest the CSMS responds with\nTransactionEventResponse.\n4b. If the Charging Station does NOT have a UI, then the Charging Station stops all transactions\nAND sends a TransactionEventRequest (eventType = Ended, stopReason = MasterPass) to the\nCSMS for every stopped transaction.\n5b. Upon receipt of TransactionEventRequest the CSMS responds with\nTransactionEventResponse."
+    ],
+    "prerequisites": "Ongoing Transaction(s)\nConfiguration Variable: MasterPassGroupId set.\nUsers IdToken has groupId equal to the configured MasterPassGroupId.",
+    "postconditions": "(Selected) transaction(s) stopped.",
+    "error_handling": "When the user does not make a selection before an acceptable timeout, the Charging Station\nSHALL go back to normal operation.",
+    "remarks": "The scenario description and sequence diagram above are based on the Configuration Variable\nfor stop transaction being configured as follows.\nTxStopPoint: Authorized, PowerPathClosed, EnergyTransfer\nThis use-case is also valid for other configurations, but then the transaction might stop at another\nmoment, which might change the sequence in which message are send. For more details see the\nuse case: E06 - Stop Transaction options",
+    "requirements": [
+      {
+        "id": "C16.FR.01",
+        "precondition": "User presents an IdToken that has a groupId\nequal to MasterPassGroupId AND\nThe Charging Station has a UI with input\ncapabilities.",
+        "definition": "The Charging Station SHALL \"show\" the Master Pass UI to let\nuser select which transaction to stop."
+      },
+      {
+        "id": "C16.FR.02",
+        "precondition": "User presents an IdToken that has a groupId\nequal to MasterPassGroupId AND the\nCharging Station does NOT have a UI.",
+        "definition": "The Charging Station SHALL stop all ongoing transactions as\ndescribed in use case E07."
+      },
+      {
+        "id": "C16.FR.03",
+        "precondition": "IdTokens that have a groupId equal to\nMasterPassGroupId",
+        "definition": "SHALL NOT be allowed to start a transaction."
+      },
+      {
+        "id": "C16.FR.04",
+        "precondition": "IdTokens that have a groupId equal to\nMasterPassGroupId present in the\nAuthorization Cache.",
+        "definition": "The Charging Station MAY also allow authorization of \"Master\nPass\" tokens based on information in the Authorization Cache."
+      },
+      {
+        "id": "C16.FR.05",
+        "precondition": "IdTokens that have a groupId equal to\nMasterPassGroupId present in the Local\nAuthorization List.",
+        "definition": "The Charging Station MAY also allow authorization of \"Master\nPass\" tokens based on information in the Local Authorization\nList."
+      },
+      {
+        "id": "C16.FR.07",
+        "precondition": "C16.FR.01",
+        "definition": "Charging Station SHALL stop the transaction as described in use\ncase E07."
+      },
+      {
+        "id": "C16.FR.08",
+        "precondition": "C16.FR.02 OR C16.FR.07",
+        "definition": "Charging Station SHALL set transactionInfo.stoppedReason =\nMasterPass in TransactionEventRequest with eventType =\nEnded."
+      }
+    ],
+    "figures": [
+      "fig35.png",
+      "fig36.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C16 - Stop Transaction with a Master Pass\n\n| No. | Type | Description                         |\n| --- | ---- | ----------------------------------- |\n| 1   | Name | Stop Transaction with a Master Pass |",
+      "content": "# C16 - Stop Transaction with a Master Pass\n\n**Objective:** Enable stopping of transactions by use of a Master Pass (for example for: Law Enforcement\nofficials).\n\n**Description:** This use case covers how somebody with a Master Pass (User) can stop (selected) ongoing\ntransactions, so the cable becomes unlocked. This Master Pass can be configured in:\nMasterPassGroupId.\n\n**Actors:** Charging Station, CSMS, User\n\n**Scenario:**\n1. The User (Law Enforcement official) presents his IdToken at the Charging Station.\n2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization.\n3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response\nmessage contains a GroupId that equals the value of the Configuration Variable\nMasterPassGroupId and the idToken is valid.\n4a. If the Charging Station has a UI, then the Charging Station \"Shows\" the Master Pass UI.\n5a. The user selects which transactions to stop.\n6a. The Charging Station stops the selected transaction(s) AND sends a\nTransactionEventRequest (eventType = Ended, stopReason = MasterPass) to the CSMS for every\nstopped transaction.\n7a. Upon receipt of TransactionEventRequest the CSMS responds with\nTransactionEventResponse.\n4b. If the Charging Station does NOT have a UI, then the Charging Station stops all transactions\nAND sends a TransactionEventRequest (eventType = Ended, stopReason = MasterPass) to the\nCSMS for every stopped transaction.\n5b. Upon receipt of TransactionEventRequest the CSMS responds with\nTransactionEventResponse.\n\n**Prerequisites:** Ongoing Transaction(s)\nConfiguration Variable: MasterPassGroupId set.\nUsers IdToken has groupId equal to the configured MasterPassGroupId.\n\n**Postconditions:** (Selected) transaction(s) stopped.\n\n**Error handling:** When the user does not make a selection before an acceptable timeout, the Charging Station\nSHALL go back to normal operation.\n\n**Remarks:** The scenario description and sequence diagram above are based on the Configuration Variable\nfor stop transaction being configured as follows.\nTxStopPoint: Authorized, PowerPathClosed, EnergyTransfer\nThis use-case is also valid for other configurations, but then the transaction might stop at another\nmoment, which might change the sequence in which message are send. For more details see the\nuse case: E06 - Stop Transaction options",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "C16 - Stop Transaction with a Master Pass",
-        "heading_path": "C16 - Stop Transaction with a Master Pass",
         "functional_block": "Authorization",
         "use_case_id": "C16",
         "use_case_name": "Stop Transaction with a Master Pass",
-        "use_case_refs": "C16"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# C16 - Stop Transaction with a Master Pass - Requirements\n\n| ID        | Precondition                                                                                                                      | Requirement definition                                                                                                          |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |\n| C16.FR.01 | User presents an IdToken that has a groupId equal to MasterPassGroupId AND The Charging Station has a UI with input capabilities. | The Charging Station SHALL \"show\" the Master Pass UI to let user select which transaction to stop.                              |\n| C16.FR.02 | User presents an IdToken that has a groupId equal to MasterPassGroupId AND the Charging Station does NOT have a UI.               | The Charging Station SHALL stop all ongoing transactions as described in use case E07.                                          |\n| C16.FR.03 | IdTokens that have a groupId equal to MasterPassGroupId                                                                           | SHALL NOT be allowed to start a transaction.                                                                                    |\n| C16.FR.04 | IdTokens that have a groupId equal to MasterPassGroupId present in the Authorization Cache.                                       | The Charging Station MAY also allow authorization of \"Master Pass\" tokens based on information in the Authorization Cache.      |\n| C16.FR.05 | IdTokens that have a groupId equal to MasterPassGroupId present in the Local Authorization List.                                  | The Charging Station MAY also allow authorization of \"Master Pass\" tokens based on information in the Local Authorization List. |\n| C16.FR.07 | C16.FR.01                                                                                                                         | Charging Station SHALL stop the transaction as described in use case E07.                                                       |\n| C16.FR.08 | C16.FR.02 OR C16.FR.07                                                                                                            | Charging Station SHALL set transactionInfo.stoppedReason = MasterPass in TransactionEventRequest with eventType = Ended.        |",
+      "content": "# C16 - Requirements\n\n**C16.FR.01**\nPrecondition: User presents an IdToken that has a groupId\nequal to MasterPassGroupId AND\nThe Charging Station has a UI with input\ncapabilities.\nThe Charging Station SHALL \"show\" the Master Pass UI to let\nuser select which transaction to stop.\n\n**C16.FR.02**\nPrecondition: User presents an IdToken that has a groupId\nequal to MasterPassGroupId AND the\nCharging Station does NOT have a UI.\nThe Charging Station SHALL stop all ongoing transactions as\ndescribed in use case E07.\n\n**C16.FR.03**\nPrecondition: IdTokens that have a groupId equal to\nMasterPassGroupId\nSHALL NOT be allowed to start a transaction.\n\n**C16.FR.04**\nPrecondition: IdTokens that have a groupId equal to\nMasterPassGroupId present in the\nAuthorization Cache.\nThe Charging Station MAY also allow authorization of \"Master\nPass\" tokens based on information in the Authorization Cache.\n\n**C16.FR.05**\nPrecondition: IdTokens that have a groupId equal to\nMasterPassGroupId present in the Local\nAuthorization List.\nThe Charging Station MAY also allow authorization of \"Master\nPass\" tokens based on information in the Local Authorization\nList.\n\n**C16.FR.07**\nPrecondition: C16.FR.01\nCharging Station SHALL stop the transaction as described in use\ncase E07.\n\n**C16.FR.08**\nPrecondition: C16.FR.02 OR C16.FR.07\nCharging Station SHALL set transactionInfo.stoppedReason =\nMasterPass in TransactionEventRequest with eventType =\nEnded.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C16 - Stop Transaction with a Master Pass - Requirements",
-        "heading_path": "C16 - Stop Transaction with a Master Pass - Requirements",
+        "heading": "C16 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C16",
         "use_case_name": "Stop Transaction with a Master Pass",
-        "use_case_refs": "C16, E07",
-        "message_refs": "TransactionEventRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

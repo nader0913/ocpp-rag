@@ -1,77 +1,186 @@
 {
   "use_case_id": "O01",
-  "functional_block": "Diagnostics",
+  "functional_block": "DisplayMessage",
   "use_case_name": "Set DisplayMessage",
+  "structured": {
+    "name": "Set DisplayMessage",
+    "id": "O01",
+    "functional_block": "DisplayMessage",
+    "objective": "To enable a CSO to display additional messages on a Charging Station that are not part of the\nfirmware.",
+    "description": "This use case describes how a CSO can set a message to be displayed on a Charging Station.\nDepending on the given parameters the message shall be displayed a certain way and at a certain\nmoment on the Charging Station.",
+    "actors": [
+      "CSO",
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The CSO configures the CSMS to send a request to set a new message.",
+      "2. The CSMS sends a SetDisplayMessageRequest message to the Charging Station.",
+      "3. The Charging Station accepts the request by sending a SetDisplayMessageResponse message\nto the CSMS.",
+      "4. The Charging Station shows the new message on the display at the configured moment."
+    ],
+    "prerequisites": "No messages configured with the same IDs.",
+    "postconditions": "The new message will be displayed on the Charging Station (time, duration and position\ndepending on configuration)",
+    "error_handling": "n/a",
+    "remarks": "The maximum number of messages that can be stored in a Charging Station can be read by the\nCSMS in the Configuration Variable:NumberOfDisplayMessages.maxLimit.",
+    "requirements": [
+      {
+        "id": "O01.FR.01",
+        "precondition": "When the Charging Station receives a\nMessageInfoType object via a\nSetDisplayMessageRequest and the priority of\nthe message is not supported by the Charging\nStation",
+        "definition": "The Charging Station SHALL send a\nSetDisplayMessageResponse with status:\nNotSupportedPriority.\n(See configuration variable DisplayMessageSupportedPriorities\nfor supported priorities)."
+      },
+      {
+        "id": "O01.FR.02",
+        "precondition": "When the Charging Station receives a\nMessageInfoType object via a\nSetDisplayMessageRequest and the state of the\nmessage is not supported by the Charging\nStation",
+        "definition": "The Charging Station SHALL send a\nSetDisplayMessageResponse with status:\nNotSupportedState.\n(See configuration variable DisplayMessageSupportedStates for\nsupported states)."
+      },
+      {
+        "id": "O01.FR.03",
+        "precondition": "When the Charging Station receives a\nMessageInfoType object via a\nSetDisplayMessageRequest and the format of\nthe message is not supported by the Charging\nStation",
+        "definition": "The Charging Station SHALL send a\nSetDisplayMessageResponse with status:\nNotSupportedMessageFormat.\n(See configuration variable DisplayMessageSupportedFormats\nfor supported formats)."
+      },
+      {
+        "id": "O01.FR.04",
+        "precondition": "",
+        "definition": "When a CSMS sends a message to a Charging Station that does\nnot belong to a transaction, the field: transactionId in the\nmessage field SHALL be omitted."
+      },
+      {
+        "id": "O01.FR.05",
+        "precondition": "",
+        "definition": "The CSMS MAY include a startTime and endTime when setting a\nmessage."
+      },
+      {
+        "id": "O01.FR.06",
+        "precondition": "O01.FR.05",
+        "definition": "The Charging Station SHALL NOT display the DisplayMessage\nmessage before the startTime."
+      },
+      {
+        "id": "O01.FR.07",
+        "precondition": "O01.FR.05",
+        "definition": "The Charging Station SHALL remove a DisplayMessage\nmessage after the endTime."
+      },
+      {
+        "id": "O01.FR.08",
+        "precondition": "When the Charging Station knows the language\npreferences of the EV Driver",
+        "definition": "The Charging Station SHALL display the DisplayMessage\nmessage in the preferred language, if available."
+      },
+      {
+        "id": "O01.FR.09",
+        "precondition": "O01.FR.08",
+        "definition": "When no matching language is available, it is RECOMMENDED to\nshow a DisplayMessage message in English as fall-back, if\navailable."
+      },
+      {
+        "id": "O01.FR.10",
+        "precondition": "",
+        "definition": "The Charging Station SHALL store the messages in persistent\nstorage, so they survive a power cycle/reboot of the Charging\nStation."
+      },
+      {
+        "id": "O01.FR.11",
+        "precondition": "When the Charging Station receives a\nSetDisplayMessageRequest and the total\nnumber of messages after having handled this\nrequest will exceed\nNumberOfDisplayMessages.maxLimit.",
+        "definition": "The Charging Station SHALL respond with status: Rejected."
+      },
+      {
+        "id": "O01.FR.12",
+        "precondition": "When the Charging Station receives a\nSetDisplayMessageRequest and the priority of\nthe message is NormalCycle",
+        "definition": "The Charging Station SHALL show this message at the\nconfigured moment in the normal cycle of messages."
+      },
+      {
+        "id": "O01.FR.13",
+        "precondition": "When the Charging Station receives a\nSetDisplayMessageRequest and the priority of\nthe message is InFront",
+        "definition": "The Charging Station SHALL show this message at the\nconfigured moment, regardless of the normal cycle of\nmessages."
+      },
+      {
+        "id": "O01.FR.14",
+        "precondition": "When multiple messages with priority InFront\nare configured to be shown at the same time",
+        "definition": "The Charging Station SHALL cycle these messages."
+      },
+      {
+        "id": "O01.FR.15",
+        "precondition": "When the Charging Station receives a\nSetDisplayMessageRequest and the priority of\nthe message is AlwaysFront",
+        "definition": "The Charging Station SHALL show this message at the\nconfigured moment, regardless of other installed messages.\nHence, it shall not cycle it with other messages and the Charging\nStation\u2019s own messages shall not override this message."
+      },
+      {
+        "id": "O01.FR.16",
+        "precondition": "O01.FR.15 AND\nAnother message with priority AlwaysFront is\nalready set",
+        "definition": "The Charging Station SHALL replace the old message with the\nnewly set message."
+      },
+      {
+        "id": "O01.FR.17",
+        "precondition": "",
+        "definition": "Language SHALL be specified as RFC-5646 tags, see: [RFC5646],\nexample: US English is: \"en-US\""
+      },
+      {
+        "id": "O01.FR.20",
+        "precondition": "When Charging Station has multiple displays\nAND\nCharging Station receives a\nSetDisplayMessageRequest without a display\nelement in its MessageInfoType",
+        "definition": "Charging Station SHOULD use the message for the main\ndisplay(s)"
+      },
+      {
+        "id": "O01.FR.21",
+        "precondition": "When receiving a GetBaseReportRequest AND\nCharging Station has one or more displays",
+        "definition": "Charging Station SHOULD include in the report a Display\ncomponent for every display it contains."
+      },
+      {
+        "id": "O01.FR.22",
+        "precondition": "When Charging Station receives a\nSetDisplayMessageRequest with Display\nelement referencing an unknown Display in its\nMessageInfoType",
+        "definition": "Charging Station SHOULD respond with a\nSetDisplayMessageResponse with status = Rejected."
+      },
+      {
+        "id": "O01.FR.23",
+        "precondition": "When Charging Station receives a\nSetDisplayMessageRequest with Display\nelement referencing a known Display in its\nMessageInfoType",
+        "definition": "Charging Station SHOULD use the message only for the\nspecified display."
+      }
+    ],
+    "figures": [
+      "fig139.png",
+      "fig140.png",
+      "fig141.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# O01 - Set DisplayMessage\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                         |\n| --- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Set DisplayMessage                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID                      | O01                                                                                                                                                                                                                                                                                                                                                 |\n| 3   | Objective(s)            | To enable a CSO to display additional messages on a Charging Station that are not part of the firmware.                                                                                                                                                                                                                                             |\n| 4   | Description             | This use case describes how a CSO can set a message to be displayed on a Charging Station. Depending on the given parameters the message shall be displayed a certain way and at a certain moment on the Charging Station.                                                                                                                          |\n|     | Actors                  | CSO, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                         |\n|     | Scenario description    | 1. The CSO configures the CSMS to send a request to set a new message. 2. The CSMS sends a SetDisplayMessageRequest message to the Charging Station. 3. The Charging Station accepts the request by sending a SetDisplayMessageResponse message to the CSMS. 4. The Charging Station shows the new message on the display at the configured moment. |\n|     | Alternative scenario(s) | O02 - Set DisplayMessage for Transaction O06 - Replace DisplayMessage                                                                                                                                                                                                                                                                               |\n| 5   | Prerequisites           | No messages configured with the same IDs.                                                                                                                                                                                                                                                                                                           |",
+      "content": "# O01 - Set DisplayMessage\n\n**Objective:** To enable a CSO to display additional messages on a Charging Station that are not part of the\nfirmware.\n\n**Description:** This use case describes how a CSO can set a message to be displayed on a Charging Station.\nDepending on the given parameters the message shall be displayed a certain way and at a certain\nmoment on the Charging Station.\n\n**Actors:** CSO, CSMS, Charging Station\n\n**Scenario:**\n1. The CSO configures the CSMS to send a request to set a new message.\n2. The CSMS sends a SetDisplayMessageRequest message to the Charging Station.\n3. The Charging Station accepts the request by sending a SetDisplayMessageResponse message\nto the CSMS.\n4. The Charging Station shows the new message on the display at the configured moment.\n\n**Prerequisites:** No messages configured with the same IDs.\n\n**Postconditions:** The new message will be displayed on the Charging Station (time, duration and position\ndepending on configuration)\n\n**Remarks:** The maximum number of messages that can be stored in a Charging Station can be read by the\nCSMS in the Configuration Variable:NumberOfDisplayMessages.maxLimit.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "O01 - Set DisplayMessage",
-        "heading_path": "O01 - Set DisplayMessage",
-        "functional_block": "Diagnostics",
+        "functional_block": "DisplayMessage",
         "use_case_id": "O01",
         "use_case_name": "Set DisplayMessage",
-        "use_case_refs": "O01, O02, O06",
-        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
-        "figure_refs": "139",
         "chunk_part": 1,
-        "total_parts": 2
+        "total_parts": 3
       }
     },
     {
-      "content": "| 6   | Postcondition(s)        | The new message will be displayed on the Charging Station (time, duration and position depending on configuration)                                                                                                                                                                                                                                  |\n| 7   | Error Handling          | n/a                                                                                                                                                                                                                                                                                                                                                 |\n| 8   | Remarks                 | The maximum number of messages that can be stored in a Charging Station can be read by the CSMS in the Configuration Variable:NumberOfDisplayMessages.maxLimit.                                                                                                                                                                                     |\n\nCSO     CSMS     Charging Station\n\nSet new messages()\n\nSetDisplayMessagesRequest(...)\n\nSetDisplayMessagesResponse(Accepted)\n\nopt\n\nnotification\n\nFigure 139. Set DisplayMessage sequence diagram",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "O01 - Set DisplayMessage",
-        "heading_path": "O01 - Set DisplayMessage",
-        "functional_block": "Diagnostics",
-        "use_case_id": "O01",
-        "use_case_name": "Set DisplayMessage",
-        "use_case_refs": "O01, O02, O06",
-        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
-        "figure_refs": "139",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# O01 - Set DisplayMessage - Requirements\n\n| ID        | Precondition                                                                                                                                                                                                   |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| O01.FR.01 | When the Charging Station receives a MessageInfoType object via a SetDisplayMessageRequest and the priority of the message is not supported by the Charging Station                                            |\n|           | Requirement definition The Charging Station SHALL send a SetDisplayMessageResponse with status: NotSupportedPriority. (See configuration variable DisplayMessageSupportedPriorities for supported priorities). |\n| O01.FR.02 | When the Charging Station receives a MessageInfoType object via a SetDisplayMessageRequest and the state of the message is not supported by the Charging Station                                               |\n|           | The Charging Station SHALL send a SetDisplayMessageResponse with status: NotSupportedState. (See configuration variable DisplayMessageSupportedStates for supported states).                                   |",
+      "content": "# O01 - Requirements\n\n**O01.FR.01**\nPrecondition: When the Charging Station receives a\nMessageInfoType object via a\nSetDisplayMessageRequest and the priority of\nthe message is not supported by the Charging\nStation\nThe Charging Station SHALL send a\nSetDisplayMessageResponse with status:\nNotSupportedPriority.\n(See configuration variable DisplayMessageSupportedPriorities\nfor supported priorities).\n\n**O01.FR.02**\nPrecondition: When the Charging Station receives a\nMessageInfoType object via a\nSetDisplayMessageRequest and the state of the\nmessage is not supported by the Charging\nStation\nThe Charging Station SHALL send a\nSetDisplayMessageResponse with status:\nNotSupportedState.\n(See configuration variable DisplayMessageSupportedStates for\nsupported states).\n\n**O01.FR.03**\nPrecondition: When the Charging Station receives a\nMessageInfoType object via a\nSetDisplayMessageRequest and the format of\nthe message is not supported by the Charging\nStation\nThe Charging Station SHALL send a\nSetDisplayMessageResponse with status:\nNotSupportedMessageFormat.\n(See configuration variable DisplayMessageSupportedFormats\nfor supported formats).\n\n**O01.FR.04**\nWhen a CSMS sends a message to a Charging Station that does\nnot belong to a transaction, the field: transactionId in the\nmessage field SHALL be omitted.\n\n**O01.FR.05**\nThe CSMS MAY include a startTime and endTime when setting a\nmessage.\n\n**O01.FR.06**\nPrecondition: O01.FR.05\nThe Charging Station SHALL NOT display the DisplayMessage\nmessage before the startTime.\n\n**O01.FR.07**\nPrecondition: O01.FR.05\nThe Charging Station SHALL remove a DisplayMessage\nmessage after the endTime.\n\n**O01.FR.08**\nPrecondition: When the Charging Station knows the language\npreferences of the EV Driver\nThe Charging Station SHALL display the DisplayMessage\nmessage in the preferred language, if available.\n\n**O01.FR.09**\nPrecondition: O01.FR.08\nWhen no matching language is available, it is RECOMMENDED to\nshow a DisplayMessage message in English as fall-back, if\navailable.\n\n**O01.FR.10**\nThe Charging Station SHALL store the messages in persistent\nstorage, so they survive a power cycle/reboot of the Charging\nStation.\n\n**O01.FR.11**\nPrecondition: When the Charging Station receives a\nSetDisplayMessageRequest and the total\nnumber of messages after having handled this\nrequest will exceed\nNumberOfDisplayMessages.maxLimit.\nThe Charging Station SHALL respond with status: Rejected.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "O01 - Set DisplayMessage - Requirements",
-        "heading_path": "O01 - Set DisplayMessage - Requirements",
-        "functional_block": "Diagnostics",
+        "heading": "O01 - Requirements",
+        "functional_block": "DisplayMessage",
         "use_case_id": "O01",
         "use_case_name": "Set DisplayMessage",
-        "use_case_refs": "O01",
-        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse"
+        "chunk_part": 2,
+        "total_parts": 3
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "139",
-      "title": "Set DisplayMessage sequence diagram",
-      "files": [
-        "fig139_Set_DisplayMessage_sequence_diagram.png"
-      ]
     },
     {
-      "figure_num": "139",
-      "title": "Set DisplayMessage sequence diagram",
-      "files": [
-        "fig139_Set_DisplayMessage_sequence_diagram.png"
-      ]
+      "content": "# O01 - Requirements (continued)\n\n**O01.FR.12**\nPrecondition: When the Charging Station receives a\nSetDisplayMessageRequest and the priority of\nthe message is NormalCycle\nThe Charging Station SHALL show this message at the\nconfigured moment in the normal cycle of messages.\n\n**O01.FR.13**\nPrecondition: When the Charging Station receives a\nSetDisplayMessageRequest and the priority of\nthe message is InFront\nThe Charging Station SHALL show this message at the\nconfigured moment, regardless of the normal cycle of\nmessages.\n\n**O01.FR.14**\nPrecondition: When multiple messages with priority InFront\nare configured to be shown at the same time\nThe Charging Station SHALL cycle these messages.\n\n**O01.FR.15**\nPrecondition: When the Charging Station receives a\nSetDisplayMessageRequest and the priority of\nthe message is AlwaysFront\nThe Charging Station SHALL show this message at the\nconfigured moment, regardless of other installed messages.\nHence, it shall not cycle it with other messages and the Charging\nStation\u2019s own messages shall not override this message.\n\n**O01.FR.16**\nPrecondition: O01.FR.15 AND\nAnother message with priority AlwaysFront is\nalready set\nThe Charging Station SHALL replace the old message with the\nnewly set message.\n\n**O01.FR.17**\nLanguage SHALL be specified as RFC-5646 tags, see: [RFC5646],\nexample: US English is: \"en-US\"\n\n**O01.FR.20**\nPrecondition: When Charging Station has multiple displays\nAND\nCharging Station receives a\nSetDisplayMessageRequest without a display\nelement in its MessageInfoType\nCharging Station SHOULD use the message for the main\ndisplay(s)\n\n**O01.FR.21**\nPrecondition: When receiving a GetBaseReportRequest AND\nCharging Station has one or more displays\nCharging Station SHOULD include in the report a Display\ncomponent for every display it contains.\n\n**O01.FR.22**\nPrecondition: When Charging Station receives a\nSetDisplayMessageRequest with Display\nelement referencing an unknown Display in its\nMessageInfoType\nCharging Station SHOULD respond with a\nSetDisplayMessageResponse with status = Rejected.\n\n**O01.FR.23**\nPrecondition: When Charging Station receives a\nSetDisplayMessageRequest with Display\nelement referencing a known Display in its\nMessageInfoType\nCharging Station SHOULD use the message only for the\nspecified display.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O01 - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O01",
+        "use_case_name": "Set DisplayMessage",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
     }
   ]
 }

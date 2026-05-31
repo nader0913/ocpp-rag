@@ -2,150 +2,223 @@
   "use_case_id": "H01",
   "functional_block": "Reservation",
   "use_case_name": "Reservation",
+  "structured": {
+    "name": "Reservation",
+    "id": "H01",
+    "functional_block": "Reservation",
+    "objective": "To ensure the EV Driver can charge his EV at a Charging Station, the EV Driver can make a\nreservation until a certain expiry time.",
+    "description": "This use case describes how a Charging Station can be reserved for a specific IdTokenType.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. EV Driver asks the CSMS to reserve an unspecified EVSE at the Charging Station.",
+      "2. The CSMS sends ReserveNowRequest without evseId to a Charging Station.",
+      "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted."
+    ],
+    "prerequisites": "The Charging Station has at least one available EVSE",
+    "postconditions": "Successful postcondition:\nThe Charging Station has accepted the ReserveNowRequest\nFailure postcondition:\nThe Charging Station has rejected the ReserveNowRequest",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "H01.FR.01",
+        "precondition": "If the Charging Station is configured\nnot to accept reservations.",
+        "definition": "The Charging Station SHALL return Rejected."
+      },
+      {
+        "id": "H01.FR.02",
+        "precondition": "If the id in the ReserveNowRequest\nmatches a reservation in the Charging\nStation.",
+        "definition": "The Charging Station SHALL replace that\nreservation with the new reservation in the request."
+      },
+      {
+        "id": "H01.FR.03",
+        "precondition": "If the id in the ReserveNowRequest\ndoes not match any reservation in the\nCharging Station.",
+        "definition": "The Charging Station SHALL return the status value\nAccepted if it succeeds in reserving an EVSE."
+      },
+      {
+        "id": "H01.FR.04",
+        "precondition": "If the Charging Station receives a\nReserveNowRequest without evseId\nAND at least one EVSE is Available\nAND H01.FR.18",
+        "definition": "The Charging Station SHALL accept the reservation\nAND respond with a ReserveNowResponse with\nstatus Accepted."
+      },
+      {
+        "id": "H01.FR.06",
+        "precondition": "If the Charging Station receives a\nReserveNowRequest with a connector\ntype\nAND at least one EVSE with the\nspecified connector type is\nAvailable\nAND H01.FR.18",
+        "definition": "The Charging Station SHALL accept the reservation\nAND respond with a ReserveNowResponse with\nstatus Accepted."
+      },
+      {
+        "id": "H01.FR.07",
+        "precondition": "When the Charging Station has\nAccepted a ReserveNowRequest\nwithout evseId",
+        "definition": "The Charging Station SHALL make sure that at any\ntime during the validity of the reservation, one EVSE\nremains available for the reserved IdTokenType."
+      },
+      {
+        "id": "H01.FR.09",
+        "precondition": "When the Charging Station has\nAccepted a ReserveNowRequest\nwith a connector type",
+        "definition": "The Charging Station SHALL make sure that at any\ntime during the validity of the reservation, one\nConnector with the specified type remains available\nfor the reserved IdTokenType."
+      },
+      {
+        "id": "H01.FR.11",
+        "precondition": "When receiving a ReserveNowRequest\nAND\n(all) targeted EVSEs have status\nReserved or Occupied",
+        "definition": "The Charging Station SHALL return Occupied."
+      },
+      {
+        "id": "H01.FR.12",
+        "precondition": "When receiving a ReserveNowRequest\nAND (all) targeted EVSEs have status\nFaulted",
+        "definition": "The Charging Station SHALL return Faulted."
+      },
+      {
+        "id": "H01.FR.14",
+        "precondition": "When receiving a ReserveNowRequest\nAND (all) targeted EVSEs have status\nUnavailable",
+        "definition": "The Charging Station SHALL return Unavailable."
+      },
+      {
+        "id": "H01.FR.15",
+        "precondition": "If a transaction for the reserved\nIdTokenType is started.",
+        "definition": "The Charging Station SHALL send the reservationId\nin a TransactionEventRequest."
+      },
+      {
+        "id": "H01.FR.16",
+        "precondition": "When the status of a targeted EVSE\nchanges to Faulted",
+        "definition": "The Charging Station SHALL cancel the reservation\nAND send a ReservationStatusUpdate with status\nRemoved."
+      },
+      {
+        "id": "H01.FR.17",
+        "precondition": "When the status of a targeted EVSE\nchanges to Unavailable",
+        "definition": "The Charging Station SHALL cancel the reservation\nAND send a ReservationStatusUpdate with status\nRemoved."
+      },
+      {
+        "id": "H01.FR.18",
+        "precondition": "If the Configuration Variable:\nReservationNonEvseSpecific is\nset to true.",
+        "definition": "The Charging Station SHALL accept reservations\non an unspecified EVSE."
+      },
+      {
+        "id": "H01.FR.19",
+        "precondition": "If the Configuration Variable:\nReservationNonEvseSpecific is\nnot set or set to false.",
+        "definition": "The Charging Station SHALL reject reservations on\nan unspecified EVSE."
+      },
+      {
+        "id": "H01.FR.20",
+        "precondition": "H01.FR.04\nAND\namount of EVSEs available equals the\namount of reservations",
+        "definition": "The Charging Station SHALL send for all\nconnectors of the EVSE:\n- a NotifyEventRequest with component =\n\"Connector\", variable = \"AvailabilityState\", trigger =\n\"Delta\", actualValue = \"Reserved\", OR\n- a StatusNotificationRequest with connectorStatus\n= Reserved."
+      },
+      {
+        "id": "H01.FR.23",
+        "precondition": "If the Charging Station receives a\nReserveNowRequest for evseId\nAND this EVSE is Available",
+        "definition": "The Charging Station SHALL respond with a\nReserveNowResponse with status Accepted AND\nSHALL send for all connectors of the EVSE:\n- a NotifyEventRequest with component =\n\"Connector\", variable = \"AvailabilityState\", trigger =\n\"Delta\", actualValue = \"Reserved\" OR\n- a StatusNotificationRequest with connectorStatus\n= Reserved."
+      },
+      {
+        "id": "H01.FR.24",
+        "precondition": "H01.FR.06\nAND\namount of reservations for a specific\nconnectorType equals the amount of\navailable EVSEs with that specific\nconnectorType",
+        "definition": "The Charging Station SHALL send for all\nconnectors of the EVSEs that have the specific\nconnectorType\n- a NotifyEventRequest with component =\n\"Connector\", variable = \"AvailabilityState\", trigger =\n\"Delta\", actualValue = \"Reserved\" OR\n- a StatusNotificationRequest with connectorStatus\n= Reserved."
+      }
+    ],
+    "figures": [
+      "fig77.png",
+      "fig78.png",
+      "fig79.png",
+      "fig80.png",
+      "fig81.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Reserve a specific EVSE at a Charging Station",
+        "steps": [
+          "1. EV Driver asks the CSMS to reserve a specific EVSE at the Charging Station.",
+          "2. The CSMS sends ReserveNowRequest with a EVSE to a Charging Station.",
+          "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted.",
+          "4. The Charging Station sends StatusNotificationRequest with the status Reserved for all\nConnectors of that EVSE.",
+          "5. The CSMS responds with StatusNotificationResponse to the Charging Station."
+        ]
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Reserve a connector type at a Charging Station",
+        "steps": [
+          "1. EV Driver asks the CSMS to reserve a connector type at the Charging Station.",
+          "2. The CSMS sends ReserveNowRequest with a connector type to a Charging Station.",
+          "3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted."
+        ],
+        "prerequisites": "The Charging Station has at least one available EVSE with the specified connector type",
+        "postconditions": "Successful postcondition:\nThe Charging Station has accepted the ReserveNowRequest\nFailure postcondition:\nThe Charging Station has rejected the ReserveNowRequest"
+      },
+      {
+        "scenario_id": "S2",
+        "objective": "Use an EVSE with connector status Reserved, that is reserved for this GroupIdToken",
+        "steps": [
+          "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+          "1. The EV Driver connects the cable.",
+          "2. Charging Station starts a transaction, but connector status remains\nReserved.",
+          "3. The EV Driver presents an IdTokenType at the Charging Station that is not the\nsame as the reservation\u2019s IdTokenType, but the reservation contains a\ngroupIdToken.",
+          "4. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local\nAuthorization List or Authorization Cache, and checks if the groupIdToken of\nthe IdTokenType matches with the reservation.",
+          "5. If groupIdTokens match:\na. Connector status becomes Occupied, since reservation has now been\nconsumed.\nb. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+        ]
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Use an EVSE when Charging Station has a reservation for idToken, but connector\nstatus is Available.\nThis happens when reservation is for an unspecified EVSE and multiple EVSEs are\navailable.",
+        "steps": [
+          "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+          "1. The EV Driver connects the cable",
+          "2. Charging Station reports connector status as Occupied",
+          "3. Charging Station starts a transaction",
+          "4. The EV Driver presents an IdTokenType at the Charging Station that is the\nsame as the reservation\u2019s IdTokenType",
+          "5. Charging Station matches IdTokenType with the reservation",
+          "6. Charging Station optionally authorizes the IdTokenType via an\nAuthorizeRequest",
+          "7. If authorization accepted, or authorization step was skipped:\na. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+        ],
+        "prerequisites": "Unspecified EVSE has been reserved for idToken. EVSE connector status is\nAvailable.",
+        "postconditions": "n/a"
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# H01 - Reservation\n\n| No. | Type         | Description                                                                                                                        |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Reservation                                                                                                                        |\n| 2   | ID           | H01                                                                                                                                |\n| 3   | Objective(s) | To ensure the EV Driver can charge his EV at a Charging Station, the EV Driver can make a reservation until a certain expiry time. |\n| 4   | Description  | This use case describes how a Charging Station can be reserved for a specific IdTokenType.                                         |\n| 5   | Actors       | Charging Station, CSMS, EV Driver                                                                                                  |",
+      "content": "# H01 - Reservation\n\n**Objective:** To ensure the EV Driver can charge his EV at a Charging Station, the EV Driver can make a\nreservation until a certain expiry time.\n\n**Description:** This use case describes how a Charging Station can be reserved for a specific IdTokenType.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. EV Driver asks the CSMS to reserve an unspecified EVSE at the Charging Station.\n2. The CSMS sends ReserveNowRequest without evseId to a Charging Station.\n3. Upon receipt of ReserveNowRequest, the Charging Station responds with\nReserveNowResponse with status Accepted.\n\n**Prerequisites:** The Charging Station has at least one available EVSE\n\n**Postconditions:** Successful postcondition:\nThe Charging Station has accepted the ReserveNowRequest\nFailure postcondition:\nThe Charging Station has rejected the ReserveNowRequest",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "H01 - Reservation",
-        "heading_path": "H01 - Reservation",
         "functional_block": "Reservation",
         "use_case_id": "H01",
         "use_case_name": "Reservation",
-        "use_case_refs": "H01"
+        "chunk_part": 1,
+        "total_parts": 3
       }
     },
     {
-      "content": "# Scenario description\n\n1. EV Driver asks the CSMS to reserve an unspecified EVSE at the Charging Station.\n2. The CSMS sends ReserveNowRequest without evseId to a Charging Station.\n3. Upon receipt of ReserveNowRequest, the Charging Station responds with ReserveNowResponse with status Accepted.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest, ReserveNowResponse"
-      }
-    },
-    {
-      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The Charging Station has accepted the ReserveNowRequest\n\nFailure postcondition:\n\n- The Charging Station has rejected the ReserveNowRequest\n\nEV Driver     CSMS     Charging Station\n\nreserve\n\nReserveNowRequest(reservation.id, no evseId)\n\nReserveNowResponse(status = Accepted)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Postcondition(s)",
-        "heading_path": "Postcondition(s)",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest, ReserveNowResponse"
-      }
-    },
-    {
-      "content": "# Scenario description\n\n1. EV Driver asks the CSMS to reserve a specific EVSE at the Charging Station.\n2. The CSMS sends ReserveNowRequest with a EVSE to a Charging Station.\n3. Upon receipt of ReserveNowRequest, the Charging Station responds with ReserveNowResponse with status Accepted.\n4. The Charging Station sends StatusNotificationRequest with the status Reserved for all Connectors of that EVSE.\n5. The CSMS responds with StatusNotificationResponse to the Charging Station.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest, StatusNotificationResponse"
-      }
-    },
-    {
-      "content": "# Alternative scenario\n\nSteps 1, 2 and 3 as above.\n\n1. Instead of a StatusNotificationRequest a Charging Station can send a NotifyEventRequest with trigger = Delta for component.name = \"Connector\" and the EVSE number in evse.id and the connector number in evse.connectorId, variable = \"AvailabilityState\" and actualValue = \"Reserved\".\n2. Optionally, Charging Station can also report a NotifyEventRequest for component = \"EVSE\", variable = \"AvailabilityState\" and actualValue = \"Reserved\", and when applicable, also report this for component = \"ChargingStation\".",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Alternative scenario",
-        "heading_path": "Alternative scenario",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "NotifyEventRequest, StatusNotificationRequest"
-      }
-    },
-    {
-      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The Charging Station has accepted the ReserveNowRequest\n- AND\n- sent StatusNotificationRequests with status Reserved.\n\nFailure postcondition:\n\n- The Charging Station has rejected the ReserveNowRequest\n- OR\n- The Charging Station has NOT sent StatusNotificationRequests with status Reserved.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Postcondition(s)",
-        "heading_path": "Postcondition(s)",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest"
-      }
-    },
-    {
-      "content": "# Charging Station\n\nreserve\n\n| ReserveNowRequest(evseId, ...)                    | ReserveNowResponse(status = Accepted) |\n| ------------------------------------------------- | ------------------------------------- |\n| opt notification                                  |                                       |\n| StatusNotificationRequest(status = Reserved, ...) | StatusNotificationResponse()          |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Charging Station",
-        "heading_path": "Charging Station",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest, StatusNotificationResponse"
-      }
-    },
-    {
-      "content": "# Scenario description\n\n1. EV Driver asks the CSMS to reserve a connector type at the Charging Station.\n2. The CSMS sends ReserveNowRequest with a connector type to a Charging Station.\n3. Upon receipt of ReserveNowRequest, the Charging Station responds with ReserveNowResponse with status Accepted.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest, ReserveNowResponse"
-      }
-    },
-    {
-      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The Charging Station has accepted the ReserveNowRequest\n\nFailure postcondition:\n\n- The Charging Station has rejected the ReserveNowRequest",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Postcondition(s)",
-        "heading_path": "Postcondition(s)",
-        "functional_block": "Reservation",
-        "use_case_id": "H01",
-        "message_refs": "ReserveNowRequest"
-      }
-    },
-    {
-      "content": "# H01 - Reservation - Requirements\n\n| ID        | Precondition                                                                                                                                                  | Requirement definition                                                                                                                                                              | Note |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| H01.FR.01 | If the Charging Station is configured not to accept reservations.                                                                                             | The Charging Station SHALL return Rejected.                                                                                                                                         |      |\n| H01.FR.02 | If the id in the ReserveNowRequest matches a reservation in the Charging Station.                                                                             | The Charging Station SHALL replace that reservation with the new reservation in the request.                                                                                        |      |\n| H01.FR.03 | If the id in the ReserveNowRequest does not match any reservation in the Charging Station.                                                                    | The Charging Station SHALL return the status value Accepted if it succeeds in reserving an EVSE.                                                                                    |      |\n| H01.FR.04 | If the Charging Station receives a ReserveNowRequest without evseId AND at least one EVSE is Available AND H01.FR.18                                          | The Charging Station SHALL accept the reservation AND respond with a ReserveNowResponse with status Accepted.                                                                       |      |\n| H01.FR.06 | If the Charging Station receives a ReserveNowRequest with a connector type AND at least one EVSE with the specified connector type is Available AND H01.FR.18 | The Charging Station SHALL accept the reservation AND respond with a ReserveNowResponse with status Accepted.                                                                       |      |\n| H01.FR.07 | When the Charging Station has Accepted a ReserveNowRequest without evseId                                                                                     | The Charging Station SHALL make sure that at any time during the validity of the reservation, one EVSE remains available for the reserved IdTokenType.                              |      |\n| H01.FR.09 | When the Charging Station has Accepted a ReserveNowRequest with a connector type                                                                              | The Charging Station SHALL make sure that at any time during the validity of the reservation, one Connector with the specified type remains available for the reserved IdTokenType. |      |\n| H01.FR.11 | When receiving a ReserveNowRequest AND (all) targeted EVSEs have status Reserved or Occupied                                                                  | The Charging Station SHALL return Occupied.                                                                                                                                         |      |\n| H01.FR.12 | When receiving a ReserveNowRequest AND (all) targeted EVSEs have status Faulted                                                                               | The Charging Station SHALL return Faulted.                                                                                                                                          |      |",
+      "content": "# H01 - Requirements\n\n**H01.FR.01**\nPrecondition: If the Charging Station is configured\nnot to accept reservations.\nThe Charging Station SHALL return Rejected.\n\n**H01.FR.02**\nPrecondition: If the id in the ReserveNowRequest\nmatches a reservation in the Charging\nStation.\nThe Charging Station SHALL replace that\nreservation with the new reservation in the request.\n\n**H01.FR.03**\nPrecondition: If the id in the ReserveNowRequest\ndoes not match any reservation in the\nCharging Station.\nThe Charging Station SHALL return the status value\nAccepted if it succeeds in reserving an EVSE.\n\n**H01.FR.04**\nPrecondition: If the Charging Station receives a\nReserveNowRequest without evseId\nAND at least one EVSE is Available\nAND H01.FR.18\nThe Charging Station SHALL accept the reservation\nAND respond with a ReserveNowResponse with\nstatus Accepted.\n\n**H01.FR.06**\nPrecondition: If the Charging Station receives a\nReserveNowRequest with a connector\ntype\nAND at least one EVSE with the\nspecified connector type is\nAvailable\nAND H01.FR.18\nThe Charging Station SHALL accept the reservation\nAND respond with a ReserveNowResponse with\nstatus Accepted.\n\n**H01.FR.07**\nPrecondition: When the Charging Station has\nAccepted a ReserveNowRequest\nwithout evseId\nThe Charging Station SHALL make sure that at any\ntime during the validity of the reservation, one EVSE\nremains available for the reserved IdTokenType.\n\n**H01.FR.09**\nPrecondition: When the Charging Station has\nAccepted a ReserveNowRequest\nwith a connector type\nThe Charging Station SHALL make sure that at any\ntime during the validity of the reservation, one\nConnector with the specified type remains available\nfor the reserved IdTokenType.\n\n**H01.FR.11**\nPrecondition: When receiving a ReserveNowRequest\nAND\n(all) targeted EVSEs have status\nReserved or Occupied\nThe Charging Station SHALL return Occupied.\n\n**H01.FR.12**\nPrecondition: When receiving a ReserveNowRequest\nAND (all) targeted EVSEs have status\nFaulted\nThe Charging Station SHALL return Faulted.\n\n**H01.FR.14**\nPrecondition: When receiving a ReserveNowRequest\nAND (all) targeted EVSEs have status\nUnavailable\nThe Charging Station SHALL return Unavailable.\n\n**H01.FR.15**\nPrecondition: If a transaction for the reserved\nIdTokenType is started.\nThe Charging Station SHALL send the reservationId\nin a TransactionEventRequest.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "H01 - Reservation - Requirements",
-        "heading_path": "H01 - Reservation - Requirements",
+        "heading": "H01 - Requirements",
         "functional_block": "Reservation",
         "use_case_id": "H01",
         "use_case_name": "Reservation",
-        "use_case_refs": "H01",
-        "message_refs": "ReserveNowRequest, ReserveNowResponse"
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# H01 - Requirements (continued)\n\n**H01.FR.16**\nPrecondition: When the status of a targeted EVSE\nchanges to Faulted\nThe Charging Station SHALL cancel the reservation\nAND send a ReservationStatusUpdate with status\nRemoved.\n\n**H01.FR.17**\nPrecondition: When the status of a targeted EVSE\nchanges to Unavailable\nThe Charging Station SHALL cancel the reservation\nAND send a ReservationStatusUpdate with status\nRemoved.\n\n**H01.FR.18**\nPrecondition: If the Configuration Variable:\nReservationNonEvseSpecific is\nset to true.\nThe Charging Station SHALL accept reservations\non an unspecified EVSE.\n\n**H01.FR.19**\nPrecondition: If the Configuration Variable:\nReservationNonEvseSpecific is\nnot set or set to false.\nThe Charging Station SHALL reject reservations on\nan unspecified EVSE.\n\n**H01.FR.20**\nPrecondition: H01.FR.04\nAND\namount of EVSEs available equals the\namount of reservations\nThe Charging Station SHALL send for all\nconnectors of the EVSE:\n- a NotifyEventRequest with component =\n\"Connector\", variable = \"AvailabilityState\", trigger =\n\"Delta\", actualValue = \"Reserved\", OR\n- a StatusNotificationRequest with connectorStatus\n= Reserved.\n\n**H01.FR.23**\nPrecondition: If the Charging Station receives a\nReserveNowRequest for evseId\nAND this EVSE is Available\nThe Charging Station SHALL respond with a\nReserveNowResponse with status Accepted AND\nSHALL send for all connectors of the EVSE:\n- a NotifyEventRequest with component =\n\"Connector\", variable = \"AvailabilityState\", trigger =\n\"Delta\", actualValue = \"Reserved\" OR\n- a StatusNotificationRequest with connectorStatus\n= Reserved.\n\n**H01.FR.24**\nPrecondition: H01.FR.06\nAND\namount of reservations for a specific\nconnectorType equals the amount of\navailable EVSEs with that specific\nconnectorType\nThe Charging Station SHALL send for all\nconnectors of the EVSEs that have the specific\nconnectorType\n- a NotifyEventRequest with component =\n\"Connector\", variable = \"AvailabilityState\", trigger =\n\"Delta\", actualValue = \"Reserved\" OR\n- a StatusNotificationRequest with connectorStatus\n= Reserved.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "H01 - Requirements",
+        "functional_block": "Reservation",
+        "use_case_id": "H01",
+        "use_case_name": "Reservation",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

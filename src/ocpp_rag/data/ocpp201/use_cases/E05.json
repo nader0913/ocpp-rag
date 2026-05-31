@@ -2,127 +2,190 @@
   "use_case_id": "E05",
   "functional_block": "Transactions",
   "use_case_name": "Start Transaction - Id not Accepted",
+  "structured": {
+    "name": "Start Transaction - Id not Accepted",
+    "id": "E05",
+    "functional_block": "Transactions",
+    "objective": "To enable the Charging Station to suspend a transaction when the IdToken has an\nAuthorizationStatus that does not allow charging.",
+    "description": "This use case covers how the Charging Station wants to start a transaction while the IdToken is\nnot accepted by the CSMS.\nSince the identifier might have been authorized locally by the Charging Station using outdated\ninformation, the CSMS has to validate the IdTokenType in every TransactionEventRequest\nmessage it receives that contains an idToken. When receiving a TransactionEventResponse\nmessage with idTokenInfo.status is not Accepted, the Charging Station will stop the energy\ndelivery to the EV (depending on MaxEnergyOnInvalidId).",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The Charging Station sends TransactionEventRequest (eventType = Started) that contains the\nIdToken provided by the EV Driver.",
+      "2. The CSMS responds with TransactionEventResponse, with an idTokenInfo.status that does not\nallow charging.",
+      "3. The Charging Station suspends the energy offer. (Taking into account:\nMaxEnergyOnInvalidId, if supported)",
+      "4. If StopTxOnInvalidId = false, then\n4a. The Charging Station sends TransactionEventRequest (eventType = Updated) with\ntriggerReason = ChargingStateChanged and the chargingState = SuspendedEVSE and\nreceives TransactionEventResponse from the CSMS.",
+      "5. If StopTxOnInvalidId = true, then\n5a. If TxStopPoint = \"EVConnected\" the Charging Station sends TransactionEventRequest\n(eventType = Updated) with triggerReason = Deauthorized and the chargingState =\nEVConnected and receives TransactionEventResponse from the CSMS.\nelse\n5b. If TxStopPoint = \"Authorized\" the Charging Station sends TransactionEventRequest\n(eventType = Ended) with triggerReason = Deauthorized and the chargingState =\nEVConnected and receives TransactionEventResponse from the CSMS."
+    ],
+    "prerequisites": "The EV Driver is offline/locally authorized by the Charging Station.\nThe IdToken is not allowed to charge by the CSMS.",
+    "postconditions": "Successful postcondition:\nThe transaction is kept ongoing, and the cable remains locked, but no energy is delivered.\nFailure postcondition:\nn/a",
+    "error_handling": "n/a",
+    "remarks": "The scenario description and sequence diagram above are based on the Configuration Variable\nfor start & stop transaction being configured as follows:\nTxStartPoint: PowerPathClosed\nTxStopPoint: either EVConnected or Authorized/PowerPathClosed\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are sent. For more details\nsee the use cases: E01 - Start Transaction options and E06 - Stop Transaction options.\nNOTE: The configuration parameter MaxEnergyOnInvalidId only plays a role when\nStopTxOnInvalidId is set to false.",
+    "requirements": [
+      {
+        "id": "E05.FR.01",
+        "precondition": "",
+        "definition": "The CSMS MUST verify validity of the identifier in\nthe TransactionEventRequest message."
+      },
+      {
+        "id": "E05.FR.02",
+        "precondition": "E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is not\nimplemented or has been exceeded.\nTxStopPoint does NOT contain:\nEnergyTransfer",
+        "definition": "The Charging Station SHALL stop the energy\ndelivery to the EV immediately and send\nTransactionEventRequest (eventType = Updated)\nwith triggerReason set to ChargingStateChanged\nand chargingState set to SuspendedEVSE"
+      },
+      {
+        "id": "E05.FR.03",
+        "precondition": "E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is set and\nhas NOT been exceeded.",
+        "definition": "Energy delivery to the EV SHALL be allowed until\nthe amount of energy specified in\nMaxEnergyOnInvalidId has been reached."
+      },
+      {
+        "id": "E05.FR.04",
+        "precondition": "When a TransactionEventRequest has\nto be created",
+        "definition": "The Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration."
+      },
+      {
+        "id": "E05.FR.05",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration AND\nEVSE is known at start of transaction",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.Begin in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details during the\ntransaction."
+      },
+      {
+        "id": "E05.FR.06",
+        "precondition": "SampledDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues."
+      },
+      {
+        "id": "E05.FR.08",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration AND\nEVSE is not known at start of\ntransaction",
+        "definition": "The Charging Station SHALL add the measurands\nfor eventType = Started to the optional\nmeterValue field with context =\nTransaction.Begin in the\nTransactionEventRequest(eventType = Updated)\nthat occurs when charging starts."
+      },
+      {
+        "id": "E05.FR.09",
+        "precondition": "E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does NOT contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)",
+        "definition": "The Charging Station SHALL stop the energy\ntransfer and send TransactionEventRequest\n(eventType = Updated) with triggerReason set to\nDeauthorized and in the same or next\nTransactionEventRequest report chargingState set\npreferably to EVConnected, or alternatively to\nSuspendedEVSE."
+      },
+      {
+        "id": "E05.FR.10",
+        "precondition": "E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)",
+        "definition": "The Charging Station SHALL stop the transaction\nand send TransactionEventRequest (eventType =\nEnded) with triggerReason set to Deauthorized and\nstoppedReason set to DeAuthorized."
+      },
+      {
+        "id": "E05.FR.11",
+        "precondition": "E05.FR.10 AND\nIf the Charging Station has the\npossibility to lock the Charging Cable",
+        "definition": "The Charging Station SHOULD keep the Charging\nCable locked until the owner presents his identifier."
+      }
+    ],
+    "figures": [
+      "fig47.png",
+      "fig48.png",
+      "fig49.png",
+      "fig50.png",
+      "fig51.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Stop a transaction when communication between the Charging Station and the EV is lost. (for\nexample: cable unplugged)",
+        "steps": [
+          "1. Communication between Charging Station and the EV is lost (Charging cable is unplugged).",
+          "2. If charging cable unplugged on the Charging Station side: send StatusNotificationRequest to\nthe CSMS to inform it about a Connector that became Available.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: EVConnected"
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Stop a transaction when the driver is no longer authorized.",
+        "steps": [
+          "1. The Charging Station sends a TransactionEventRequest to the CSMS.",
+          "2. An invalid IdToken is received in a TransactionEventResponse.",
+          "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "4. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: Authorized",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S5",
+        "objective": "Stop a transaction when the EV driver is no longer authorized and/or the EV is disconnected.",
+        "steps": [
+          "1. The Charging Station is disconnected from EV and/or the EV driver is no longer authorized.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: PowerPathClosed",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S6",
+        "objective": "Stop a transaction when energy transfer stops. This will also mean the transaction stops when\nthe EV stops taking energy, for example when the battery is too hot.",
+        "steps": [
+          "1. The energy transfer between EV and the Charging Station stops (for example: EV stops\ncharging).",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: EnergyTransfer",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      },
+      {
+        "scenario_id": "S7",
+        "objective": "Stop a transaction when EV driver ends authorization",
+        "steps": [
+          "1. The EV drivers presents an IdToken to end the charging.",
+          "2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the\nCSMS about a transaction that has ended.",
+          "3. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received."
+        ],
+        "prerequisites": "A transaction is ongoing.\nConfiguration Variable: TxStopPoint contains: Authorized (or PowerPathClosed).",
+        "postconditions": "Successful postcondition:\nThe transaction is ended and the CSMS is Successfully informed.\nFailure postcondition:\nThe transaction is still ongoing. or\nThe CSMS is not informed."
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# E05 - Start Transaction - Id not Accepted\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Start Transaction - Id not Accepted                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID                   | E05                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |",
+      "content": "# E05 - Start Transaction - Id not Accepted\n\n**Objective:** To enable the Charging Station to suspend a transaction when the IdToken has an\nAuthorizationStatus that does not allow charging.\n\n**Description:** This use case covers how the Charging Station wants to start a transaction while the IdToken is\nnot accepted by the CSMS.\nSince the identifier might have been authorized locally by the Charging Station using outdated\ninformation, the CSMS has to validate the IdTokenType in every TransactionEventRequest\nmessage it receives that contains an idToken. When receiving a TransactionEventResponse\nmessage with idTokenInfo.status is not Accepted, the Charging Station will stop the energy\ndelivery to the EV (depending on MaxEnergyOnInvalidId).\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The Charging Station sends TransactionEventRequest (eventType = Started) that contains the\nIdToken provided by the EV Driver.\n2. The CSMS responds with TransactionEventResponse, with an idTokenInfo.status that does not\nallow charging.\n3. The Charging Station suspends the energy offer. (Taking into account:\nMaxEnergyOnInvalidId, if supported)\n4. If StopTxOnInvalidId = false, then\n4a. The Charging Station sends TransactionEventRequest (eventType = Updated) with\ntriggerReason = ChargingStateChanged and the chargingState = SuspendedEVSE and\nreceives TransactionEventResponse from the CSMS.\n5. If StopTxOnInvalidId = true, then\n5a. If TxStopPoint = \"EVConnected\" the Charging Station sends TransactionEventRequest\n(eventType = Updated) with triggerReason = Deauthorized and the chargingState =\nEVConnected and receives TransactionEventResponse from the CSMS.\nelse\n5b. If TxStopPoint = \"Authorized\" the Charging Station sends TransactionEventRequest\n(eventType = Ended) with triggerReason = Deauthorized and the chargingState =\nEVConnected and receives TransactionEventResponse from the CSMS.\n\n**Prerequisites:** The EV Driver is offline/locally authorized by the Charging Station.\nThe IdToken is not allowed to charge by the CSMS.\n\n**Postconditions:** Successful postcondition:\nThe transaction is kept ongoing, and the cable remains locked, but no energy is delivered.\nFailure postcondition:\nn/a\n\n**Remarks:** The scenario description and sequence diagram above are based on the Configuration Variable\nfor start & stop transaction being configured as follows:\nTxStartPoint: PowerPathClosed\nTxStopPoint: either EVConnected or Authorized/PowerPathClosed\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are sent. For more details\nsee the use cases: E01 - Start Transaction options and E06 - Stop Transaction options.\nNOTE: The configuration parameter MaxEnergyOnInvalidId only plays a role when\nStopTxOnInvalidId is set to false.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E05 - Start Transaction - Id not Accepted",
-        "heading_path": "E05 - Start Transaction - Id not Accepted",
         "functional_block": "Transactions",
         "use_case_id": "E05",
         "use_case_name": "Start Transaction - Id not Accepted",
-        "use_case_refs": "E01, E05, E06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 3
       }
     },
     {
-      "content": "| 3   | Objective(s)         | To enable the Charging Station to suspend a transaction when the IdToken has an AuthorizationStatus that does not allow charging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 4   | Description          | This use case covers how the Charging Station wants to start a transaction while the IdToken is not accepted by the CSMS. Since the identifier might have been authorized locally by the Charging Station using outdated information, the CSMS has to validate the IdTokenType in every TransactionEventRequest message it receives that contains an idToken. When receiving a TransactionEventResponse message with idTokenInfo.status is not Accepted, the Charging Station will stop the energy delivery to the EV (depending on MaxEnergyOnInvalidId).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E05 - Start Transaction - Id not Accepted",
-        "heading_path": "E05 - Start Transaction - Id not Accepted",
-        "functional_block": "Transactions",
-        "use_case_id": "E05",
-        "use_case_name": "Start Transaction - Id not Accepted",
-        "use_case_refs": "E01, E05, E06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 5   | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 6   | Scenario description | 1. The Charging Station sends TransactionEventRequest (eventType = Started) that contains the IdToken provided by the EV Driver. 2. The CSMS responds with TransactionEventResponse, with an idTokenInfo.status that does not allow charging. 3. The Charging Station suspends the energy offer. (Taking into account: MaxEnergyOnInvalidId, if supported) 4. If StopTxOnInvalidId = false, then 4a. The Charging Station sends TransactionEventRequest (eventType = Updated) with triggerReason = ChargingStateChanged and the chargingState = SuspendedEVSE and receives TransactionEventResponse from the CSMS. 5. If StopTxOnInvalidId = true, then 5a. If TxStopPoint = \"EVConnected\" the Charging Station sends TransactionEventRequest (eventType = Updated) with triggerReason = Deauthorized and the chargingState = EVConnected and receives TransactionEventResponse from the CSMS. else 5b. If TxStopPoint = \"Authorized\" the Charging Station sends TransactionEventRequest (eventType = Ended) with triggerReason = Deauthorized and the chargingState = EVConnected and receives TransactionEventResponse from the CSMS. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E05 - Start Transaction - Id not Accepted",
-        "heading_path": "E05 - Start Transaction - Id not Accepted",
-        "functional_block": "Transactions",
-        "use_case_id": "E05",
-        "use_case_name": "Start Transaction - Id not Accepted",
-        "use_case_refs": "E01, E05, E06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 7   | Prerequisite(s)      | The EV Driver is offline/locally authorized by the Charging Station. The IdToken is not allowed to charge by the CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 8   | Postcondition(s)     | Successful postcondition: The transaction is kept ongoing, and the cable remains locked, but no energy is delivered. Failure postcondition: n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E05 - Start Transaction - Id not Accepted",
-        "heading_path": "E05 - Start Transaction - Id not Accepted",
-        "functional_block": "Transactions",
-        "use_case_id": "E05",
-        "use_case_name": "Start Transaction - Id not Accepted",
-        "use_case_refs": "E01, E05, E06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 9   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 10  | Remark(s)            | The scenario description and sequence diagram above are based on the Configuration Variable for start & stop transaction being configured as follows: TxStartPoint: PowerPathClosed TxStopPoint: either EVConnected or Authorized/PowerPathClosed This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are sent. For more details see the use cases: E01 - Start Transaction options and E06 - Stop Transaction options. NOTE: The configuration parameter MaxEnergyOnInvalidId only plays a role when StopTxOnInvalidId is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E05 - Start Transaction - Id not Accepted",
-        "heading_path": "E05 - Start Transaction - Id not Accepted",
-        "functional_block": "Transactions",
-        "use_case_id": "E05",
-        "use_case_name": "Start Transaction - Id not Accepted",
-        "use_case_refs": "E01, E05, E06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# Charging Station\n\nEV Driver locally authorized by the Charging Station.\n\nTransactionEventRequest(eventType = Started, transactionId = AB1234, seqNo = N, timestamp,\nevse.id = 1, evse.connectorId = 1, meterValues,...)\n\nTransactionEventResponse(idTokenInfo.status = Blocked / Invalid / Expired / Unknown,...)\n\nstop energy offer\n\nalt  [StopTxOnInvalidId = false]\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp,\nchargingState = SuspendedEVSE, triggerReason = ChargingStateChanged, meterValues,...)\n\nTransactionEventResponse(...)\n\n[StopTxOnInvalidId = true]\nalt  [TxStopPoint = EVConnected]\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp,\nchargingState = EVConnected, triggerReason = Deauthorized, meterValues,...)\n\nTransactionEventResponse(...)\n\n[TxStartPoint = Authorized or PowerPathClosed]\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 1, timestamp,\nchargingState = EVConnected, triggerReason = Deauthorized, stoppedReason = Deauthorzed,\nmeterValues,...)\n\nTransactionEventResponse(...)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Charging Station",
-        "heading_path": "Charging Station",
-        "functional_block": "Transactions",
-        "use_case_id": "E05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# E05 - Start Transaction - Id not Accepted - Requirements\n\n| ID        | Precondition                                                                                                                                                                                                                    | Requirement definition                                                                                                                                                                                                  | Note                                                                                                                                                                                                                        |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E05.FR.01 |                                                                                                                                                                                                                                 | The CSMS MUST verify validity of the identifier in the TransactionEventRequest message.                                                                                                                                 | The identifier might have been authorized locally by the Charging Station using outdated information. The identifier, for instance, may have been blocked since it was added to the Charging Station’s Authorization Cache. |\n| E05.FR.02 | E05.FR.01 AND The authorization status in TransactionEventResponse is not Accepted AND The transaction is still ongoing AND StopTxOnInvalidId is set to false AND MaxEnergyOnInvalidId is not implemented or has been exceeded. | The Charging Station SHALL stop the energy delivery to the EV immediately and send TransactionEventRequest (eventType = Updated) with triggerReason set to ChargingStateChanged and chargingState set to SuspendedEVSE. | The transaction is not deauthorized, but transfer of energy stops, since MaxEnergyOnInvalid Id has been exceeded or is not set. If TxStopPoint contains EnergyTransfer then this would have ended the transaction.          |",
+      "content": "# E05 - Requirements\n\n**E05.FR.01**\nThe CSMS MUST verify validity of the identifier in\nthe TransactionEventRequest message.\n\n**E05.FR.02**\nPrecondition: E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is not\nimplemented or has been exceeded.\nTxStopPoint does NOT contain:\nEnergyTransfer\nThe Charging Station SHALL stop the energy\ndelivery to the EV immediately and send\nTransactionEventRequest (eventType = Updated)\nwith triggerReason set to ChargingStateChanged\nand chargingState set to SuspendedEVSE\n\n**E05.FR.03**\nPrecondition: E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is set to false\nAND\nMaxEnergyOnInvalidId is set and\nhas NOT been exceeded.\nEnergy delivery to the EV SHALL be allowed until\nthe amount of energy specified in\nMaxEnergyOnInvalidId has been reached.\n\n**E05.FR.04**\nPrecondition: When a TransactionEventRequest has\nto be created\nThe Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration.\n\n**E05.FR.05**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration AND\nEVSE is known at start of transaction\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.Begin in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details during the\ntransaction.\n\n**E05.FR.06**\nPrecondition: SampledDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues.\n\n**E05.FR.08**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration AND\nEVSE is not known at start of\ntransaction\nThe Charging Station SHALL add the measurands\nfor eventType = Started to the optional\nmeterValue field with context =\nTransaction.Begin in the\nTransactionEventRequest(eventType = Updated)\nthat occurs when charging starts.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E05 - Start Transaction - Id not Accepted - Requirements",
-        "heading_path": "E05 - Start Transaction - Id not Accepted - Requirements",
+        "heading": "E05 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E05",
         "use_case_name": "Start Transaction - Id not Accepted",
-        "use_case_refs": "E05",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# E05 - Requirements (continued)\n\n**E05.FR.09**\nPrecondition: E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does NOT contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)\nThe Charging Station SHALL stop the energy\ntransfer and send TransactionEventRequest\n(eventType = Updated) with triggerReason set to\nDeauthorized and in the same or next\nTransactionEventRequest report chargingState set\npreferably to EVConnected, or alternatively to\nSuspendedEVSE.\n\n**E05.FR.10**\nPrecondition: E05.FR.01 AND\nThe authorization status in\nTransactionEventResponse is not\nAccepted AND\nThe transaction is still ongoing AND\nStopTxOnInvalidId is true AND\nTxStopPoint does contain:\n(Authorized OR PowerPathClosed OR\nEnergyTransfer)\nThe Charging Station SHALL stop the transaction\nand send TransactionEventRequest (eventType =\nEnded) with triggerReason set to Deauthorized and\nstoppedReason set to DeAuthorized.\n\n**E05.FR.11**\nPrecondition: E05.FR.10 AND\nIf the Charging Station has the\npossibility to lock the Charging Cable\nThe Charging Station SHOULD keep the Charging\nCable locked until the owner presents his identifier.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E05 - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E05",
+        "use_case_name": "Start Transaction - Id not Accepted",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

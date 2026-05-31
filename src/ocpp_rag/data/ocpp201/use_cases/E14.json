@@ -2,109 +2,101 @@
   "use_case_id": "E14",
   "functional_block": "Transactions",
   "use_case_name": "Check transaction status",
+  "structured": {
+    "name": "Check transaction status",
+    "id": "E14",
+    "functional_block": "Transactions",
+    "objective": "To enable the CSMS to request the status of a transaction and to find out whether there are\nqueued transaction-related messages.",
+    "description": "There are scenarios where a CSMS needs to know whether there are still messages for a\ntransaction that need to be delivered. For example: A CSMS receives a TransactionEventRequest\n(eventType = Ended), it wants to start the billing process for this transaction but detects it is still\nmissing some intermediate messages (it can check this via the sequence number in the\nmessages). It can ask if the Charging Station has still messages in the queue for this transaction\nwith the GetTransactionStatusRequest specifying the transactionId. Depending on the result the\nCSMS might for example: wait for the messages to be delivered, or start the billing process\nwithout the information. It may also need to know whether a transaction is still ongoing.\nIf the CSMS wants to know if there are transaction-related messages in the queue at all (not just\nfor a specific transaction), it can send a GetTransactionStatusRequest without a transactionId.",
+    "actors": [
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The CSMS sends a GetTransactionStatusRequest with or without a transactionId to the\nCharging Station.",
+      "2. The Charging Station responds with a GetTransactionStatusResponse."
+    ],
+    "prerequisites": "The CSMS knows the transactionId of a transaction it wants to know the status of.",
+    "postconditions": "Successful postcondition:\nThe CSMS knows the status of the requested transaction.\nFailure postcondition:\nThe CSMS does not know the status of the requested transaction.",
+    "error_handling": "n/a",
+    "remarks": "When the CSMS receives a GetTransactionStatusResponse with both fields (ongoingIndicator and\nmessagesInQueue) set to false, this might mean that the transaction is finished and there are no\nmore messages in the queue for this transaction, or the Charging Station doesn\u2019t know anything\nabout this transaction (anymore).",
+    "requirements": [
+      {
+        "id": "E14.FR.01",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nIt did not do a transaction with that\ntransactionId",
+        "definition": "The Charging Station SHALL respond with ongoingIndicator =\nfalse AND messagesInQueue = false."
+      },
+      {
+        "id": "E14.FR.02",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nThe transaction with that transactionId has not\nstopped yet",
+        "definition": "The Charging Station\u2019s response SHALL have ongoingIndicator =\ntrue."
+      },
+      {
+        "id": "E14.FR.03",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nThe transaction with that transactionId has\nstopped",
+        "definition": "The Charging Station\u2019s response SHALL have ongoingIndicator =\nfalse."
+      },
+      {
+        "id": "E14.FR.04",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nIt has transaction-related messages to be\ndelivered about the transaction with that\ntransactionId",
+        "definition": "The Charging Station\u2019s response SHALL have messagesInQueue\n= true."
+      },
+      {
+        "id": "E14.FR.05",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nIt has no transaction-related messages to be\ndelivered about the transaction with that\ntransactionId",
+        "definition": "The Charging Station\u2019s response SHALL have messagesInQueue\n= false."
+      },
+      {
+        "id": "E14.FR.06",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest without a\ntransactionId",
+        "definition": "The Charging Station\u2019s response SHALL NOT have\nongoingIndicator set."
+      },
+      {
+        "id": "E14.FR.07",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest without a\ntransactionId AND\nIt has transaction-related messages to be\ndelivered",
+        "definition": "The Charging Station\u2019s response SHALL have messagesInQueue\n= true."
+      },
+      {
+        "id": "E14.FR.08",
+        "precondition": "The Charging Station receives a\nGetTransactionStatusRequest without a\ntransactionId AND\nIt has no transaction-related messages to be\ndelivered",
+        "definition": "The Charging Station\u2019s response SHALL have messagesInQueue\n= false."
+      }
+    ],
+    "figures": [
+      "fig62.png",
+      "fig63.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# E14 - Check transaction status\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Check transaction status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 2   | ID               | E14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "content": "# E14 - Check transaction status\n\n**Objective:** To enable the CSMS to request the status of a transaction and to find out whether there are\nqueued transaction-related messages.\n\n**Description:** There are scenarios where a CSMS needs to know whether there are still messages for a\ntransaction that need to be delivered. For example: A CSMS receives a TransactionEventRequest\n(eventType = Ended), it wants to start the billing process for this transaction but detects it is still\nmissing some intermediate messages (it can check this via the sequence number in the\nmessages). It can ask if the Charging Station has still messages in the queue for this transaction\nwith the GetTransactionStatusRequest specifying the transactionId. Depending on the result the\nCSMS might for example: wait for the messages to be delivered, or start the billing process\nwithout the information. It may also need to know whether a transaction is still ongoing.\nIf the CSMS wants to know if there are transaction-related messages in the queue at all (not just\nfor a specific transaction), it can send a GetTransactionStatusRequest without a transactionId.\n\n**Actors:** CSMS, Charging Station\n\n**Scenario:**\n1. The CSMS sends a GetTransactionStatusRequest with or without a transactionId to the\nCharging Station.\n2. The Charging Station responds with a GetTransactionStatusResponse.\n\n**Prerequisites:** The CSMS knows the transactionId of a transaction it wants to know the status of.\n\n**Postconditions:** Successful postcondition:\nThe CSMS knows the status of the requested transaction.\nFailure postcondition:\nThe CSMS does not know the status of the requested transaction.\n\n**Remarks:** When the CSMS receives a GetTransactionStatusResponse with both fields (ongoingIndicator and\nmessagesInQueue) set to false, this might mean that the transaction is finished and there are no\nmore messages in the queue for this transaction, or the Charging Station doesn\u2019t know anything\nabout this transaction (anymore).",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E14 - Check transaction status",
-        "heading_path": "E14 - Check transaction status",
         "functional_block": "Transactions",
         "use_case_id": "E14",
         "use_case_name": "Check transaction status",
-        "use_case_refs": "E14",
-        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)     | To enable the CSMS to request the status of a transaction and to find out whether there are queued transaction-related messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 4   | Description      | There are scenarios where a CSMS needs to know whether there are still messages for a transaction that need to be delivered. For example: A CSMS receives a TransactionEventRequest (eventType = Ended), it wants to start the billing process for this transaction but detects it is still missing some intermediate messages (it can check this via the sequence number in the messages). It can ask if the Charging Station has still messages in the queue for this transaction with the GetTransactionStatusRequest specifying the transactionId. Depending on the result the CSMS might for example: wait for the messages to be delivered, or start the billing process without the information. It may also need to know whether a transaction is still ongoing. If the CSMS wants to know if there are transaction-related messages in the queue at all (not just for a specific transaction), it can send a GetTransactionStatusRequest without a transactionId. |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E14 - Check transaction status",
-        "heading_path": "E14 - Check transaction status",
-        "functional_block": "Transactions",
-        "use_case_id": "E14",
-        "use_case_name": "Check transaction status",
-        "use_case_refs": "E14",
-        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 5   | Prerequisites    | The CSMS knows the transactionId of a transaction it wants to know the status of.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 6   | Postcondition(s) | Successful postcondition: The CSMS knows the status of the requested transaction. Failure postcondition: The CSMS does not know the status of the requested transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E14 - Check transaction status",
-        "heading_path": "E14 - Check transaction status",
-        "functional_block": "Transactions",
-        "use_case_id": "E14",
-        "use_case_name": "Check transaction status",
-        "use_case_refs": "E14",
-        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 8   | Remarks          | When the CSMS receives a GetTransactionStatusResponse with both fields (ongoingIndicator and messagesInQueue) set to false, this might mean that the transaction is finished and there are no more messages in the queue for this transaction, or the Charging Station doesn’t know anything about this transaction (anymore).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "E14 - Check transaction status",
-        "heading_path": "E14 - Check transaction status",
-        "functional_block": "Transactions",
-        "use_case_id": "E14",
-        "use_case_name": "Check transaction status",
-        "use_case_refs": "E14",
-        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# Scenario description\n\n1. The CSMS sends a GetTransactionStatusRequest with or without a transactionId to the Charging Station.\n2. The Charging Station responds with a GetTransactionStatusResponse.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "Transactions",
-        "use_case_id": "E14",
-        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse"
-      }
-    },
-    {
-      "content": "# E14 - Check transaction status - Requirements\n\n| ID        | Precondition                                                                                                                                     | Requirements                                                                                  |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |\n| E14.FR.01 | The Charging Station receives a GetTransactionStatusRequest with a transactionId AND It did not do a transaction with that transactionId         | The Charging Station SHALL respond with ongoingIndicator = false AND messagesInQueue = false. |\n| E14.FR.02 | The Charging Station receives a GetTransactionStatusRequest with a transactionId AND The transaction with that transactionId has not stopped yet | The Charging Station’s response SHALL have ongoingIndicator = true.                           |",
+      "content": "# E14 - Requirements\n\n**E14.FR.01**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nIt did not do a transaction with that\ntransactionId\nThe Charging Station SHALL respond with ongoingIndicator =\nfalse AND messagesInQueue = false.\n\n**E14.FR.02**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nThe transaction with that transactionId has not\nstopped yet\nThe Charging Station\u2019s response SHALL have ongoingIndicator =\ntrue.\n\n**E14.FR.03**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nThe transaction with that transactionId has\nstopped\nThe Charging Station\u2019s response SHALL have ongoingIndicator =\nfalse.\n\n**E14.FR.04**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nIt has transaction-related messages to be\ndelivered about the transaction with that\ntransactionId\nThe Charging Station\u2019s response SHALL have messagesInQueue\n= true.\n\n**E14.FR.05**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest with a\ntransactionId AND\nIt has no transaction-related messages to be\ndelivered about the transaction with that\ntransactionId\nThe Charging Station\u2019s response SHALL have messagesInQueue\n= false.\n\n**E14.FR.06**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest without a\ntransactionId\nThe Charging Station\u2019s response SHALL NOT have\nongoingIndicator set.\n\n**E14.FR.07**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest without a\ntransactionId AND\nIt has transaction-related messages to be\ndelivered\nThe Charging Station\u2019s response SHALL have messagesInQueue\n= true.\n\n**E14.FR.08**\nPrecondition: The Charging Station receives a\nGetTransactionStatusRequest without a\ntransactionId AND\nIt has no transaction-related messages to be\ndelivered\nThe Charging Station\u2019s response SHALL have messagesInQueue\n= false.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E14 - Check transaction status - Requirements",
-        "heading_path": "E14 - Check transaction status - Requirements",
+        "heading": "E14 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E14",
         "use_case_name": "Check transaction status",
-        "use_case_refs": "E14",
-        "message_refs": "GetTransactionStatusRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -1,0 +1,222 @@
+[
+  {
+    "content": "# Table of Contents\n\n1. Introduction .................................................. 2\n2. What is new in OCPP 2.0.1? .......................... 2\n3. 1. Documentation structure .......... 2\n2. Device Model ........................................ 3\n3. Transaction handling .................... 4\n4. Improvements for customer experience ... 5\n5. Support for ISO 15118 ................................ 5\n6. Security .................................................. 5\n\nFuture development ............................ 6",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents"
+    }
+  },
+  {
+    "content": "# 1. Introduction\n\nThe Open Charge Point Protocol (OCPP) is the industry-supported de facto standard for communication between a charging station and a charging station Management System (CSMS) and is designed to accommodate any type of charging technique. OCPP is an open standard with no cost or licensing barriers for adoption. The evolution of OCPP is managed by the Open Charge Alliance (OCA).\n\nOCPP has been around since 2010. It was initially only used in Western Europe. In 2015 OCA released version OCPP 1.6, which included support for smart charging. This version ended up being used by manufacturers all over the world, and OCPP became the de facto standard protocol for charging stations.\n\nAs the technological developments in charging stations and electric vehicles continued, so did the use cases for electric charging. On the one hand simple, low-cost chargers were developed for home charging, while at the same time high power fast chargers with multiple connectors up to 350 kW or more came on the market. OCPP has to cater for both. This led to requests for more support for configuration and monitoring of complex chargers, and for increased security, but at the same time, OCPP should remain fit-for-use by low-cost charging stations with limited memory and processing power.\n\nIn 2020 OCA released OCPP 2.0.1, which is a big step forward from OCPP 1.6. OCPP 2.0.1 is not an incremental extension of OCPP 1.6, even though it uses many of the same concepts and even shares some of the same messages. As a result, OCPP 2.0.1 is not backward compatible with OCPP 1.6. For example, the transaction-handling has changed, which was required in order to support configurable start and end conditions for transactions, and an entire new concept, the device model, was introduced to provide advanced configuration and monitoring capabilities.\n\nThis white paper explains which features are new in OCPP 2.0.1.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1. Introduction",
+      "heading_path": "1. Introduction"
+    }
+  },
+  {
+    "content": "# 2.1. Documentation structure\n\nThe first thing you will notice when starting with OCPP 2.0.1, is the new documentation structure. The specification is built around informative text, use cases and tables of requirements, making the new specification easier to read, implement and test.\n\nFor readability and implementation purposes, OCPP 2.0.1 is divided in seven parts.\n\n- Part 0: Part 1; Introduction: Architecture & Topology\n- Part 0: Part 2; Introduction: Specification: Use Cases and Requirements, Messages, Data Types and Referenced Components and Variables\n- Part 0: Part 3; Introduction: Schemas\n- Part 0: Part 4; Introduction: Implementation Guide JSON\n- Part 0: Part 5; Introduction: Certification Profiles\n- Part 0: Part 6; Introduction: Test Cases\n\nOCPP 2.0.1 contains many features that may not be needed by every manufacturer or charging station operator (CSO). The specification is therefore organized around so-called functional blocks, that logically group a set of use cases and requirements around a topic. See Appendix: List of OCPP 2.0.1 functional blocks for a full list. An implementer can choose which functional blocks to implement, but there is a minimum set of features that must be implemented in order to qualify for an OCPP certification.\n\nPart 5 Certification Profiles defines exactly what must be implemented for a basic OCPP implementation (the \"Core Profile\"), and a set of extended profiles for more advanced features, such as smart charging and ISO 15118 support.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.1. Documentation structure",
+      "heading_path": "2.1. Documentation structure"
+    }
+  },
+  {
+    "content": "# 2.2. Device Model\n\nThe so-called \"Device Model\" is a long awaited feature especially welcomed by CSOs who manage a network of complex charging stations from different vendors.\n\nIt provides the following functionality:\n\n- Inventory reporting\n- Improved error and state reporting\n- Improved configuration\n- Customizable monitoring\n\nThe inventory reporting lets a charging station fully describe its features to the CSMS when connecting to the network. It does so by reporting a tree-like structure of relevant components with associated values or configuration settings. This allows for plug-and-play installation of a charging station. There is no need to provision it in advance in the CSMS, since the station will report about its capabilities, power and the number of outlets.\n\nThe device model does more than simply report the components of a station, however. Any event or error that occurs within a component will be reported in an event message with a reference to the component that is involved, which is a huge improvement over the limited StatusNotification message from OCPP 1.6. Configuration settings are now tied to physical components, such as a Connector, or logical controllers, such as a SmartChargingCtrlr component. This provides a structure to the myriad of configuration settings that exist in more complex charging stations.\nBut probably the most important feature of the device model is the customizable monitoring. A CSO can configure the station to be notified when a variable of a certain component exceeds a threshold, or he can request to sample these values periodically. One can, for example, configure to be notified when the Temperature variable of the AcDcConverter of EVSE #1 exceeds a certain value. There will be less need to send a service engineer on site, because issues can be detected early, before they become a problem. Components that start to operate outside their allowed tolerances can then be replaced preemptively during scheduled maintenance visits.\n\nThe device model helps CSOs to reduce downtime and operating costs of a charging station network by greatly improving the monitoring and remote support capabilities.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.2. Device Model",
+      "heading_path": "2.2. Device Model"
+    }
+  },
+  {
+    "content": "# 2.3.1. One message for all transaction-related functionality\n\nWith the growing EV charging market the number of charging stations and transactions that a CSMS needs to manage, also grows. The structure and method for reporting about a transaction is unified in OCPP 2.0.1. In OCPP 1.x, the reporting of transaction data is split over the messages StartTransaction, StopTransaction, MeterValue and StatusNotification. With the market progressing towards more enhanced scheduling, and increasing volume of data, a need was born for more sophisticated handling of transaction data.\n\nAll StartTransaction, StopTransaction, and transaction-related MeterValue and StatusNotification messages are replaced by a 'TransactionEvent' message. The StatusNotification message still exists, but only for status notifications about connector availability, that are not transaction-related.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.3.1. One message for all transaction-related functionality",
+      "heading_path": "2.3.1. One message for all transaction-related functionality"
+    }
+  },
+  {
+    "content": "# 2.3.2. Data reduction\n\nWith the introduction of JSON over Websockets in OCPP 1.6 a large reduction of mobile data cost can be achieved. With OCPP 2.0.1, support for WebSocket Compression is introduced, which reduces the amount of data even more.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.3.2. Data reduction",
+      "heading_path": "2.3.2. Data reduction"
+    }
+  },
+  {
+    "content": "# 2.3.3. Configurable start and stop points\n\nIn OCPP 1.6 a transaction is started when the EV is connected and authorization to charge is granted. At that point the charging station sends a StartTransaction.req message. The transaction stops when the authorization is ended (e.g. by presenting the charge card a second time).\n\nOCPP 2.0.1 introduces configurable start and stop points. This means that one can configure that a transaction is started when the cable is connected (even before authorization is granted), and ended when the cable is disconnected. Or one can define that start and stop of a transaction is determined purely by begin and end of the authorization. It is even possible to include parking bay occupancy as a start or stop point.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.3.3. Configurable start and stop points",
+      "heading_path": "2.3.3. Configurable start and stop points"
+    }
+  },
+  {
+    "content": "# 2.3.4. Improved offline behavior\n\nIn OCPP 1.6 CSMS generates a transaction ID for every transaction started on the charging station. This means, that when charging station is offline (i.e. it has no connection with its CSMS), it needs to generate temporary transaction IDs, since it cannot get a transaction ID from CSMS. Once the connection is restored and transaction messages are sent to the backoffice in chronological order, the station replaces the temporary IDs with the actual transaction ID that it receives from the backoffice.\n\nThis cumbersome process is no longer needed in OCPP 2.0.1, since the responsibility to generate a transaction ID has been moved to the charging station. The restriction that transaction-related messages be transmitted in chronological order has also been lifted: transaction messages how have a sequence number that allows the CSMS to reconstruct the chronological order of events.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.3.4. Improved offline behavior",
+      "heading_path": "2.3.4. Improved offline behavior"
+    }
+  },
+  {
+    "content": "# 2.4. Improvements for customer experience\n\nOCPP 2.0.1 has several enhancements to improve the customer experience.\n\n- Support for different token types for authorization, e.g. for credit card or AutoCharge (authorization via MAC address)\n- Support for a language code that is applicable to the user and provide a personal message in multiple languages (e.g. describing the tariff).\n- Support for showing transaction-related or generic messages on a display.\n- Showing an updated running cost at regular intervals and a final cost when the transaction has finished.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.4. Improvements for customer experience",
+      "heading_path": "2.4. Improvements for customer experience"
+    }
+  },
+  {
+    "content": "# 2.5. Support for ISO 15118\n\nEVs with CCS connectors support the ISO 15118-2 protocol. This has some advanced capabilities, like Plug  Charge and advanced smart charging. When Plug  Charge is enabled the EV will present a contract certificate to the charging station, based upon which authorization will be granted or not. The advanced smart charging capability lets the EV send information about the requested amount of energy and anticipated departure time. This allows a CSMS to generate an accurate charging profile to be used during the transaction.\n\nOCPP 2.0.1 fully supports the ISO 15118-2 protocol.\n\n- Plug  Charge authorization is supported, as well as all functions to install and update ISO 15118 certificates.\n- Smart charging input from EV, like its charging needs and charging profile are supported, as well as the renegotiation process when a charging schedule needs to be updated.\n\nNOTE Only Plug  Charge support has been made available to OCPP 1.6 via the customization described in the OCA application note: \"Using ISO 15118 Plug  Charge with OCPP 1.6\".",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.5. Support for ISO 15118",
+      "heading_path": "2.5. Support for ISO 15118"
+    }
+  },
+  {
+    "content": "# 2.6. Security\n\nThe following improvements have been added to harden OCPP against cyberattacks:\n\n- Strictly defined security profiles (3 levels) for charging station and CSMS authentication\n- Key management for client-side certificates\n- Secure firmware updates with signed firmware\n- Security event log\n\nNOTE These security features have been back-ported to OCPP 1.6 in the extension described in the OCA white paper: \"Improved security for OCPP 1.6-J\"",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.6. Security",
+      "heading_path": "2.6. Security"
+    }
+  },
+  {
+    "content": "# 3. Future development\n\nA lot of new developments are going on in the realm of EV charging: bidirectional charging (vehicle-to-grid), grid code support, integration with energy management systems and a new version of the ISO 15118 protocol (ISO 15118-20), to name a few.\n\nThe Open Charge Alliance is closely following these developments and will provide support for such features in a future OCPP 2.1 release. This release and future releases will be backwards compatible with OCPP 2.0.1, meaning that all OCPP 2.0.1 functionality will continue to work in future releases. As such OCPP 2.0.1 will act as the foundation for OCPP for many years to come.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3. Future development",
+      "heading_path": "3. Future development"
+    }
+  },
+  {
+    "content": "# Appendix: List of OCPP 2.0.1 functional blocks\n\nBelow is a list of the functional blocks around which the OCPP 2.0.1 specification is organized.\n\n- Clause: A.; Functional Block Title: Security; Description: Security specification for the OCPP protocol.\n- Clause: B.; Functional Block Title: Provisioning; Description: Provisioning of charging stations and retrieving basic configuration information from these charging stations.\n- Clause: C.; Functional Block Title: Authorization; Description: All authorization-related functionality.\n- Clause: D.; Functional Block Title: Local Authorization List Management; Description: Managing a Local Authorization List (whitelist).\n- Clause: E.; Functional Block Title: Transactions; Description: Basic OCPP transaction-related functionality for transactions that are started/stopped on the charging station.\n- Clause: F.; Functional Block Title: Remote Control; Description: Remote control management from CSMS: Remote Transaction Control, Unlocking a Connector and Remote Trigger.\n- Clause: G.; Functional Block Title: Availability; Description: Status notification messages and changing of availability.\n- Clause: H.; Functional Block Title: Reservation; Description: Reservation functionality of a charging station.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Appendix: List of OCPP 2.0.1 functional blocks",
+      "heading_path": "Appendix: List of OCPP 2.0.1 functional blocks"
+    }
+  },
+  {
+    "content": "# I. Tariff and Cost\n\nShowing tariff and cost information to an EV Driver.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "I. Tariff and Cost",
+      "heading_path": "I. Tariff and Cost"
+    }
+  },
+  {
+    "content": "# J. Metering\n\nFunctionality for sending meter values on a periodic sampling and/or clock-aligned timing basis.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "J. Metering",
+      "heading_path": "J. Metering"
+    }
+  },
+  {
+    "content": "# K. Smart Charging\n\nFunctionality that enables the CSO (or indirectly a third party) to influence the charging current/power of a charging session, or set limits to the amount of power/current a charging station can offer to an EV.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "K. Smart Charging",
+      "heading_path": "K. Smart Charging"
+    }
+  },
+  {
+    "content": "# L. Firmware Management\n\nSupport for firmware update of a charging station.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "L. Firmware Management",
+      "heading_path": "L. Firmware Management"
+    }
+  },
+  {
+    "content": "# M. ISO 15118 Certificate Management\n\nInstallation and update of ISO 15118 certificates.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "M. ISO 15118 Certificate Management",
+      "heading_path": "M. ISO 15118 Certificate Management"
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\nUploading a diagnostics file from a charging station, and monitoring of a charging station.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics"
+    }
+  },
+  {
+    "content": "# O. Display Message\n\nPresenting messages on a charging station display.",
+    "metadata": {
+      "doc_id": "whats_new_201",
+      "doc_title": "What is New in OCPP 2.0.1",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message"
+    }
+  }
+]

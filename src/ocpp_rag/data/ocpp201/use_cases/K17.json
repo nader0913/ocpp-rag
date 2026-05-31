@@ -1,40 +1,161 @@
 {
   "use_case_id": "K17",
   "functional_block": "SmartCharging",
-  "use_case_name": "Renegotiation initiated by EV",
+  "use_case_name": "Renegotiation initiated by EV.",
+  "structured": {
+    "name": "Renegotiation initiated by EV.",
+    "id": "K17",
+    "functional_block": "SmartCharging",
+    "objective": "To let an EV request a new charging schedule.",
+    "description": "The EV signals the Charging Station that it wants to renegotiate and it provides new charging needs, which the Charging Station sends to the CSMS. Based on this and other parameters, the CSMS calculates a new charging schedule and sends it via SetChargingProfileRequest to Charging Station, which communicates it to the EV.",
+    "actors": [
+      "EV",
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1 When EV sends a ChargeParameterDiscoveryReq, the Charging Station sends a NotifyEVChargingNeedsRequest to the CSMS."
+    ],
+    "prerequisites": "Charging session started according to use case K15.",
+    "postconditions": "Charging session uses the new charging profile.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K17.FR.01",
+        "precondition": "EV triggers a\nrenegotiation and\nsends new charging\nneeds",
+        "definition": "The Charging Station SHALL send a\nNotifyEVChargingNeedsRequest to the CSMS."
+      },
+      {
+        "id": "K17.FR.02",
+        "precondition": "K17.FR.01",
+        "definition": "In response to a\nNotifyEVChargingNeedsRequest the CSMS\nSHALL send a\nNotifyEVChargingNeedsResponse."
+      },
+      {
+        "id": "K17.FR.03",
+        "precondition": "K17.FR.02 AND\nIf the CSMS is able to\nprovide a charging\nschedule now",
+        "definition": "CSMS SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\n'Accepted'."
+      },
+      {
+        "id": "K17.FR.04",
+        "precondition": "K17.FR.02 AND\nIf the CSMS is not able\nto provide a charging\nschedule now",
+        "definition": "CSMS SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\n'Rejected'."
+      },
+      {
+        "id": "K17.FR.05",
+        "precondition": "K17.FR.02 AND\nIf the CSMS is able to\nprovide a charging\nschedule, but needs\nprocessing time",
+        "definition": "CSMS SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\n'Processing'."
+      },
+      {
+        "id": "K17.FR.06",
+        "precondition": "",
+        "definition": "A NotifyEVChargingNeedsRequest SHALL\ncontain either ACChargingParameters or\nDCChargingParameters."
+      },
+      {
+        "id": "K17.FR.07",
+        "precondition": "K17.FR.03 or\nK17.FR.05",
+        "definition": "The CSMS SHALL send a\nSetChargingProfileRequest with\nchargingProfilePurpose = TxProfile and at\nmost three chargingSchedule and optional\nsalesTariff elements, that each contain no\nmore periods than specified by\nmaxScheduleTuples in\nNotifyEVChargingNeedsRequest and by device\nmodel variable\nSmartChargingCtrlr.PeriodsPerSched\nule."
+      },
+      {
+        "id": "K17.FR.08",
+        "precondition": "K17.FR.01",
+        "definition": "The CSMS SHOULD send a\nSetChargingProfileRequest to the Charging\nStation within 60 seconds."
+      },
+      {
+        "id": "K17.FR.09",
+        "precondition": "K17.FR.07\nAND\nEV returns a charging\nprofile",
+        "definition": "Charging Station SHALL verify that provided\ncharging profile is within boundaries of the\nChargingSchedule from CSMS."
+      },
+      {
+        "id": "K17.FR.10",
+        "precondition": "K17.FR.09",
+        "definition": "Charging Station SHALL send the EV charging\nprofile in a NotifyEVChargingScheduleRequest\nmessage to CSMS."
+      },
+      {
+        "id": "K17.FR.11",
+        "precondition": "K17.FR.10\nAND\nEV charging profile is\nwithin limits of CSMS\nChargingSchedule",
+        "definition": "CSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Accepted to Charging Station."
+      },
+      {
+        "id": "K17.FR.12",
+        "precondition": "K17.FR.10\nAND\nEV charging profile is\nNOT within limits of\nCSMS\nChargingSchedule",
+        "definition": "CSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Rejected to Charging Station."
+      },
+      {
+        "id": "K17.FR.13",
+        "precondition": "K17.FR.12",
+        "definition": "CSMS starts new renegotiation as per use\ncase K16."
+      },
+      {
+        "id": "K17.FR.14",
+        "precondition": "K17.FR.11",
+        "definition": "The Charging Station SHOULD take the\nschedule from the\nNotifyEVChargingScheduleRequest into\naccount when calculating the actual\nComposite schedule."
+      },
+      {
+        "id": "K17.FR.15",
+        "precondition": "K17.FR.01\nAND\n(K17.FR.04 OR\nCharging Station is\noffline)",
+        "definition": "The Charging Station SHALL use the\nTxDefaultProfile (if present) and generate a\ncharging schedule within the limits of its\ncomposite schedule."
+      },
+      {
+        "id": "K17.FR.16",
+        "precondition": "K17.FR.07\nEV does not return a\ncharging profile",
+        "definition": "Charging Station IS RECOMMENDED to return\nan EV charging profile as a chargingSchedule\nin a NotifyEVChargingScheduleRequest\nmessage to CSMS that matches the schedule\nthat was selected by the EV (i.e. the OCPP\ncharging schedule that is represented by the\nSAScheduleTupleId that EV sent in\nPowerDeliveryReq)."
+      },
+      {
+        "id": "K17.FR.17",
+        "precondition": "K17.FR.01 AND\nCharging Station is\noffline",
+        "definition": "Charging Station SHOULD add timestamp to\nthe NotifyEVChargingNeedsRequest with the\ntime when charging needs were received from\nEV"
+      }
+    ],
+    "figures": [
+      "fig114.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K17 - Renegotiation initiated by EV\n\n| No. | Type         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Renegotiation initiated by EV.                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 2   | ID           | K16                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s) | To let an EV request a new charging schedule.                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 4   | Description  | The EV signals the Charging Station that it wants to renegotiate and it provides new charging needs, which the Charging Station sends to the CSMS. Based on this and other parameters, the CSMS calculates a new charging schedule and sends it via SetChargingProfileRequest to Charging Station, which communicates it to the EV. Note: Description of actions between EV and Charging Station is informative only and not mandated by OCPP. |",
+      "content": "# K17 - Renegotiation initiated by EV.\n\n**Objective:** To let an EV request a new charging schedule.\n\n**Description:** The EV signals the Charging Station that it wants to renegotiate and it provides new charging needs, which the Charging Station sends to the CSMS. Based on this and other parameters, the CSMS calculates a new charging schedule and sends it via SetChargingProfileRequest to Charging Station, which communicates it to the EV.\n\n**Actors:** EV, Charging Station, CSMS\n\n**Scenario:**\n1 When EV sends a ChargeParameterDiscoveryReq, the Charging Station sends a NotifyEVChargingNeedsRequest to the CSMS.\n\n**Prerequisites:** Charging session started according to use case K15.\n\n**Postconditions:** Charging session uses the new charging profile.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "K17 - Renegotiation initiated by EV",
-        "heading_path": "K17 - Renegotiation initiated by EV",
+        "heading": "K17 - Renegotiation initiated by EV.",
         "functional_block": "SmartCharging",
         "use_case_id": "K17",
-        "use_case_name": "Renegotiation initiated by EV",
-        "use_case_refs": "K16, K17",
-        "message_refs": "SetChargingProfileRequest"
+        "use_case_name": "Renegotiation initiated by EV.",
+        "chunk_part": 1,
+        "total_parts": 3
       }
     },
     {
-      "content": "# K17 - Renegotiation initiated by EV - Requirements\n\n| ID        | Precondition                                             | Requirements                                                                | Note |\n| --------- | -------------------------------------------------------- | --------------------------------------------------------------------------- | ---- |\n| K17.FR.01 | EV triggers a renegotiation and sends new charging needs | The Charging Station SHALL send a NotifyEVChargingNeedsRequest to the CSMS. |      |",
+      "content": "# K17 - Requirements\n\n**K17.FR.01**\nPrecondition: EV triggers a\nrenegotiation and\nsends new charging\nneeds\nThe Charging Station SHALL send a\nNotifyEVChargingNeedsRequest to the CSMS.\n\n**K17.FR.02**\nPrecondition: K17.FR.01\nIn response to a\nNotifyEVChargingNeedsRequest the CSMS\nSHALL send a\nNotifyEVChargingNeedsResponse.\n\n**K17.FR.03**\nPrecondition: K17.FR.02 AND\nIf the CSMS is able to\nprovide a charging\nschedule now\nCSMS SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\n'Accepted'.\n\n**K17.FR.04**\nPrecondition: K17.FR.02 AND\nIf the CSMS is not able\nto provide a charging\nschedule now\nCSMS SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\n'Rejected'.\n\n**K17.FR.05**\nPrecondition: K17.FR.02 AND\nIf the CSMS is able to\nprovide a charging\nschedule, but needs\nprocessing time\nCSMS SHALL indicate this by setting the\nstatus field in the\nNotifyEVChargingNeedsResponse to\n'Processing'.\n\n**K17.FR.06**\nA NotifyEVChargingNeedsRequest SHALL\ncontain either ACChargingParameters or\nDCChargingParameters.\n\n**K17.FR.07**\nPrecondition: K17.FR.03 or\nK17.FR.05\nThe CSMS SHALL send a\nSetChargingProfileRequest with\nchargingProfilePurpose = TxProfile and at\nmost three chargingSchedule and optional\nsalesTariff elements, that each contain no\nmore periods than specified by\nmaxScheduleTuples in\nNotifyEVChargingNeedsRequest and by device\nmodel variable\nSmartChargingCtrlr.PeriodsPerSched\nule.\n\n**K17.FR.08**\nPrecondition: K17.FR.01\nThe CSMS SHOULD send a\nSetChargingProfileRequest to the Charging\nStation within 60 seconds.\n\n**K17.FR.09**\nPrecondition: K17.FR.07\nAND\nEV returns a charging\nprofile\nCharging Station SHALL verify that provided\ncharging profile is within boundaries of the\nChargingSchedule from CSMS.\n\n**K17.FR.10**\nPrecondition: K17.FR.09\nCharging Station SHALL send the EV charging\nprofile in a NotifyEVChargingScheduleRequest\nmessage to CSMS.\n\n**K17.FR.11**\nPrecondition: K17.FR.10\nAND\nEV charging profile is\nwithin limits of CSMS\nChargingSchedule\nCSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Accepted to Charging Station.\n\n**K17.FR.12**\nPrecondition: K17.FR.10\nAND\nEV charging profile is\nNOT within limits of\nCSMS\nChargingSchedule\nCSMS responds with\nNotifyEVChargingScheduleResponse with\nstatus Rejected to Charging Station.\n\n**K17.FR.13**\nPrecondition: K17.FR.12\nCSMS starts new renegotiation as per use\ncase K16.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K17 - Renegotiation initiated by EV - Requirements",
-        "heading_path": "K17 - Renegotiation initiated by EV - Requirements",
+        "heading": "K17 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K17",
-        "use_case_name": "Renegotiation initiated by EV",
-        "use_case_refs": "K17",
-        "message_refs": "NotifyEVChargingNeedsRequest"
+        "use_case_name": "Renegotiation initiated by EV.",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# K17 - Requirements (continued)\n\n**K17.FR.14**\nPrecondition: K17.FR.11\nThe Charging Station SHOULD take the\nschedule from the\nNotifyEVChargingScheduleRequest into\naccount when calculating the actual\nComposite schedule.\n\n**K17.FR.15**\nPrecondition: K17.FR.01\nAND\n(K17.FR.04 OR\nCharging Station is\noffline)\nThe Charging Station SHALL use the\nTxDefaultProfile (if present) and generate a\ncharging schedule within the limits of its\ncomposite schedule.\n\n**K17.FR.16**\nPrecondition: K17.FR.07\nEV does not return a\ncharging profile\nCharging Station IS RECOMMENDED to return\nan EV charging profile as a chargingSchedule\nin a NotifyEVChargingScheduleRequest\nmessage to CSMS that matches the schedule\nthat was selected by the EV (i.e. the OCPP\ncharging schedule that is represented by the\nSAScheduleTupleId that EV sent in\nPowerDeliveryReq).\n\n**K17.FR.17**\nPrecondition: K17.FR.01 AND\nCharging Station is\noffline\nCharging Station SHOULD add timestamp to\nthe NotifyEVChargingNeedsRequest with the\ntime when charging needs were received from\nEV\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K17 - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K17",
+        "use_case_name": "Renegotiation initiated by EV.",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

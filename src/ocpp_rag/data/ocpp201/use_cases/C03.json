@@ -1,128 +1,82 @@
 {
   "use_case_id": "C03",
   "functional_block": "Authorization",
-  "use_case_name": "Authorization using credit/debit card",
+  "use_case_name": "Authorization using credit card",
+  "structured": {
+    "name": "Authorization using credit card",
+    "id": "C03",
+    "functional_block": "Authorization",
+    "objective": "Make it possible to start a transaction using a credit card.",
+    "description": "A Charging Station with a credit/debit card terminal built inside the housing, or belonging to a\ngroup of Charging Stations that has a central payment terminal/kiosk. An EV Driver uses his card\nto pay for charging. The transaction is authorized by the payment company, the CSMS receives a\nmessage from the Payment System, and send a RequestStartTransactionRequest to the Charging\nStation to start the transaction.",
+    "actors": [
+      "EV Driver",
+      "Payment System",
+      "CSMS",
+      "Charging Station"
+    ],
+    "scenario": [
+      "1. The EV Driver plugs in the Charging Cable",
+      "2. The Charging Station sends a StatusNotificationRequest and TransactionEventRequest\n(eventType = Started) to notify the CSMS about the cable being plugged in.",
+      "3. The Driver uses the credit/debit card terminal to authorize/pay for charging.",
+      "4. The terminal communicates with its own server/back-office.",
+      "5. The Payment System sends a message to the CSMS authorizing the user.",
+      "6. The CSMS generates a unique id to be used as IdToken for this transaction.",
+      "7. The CSMS sends a RequestStartTransactionRequest with the generated IdToken to the\nCharging Station.",
+      "8. The Charging Station accepts the RequestStartTransactionRequest by sending a\nRequestStartTransactionResponse with Accepted.",
+      "9. The Charging Station start Charging of the EV.",
+      "0. The Charging Station send an TransactionEventRequest (eventType = Updated) to notify the\nCSMS about the charging having started."
+    ],
+    "prerequisites": "Charging Station has a credit/debit card terminal, or belongs to a group of Charging Stations that\nhas a central payment terminal, to start charging of an EV.",
+    "postconditions": "Transaction ongoing on Charging Station",
+    "error_handling": "n/a",
+    "remarks": "This use case is an example of how the existing OCPP messages can be used to handle a\ntransaction that is started with a credit/debit card, it is not required to implement a credit/debit\ncard payment solution in this way.\nA Payment System may consist of multiple components handling the authorization of the user.\nThe interface of these components and the communication between the Payment System and\nCSMS are not in scope of this document.\nStopping a transaction started with a credit/debit card is not defined, this is left to the\nimplementer, this could for example be: Unplugging the cable on the EV side and/or a stop button\netc.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.",
+    "requirements": [
+      {
+        "id": "C03.FR.01",
+        "precondition": "If the Charging Station receives a\nRequestStartTransactionRequest with an\nIdTokenType of type = Central",
+        "definition": "The Charging Station SHALL NOT send an AuthorizeRequest for\nthe received IdTokenType."
+      },
+      {
+        "id": "C03.FR.02",
+        "precondition": "If the Charging Station has implemented an\nAuthorization Cache AND the Charging Station\nreceives IdTokenInfo for an IdTokenType of type\nCentral in any message",
+        "definition": "The Charging Station SHALL NOT store the information in its\nAuthorization Cache."
+      }
+    ],
+    "figures": [
+      "fig22.png",
+      "fig23.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# C03 - Authorization using credit/debit card\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Authorization using credit card                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "content": "# C03 - Authorization using credit card\n\n**Objective:** Make it possible to start a transaction using a credit card.\n\n**Description:** A Charging Station with a credit/debit card terminal built inside the housing, or belonging to a\ngroup of Charging Stations that has a central payment terminal/kiosk. An EV Driver uses his card\nto pay for charging. The transaction is authorized by the payment company, the CSMS receives a\nmessage from the Payment System, and send a RequestStartTransactionRequest to the Charging\nStation to start the transaction.\n\n**Actors:** EV Driver, Payment System, CSMS, Charging Station\n\n**Scenario:**\n1. The EV Driver plugs in the Charging Cable\n2. The Charging Station sends a StatusNotificationRequest and TransactionEventRequest\n(eventType = Started) to notify the CSMS about the cable being plugged in.\n3. The Driver uses the credit/debit card terminal to authorize/pay for charging.\n4. The terminal communicates with its own server/back-office.\n5. The Payment System sends a message to the CSMS authorizing the user.\n6. The CSMS generates a unique id to be used as IdToken for this transaction.\n7. The CSMS sends a RequestStartTransactionRequest with the generated IdToken to the\nCharging Station.\n8. The Charging Station accepts the RequestStartTransactionRequest by sending a\nRequestStartTransactionResponse with Accepted.\n9. The Charging Station start Charging of the EV.\n0. The Charging Station send an TransactionEventRequest (eventType = Updated) to notify the\nCSMS about the charging having started.\n\n**Prerequisites:** Charging Station has a credit/debit card terminal, or belongs to a group of Charging Stations that\nhas a central payment terminal, to start charging of an EV.\n\n**Postconditions:** Transaction ongoing on Charging Station\n\n**Remarks:** This use case is an example of how the existing OCPP messages can be used to handle a\ntransaction that is started with a credit/debit card, it is not required to implement a credit/debit\ncard payment solution in this way.\nA Payment System may consist of multiple components handling the authorization of the user.\nThe interface of these components and the communication between the Payment System and\nCSMS are not in scope of this document.\nStopping a transaction started with a credit/debit card is not defined, this is left to the\nimplementer, this could for example be: Unplugging the cable on the EV side and/or a stop button\netc.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use case: E01 - Start Transaction options.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "C03 - Authorization using credit/debit card",
-        "heading_path": "C03 - Authorization using credit/debit card",
+        "heading": "C03 - Authorization using credit card",
         "functional_block": "Authorization",
         "use_case_id": "C03",
-        "use_case_name": "Authorization using credit/debit card",
-        "use_case_refs": "C03, E01",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
+        "use_case_name": "Authorization using credit card",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 2
       }
     },
     {
-      "content": "| 2   | ID               | C03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)     | Make it possible to start a transaction using a credit card.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C03 - Authorization using credit/debit card",
-        "heading_path": "C03 - Authorization using credit/debit card",
-        "functional_block": "Authorization",
-        "use_case_id": "C03",
-        "use_case_name": "Authorization using credit/debit card",
-        "use_case_refs": "C03, E01",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
-        "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 4   | Description      | A Charging Station with a credit/debit card terminal built inside the housing, or belonging to a group of Charging Stations that has a central payment terminal/kiosk. An EV Driver uses his card to pay for charging. The transaction is authorized by the payment company, the CSMS receives a message from the Payment System, and send a RequestStartTransactionRequest to the Charging Station to start the transaction. Actors: EV Driver, Payment System, CSMS, Charging Station Scenario description:1) The EV Driver plugs in the Charging Cable\n2) The Charging Station sends a StatusNotificationRequest and TransactionEventRequest (eventType = Started) to notify the CSMS about the cable being plugged in.\n3) The Driver uses the credit/debit card terminal to authorize/pay for charging.\n4) The terminal communicates with its own server/back-office.\n5) The Payment System sends a message to the CSMS authorizing the user.\n6) The CSMS generates a unique id to be used as IdToken for this transaction.\n7) The CSMS sends a RequestStartTransactionRequest with the generated IdToken to the Charging Station.\n8) The Charging Station accepts the RequestStartTransactionRequest by sending a RequestStartTransactionResponse with Accepted.\n9) The Charging Station start Charging of the EV.\n10) The Charging Station send an TransactionEventRequest (eventType = Updated) to notify the CSMS about the charging having started. |\n| 5   | Prerequisites    | Charging Station has a credit/debit card terminal, or belongs to a group of Charging Stations that has a central payment terminal, to start charging of an EV.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C03 - Authorization using credit/debit card",
-        "heading_path": "C03 - Authorization using credit/debit card",
-        "functional_block": "Authorization",
-        "use_case_id": "C03",
-        "use_case_name": "Authorization using credit/debit card",
-        "use_case_refs": "C03, E01",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s) | Transaction ongoing on Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C03 - Authorization using credit/debit card",
-        "heading_path": "C03 - Authorization using credit/debit card",
-        "functional_block": "Authorization",
-        "use_case_id": "C03",
-        "use_case_name": "Authorization using credit/debit card",
-        "use_case_refs": "C03, E01",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 8   | Remarks          | This use case is an example of how the existing OCPP messages can be used to handle a transaction that is started with a credit/debit card, it is not required to implement a credit/debit card payment solution in this way. A Payment System may consist of multiple components handling the authorization of the user. The interface of these components and the communication between the Payment System and CSMS are not in scope of this document. Stopping a transaction started with a credit/debit card is not defined, this is left to the implementer, this could for example be: Unplugging the cable on the EV side and/or a stop button etc. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: EVConnected. This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use case: E01 - Start Transaction options.                                                                                                                                                                                                                                                                                                                                                                       |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "C03 - Authorization using credit/debit card",
-        "heading_path": "C03 - Authorization using credit/debit card",
-        "functional_block": "Authorization",
-        "use_case_id": "C03",
-        "use_case_name": "Authorization using credit/debit card",
-        "use_case_refs": "C03, E01",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# Charging Station\n\nEV Driver   CS-001                     CSMS     Payment System\n\nPlugin cable\n\n- StatusNotificationRequest(Occupied)\n- StatusNotificationResponse()\n- TransactionEventRequest(eventType = Started, triggerReason = CablePluggedIn, seqNo = 0, transactionId = AB1234, evse.id = 1, evse.connectorId = 1, meterValues, ...)\n- TransactionEventResponse(...)\n- use card\n- financial transaction\n- authorized(TransactionReference = 1234, CS = CS-001, EVSE = 1)\n- generate unique id()\n- result = 4444\n- RequestStartTransactionRequest(evseId = 1 idToken(id = 4444, type = Central), remoteStartId = 123)\n- RequestStartTransactionResponse(Accepted)\n- opt [if cable not permanently attached]\n- lock connector\n- Start energy offer\n- TransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = 1, chargingState = Charging, triggerReason = RemoteStart, remoteStartId = 123, idToken(id = 4444, type = Central))\n- TransactionEventResponse(idTokenInfo.status = Accepted)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Charging Station",
-        "heading_path": "Charging Station",
-        "functional_block": "Authorization",
-        "use_case_id": "C03",
-        "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# C03 - Authorization using credit/debit card - Requirements\n\n| ID.       | Precondition                                                                                                                                                   | Requirement definition                                                                |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |\n| C03.FR.01 | If the Charging Station receives a RequestStartTransactionRequest with an IdTokenType of type = Central                                                        | The Charging Station SHALL NOT send an AuthorizeRequest for the received IdTokenType. |\n| C03.FR.02 | If the Charging Station has implemented an Authorization Cache AND the Charging Station receives IdTokenInfo for an IdTokenType of type Central in any message | The Charging Station SHALL NOT store the information in its Authorization Cache.      |",
+      "content": "# C03 - Requirements\n\n**C03.FR.01**\nPrecondition: If the Charging Station receives a\nRequestStartTransactionRequest with an\nIdTokenType of type = Central\nThe Charging Station SHALL NOT send an AuthorizeRequest for\nthe received IdTokenType.\n\n**C03.FR.02**\nPrecondition: If the Charging Station has implemented an\nAuthorization Cache AND the Charging Station\nreceives IdTokenInfo for an IdTokenType of type\nCentral in any message\nThe Charging Station SHALL NOT store the information in its\nAuthorization Cache.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "C03 - Authorization using credit/debit card - Requirements",
-        "heading_path": "C03 - Authorization using credit/debit card - Requirements",
+        "heading": "C03 - Requirements",
         "functional_block": "Authorization",
         "use_case_id": "C03",
-        "use_case_name": "Authorization using credit/debit card",
-        "use_case_refs": "C03",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest"
+        "use_case_name": "Authorization using credit card",
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,113 +2,229 @@
   "use_case_id": "F01",
   "functional_block": "RemoteControl",
   "use_case_name": "Remote Start Transaction - Cable Plugin First",
+  "structured": {
+    "name": "Remote Start Transaction - Cable Plugin First",
+    "id": "F01",
+    "functional_block": "RemoteControl",
+    "objective": "1. To remotely start a transaction by the CSMS.\n2. To enable a CSO to help an EV Driver that has problems starting a transaction.\n3. To enable third parties (e.g. mobile apps) to control charging transactions via the CSMS.",
+    "description": "This use case describes how the CSMS remotely requests the Charging Station to start a\ntransaction by sending RequestStartTransactionRequest. Upon receipt, the Charging Station\nresponds with RequestStartTransactionResponse and a status indicating whether it is able to try\nto start a transaction or not.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "CSO"
+    ],
+    "scenario": [
+      "1. The EV Driver plugs in the cable at the Charging Station.",
+      "2. The Charging Station sends a StatusNotificationRequest to the CSMS to inform it about a\nConnector that became Occupied.",
+      "3. The CSMS responds with a StatusNotificationResponse, confirming that the\nStatusNotificationRequest was received.",
+      "4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started (even when the driver is not yet known.)",
+      "5. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received.",
+      "6. An external trigger (as example in this use case: EV Driver) triggers the remote start.",
+      "7. The CSMS sends a RequestStartTransactionRequest to the Charging Station.\n8 The Charging Station responds with a RequestStartTransactionResponse with the transactionId\nof the already started transaction to the CSMS.",
+      "9. Optionally: the EV Driver is authorized by the CSMS.",
+      "0. The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState\n= Charging) message to inform the CSMS that the charging has started."
+    ],
+    "prerequisites": "Charging Cable plugged in first.",
+    "postconditions": "The Charging Station offers energy. If the value of AuthorizeRemoteStart is true, the\nCharging Station will only offer energy when it successfully authorized the IdToken, using Local\nAuthorization List, Authorization Cache and/or an AuthorizeRequest.",
+    "error_handling": "n/a",
+    "remarks": "An external trigger can be e.g. a Charging Station Operator or an EV Driver app.\nThe RequestStartTransactionResponse contains a status which indicates whether the Charging\nStation has accepted the request and will attempt to start a transaction.\nThe CSMS is allowed to send a RequestStartTransactionRequest with IdTokenType of type:\nNoAuthorization. The operator should be aware that if the Charging Station supports local stop\ntransaction, this transaction can be stopped by anyone.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use cases: E01 - Start Transaction options.",
+    "requirements": [
+      {
+        "id": "F01.FR.01",
+        "precondition": "Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = true\nAND\nidToken.type is NOT Central or\nNoAuthorization )",
+        "definition": "The Charging Station SHALL behave as if in\nresponse to a local action at the Charging Station\nto allow energy transfer after successful\nauthorization of the IdToken given in\nRequestStartTransactionRequest message."
+      },
+      {
+        "id": "F01.FR.02",
+        "precondition": "Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = false\nOR\nidToken.type is Central or\nNoAuthorization )",
+        "definition": "The Charging Station SHALL allow energy transfer\nfor the IdToken given in\nRequestStartTransactionRequest message without\nchecking authorization."
+      },
+      {
+        "id": "F01.FR.03",
+        "precondition": "F01.FR.01 OR F01.FR.02",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest to the CSMS, and the\nCSMS will check the authorization status of the\nIdToken when processing this\nTransactionEventRequest."
+      },
+      {
+        "id": "F01.FR.04",
+        "precondition": "",
+        "definition": "RequestStartTransactionRequest SHALL contain an\nIdToken, which Charging Station SHALL use, if it is\nable to start a transaction, in the\nTransactionEventRequest sent to the CSMS."
+      },
+      {
+        "id": "F01.FR.05",
+        "precondition": "",
+        "definition": "The transaction SHALL be started in the same way\nas described in E02 - Start Transaction - Cable\nPlugin First."
+      },
+      {
+        "id": "F01.FR.06",
+        "precondition": "",
+        "definition": "RequestStartTransactionRequest MAY contain an\nevseId if the transaction is to be started on a\nspecific EVSE."
+      },
+      {
+        "id": "F01.FR.07",
+        "precondition": "If the\nRequestStartTransactionRequest\ndoes not contain an evseId.",
+        "definition": "The Charging Station MAY reject the\nRequestStartTransactionRequest."
+      },
+      {
+        "id": "F01.FR.08",
+        "precondition": "",
+        "definition": "The CSMS MAY include a ChargingProfile in the\nRequestStartTransactionRequest."
+      },
+      {
+        "id": "F01.FR.09",
+        "precondition": "F01.FR.08",
+        "definition": "The purpose of this ChargingProfile SHALL be set\nto TxProfile."
+      },
+      {
+        "id": "F01.FR.10",
+        "precondition": "F01.FR.08",
+        "definition": "The Charging Station SHALL use this\nChargingProfile for the transaction that is started\nby this RequestStartTransaction."
+      },
+      {
+        "id": "F01.FR.11",
+        "precondition": "F01.FR.08",
+        "definition": "The transactionId in the ChargingProfile SHALL\nNOT be set."
+      },
+      {
+        "id": "F01.FR.12",
+        "precondition": "If a Charging Station without support\nfor Smart Charging receives a\nRequestStartTransactionRequest with\na ChargingProfile.",
+        "definition": "The Charging Station SHALL ignore the specified\nChargingProfile."
+      },
+      {
+        "id": "F01.FR.13",
+        "precondition": "When a transaction is created on the\nCharging Station, but has not been\nauthorized.\nAND\nRequestStartTransactionRequest is\nreceived.",
+        "definition": "The Charging Station SHALL return the\ntransactionId in the\nRequestStartTransactionResponse."
+      },
+      {
+        "id": "F01.FR.14",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details at the\nstart of the transaction."
+      },
+      {
+        "id": "F01.FR.15",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during\nupdates of the transaction."
+      },
+      {
+        "id": "F01.FR.16",
+        "precondition": "F01.FR.15\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)",
+        "definition": "The Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp."
+      },
+      {
+        "id": "F01.FR.17",
+        "precondition": "When sending a\nTransactionEventRequest",
+        "definition": "The Charging Station SHALL set the triggerReason\nto inform the CSMS about what triggered the event.\nWhat reason to use is described in the description\nof TriggerReasonEnumType."
+      },
+      {
+        "id": "F01.FR.18",
+        "precondition": "After a transaction has been started",
+        "definition": "The Charging Station MAY send additional\nTransactionEventRequest(eventType = Updated)\nmessages during the transaction when a trigger\nevent occurs."
+      },
+      {
+        "id": "F01.FR.19",
+        "precondition": "When a\nRequestStartTransactionRequest is\nreceived.",
+        "definition": "The next TransactionEventRequest SHALL contain\ntriggerReason: RemoteStart."
+      },
+      {
+        "id": "F01.FR.20",
+        "precondition": "If the\nRequestStartTransactionRequest\ndoes not contain an evseId AND\nthe Charging Station is capable of\nselecting an EVSE or accepts a plug-in\nat an arbitrary EVSE",
+        "definition": "The Charging Station SHALL report in later\nTransactionEventRequests the selected EVSE or\nthe EVSE where cable is plugged in."
+      },
+      {
+        "id": "F01.FR.21",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nhas no reservation for a groupIdToken",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F01.FR.22",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nis Reserved for a groupIdToken that\ndiffers from groupIdToken in the\nrequest",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F01.FR.23",
+        "precondition": "When the evse for\nRequestStartTransactionRequest is\nUnavailable or Faulted",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F01.FR.24",
+        "precondition": "When the evseId for\nRequestStartTransactionRequest is\nOccupied AND\nthis evseId has a transaction that has\nbeen authorized",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected."
+      },
+      {
+        "id": "F01.FR.25",
+        "precondition": "F01.FR.13",
+        "definition": "The Charging Station SHALL put the remoteStartId\nin the next TransactionEventRequest it sends for\nthe associated transaction."
+      },
+      {
+        "id": "F01.FR.26",
+        "precondition": "If a Charging Station with support for\nSmart Charging receives a\nRequestStartTransactionRequest with\nan invalid ChargingProfile.",
+        "definition": "The Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected and optionally with reasonCode =\n\"InvalidProfile\" or \"InvalidSchedule\"."
+      }
+    ],
+    "figures": [
+      "fig64.png",
+      "fig65.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# F01 - Remote Start Transaction - Cable Plugin First\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Remote Start Transaction - Cable Plugin First                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "content": "# F01 - Remote Start Transaction - Cable Plugin First\n\n**Objective:** 1. To remotely start a transaction by the CSMS.\n2. To enable a CSO to help an EV Driver that has problems starting a transaction.\n3. To enable third parties (e.g. mobile apps) to control charging transactions via the CSMS.\n\n**Description:** This use case describes how the CSMS remotely requests the Charging Station to start a\ntransaction by sending RequestStartTransactionRequest. Upon receipt, the Charging Station\nresponds with RequestStartTransactionResponse and a status indicating whether it is able to try\nto start a transaction or not.\n\n**Actors:** Charging Station, CSMS, CSO\n\n**Scenario:**\n1. The EV Driver plugs in the cable at the Charging Station.\n2. The Charging Station sends a StatusNotificationRequest to the CSMS to inform it about a\nConnector that became Occupied.\n3. The CSMS responds with a StatusNotificationResponse, confirming that the\nStatusNotificationRequest was received.\n4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started (even when the driver is not yet known.)\n5. The CSMS responds with a TransactionEventResponse, confirming that the\nTransactionEventRequest was received.\n6. An external trigger (as example in this use case: EV Driver) triggers the remote start.\n7. The CSMS sends a RequestStartTransactionRequest to the Charging Station.\n8 The Charging Station responds with a RequestStartTransactionResponse with the transactionId\nof the already started transaction to the CSMS.\n9. Optionally: the EV Driver is authorized by the CSMS.\n0. The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState\n= Charging) message to inform the CSMS that the charging has started.\n\n**Prerequisites:** Charging Cable plugged in first.\n\n**Postconditions:** The Charging Station offers energy. If the value of AuthorizeRemoteStart is true, the\nCharging Station will only offer energy when it successfully authorized the IdToken, using Local\nAuthorization List, Authorization Cache and/or an AuthorizeRequest.\n\n**Remarks:** An external trigger can be e.g. a Charging Station Operator or an EV Driver app.\nThe RequestStartTransactionResponse contains a status which indicates whether the Charging\nStation has accepted the request and will attempt to start a transaction.\nThe CSMS is allowed to send a RequestStartTransactionRequest with IdTokenType of type:\nNoAuthorization. The operator should be aware that if the Charging Station supports local stop\ntransaction, this transaction can be stopped by anyone.\nThe scenario description and sequence diagram above are based on the Configuration Variable\nfor start transaction being configured as follows:\nTxStartPoint: EVConnected\nThis use-case is also valid for other configurations, but then the transaction might start/stop at\nanother moment, which might change the sequence in which message are send. For more details\nsee the use cases: E01 - Start Transaction options.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "F01 - Remote Start Transaction - Cable Plugin First",
-        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
         "functional_block": "RemoteControl",
         "use_case_id": "F01",
         "use_case_name": "Remote Start Transaction - Cable Plugin First",
-        "use_case_refs": "E01, F01",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 4
       }
     },
     {
-      "content": "| 2   | ID               | F01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 3   | Objective(s)     | 1. To remotely start a transaction by the CSMS. 2. To enable a CSO to help an EV Driver that has problems starting a transaction. 3. To enable third parties (e.g. mobile apps) to control charging transactions via the CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
-        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F01",
-        "use_case_name": "Remote Start Transaction - Cable Plugin First",
-        "use_case_refs": "E01, F01",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 4   | Description      | This use case describes how the CSMS remotely requests the Charging Station to start a transaction by sending RequestStartTransactionRequest. Upon receipt, the Charging Station responds with RequestStartTransactionResponse and a status indicating whether it is able to try to start a transaction or not. **Actors:** Charging Station, CSMS, CSO **Scenario description:** 1. The EV Driver plugs in the cable at the Charging Station. 2. The Charging Station sends a StatusNotificationRequest to the CSMS to inform it about a Connector that became Occupied. 3. The CSMS responds with a StatusNotificationResponse, confirming that the StatusNotificationRequest was received. 4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started (even when the driver is not yet known). 5. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received. 6. An external trigger (as example in this use case: EV Driver) triggers the remote start. 7. The CSMS sends a RequestStartTransactionRequest to the Charging Station. 8. The Charging Station responds with a RequestStartTransactionResponse with the transactionId of the already started transaction to the CSMS. 9. Optionally: the EV Driver is authorized by the CSMS. 10. The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState = Charging) message to inform the CSMS that the charging has started. |\n| 5   | Prerequisite(s)  | Charging Cable plugged in first.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
-        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F01",
-        "use_case_name": "Remote Start Transaction - Cable Plugin First",
-        "use_case_refs": "E01, F01",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 6   | Postcondition(s) | The Charging Station offers energy. If the value of AuthorizeRemoteStart is true, the Charging Station will only offer energy when it successfully authorized the IdToken, using Local Authorization List, Authorization Cache and/or an AuthorizeRequest.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
-        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F01",
-        "use_case_name": "Remote Start Transaction - Cable Plugin First",
-        "use_case_refs": "E01, F01",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)        | An external trigger can be e.g. a Charging Station Operator or an EV Driver app. The RequestStartTransactionResponse contains a status which indicates whether the Charging Station has accepted the request and will attempt to start a transaction. The CSMS is allowed to send a RequestStartTransactionRequest with IdTokenType of type: NoAuthorization. The operator should be aware that if the Charging Station supports local stop transaction, this transaction can be stopped by anyone. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: EVConnected. This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use cases: E01 - Start Transaction options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
-        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
-        "functional_block": "RemoteControl",
-        "use_case_id": "F01",
-        "use_case_name": "Remote Start Transaction - Cable Plugin First",
-        "use_case_refs": "E01, F01",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# F01 - Remote Start Transaction - Cable Plugin First - Requirements\n\n| ID        | Precondition                                                   | Requirement definition                                                                                                                                                                                                | Note                                                                                                                                                                                                                                            |\n| --------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| F01.FR.01 | Charging Station receives a RequestStartTransactionRequest AND | The Charging Station SHALL behave as if in response to a local action at the Charging Station to allow energy transfer after successful authorization of the IdToken given in RequestStartTransactionRequest message. | Charging Station will first respond to the request and then try to authorize the IdToken, using the Local Authorization List, Authorization Cache and/or an AuthorizeRequest. Energy transfer is only allowed after authorization was obtained. |",
+      "content": "# F01 - Requirements\n\n**F01.FR.01**\nPrecondition: Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = true\nAND\nidToken.type is NOT Central or\nNoAuthorization )\nThe Charging Station SHALL behave as if in\nresponse to a local action at the Charging Station\nto allow energy transfer after successful\nauthorization of the IdToken given in\nRequestStartTransactionRequest message.\n\n**F01.FR.02**\nPrecondition: Charging Station receives a\nRequestStartTransactionRequest AND\n( AuthorizeRemoteStart = false\nOR\nidToken.type is Central or\nNoAuthorization )\nThe Charging Station SHALL allow energy transfer\nfor the IdToken given in\nRequestStartTransactionRequest message without\nchecking authorization.\n\n**F01.FR.03**\nPrecondition: F01.FR.01 OR F01.FR.02\nThe Charging Station SHALL send a\nTransactionEventRequest to the CSMS, and the\nCSMS will check the authorization status of the\nIdToken when processing this\nTransactionEventRequest.\n\n**F01.FR.04**\nRequestStartTransactionRequest SHALL contain an\nIdToken, which Charging Station SHALL use, if it is\nable to start a transaction, in the\nTransactionEventRequest sent to the CSMS.\n\n**F01.FR.05**\nThe transaction SHALL be started in the same way\nas described in E02 - Start Transaction - Cable\nPlugin First.\n\n**F01.FR.06**\nRequestStartTransactionRequest MAY contain an\nevseId if the transaction is to be started on a\nspecific EVSE.\n\n**F01.FR.07**\nPrecondition: If the\nRequestStartTransactionRequest\ndoes not contain an evseId.\nThe Charging Station MAY reject the\nRequestStartTransactionRequest.\n\n**F01.FR.08**\nThe CSMS MAY include a ChargingProfile in the\nRequestStartTransactionRequest.\n\n**F01.FR.09**\nPrecondition: F01.FR.08\nThe purpose of this ChargingProfile SHALL be set\nto TxProfile.\n\n**F01.FR.10**\nPrecondition: F01.FR.08\nThe Charging Station SHALL use this\nChargingProfile for the transaction that is started\nby this RequestStartTransaction.\n\n**F01.FR.11**\nPrecondition: F01.FR.08\nThe transactionId in the ChargingProfile SHALL\nNOT be set.\n\n**F01.FR.12**\nPrecondition: If a Charging Station without support\nfor Smart Charging receives a\nRequestStartTransactionRequest with\na ChargingProfile.\nThe Charging Station SHALL ignore the specified\nChargingProfile.\n\n**F01.FR.13**\nPrecondition: When a transaction is created on the\nCharging Station, but has not been\nauthorized.\nAND\nRequestStartTransactionRequest is\nreceived.\nThe Charging Station SHALL return the\ntransactionId in the\nRequestStartTransactionResponse.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "F01 - Remote Start Transaction - Cable Plugin First - Requirements",
-        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First - Requirements",
+        "heading": "F01 - Requirements",
         "functional_block": "RemoteControl",
         "use_case_id": "F01",
         "use_case_name": "Remote Start Transaction - Cable Plugin First",
-        "use_case_refs": "F01",
-        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest"
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# F01 - Requirements (continued)\n\n**F01.FR.14**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Started), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Started)\nsent to the CSMS to provide more details at the\nstart of the transaction.\n\n**F01.FR.15**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Updated), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field in the\nTransactionEventRequest(eventType = Updated)\nsent to the CSMS to provide more details during\nupdates of the transaction.\n\n**F01.FR.16**\nPrecondition: F01.FR.15\nAND\nAmount of meter data is too much for\n1 TransactionEventRequest\n(eventType = Updated)\nThe Charging Station MAY split meter data over\nmultiple TransactionEventRequest(eventType =\nUpdated) messages with the same timestamp.\n\n**F01.FR.17**\nPrecondition: When sending a\nTransactionEventRequest\nThe Charging Station SHALL set the triggerReason\nto inform the CSMS about what triggered the event.\nWhat reason to use is described in the description\nof TriggerReasonEnumType.\n\n**F01.FR.18**\nPrecondition: After a transaction has been started\nThe Charging Station MAY send additional\nTransactionEventRequest(eventType = Updated)\nmessages during the transaction when a trigger\nevent occurs.\n\n**F01.FR.19**\nPrecondition: When a\nRequestStartTransactionRequest is\nreceived.\nThe next TransactionEventRequest SHALL contain\ntriggerReason: RemoteStart.\n\n**F01.FR.20**\nPrecondition: If the\nRequestStartTransactionRequest\ndoes not contain an evseId AND\nthe Charging Station is capable of\nselecting an EVSE or accepts a plug-in\nat an arbitrary EVSE\nThe Charging Station SHALL report in later\nTransactionEventRequests the selected EVSE or\nthe EVSE where cable is plugged in.\n\n**F01.FR.21**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nhas no reservation for a groupIdToken\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F01 - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# F01 - Requirements (continued)\n\n**F01.FR.22**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nReserved for an idToken that differs\nfrom idToken in the request AND\nis Reserved for a groupIdToken that\ndiffers from groupIdToken in the\nrequest\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F01.FR.23**\nPrecondition: When the evse for\nRequestStartTransactionRequest is\nUnavailable or Faulted\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F01.FR.24**\nPrecondition: When the evseId for\nRequestStartTransactionRequest is\nOccupied AND\nthis evseId has a transaction that has\nbeen authorized\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected.\n\n**F01.FR.25**\nPrecondition: F01.FR.13\nThe Charging Station SHALL put the remoteStartId\nin the next TransactionEventRequest it sends for\nthe associated transaction.\n\n**F01.FR.26**\nPrecondition: If a Charging Station with support for\nSmart Charging receives a\nRequestStartTransactionRequest with\nan invalid ChargingProfile.\nThe Charging Station SHALL respond with\nRequestStartTransactionResponse with status =\nRejected and optionally with reasonCode =\n\"InvalidProfile\" or \"InvalidSchedule\".\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F01 - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "chunk_part": 4,
+        "total_parts": 4
       }
     }
-  ],
-  "figures": []
+  ]
 }

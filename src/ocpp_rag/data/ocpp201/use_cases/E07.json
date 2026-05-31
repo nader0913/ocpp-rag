@@ -2,66 +2,121 @@
   "use_case_id": "E07",
   "functional_block": "Transactions",
   "use_case_name": "Transaction locally stopped by IdToken",
+  "structured": {
+    "name": "Transaction locally stopped by IdToken",
+    "id": "E07",
+    "functional_block": "Transactions",
+    "objective": "The EV Driver wants to stop an ongoing transaction, by locally presenting his IdToken.",
+    "description": "This use case covers how the EV Driver can stop a transaction when he wants to leave the\ncharging station.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "TxStopPoint = Authorized (or PowerPathClosed)",
+      "1. The EV Driver presents IdToken a second time to end charging.",
+      "2. The Charging Station stops the energy transfer and if the cable is not permanently attached, the\nCharging Station unlocks the cable.",
+      "3. The Charging Station sends a TransactionEventRequest (eventType = Ended) with\ntriggerReason = StopAuthorized and stoppedReason = Local.",
+      "4. The CSMS responds with a TransactionEventResponse."
+    ],
+    "prerequisites": "A transaction is ongoing.",
+    "postconditions": "Successful postcondition:\nThe CSMS has received all relevant information about the transaction and the Charging Station is\nin Idle status.\nFailure postcondition:\nThe transaction is still ongoing or the Charging Station is in Idle status and still holds information\nabout the transaction that it has to deliver to the CSMS.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "E07.FR.01",
+        "precondition": "When an idToken is presented during\na transaction that has been authorized\nAND\n(a) the presented idToken is the same\nas the idToken that started the\nauthorization\nOR\n(b) when the presented idToken is in\nthe Local Authorization List or\nAuthorization Cache AND is valid AND\nhas the same GroupIdToken as the\nIdToken that started the authorization.",
+        "definition": "The Charging Station SHALL end the authorization\nof the transaction, without first sending an\nAuthorizeRequest"
+      },
+      {
+        "id": "E07.FR.02",
+        "precondition": "E07.FR.01",
+        "definition": "The Charging Station SHALL send a\nTransactionEventRequest with triggerReason =\nStopAuthorized and SHOULD include the\nidToken used to stop authorization."
+      },
+      {
+        "id": "E07.FR.04",
+        "precondition": "If a transaction is stopped on request\nof the EV driver at the Charging\nStation.",
+        "definition": "Charging Station MAY omit the stoppedReason\nelement from the final TransactionEventRequest\nwith eventType = Ended"
+      },
+      {
+        "id": "E07.FR.05",
+        "precondition": "If a transaction is stopped on request\nof the EV driver at the Charging\nStation.",
+        "definition": "Charging Station SHOULD use a stoppedReason =\nLocal in the final TransactionEventRequest with\neventType = Ended."
+      },
+      {
+        "id": "E07.FR.06",
+        "precondition": "If a transaction is stopped, but not on\nrequest of the EV driver at the\nCharging Station.",
+        "definition": "Charging Station SHOULD use the most appropriate\nvalue from ReasonEnumType for stoppedReason in\nthe final TransactionEventRequest with eventType =\nEnded."
+      },
+      {
+        "id": "E07.FR.07",
+        "precondition": "E07.FR.02",
+        "definition": "The Charging Station SHALL unlock the cable (if\nnot permanently attached)."
+      },
+      {
+        "id": "E07.FR.08",
+        "precondition": "When configured to send meter data\nin the TransactionEventRequest\n(eventType = Ended), See: Meter\nValues - Configuration",
+        "definition": "The Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.End in the\nTransactionEventRequest(eventType = Ended) sent\nto the CSMS to provide more details about\ntransaction usage."
+      },
+      {
+        "id": "E07.FR.09",
+        "precondition": "E07.FR.08\nAND\nThe Charging Station is running low on\nmemory",
+        "definition": "The Charging Station MAY drop meter data in the\nTransactionEventRequest(eventType = Ended)\nmessage."
+      },
+      {
+        "id": "E07.FR.10",
+        "precondition": "E07.FR.09",
+        "definition": "When dropping meter data, the Charging Station\nSHALL drop intermediate values first (2nd value,\n4th value, 6th etc), not drop the start and end values\nfrom the list."
+      },
+      {
+        "id": "E07.FR.11",
+        "precondition": "When a TransactionEventRequest has\nto be created",
+        "definition": "The Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration."
+      },
+      {
+        "id": "E07.FR.12",
+        "precondition": "SampledDataSignReadings is true",
+        "definition": "The Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues."
+      }
+    ],
+    "figures": [
+      "fig54.png",
+      "fig55.png",
+      "fig56.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# E07 - Transaction locally stopped by IdToken\n\n| No. | Type         | Description                                                                                                |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Transaction locally stopped by IdToken                                                                     |\n| 2   | ID           | E07                                                                                                        |\n| 3   | Objective(s) | The EV Driver wants to stop an ongoing transaction, by locally presenting his IdToken.                     |\n| 4   | Description  | This use case covers how the EV Driver can stop a transaction when he wants to leave the charging station. |\n\nActors: Charging Station, CSMS, EV Driver",
+      "content": "# E07 - Transaction locally stopped by IdToken\n\n**Objective:** The EV Driver wants to stop an ongoing transaction, by locally presenting his IdToken.\n\n**Description:** This use case covers how the EV Driver can stop a transaction when he wants to leave the\ncharging station.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\nTxStopPoint = Authorized (or PowerPathClosed)\n1. The EV Driver presents IdToken a second time to end charging.\n2. The Charging Station stops the energy transfer and if the cable is not permanently attached, the\nCharging Station unlocks the cable.\n3. The Charging Station sends a TransactionEventRequest (eventType = Ended) with\ntriggerReason = StopAuthorized and stoppedReason = Local.\n4. The CSMS responds with a TransactionEventResponse.\n\n**Prerequisites:** A transaction is ongoing.\n\n**Postconditions:** Successful postcondition:\nThe CSMS has received all relevant information about the transaction and the Charging Station is\nin Idle status.\nFailure postcondition:\nThe transaction is still ongoing or the Charging Station is in Idle status and still holds information\nabout the transaction that it has to deliver to the CSMS.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "E07 - Transaction locally stopped by IdToken",
-        "heading_path": "E07 - Transaction locally stopped by IdToken",
         "functional_block": "Transactions",
         "use_case_id": "E07",
         "use_case_name": "Transaction locally stopped by IdToken",
-        "use_case_refs": "E07"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# Scenario description\n\nTxStopPoint = Authorized (or PowerPathClosed)\n\nReporting\n\n1. The EV Driver presents IdToken a second time to end charging.\n2. The Charging Station stops the energy transfer and if the cable is not permanently attached, the Charging Station unlocks the cable.\n3. The Charging Station sends a TransactionEventRequest (eventType = Ended) with triggerReason = StopAuthorized and stoppedReason = Local.\n4. The CSMS responds with a TransactionEventResponse.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Scenario description",
-        "heading_path": "Scenario description",
-        "functional_block": "Transactions",
-        "use_case_id": "E07",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# Alternative scenario(s)\n\nTxStopPoint = Authorized (or PowerPathClosed)\n\nReporting\n\n1. The EV Driver presents IdToken a second time to end charging.\n2. The Charging Station sends a TransactionEventRequest (eventType = Updated) with triggerReason = StopAuthorized.\n3. The CSMS responds with a TransactionEventResponse.\n4. The Charging Station stops the energy transfer and if the cable is not permanently attached, the Charging Station unlocks the cable.\n5. The Charging Station sends a TransactionEventRequest (eventType = Ended) with triggerReason = ChargingStateChanged, transactionInfo.chargingState = EVConnected.\n6. The CSMS responds with a TransactionEventResponse.\n\n| 5 | Prerequisite(s)  | A transaction is ongoing.                                                                                                                                                               |\n| - | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 6 | Postcondition(s) | Successful postcondition: The CSMS has received all relevant information about the transaction and the Charging Station is in Idle status.                                              |\n|   |                  | Failure postcondition: The transaction is still ongoing or the Charging Station is in Idle status and still holds information about the transaction that it has to deliver to the CSMS. |\n| 7 | Error handling   | n/a                                                                                                                                                                                     |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "general",
-        "heading": "Alternative scenario(s)",
-        "heading_path": "Alternative scenario(s)",
-        "functional_block": "Transactions",
-        "use_case_id": "E07",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
-      }
-    },
-    {
-      "content": "# E07 - Transaction locally stopped by IdToken - Requirements\n\n| ID        | Precondition                                                                                                                                                                       | Requirement definition                                                                                         |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |\n| E07.FR.01 | When an idToken is presented during a transaction that has been authorized AND                                                                                                     | The Charging Station SHALL end the authorization of the transaction, without first sending an AuthorizeRequest |\n|           | (a) the presented idToken is the same as the idToken that started the authorization OR                                                                                             |                                                                                                                |\n|           | (b) when the presented idToken is in the Local Authorization List or Authorization Cache AND is valid AND has the same GroupIdToken as the IdToken that started the authorization. |                                                                                                                |\n\nNote\n\nThe idToken that started the authorization can always be used to end the authorization. Ending authorization will end delivery of energy. Depending on the of TxStopPoint ending the authorization may also end the transaction. Read use case C09 (C09.FR.05/07) for of detailed description stopping based on groupId.",
+      "content": "# E07 - Requirements\n\n**E07.FR.01**\nPrecondition: When an idToken is presented during\na transaction that has been authorized\nAND\n(a) the presented idToken is the same\nas the idToken that started the\nauthorization\nOR\n(b) when the presented idToken is in\nthe Local Authorization List or\nAuthorization Cache AND is valid AND\nhas the same GroupIdToken as the\nIdToken that started the authorization.\nThe Charging Station SHALL end the authorization\nof the transaction, without first sending an\nAuthorizeRequest\n\n**E07.FR.02**\nPrecondition: E07.FR.01\nThe Charging Station SHALL send a\nTransactionEventRequest with triggerReason =\nStopAuthorized and SHOULD include the\nidToken used to stop authorization.\n\n**E07.FR.04**\nPrecondition: If a transaction is stopped on request\nof the EV driver at the Charging\nStation.\nCharging Station MAY omit the stoppedReason\nelement from the final TransactionEventRequest\nwith eventType = Ended\n\n**E07.FR.05**\nPrecondition: If a transaction is stopped on request\nof the EV driver at the Charging\nStation.\nCharging Station SHOULD use a stoppedReason =\nLocal in the final TransactionEventRequest with\neventType = Ended.\n\n**E07.FR.06**\nPrecondition: If a transaction is stopped, but not on\nrequest of the EV driver at the\nCharging Station.\nCharging Station SHOULD use the most appropriate\nvalue from ReasonEnumType for stoppedReason in\nthe final TransactionEventRequest with eventType =\nEnded.\n\n**E07.FR.07**\nPrecondition: E07.FR.02\nThe Charging Station SHALL unlock the cable (if\nnot permanently attached).\n\n**E07.FR.08**\nPrecondition: When configured to send meter data\nin the TransactionEventRequest\n(eventType = Ended), See: Meter\nValues - Configuration\nThe Charging Station SHALL add the configured\nmeasurands to the optional meterValue field with\ncontext = Transaction.End in the\nTransactionEventRequest(eventType = Ended) sent\nto the CSMS to provide more details about\ntransaction usage.\n\n**E07.FR.09**\nPrecondition: E07.FR.08\nAND\nThe Charging Station is running low on\nmemory\nThe Charging Station MAY drop meter data in the\nTransactionEventRequest(eventType = Ended)\nmessage.\n\n**E07.FR.10**\nPrecondition: E07.FR.09\nWhen dropping meter data, the Charging Station\nSHALL drop intermediate values first (2nd value,\n4th value, 6th etc), not drop the start and end values\nfrom the list.\n\n**E07.FR.11**\nPrecondition: When a TransactionEventRequest has\nto be created\nThe Charging Station SHALL set the message\u2019s\nseqNo field as specified in Sequence Number\nGeneration.\n\n**E07.FR.12**\nPrecondition: SampledDataSignReadings is true\nThe Charging Station SHALL retrieve signed meter\nvalues and put them in the signedMeterValue field\nof sampledValues.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "E07 - Transaction locally stopped by IdToken - Requirements",
-        "heading_path": "E07 - Transaction locally stopped by IdToken - Requirements",
+        "heading": "E07 - Requirements",
         "functional_block": "Transactions",
         "use_case_id": "E07",
         "use_case_name": "Transaction locally stopped by IdToken",
-        "use_case_refs": "C09, E07",
-        "message_refs": "AuthorizeRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

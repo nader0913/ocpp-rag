@@ -76,6 +76,36 @@ OTHER_DOCS = {
         "file": "other/ocpp_1_6_ISO_15118_v10.pdf",
         "ocpp_version": None,
     },
+    "california_pricing": {
+        "title": "OCPP & California Pricing Requirements v3.1",
+        "file": "other/ocpp_california_pricing_v3.1.pdf",
+        "ocpp_version": None,
+    },
+    "ocpp16_security": {
+        "title": "OCPP 1.6 Security Whitepaper (Edition 4)",
+        "file": "other/ocpp16_security_whitepaper_ed4.pdf",
+        "ocpp_version": "1.6",
+    },
+    "security_ops_guide": {
+        "title": "OCPP Security Operations Guide v1.0",
+        "file": "other/ocpp_security_operations_guide.pdf",
+        "ocpp_version": None,
+    },
+    "whats_new_201": {
+        "title": "What is New in OCPP 2.0.1",
+        "file": "other/new_in_ocpp_201.pdf",
+        "ocpp_version": "2.0.1",
+    },
+    "eichrecht": {
+        "title": "Signed Meter Values (Eichrecht) v1.0",
+        "file": "other/ocpp_signed_meter_values.pdf",
+        "ocpp_version": None,
+    },
+    "ocpp2_lite": {
+        "title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
+        "file": "other/ocpp_2_lite_v2.pdf",
+        "ocpp_version": "2.0.1",
+    },
 }
 
 ALL_DOCS = {**OCPP_201_DOCS, **OCPP_16_DOCS, **OTHER_DOCS}

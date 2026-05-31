@@ -2,125 +2,108 @@
   "use_case_id": "N09",
   "functional_block": "Diagnostics",
   "use_case_name": "Get Customer Information",
+  "structured": {
+    "name": "Get Customer Information",
+    "id": "N09",
+    "functional_block": "Diagnostics",
+    "objective": "To enable the CSMS to retrieve raw customer information from a Charging Station.",
+    "description": "The CSMS sends a message to the Charging Station to retrieve raw customer information, for\nexample to be compliant with local privacy laws. The Charging Station notifies the CSMS by\nsending one or more reports.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS sends a CustomerInformationRequest with the report flag set to true to the Charging\nStation with a reference to a customer (idToken, customerCertificate or customerIdentifier).",
+      "2. The Charging Station responds with CustomerInformationResponse, indicating whether it will\nsend it or not.",
+      "3. The Charging Station sends one or more NotifyCustomerInformationRequest messages to the\nCSMS.",
+      "4. The CSMS responds with one or more NotifyCustomerInformationResponse messages to the\nCharging Station."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "The CSMS has Successfully received a CustomerInformationResponse message with status\nAccepted AND has Successfully received the requested data.",
+    "error_handling": "n/a",
+    "remarks": "The fact that customerCertificate can be supplied to CustomerInformationRequest does not imply\nthat there is a requirement to store plug-and-charge contract certificates on a charging station.",
+    "requirements": [
+      {
+        "id": "N09.FR.01",
+        "precondition": "When the CSMS wants to retrieve\nCustomerInformation from the\nCharging Station.",
+        "definition": "The report flag in the CustomerInformationRequest\nSHALL be set to true."
+      },
+      {
+        "id": "N09.FR.02",
+        "precondition": "When the Charging Station receives a\nCustomerInformationRequest AND\nit is in a state where it can process\nthis request.",
+        "definition": "the Charging Station SHALL respond with a\nCustomerInformationResponse message with\nstatus Accepted ."
+      },
+      {
+        "id": "N09.FR.03",
+        "precondition": "When the Charging Station is in a\nstate where it cannot process this\nrequest.",
+        "definition": "On receipt of the CustomerInformationRequest the\nCharging Station SHALL respond with a\nCustomerInformationResponse with status\nRejected ."
+      },
+      {
+        "id": "N09.FR.04",
+        "precondition": "",
+        "definition": "The CSMS SHALL include a reference to a\ncustomer by including either an idToken,\ncustomerCertificate or customerIdentifier in the\nCustomerInformationRequest."
+      },
+      {
+        "id": "N09.FR.05",
+        "precondition": "N09.FR.02 AND\nthe Charging Station has information\nstored about the customer referred to\nby the customer identifier",
+        "definition": "The Charging Station SHALL send the requested\ninformation via one or more\nNotifyCustomerInformationRequest messages to\nthe CSMS."
+      },
+      {
+        "id": "N09.FR.06",
+        "precondition": "N09.FR.02 AND\nthe Charging Station has no\ninformation stored about the\ncustomer referred to by the customer\nidentifier.",
+        "definition": "The Charging Station SHALL send one\nNotifyCustomerInformationRequest message to\nthe CSMS with the data field set to an empty string."
+      },
+      {
+        "id": "N09.FR.07",
+        "precondition": "When receiving a\nCustomerInformationRequest with\nboth the report flag as well as the\nclear flag are set to false",
+        "definition": "It is RECOMMENDED to respond with status a\nCustomerInformationResponse message with\nstatus Rejected ."
+      },
+      {
+        "id": "N09.FR.08",
+        "precondition": "When requesting user information\naccording to the customerCertificate",
+        "definition": "The CSMS SHALL use the hashAlgorithm, which\nwas used to install the certificate."
+      },
+      {
+        "id": "N09.FR.09",
+        "precondition": "When CustomerInformationRequest\ncontains none of idToken,\ncustomerCertificate or\ncustomerIdentifier OR\nCustomerInformationRequest\ncontains more than one of idToken,\ncustomerCertificate or\ncustomerIdentifier",
+        "definition": "Charging Station SHALL respond with status =\nInvalid"
+      }
+    ],
+    "figures": [
+      "fig137.png",
+      "fig138.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# N09 - Get Customer Information\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Customer Information                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 2   | ID                   | N09                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 3   | Objective(s)         | To enable the CSMS to retrieve raw customer information from a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 4   | Description          | The CSMS sends a message to the Charging Station to retrieve raw customer information, for example to be compliant with local privacy laws. The Charging Station notifies the CSMS by sending one or more reports.                                                                                                                                                                                                                                                                                                    |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
+      "content": "# N09 - Get Customer Information\n\n**Objective:** To enable the CSMS to retrieve raw customer information from a Charging Station.\n\n**Description:** The CSMS sends a message to the Charging Station to retrieve raw customer information, for\nexample to be compliant with local privacy laws. The Charging Station notifies the CSMS by\nsending one or more reports.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends a CustomerInformationRequest with the report flag set to true to the Charging\nStation with a reference to a customer (idToken, customerCertificate or customerIdentifier).\n2. The Charging Station responds with CustomerInformationResponse, indicating whether it will\nsend it or not.\n3. The Charging Station sends one or more NotifyCustomerInformationRequest messages to the\nCSMS.\n4. The CSMS responds with one or more NotifyCustomerInformationResponse messages to the\nCharging Station.\n\n**Prerequisites:** n/a\n\n**Postconditions:** The CSMS has Successfully received a CustomerInformationResponse message with status\nAccepted AND has Successfully received the requested data.\n\n**Remarks:** The fact that customerCertificate can be supplied to CustomerInformationRequest does not imply\nthat there is a requirement to store plug-and-charge contract certificates on a charging station.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "N09 - Get Customer Information",
-        "heading_path": "N09 - Get Customer Information",
         "functional_block": "Diagnostics",
         "use_case_id": "N09",
         "use_case_name": "Get Customer Information",
-        "use_case_refs": "N09",
-        "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest, NotifyCustomerInformationResponse",
-        "figure_refs": "137",
-        "chunk_part": 1,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "|     | Scenario description | 1. The CSMS sends a CustomerInformationRequest with the report flag set to true to the Charging Station with a reference to a customer (idToken, customerCertificate or customerIdentifier). 2. The Charging Station responds with CustomerInformationResponse, indicating whether it will send it or not. 3. The Charging Station sends one or more NotifyCustomerInformationRequest messages to the CSMS. 4. The CSMS responds with one or more NotifyCustomerInformationResponse messages to the Charging Station. |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 6   | Postcondition(s)     | The CSMS has Successfully received a CustomerInformationResponse message with status Accepted AND has Successfully received the requested data.                                                                                                                                                                                                                                                                                                                                                                       |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N09 - Get Customer Information",
-        "heading_path": "N09 - Get Customer Information",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N09",
-        "use_case_name": "Get Customer Information",
-        "use_case_refs": "N09",
-        "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest, NotifyCustomerInformationResponse",
-        "figure_refs": "137",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)            | The fact that customerCertificate can be supplied to CustomerInformationRequest does not imply that there is a requirement to store plug-and-charge contract certificates on a charging station.                                                                                                                                                                                                                                                                                                                      |\n\nCSMS                         Charging Station\n\nCustomerInformationRequest(report = true, clear = false)\n\nCustomerInformationResponse()\n\nloop    [for each report part]\n\nNotifyCustomerInformationRequest()\n\nNotifyCustomerInformationResponse()\n\nFigure 137. Sequence Diagram: Get Customer Information",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "N09 - Get Customer Information",
-        "heading_path": "N09 - Get Customer Information",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N09",
-        "use_case_name": "Get Customer Information",
-        "use_case_refs": "N09",
-        "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest, NotifyCustomerInformationResponse",
-        "figure_refs": "137",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# N09 - Get Customer Information - Requirements\n\n| ID        | Precondition                                                                                                                                                                                                   | Requirement definition                                                                                                                                        | Note                                                                                                                                                                           |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N09.FR.01 | When the CSMS wants to retrieve CustomerInformation from the Charging Station.                                                                                                                                 | The report flag in the CustomerInformationRequest SHALL be set to true.                                                                                       |                                                                                                                                                                                |\n| N09.FR.02 | When the Charging Station receives a CustomerInformationRequest AND it is in a state where it can process this request.                                                                                        | the Charging Station SHALL respond with a CustomerInformationResponse message with status Accepted.                                                           |                                                                                                                                                                                |\n| N09.FR.03 | When the Charging Station is in a state where it cannot process this request.                                                                                                                                  | On receipt of the CustomerInformationRequest the Charging Station SHALL respond with a CustomerInformationResponse with status Rejected.                      |                                                                                                                                                                                |\n| N09.FR.04 |                                                                                                                                                                                                                | The CSMS SHALL include a reference to a customer by including either an idToken, customerCertificate or customerIdentifier in the CustomerInformationRequest. |                                                                                                                                                                                |\n| N09.FR.05 | N09.FR.02 AND the Charging Station has information stored about the customer referred to by the customer identifier                                                                                            | The Charging Station SHALL send the requested information via one or more NotifyCustomerInformationRequest messages to the CSMS.                              |                                                                                                                                                                                |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "requirements",
-        "heading": "N09 - Get Customer Information - Requirements",
-        "heading_path": "N09 - Get Customer Information - Requirements",
-        "functional_block": "Diagnostics",
-        "use_case_id": "N09",
-        "use_case_name": "Get Customer Information",
-        "use_case_refs": "N09",
-        "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| N09.FR.06 | N09.FR.02 AND the Charging Station has no information stored about the customer referred to by the customer identifier.                                                                                        | The Charging Station SHALL send one NotifyCustomerInformationRequest message to the CSMS with the data field set to an empty string.                          |                                                                                                                                                                                |\n| N09.FR.07 | When receiving a CustomerInformationRequest with both the report flag as well as the clear flag are set to false                                                                                               | It is RECOMMENDED to respond with status a CustomerInformationResponse message with status Rejected.                                                          |                                                                                                                                                                                |\n| N09.FR.08 | When requesting user information according to the customerCertificate                                                                                                                                          | The CSMS SHALL use the hashAlgorithm, which was used to install the certificate.                                                                              | When a new firmware is installed it is RECOMMENDED that the CSMS requests the certificate first using GetInstalledCertificateIds Request to be sure of the used hashAlgorithm. |\n| N09.FR.09 | When CustomerInformationRequest contains none of idToken, customerCertificate or customerIdentifier OR CustomerInformationRequest contains more than one of idToken, customerCertificate or customerIdentifier | Charging Station SHALL respond with status = Invalid                                                                                                          | Only one value for either idToken, customerCertificate or customerIdentifier may be provided. Charging Station counterpart requirement of N09.FR.04.                           |",
+      "content": "# N09 - Requirements\n\n**N09.FR.01**\nPrecondition: When the CSMS wants to retrieve\nCustomerInformation from the\nCharging Station.\nThe report flag in the CustomerInformationRequest\nSHALL be set to true.\n\n**N09.FR.02**\nPrecondition: When the Charging Station receives a\nCustomerInformationRequest AND\nit is in a state where it can process\nthis request.\nthe Charging Station SHALL respond with a\nCustomerInformationResponse message with\nstatus Accepted .\n\n**N09.FR.03**\nPrecondition: When the Charging Station is in a\nstate where it cannot process this\nrequest.\nOn receipt of the CustomerInformationRequest the\nCharging Station SHALL respond with a\nCustomerInformationResponse with status\nRejected .\n\n**N09.FR.04**\nThe CSMS SHALL include a reference to a\ncustomer by including either an idToken,\ncustomerCertificate or customerIdentifier in the\nCustomerInformationRequest.\n\n**N09.FR.05**\nPrecondition: N09.FR.02 AND\nthe Charging Station has information\nstored about the customer referred to\nby the customer identifier\nThe Charging Station SHALL send the requested\ninformation via one or more\nNotifyCustomerInformationRequest messages to\nthe CSMS.\n\n**N09.FR.06**\nPrecondition: N09.FR.02 AND\nthe Charging Station has no\ninformation stored about the\ncustomer referred to by the customer\nidentifier.\nThe Charging Station SHALL send one\nNotifyCustomerInformationRequest message to\nthe CSMS with the data field set to an empty string.\n\n**N09.FR.07**\nPrecondition: When receiving a\nCustomerInformationRequest with\nboth the report flag as well as the\nclear flag are set to false\nIt is RECOMMENDED to respond with status a\nCustomerInformationResponse message with\nstatus Rejected .\n\n**N09.FR.08**\nPrecondition: When requesting user information\naccording to the customerCertificate\nThe CSMS SHALL use the hashAlgorithm, which\nwas used to install the certificate.\n\n**N09.FR.09**\nPrecondition: When CustomerInformationRequest\ncontains none of idToken,\ncustomerCertificate or\ncustomerIdentifier OR\nCustomerInformationRequest\ncontains more than one of idToken,\ncustomerCertificate or\ncustomerIdentifier\nCharging Station SHALL respond with status =\nInvalid",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "N09 - Get Customer Information - Requirements",
-        "heading_path": "N09 - Get Customer Information - Requirements",
+        "heading": "N09 - Requirements",
         "functional_block": "Diagnostics",
         "use_case_id": "N09",
         "use_case_name": "Get Customer Information",
-        "use_case_refs": "N09",
-        "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest",
         "chunk_part": 2,
         "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "137",
-      "title": "Sequence Diagram: Get Customer Information",
-      "files": [
-        "fig137_p1_Sequence_Diagram__Get_Customer_Information.png",
-        "fig137_p2_Sequence_Diagram__Get_Customer_Information.png"
-      ]
-    },
-    {
-      "figure_num": "137",
-      "title": "Sequence Diagram: Get Customer Information",
-      "files": [
-        "fig137_p1_Sequence_Diagram__Get_Customer_Information.png",
-        "fig137_p2_Sequence_Diagram__Get_Customer_Information.png"
-      ]
-    },
-    {
-      "figure_num": "137",
-      "title": "Sequence Diagram: Get Customer Information",
-      "files": [
-        "fig137_p1_Sequence_Diagram__Get_Customer_Information.png",
-        "fig137_p2_Sequence_Diagram__Get_Customer_Information.png"
-      ]
     }
   ]
 }

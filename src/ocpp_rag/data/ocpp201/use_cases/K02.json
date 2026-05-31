@@ -2,38 +2,107 @@
   "use_case_id": "K02",
   "functional_block": "SmartCharging",
   "use_case_name": "Central Smart Charging",
+  "structured": {
+    "name": "Central Smart Charging",
+    "id": "K02",
+    "functional_block": "SmartCharging",
+    "objective": "To enable the CSMS to influence the charging power or current drawn from a specific EVSE or the\nentire Charging Station over a period of time.",
+    "description": "The CSMS sends a SetChargingProfileRequest to the Charging Station to influence the power or\ncurrent drawn by the EV. The CSMS calculates a ChargingSchedule to stay within limits which\nMAY be imposed by any external system.\nSee: Central Smart Charging",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. After authorization the Charging Station will set a maximum current, that an EV might draw via\nthe Control Pilot signal. This limit is based on (default) ChargingProfiles that the Charging Station\npreviously received from the CSMS.",
+      "2. The EV starts charging and a TransactionEventRequest is sent to the CSMS.",
+      "3. The CSMS responds with a TransactionEventResponse.",
+      "4. In response to a TransactionEventRequest the CSMS MAY choose to set charging limits to the\ntransaction using a SetChargingProfileRequest.",
+      "5. The Charging Station responds with a SetChargingProfileResponse.",
+      "6. While charging is in progress the EVSE will continuously adapt the maximum current or power\naccording to the installed ChargingProfiles."
+    ],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K02.FR.01",
+        "precondition": "",
+        "definition": "The CSMS SHALL use charging profiles to stay within the\nlimits imposed by any external system."
+      },
+      {
+        "id": "K02.FR.02",
+        "precondition": "After authorization.",
+        "definition": "The EVSE will set a maximum current to use via the\nControl Pilot signal."
+      },
+      {
+        "id": "K02.FR.03",
+        "precondition": "",
+        "definition": "In order to ensure that an updated ChargingProfile\napplies only to the current transaction, the CSMS SHALL\nset the chargingProfilePurpose of the ChargingProfile to\nTxProfile."
+      },
+      {
+        "id": "K02.FR.04",
+        "precondition": "If a transaction-specific\nprofile with purpose\nTxProfile is present.",
+        "definition": "The TxProfile SHALL overrule the default charging profile\nwith purpose TxDefaultProfile for the duration of the\ncurrent transaction only."
+      },
+      {
+        "id": "K02.FR.05",
+        "precondition": "K02.FR.04\nAfter the transaction is\nstopped",
+        "definition": "The TxProfile SHALL be deleted."
+      },
+      {
+        "id": "K02.FR.06",
+        "precondition": "",
+        "definition": "The optional ChargingSchedule field minChargingRate\nMAY be used by the Charging Station to optimize the\npower distribution between the EVSEs."
+      },
+      {
+        "id": "K02.FR.07",
+        "precondition": "",
+        "definition": "The CSMS SHALL NOT set chargingProfilePurpose to\nChargingStationExternalConstraints in a\nSetChargingProfileRequest."
+      },
+      {
+        "id": "K02.FR.08",
+        "precondition": "K02.FR.04 AND\nThe charging schedule of\nTxProfile ends, before the\ntransaction ends, because\nthe set duration or validTo\nperiod expired",
+        "definition": "The Charging Station SHALL fall back to using the lowest\nlimit of the active TxDefaultProfile and\nChargingStationMaxProfile. If there are no other active\nprofiles, it falls back to the local limit of the Charging\nStation"
+      }
+    ],
+    "figures": [
+      "fig100.png",
+      "fig101.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K02 - Central Smart Charging\n\n| No. | Type         | Description                                                                                                                                                                                                                     |\n| --- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Central Smart Charging                                                                                                                                                                                                          |\n| 2   | ID           | K02                                                                                                                                                                                                                             |\n| 3   | Objective(s) | To enable the CSMS to influence the charging power or current drawn from a specific EVSE or the entire Charging Station over a period of time.                                                                                  |\n| 4   | Description  | The CSMS sends a SetChargingProfileRequest to the Charging Station to influence the power or current drawn by the EV. The CSMS calculates a ChargingSchedule to stay within limits which MAY be imposed by any external system. |\n\nActors: Charging Station, CSMS, EV, EV Driver\n\nScenario description:\n\n1. After authorization the Charging Station will set a maximum current, that an EV might draw via the Control Pilot signal. This limit is based on (default) ChargingProfiles that the Charging Station previously received from the CSMS.\n2. The EV starts charging and a TransactionEventRequest is sent to the CSMS.\n3. The CSMS responds with a TransactionEventResponse.\n4. In response to a TransactionEventRequest the CSMS MAY choose to set charging limits to the transaction using a SetChargingProfileRequest.\n5. The Charging Station responds with a SetChargingProfileResponse.\n6. While charging is in progress the EVSE will continuously adapt the maximum current or power according to the installed ChargingProfiles.\n\nAlternative scenario(s):\n\n- K03 - Local Smart Charging\n- K04 - Internal Load Balancing",
+      "content": "# K02 - Central Smart Charging\n\n**Objective:** To enable the CSMS to influence the charging power or current drawn from a specific EVSE or the\nentire Charging Station over a period of time.\n\n**Description:** The CSMS sends a SetChargingProfileRequest to the Charging Station to influence the power or\ncurrent drawn by the EV. The CSMS calculates a ChargingSchedule to stay within limits which\nMAY be imposed by any external system.\nSee: Central Smart Charging\n\n**Actors:** Charging Station, CSMS, EV, EV Driver\n\n**Scenario:**\n1. After authorization the Charging Station will set a maximum current, that an EV might draw via\nthe Control Pilot signal. This limit is based on (default) ChargingProfiles that the Charging Station\npreviously received from the CSMS.\n2. The EV starts charging and a TransactionEventRequest is sent to the CSMS.\n3. The CSMS responds with a TransactionEventResponse.\n4. In response to a TransactionEventRequest the CSMS MAY choose to set charging limits to the\ntransaction using a SetChargingProfileRequest.\n5. The Charging Station responds with a SetChargingProfileResponse.\n6. While charging is in progress the EVSE will continuously adapt the maximum current or power\naccording to the installed ChargingProfiles.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "K02 - Central Smart Charging",
-        "heading_path": "K02 - Central Smart Charging",
         "functional_block": "SmartCharging",
         "use_case_id": "K02",
         "use_case_name": "Central Smart Charging",
-        "use_case_refs": "K02, K03, K04",
-        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest, TransactionEventResponse"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# K02 - Central Smart Charging - Requirements\n\n| ID        | Precondition | Requirement definition                                                                         | Note |\n| --------- | ------------ | ---------------------------------------------------------------------------------------------- | ---- |\n| K02.FR.01 |              | The CSMS SHALL use charging profiles to stay within the limits imposed by any external system. |      |",
+      "content": "# K02 - Requirements\n\n**K02.FR.01**\nThe CSMS SHALL use charging profiles to stay within the\nlimits imposed by any external system.\n\n**K02.FR.02**\nPrecondition: After authorization.\nThe EVSE will set a maximum current to use via the\nControl Pilot signal.\n\n**K02.FR.03**\nIn order to ensure that an updated ChargingProfile\napplies only to the current transaction, the CSMS SHALL\nset the chargingProfilePurpose of the ChargingProfile to\nTxProfile.\n\n**K02.FR.04**\nPrecondition: If a transaction-specific\nprofile with purpose\nTxProfile is present.\nThe TxProfile SHALL overrule the default charging profile\nwith purpose TxDefaultProfile for the duration of the\ncurrent transaction only.\n\n**K02.FR.05**\nPrecondition: K02.FR.04\nAfter the transaction is\nstopped\nThe TxProfile SHALL be deleted.\n\n**K02.FR.06**\nThe optional ChargingSchedule field minChargingRate\nMAY be used by the Charging Station to optimize the\npower distribution between the EVSEs.\n\n**K02.FR.07**\nThe CSMS SHALL NOT set chargingProfilePurpose to\nChargingStationExternalConstraints in a\nSetChargingProfileRequest.\n\n**K02.FR.08**\nPrecondition: K02.FR.04 AND\nThe charging schedule of\nTxProfile ends, before the\ntransaction ends, because\nthe set duration or validTo\nperiod expired\nThe Charging Station SHALL fall back to using the lowest\nlimit of the active TxDefaultProfile and\nChargingStationMaxProfile. If there are no other active\nprofiles, it falls back to the local limit of the Charging\nStation",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K02 - Central Smart Charging - Requirements",
-        "heading_path": "K02 - Central Smart Charging - Requirements",
+        "heading": "K02 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K02",
         "use_case_name": "Central Smart Charging",
-        "use_case_refs": "K02"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

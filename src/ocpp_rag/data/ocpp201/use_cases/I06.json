@@ -2,38 +2,71 @@
   "use_case_id": "I06",
   "functional_block": "TariffAndCost",
   "use_case_name": "Update Tariff Information During Transaction",
+  "structured": {
+    "name": "Update Tariff Information During Transaction",
+    "id": "I06",
+    "functional_block": "TariffAndCost",
+    "objective": "To show an EV Driver updated tariff information during a transaction.",
+    "description": "",
+    "actors": [],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "I06.FR.01",
+        "precondition": "When the CSMS receives a\nTransactionEventRequest (eventType =\nUpdated) from the Charging Station.",
+        "definition": "The CSMS SHALL check if there is updated tariff information\navailable."
+      },
+      {
+        "id": "I06.FR.02",
+        "precondition": "I06.FR.01 AND\nWhen there is updated tariff information\navailable.",
+        "definition": "The CSMS SHALL respond with a TransactionEventResponse\nmessage to the Charging Station, containing the updated tariff\ninformation in the updatedPersonalMessage field."
+      },
+      {
+        "id": "I06.FR.03",
+        "precondition": "I06.FR.02",
+        "definition": "The Charging Station SHALL display the updated tariff\ninformation to the EV Driver."
+      }
+    ],
+    "figures": [
+      "fig88.png",
+      "fig89.png",
+      "fig90.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# I06 - Update Tariff Information During Transaction\n\n| No. | Type         | Description                                                           |\n| --- | ------------ | --------------------------------------------------------------------- |\n| 1   | Name         | Update Tariff Information During Transaction                          |\n| 2   | ID           | I06                                                                   |\n| 3   | Objective(s) | To show an EV Driver updated tariff information during a transaction. |",
+      "content": "# I06 - Update Tariff Information During Transaction\n\n**Objective:** To show an EV Driver updated tariff information during a transaction.\n\n**Description:** ",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "I06 - Update Tariff Information During Transaction",
-        "heading_path": "I06 - Update Tariff Information During Transaction",
         "functional_block": "TariffAndCost",
         "use_case_id": "I06",
         "use_case_name": "Update Tariff Information During Transaction",
-        "use_case_refs": "I06"
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# I06 - Update Tariff Information During Transaction - Requirements\n\n| ID.       | Precondition                                                                                      | Requirements                                                                                                                                                           |\n| --------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| I06.FR.01 | When the CSMS receives a TransactionEventRequest (eventType = Updated) from the Charging Station. | The CSMS SHALL check if there is updated tariff information available.                                                                                                 |\n| I06.FR.02 | I06.FR.01 AND When there is updated tariff information available.                                 | The CSMS SHALL respond with a TransactionEventResponse message to the Charging Station, containing the updated tariff information in the updatedPersonalMessage field. |\n| I06.FR.03 | I06.FR.02                                                                                         | The Charging Station SHALL display the updated tariff information to the EV Driver.                                                                                    |",
+      "content": "# I06 - Requirements\n\n**I06.FR.01**\nPrecondition: When the CSMS receives a\nTransactionEventRequest (eventType =\nUpdated) from the Charging Station.\nThe CSMS SHALL check if there is updated tariff information\navailable.\n\n**I06.FR.02**\nPrecondition: I06.FR.01 AND\nWhen there is updated tariff information\navailable.\nThe CSMS SHALL respond with a TransactionEventResponse\nmessage to the Charging Station, containing the updated tariff\ninformation in the updatedPersonalMessage field.\n\n**I06.FR.03**\nPrecondition: I06.FR.02\nThe Charging Station SHALL display the updated tariff\ninformation to the EV Driver.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "I06 - Update Tariff Information During Transaction - Requirements",
-        "heading_path": "I06 - Update Tariff Information During Transaction - Requirements",
+        "heading": "I06 - Requirements",
         "functional_block": "TariffAndCost",
         "use_case_id": "I06",
         "use_case_name": "Update Tariff Information During Transaction",
-        "use_case_refs": "I06",
-        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

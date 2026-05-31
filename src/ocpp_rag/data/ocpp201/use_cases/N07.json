@@ -2,38 +2,152 @@
   "use_case_id": "N07",
   "functional_block": "Diagnostics",
   "use_case_name": "Alert Event",
+  "structured": {
+    "name": "Alert Event",
+    "id": "N07",
+    "functional_block": "Diagnostics",
+    "objective": "To give the Charging Station the ability to notify the CSMS about monitoring events.",
+    "description": "",
+    "actors": [],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "N07.FR.02",
+        "precondition": "When a monitored value returns to\nwithin the set UpperThreshold or\nLowerThreshold",
+        "definition": "The Charging Station SHALL send a\nNotifyEventRequest with an eventData with the\nattribute cleared is true."
+      },
+      {
+        "id": "N07.FR.03",
+        "precondition": "When the CSMS receives an\nNotifyEventRequest",
+        "definition": "The CSMS SHALL respond with an empty\nNotifyEventResponse."
+      },
+      {
+        "id": "N07.FR.04",
+        "precondition": "When a monitor is triggered AND\nThe severity number of the monitor is\nequal to or lower than the severity\nnumber set in the Configuration\nVariable\nOfflineMonitoringEventQueuin\ngSeverity\nAND\nThe Charging Station is offline",
+        "definition": "The Charging Station SHALL queue this\nNotifyEventRequest and deliver it when it is back\nonline."
+      },
+      {
+        "id": "N07.FR.05",
+        "precondition": "When a monitor is triggered AND\nanother event caused this event",
+        "definition": "The Charging Station MAY include the eventId of\nthe other event in the cause field of the eventData\nelement in the NotifyEventRequest message."
+      },
+      {
+        "id": "N07.FR.06",
+        "precondition": "When a monitor is triggered",
+        "definition": "An eventData element in a NotifyEventRequest\nSHALL contain the Component, Variable and\nvariableMonitoringId that caused the event."
+      },
+      {
+        "id": "N07.FR.07",
+        "precondition": "When a monitor is triggered",
+        "definition": "The Charging Station SHALL set the seqNo of the\nfirst NotifyEventRequest sent for this event to 0."
+      },
+      {
+        "id": "N07.FR.10",
+        "precondition": "When a monitor is triggered AND\nA variableMonitoring setting has been\nset on a write-only variable.",
+        "definition": "The actualField of the NotifyEventRequest SHALL\nbe empty."
+      },
+      {
+        "id": "N07.FR.11",
+        "precondition": "When modifying a set UpperThreshold\nor LowerThreshold VariableMonitor.",
+        "definition": "The Charging Station SHALL check if the new\nthreshold clears the old threshold OR if the new\nthreshold is exceeded by the monitored value."
+      },
+      {
+        "id": "N07.FR.12",
+        "precondition": "When removing a set UpperThreshold\nor LowerThreshold VariableMonitor\nAND\nthe threshold was exceeded.",
+        "definition": "The Charging Station SHALL NOT send a\nNotifyEventRequest with an eventData with the\nattribute cleared is true."
+      },
+      {
+        "id": "N07.FR.13",
+        "precondition": "",
+        "definition": "A VariableMonitoring needs to be stored\npersistently across reboots."
+      },
+      {
+        "id": "N07.FR.14",
+        "precondition": "When a variableMonitoring setting of\ntype UpperThreshold or\nLowerThreshold has been triggered\nAND after a reboot occurred the\nmonitored value returned within the\nconfigured threshold.",
+        "definition": "The Charging Station SHALL send a\nNotifyEventRequest with an eventData with the\nattribute cleared is true."
+      },
+      {
+        "id": "N07.FR.15",
+        "precondition": "When a monitor is triggered AND\nThe severity of the monitor is greater\nthan the monitoring severity level set\nin a SetMonitoringLevelRequest by the\nCSMS (see use case N05 - Set\nMonitoring Level)",
+        "definition": "The Charging Station SHALL NOT send a\nNotifyEventRequest for the triggered monitor."
+      },
+      {
+        "id": "N07.FR.16",
+        "precondition": "When there is a monitor with type\nUpperThreshold on a\nComponent/Variable combination\nAND\nthe Actual value (attributeType\nActual) of the Variable exceeds\nvalue",
+        "definition": "The Charging Station SHALL send a\nNotifyEventRequest with trigger Alerting for the\ntriggered monitor."
+      },
+      {
+        "id": "N07.FR.17",
+        "precondition": "When there is a monitor with type\nLowerThreshold on a\nComponent/Variable combination\nAND\nthe Actual value (attributeType\nActual) of the Variable drops below\nvalue",
+        "definition": "The Charging Station SHALL send a\nNotifyEventRequest with trigger Alerting for the\ntriggered monitor."
+      },
+      {
+        "id": "N07.FR.18",
+        "precondition": "When there is a monitor with type\nDelta on a Component/Variable\ncombination AND\nthe Variable is of a numeric type AND\nthe Actual value (attributeType\nActual) of the Variable has changed\nmore than plus or minus value since\nthe time that this monitor was set or\nsince the last time this event notice\nwas sent, whichever was last,",
+        "definition": "The Charging Station SHALL send a\nNotifyEventRequest with trigger Delta for the\ntriggered monitor."
+      },
+      {
+        "id": "N07.FR.19",
+        "precondition": "When there is a monitor with type\nDelta on a Component/Variable\ncombination AND\nthe Variable is NOT of a numeric type\nAND\nthe Actual value (\nattributeType`Actual`) of the Variable\nhas changed since the time that this\nmonitor was set or since the last time\nthis event notice was sent, whichever\nwas last, (Note: For variables that are\nnot numeric, like boolean, string or\nenumerations, a monitor of type\nDelta will trigger an event notice\nwhenever the variable changes,\nregardless of the value of value)",
+        "definition": "The Charging Station SHALL send a\nNotifyEventRequest with trigger Delta for the\ntriggered monitor."
+      }
+    ],
+    "figures": [
+      "fig134.png",
+      "fig135.png",
+      "fig136.png",
+      "fig137.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# N07 - Alert Event\n\n| No. | Type         | Description                                                                          |\n| --- | ------------ | ------------------------------------------------------------------------------------ |\n| 1   | Name         | Alert Event                                                                          |\n| 2   | ID           | N07                                                                                  |\n| 3   | Objective(s) | To give the Charging Station the ability to notify the CSMS about monitoring events. |",
+      "content": "# N07 - Alert Event\n\n**Objective:** To give the Charging Station the ability to notify the CSMS about monitoring events.\n\n**Description:** ",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "N07 - Alert Event",
-        "heading_path": "N07 - Alert Event",
         "functional_block": "Diagnostics",
         "use_case_id": "N07",
         "use_case_name": "Alert Event",
-        "use_case_refs": "N07"
+        "chunk_part": 1,
+        "total_parts": 3
       }
     },
     {
-      "content": "# N07 - Alert Event - Requirements\n\n| ID        | Precondition                                                                                                                                                                                                                 | Requirement definition                                                                                     | Note |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---- |\n| N07.FR.02 | When a monitored value returns to within the set UpperThreshold or LowerThreshold                                                                                                                                            | The Charging Station SHALL send a NotifyEventRequest with an eventData with the attribute cleared is true. |      |\n| N07.FR.03 | When the CSMS receives an NotifyEventRequest                                                                                                                                                                                 | The CSMS SHALL respond with an empty NotifyEventResponse.                                                  |      |\n| N07.FR.04 | When a monitor is triggered AND The severity number of the monitor is equal to or lower than the severity number set in the Configuration Variable OfflineMonitoringEventQueuingSeverity AND The Charging Station is offline | The Charging Station SHALL queue this NotifyEventRequest and deliver it when it is back online.            |      |",
+      "content": "# N07 - Requirements\n\n**N07.FR.02**\nPrecondition: When a monitored value returns to\nwithin the set UpperThreshold or\nLowerThreshold\nThe Charging Station SHALL send a\nNotifyEventRequest with an eventData with the\nattribute cleared is true.\n\n**N07.FR.03**\nPrecondition: When the CSMS receives an\nNotifyEventRequest\nThe CSMS SHALL respond with an empty\nNotifyEventResponse.\n\n**N07.FR.04**\nPrecondition: When a monitor is triggered AND\nThe severity number of the monitor is\nequal to or lower than the severity\nnumber set in the Configuration\nVariable\nOfflineMonitoringEventQueuin\ngSeverity\nAND\nThe Charging Station is offline\nThe Charging Station SHALL queue this\nNotifyEventRequest and deliver it when it is back\nonline.\n\n**N07.FR.05**\nPrecondition: When a monitor is triggered AND\nanother event caused this event\nThe Charging Station MAY include the eventId of\nthe other event in the cause field of the eventData\nelement in the NotifyEventRequest message.\n\n**N07.FR.06**\nPrecondition: When a monitor is triggered\nAn eventData element in a NotifyEventRequest\nSHALL contain the Component, Variable and\nvariableMonitoringId that caused the event.\n\n**N07.FR.07**\nPrecondition: When a monitor is triggered\nThe Charging Station SHALL set the seqNo of the\nfirst NotifyEventRequest sent for this event to 0.\n\n**N07.FR.10**\nPrecondition: When a monitor is triggered AND\nA variableMonitoring setting has been\nset on a write-only variable.\nThe actualField of the NotifyEventRequest SHALL\nbe empty.\n\n**N07.FR.11**\nPrecondition: When modifying a set UpperThreshold\nor LowerThreshold VariableMonitor.\nThe Charging Station SHALL check if the new\nthreshold clears the old threshold OR if the new\nthreshold is exceeded by the monitored value.\n\n**N07.FR.12**\nPrecondition: When removing a set UpperThreshold\nor LowerThreshold VariableMonitor\nAND\nthe threshold was exceeded.\nThe Charging Station SHALL NOT send a\nNotifyEventRequest with an eventData with the\nattribute cleared is true.\n\n**N07.FR.13**\nA VariableMonitoring needs to be stored\npersistently across reboots.\n\n**N07.FR.14**\nPrecondition: When a variableMonitoring setting of\ntype UpperThreshold or\nLowerThreshold has been triggered\nAND after a reboot occurred the\nmonitored value returned within the\nconfigured threshold.\nThe Charging Station SHALL send a\nNotifyEventRequest with an eventData with the\nattribute cleared is true.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "N07 - Alert Event - Requirements",
-        "heading_path": "N07 - Alert Event - Requirements",
+        "heading": "N07 - Requirements",
         "functional_block": "Diagnostics",
         "use_case_id": "N07",
         "use_case_name": "Alert Event",
-        "use_case_refs": "N07",
-        "message_refs": "NotifyEventRequest, NotifyEventResponse"
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# N07 - Requirements (continued)\n\n**N07.FR.15**\nPrecondition: When a monitor is triggered AND\nThe severity of the monitor is greater\nthan the monitoring severity level set\nin a SetMonitoringLevelRequest by the\nCSMS (see use case N05 - Set\nMonitoring Level)\nThe Charging Station SHALL NOT send a\nNotifyEventRequest for the triggered monitor.\n\n**N07.FR.16**\nPrecondition: When there is a monitor with type\nUpperThreshold on a\nComponent/Variable combination\nAND\nthe Actual value (attributeType\nActual) of the Variable exceeds\nvalue\nThe Charging Station SHALL send a\nNotifyEventRequest with trigger Alerting for the\ntriggered monitor.\n\n**N07.FR.17**\nPrecondition: When there is a monitor with type\nLowerThreshold on a\nComponent/Variable combination\nAND\nthe Actual value (attributeType\nActual) of the Variable drops below\nvalue\nThe Charging Station SHALL send a\nNotifyEventRequest with trigger Alerting for the\ntriggered monitor.\n\n**N07.FR.18**\nPrecondition: When there is a monitor with type\nDelta on a Component/Variable\ncombination AND\nthe Variable is of a numeric type AND\nthe Actual value (attributeType\nActual) of the Variable has changed\nmore than plus or minus value since\nthe time that this monitor was set or\nsince the last time this event notice\nwas sent, whichever was last,\nThe Charging Station SHALL send a\nNotifyEventRequest with trigger Delta for the\ntriggered monitor.\n\n**N07.FR.19**\nPrecondition: When there is a monitor with type\nDelta on a Component/Variable\ncombination AND\nthe Variable is NOT of a numeric type\nAND\nthe Actual value (\nattributeType`Actual`) of the Variable\nhas changed since the time that this\nmonitor was set or since the last time\nthis event notice was sent, whichever\nwas last, (Note: For variables that are\nnot numeric, like boolean, string or\nenumerations, a monitor of type\nDelta will trigger an event notice\nwhenever the variable changes,\nregardless of the value of value)\nThe Charging Station SHALL send a\nNotifyEventRequest with trigger Delta for the\ntriggered monitor.\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N07 - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N07",
+        "use_case_name": "Alert Event",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

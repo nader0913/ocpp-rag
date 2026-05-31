@@ -1,79 +1,68 @@
 {
   "use_case_id": "M02",
   "functional_block": "CertificateManagement",
-  "use_case_name": "Certificate Update EV",
+  "use_case_name": "Certificate Update",
+  "structured": {
+    "name": "Certificate Update",
+    "id": "M02",
+    "functional_block": "CertificateManagement",
+    "objective": "See ISO15118-1, use case Objective C1, page 20.",
+    "description": "See ISO15118-1, use case Description C1, page 21 up to and including the third \"NOTE\".",
+    "actors": [
+      "EV",
+      "Charging Station"
+    ],
+    "scenario": [
+      "15118:\nSee ISO15118-1, use case Objective C1, Scenario Description, first 3 bullets, page",
+      "1.\nOCPP:\n- The Charging Station sends a Get15118EVCertificateRequest message with action = Update to\nthe CSMS.\n- The CSMS responds with Get15118EVCertificateResponse to the Charging Station.\n15118:\nSee ISO15118-1, use case Description C1, Scenario Description, last 2 bullets, page 21."
+    ],
+    "prerequisites": "- Communication between EV and EVSE SHALL be established successfully.\n- Online connection between Charging Station and CSMS SHALL be possible.\n- CSMS should be able to communicate with a third party that can process the\nCertificateInstallationRequest, for example a contract certificate pool.",
+    "postconditions": "See ISO15118-1, use case Objective C1 and C2, page 20/22.",
+    "error_handling": "In case the CSMS is not able to respond within the specified time, the Charging Station SHALL\nindicate failure to the EV.",
+    "remarks": "See ISO15118-1, use case Requirements C1, trigger , page 21.\nThe message timeout in ISO15118-2 for CertificateUpdateReq is 5 seconds.",
+    "requirements": [
+      {
+        "id": "M02.FR.01",
+        "precondition": "",
+        "definition": "Upon receiving a CertificateUpdateReq the\nCharging Station SHALL forward the request to the\nCSMS using the Get15118EVCertificateRequest\nmessage with action = Update."
+      }
+    ],
+    "figures": [
+      "fig124.png",
+      "fig125.png",
+      "fig126.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# M02 - Certificate Update EV\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Certificate Update                                                                                                                                                                                                                                                                                                                                                                       |\n| 2   | ID                   | M02                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Reference            | ISO15118-1 C1                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s)         | See ISO15118-1, use case Objective C1, page 20.                                                                                                                                                                                                                                                                                                                                          |\n| 4   | Description          | See ISO15118-1, use case Description C1, page 21 up to and including the third \"NOTE\".                                                                                                                                                                                                                                                                                                   |\n|     | Actors               | EV, Charging Station                                                                                                                                                                                                                                                                                                                                                                     |\n|     | Scenario description | 15118: See ISO15118-1, use case Objective C1, Scenario Description, first 3 bullets, page 21. OCPP: - The Charging Station sends a Get15118EVCertificateRequest message with action = Update to the CSMS. - The CSMS responds with Get15118EVCertificateResponse to the Charging Station. 15118: See ISO15118-1, use case Description C1, Scenario Description, last 2 bullets, page 21. |\n| 5   | Prerequisites        | - Communication between EV and EVSE SHALL be established successfully. - Online connection between Charging Station and CSMS SHALL be possible. - CSMS should be able to communicate with a third party that can process the CertificateInstallationRequest, for example a contract certificate pool.                                                                                    |",
+      "content": "# M02 - Certificate Update\n\n**Objective:** See ISO15118-1, use case Objective C1, page 20.\n\n**Description:** See ISO15118-1, use case Description C1, page 21 up to and including the third \"NOTE\".\n\n**Actors:** EV, Charging Station\n\n**Scenario:**\n15118:\nSee ISO15118-1, use case Objective C1, Scenario Description, first 3 bullets, page\n1.\nOCPP:\n- The Charging Station sends a Get15118EVCertificateRequest message with action = Update to\nthe CSMS.\n- The CSMS responds with Get15118EVCertificateResponse to the Charging Station.\n15118:\nSee ISO15118-1, use case Description C1, Scenario Description, last 2 bullets, page 21.\n\n**Prerequisites:** - Communication between EV and EVSE SHALL be established successfully.\n- Online connection between Charging Station and CSMS SHALL be possible.\n- CSMS should be able to communicate with a third party that can process the\nCertificateInstallationRequest, for example a contract certificate pool.\n\n**Postconditions:** See ISO15118-1, use case Objective C1 and C2, page 20/22.\n\n**Error handling:** In case the CSMS is not able to respond within the specified time, the Charging Station SHALL\nindicate failure to the EV.\n\n**Remarks:** See ISO15118-1, use case Requirements C1, trigger , page 21.\nThe message timeout in ISO15118-2 for CertificateUpdateReq is 5 seconds.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "M02 - Certificate Update EV",
-        "heading_path": "M02 - Certificate Update EV",
+        "heading": "M02 - Certificate Update",
         "functional_block": "CertificateManagement",
         "use_case_id": "M02",
-        "use_case_name": "Certificate Update EV",
-        "use_case_refs": "M02",
-        "message_refs": "CertificateInstallationRequest, Get15118EVCertificateRequest, Get15118EVCertificateResponse, exiRequest, exiResponse",
-        "figure_refs": "124",
+        "use_case_name": "Certificate Update",
         "chunk_part": 1,
         "total_parts": 2
       }
     },
     {
-      "content": "| 6   | Postcondition(s)     | See ISO15118-1, use case Objective C1 and C2, page 20/22.                                                                                                                                                                                                                                                                                                                                |\n| 7   | Error handling       | In case the CSMS is not able to respond within the specified time, the Charging Station SHALL indicate failure to the EV.                                                                                                                                                                                                                                                                |\n| 8   | Remark(s)            | See ISO15118-1, use case Requirements C1, trigger, page 21. The message timeout in ISO15118-2 for CertificateUpdateReq is 5 seconds.                                                                                                                                                                                                                                                     |\n\nEV    Charging Station    CSMS\n\nCertificateUpdateReq()\n\nGet15118EVCertificateRequest(15118SchemaVersion, update, exiRequest)\n\nGet15118EVCertificateResponse(status, exiResponse)\n\nCertificateUpdateRes()\n\nFigure 124. Certificate Update\n\nSource: ISO15118-1",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "M02 - Certificate Update EV",
-        "heading_path": "M02 - Certificate Update EV",
-        "functional_block": "CertificateManagement",
-        "use_case_id": "M02",
-        "use_case_name": "Certificate Update EV",
-        "use_case_refs": "M02",
-        "message_refs": "CertificateInstallationRequest, Get15118EVCertificateRequest, Get15118EVCertificateResponse, exiRequest, exiResponse",
-        "figure_refs": "124",
-        "chunk_part": 2,
-        "total_parts": 2
-      }
-    },
-    {
-      "content": "# M02 - Certificate Update - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                | Note                                                                                                                                                                                                              |\n| --------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| M02.FR.01 |              | Upon receiving a CertificateUpdateReq the Charging Station SHALL forward the request to the CSMS using the Get15118EVCertificateRequest message with action = Update. | The CSMS is responsible for forwarding it to the secondary actor which will process the CertificateUpdateRequest. This could be a contract certificate pool as outlined in application guide VDE-AR-E 2802-100-1. |",
+      "content": "# M02 - Requirements\n\n**M02.FR.01**\nUpon receiving a CertificateUpdateReq the\nCharging Station SHALL forward the request to the\nCSMS using the Get15118EVCertificateRequest\nmessage with action = Update.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "M02 - Certificate Update - Requirements",
-        "heading_path": "M02 - Certificate Update - Requirements",
+        "heading": "M02 - Requirements",
         "functional_block": "CertificateManagement",
         "use_case_id": "M02",
         "use_case_name": "Certificate Update",
-        "use_case_refs": "M02",
-        "message_refs": "CertificateUpdateRequest, Get15118EVCertificateRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
-    }
-  ],
-  "figures": [
-    {
-      "figure_num": "124",
-      "title": "Certificate Update",
-      "files": [
-        "fig124_p1_Certificate_Update.png",
-        "fig124_p2_Certificate_Update.png"
-      ]
-    },
-    {
-      "figure_num": "124",
-      "title": "Certificate Update",
-      "files": [
-        "fig124_p1_Certificate_Update.png",
-        "fig124_p2_Certificate_Update.png"
-      ]
     }
   ]
 }

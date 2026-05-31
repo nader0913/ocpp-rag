@@ -2,77 +2,158 @@
   "use_case_id": "B06",
   "functional_block": "Provisioning",
   "use_case_name": "Get Variables",
+  "structured": {
+    "name": "Get Variables",
+    "id": "B06",
+    "functional_block": "Provisioning",
+    "objective": "To give the CSMS the ability to retrieve the value of an attribute for one or more Variables of one\nor more Components.",
+    "description": "This use case describes how the CSMS requests a Charging Station to send the value of an\nattribute for one or more variables of one or more components. It is not possible to get all\nattributes of all variables in one call.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSO triggers the CSMS to request for a number of variables in a Charging Station.",
+      "2. The CSMS request the Charging Station for a number of variables with GetVariablesRequest\nwith a list of requested variables.",
+      "3. The Charging Station responds with a GetVariablesResponse with the requested variables.",
+      "4. The CSMS sends an optional notification to the CSO."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "Successful postcondition:\nThe Charging Station was able to send all the requested variables.\nFailure postcondition:\nThe Charging Station was not able to send all requested variables.",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "B06.FR.01",
+        "precondition": "When the Charging Station receives a\nGetVariablesRequest with an X number of\nGetVariableData elements",
+        "definition": "The Charging Station SHALL respond with an\nGetVariablesResponse with an equal (X) number of\nGetVariableResult elements, one for every GetVariableData\nelement in the GetVariablesRequest."
+      },
+      {
+        "id": "B06.FR.02",
+        "precondition": "B06.FR.01",
+        "definition": "Every GetVariableResult element in the GetVariablesResponse\nSHALL contain the same component and variable combination\nas one of the GetVariableData elements in the\nGetVariablesRequest."
+      },
+      {
+        "id": "B06.FR.03",
+        "precondition": "B06.FR.02\nAND\nIf the GetVariablesRequest contains an\nattributeType",
+        "definition": "The corresponding GetVariableResult element in the\nGetVariablesResponse SHALL also contain the same\nattributeType"
+      },
+      {
+        "id": "B06.FR.04",
+        "precondition": "B06.FR.01",
+        "definition": "Every GetVariableResult element in the GetVariablesResponse\nSHALL contain an attributeValue with the value of an attribute\nfrom the requested attributeType in the GetVariablesRequest."
+      },
+      {
+        "id": "B06.FR.05",
+        "precondition": "",
+        "definition": "The CSMS SHALL NOT send more GetVariableData elements in\na GetVariablesRequest than reported by the Charging Station via\nItemsPerMessageGetVariables."
+      },
+      {
+        "id": "B06.FR.06",
+        "precondition": "When the Charging Station receives a\nGetVariablesRequest with an unknown\nComponent in the GetVariableData",
+        "definition": "The Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: UnknownComponent AND\nSHALL omit the attributeValue."
+      },
+      {
+        "id": "B06.FR.07",
+        "precondition": "When the Charging Station receives a\nGetVariablesRequest with a Variable that is\nunknown for the given Component in the\nGetVariableData",
+        "definition": "The Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: UnknownVariable AND\nSHALL omit the attributeValue."
+      },
+      {
+        "id": "B06.FR.08",
+        "precondition": "When the Charging Station receives a\nGetVariablesRequest with an attributeType that\nis unknown for the given Variable in the\nGetVariableData",
+        "definition": "The Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: NotSupportedAttributeType\nAND SHALL omit the attributeValue."
+      },
+      {
+        "id": "B06.FR.09",
+        "precondition": "When the Charging Station receives a\nGetVariablesRequest for a Variable in the\nGetVariableData that is WriteOnly",
+        "definition": "The Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: Rejected."
+      },
+      {
+        "id": "B06.FR.10",
+        "precondition": "When the Charging Station was able to get the\nvalue requested from a GetVariablesRequest",
+        "definition": "The Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: Accepted and set the\nattributeValue to the found value."
+      },
+      {
+        "id": "B06.FR.11",
+        "precondition": "When the Charging Station receives a\nGetVariablesRequest without an attributeType.",
+        "definition": "The corresponding GetVariableResult element in the\nGetVariablesResponse SHALL contain the attributeType Actual."
+      },
+      {
+        "id": "B06.FR.13",
+        "precondition": "NOT B06.FR.08\nAND\nthe Charging Station has no attributeValue for\nthe requested attributeType of the\ncomponentvariable",
+        "definition": "Charging Station SHALL return an empty string as attributeValue.\nNote: this can happen, for example, when the attributeType\nTarget has not yet been set, even though it is supported."
+      },
+      {
+        "id": "B06.FR.14",
+        "precondition": "B06.FR.01 AND\na value for instance is provided in the\ncomponent and/or variable in GetVariableData",
+        "definition": "Charging Station SHALL return the specified instance of that\ncomponent and/or variable in GetVariableResult."
+      },
+      {
+        "id": "B06.FR.15",
+        "precondition": "B06.FR.01 AND\nno value or an empty string is provided for\ninstance in the component and/or variable in\nGetVariableData AND\na component and/or variable without an\ninstance does not exist",
+        "definition": "Charging Station SHALL return the attributeStatus\nUnknownComponent or UnknownVariable in the\nGetVariableResult entry for GetVariableData."
+      },
+      {
+        "id": "B06.FR.16",
+        "precondition": "Charging Station receives a\nGetVariablesRequest with more\nGetVariableData elements than allowed by\nItemsPerMessageGetVariables",
+        "definition": "The Charging Station MAY respond with a\nCALLERROR(OccurenceConstraintViolation)"
+      },
+      {
+        "id": "B06.FR.17",
+        "precondition": "Charging Station receives a\nGetVariablesRequest with a length of more\nbytes than allowed by\nBytesPerMessageGetVariables",
+        "definition": "The Charging Station MAY respond with a\nCALLERROR(FormatViolation)"
+      }
+    ],
+    "figures": [
+      "fig15.png",
+      "fig16.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# B06 - Get Variables\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Get Variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 2   | ID               | B06                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 3   | Objective(s)     | To give the CSMS the ability to retrieve the value of an attribute for one or more Variables of one or more Components.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 4   | Description      | This use case describes how the CSMS requests a Charging Station to send the value of an attribute for one or more variables of one or more components. It is not possible to get all attributes of all variables in one call. Actors: Charging Station, CSMS Scenario description: 1. The CSO triggers the CSMS to request for a number of variables in a Charging Station. 2. The CSMS requests the Charging Station for a number of variables with GetVariablesRequest with a list of requested variables. 3. The Charging Station responds with a GetVariablesResponse with the requested variables. 4. The CSMS sends an optional notification to the CSO. |",
+      "content": "# B06 - Get Variables\n\n**Objective:** To give the CSMS the ability to retrieve the value of an attribute for one or more Variables of one\nor more Components.\n\n**Description:** This use case describes how the CSMS requests a Charging Station to send the value of an\nattribute for one or more variables of one or more components. It is not possible to get all\nattributes of all variables in one call.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSO triggers the CSMS to request for a number of variables in a Charging Station.\n2. The CSMS request the Charging Station for a number of variables with GetVariablesRequest\nwith a list of requested variables.\n3. The Charging Station responds with a GetVariablesResponse with the requested variables.\n4. The CSMS sends an optional notification to the CSO.\n\n**Prerequisites:** n/a\n\n**Postconditions:** Successful postcondition:\nThe Charging Station was able to send all the requested variables.\nFailure postcondition:\nThe Charging Station was not able to send all requested variables.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "B06 - Get Variables",
-        "heading_path": "B06 - Get Variables",
         "functional_block": "Provisioning",
         "use_case_id": "B06",
         "use_case_name": "Get Variables",
-        "use_case_refs": "B06",
-        "message_refs": "GetVariablesRequest, GetVariablesResponse, getVariablesRequest, getVariablesResponse",
         "chunk_part": 1,
         "total_parts": 3
       }
     },
     {
-      "content": "| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 6   | Postcondition(s) | Successful postcondition: The Charging Station was able to send all the requested variables. Failure postcondition: The Charging Station was not able to send all requested variables.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B06 - Get Variables",
-        "heading_path": "B06 - Get Variables",
-        "functional_block": "Provisioning",
-        "use_case_id": "B06",
-        "use_case_name": "Get Variables",
-        "use_case_refs": "B06",
-        "message_refs": "GetVariablesRequest, GetVariablesResponse, getVariablesRequest, getVariablesResponse",
-        "chunk_part": 2,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n\nCSO    CSMS    Charging Station\n\nrequest for a number of variables\n\ngetVariablesRequest(getVariableData)\n\ngetVariablesResponse(getVariableResult)\n\nopt notification",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "B06 - Get Variables",
-        "heading_path": "B06 - Get Variables",
-        "functional_block": "Provisioning",
-        "use_case_id": "B06",
-        "use_case_name": "Get Variables",
-        "use_case_refs": "B06",
-        "message_refs": "GetVariablesRequest, GetVariablesResponse, getVariablesRequest, getVariablesResponse",
-        "chunk_part": 3,
-        "total_parts": 3
-      }
-    },
-    {
-      "content": "# B06 - Get Variables - Requirements\n\n| ID        | Precondition                                                                                          | Requirement definition                                                                                                                                                                   |\n| --------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B06.FR.01 | When the Charging Station receives a GetVariablesRequest with an X number of GetVariableData elements | The Charging Station SHALL respond with a GetVariablesResponse with an equal (X) number of GetVariableResult elements, one for every GetVariableData element in the GetVariablesRequest. |\n| B06.FR.02 | B06.FR.01                                                                                             | Every GetVariableResult element in the GetVariablesResponse SHALL contain the same component and variable combination as one of the GetVariableData elements in the GetVariablesRequest. |\n| B06.FR.03 | B06.FR.02                                                                                             | The corresponding GetVariableResult element in the GetVariablesResponse SHALL also contain the same attributeType AND If the GetVariablesRequest contains an attributeType               |",
+      "content": "# B06 - Requirements\n\n**B06.FR.01**\nPrecondition: When the Charging Station receives a\nGetVariablesRequest with an X number of\nGetVariableData elements\nThe Charging Station SHALL respond with an\nGetVariablesResponse with an equal (X) number of\nGetVariableResult elements, one for every GetVariableData\nelement in the GetVariablesRequest.\n\n**B06.FR.02**\nPrecondition: B06.FR.01\nEvery GetVariableResult element in the GetVariablesResponse\nSHALL contain the same component and variable combination\nas one of the GetVariableData elements in the\nGetVariablesRequest.\n\n**B06.FR.03**\nPrecondition: B06.FR.02\nAND\nIf the GetVariablesRequest contains an\nattributeType\nThe corresponding GetVariableResult element in the\nGetVariablesResponse SHALL also contain the same\nattributeType\n\n**B06.FR.04**\nPrecondition: B06.FR.01\nEvery GetVariableResult element in the GetVariablesResponse\nSHALL contain an attributeValue with the value of an attribute\nfrom the requested attributeType in the GetVariablesRequest.\n\n**B06.FR.05**\nThe CSMS SHALL NOT send more GetVariableData elements in\na GetVariablesRequest than reported by the Charging Station via\nItemsPerMessageGetVariables.\n\n**B06.FR.06**\nPrecondition: When the Charging Station receives a\nGetVariablesRequest with an unknown\nComponent in the GetVariableData\nThe Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: UnknownComponent AND\nSHALL omit the attributeValue.\n\n**B06.FR.07**\nPrecondition: When the Charging Station receives a\nGetVariablesRequest with a Variable that is\nunknown for the given Component in the\nGetVariableData\nThe Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: UnknownVariable AND\nSHALL omit the attributeValue.\n\n**B06.FR.08**\nPrecondition: When the Charging Station receives a\nGetVariablesRequest with an attributeType that\nis unknown for the given Variable in the\nGetVariableData\nThe Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: NotSupportedAttributeType\nAND SHALL omit the attributeValue.\n\n**B06.FR.09**\nPrecondition: When the Charging Station receives a\nGetVariablesRequest for a Variable in the\nGetVariableData that is WriteOnly\nThe Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: Rejected.\n",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "B06 - Get Variables - Requirements",
-        "heading_path": "B06 - Get Variables - Requirements",
+        "heading": "B06 - Requirements",
         "functional_block": "Provisioning",
         "use_case_id": "B06",
         "use_case_name": "Get Variables",
-        "use_case_refs": "B06",
-        "message_refs": "GetVariablesRequest, GetVariablesResponse"
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# B06 - Requirements (continued)\n\n**B06.FR.10**\nPrecondition: When the Charging Station was able to get the\nvalue requested from a GetVariablesRequest\nThe Charging Station SHALL set the attributeStatus field in the\ncorresponding GetVariableResult to: Accepted and set the\nattributeValue to the found value.\n\n**B06.FR.11**\nPrecondition: When the Charging Station receives a\nGetVariablesRequest without an attributeType.\nThe corresponding GetVariableResult element in the\nGetVariablesResponse SHALL contain the attributeType Actual.\n\n**B06.FR.13**\nPrecondition: NOT B06.FR.08\nAND\nthe Charging Station has no attributeValue for\nthe requested attributeType of the\ncomponentvariable\nCharging Station SHALL return an empty string as attributeValue.\nNote: this can happen, for example, when the attributeType\nTarget has not yet been set, even though it is supported.\n\n**B06.FR.14**\nPrecondition: B06.FR.01 AND\na value for instance is provided in the\ncomponent and/or variable in GetVariableData\nCharging Station SHALL return the specified instance of that\ncomponent and/or variable in GetVariableResult.\n\n**B06.FR.15**\nPrecondition: B06.FR.01 AND\nno value or an empty string is provided for\ninstance in the component and/or variable in\nGetVariableData AND\na component and/or variable without an\ninstance does not exist\nCharging Station SHALL return the attributeStatus\nUnknownComponent or UnknownVariable in the\nGetVariableResult entry for GetVariableData.\n\n**B06.FR.16**\nPrecondition: Charging Station receives a\nGetVariablesRequest with more\nGetVariableData elements than allowed by\nItemsPerMessageGetVariables\nThe Charging Station MAY respond with a\nCALLERROR(OccurenceConstraintViolation)\n\n**B06.FR.17**\nPrecondition: Charging Station receives a\nGetVariablesRequest with a length of more\nbytes than allowed by\nBytesPerMessageGetVariables\nThe Charging Station MAY respond with a\nCALLERROR(FormatViolation)\n",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B06 - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B06",
+        "use_case_name": "Get Variables",
+        "chunk_part": 3,
+        "total_parts": 3
       }
     }
-  ],
-  "figures": []
+  ]
 }

@@ -2,95 +2,127 @@
   "use_case_id": "H02",
   "functional_block": "Reservation",
   "use_case_name": "Cancel Reservation",
+  "structured": {
+    "name": "Cancel Reservation",
+    "id": "H02",
+    "functional_block": "Reservation",
+    "objective": "To cancel a reservation on a Charging Station.",
+    "description": "This use case describes how an EV Driver can cancel an existing reservation. The CSMS can\ncancel the reservation the EV Driver has on a Charging Station.",
+    "actors": [
+      "Charging Station",
+      "CSMS",
+      "EV Driver"
+    ],
+    "scenario": [
+      "1. EV Driver asks the CSMS to cancel a reservation.",
+      "2. To cancel a reservation, the CSMS sends CancelReservationRequest to the Charging Station.",
+      "3. If the Charging Station has a reservation matching the reservationId in the request PDU, it\nreturns the status Accepted.",
+      "4. If needed, the Charging Station sends StatusNotificationRequest with the status Available or a\nNotifyEventRequest with AvailabilityState set to Available for all the Connectors of EVSEs that\nbecame available.",
+      "5. The CSMS responds with StatusNotificationResponse or NotifyEventResponse to the Charging\nStation.",
+      "6. The reservation is canceled."
+    ],
+    "prerequisites": "- The Functional Block Reservation is installed.\n- EV Driver has a reservation at the Charging Station.",
+    "postconditions": "Successful postcondition:\nThe CSMS was able to cancel the EV Driver\u2019s reservation at the Charging Stations.\nFailure postcondition:\nn/a.",
+    "error_handling": "n/a",
+    "remarks": "The Charging Station does not send a ReservationStatusUpdate, because it was explicitly\ncanceled by CSMS, so it is already aware of the event.",
+    "requirements": [
+      {
+        "id": "H02.FR.01",
+        "precondition": "The Charging Station has received a\nCancelReservationRequest and no matching\nreservationId.",
+        "definition": "The Charging Station SHALL return Rejected."
+      },
+      {
+        "id": "H02.FR.02",
+        "precondition": "If a Charging Station receives a\nCancelReservationRequest with a valid, known\nreservationId.",
+        "definition": "The reservation SHALL be canceled."
+      },
+      {
+        "id": "H02.FR.03",
+        "precondition": "H02.FR.02 AND\nIf a specific EVSE was reserved for this\nreservation",
+        "definition": "The Charging Station SHALL allow charging again on this EVSE."
+      },
+      {
+        "id": "H02.FR.04",
+        "precondition": "H02.FR.03",
+        "definition": "The Charging Station SHALL send a StatusNotificationRequest\nwith status Available or a NotifyEventRequest with\nAvailabilityState set to Available to the CSMS for each connector,\nnotifying the CSMS that all the connectors of this EVSE are\navailable again for any EV Driver."
+      },
+      {
+        "id": "H02.FR.05",
+        "precondition": "H02.FR.02 AND\nIf no specific EVSE was reserved for this\nreservation",
+        "definition": "The Charging Station SHALL allow charging on all EVSE which\nwere not reserved explicitly."
+      },
+      {
+        "id": "H02.FR.06",
+        "precondition": "H01.FR.05 AND\nbefore cancelling the reservation the amount of\nEVSEs reserved was equal to the amount of\nreservations",
+        "definition": "The Charging Station SHALL send for all connectors of all EVSEs\nwhich were not reserved explicitly:\n- a NotifyEventRequest with component = \"Connector\", variable =\n\"AvailabilityState\", trigger = \"Delta\", actualValue = \"Available\", OR\n- a StatusNotificationRequest with connectorStatus =\nAvailable."
+      }
+    ],
+    "figures": [
+      "fig80.png",
+      "fig81.png",
+      "fig82.png"
+    ],
+    "sub_scenarios": [
+      {
+        "scenario_id": "S2",
+        "objective": "Use an EVSE with connector status Reserved, that is reserved for this GroupIdToken",
+        "steps": [
+          "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+          "1. The EV Driver connects the cable.",
+          "2. Charging Station starts a transaction, but connector status remains\nReserved.",
+          "3. The EV Driver presents an IdTokenType at the Charging Station that is not the\nsame as the reservation\u2019s IdTokenType, but the reservation contains a\ngroupIdToken.",
+          "4. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local\nAuthorization List or Authorization Cache, and checks if the groupIdToken of\nthe IdTokenType matches with the reservation.",
+          "5. If groupIdTokens match:\na. Connector status becomes Occupied, since reservation has now been\nconsumed.\nb. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+        ]
+      },
+      {
+        "scenario_id": "S3",
+        "objective": "Use an EVSE when Charging Station has a reservation for idToken, but connector\nstatus is Available.\nThis happens when reservation is for an unspecified EVSE and multiple EVSEs are\navailable.",
+        "steps": [
+          "TxStartPoint = \"EVConnected\"; Cable plugged in first",
+          "1. The EV Driver connects the cable",
+          "2. Charging Station reports connector status as Occupied",
+          "3. Charging Station starts a transaction",
+          "4. The EV Driver presents an IdTokenType at the Charging Station that is the\nsame as the reservation\u2019s IdTokenType",
+          "5. Charging Station matches IdTokenType with the reservation",
+          "6. Charging Station optionally authorizes the IdTokenType via an\nAuthorizeRequest",
+          "7. If authorization accepted, or authorization step was skipped:\na. Charging Station starts a transaction as in E02 - Start Transaction -\nCable Plugin First"
+        ],
+        "prerequisites": "Unspecified EVSE has been reserved for idToken. EVSE connector status is\nAvailable.",
+        "postconditions": "n/a"
+      }
+    ]
+  },
   "chunks": [
     {
-      "content": "# H02 - Cancel Reservation\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Cancel Reservation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 2   | ID               | H02                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)     | To cancel a reservation on a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "content": "# H02 - Cancel Reservation\n\n**Objective:** To cancel a reservation on a Charging Station.\n\n**Description:** This use case describes how an EV Driver can cancel an existing reservation. The CSMS can\ncancel the reservation the EV Driver has on a Charging Station.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. EV Driver asks the CSMS to cancel a reservation.\n2. To cancel a reservation, the CSMS sends CancelReservationRequest to the Charging Station.\n3. If the Charging Station has a reservation matching the reservationId in the request PDU, it\nreturns the status Accepted.\n4. If needed, the Charging Station sends StatusNotificationRequest with the status Available or a\nNotifyEventRequest with AvailabilityState set to Available for all the Connectors of EVSEs that\nbecame available.\n5. The CSMS responds with StatusNotificationResponse or NotifyEventResponse to the Charging\nStation.\n6. The reservation is canceled.\n\n**Prerequisites:** - The Functional Block Reservation is installed.\n- EV Driver has a reservation at the Charging Station.\n\n**Postconditions:** Successful postcondition:\nThe CSMS was able to cancel the EV Driver\u2019s reservation at the Charging Stations.\nFailure postcondition:\nn/a.\n\n**Remarks:** The Charging Station does not send a ReservationStatusUpdate, because it was explicitly\ncanceled by CSMS, so it is already aware of the event.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "H02 - Cancel Reservation",
-        "heading_path": "H02 - Cancel Reservation",
         "functional_block": "Reservation",
         "use_case_id": "H02",
         "use_case_name": "Cancel Reservation",
-        "use_case_refs": "H02",
-        "message_refs": "CancelReservationRequest, CancelReservationResponse, NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
         "chunk_part": 1,
-        "total_parts": 4
+        "total_parts": 2
       }
     },
     {
-      "content": "| 4   | Description      | This use case describes how an EV Driver can cancel an existing reservation. The CSMS can cancel the reservation the EV Driver has on a Charging Station. **Actors:** Charging Station, CSMS, EV Driver **Scenario description:**) EV Driver asks the CSMS to cancel a reservation.\n2) To cancel a reservation, the CSMS sends CancelReservationRequest to the Charging Station.\n3) If the Charging Station has a reservation matching the reservationId in the request PDU, it returns the status Accepted.\n4) If needed, the Charging Station sends StatusNotificationRequest with the status Available or a NotifyEventRequest with AvailabilityState set to Available for all the Connectors of EVSEs that became available.\n5) The CSMS responds with StatusNotificationResponse or NotifyEventResponse to the Charging Station.\n6) The reservation is canceled. |\n| 5   | Prerequisite(s)  | * The Functional Block Reservation is installed.\n* EV Driver has a reservation at the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 6   | Postcondition(s) | **Successful postcondition:** The CSMS was able to cancel the EV Driver’s reservation at the Charging Stations. **Failure postcondition:** n/a.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H02 - Cancel Reservation",
-        "heading_path": "H02 - Cancel Reservation",
-        "functional_block": "Reservation",
-        "use_case_id": "H02",
-        "use_case_name": "Cancel Reservation",
-        "use_case_refs": "H02",
-        "message_refs": "CancelReservationRequest, CancelReservationResponse, NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 2,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)        | The Charging Station does not send a ReservationStatusUpdate, because it was explicitly canceled by CSMS, so it is already aware of the event.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n\nUser: CSMS",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H02 - Cancel Reservation",
-        "heading_path": "H02 - Cancel Reservation",
-        "functional_block": "Reservation",
-        "use_case_id": "H02",
-        "use_case_name": "Cancel Reservation",
-        "use_case_refs": "H02",
-        "message_refs": "CancelReservationRequest, CancelReservationResponse, NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 3,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "Charging Station\n\nCancel reservation\n\nCancelReservationRequest(reservationId)\n\nCancelReservationResponse(status = Accepted)",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H02 - Cancel Reservation",
-        "heading_path": "H02 - Cancel Reservation",
-        "functional_block": "Reservation",
-        "use_case_id": "H02",
-        "use_case_name": "Cancel Reservation",
-        "use_case_refs": "H02",
-        "message_refs": "CancelReservationRequest, CancelReservationResponse, NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 4,
-        "total_parts": 4
-      }
-    },
-    {
-      "content": "# H02 - Cancel Reservation - Requirements\n\n| ID        | Precondition                                                                                 | Requirement definition                                        |\n| --------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |\n| H02.FR.01 | The Charging Station has received a CancelReservationRequest and no matching reservationId.  | The Charging Station SHALL return Rejected.                   |\n| H02.FR.02 | If a Charging Station receives a CancelReservationRequest with a valid, known reservationId. | The reservation SHALL be canceled.                            |\n| H02.FR.03 | H02.FR.02 AND If a specific EVSE was reserved for this reservation                           | The Charging Station SHALL allow charging again on this EVSE. |",
+      "content": "# H02 - Requirements\n\n**H02.FR.01**\nPrecondition: The Charging Station has received a\nCancelReservationRequest and no matching\nreservationId.\nThe Charging Station SHALL return Rejected.\n\n**H02.FR.02**\nPrecondition: If a Charging Station receives a\nCancelReservationRequest with a valid, known\nreservationId.\nThe reservation SHALL be canceled.\n\n**H02.FR.03**\nPrecondition: H02.FR.02 AND\nIf a specific EVSE was reserved for this\nreservation\nThe Charging Station SHALL allow charging again on this EVSE.\n\n**H02.FR.04**\nPrecondition: H02.FR.03\nThe Charging Station SHALL send a StatusNotificationRequest\nwith status Available or a NotifyEventRequest with\nAvailabilityState set to Available to the CSMS for each connector,\nnotifying the CSMS that all the connectors of this EVSE are\navailable again for any EV Driver.\n\n**H02.FR.05**\nPrecondition: H02.FR.02 AND\nIf no specific EVSE was reserved for this\nreservation\nThe Charging Station SHALL allow charging on all EVSE which\nwere not reserved explicitly.\n\n**H02.FR.06**\nPrecondition: H01.FR.05 AND\nbefore cancelling the reservation the amount of\nEVSEs reserved was equal to the amount of\nreservations\nThe Charging Station SHALL send for all connectors of all EVSEs\nwhich were not reserved explicitly:\n- a NotifyEventRequest with component = \"Connector\", variable =\n\"AvailabilityState\", trigger = \"Delta\", actualValue = \"Available\", OR\n- a StatusNotificationRequest with connectorStatus =\nAvailable.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "H02 - Cancel Reservation - Requirements",
-        "heading_path": "H02 - Cancel Reservation - Requirements",
+        "heading": "H02 - Requirements",
         "functional_block": "Reservation",
         "use_case_id": "H02",
         "use_case_name": "Cancel Reservation",
-        "use_case_refs": "H02",
-        "message_refs": "CancelReservationRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

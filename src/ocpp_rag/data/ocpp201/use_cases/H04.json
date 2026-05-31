@@ -2,113 +2,82 @@
   "use_case_id": "H04",
   "functional_block": "Reservation",
   "use_case_name": "Reservation Ended, not used",
+  "structured": {
+    "name": "Reservation Ended, not used",
+    "id": "H04",
+    "functional_block": "Reservation",
+    "objective": "To enable a Charging Station to notify the CSMS about a reservation that has expired.",
+    "description": "This use cases covers how the Charging Station notifies the CSMS about a reservation, that has\nended/timed out before the EV Driver starts using the Charging Station.",
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The Charging Station has a reservation.",
+      "2. The expiryDate of the reservation is reached.",
+      "3. The Charging Station removes the reservation .",
+      "4. If a specific EVSE was reserved for this reservation, the Charging Station makes the EVSE\navailable again and notifies the CSMS about this by sending a StatusNotificationRequest with the\nstatus Available or a NotifyEventRequest with AvailabilityState set to Available for all the\nConnectors of that EVSE.",
+      "5. The CSMS responds with a StatusNotificationResponse or NotifyEventResponse.",
+      "6. The Charging Station sends a ReservationStatusUpdateRequest with status Expired to the\nCSMS.",
+      "7. The CSMS responds with a ReservationStatusUpdateResponse."
+    ],
+    "prerequisites": "n/a",
+    "postconditions": "n/a",
+    "error_handling": "n/a",
+    "remarks": "Use of StatusNotificationRequest instead of NotifyEventRequest is deprecated, but still allowed.",
+    "requirements": [
+      {
+        "id": "H04.FR.01",
+        "precondition": "The reservation ends (expiryDateTime reached)",
+        "definition": "The Charging Station SHALL send a\nReservationStatusUpdateRequest with status Expired."
+      },
+      {
+        "id": "H04.FR.02",
+        "precondition": "H04.FR.01 AND\nIf a specific EVSE was reserved for this\nreservation",
+        "definition": "The Charging Station SHALL allow charging again on this EVSE."
+      },
+      {
+        "id": "H04.FR.03",
+        "precondition": "H04.FR.02",
+        "definition": "The Charging Station SHALL send a StatusNotificationRequest\nwith status Available or a NotifyEventRequest with\nAvailabilityState set to Available to the CSMS for each connector,\nnotifying the CSMS that all the connectors of this EVSE are\navailable again for any EV Driver."
+      }
+    ],
+    "figures": [
+      "fig83.png",
+      "fig84.png",
+      "fig85.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# H04 - Reservation Ended, not used\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Reservation Ended, not used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 2   | ID               | H04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "content": "# H04 - Reservation Ended, not used\n\n**Objective:** To enable a Charging Station to notify the CSMS about a reservation that has expired.\n\n**Description:** This use cases covers how the Charging Station notifies the CSMS about a reservation, that has\nended/timed out before the EV Driver starts using the Charging Station.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The Charging Station has a reservation.\n2. The expiryDate of the reservation is reached.\n3. The Charging Station removes the reservation .\n4. If a specific EVSE was reserved for this reservation, the Charging Station makes the EVSE\navailable again and notifies the CSMS about this by sending a StatusNotificationRequest with the\nstatus Available or a NotifyEventRequest with AvailabilityState set to Available for all the\nConnectors of that EVSE.\n5. The CSMS responds with a StatusNotificationResponse or NotifyEventResponse.\n6. The Charging Station sends a ReservationStatusUpdateRequest with status Expired to the\nCSMS.\n7. The CSMS responds with a ReservationStatusUpdateResponse.\n\n**Prerequisites:** n/a\n\n**Postconditions:** n/a\n\n**Remarks:** Use of StatusNotificationRequest instead of NotifyEventRequest is deprecated, but still allowed.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
         "heading": "H04 - Reservation Ended, not used",
-        "heading_path": "H04 - Reservation Ended, not used",
         "functional_block": "Reservation",
         "use_case_id": "H04",
         "use_case_name": "Reservation Ended, not used",
-        "use_case_refs": "H04",
-        "message_refs": "NotifyEventRequest, NotifyEventResponse, ReservationStatusUpdateRequest, ReservationStatusUpdateResponse, StatusNotificationRequest, StatusNotificationResponse",
         "chunk_part": 1,
-        "total_parts": 5
+        "total_parts": 2
       }
     },
     {
-      "content": "| 3   | Objective(s)     | To enable a Charging Station to notify the CSMS about a reservation that has expired.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 4   | Description      | This use case covers how the Charging Station notifies the CSMS about a reservation, that has ended/timed out before the EV Driver starts using the Charging Station. **Actors:** Charging Station, CSMS **Scenario description:**) The Charging Station has a reservation.\n2) The expiryDate of the reservation is reached.\n3) The Charging Station removes the reservation.\n4) If a specific EVSE was reserved for this reservation, the Charging Station makes the EVSE available again and notifies the CSMS about this by sending a StatusNotificationRequest with the status Available or a NotifyEventRequest with AvailabilityState set to Available for all the Connectors of that EVSE.\n5) The CSMS responds with a StatusNotificationResponse or NotifyEventResponse.\n6) The Charging Station sends a ReservationStatusUpdateRequest with status Expired to the CSMS.",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H04 - Reservation Ended, not used",
-        "heading_path": "H04 - Reservation Ended, not used",
-        "functional_block": "Reservation",
-        "use_case_id": "H04",
-        "use_case_name": "Reservation Ended, not used",
-        "use_case_refs": "H04",
-        "message_refs": "NotifyEventRequest, NotifyEventResponse, ReservationStatusUpdateRequest, ReservationStatusUpdateResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 2,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "7) The CSMS responds with a ReservationStatusUpdateResponse. |\n| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 6   | Postcondition(s) | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H04 - Reservation Ended, not used",
-        "heading_path": "H04 - Reservation Ended, not used",
-        "functional_block": "Reservation",
-        "use_case_id": "H04",
-        "use_case_name": "Reservation Ended, not used",
-        "use_case_refs": "H04",
-        "message_refs": "NotifyEventRequest, NotifyEventResponse, ReservationStatusUpdateRequest, ReservationStatusUpdateResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 3,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 8   | Remark(s)        | Use of StatusNotificationRequest instead of NotifyEventRequest is deprecated, but still allowed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H04 - Reservation Ended, not used",
-        "heading_path": "H04 - Reservation Ended, not used",
-        "functional_block": "Reservation",
-        "use_case_id": "H04",
-        "use_case_name": "Reservation Ended, not used",
-        "use_case_refs": "H04",
-        "message_refs": "NotifyEventRequest, NotifyEventResponse, ReservationStatusUpdateRequest, ReservationStatusUpdateResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 4,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "Charging Station\n\nCSMS\n\nReservation ended, expiryDateTime is reached\n\nalt [Specific EVSE reserved]\n\nStatusNotificationRequest(Available)\n\nStatusNotificationResponse()\n\nReservationStatusUpdateRequest(reservationId, reservationUpdateStatus = Expired)\n\nReservationStatusUpdateResponse()",
-      "metadata": {
-        "doc_id": "ocpp201_part2",
-        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-        "ocpp_version": "2.0.1",
-        "content_type": "use_case",
-        "heading": "H04 - Reservation Ended, not used",
-        "heading_path": "H04 - Reservation Ended, not used",
-        "functional_block": "Reservation",
-        "use_case_id": "H04",
-        "use_case_name": "Reservation Ended, not used",
-        "use_case_refs": "H04",
-        "message_refs": "NotifyEventRequest, NotifyEventResponse, ReservationStatusUpdateRequest, ReservationStatusUpdateResponse, StatusNotificationRequest, StatusNotificationResponse",
-        "chunk_part": 5,
-        "total_parts": 5
-      }
-    },
-    {
-      "content": "# H04 - Reservation Ended, not used - Requirements\n\n| ID        | Precondition                                                       | Requirement definition                                                                                                                                                                                                                                                           |\n| --------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| H04.FR.01 | The reservation ends (expiryDateTime reached)                      | The Charging Station SHALL send a ReservationStatusUpdateRequest with status Expired.                                                                                                                                                                                            |\n| H04.FR.02 | H04.FR.01 AND If a specific EVSE was reserved for this reservation | The Charging Station SHALL allow charging again on this EVSE.                                                                                                                                                                                                                    |\n| H04.FR.03 | H04.FR.02                                                          | The Charging Station SHALL send a StatusNotificationRequest with status Available or a NotifyEventRequest with AvailabilityState set to Available to the CSMS for each connector, notifying the CSMS that all the connectors of this EVSE are available again for any EV Driver. |",
+      "content": "# H04 - Requirements\n\n**H04.FR.01**\nPrecondition: The reservation ends (expiryDateTime reached)\nThe Charging Station SHALL send a\nReservationStatusUpdateRequest with status Expired.\n\n**H04.FR.02**\nPrecondition: H04.FR.01 AND\nIf a specific EVSE was reserved for this\nreservation\nThe Charging Station SHALL allow charging again on this EVSE.\n\n**H04.FR.03**\nPrecondition: H04.FR.02\nThe Charging Station SHALL send a StatusNotificationRequest\nwith status Available or a NotifyEventRequest with\nAvailabilityState set to Available to the CSMS for each connector,\nnotifying the CSMS that all the connectors of this EVSE are\navailable again for any EV Driver.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "H04 - Reservation Ended, not used - Requirements",
-        "heading_path": "H04 - Reservation Ended, not used - Requirements",
+        "heading": "H04 - Requirements",
         "functional_block": "Reservation",
         "use_case_id": "H04",
         "use_case_name": "Reservation Ended, not used",
-        "use_case_refs": "H04",
-        "message_refs": "NotifyEventRequest, ReservationStatusUpdateRequest, StatusNotificationRequest"
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }

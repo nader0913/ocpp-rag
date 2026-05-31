@@ -1,39 +1,92 @@
 {
   "use_case_id": "K14",
   "functional_block": "SmartCharging",
-  "use_case_name": "External Charging Limit with Local Controller",
+  "use_case_name": "Handle external charging limit with a local controller",
+  "structured": {
+    "name": "Handle external charging limit with a local controller",
+    "id": "K14",
+    "functional_block": "SmartCharging",
+    "objective": "To adjust the charging limits according to the External Control System requirements.",
+    "description": "An external control system sends a charging limit to the Local Controller. The Local Controller\nnotifies the CSMS, calculates the new charging schedules and sends a\nSetChargingProfileRequest messages to all Charging Stations for which the charging profile has\nchanged.",
+    "actors": [
+      "External control system",
+      "Local Controller",
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [],
+    "prerequisites": "",
+    "postconditions": "",
+    "error_handling": "n/a",
+    "remarks": "n/a",
+    "requirements": [
+      {
+        "id": "K14.FR.01",
+        "precondition": "When an external charging\nlimit/schedule is received",
+        "definition": "The total load of all Charging Stations SHALL NOT exceed this given limit."
+      },
+      {
+        "id": "K14.FR.02",
+        "precondition": "K14.FR.01\nAND\nCharging limit changed by more\nthan: LimitChangeSignificance",
+        "definition": "The Local Controller SHALL inform the CSMS of the new charging\nlimit/schedule imposed by the external system by sending a\nNotifyChargingLimitRequest."
+      },
+      {
+        "id": "K14.FR.03",
+        "precondition": "When an external charging\nlimit/schedule is released",
+        "definition": "The local controller SHALL notify the CSMS by sending a\nClearedChargingLimitRequest."
+      },
+      {
+        "id": "K14.FR.04",
+        "precondition": "K14.FR.03",
+        "definition": "The local controller SHALL clear the hard limit on Charging Stations by\nsending a ClearChargingProfileRequest message to the Charging\nStations."
+      },
+      {
+        "id": "K14.FR.05",
+        "precondition": "When the Local Controller receives\nan external charging limit/schedule",
+        "definition": "It SHALL send a SetChargingProfileRequest to all Charging Stations for\nwhich the charging profile has changed."
+      },
+      {
+        "id": "K14.FR.06",
+        "precondition": "K14.FR.05",
+        "definition": "The Local Controller SHALL NOT set chargingProfilePurpose to\nChargingStationExternalConstraints."
+      }
+    ],
+    "figures": [
+      "fig110.png",
+      "fig111.png",
+      "fig112.png"
+    ]
+  },
   "chunks": [
     {
-      "content": "# K14 - External Charging Limit with Local Controller\n\n| No. | Type         | Description                                                                                                                                                                                                                                                                  |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Handle external charging limit with a local controller                                                                                                                                                                                                                       |\n| 2   | ID           | K14                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s) | To adjust the charging limits according to the External Control System requirements.                                                                                                                                                                                         |\n| 4   | Description  | An external control system sends a charging limit to the Local Controller. The Local Controller notifies the CSMS, calculates the new charging schedules and sends a SetChargingProfileRequest messages to all Charging Stations for which the charging profile has changed. |\n\nActors: External control system, Local Controller, Charging Station, CSMS",
+      "content": "# K14 - Handle external charging limit with a local controller\n\n**Objective:** To adjust the charging limits according to the External Control System requirements.\n\n**Description:** An external control system sends a charging limit to the Local Controller. The Local Controller\nnotifies the CSMS, calculates the new charging schedules and sends a\nSetChargingProfileRequest messages to all Charging Stations for which the charging profile has\nchanged.\n\n**Actors:** External control system, Local Controller, Charging Station, CSMS",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "use_case",
-        "heading": "K14 - External Charging Limit with Local Controller",
-        "heading_path": "K14 - External Charging Limit with Local Controller",
+        "heading": "K14 - Handle external charging limit with a local controller",
         "functional_block": "SmartCharging",
         "use_case_id": "K14",
-        "use_case_name": "External Charging Limit with Local Controller",
-        "use_case_refs": "K14",
-        "message_refs": "SetChargingProfileRequest"
+        "use_case_name": "Handle external charging limit with a local controller",
+        "chunk_part": 1,
+        "total_parts": 2
       }
     },
     {
-      "content": "# K14 - External Charging Limit with Local Controller - Requirements\n\n| ID        | Precondition                                         | Requirement definition                                                     |\n| --------- | ---------------------------------------------------- | -------------------------------------------------------------------------- |\n| K14.FR.01 | When an external charging limit/schedule is received | The total load of all Charging Stations SHALL NOT exceed this given limit. |",
+      "content": "# K14 - Requirements\n\n**K14.FR.01**\nPrecondition: When an external charging\nlimit/schedule is received\nThe total load of all Charging Stations SHALL NOT exceed this given limit.\n\n**K14.FR.02**\nPrecondition: K14.FR.01\nAND\nCharging limit changed by more\nthan: LimitChangeSignificance\nThe Local Controller SHALL inform the CSMS of the new charging\nlimit/schedule imposed by the external system by sending a\nNotifyChargingLimitRequest.\n\n**K14.FR.03**\nPrecondition: When an external charging\nlimit/schedule is released\nThe local controller SHALL notify the CSMS by sending a\nClearedChargingLimitRequest.\n\n**K14.FR.04**\nPrecondition: K14.FR.03\nThe local controller SHALL clear the hard limit on Charging Stations by\nsending a ClearChargingProfileRequest message to the Charging\nStations.\n\n**K14.FR.05**\nPrecondition: When the Local Controller receives\nan external charging limit/schedule\nIt SHALL send a SetChargingProfileRequest to all Charging Stations for\nwhich the charging profile has changed.\n\n**K14.FR.06**\nPrecondition: K14.FR.05\nThe Local Controller SHALL NOT set chargingProfilePurpose to\nChargingStationExternalConstraints.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
         "ocpp_version": "2.0.1",
         "content_type": "requirements",
-        "heading": "K14 - External Charging Limit with Local Controller - Requirements",
-        "heading_path": "K14 - External Charging Limit with Local Controller - Requirements",
+        "heading": "K14 - Requirements",
         "functional_block": "SmartCharging",
         "use_case_id": "K14",
-        "use_case_name": "External Charging Limit with Local Controller",
-        "use_case_refs": "K14"
+        "use_case_name": "Handle external charging limit with a local controller",
+        "chunk_part": 2,
+        "total_parts": 2
       }
     }
-  ],
-  "figures": []
+  ]
 }
