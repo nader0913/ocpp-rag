@@ -1,0 +1,96 @@
+{
+  "use_case_id": "M06",
+  "functional_block": "CertificateManagement",
+  "use_case_name": "Get V2G Charging Station Certificate status",
+  "chunks": [
+    {
+      "content": "# M06 - Get V2G Charging Station Certificate status\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Get V2G Charging Station Certificate status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 2   | ID               | M06                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 3   | Objective(s)     | To enable a Charging Station to cache the OCSP certificate status needed for the TLS handshake between EV and Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "M06 - Get V2G Charging Station Certificate status",
+        "heading_path": "M06 - Get V2G Charging Station Certificate status",
+        "functional_block": "CertificateManagement",
+        "use_case_id": "M06",
+        "use_case_name": "Get V2G Charging Station Certificate status",
+        "use_case_refs": "A02, A03, M05, M06",
+        "message_refs": "GetCertificateStatusRequest, GetCertificateStatusResponse, OCSPResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 4   | Description      | When the cable gets plugged in and an ISO 15118 supported EV gets connected to the Charging Station, the EV requests the Charging Station to prove the validity of the (SubCA) certificates by an OCSPResponse. A request needs to be sent per SubCA. Because the timeout constraint in ISO 15118 is too strict to make the call to an external server, OCPP requires to cache the OCSP certificate status of the certificates beforehand. The Charging Station needs to refresh the cached OCSP data once a week. Actors: Charging Station, CSMS Scenario description: 1. The Charging Station requests the CSMS to provide OCSP certificate status by sending a GetCertificateStatusRequest. 2. The CSMS responds with a GetCertificateStatusResponse. |\n| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 6   | Postcondition(s) | Successful postcondition: The Charging Station received the OCSP certificate status for the requested certificate Failure postcondition: The retrieval of the OCSP certificate status by the CSMS failed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "M06 - Get V2G Charging Station Certificate status",
+        "heading_path": "M06 - Get V2G Charging Station Certificate status",
+        "functional_block": "CertificateManagement",
+        "use_case_id": "M06",
+        "use_case_name": "Get V2G Charging Station Certificate status",
+        "use_case_refs": "A02, A03, M05, M06",
+        "message_refs": "GetCertificateStatusRequest, GetCertificateStatusResponse, OCSPResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 8   | Remark(s)        | The status indicator in the GetCertificateStatusResponse indicates whether or not the CSMS was successful in retrieving the certificate status. it does NOT indicate the validity of the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n\nFor installing the (V2G) Charging Station Certificate, see use cases A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station. The V2G certificate chain SHOULD NOT include the V2GRootCertificate. This SHOULD be installed using Use case M05 - Install CA certificate in a Charging Station.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "M06 - Get V2G Charging Station Certificate status",
+        "heading_path": "M06 - Get V2G Charging Station Certificate status",
+        "functional_block": "CertificateManagement",
+        "use_case_id": "M06",
+        "use_case_name": "Get V2G Charging Station Certificate status",
+        "use_case_refs": "A02, A03, M05, M06",
+        "message_refs": "GetCertificateStatusRequest, GetCertificateStatusResponse, OCSPResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "OCPP allows for only one certificate per GetCertificateStatusRequest. Because when multiple answers on a GetCertificateStatusRequest are to be expected, it makes handling the request and status more complex. So a GetCertificateStatusRequest needs to be sent per SubCA.\n\nresponderURL is required in OCPP, while it is optional in ISO 15118. Without a responderURL in a certificate it cannot work, so a responderURL is required for any certificate for which a GetCertificateStatusRequest can be expected.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "M06 - Get V2G Charging Station Certificate status",
+        "heading_path": "M06 - Get V2G Charging Station Certificate status",
+        "functional_block": "CertificateManagement",
+        "use_case_id": "M06",
+        "use_case_name": "Get V2G Charging Station Certificate status",
+        "use_case_refs": "A02, A03, M05, M06",
+        "message_refs": "GetCertificateStatusRequest, GetCertificateStatusResponse, OCSPResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# M06 - Get V2G Charging Station Certificate status - Requirements\n\n| ID        | Precondition                                  | Requirement definition                                                                                                                                                                                                         |\n| --------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| M06.FR.01 | After receiving a GetCertificateStatusRequest | The CSMS SHALL respond with a GetCertificateStatusResponse.                                                                                                                                                                    |\n| M06.FR.02 | M06.FR.01                                     | The CSMS SHALL indicate success by setting status to Accepted in the GetCertificateStatusResponse.                                                                                                                             |\n|           | AND                                           | The CSMS was successful in retrieving the OCSP certificate status                                                                                                                                                              |\n| M06.FR.03 | M06.FR.02                                     | The CSMS SHALL include the OCSP response data in the OCSPResult field in the GetCertificateStatusResponse.                                                                                                                     |\n| M06.FR.04 | M06.FR.01                                     | The CSMS SHALL indicate it was not successful by setting status to Failed in the GetCertificateStatusResponse.                                                                                                                 |\n|           | AND                                           | The CSMS was not successful in retrieving the OCSP certificate status                                                                                                                                                          |\n| M06.FR.06 |                                               | The Charging Station SHALL request and cache the OCSP status for its V2G certificates.                                                                                                                                         |\n| M06.FR.07 |                                               | After the Charging Station Certificate has been updated, The Charging Station SHALL refresh the cached OCSP data by sending a GetCertificateStatusRequest for the new certificate, and also for the intermediate certificates. |\n| M06.FR.08 |                                               | The CSMS SHALL format the response data according to OCSPResponse as defined in IETF RFC 6960, formatted according to ASN.1 \\[X.680].                                                                                          |\n| M06.FR.09 |                                               | The OCSPResponse data SHALL be DER encoded.                                                                                                                                                                                    |\n| M06.FR.10 |                                               | The Charging Station SHALL refresh the cached OCSP data at least once a week.                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "M06 - Get V2G Charging Station Certificate status - Requirements",
+        "heading_path": "M06 - Get V2G Charging Station Certificate status - Requirements",
+        "functional_block": "CertificateManagement",
+        "use_case_id": "M06",
+        "use_case_name": "Get V2G Charging Station Certificate status",
+        "use_case_refs": "M06",
+        "message_refs": "GetCertificateStatusRequest, GetCertificateStatusResponse, OCSPResponse"
+      }
+    }
+  ],
+  "figures": []
+}

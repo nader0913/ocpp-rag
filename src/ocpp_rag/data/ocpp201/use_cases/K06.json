@@ -1,0 +1,38 @@
+{
+  "use_case_id": "K06",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Offline Behavior Smart Charging During Transaction",
+  "chunks": [
+    {
+      "content": "# K06 - Offline Behavior Smart Charging During Transaction\n\n| No. | Type | Description                                        |\n| --- | ---- | -------------------------------------------------- |\n| 1   | Name | Offline Behavior Smart Charging During Transaction |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K06 - Offline Behavior Smart Charging During Transaction",
+        "heading_path": "K06 - Offline Behavior Smart Charging During Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K06",
+        "use_case_name": "Offline Behavior Smart Charging During Transaction",
+        "use_case_refs": "K06"
+      }
+    },
+    {
+      "content": "# K06 - Offline Behavior Smart Charging During Transaction - Requirements\n\n| ID        | Precondition                          | Requirement definition                                                                                                                                                      |\n| --------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| K06.FR.01 | If the Charging Station goes Offline  | The Charging Station SHALL continue to use this profile for the duration of the transaction or until the TxProfile reaches its expiration, depending on which occurs first. |\n| K06.FR.02 | If the Charging Station goes Offline, | The Charging Station SHALL execute the transaction as if no constraints apply.                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K06 - Offline Behavior Smart Charging During Transaction - Requirements",
+        "heading_path": "K06 - Offline Behavior Smart Charging During Transaction - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K06",
+        "use_case_name": "Offline Behavior Smart Charging During Transaction",
+        "use_case_refs": "K06"
+      }
+    }
+  ],
+  "figures": []
+}

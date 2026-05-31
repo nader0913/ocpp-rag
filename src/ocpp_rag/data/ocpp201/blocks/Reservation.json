@@ -1,0 +1,130 @@
+[
+  {
+    "content": "# H. Reservation\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation"
+    }
+  },
+  {
+    "content": "# H. Reservation\n\nEV Driver    CSMS    Charging Station\n\nreserve\n\nReserveNowRequest(ConnectorType is specified AND no evseId)\n\nReserveNowResponse(status = Accepted)\n\nopt notification\n\nFigure 79. Sequence Diagram: S3 - Reserve a connector type at a Charging Station",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "message_refs": "ReserveNowRequest, ReserveNowResponse",
+      "figure_refs": "79"
+    }
+  },
+  {
+    "content": "# H. Reservation\n\n| ID        | Precondition                                                                                                                            | Requirement definition                                                                                                               | Note                                                                                                      |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |\n| H01.FR.14 | When receiving a ReserveNowRequest AND (all) targeted EVSEs have status Unavailable                                                     | The Charging Station SHALL return Unavailable.                                                                                       |                                                                                                           |\n| H01.FR.15 | If a transaction for the reserved IdTokenType is started.                                                                               | The Charging Station SHALL send the reservationId in a TransactionEventRequest.                                                      | To notify the CSMS that the reservation is terminated. See E. Transactions.                               |\n| H01.FR.16 | When the status of a targeted EVSE changes to Faulted                                                                                   | The Charging Station SHALL cancel the reservation AND send a ReservationStatusUpdate with status Removed.                            |                                                                                                           |\n| H01.FR.17 | When the status of a targeted EVSE changes to Unavailable                                                                               | The Charging Station SHALL cancel the reservation AND send a ReservationStatusUpdate with status Removed.                            |                                                                                                           |\n| H01.FR.18 | If the Configuration Variable: ReservationNonEvseSpecific is set to true.                                                               | The Charging Station SHALL accept reservations on an unspecified EVSE.                                                               |                                                                                                           |\n| H01.FR.19 | If the Configuration Variable: ReservationNonEvseSpecific is not set or set to false.                                                   | The Charging Station SHALL reject reservations on an unspecified EVSE.                                                               |                                                                                                           |\n| H01.FR.20 | H01.FR.04 AND amount of EVSEs available equals the amount of reservations                                                               | The Charging Station SHALL send for all connectors of the EVSE:                                                                      | If an EVSE is reserved, all of its connectors are reported as reserved.                                   |\n|           |                                                                                                                                         | - a NotifyEventRequest with component = \"Connector\", variable = \"AvailabilityState\", trigger = \"Delta\", actualValue = \"Reserved\", OR |                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "use_case_refs": "H01",
+      "message_refs": "NotifyEventRequest, ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest, TransactionEventRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "|           |                                                                                                                                         | - a StatusNotificationRequest with connectorStatus = Reserved.                                                                       |                                                                                                           |\n| H01.FR.23 | If the Charging Station receives a ReserveNowRequest for evseId AND this EVSE is Available                                              | The Charging Station SHALL respond with a ReserveNowResponse with status Accepted AND SHALL send for all connectors of the EVSE:     | If an EVSE is reserved, all of its connectors are reported as reserved.                                   |\n|           |                                                                                                                                         | - a NotifyEventRequest with component = \"Connector\", variable = \"AvailabilityState\", trigger = \"Delta\", actualValue = \"Reserved\" OR  |                                                                                                           |\n|           |                                                                                                                                         | - a StatusNotificationRequest with connectorStatus = Reserved.                                                                       |                                                                                                           |\n| H01.FR.24 | H01.FR.06 AND amount of reservations for a specific connectorType equals the amount of available EVSEs with that specific connectorType | The Charging Station SHALL send for all connectors of the EVSEs that have the specific connectorType:                                | If an EVSE is reserved for a specific connectorType, all connectors on the EVSE are reported as reserved. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "use_case_refs": "H01",
+      "message_refs": "NotifyEventRequest, ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest, TransactionEventRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "|           |                                                                                                                                         | - a NotifyEventRequest with component = \"Connector\", variable = \"AvailabilityState\", trigger = \"Delta\", actualValue = \"Reserved\" OR  |                                                                                                           |\n|           |                                                                                                                                         | - a StatusNotificationRequest with connectorStatus = Reserved.                                                                       |                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "use_case_refs": "H01",
+      "message_refs": "NotifyEventRequest, ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest, TransactionEventRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# H. Reservation\n\n| ID        | Precondition                                                                                                         | Requirement definition                                                                                                                                                                                                                                                           |\n| --------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| H02.FR.04 | H02.FR.03                                                                                                            | The Charging Station SHALL send a StatusNotificationRequest with status Available or a NotifyEventRequest with AvailabilityState set to Available to the CSMS for each connector, notifying the CSMS that all the connectors of this EVSE are available again for any EV Driver. |\n| H02.FR.05 | H02.FR.02 AND If no specific EVSE was reserved for this reservation                                                  | The Charging Station SHALL allow charging on all EVSE which were not reserved explicitly.                                                                                                                                                                                        |\n| H02.FR.06 | H01.FR.05 AND before cancelling the reservation the amount of EVSEs reserved was equal to the amount of reservations | The Charging Station SHALL send for all connectors of all EVSEs which were not reserved explicitly:                                                                                                                                                                              |\n|           |                                                                                                                      | - a NotifyEventRequest with component = \"Connector\", variable = \"AvailabilityState\", trigger = \"Delta\", actualValue = \"Available\", OR                                                                                                                                            |\n|           |                                                                                                                      | - a StatusNotificationRequest with connectorStatus = Available.                                                                                                                                                                                                                  |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "use_case_refs": "H01, H02",
+      "message_refs": "NotifyEventRequest, StatusNotificationRequest"
+    }
+  },
+  {
+    "content": "# H. Reservation\n\n| No. | Type             | Description |\n| --- | ---------------- | ----------- |\n| 6   | Postcondition(s) | n/a         |\n\nEV Driver  CSMS                                       Charging Station\n\nConnector is reserved\n\nfor TOKEN_A\n\nPresent IdToken(TOKEN_A)\n\nopt\n\nalt     [Authorize from Authorization Cache or List]\n\n[Send AuthorizeRequest for TOKEN_A]\n\nAuthorizeRequest(idToken = TOKEN_A)\n\nAuthorizeResponse(idTokenInfo.status = Accepted)\n\nContinue regular charging session",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse"
+    }
+  },
+  {
+    "content": "# H. Reservation\n\n| 5 | Prerequisite(s)  | EVSE has been reserved for GroupIdToken. EVSE connectorStatus = Reserved. |\n| - | ---------------- | ------------------------------------------------------------------------- |\n| 6 | Postcondition(s) | n/a                                                                       |\n\nEV Driver  CSMS                                       Charging Station\n\nConnector is reserved for groupIdToken B\n\nPresent IdToken(TOKEN_A)\n\nalt     [Lookup groupIdToken of TOKEN_A in Authorization Cache or List]\n\n[If TOKEN_A is NOT found in Authorization Cache or Local Authorization List]\n\nAuthorizeRequest(idToken = TOKEN_A)\n\nAuthorizeResponse(idTokenInfo.groupIdToken = TOKEN_B))\n\nContinue regular transaction\n\nFigure 82. Sequence Diagram: Use a reserved EVSE with GroupId",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse",
+      "figure_refs": "82"
+    }
+  },
+  {
+    "content": "# H. Reservation\n\nIt is RECOMMENDED to validate the Identifier with an AuthorizeRequest after reception of ReserveNowRequest and before the start of the transaction.\n\nIf an idToken is presented that does not match the reservation (and groupIdTokens do not match either), then this idToken is not authorized to charge.\n\nIf TxStartPoint = Authorized or PowerPathClosed then a transaction would not be started in this case.\n\nIf TxStartPoint = EVConnected or ParkingBayOccupancy then a transaction would be started by cable plug-in or occupancy of parking bay, but charging would not start. Assuming a TxStopPoint of EVConnected the transaction would be ended at cable plug-out.",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "H. Reservation",
+      "heading_path": "H. Reservation",
+      "functional_block": "Reservation",
+      "message_refs": "AuthorizeRequest, ReserveNowRequest"
+    }
+  }
+]

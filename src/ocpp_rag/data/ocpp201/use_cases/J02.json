@@ -1,0 +1,162 @@
+{
+  "use_case_id": "J02",
+  "functional_block": "MeterValues",
+  "use_case_name": "Sending transaction related Meter Values",
+  "chunks": [
+    {
+      "content": "# J02 - Sending transaction related Meter Values\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Sending transaction related Meter Values                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 2   | ID               | J02                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 3   | Objective(s)     | To sample the energy meter or other sensor/transducer hardware to provide information about the Charging Stations' transaction related Meter Values.                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 4   | Description      | The Charging Station samples the energy meter or other sensor/transducer hardware to provide information about its transaction related Meter Values. Depending on configuration settings, the Charging Station will send Meter Values during a transaction. Actors: Charging Station, CSMS Scenario description: 1. The Charging Station sends a TransactionEventRequest (eventType = Updated) message, for offloading Meter Values to the CSMS. 2. Upon receipt of a TransactionEventRequest message, the CSMS responds with a TransactionEventResponse message. |\n| 5   | Prerequisite(s)  | The Charging Station is configured to send Meter Values every XX seconds. A transaction is running.                                                                                                                                                                                                                                                                                                                                                                                                                                                               |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "J02 - Sending transaction related Meter Values",
+        "heading_path": "J02 - Sending transaction related Meter Values",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "J02",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "91",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s) | Successful postcondition: n/a Failure postcondition: n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 7   | Error handling   | When Offline, the Charging Station MUST queue any transaction-related messages (Meter Values belonging to a transaction) that it would have sent to the CSMS if the Charging Station had been online.                                                                                                                                                                                                                                                                                                                                                             |\n| 8   | Remark(s)        | The phase field is not applicable to all Measurands. The phase rotation of a Connector relative to the grid connection can be derived by querying the PhaseRotation Configuration Variables of all components in the chain from grid connection up to Connector. The nature of each sampledValue is determined by the optional Measurand, context, location, unit and phase fields. The optional SignedMeterValue field can contain digitally signed binary meter value data.                                                                                     |\n\nCharging Station      CSMS",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "J02 - Sending transaction related Meter Values",
+        "heading_path": "J02 - Sending transaction related Meter Values",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "J02",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "91",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "TransactionEventRequest(eventType = Updated, transactionId, meterValues)\n\nTransactionEventResponse()\n\nFigure 91. Sequence Diagram: Sending transaction related Meter Values",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "J02 - Sending transaction related Meter Values",
+        "heading_path": "J02 - Sending transaction related Meter Values",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "J02",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "91",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# J02 - Sending transaction related Meter Values - Requirements\n\n| ID        | Precondition                                                                                                                                                                                 | Requirement definition                                                                                                                                                                                                                                            | Note                                                                                                                                                                                                    |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| J02.FR.01 |                                                                                                                                                                                              | The Charging Station MAY sample the energy meter (or other sensor/transducer hardware) to provide extra information about its Meter Values.                                                                                                                       | It is up to the Charging Station when it will send Meter Values. This can be configured using the SetVariablesRequest message to data acquisition intervals and specify data to be acquired & reported. |\n| J02.FR.02 | If all captured at the same point in time.                                                                                                                                                   | Each MeterValue element SHALL contain a set of one or more individual SampledValue elements.                                                                                                                                                                      |                                                                                                                                                                                                         |\n| J02.FR.03 |                                                                                                                                                                                              | The optional measurand field SHALL specify the type of value being measured/reported.                                                                                                                                                                             |                                                                                                                                                                                                         |\n| J02.FR.04 |                                                                                                                                                                                              | The optional context field SHALL specify the reason/event triggering the reading.                                                                                                                                                                                 |                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J02 - Sending transaction related Meter Values - Requirements",
+        "heading_path": "J02 - Sending transaction related Meter Values - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "E02, J02",
+        "message_refs": "SetVariablesRequest, TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| J02.FR.05 |                                                                                                                                                                                              | The optional location field SHALL specify where the (e.g. Inlet, Outlet) measurement is taken.                                                                                                                                                                    |                                                                                                                                                                                                         |\n| J02.FR.06 |                                                                                                                                                                                              | The optional phase field SHALL specify to which phase or phases of the electric installation the value applies.                                                                                                                                                   |                                                                                                                                                                                                         |\n| J02.FR.07 |                                                                                                                                                                                              | The Charging Station SHALL report all phase number dependent values from the power meter (or grid connection when absent) point of view.                                                                                                                          |                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J02 - Sending transaction related Meter Values - Requirements",
+        "heading_path": "J02 - Sending transaction related Meter Values - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "E02, J02",
+        "message_refs": "SetVariablesRequest, TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| J02.FR.09 | When reporting phase rotation of a component                                                                                                                                                 | The Charging Station SHALL report the phase rotation relative to the grid connection.                                                                                                                                                                             |                                                                                                                                                                                                         |\n| J02.FR.10 | If a TransactionEventRequest message with eventType = Started or eventType = Update contains multiple meterValue elements, rather than one meterValue with one or more sampledValue elements | All meterValue elements SHALL have a timestamp that is within the current sampling interval, i.e.: (transaction event timestamp - SampledDataTxUpdatedInterval) < meterValue.timestamp <= transaction event timestamp                                             | Only for eventType = Ended can a TransactionEventRequest have meter values for multiple intervals.                                                                                                      |\n| J02.FR.11 | When SampledDataTxUpdatedInterval > 0                                                                                                                                                        | The Charging Station SHALL send a TransactionEventRequest(eventType = Updated with triggerReason = MeterValuePeriodic with the measurands configured in SampledDataCtrlr.TxUpdatedMeasurands in the meterValue field at every SampledDataCtrlr.TxUpdatedInterval. | See E02 for sending of SampledDataCtrlr.TxStartedMeasurands and Ee06 for SampledDataCtrlr.TxEndedMeasurands.                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J02 - Sending transaction related Meter Values - Requirements",
+        "heading_path": "J02 - Sending transaction related Meter Values - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "E02, J02",
+        "message_refs": "SetVariablesRequest, TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| J02.FR.12 | J02.FR.11 AND Offline AND The Charging Station is running low on memory                                                                                                                      | The Charging Station MAY drop TransactionEventRequest(eventType = Updated) messages.                                                                                                                                                                              |                                                                                                                                                                                                         |\n| J02.FR.13 | J02.FR.12                                                                                                                                                                                    | When dropping TransactionEventRequest (eventType = Updated) messages, the Charging Station SHALL drop intermediate messages first (2nd message, 4th message, 6th message etc.), not start dropping messages from the start or stop adding messages to the queue.  |                                                                                                                                                                                                         |\n| J02.FR.14 | J02.FR.11 AND Amount of meter data is too much for 1 TransactionEventRequest (eventType = Updated)                                                                                           | The Charging Station MAY use multiple TransactionEventRequest(eventType = Updated) messages with the same timestamp to send all measurands.                                                                                                                       |                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J02 - Sending transaction related Meter Values - Requirements",
+        "heading_path": "J02 - Sending transaction related Meter Values - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J02",
+        "use_case_name": "Sending transaction related Meter Values",
+        "use_case_refs": "E02, J02",
+        "message_refs": "SetVariablesRequest, TransactionEventRequest",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "91",
+      "title": "Sequence Diagram: Sending transaction related Meter Values",
+      "files": [
+        "fig91_p1_Sequence_Diagram__Sending_transaction_related_Mete.png",
+        "fig91_p2_Sequence_Diagram__Sending_transaction_related_Mete.png"
+      ]
+    },
+    {
+      "figure_num": "91",
+      "title": "Sequence Diagram: Sending transaction related Meter Values",
+      "files": [
+        "fig91_p1_Sequence_Diagram__Sending_transaction_related_Mete.png",
+        "fig91_p2_Sequence_Diagram__Sending_transaction_related_Mete.png"
+      ]
+    },
+    {
+      "figure_num": "91",
+      "title": "Sequence Diagram: Sending transaction related Meter Values",
+      "files": [
+        "fig91_p1_Sequence_Diagram__Sending_transaction_related_Mete.png",
+        "fig91_p2_Sequence_Diagram__Sending_transaction_related_Mete.png"
+      ]
+    }
+  ]
+}

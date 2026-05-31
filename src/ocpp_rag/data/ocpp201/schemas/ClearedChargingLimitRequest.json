@@ -1,0 +1,15 @@
+[
+  {
+    "content": "## ClearedChargingLimitRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: ClearedChargingLimit\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| chargingLimitSource | enum(EMS,Other,SO,CSO) | Yes | Source of the charging limit. |\n| evseId | integer | No | EVSE Identifier. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:ClearedChargingLimitRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"ChargingLimitSourceEnumType\": {\n      \"description\": \"Source of the charging limit.\\r\\n\",\n      \"javaType\": \"ChargingLimitSourceEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"EMS\",\n        \"Other\",\n        \"SO\",\n        \"CSO\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"chargingLimitSource\": {\n      \"$ref\": \"#/definitions/ChargingLimitSourceEnumType\"\n    },\n    \"evseId\": {\n      \"description\": \"EVSE Identifier.\\r\\n\",\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"chargingLimitSource\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ClearedChargingLimitRequest",
+      "heading_path": "JSON Schemas > ClearedChargingLimit > ClearedChargingLimitRequest",
+      "message_name": "ClearedChargingLimitRequest",
+      "message_direction": "Request"
+    }
+  }
+]

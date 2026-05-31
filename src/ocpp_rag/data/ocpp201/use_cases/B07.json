@@ -1,0 +1,60 @@
+{
+  "use_case_id": "B07",
+  "functional_block": "Provisioning",
+  "use_case_name": "Get Base Report",
+  "chunks": [
+    {
+      "content": "# B07 - Get Base Report\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Base Report                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID                   | B07                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To give the CSMS the ability to request a predefined report as defined in ReportBase.                                                                                                                                                                                                                                                                                                                       |\n| 4   | Description          | This use case describes how the CSMS requests a Charging Station to send a predefined report as defined in ReportBase. The result will be returned asynchronously in one or more NotifyReportRequest messages.                                                                                                                                                                                              |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Scenario description | 1. The CSO triggers the CSMS to request a report from a Charging Station. 2. The CSMS requests the Charging Station for a report with GetBaseReportRequest. 3. The Charging Station responds with GetBaseReportResponse. 4. The Charging Station asynchronously sends the results in one or more NotifyReportRequest messages. 5. The CSMS responds with NotifyReportResponse for each NotifyReportRequest. |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B07 - Get Base Report",
+        "heading_path": "B07 - Get Base Report",
+        "functional_block": "Provisioning",
+        "use_case_id": "B07",
+        "use_case_name": "Get Base Report",
+        "use_case_refs": "B07",
+        "message_refs": "GetBaseReportRequest, GetBaseReportResponse, NotifyReportRequest, NotifyReportResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s)     | Successful postcondition: The Charging Station was able to send the requested report. Failure postcondition: The Charging Station was not able to send the requested report.                                                                                                                                                                                                                                |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                         |\n\nCSMS                          Charging Station\n\nSomething triggers the CSMS to request a report from a Charging Station.\n\nGetBaseReportRequest(requestId, reportBase)\n\nGetBaseReportResponse(status)\n\nloop    [for each report part]\n\nNotifyReportRequest(generatedAt, requestId, tbc, reports,...)\n\nNotifyReportResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B07 - Get Base Report",
+        "heading_path": "B07 - Get Base Report",
+        "functional_block": "Provisioning",
+        "use_case_id": "B07",
+        "use_case_name": "Get Base Report",
+        "use_case_refs": "B07",
+        "message_refs": "GetBaseReportRequest, GetBaseReportResponse, NotifyReportRequest, NotifyReportResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# B07 - Get Base Report - Requirements\n\n| ID        | Precondition                                                                                           | Requirement definition                                                     | Note |\n| --------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | ---- |\n| B07.FR.01 | When the Charging Station receives a getBaseReportRequest for a supported reportBase AND NOT B07.FR.13 | The Charging Station SHALL send a getBaseReportResponse with Accepted.     |      |\n| B07.FR.02 | When the Charging Station receives a getBaseReportRequest for a reportBase that is not supported       | The Charging Station SHALL send a getBaseReportResponse with NotSupported. |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B07 - Get Base Report - Requirements",
+        "heading_path": "B07 - Get Base Report - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B07",
+        "use_case_name": "Get Base Report",
+        "use_case_refs": "B07",
+        "message_refs": "getBaseReportRequest, getBaseReportResponse"
+      }
+    }
+  ],
+  "figures": []
+}

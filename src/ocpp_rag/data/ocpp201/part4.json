@@ -1,0 +1,708 @@
+[
+  {
+    "content": "# Table of Contents\n\nDisclaimer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\n\nVersion History . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n\n1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.1. Purpose of this document . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.2. Intended audience . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.3. OCPP-S and OCPP-J. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.4. Conventions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.5. Definitions & Abbreviations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.6. References        . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 1,
+      "total_parts": 5
+    }
+  },
+  {
+    "content": "2. Benefits & Issues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5\n\n3. WebSockets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6\n\n3.1. Client request . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6\n\n3.2. Server response . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7\n\n3.3. WebSocket Compression . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8\n\n4. RPC framework. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9\n\n4.1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9\n\n4.2. Message structures for different message types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11\n\n4.3. RPC Framework Error Codes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 2,
+      "total_parts": 5
+    }
+  },
+  {
+    "content": "4.4. Extension fallback mechanism. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14\n\n5. Connection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n\n5.1. Data integrity. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n\n5.2. TLS fragment length . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n\n5.3. WebSocket Ping in relation to OCPP Heartbeat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15\n\n5.4. Reconnecting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17\n\n5.5. Network node hierarchy. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17\n\n6. OCPP Routing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18\n\n6.1. Local Controller . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 3,
+      "total_parts": 5
+    }
+  },
+  {
+    "content": "6.2. Connections . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18\n\n6.3. Connection loss . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19\n\n6.4. Local Controller initiated messages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19\n\n6.5. Local Controller Security . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19\n\n7. Signed Messages. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21\n\n7.1. Signed Message Format . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21\n\n7.2. Handling Signed Messages. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21\n\n7.3. Allowed Algorithms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21\n\n7.4. Key Management . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 4,
+      "total_parts": 5
+    }
+  },
+  {
+    "content": "8. Configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n\n8.1. RetryBackOffRepeatTimes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n\n8.2. RetryBackOffRandomRange . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n\n8.3. RetryBackOffWaitMinimum . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n\n8.4. WebSocketPingInterval . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n\n9. CustomData Extension . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25\n\nDisclaimer\n\nCopyright © 2010 – 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 5,
+      "total_parts": 5
+    }
+  },
+  {
+    "content": "# Version History\n\n| Version         | Date       | Description                                                                                                                                         |\n| --------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 2.0.1 Edition 4 | 2025-12-03 | OCPP 2.0.1 Edition 4. All errata from OCPP 2.0.1 Part 4 until and including Errata 2025-11 have been merged into this version of the specification. |\n| 2.0.1 Edition 3 | 2024-05-06 | OCPP 2.0.1 Edition 3. All errata from OCPP 2.0.1 Part 4 until and including Errata 2024-04 have been merged into this version of the specification. |\n| 2.0.1           | 2020-03-31 | Final version of OCPP 2.0.1                                                                                                                         |\n| 2.0             | 2018-04-11 | OCPP 2.0 April 2018 Update for 2.0 Section added for OCPP Routing and Signed Messages                                                               |\n| 1.6             | 2015-10-08 | Updated to 1.6 Asciidoc formatting, remove JSON schema for 1.5 Some clarification Added 1.6 json schema                                             |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Version History",
+      "heading_path": "Version History"
+    }
+  },
+  {
+    "content": "# 1.1. Purpose of this document\n\nThe purpose of this document is to give the reader the information required to create a correct interoperable OCPP JSON\nimplementation (OCPP-J). We will try to explain what is mandatory, what is considered good practice and what one should not do,\nbased on our own experience. Undoubtedly misunderstandings or ambiguities will remain but by means of this document we aim to\nprevent them as much as possible.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.1. Purpose of this document",
+      "heading_path": "1.1. Purpose of this document"
+    }
+  },
+  {
+    "content": "# 1.2. Intended audience\n\nThis document is intended for developers looking to understand and/or implement OCPP JSON in a correct and interoperable way.\nRudimentary knowledge of implementing web services on a server or embedded device is assumed.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.2. Intended audience",
+      "heading_path": "1.2. Intended audience"
+    }
+  },
+  {
+    "content": "# 1.3. OCPP-S and OCPP-J\n\nWith the introduction of OCPP 1.6, there were two different flavors of OCPP; SOAP and JSON. To avoid confusion in\ncommunication on the type of implementation we recommend using the distinct suffixes -J and -S to indicate JSON or SOAP. In\ngeneric terms this would be OCPP-J for JSON and OCPP-S for SOAP. Version specific terminology would be OCPP1.6J or\nOCPP1.2S. If no suffix is specified for OCPP 1.2 or 1.5 then a SOAP implementation must be assumed. As of release 1.6 this can no longer be implicit and should always\nbe made clear. If a system supports both the JSON and SOAP variant it is considered good practice to label this OCPP1.6JS\ninstead of just OCPP1.6.\n\nOCPP 2.0.1 only supports JSON, but it is preferable to keep using the -J designation. As a new transport mechanism might be\nintroduced in a future version of OCPP. So it will be OCPP2.0.1J.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.3. OCPP-S and OCPP-J",
+      "heading_path": "1.3. OCPP-S and OCPP-J"
+    }
+  },
+  {
+    "content": "# 1.4. Conventions\n\nThe key words \"MUST\", \"MUST NOT\", \"REQUIRED\", \"SHALL\", \"SHALL NOT\", \"SHOULD\", \"SHOULD NOT\", \"RECOMMENDED\", \"MAY\", and\n\"OPTIONAL\" in this document are to be interpreted as described in [RFC2119].",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.4. Conventions",
+      "heading_path": "1.4. Conventions"
+    }
+  },
+  {
+    "content": "# 1.5. Definitions & Abbreviations\n\n| Abbreviation | Description                                                                                                                                                                                               |\n| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| IANA         | Internet Assigned Numbers Authority (www\\.iana.org).                                                                                                                                                      |\n| OCPP-J       | OCPP communication over WebSocket using JSON. Specific OCPP versions should be indicated with the J extension. OCPP2.0.1J means we are talking about a JSON/WebSocket implementation of 2.0.1.            |\n| OCPP-S       | OCPP communication over SOAP and HTTP(S). As of version 1.6 this should explicitly mentioned. Older versions are assumed to be S unless clearly specified otherwise, e.g. OCPP1.5 is the same as OCPP1.5S |\n| RPC          | Remote procedure call                                                                                                                                                                                     |\n| WAMP         | WAMP is an open WebSocket subprotocol that provides messaging patterns to handle asynchronous data.                                                                                                       |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.5. Definitions &#x26; Abbreviations",
+      "heading_path": "1.5. Definitions &#x26; Abbreviations"
+    }
+  },
+  {
+    "content": "# 1.6. References\n\n| Reference        | Description                                                                                                                                                                                                                             |\n| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| \\[ISO15118-2]    | Road vehicles – Vehicle to grid communication interface – Part 2: Technical protocol description and Open Systems Interconnection (OSI) layer requirements, Document Identifier: 69/216/CDV. <https://webstore.iec.ch/publication/9273> |\n| \\[OCPP2.0-PART2] | \"OCPP 2.0.1: Part 2 - Specification\". <http://www.openchargealliance.org/downloads/>                                                                                                                                                    |\n| \\[RFC1951]       | \"DEFLATE Compressed Data Format Specification version 1.3\". <https://www.ietf.org/rfc/rfc1951>                                                                                                                                          |\n| \\[RFC2119]       | \"Key words for use in RFCs to Indicate Requirement Levels\". S. Bradner. March 1997. <http://www.ietf.org/rfc/rfc2119.txt>                                                                                                               |\n| \\[RFC2616]       | \"Hypertext Transfer Protocol — HTTP/1.1\". <http://tools.ietf.org/html/rfc2616>                                                                                                                                                          |\n| \\[RFC3629]       | \"UTF-8, a transformation format of ISO 10646\". <http://tools.ietf.org/html/rfc3629>                                                                                                                                                     |\n| \\[RFC3986]       | \"Uniform Resource Identifier (URI): Generic Syntax\". <http://tools.ietf.org/html/rfc3986>                                                                                                                                               |\n| \\[RFC5246]       | \"The Transport Layer Security (TLS) Protocol; Version 1.2\". <http://tools.ietf.org/html/rfc5246>                                                                                                                                        |\n| \\[RFC6455]       | \"The WebSocket Protocol\". <http://tools.ietf.org/html/rfc6455>                                                                                                                                                                          |\n| \\[RFC7515]       | \"JSON Web Signatures (JWS)\". <https://tools.ietf.org/html/rfc7515>                                                                                                                                                                      |\n| \\[RFC7518]       | \"JSON Web Algorithms (JWA)\". <https://tools.ietf.org/html/rfc7518>                                                                                                                                                                      |\n| \\[RFC7617]       | \"The 'Basic' HTTP Authentication Scheme\". <https://tools.ietf.org/html/rfc7617>                                                                                                                                                         |\n| \\[RFC7692]       | \"Compression Extensions for WebSocket\". <https://tools.ietf.org/html/rfc7692>                                                                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.6. References",
+      "heading_path": "1.6. References",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| \\[RFC8259]       | \"The JavaScript Object Notation (JSON) Data Interchange Format\". T. Bray. December 2017. <https://tools.ietf.org/html/rfc8259>                                                                                                          |\n| \\[RFC8265]       | Describes methods for handling Unicode strings representing usernames and passwords. <https://datatracker.ietf.org/doc/html/rfc8265>                                                                                                    |\n| \\[WAMP]          | <http://wamp-proto.org/>                                                                                                                                                                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.6. References",
+      "heading_path": "1.6. References",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# Chapter 2. Benefits & Issues\n\nThe WebSocket protocol is defined in [RFC6455]. Working implementations of earlier draft WebSocket specifications exist, but OCPP-J implementations SHOULD use the protocol described in [RFC6455].\n\nBe aware that WebSocket defines its own message structure on top of TCP. Data sent over a WebSocket, on a TCP level, is wrapped in a WebSocket frame with a header. When using a framework this is completely transparent. When working for an embedded system however, WebSocket libraries may not be available and then one has to frame messages correctly according to [RFC6455] him/herself.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 2. Benefits &#x26; Issues",
+      "heading_path": "Chapter 2. Benefits &#x26; Issues"
+    }
+  },
+  {
+    "content": "# 3.1. Client request\n\nTo set up a connection, the Charging Station initiates a WebSocket connection as described in [RFC6455] section 4, \"Opening Handshake\".\n\nOCPP-J imposes extra constraints on the URL and the WebSocket subprotocol, detailed in the following two sections 3.1.1 and 3.1.2.\n\nThe Client (Charging Station) SHALL keep this WebSocket connection open all the time.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.1. Client request",
+      "heading_path": "3.1. Client request"
+    }
+  },
+  {
+    "content": "# 3.1.1. The connection URL\n\nTo initiate a WebSocket connection, the Charging Station needs a URL ([RFC3986]) to connect to. This URL is henceforth called the \"connection URL\". This connection URL is specific to a Charging Station. The Charging Station’s connection URL contains the Charging Station identity so that the CSMS knows which Charging Station a WebSocket connection belongs to. However it is RECOMMENDED to let the CSMS NOT solely rely on the connection URL to identify a Charging Station, but to double-check the Charging Station’s identity against their authentication credentials.\n\nA CSMS supporting OCPP-J MUST provide at least one OCPP-J endpoint URL, from which the Charging Station SHOULD derive its connection URL. This OCPP-J endpoint URL can be any URL with a \"ws\" or \"wss\" scheme. How the Charging Station obtains an OCPP-J endpoint URL is outside of the scope of this document.\n\nTo derive its connection URL, the Charging Station modifies the OCPP-J endpoint URL by appending to the path first a '/' (U+002F SOLIDUS) and then a string uniquely identifying the Charging Station. This uniquely identifying string has to be percent-encoded / URL encoded as necessary as described in [RFC3986].",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.1.1. The connection URL",
+      "heading_path": "3.1.1. The connection URL"
+    }
+  },
+  {
+    "content": "# Example 1:\n\nfor a Charging Station with identity \"CS001\" connecting to a CSMS with OCPP-J endpoint URL \"ws://csms.example.com/ocpp\" this would give the following connection URL:\n\nws://csms.example.com/ocpp/CS001",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Example 1:",
+      "heading_path": "Example 1:"
+    }
+  },
+  {
+    "content": "# Example 2:\n\nfor a Charging Station with identity \"RDAM|123\" connecting to a CSMS with OCPP-J endpoint URL \"wss://csms.example.com/ocppj\" this would give the following URL:\n\nwss://csms.example.com/ocppj/RDAM%7C123\n\nThe Charging Station identity datatype is identifierString (For definition see [OCPP2.0.1-PART2]. In addition, the colon \":\" character SHALL NOT be used, because the unique identifier is also used for the basic authentication username. The colon \":\" character is used to separate the basic authentication username and the password. The maximum length of the Charging Station identity is: 48 characters. (Note: Maximum length was chosen to ensure compatibility with EVSE ID from [ISO15118-2].)",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Example 2:",
+      "heading_path": "Example 2:"
+    }
+  },
+  {
+    "content": "# 3.1.2. OCPP version negotiation\n\nThe OCPP version(s) MUST be specified in the Sec-Websocket-Protocol field. The client lists the OCPP version(s) it supports in order of preference. They SHOULD be one or more of the following values:\n\n| OCPP version | WebSocket subprotocol name |\n| ------------ | -------------------------- |\n| 1.2          | ocpp1.2                    |\n| 1.5          | ocpp1.5                    |\n| 1.6          | ocpp1.6                    |\n| 2.0          | ocpp2.0                    |\n| 2.0.1        | ocpp2.0.1                  |\n\nThe ones for OCPP 1.2, 1.5, 1.6, 2.0 and 2.0.1 are official WebSocket subprotocol name values. They are registered as such with IANA.\n\nNote that OCPP 1.2 and 1.5 are in the list. Since the JSON over WebSocket solution is independent of the actual message content the solution can be used for older OCPP versions as well. Please keep in mind that in these cases the implementation should preferably also maintain support for the SOAP based solution to be interoperable.\n\nIf the OCPP version is part of the OCPP-J endpoint URL it SHALL NOT determine the OCPP version to use, because the OCPP version is selected via the websocket protocol negotiation mechanism, as explained in section 3.3 Server response.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.1.2. OCPP version negotiation",
+      "heading_path": "3.1.2. OCPP version negotiation"
+    }
+  },
+  {
+    "content": "# 3.1.3. Example of an opening HTTP request\n\nThe following is an example of an opening HTTP request of an OCPP-J connection handshake:\n\nGET /webServices/ocpp/CS3211 HTTP/1.1\nHost: some.server.com:33033\nUpgrade: websocket\nConnection: Upgrade\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\nSec-WebSocket-Protocol: ocpp2.0.1, ocpp1.6\nSec-WebSocket-Version: 13\n\nThe bold parts are found as such in every WebSocket handshake request, the other parts are specific to this example.\n\nIn this example, the CSMS’s OCPP-J endpoint URL is \"ws://some.server.com:33033/webServices/ocpp\". The Charging Station’s unique identifier is \"CS3211\", so the path to request becomes \"webServices/ocpp/CS3211\".\n\nWith the Sec-WebSocket-Protocol header, the Charging Station indicates here that it can use OCPP2.0.1J and OCPP1.6J, with a preference for the former.\n\nThe other headers in this example are part of the HTTP and WebSocket protocols and are not relevant to those implementing OCPP-J on top of third-party WebSocket libraries. The roles of these headers are explained in [RFC2616] and [RFC6455].",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.1.3. Example of an opening HTTP request",
+      "heading_path": "3.1.3. Example of an opening HTTP request"
+    }
+  },
+  {
+    "content": "# 3.2. Server response\n\nUpon receiving the Charging Station’s handshake request, the CSMS has to finish the handshake with a response as described in [RFC6455].\n\nThe following OCPP-J-specific conditions apply:\n\n- If the CSMS does not recognize the Charging Station identifier in the URL path, it SHOULD send an HTTP response with status 404 and abort the WebSocket connection as described in [RFC6455].\n- If the CSMS does not agree to using one of the subprotocols offered by the client, it MUST complete the WebSocket handshake with a response without a Sec-WebSocket-Protocol header and then immediately close the WebSocket connection.\n\nIf the CSMS accepts the above example request and agrees to using OCPP 2.0.1J with the Charging Station, the CSMS’s response will look as follows:\n\nHTTP/1.1 101 Switching Protocols\nUpgrade: websocket\nConnection: Upgrade\nSec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=\nSec-WebSocket-Protocol: ocpp2.0.1\n\n over WebSockets implementation guide\n\nThe bold parts are found as such in every WebSocket handshake response, the other parts are specific to this example.\n\nThe role of the Sec-WebSocket-Accpet header is explained in [RFC6455].\n\nThe Sec-WebSocket-Protocol header indicates that the server will be using OCPP2.0.1J on this connection.\n\nFor a definition on how a server SHALL report a 'failure to process the message', see: CALLERROR",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.2. Server response",
+      "heading_path": "3.2. Server response"
+    }
+  },
+  {
+    "content": "# 3.3. WebSocket Compression\n\nOCPP 2.0.1 supports RFC 7692: Compression Extensions for WebSocket see: [RFC6455]\n\n| Device           | WebSocket Compression Support |\n| ---------------- | ----------------------------- |\n| Charging Station | Optional                      |\n| CSMS             | Required                      |\n| Local Controller | Required                      |\n\nThe CSMS (and Local Controller) SHALL support RFC 7692, WebSocket compression, which is a relative simple way to reduce mobile data usage. For a Charging Station this is not a hard requirement, as this might be more complex to implement on an embedded platform. It is RECOMMENDED to be implemented on a Charging Station, because it is an efficient solution to reduce mobile data usage.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.3. WebSocket Compression",
+      "heading_path": "3.3. WebSocket Compression"
+    }
+  },
+  {
+    "content": "# 4.1. Introduction\n\nA websocket is a full-duplex connection, simply put a pipe where data goes in and data can come out and without a clear relation between in and out. The WebSocket protocol by itself provides no way to relate messages as requests and responses. To encode these request/response relations we need a small protocol on top of WebSocket. This problem occurs in more use cases of WebSocket so there are existing schemes to solve it. The most widely-used is WAMP (see [WAMP]) but with the current version of that framework handling RPCs symmetrically is not WAMP compliant. Since the required framework is very simple we decided to define our own framework, inspired by WAMP, leaving out what we do not need and adding what we find missing.\n\nBasically what we need is very simple: we need to send a message (CALL) and receive a reply (CALLRESULT) or an explanation why the message could not be handled properly (CALLERROR). For possible future compatibility we will keep the numbering of these message in sync with WAMP. Our actual OCPP message will be put into a wrapper that at least contains the type of message, a unique message ID and the payload, the OCPP message itself.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1. Introduction",
+      "heading_path": "4.1. Introduction"
+    }
+  },
+  {
+    "content": "# 4.1.1. Synchronicity\n\nA Charging Station or CSMS SHALL NOT send a CALL message to the other party unless the CALL message it sent before has been responded to or has timed out. This does not mean that the CSMS cannot send a message to another Charging Station, while waiting for a response of a first Charging Station, this rule is per OCPP-J connection. A CALL message has been responded to when a CALLERROR or CALLRESULT message has been received with the message ID of the CALL message.\n\nA CALL message has timed out when:\n\n- it has not been responded to, and\n- an implementation-dependent timeout interval has elapsed since the message was sent.\n\nImplementations are free to choose this timeout interval. It is RECOMMENDED that they take into account the kind of network used to communicate with the other party. Mobile networks typically have much longer worst-case round-trip times than fixed lines.\n\nThe above requirements do not rule out that a Charging Station or CSMS will receive a CALL message from the other party while it is waiting for a CALLERROR or CALLRESULT. Such a situation is difficult to prevent because CALL messages from both sides can always cross each other.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.1. Synchronicity",
+      "heading_path": "4.1.1. Synchronicity"
+    }
+  },
+  {
+    "content": "# 4.1.2. Message validity and Character encoding\n\nThe whole message consisting of wrapper and payload MUST be valid JSON encoded with the UTF-8 (see [RFC3629]) character\nencoding. Furthermore, the Charging Station and CSMS have the right to reject messages which are not conform the JSON\nschemas.\n\nNote that all valid US-ASCII text is also valid UTF-8, so if a system sends only US-ASCII text, all messages it sends comply with the\nUTF-8 requirement. Non US-ASCII characters SHOULD only be used for sending natural-language text. An example of such natural-\nlanguage text is the MessageType which contains the text of a DisplayMessage in OCPP 2.0.1.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.2. Message validity and Character encoding",
+      "heading_path": "4.1.2. Message validity and Character encoding"
+    }
+  },
+  {
+    "content": "# 4.1.3. The message type\n\nTo identify the type of message one of the following Message Type Numbers MUST be used.\n\n| MessageType | Message Type Number | Description                                         |\n| ----------- | ------------------- | --------------------------------------------------- |\n| CALL        | 2                   | Request message, i.e. messages ending in \"Request\"  |\n| CALLRESULT  | 3                   | Response message, i.e. message ending in \"Response\" |\n| CALLERROR   | 4                   | Error response to a request message                 |\n\nWhen a system receives a message with a Message Type Number not in this list, it SHALL ignore the message payload. Each\nmessage type may have additional required fields.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.3. The message type",
+      "heading_path": "4.1.3. The message type"
+    }
+  },
+  {
+    "content": "# 4.1.4. Message ID\n\nThe message ID serves to identify a request. A message ID for any CALL message MUST be different from all message IDs\npreviously used by the same sender for any other CALL message on any WebSocket connection using the same unique Charging\nStation identifier. The message ID for a retried message (e.g. when no response was received within timeout) MAY be identical to\nthe message ID of the original message.\n\nA message ID for a CALLRESULT or CALLERROR message MUST be equal to that of the CALL message that the CALLRESULT or\nCALLERROR message is a response to.\n\n| Name      | Datatype    | Restrictions                                                                 |\n| --------- | ----------- | ---------------------------------------------------------------------------- |\n| messageId | string\\[36] | Unique message ID, maximum length of 36 characters, to allow for UUIDs/GUIDs |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.4. Message ID",
+      "heading_path": "4.1.4. Message ID"
+    }
+  },
+  {
+    "content": "# 4.1.5. JSON Payload\n\nThe Payload of a message is a JSON object containing the arguments relevant to the Action.\n\nIf there is no payload JSON allows for two different notations: null or an empty object {}. Although it seems trivial, we consider it good practice to only use the empty object statement. Null usually represents something undefined, which is not the same as empty, and also {} is shorter.\n\nWhen a field is optional in the OCPP action (0..1 or 0..*) and is left empty for a specific request/response, JSON allows for a couple of different ways to put this in a JSON string. But because OCPP is designed for wireless links, OCPP only allows 1 option: Do not put the field in the payload (so null, {} or [] are not allowed for an empty field).\n\nWhen a field has a cardinality of zero/one to many (0..* or 1..*) and it has been given one entity, then it will still remain a list, but of size 1.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.5. JSON Payload",
+      "heading_path": "4.1.5. JSON Payload"
+    }
+  },
+  {
+    "content": "# 4.1.6. Action\n\nThe Action field in the CALL message MUST be the OCPP message name without the \"Request\" suffix.\n\nFor example: For a \"BootNotificationRequest\" the action field will be set to \"BootNotification\".\n\n over WebSockets implementation guide\n\nBTW: The CALLRESULT does not contain the action field. A client can match the Response (CALLRESULT) with the Request (CALL) via the MessageId field.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.6. Action",
+      "heading_path": "4.1.6. Action",
+      "message_refs": "BootNotificationRequest"
+    }
+  },
+  {
+    "content": "# 4.1.7. Message Validity\n\nA message is only valid when:\n\n- Action is a known Action.\n- The JSON payload is valid JSON\n- All the required fields for the Action are present\n- All data is of the correct data type.\n\nWhen a message is not valid, the server SHALL respond with a CALLERROR.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.1.7. Message Validity",
+      "heading_path": "4.1.7. Message Validity"
+    }
+  },
+  {
+    "content": "# 4.2.1. CALL\n\nA CALL always consists of 4 elements: The standard elements MessageTypeId and MessageId, a specific Action that is required on the other side and a payload, the arguments to the Action. The syntax of a CALL looks like this:\n\n[MessageTypeId>, \"MessageId>\", \"Action>\", {Payload>}]\n\n| Field         | Datatype    | Meaning                                                                                                                                                                                                                                                                |\n| ------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| MessageTypeId | integer     | This is a Message Type Number which is used to identify the type of the message.                                                                                                                                                                                       |\n| MessageId     | string\\[36] | This is a unique identifier that will be used to match request and result.                                                                                                                                                                                             |\n| Action        | string      | The name of the remote procedure or action. This field SHALL contain a case-sensitive string. The field SHALL contain the OCPP Message name without the \"Request\" suffix. For example: For a \"BootNotificationRequest\", this field shall be set to \"BootNotification\". |\n| Payload       | JSON        | JSON Payload of the action, see: JSON Payload for more information.                                                                                                                                                                                                    |\n\nFor example, a BootNotificationRequest could look like this:\n\n[2,\n\"19223201\",\n\"BootNotification\",\n{\n\"reason\": \"PowerUp\",\n\"chargingStation\": {\n\"model\": \"SingleSocketCharger\",\n\"vendorName\": \"VendorX\"\n}\n}\n]",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.2.1. CALL",
+      "heading_path": "4.2.1. CALL",
+      "message_refs": "BootNotificationRequest"
+    }
+  },
+  {
+    "content": "# 4.2.2. CALLRESULT\n\nIf the call can be handled correctly the result will be a regular CALLRESULT. Error situations that are covered by the definition of the OCPP response definition are not considered errors in this context. They are regular results and as such will be treated as a normal CALLRESULT, even if the result is undesirable for the recipient.\n\nA CALLRESULT always consists of 3 elements: The standard elements MessageTypeId and MessageId and a payload, containing the response to the Action in the original Call.\n\nThe syntax of a CALLRESULT looks like this:\n\n[MessageTypeId>, \"MessageId>\", {Payload>}]\n\n| Field         | Datatype    |\n| ------------- | ----------- |\n| MessageTypeId | integer     |\n| MessageId     | string\\[36] |\n| Payload       | JSON        |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.2.2. CALLRESULT",
+      "heading_path": "4.2.2. CALLRESULT"
+    }
+  },
+  {
+    "content": "# Meaning\n\nThis is a Message Type Number which is used to identify the type of the message. This MUST be the exact same ID that is in the call request so that the recipient can match request and result. JSON Payload of the action, see: JSON Payload for more information.\n\nFor example, a BootNotification response could look like this:\n\n[3,\n\"19223201\",\n{\n\"currentTime\": \"2013-02-01T20:53:32.486Z\",\n\"interval\": 300,\n\"status\": \"Accepted\"\n}\n]",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Meaning",
+      "heading_path": "Meaning"
+    }
+  },
+  {
+    "content": "# 4.2.3. CALLERROR\n\nWe only use CALLERROR in two situations:\n\n1. An error occurred during the transport of the message. This can be a network issue, an availability of service issue, etc.\n2. The call is received but the content of the call does not meet the requirements for a proper message. This could be missing mandatory fields, an existing call with the same unique identifier is being handled already, unique identifier too long, invalid JSON or OCPP syntax etc.\n\nWhen a server needs to report a 'failure to process the message', the server SHALL use a Message Type: CallError (MessageTypeNumber = 4).\n\nWhen a server receives a corrupt message, the CALLERROR SHALL NOT directly include syntactically invalid JSON (For example, without encoding it first). When also the MessageId cannot be read, the CALLERROR SHALL contain \"-1\" as MessageId.\n\nWhen a message contains any invalid OCPP and/or it is not conform the JSON schema, the system is allowed to drop the message.\n\nA CALLERROR always consists of 5 elements: The standard elements MessageTypeId and MessageId, an errorCode string, an errorDescription string and an errorDetails object.\n\nThe syntax of a CALLERROR looks like this:\n\n[<messagetypeid>, \"<messageid>\", \"<errorcode>\", \"<errordescription>\", {<errordetails>}]</errordetails></errordescription></errorcode></messageid></messagetypeid>",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.2.3. CALLERROR",
+      "heading_path": "4.2.3. CALLERROR"
+    }
+  },
+  {
+    "content": "# Table 7. CALLERROR Fields\n\n| Field            | Datatype     | Meaning                                                                                                                          |\n| ---------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------- |\n| MessageTypeId    | integer      | This is a Message Type Number which is used to identify the type of the message.                                                 |\n| MessageId        | string\\[36]  | This MUST be the exact same id that is in the call request so that the recipient can match request and result.                   |\n| ErrorCode        | string       | This field MUST contain a string from the RPC Framework Error Codes table.                                                       |\n| ErrorDescription | string\\[255] | Should be filled in if possible, otherwise a clear empty string \"\".                                                              |\n| ErrorDetails     | JSON         | This JSON object describes error details in an undefined way. If there are no error details you MUST fill in an empty object {}. |\n\nFor example, a CALLERROR could look like this:\n\n[4, \"162376037\", \"NotSupported\", \"SetDisplayMessageRequest not supported\", {}]",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table 7. CALLERROR Fields",
+      "heading_path": "Table 7. CALLERROR Fields",
+      "message_refs": "SetDisplayMessageRequest"
+    }
+  },
+  {
+    "content": "# 4.3. RPC Framework Error Codes\n\nThe following table contains all the allowed error codes for the OCPP RPC Framework.\n\n| ErrorCode                     | Description                                                                                                                       |\n| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |\n| FormatViolation               | Payload for Action is syntactically incorrect                                                                                     |\n| GenericError                  | Any other error not covered by the more specific error codes in this table                                                        |\n| InternalError                 | An internal error occurred and the receiver was not able to process the requested Action successfully                             |\n| MessageTypeNotSupported       | A message with an Message Type Number received that is not supported by this implementation.                                      |\n| NotImplemented                | Requested Action is not known by receiver                                                                                         |\n| NotSupported                  | Requested Action is recognized but not supported by the receiver                                                                  |\n| OccurrenceConstraintViolation | Payload for Action is syntactically correct but at least one of the fields violates occurrence constraints                        |\n| PropertyConstraintViolation   | Payload is syntactically correct but at least one field contains an invalid value                                                 |\n| ProtocolError                 | Payload for Action is not conform the PDU structure                                                                               |\n| RpcFrameworkError             | Content of the call is not a valid RPC Request, for example: MessageId could not be read.                                         |\n| SecurityError                 | During the processing of Action a security issue occurred preventing receiver from completing the Action successfully             |\n| TypeConstraintViolation       | Payload for Action is syntactically correct but at least one of the fields violates data type constraints (e.g. \"somestring\": 12) |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.3. RPC Framework Error Codes",
+      "heading_path": "4.3. RPC Framework Error Codes"
+    }
+  },
+  {
+    "content": "# 4.4. Extension fallback mechanism\n\nFuture versions of OCPP might add extra Message Types (other than CALL, CALLRESULT and CALLERROR).\n\nWhen an OCPP 2.0.1 implementation receives a message with an unknown message type, it SHALL respond with a CALLERROR with errorCode: MessageTypeNotSupported. This SHOULD notify the sending party about the not supported Message Type. The Sending Party SHALL then either terminate the connection, or fallback to the known: CALL, CALLRESULT and CALLERROR.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "4.4. Extension fallback mechanism",
+      "heading_path": "4.4. Extension fallback mechanism"
+    }
+  },
+  {
+    "content": "# 5.2. TLS fragment length\n\nTLS involves sending \"Records\" between peers. Records can be of type “Handshake”, “Alert”, “ChangeCipherSpec”, “Heartbeat” or “Application”. OCPP messages are sent in Application records. The payload contains a “fragment” of the application data. The record layer fragments information blocks into TLSPlaintext records carrying data in chunks of 214 bytes (16kB) or less.\n\nTLS peers need to maintain an input and an output buffer to store an entire fragment of 16 kB. For a low resource device it is a large cost to allocate 32 kB for the TLS connection.\n\n| EVSE                 |           | CSMS                |      |\n| -------------------- | --------- | ------------------- | ---- |\n| TLS impl.            | TLS impl. |                     |      |\n| OCPP out\\_buf (16kB) | TCP       | TCP out\\_buf (16kB) | OCPP |\n| in\\_buf (16kB)       |           | in\\_buf (16kB)      |      |\n\nA TLS extension is defined in TLS Extensions RFC6066 Section 4, that allows the client to ask for a different maximum fragment length than the default 16kB. A client can ask for a maximum fragment length of 0.5 kB, 1 kB, 2 kB or 4 kB. This TLS extension is, however, not widely supported and native managed cloud TLS termination services typically don’t support this.\n\nA resource-constrained Charging Station SHOULD try to negotiate a smaller TLS maximum fragment size, and if that is not accepted by the peer, then Charging Station MAY unilaterally decide to allocate less memory to its TLS output buffer. A TLS maximum fragment length of 2 kB is suggested based on data collection during certification tests, which shows that 99% of the messages fit in a 2 kB buffer.\n\n| EVSE                |           | CSMS                |      |\n| ------------------- | --------- | ------------------- | ---- |\n| TLS impl.           | TLS impl. |                     |      |\n| OCPP out\\_buf (2kB) | TCP       | TCP out\\_buf (16kB) | OCPP |\n| in\\_buf (16kB)      |           | in\\_buf (16kB)      |      |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.2. TLS fragment length",
+      "heading_path": "5.2. TLS fragment length"
+    }
+  },
+  {
+    "content": "# 5.3. WebSocket Ping in relation to OCPP Heartbeat\n\nThe WebSocket specification defines Ping and Pong frames that are used to check if the remote endpoint is still responsive. In practice this mechanism is also used to prevent the network operator from quietly closing the underlying network connection after a certain period of inactivity. This websocket feature can be used as a substitute for most of the OCPP Heartbeat messages, but cannot replace all of its functionality. A Heartbeat message checks connectivity end-to-end, whereas a Websocket ping/pong only checks from point-to-point. This makes a difference in an extended network topology with a Local Controller between Charging Station and CSMS.\n\nAnother important aspect of the Heartbeat response is time synchronisation. The Ping and Pong frames cannot be used for this so at least one original Heartbeat message a day is recommended to ensure a correct clock setting on the Charging Station.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.3. WebSocket Ping in relation to OCPP Heartbeat",
+      "heading_path": "5.3. WebSocket Ping in relation to OCPP Heartbeat"
+    }
+  },
+  {
+    "content": "# 5.4. Reconnecting\n\nWhen the connection is lost, the Charging Station SHALL try to reconnect. When reconnecting, the Charging Station SHALL use an increasing back-off time with some randomization until it has successfully reconnected. This prevents an overload of the CSMS when all Charging Stations reconnect after a restart of the CSMS.\n\nThe first reconnection attempts SHALL be after a back-off time of: RetryBackOffWaitMinimum seconds, plus a random value with a maximum of RetryBackOffRandomRange seconds. After every failed reconnection attempt the Charging Station SHALL double the previous back-off time, with a maximum of RetryBackOffRepeatTimes, adding a new random value with a maximum of RetryBackOffRandomRange seconds to every reconnection attempt. After RetryBackOffRepeatTimes reconnection attempts, the Charging Station SHALL keep reconnecting with the last back-off time, not increasing it any further. After a successful connection the backoff wait timer SHALL be reset to RetryBackOffWaitMinimum seconds.\n\nWhen reconnecting, a Charging Station SHOULD NOT send a BootNotification unless one or more of the elements in the BootNotification have changed since the last connection. For the previous SOAP based solutions this was considered good practice but when using WebSocket the server can already make the match between the identity and a communication channel at the moment the connection is established. There is no need for an additional message.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.4. Reconnecting",
+      "heading_path": "5.4. Reconnecting"
+    }
+  },
+  {
+    "content": "# 5.5. Network node hierarchy\n\nThe physical network topology is not influenced by a choice for JSON or SOAP. In case of JSON however the issues with Network\nAddress Translation (NAT) have been resolved by letting the Charging Station open a TCP connection to the CSMS and keeping this\nconnection open for communication initiated by the CSMS. It is therefore no longer necessary to have a smart device capable of\ninterpreting and redirecting SOAP calls in between the CSMS and the Charging Station.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "5.5. Network node hierarchy",
+      "heading_path": "5.5. Network node hierarchy"
+    }
+  },
+  {
+    "content": "# Chapter 6. OCPP Routing\n\nFor some topologies it is required to route OCPP-J messages. For example when implementing a Local Controller.\n\nThis section contains a solution for OCPP message routing that will work with any Charging Station and CSMS.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 6. OCPP Routing",
+      "heading_path": "Chapter 6. OCPP Routing"
+    }
+  },
+  {
+    "content": "# 6.1. Local Controller\n\nA Local controller is a device that sits between the CSMS and any number of Charging Stations, creating a local group. It is located\nnear to the Charging Station (maybe even connected wired to the Charging Stations), so it does not have problem of losing the\nconnection to the Charging Stations. This is practically useful for doing Local Smart Charging: load balancing between the Charging\nStations on the same location. The Local Controller can see all the messages, ongoing transactions etc. It can send charging\nprofiles to the Charging Station to influence the energy used by the Charging Stations, this way preventing the group to use more\nenergy than available at the location at that time.\n\nThe Local Controller SHALL work so the Charging Station doesn’t have to behave different when connected to the Local Controller,\ncompared to a direct connection to a CSMS. A Local Controller SHALL work so that a Charging Station can work out of the box with\nthe Local Controller, requiring only the parameters that are needed to connect to the Local Controller to be set. The Local Controller\nSHALL work so that the CSMS can not notice if the Charging Station is connecting to it directly, or via the Local Controller.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.1. Local Controller",
+      "heading_path": "6.1. Local Controller"
+    }
+  },
+  {
+    "content": "# Local group\n\n| Charging Station | CS03             |                  |\n| ---------------- | ---------------- | ---------------- |\n| CSMS             | Local Controller | Charging Station |\n|                  | CS00             | CS02             |\n| Charging Station | CS01             |                  |\n\nFigure 3. Local Controller Topology",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Local group",
+      "heading_path": "Local group",
+      "figure_refs": "3"
+    }
+  },
+  {
+    "content": "# 6.2. Connections\n\nFor each Charging Station that connects to the Local Controller, two connections will be established:\n\n1. A WebSocket connection from the Charging Station to the Local Controller (configured in the Charging Station)\n2. A WebSocket connection from the Local Controller to the CSMS (configured in the Local Controller)\n\nBoth connections SHOULD use a similar connection URI with the same Charging Station identifier. To the CSMS, the connection\nfrom the Local Controller appears to be a regular Charging Station connection.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.2. Connections",
+      "heading_path": "6.2. Connections"
+    }
+  },
+  {
+    "content": "# 6.3. Connection loss\n\nWhenever one or more WebSocket connections between CSMS and the Local Controller are lost, the Local Controller SHALL close all corresponding WebSockets to the Charging Stations that are connected to it, unless the Local Controller is capable of responding to Charging Station requests, and forwards transaction-related requests to the CSMS once the connection is restored. This is needed to force the Charging Station to queue messages as it would have done if it would have been connected to the CSMS directly and would have lost the connection to that CSMS.\n\nWhenever the connection between a Charging Station and the Local Controller is lost, the Local Controller SHALL close the WebSocket connection it has for the Charging Station to the CSMS. This is needed to let the CSMS know the Charging Station is offline and no CSMS initiated messages can be sent to it.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.3. Connection loss",
+      "heading_path": "6.3. Connection loss"
+    }
+  },
+  {
+    "content": "# 6.4. Local Controller initiated messages\n\nThe Local Controller SHALL relay any Charging Station initiated message to the CSMS (and vice versa).\n\nSince the Local Controller can also initiate its own messages to the Charging Station(s), a Local Controller SHALL take care of the following:\n\n1. If a Local Controller sends its own messages to a Charging Station, it SHALL guarantee that its messages have IDs that do not collide with IDs used by the CSMS, now and in the future. This can be done by either assigning a range of numbers to the Local Controller to use (and the CSMS to skip), or by using UUIDs/GUIDs.\n2. Replies to messages from the Charging Station to messages initiated by the Local Controller SHALL NOT be sent to the CSMS.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.4. Local Controller initiated messages",
+      "heading_path": "6.4. Local Controller initiated messages"
+    }
+  },
+  {
+    "content": "# Figure 4. Local Controller WebSocket Connections\n\n| Local group | WebSocket                        | ws\\://csms.example.com/ocpp/CS00 | WebSocket                                | ws\\://controller.example.local/ocpp/CS03 | Charging Station                         | CS03             |      |\n| ----------- | -------------------------------- | -------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------- | ---- |\n| WebSocket   | ws\\://csms.example.com/ocpp/CS01 | Local Controller                 | ws\\://controller.example.local/ocpp/CS02 | Charging Station                         | CS00                                     |                  |      |\n|             |                                  | WebSocket                        | ws\\://csms.example.com/ocpp/CS02         | Local Controller                         | ws\\://controller.example.local/ocpp/CS01 | Charging Station | CS02 |\n|             |                                  | WebSocket                        | ws\\://csms.example.com/ocpp/CS03         | Charging Station                         | CS01                                     |                  |      |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Figure 4. Local Controller WebSocket Connections",
+      "heading_path": "Figure 4. Local Controller WebSocket Connections",
+      "figure_refs": "4"
+    }
+  },
+  {
+    "content": "# 6.5. Local Controller Security\n\nFor the local controller, the normal OCPP security mechanisms will be used, as described in [OCPP2.0.1-PART2], part A. Security. All security profiles described there MAY be used when a Local Controller is deployed. The security section (part A) only describes the roles of the CSMS, and Charging Station. When a local controller is used, the security specification SHALL be interpreted as follows:\n\n- In the connection from the Charging Station to the Local Controller, the Charging Station SHALL act as the Charging Station, and the Local Controller SHALL act as the CSMS. When TLS is used, the Local Controller SHALL be the TLS server, and the Charging Station SHALL be the TLS client.\n- In the connection from the Local Controller to the CSMS, the Local Controller SHALL act as the Charging Station, and the CSMS SHALL acts as the CSMS. When TLS is used, the CSMS SHALL be the TLS server, and the Local Controller SHALL be the TLS client.\n\nWhen TLS with Client Side Certificates is used, the Local Controller SHALL have both a CSMS Certificate, and a Charging Station certificate (see [OCPP2.0.1-PART2] Part A - Keys used in OCPP), as it can function in both roles. These certificates SHALL be unique to the Local Controller. The Local Controller SHALL NOT store the Charging Station certificates of the attached Charging Stations. It SHALL also NOT store the CSMS Certificate of the CSMS. These certificates SHALL be kept private on their respective owners. The Local Controller SHALL only use its own certificates for setting up the TLS connections.\n\nIt SHALL be possible to distinguish the Local Controller from the CSMS based on the URL in the CSMS Certificate. Because the Local Controller is placed in the field, there is a risk that its certificates get stolen from it, e.g. by an attack on the hardware. In that case, it SHALL only be possible to use the CSMS Certificate on the Local Controller to communicate with the attached Charging Stations, not with any other Charging Stations in the infrastructure.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.5. Local Controller Security",
+      "heading_path": "6.5. Local Controller Security",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "The TLS connections terminate on the Local Controller. So, the Local Controller can both read and manipulate data sent between the CSMSs and Charging Stations. If the security of the Local Controller is compromised, it will affect all attached Charging Stations. It is therefore RECOMMENDED to take sufficient security measures to protect the Local Controller. It is also RECOMMENDED to sign critical commands or replies with the mechanism described in Signed Messages. In this way, it can be detected if the Local Controller tries to manipulate data.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "6.5. Local Controller Security",
+      "heading_path": "6.5. Local Controller Security",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# Chapter 7. Signed Messages\n\nFor certain architectures it can be useful to use signed OCPP messages. This gives the Charging Station and the CSMS the ability to guarantee that messages are sent by the other party. For example when a Local Controller is involved, the Charging Station can know that a message received from the Local Controller is created and signed by the CSMS.\n\nMessage signing can also be used when forwarding data from the Charging Station or the CSMS to 3th parties such as a DSO (Distribution System Operator).\n\nBecause message signing is not needed in all architectures and scenarios, it is not required for all OCPP implementations. It will depend on the security requirements if this is required.\n\nThis section defines a method to digitally sign any OCPP-J message. For each normal OCPP message an equivalent signed message is defined that encapsulates the normal message, and adds a digital signature.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 7. Signed Messages",
+      "heading_path": "Chapter 7. Signed Messages"
+    }
+  },
+  {
+    "content": "# 7.1. Signed Message Format\n\nFor Signed OCPP Messages, JWS is used. For more information see: [RFC7515].\n\nSuppose we have an OPC calls encoded in the OCPP-J message:\n\n[MessageTypeId>, \"MessageId>\", {Extension>}, \"Action>\", {Payload>}]\n\nThen we define the equivalent signed message as follows.\n\n[MessageTypeId>, \"MessageId>\", {Extension>}, \"SignedAction>\", {SignedPayload>}]\n\nThe MessageTypeId and MessageId SHALL stay the same. The SignedAction> field SHALL be the action name (Action>) with the string \"-Signed\" appended. For instance, if \"Action>\" is \"BootNotification\", then \"SignedAction>\" is \"BootNotification-Signed\". The SignedPayload> SHALL be the JWS encoding of the payload, computed according to the following settings:\n\n- The JWS Payload SHALL be the Payload> from the original message.\n- The JWS Protected Header SHALL contain a field called \"OCPPAction\" containing the name (Action>) of the OCPP action, and a field called \"OCPPMessageTypedId\" containing the message ID (MessageTypeId>).\n- The JWS Protected Header SHOULD contain the x5t#S256 field to identify the key used for signing, as specified in Section 7.4.\n- The SignedPayload> SHALL be encoded using the Flattened JWS JSON Serialization syntax.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.1. Signed Message Format",
+      "heading_path": "7.1. Signed Message Format"
+    }
+  },
+  {
+    "content": "# 7.3. Allowed Algorithms\n\nThe algorithms allowed for use with JSON Web Signatures are defined in the JSON Web Algorithms standard [RFC7518]. To limit the cryptographic algorithms that a Charging Station has to implement, for OCPP the same algorithms SHALL be used as for the TLS connection used to secure communications. This means that for generating the digital signatures, the Charging Station and CSMS SHALL use the following algorithms from the JSON Web Algorithms standard [RFC7518], section 3.1:\n\n- ES256: ECDSA using P-256 and SHA-256\n- RS256: RSASSA-PKCS1-v1_5 using SHA-256\n- RS384: RSASSA-PKCS1-v1_5 using SHA-384\n\nNote that RS256 and ES256 are the algorithms recommended by [RFC7518].",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.3. Allowed Algorithms",
+      "heading_path": "7.3. Allowed Algorithms"
+    }
+  },
+  {
+    "content": "# 7.4. Key Management\n\nThis section does not prescribe specific keys to be used for digital signatures. The CSMS Certificate and Charging Station Certificate, used for setting up a secure TLS connection, MAY be used for signing. For many use cases, these will however not be the correct keys. For instance, if the use case is to provide non-repudiation of meter readings, the messages should be signed with a certificate stored in the calibrated measuring chip.\n\nTo be able to verify the digital signature, one needs to know which key was used to sign it. JSON Web Signatures supports several ways to store a key identifier with the signed message. As the certificates that can be used for signing are not specified, hash values will be used to identify them. Within the OCPP, the Charging Station and CSMS SHOULD include the field x5t#S256 in the JWS Protected Header to identify the certificate. Following the JSON Web Signatures standard [RFC7515] the value of this field SHOULD be set to the SHA-256 hash of the DER encoding of the signing certificate. How stakeholders can look up the certificate based on the hash value is out of scope for this document.\nIn the set up with a Local Controller, described in Local Controller, the TLS client key that would be signing messages to the CSMS will, in fact, not be the TLS client key that the TLS connection is using, since the key in the Local Controller is different from that in the Charging Station. Similarly, the TLS server key signing messages will be that of the CSMS, not that of the local controller. Therefore, implementation of the protocol MUST NOT regard this mismatch as invalidating the signatures; in fact, it is an expected and desired property to provide end-to-end authenticity.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "7.4. Key Management",
+      "heading_path": "7.4. Key Management"
+    }
+  },
+  {
+    "content": "# 8.1. RetryBackOffRepeatTimes\n\n| Required                 | yes                     |               |\n| ------------------------ | ----------------------- | ------------- |\n| Component Name           |                         | OCPPCommCtrlr |\n| Variable Name            | RetryBackOffRepeatTimes |               |\n| Variable Attributes      | mutability              | ReadWrite     |\n| Variable Characteristics | dataType                | integer       |\n\nDescription: When the Charging Station is reconnecting, after a connection loss, it will use this variable for the amount of times it will double the previous back-off time. When the maximum number of increments is reached, the Charging Station keeps connecting with the same back-off time.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "8.1. RetryBackOffRepeatTimes",
+      "heading_path": "8.1. RetryBackOffRepeatTimes"
+    }
+  },
+  {
+    "content": "# 8.2. RetryBackOffRandomRange\n\n| Required                 | yes                     |           |\n| ------------------------ | ----------------------- | --------- |\n| Component Name           | OCPPCommCtrlr           |           |\n| Variable Name            | RetryBackOffRandomRange |           |\n| Variable Attributes      | mutability              | ReadWrite |\n| Variable Characteristics | unit                    | s         |\n|                          | dataType                | integer   |\n\nDescription: When the Charging Station is reconnecting, after a connection loss, it will use this variable as the maximum value for the random part of the back-off time. It will add a new random value to every increasing back-off time, including the first connection attempt (with this maximum), for the amount of times it will double the previous back-off time. When the maximum number of increments is reached, the Charging Station will keep connecting with the same back-off time.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "8.2. RetryBackOffRandomRange",
+      "heading_path": "8.2. RetryBackOffRandomRange"
+    }
+  },
+  {
+    "content": "# 8.3. RetryBackOffWaitMinimum\n\n| Required                 | yes                     |           |   |   |\n| ------------------------ | ----------------------- | --------- | - | - |\n| Component Name           | OCPPCommCtrlr           |           |   |   |\n| Variable Name            | RetryBackOffWaitMinimum |           |   |   |\n| Variable Attributes      | mutability              | ReadWrite |   |   |\n| Variable Characteristics | unit                    | s         |   |   |\n|                          | dataType                | integer   |   |   |\n\nDescription: When the Charging Station is reconnecting, after a connection loss, it will use this variable as the minimum back-off time, the first time it tries to reconnect.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "8.3. RetryBackOffWaitMinimum",
+      "heading_path": "8.3. RetryBackOffWaitMinimum"
+    }
+  },
+  {
+    "content": "# 8.4. WebSocketPingInterval\n\n| Required                 | yes                   |           |\n| ------------------------ | --------------------- | --------- |\n| Component Name           | OCPPCommCtrlr         |           |\n| Variable Name            | WebSocketPingInterval |           |\n| Variable Attributes      | mutability            | ReadWrite |\n| Variable Characteristics | unit                  | s         |\n|                          | dataType              | integer   |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "8.4. WebSocketPingInterval",
+      "heading_path": "8.4. WebSocketPingInterval"
+    }
+  },
+  {
+    "content": "# Part 4 - JSON over WebSockets implementation guide\n\n| Variable                | variableName | WebSocketPingInterval |\n| ----------------------- | ------------ | --------------------- |\n| variableAttributes      | mutability   | ReadWrite             |\n| variableCharacteristics | unit         | s                     |\n|                         | dataType     | integer               |",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 4 - JSON over WebSockets implementation guide",
+      "heading_path": "Part 4 - JSON over WebSockets implementation guide"
+    }
+  },
+  {
+    "content": "# Description\n\nA value of 0 disables client side websocket Ping / Pong. In this case there is either no ping / pong or the server initiates the ping and client responds with Pong. Positive values are interpreted as number of seconds between pings. Negative values are not allowed, SetConfiguration is then expected to return a Rejected result.\n\nIt is recommended to configure WebSocketPingInterval smaller than: MessageAttemptsTransactionEvent * MessageAttemptIntervalTransactionEvent. This will limit the chance of the resend mechanism for transaction-related messages being triggered by connectivity issues.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Description",
+      "heading_path": "Description"
+    }
+  },
+  {
+    "content": "# Chapter 9. CustomData Extension\n\nIn the JSON schema files all classes have the attribute additionalProperties set to false, such that a JSON parser will not accept any other properties in the message. In order to allow for some flexibility to create non-standard extensions for experimentation purposes, every JSON class has been extended with a customData property. This property is of type CustomDataType, which has only one required property: vendorId, which is used to identify the kind of customization. However, since it does not have additionalProperties set to false it can be freely extended with new properties.\n\nIn the same way as is defined for the DataTransfer message, the vendorId SHOULD be a value from the reversed DNS namespace, where the top tiers of the name, when reversed, corresponds to the publicly registered primary DNS name of the Vendor organization.\n\nThe following example shows the CustomDataType definition and the (optional) customData property in the schema definition of HeartbeatRequest:\n\n{\n\"$schema\": \"http://json-schema.org/draft-06/schema#\",\n\"$id\": \"HeartbeatRequest\",\n\"definitions\": {\n\"CustomDataType\": {\n\"description\": \"This class does not get 'AdditionalProperties = false' in the schema\ngeneration, so it can be extended with arbitrary JSON\nproperties to allow adding\ncustom data.\",\n\"javaType\": \"CustomData\",\n\"type\": \"object\",\n\"properties\": {\n\"vendorId\": {\n\"type\": \"string\",\n\"maxLength\": 255\n}\n},\n\"required\": [ \"vendorId\" ]\n}\n},\n\"type\": \"object\",\n\"additionalProperties\": false,\n\"properties\": {\n\"customData\": {\n\"$ref\": \"#/definitions/CustomDataType\"\n}\n}\n}\n\nWhereas the standard HeartbeatRequest has an empty body, a customized version, that provides the value of the main meter and a count of all sessions to date, could look like this:\n\n{\n\"customData\": {\n\"vendorId\": \"com.mycompany.customheartbeat\",\n\"mainMeterValue\": 12345,\n\"sessionsToDate\": 342\n}\n}",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 9. CustomData Extension",
+      "heading_path": "Chapter 9. CustomData Extension",
+      "message_refs": "HeartbeatRequest"
+    }
+  },
+  {
+    "content": "# Part 4 - JSON over WebSockets implementation guide\n\nA CSMS that has implemented this extension, identified by its \"vendorId\", will be able to process the data. Other CSMS implementations will simply ignore these custom properties.\n\nA CSMS can request a report of the CustomizationCtrlr component to get a list of all customizations that are supported by the Charging Station.",
+    "metadata": {
+      "doc_id": "ocpp201_part4",
+      "doc_title": "OCPP 2.0.1 Part 4 - OCPP-J Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 4 - JSON over WebSockets implementation guide",
+      "heading_path": "Part 4 - JSON over WebSockets implementation guide"
+    }
+  }
+]

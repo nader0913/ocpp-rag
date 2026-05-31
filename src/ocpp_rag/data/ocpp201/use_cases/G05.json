@@ -1,0 +1,78 @@
+{
+  "use_case_id": "G05",
+  "functional_block": "Availability",
+  "use_case_name": "Lock Failure",
+  "chunks": [
+    {
+      "content": "# G05 - Lock Failure\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Lock Failure                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 2   | ID               | G05                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)     | To prevent the EV Driver from charging because the Connector is not properly locked.                                                                                                                                                                                                                                                                                                                                                        |\n| 4   | Description      | This use case describes how the EV Driver is prevented from starting a charge session at the Charging Station because the Connector is not locked properly. Actors: Charging Station, CSMS, EV Driver Scenario description:1) The EV Driver is authorized by the Charging Station and/or CSMS.\n2) The lock Connector attempt fails.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G05 - Lock Failure",
+        "heading_path": "G05 - Lock Failure",
+        "functional_block": "Availability",
+        "use_case_id": "G05",
+        "use_case_name": "Lock Failure",
+        "use_case_refs": "G05",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "3) A NotifyEventRequest for the ConnectorPlugRetentionLock component, variable = Problem, value = true. |\n| 5   | Prerequisite(s)  | 1. Charging Cable plugged in (status = Occupied)\n2. Charging Station has the ConnectorPlugRetentionLock component defined in its Device Model.\n3. MonitoringLevel is set to a level that a connector lock event failure will be reported.                                                                                                                                                                                                   |\n| 6   | Postcondition(s) | Transaction is not started and connector lock event failure is reported.                                                                                                                                                                                                                                                                                                                                                                    |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)        | It is advisable to provide some sort of notification to the EV Driver (\"cable cannot be locked\"). A lock failure can also be reported when unlocking of the connector fails.                                                                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G05 - Lock Failure",
+        "heading_path": "G05 - Lock Failure",
+        "functional_block": "Availability",
+        "use_case_id": "G05",
+        "use_case_name": "Lock Failure",
+        "use_case_refs": "G05",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "User: Charging Station, CSMS\n\nCable plugged in\n\nUser authorization successful\n\nlock connector attempt failed()\n\nNotifyEventRequest(component = ConnectorPlugRetentionLock, variable = Problem, value = true)\n\nNotifyEventResponse()\n\noptional notification",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G05 - Lock Failure",
+        "heading_path": "G05 - Lock Failure",
+        "functional_block": "Availability",
+        "use_case_id": "G05",
+        "use_case_name": "Lock Failure",
+        "use_case_refs": "G05",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# G05 - Lock Failure - Requirements\n\n| ID        | Precondition                                          | Requirement definition                                                                                                                               | Note                                         |\n| --------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |\n| G05.FR.01 | If the locking of the connector retention lock fails. | The Charging Station SHALL NOT start charging.                                                                                                       |                                              |\n| G05.FR.02 | G05.FR.01                                             | The Charging Station SHALL send a NotifyEventRequest to the CSMS for the ConnectorPlugRetentionLock component with variable = Problem, Value = True. |                                              |\n| G05.FR.03 | G05.FR.02                                             | The CSMS SHALL respond with a NotifyEventResponse.                                                                                                   |                                              |\n| G05.FR.04 | G05.FR.01                                             | The Charging Station MAY show an optional notification to the EV Driver.                                                                             | To notify the EV driver of the lock failure. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "G05 - Lock Failure - Requirements",
+        "heading_path": "G05 - Lock Failure - Requirements",
+        "functional_block": "Availability",
+        "use_case_id": "G05",
+        "use_case_name": "Lock Failure",
+        "use_case_refs": "G05",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse"
+      }
+    }
+  ],
+  "figures": []
+}

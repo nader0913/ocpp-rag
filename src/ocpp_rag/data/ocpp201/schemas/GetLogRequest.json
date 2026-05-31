@@ -1,0 +1,43 @@
+[
+  {
+    "content": "## GetLogRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: GetLog\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| log | LogParametersType | Yes | Log urn:x-enexis:ecdm:uid:2:233373 Generic class for the configuration of logging entries. |\n| logType | enum(DiagnosticsLog,SecurityLog) | Yes | This contains the type of log file that the Charging Station should send. |\n| requestId | integer | Yes | The Id of this request |\n| retries | integer | No | This specifies how many times the Charging Station must try to upload the log before giving up. If this field is not present, it is left to Charging Station to decide how many times it wants to retry. |\n| retryInterval | integer | No | The interval in seconds after which a retry may be attempted. If this field is not present, it is left to Charging Station to decide how long to wait between attempts. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:GetLogRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetLogRequest",
+      "heading_path": "JSON Schemas > GetLog > GetLogRequest",
+      "message_name": "GetLogRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "},\n    \"LogEnumType\": {\n      \"description\": \"This contains the type of log file that the Charging Station\\r\\nshould send.\\r\\n\",\n      \"javaType\": \"LogEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"DiagnosticsLog\",\n        \"SecurityLog\"\n      ]\n    },\n    \"LogParametersType\": {\n      \"description\": \"Log\\r\\nurn:x-enexis:ecdm:uid:2:233373\\r\\nGeneric class for the configuration of logging entries.\\r\\n\",\n      \"javaType\": \"LogParameters\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"remoteLocation\": {\n          \"description\": \"Log. Remote_ Location. URI\\r\\nurn:x-enexis:ecdm:uid:1:569484\\r\\nThe URL of the location at the remote system where the log should be stored.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 512\n        },\n        \"oldestTimestamp\": {\n          \"description\": \"Log. Oldest_ Timestamp. Date_ Time\\r\\nurn:x-enexis:ecdm:uid:1:569477\\r\\nThis contains the date and time of the oldest logging information to include in the diagnostics.\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"latestTimestamp\": {\n          \"description\": \"Log. Latest_ Timestamp. Date_ Time\\r\\nurn:x-enexis:ecdm:uid:1:569482\\r\\nThis contains the date and time of the latest logging information to include in the diagnostics.\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        }\n      },\n      \"required\": [\n        \"remoteLocation\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"log\": {",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetLogRequest",
+      "heading_path": "JSON Schemas > GetLog > GetLogRequest",
+      "message_name": "GetLogRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"$ref\": \"#/definitions/LogParametersType\"\n    },\n    \"logType\": {\n      \"$ref\": \"#/definitions/LogEnumType\"\n    },\n    \"requestId\": {\n      \"description\": \"The Id of this request\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"retries\": {\n      \"description\": \"This specifies how many times the Charging Station must try to upload the log before giving up. If this field is not present, it is left to Charging Station to decide how many times it wants to retry.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"retryInterval\": {\n      \"description\": \"The interval in seconds after which a retry may be attempted. If this field is not present, it is left to Charging Station to decide how long to wait between attempts.\\r\\n\",\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"logType\",\n    \"requestId\",\n    \"log\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetLogRequest",
+      "heading_path": "JSON Schemas > GetLog > GetLogRequest",
+      "message_name": "GetLogRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  }
+]

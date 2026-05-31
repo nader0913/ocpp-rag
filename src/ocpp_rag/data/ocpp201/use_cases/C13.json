@@ -1,0 +1,23 @@
+{
+  "use_case_id": "C13",
+  "functional_block": "Authorization",
+  "use_case_name": "Offline Authorization through Local Authorization List",
+  "chunks": [
+    {
+      "content": "# C13 - Offline Authorization through Local Authorization List",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C13 - Offline Authorization through Local Authorization List",
+        "heading_path": "C13 - Offline Authorization through Local Authorization List",
+        "functional_block": "Authorization",
+        "use_case_id": "C13",
+        "use_case_name": "Offline Authorization through Local Authorization List",
+        "use_case_refs": "C13"
+      }
+    }
+  ],
+  "figures": []
+}

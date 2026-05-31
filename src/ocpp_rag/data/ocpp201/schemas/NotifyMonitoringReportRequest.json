@@ -1,0 +1,85 @@
+[
+  {
+    "content": "## NotifyMonitoringReportRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: NotifyMonitoringReport\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| monitor | array<MonitoringDataType> | No |  |\n| requestId | integer | Yes | The id of the GetMonitoringRequest that requested this report. |\n| tbc | boolean | No | “to be continued” indicator. Indicates whether another part of the monitoringData follows in an upcoming notifyMonitoringReportRequest message. Default value when omitted is false. |\n| seqNo | integer | Yes | Sequence number of this message. First message starts at 0. |\n| generatedAt | string(date-time) | Yes | Timestamp of the moment this message was generated at the Charging Station. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:NotifyMonitoringReportRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"MonitorEnumType\": {\n      \"description\": \"The type of this monitor, e.g. a threshold, delta or periodic monitor. \\r\\n\",\n      \"javaType\": \"MonitorEnum\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyMonitoringReportRequest",
+      "heading_path": "JSON Schemas > NotifyMonitoringReport > NotifyMonitoringReportRequest",
+      "message_name": "NotifyMonitoringReportRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"UpperThreshold\",\n        \"LowerThreshold\",\n        \"Delta\",\n        \"Periodic\",\n        \"PeriodicClockAligned\"\n      ]\n    },\n    \"ComponentType\": {\n      \"description\": \"A physical or logical component\\r\\n\",\n      \"javaType\": \"Component\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"evse\": {\n          \"$ref\": \"#/definitions/EVSEType\"\n        },\n        \"name\": {\n          \"description\": \"Name of the component. Name should be taken from the list of standardized component names whenever possible. Case Insensitive. strongly advised to use Camel Case.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        },\n        \"instance\": {\n          \"description\": \"Name of instance in case the component exists as multiple instances. Case Insensitive. strongly advised to use Camel Case.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"name\"\n      ]\n    },\n    \"EVSEType\": {\n      \"description\": \"EVSE\\r\\nurn:x-oca:ocpp:uid:2:233123\\r\\nElectric Vehicle Supply Equipment\\r\\n\",\n      \"javaType\": \"EVSE\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"id\": {\n          \"description\": \"Identified_ Object. MRID. Numeric_ Identifier\\r\\nurn:x-enexis:ecdm:uid:1:569198\\r\\nEVSE Identifier. This contains a number (&gt; 0) designating an EVSE of the Charging Station.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"connectorId\": {\n          \"description\": \"An id to designate a specific connector (on an EVSE) by connector index number.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyMonitoringReportRequest",
+      "heading_path": "JSON Schemas > NotifyMonitoringReport > NotifyMonitoringReportRequest",
+      "message_name": "NotifyMonitoringReportRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"id\"\n      ]\n    },\n    \"MonitoringDataType\": {\n      \"description\": \"Class to hold parameters of SetVariableMonitoring request.\\r\\n\",\n      \"javaType\": \"MonitoringData\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"component\": {\n          \"$ref\": \"#/definitions/ComponentType\"\n        },\n        \"variable\": {\n          \"$ref\": \"#/definitions/VariableType\"\n        },\n        \"variableMonitoring\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/VariableMonitoringType\"\n          },\n          \"minItems\": 1\n        }\n      },\n      \"required\": [\n        \"component\",\n        \"variable\",\n        \"variableMonitoring\"\n      ]\n    },\n    \"VariableMonitoringType\": {\n      \"description\": \"A monitoring setting for a variable.\\r\\n\",\n      \"javaType\": \"VariableMonitoring\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"id\": {\n          \"description\": \"Identifies the monitor.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"transaction\": {\n          \"description\": \"Monitor only active when a transaction is ongoing on a component relevant to this transaction. \\r\\n\",\n          \"type\": \"boolean\"\n        },\n        \"value\": {\n          \"description\": \"Value for threshold or delta monitoring.\\r\\nFor Periodic or PeriodicClockAligned this is the interval in seconds.\\r\\n\",\n          \"type\": \"number\"\n        },\n        \"type\": {\n          \"$ref\": \"#/definitions/MonitorEnumType\"",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyMonitoringReportRequest",
+      "heading_path": "JSON Schemas > NotifyMonitoringReport > NotifyMonitoringReportRequest",
+      "message_name": "NotifyMonitoringReportRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "},\n        \"severity\": {\n          \"description\": \"The severity that will be assigned to an event that is triggered by this monitor. The severity range is 0-9, with 0 as the highest and 9 as the lowest severity level.\\r\\n\\r\\nThe severity levels have the following meaning: +\\r\\n*0-Danger* +\\r\\nIndicates lives are potentially in danger. Urgent attention is needed and action should be taken immediately. +\\r\\n*1-Hardware Failure* +\\r\\nIndicates that the Charging Station is unable to continue regular operations due to Hardware issues. Action is required. +\\r\\n*2-System Failure* +\\r\\nIndicates that the Charging Station is unable to continue regular operations due to software or minor hardware issues. Action is required. +\\r\\n*3-Critical* +\\r\\nIndicates a critical error. Action is required. +\\r\\n*4-Error* +\\r\\nIndicates a non-urgent error. Action is required. +\\r\\n*5-Alert* +\\r\\nIndicates an alert event. Default severity for any type of monitoring event.  +\\r\\n*6-Warning* +\\r\\nIndicates a warning event. Action may be required. +\\r\\n*7-Notice* +\\r\\nIndicates an unusual event. No immediate action is required. +\\r\\n*8-Informational* +\\r\\nIndicates a regular operational event. May be used for reporting, measuring throughput, etc. No action is required. +\\r\\n*9-Debug* +\\r\\nIndicates information useful to developers for debugging, not useful during operations.\\r\\n\",\n          \"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"id\",\n        \"transaction\",\n        \"value\",\n        \"type\",\n        \"severity\"\n      ]\n    },\n    \"VariableType\": {\n      \"description\": \"Reference key to a component-variable.\\r\\n\",\n      \"javaType\": \"Variable\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyMonitoringReportRequest",
+      "heading_path": "JSON Schemas > NotifyMonitoringReport > NotifyMonitoringReportRequest",
+      "message_name": "NotifyMonitoringReportRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  },
+  {
+    "content": "\"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"name\": {\n          \"description\": \"Name of the variable. Name should be taken from the list of standardized variable names whenever possible. Case Insensitive. strongly advised to use Camel Case.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        },\n        \"instance\": {\n          \"description\": \"Name of instance in case the variable exists as multiple instances. Case Insensitive. strongly advised to use Camel Case.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"name\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"monitor\": {\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"$ref\": \"#/definitions/MonitoringDataType\"\n      },\n      \"minItems\": 1\n    },\n    \"requestId\": {\n      \"description\": \"The id of the GetMonitoringRequest that requested this report.\\r\\n\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"tbc\": {\n      \"description\": \"\\u201cto be continued\\u201d indicator. Indicates whether another part of the monitoringData follows in an upcoming notifyMonitoringReportRequest message. Default value when omitted is false.\\r\\n\",\n      \"type\": \"boolean\",\n      \"default\": false\n    },\n    \"seqNo\": {\n      \"description\": \"Sequence number of this message. First message starts at 0.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"generatedAt\": {\n      \"description\": \"Timestamp of the moment this message was generated at the Charging Station.\\r\\n\",\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n  },\n  \"required\": [",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyMonitoringReportRequest",
+      "heading_path": "JSON Schemas > NotifyMonitoringReport > NotifyMonitoringReportRequest",
+      "message_name": "NotifyMonitoringReportRequest",
+      "message_direction": "Request",
+      "chunk_part": 5
+    }
+  },
+  {
+    "content": "\"requestId\",\n    \"seqNo\",\n    \"generatedAt\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyMonitoringReportRequest",
+      "heading_path": "JSON Schemas > NotifyMonitoringReport > NotifyMonitoringReportRequest",
+      "message_name": "NotifyMonitoringReportRequest",
+      "message_direction": "Request",
+      "chunk_part": 6
+    }
+  }
+]

@@ -1,0 +1,98 @@
+{
+  "use_case_id": "C07",
+  "functional_block": "Authorization",
+  "use_case_name": "Authorization using Contract Certificates",
+  "chunks": [
+    {
+      "content": "# C07 - Authorization using Contract Certificates\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Authorization using Contract Certificates                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID                      | C07                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n|     | Reference               | ISO15118-1 D2                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)            | See ISO15118-1, use case Objective D2, page 26.                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 4   | Description             | See ISO15118-1, use case Description D2 (first bullet), page 26.                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Actors                  | EV, Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C07 - Authorization using Contract Certificates",
+        "heading_path": "C07 - Authorization using Contract Certificates",
+        "functional_block": "Authorization",
+        "use_case_id": "C07",
+        "use_case_name": "Authorization using Contract Certificates",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "|     | Scenario description    | 15118: See ISO15118-1, use case Description D2, Scenario Description, first 2 bullets, page 26. OCPP: 3. The Charging Station sends an AuthorizeRequest message to the CSMS containing the eMAID and data needed for an OCSP request with regards to the contract certificate and certificate chain. 4. The CSMS replies with an agreement or non-agreement, and the certificate status. 5. Service starts after successful authorization of the IDs. |\n|     | Alternative scenario(s) | C01 - EV Driver Authorization using RFID C02 - Authorization using a start button C03 - Authorization using credit/debit card C04 - Authorization using PIN-code C05 - Authorization for CSMS initiated transactions C06 - Authorization using local id type C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM) C15 - Unknown Offline Authorization                                                                      |\n| 5   | Prerequisites           | A contract Certificate is installed in the EV.                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 6   | Postcondition(s)        | The validity of the Contract Certificate is determined.                                                                                                                                                                                                                                                                                                                                                                                               |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C07 - Authorization using Contract Certificates",
+        "heading_path": "C07 - Authorization using Contract Certificates",
+        "functional_block": "Authorization",
+        "use_case_id": "C07",
+        "use_case_name": "Authorization using Contract Certificates",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 7   | Error handling          |                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 8   | Remark(s)               | In edition 1 of 15118, the message timeout of the PaymentDetailsReq/Res message is 5 seconds. In case certificate verification cannot be completed in that time it is possible to complete this during the AuthorizationReq/Res, which can be extended up to 60 seconds.                                                                                                                                                                              |\n\nWhen the Charging Station is offline, it is recommended to omit the payment option for ISO 15118 contract certificates from the ServiceDiscoveryRes and revert to External Identification Means (use case C08), because certificate status cannot be checked.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C07 - Authorization using Contract Certificates",
+        "heading_path": "C07 - Authorization using Contract Certificates",
+        "functional_block": "Authorization",
+        "use_case_id": "C07",
+        "use_case_name": "Authorization using Contract Certificates",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# C07 - Authorization using Contract Certificates - Requirements\n\n| ID        | Precondition                                                                                                                                                                            | Requirement definition                                                                                                                                          | Note |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| C07.FR.01 | When Charging Station is online                                                                                                                                                         | The Charging Station SHALL send an AuthorizeRequest to the CSMS for validation.                                                                                 |      |\n| C07.FR.02 | C07.FR.01                                                                                                                                                                               | The AuthorizeRequest SHALL contain the eMAID and data needed for an OCSP request with regards to the contract certificate and certificate chain.                |      |\n| C07.FR.04 | If the CSMS receives an AuthorizeRequest.                                                                                                                                               | It SHALL respond with an AuthorizeResponse and SHALL include an authorization status value indicating acceptance or a reason for rejection.                     |      |\n| C07.FR.05 | C07.FR.02                                                                                                                                                                               | The CSMS SHALL verify validity of the certificate and certificate chain via real-time or cached OCSP data.                                                      |      |\n| C07.FR.06 | C07.FR.01 AND If Charging Station is not able to validate a contract certificate, because it does not have the associated root certificate AND CentralContractValidationAllowed is true | The Charging Station SHALL pass the contract certificate chain to the CSMS in certificate attribute (in PEM format) of AuthorizeRequest for validation by CSMS. |      |\n| C07.FR.07 | When Charging Station is offline AND ContractValidationOffline is false                                                                                                                 | The Charging Station SHALL NOT allow charging.                                                                                                                  |      |\n| C07.FR.08 | When Charging Station is offline AND ContractValidationOffline is true                                                                                                                  | The Charging Station SHALL try to validate the contract certificate locally.                                                                                    |      |\n| C07.FR.09 | C07.FR.08 AND Contract certificate is valid AND LocalAuthorizeOffline is true                                                                                                           | The Charging Station SHALL lookup the eMAID in Local Authorization List or Authorization Cache.                                                                 |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C07 - Authorization using Contract Certificates - Requirements",
+        "heading_path": "C07 - Authorization using Contract Certificates - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C07",
+        "use_case_name": "Authorization using Contract Certificates",
+        "use_case_refs": "C07, C13",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| C07.FR.10 | C07.FR.09 AND eMAID found in Local Authorization List                                                                                                                                   | The Charging Station SHALL behave according to use case C13 - Offline Authorization through Local Authorization List.                                           |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C07 - Authorization using Contract Certificates - Requirements",
+        "heading_path": "C07 - Authorization using Contract Certificates - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C07",
+        "use_case_name": "Authorization using Contract Certificates",
+        "use_case_refs": "C07, C13",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    }
+  ],
+  "figures": []
+}

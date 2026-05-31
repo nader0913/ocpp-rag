@@ -1,0 +1,133 @@
+{
+  "use_case_id": "O06",
+  "functional_block": "DisplayMessage",
+  "use_case_name": "Replace DisplayMessage",
+  "chunks": [
+    {
+      "content": "# O06 - Replace DisplayMessage\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| --- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Replace DisplayMessage                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID                      | O06                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 3   | Objective(s)            | Enable a CSO to replace DisplayMessages, already configured on a Charging Station.                                                                                                                                                                                                                                                                                                                                                                 |\n| 4   | Description             | This use case describes how a CSO can replace a DisplayMessage that is previously configured in a Charging Station. Replace the message content, but also all the given parameters with the new one.                                                                                                                                                                                                                                               |\n|     | Actors                  | CSO, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                        |\n|     | Scenario description    | 1. The CSO asks the CSMS to replace an existing DisplayMessage. 2. The CSMS sends a SetDisplayMessageRequest message to the Charging Station with the a DisplayMessage with the same ID as already configured in the Charging Station. 3. The Charging Station accepts the request by sending a SetDisplayMessageResponse message to the CSMS. 4. The Charging Station shows the updated/replaced message on the display at the configured moment. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O06 - Replace DisplayMessage",
+        "heading_path": "O06 - Replace DisplayMessage",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O06",
+        "use_case_name": "Replace DisplayMessage",
+        "use_case_refs": "O01, O02, O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
+        "figure_refs": "144",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "|     | Alternative scenario(s) | O01 - Set DisplayMessage and O02 - Set DisplayMessage for Transaction                                                                                                                                                                                                                                                                                                                                                                              |\n| 5   | Prerequisites           | There is a message with the same id configured in the Charging Station                                                                                                                                                                                                                                                                                                                                                                             |\n| 6   | Postcondition(s)        | The DisplayMessage is replaced by the one provided with the same ID.                                                                                                                                                                                                                                                                                                                                                                               |\n| 7   | Error Handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O06 - Replace DisplayMessage",
+        "heading_path": "O06 - Replace DisplayMessage",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O06",
+        "use_case_name": "Replace DisplayMessage",
+        "use_case_refs": "O01, O02, O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
+        "figure_refs": "144",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remarks                 | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n\nCSO    CSMS              Charging Station\n\nA message with id=15 is configured\n\nReplace Messages(id = 15)\n\nSetDisplayMessagesRequest(id = 15,...)\n\nSetDisplayMessagesResponse(Accepted)\n\nopt notification\n\nFigure 144. Replace DisplayMessage sequence diagram",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O06 - Replace DisplayMessage",
+        "heading_path": "O06 - Replace DisplayMessage",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O06",
+        "use_case_name": "Replace DisplayMessage",
+        "use_case_refs": "O01, O02, O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
+        "figure_refs": "144",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# Chapter 1. Introduction\n\nThis Functional Block describes the functionality that enables parties to extend existing commands with custom attributes or add new custom commands to OCPP.\n\nOCPP offers two mechanisms to create vendor-specific custom extension.\n\n1. The DataTransferRequest message allows for the exchange of data or messages not standardized in OCPP. As such, it offers a framework within OCPP for experimental functionality that may find its way into future OCPP versions. Experimenting can be done without creating new (possibly incompatible) OCPP dialects. Secondly, it offers a possibility to implement additional functionality agreed upon between specific CSMS and Charging Station vendors.\n2. A CustomData element exists as an optional element in the JSON schemas of all types. CustomData is the only class in the JSON schema files that allows additional properties. It can thus be used to add additional custom attributes to any type. The CustomData has been deliberately left out of the specification document, because it would introduce a lot of clutter and it is not meant to be used in standard implementations. See also [OCPP2.0.1-PART4].\n\nThe DataTransferRequest/Response contains a field without a length or type specification. It can be convenient to use this field as structured JSON content.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Chapter 1. Introduction",
+        "heading_path": "Chapter 1. Introduction",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O06",
+        "message_refs": "DataTransferRequest"
+      }
+    },
+    {
+      "content": "# Example of embedded JSON\n\n[2,\n\"unique msg id>\",\n\"DataTransfer\",\n{\n\"vendorId\": \"com.mycompany.ice\",\n\"messageId\": \"iceParkedAtCs\",\n\"data\": { \"start_time\": \"2020-04-01T11:01:02\" }\n}\n]\n\nPlease use with extreme caution and only for optional functionality, since it will impact your compatibility IMPORTANT with other systems that do not make use of this option. We recommend mentioning the usage explicitly in your documentation and/or communication. Please consider consulting the Open Charge Alliance before turning to this option to add functionality.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Example of embedded JSON",
+        "heading_path": "Example of embedded JSON",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O06"
+      }
+    },
+    {
+      "content": "# O06 - Replace DisplayMessage - Requirements\n\n| ID        | Precondition                                                                                                                           |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------- |\n| O06.FR.01 | When a Charging Station receives a SetDisplayMessageRequest AND there is a message configured in the Charging Station with the same id |\n\nRequirement definition\n\nThe Charging Station SHALL replace the existing message with the new message (including all the new parameters) AND respond with a SetDisplayMessageResponse message with status: Accepted for this message.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O06 - Replace DisplayMessage - Requirements",
+        "heading_path": "O06 - Replace DisplayMessage - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O06",
+        "use_case_name": "Replace DisplayMessage",
+        "use_case_refs": "O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "144",
+      "title": "Replace DisplayMessage sequence diagram",
+      "files": [
+        "fig144_p1_Replace_DisplayMessage_sequence_diagram.png",
+        "fig144_p2_Replace_DisplayMessage_sequence_diagram.png"
+      ]
+    },
+    {
+      "figure_num": "144",
+      "title": "Replace DisplayMessage sequence diagram",
+      "files": [
+        "fig144_p1_Replace_DisplayMessage_sequence_diagram.png",
+        "fig144_p2_Replace_DisplayMessage_sequence_diagram.png"
+      ]
+    },
+    {
+      "figure_num": "144",
+      "title": "Replace DisplayMessage sequence diagram",
+      "files": [
+        "fig144_p1_Replace_DisplayMessage_sequence_diagram.png",
+        "fig144_p2_Replace_DisplayMessage_sequence_diagram.png"
+      ]
+    }
+  ]
+}

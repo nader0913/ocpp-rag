@@ -1,0 +1,352 @@
+{
+  "use_case_id": "E01",
+  "functional_block": "Transactions",
+  "use_case_name": "Start Transaction options",
+  "chunks": [
+    {
+      "content": "# E01 - Start Transaction options\n\n| No. | Type         | Description                                                                                                                                                                                               |\n| --- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Start Transaction options                                                                                                                                                                                 |\n| 2   | ID           | E01                                                                                                                                                                                                       |\n| 3   | Objective(s) | To inform the CSMS that a transaction at the Charging Station has started.                                                                                                                                |\n| 4   | Description  | This use case describes the different moments a Charging Station can start a transaction (send TransactionEventRequest with eventType = Started), depending on the configuration of the Charging Station. |\n| 5   | Actors       | Charging Station, CSMS, EV Driver                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E01 - Start Transaction options",
+        "heading_path": "E01 - Start Transaction options",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "use_case_name": "Start Transaction options",
+        "use_case_refs": "E01",
+        "message_refs": "TransactionEventRequest"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The EV Driver parks his \"EV\" at a Charging Station with a parking bay occupancy detector, which triggers the detector.\n2. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started (even when the driver is not yet known).\n3. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\nNo transaction is ongoing on the EVSE.\n\nConfiguration Variable: TxStartPoint contains: ParkingBayOccupancy",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\nThe transaction is ongoing and the CSMS is Successfully informed.\n\nFailure postcondition:\n\nThe transaction is not ongoing, or\n\nThe CSMS is not informed.\n\nEV Driver  Charging Station    CSMS\n\nEV parked.\n\nParking bay detector triggers\n\nTransactionEventRequest(eventType = Started, triggerReason = EVDetected)\n\nTransactionEventResponse()\n\nFigure 38. Sequence Diagram: Start Transaction options - ParkingBayOccupancy",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "38"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The Charging Station sets up a connection with the EV.\n2. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started (even when the driver is not yet known).\n3. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\n- No transaction is ongoing on the EVSE.\n- Configuration Variable: TxStartPoint: EVConnected",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ongoing and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is not ongoing, or\n- The CSMS is not informed.\n\n| EV Driver                 | Charging Station                                                                                          | CSMS                       |\n| ------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------- |\n| charging cable plugged in | TransactionEventRequest(eventType = Started, chargingState = EVConnected, triggerReason = CablePluggedIn) | TransactionEventResponse() |\n\nFigure 39. Sequence Diagram: Start Transaction options - EVConnected",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "39"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The EV Driver provides his identification.\n2. The Charging Station validates the provided identification (for example via the Authorization Cache or an AuthorizeRequest).\n3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started.\n4. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "AuthorizeRequest, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\n- No transaction is ongoing on the EVSE.\n- Configuration Variable: TxStartPoint: Authorized.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ongoing and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is not ongoing, or\n- The CSMS is not informed.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# EV Driver Charging Station CSMS\n\nprovides identification\n\nUser authorization successful,\n\nTransactionEventRequest(eventType = Started, triggerReason = Authorized)\n\nTransactionEventResponse()\n\nFigure 40. Sequence Diagram: Start Transaction options - Authorized",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Driver Charging Station CSMS",
+        "heading_path": "EV Driver Charging Station CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "40"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The EV Driver plugs in the cable at the Charging Station and the EV.\n2. The Charging Station requests the Meter for a signed value.\n3. The Meter provides a signed value (this might take some time).\n4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started.\n5. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\n- No transaction is ongoing on the EVSE.\n- Configuration Variable: TxStartPoint: DataSigned.\n- The Charging Station has a meter that can sign measured values.\n- Configuration Variable: SampledDataSignReadings set to true.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ongoing and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is not ongoing, or\n- The CSMS is not informed.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# EV Driver Charging Station CSMS\n\nEV Connected.\n\nUser authorization successful.\n\nget signed meter value (might take some time)\n\nTransactionEventRequest(eventType = Started, triggerReason = SignedDataReceived)\n\nTransactionEventResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Driver Charging Station CSMS",
+        "heading_path": "EV Driver Charging Station CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The EV Driver is authorized by the Charging Station and/or CSMS.\n2. The Charging Station is connected to the EV.\n3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started.\n4. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\n- No transaction is ongoing on the EVSE.\n- Configuration Variable: TxStartPoint: PowerPathClosed.\n- Charging Cable plugged in.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ongoing and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is not ongoing, or\n- The CSMS is not informed.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# EV Driver Charging Station CSMS\n\nUser authorization successful.\n\nTransactionEventRequest(eventType = Started, chargingState = EVConnected,\ntriggerReason = Authorized,...)\n\nTransactionEventResponse()\n\n[Authorization first]\n\nUser authorization successful.\n\nEV Connected.\n\nTransactionEventRequest(eventType = Started, chargingState = EVConnected,\ntriggerReason = CablePluggedIn,...)\n\nTransactionEventResponse()\n\nstart energy offer\n\nTransactionEventRequest(eventType = Update, chargingState = Charging,\ntriggerReason = ChargingStateChanged,...)\n\nTransactionEventResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Driver Charging Station CSMS",
+        "heading_path": "EV Driver Charging Station CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The EV Driver is authorized by the Charging Station and/or CSMS.\n2. The Charging Station closes the power relay.\n3. The EV starts charging, energy flow starts.\n4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started.\n5. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\nThe transaction is ongoing and the CSMS is Successfully informed.\n\nFailure postcondition:\n\nThe transaction is not ongoing, or The CSMS is not informed.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E01"
+      }
+    },
+    {
+      "content": "# EV Charging Station    CSMS\n\nEV Connected.\n\nUser authorization successful.\n\nclose power relay\n\nenergy transfer\n\nTransactionEventRequest(eventType = Started, chargingState = Charging,\ntriggerReason = ChargingStateChanged)\n\nTransactionEventResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Charging Station    CSMS",
+        "heading_path": "EV Charging Station    CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# E01 - Start Transaction options - Requirements\n\n| ID        | Precondition                                      | Requirement definition                                                                                               |\n| --------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |\n| E01.FR.01 | TxStartPoint contains: ParkingBayOccupancy        | The Charging Station SHALL start a transaction and send a TransactionEventRequest (eventType = Started) to the CSMS. |\n|           | AND                                               |                                                                                                                      |\n|           | Parking Bay Detector detects an \"EV\"              |                                                                                                                      |\n|           | AND                                               |                                                                                                                      |\n|           | No transaction has started yet                    |                                                                                                                      |\n| E01.FR.02 | TxStartPoint contains: EVConnected                | The Charging Station SHALL start a transaction and send a TransactionEventRequest (eventType = Started) to the CSMS. |\n|           | AND                                               |                                                                                                                      |\n|           | The Charging Station has a connection with the EV |                                                                                                                      |\n|           | AND                                               |                                                                                                                      |\n|           | No transaction has started yet on this EVSE       |                                                                                                                      |\n| E01.FR.03 | TxStartPoint contains: Authorized                 | The Charging Station SHALL start a transaction and send a TransactionEventRequest (eventType = Started) to the CSMS. |\n|           | AND                                               |                                                                                                                      |\n|           | The EV Driver is authorized                       |                                                                                                                      |\n|           | AND                                               |                                                                                                                      |\n|           | No transaction has started yet                    |                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E01 - Start Transaction options - Requirements",
+        "heading_path": "E01 - Start Transaction options - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E01",
+        "use_case_name": "Start Transaction options",
+        "use_case_refs": "E01",
+        "message_refs": "TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "38",
+      "title": "Sequence Diagram: Start Transaction options - ParkingBayOccupancy",
+      "files": [
+        "fig38_Sequence_Diagram__Start_Transaction_options___Park.png"
+      ]
+    },
+    {
+      "figure_num": "39",
+      "title": "Sequence Diagram: Start Transaction options - EVConnected",
+      "files": [
+        "fig39_p1_Sequence_Diagram__Start_Transaction_options___EVCo.png",
+        "fig39_p2_Sequence_Diagram__Start_Transaction_options___EVCo.png"
+      ]
+    },
+    {
+      "figure_num": "40",
+      "title": "Sequence Diagram: Start Transaction options - Authorized",
+      "files": [
+        "fig40_p1_Sequence_Diagram__Start_Transaction_options___Auth.png",
+        "fig40_p2_Sequence_Diagram__Start_Transaction_options___Auth.png"
+      ]
+    }
+  ]
+}

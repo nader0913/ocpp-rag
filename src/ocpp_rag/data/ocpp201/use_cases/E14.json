@@ -1,0 +1,110 @@
+{
+  "use_case_id": "E14",
+  "functional_block": "Transactions",
+  "use_case_name": "Check transaction status",
+  "chunks": [
+    {
+      "content": "# E14 - Check transaction status\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Check transaction status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 2   | ID               | E14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E14 - Check transaction status",
+        "heading_path": "E14 - Check transaction status",
+        "functional_block": "Transactions",
+        "use_case_id": "E14",
+        "use_case_name": "Check transaction status",
+        "use_case_refs": "E14",
+        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 3   | Objective(s)     | To enable the CSMS to request the status of a transaction and to find out whether there are queued transaction-related messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 4   | Description      | There are scenarios where a CSMS needs to know whether there are still messages for a transaction that need to be delivered. For example: A CSMS receives a TransactionEventRequest (eventType = Ended), it wants to start the billing process for this transaction but detects it is still missing some intermediate messages (it can check this via the sequence number in the messages). It can ask if the Charging Station has still messages in the queue for this transaction with the GetTransactionStatusRequest specifying the transactionId. Depending on the result the CSMS might for example: wait for the messages to be delivered, or start the billing process without the information. It may also need to know whether a transaction is still ongoing. If the CSMS wants to know if there are transaction-related messages in the queue at all (not just for a specific transaction), it can send a GetTransactionStatusRequest without a transactionId. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E14 - Check transaction status",
+        "heading_path": "E14 - Check transaction status",
+        "functional_block": "Transactions",
+        "use_case_id": "E14",
+        "use_case_name": "Check transaction status",
+        "use_case_refs": "E14",
+        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 5   | Prerequisites    | The CSMS knows the transactionId of a transaction it wants to know the status of.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 6   | Postcondition(s) | Successful postcondition: The CSMS knows the status of the requested transaction. Failure postcondition: The CSMS does not know the status of the requested transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E14 - Check transaction status",
+        "heading_path": "E14 - Check transaction status",
+        "functional_block": "Transactions",
+        "use_case_id": "E14",
+        "use_case_name": "Check transaction status",
+        "use_case_refs": "E14",
+        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 7   | Error Handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 8   | Remarks          | When the CSMS receives a GetTransactionStatusResponse with both fields (ongoingIndicator and messagesInQueue) set to false, this might mean that the transaction is finished and there are no more messages in the queue for this transaction, or the Charging Station doesn’t know anything about this transaction (anymore).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E14 - Check transaction status",
+        "heading_path": "E14 - Check transaction status",
+        "functional_block": "Transactions",
+        "use_case_id": "E14",
+        "use_case_name": "Check transaction status",
+        "use_case_refs": "E14",
+        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse, TransactionEventRequest",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The CSMS sends a GetTransactionStatusRequest with or without a transactionId to the Charging Station.\n2. The Charging Station responds with a GetTransactionStatusResponse.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E14",
+        "message_refs": "GetTransactionStatusRequest, GetTransactionStatusResponse"
+      }
+    },
+    {
+      "content": "# E14 - Check transaction status - Requirements\n\n| ID        | Precondition                                                                                                                                     | Requirements                                                                                  |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |\n| E14.FR.01 | The Charging Station receives a GetTransactionStatusRequest with a transactionId AND It did not do a transaction with that transactionId         | The Charging Station SHALL respond with ongoingIndicator = false AND messagesInQueue = false. |\n| E14.FR.02 | The Charging Station receives a GetTransactionStatusRequest with a transactionId AND The transaction with that transactionId has not stopped yet | The Charging Station’s response SHALL have ongoingIndicator = true.                           |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E14 - Check transaction status - Requirements",
+        "heading_path": "E14 - Check transaction status - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E14",
+        "use_case_name": "Check transaction status",
+        "use_case_refs": "E14",
+        "message_refs": "GetTransactionStatusRequest"
+      }
+    }
+  ],
+  "figures": []
+}

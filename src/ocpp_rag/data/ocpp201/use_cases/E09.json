@@ -1,0 +1,96 @@
+{
+  "use_case_id": "E09",
+  "functional_block": "Transactions",
+  "use_case_name": "When cable disconnected on EV-side: Stop Transaction",
+  "chunks": [
+    {
+      "content": "# E09 - When cable disconnected on EV-side: Stop Transaction\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | When cable disconnected on EV-side: Stop Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID                      | E09                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Parent use case         | E07 - Local Stop Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 3   | Objective(s)            | To stop an ongoing transaction when the Charging Cable is unplugged on the EV side.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 4   | Description             | This use case covers how a transaction is stopped when the EV Driver unplugs the cable at the EV side. In this use case the Configuration Variable: StopTxOnEVSideDisconnect = true. The Charging Cable is unplugged at the EV side. This is detected by the Charging Station. The Charging Station stops the transaction and sends a TransactionEventRequest to the CSMS. The Charging Cable, if locked and UnlockOnEvSideDisconnect = false, will remain locked at the Charging Station until the EV Driver returns and presents his/hers IdToken. Otherwise it will unlock the cable. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "heading_path": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E09",
+        "use_case_name": "When cable disconnected on EV-side: Stop Transaction",
+        "use_case_refs": "E06, E07, E09, E10",
+        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "|     | Actors                  | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n|     | Scenario description    | 1. The cable is unplugged at the EV. 2. The energy offer is suspended. 3. The Charging Station sends TransactionEventRequest (eventType = Ended, stoppedReason = EVDisconnected) to the CSMS. 4. The CSMS responds with TransactionEventResponse. 5. The EV Driver is authorized and unplugs the cable. 6. The Charging Station sends StatusNotificationRequest to the CSMS with the status Available. 7. The CSMS responds with StatusNotificationResponse.                                                                                                                             |\n|     | Alternative scenario(s) | E10 - When cable disconnected on EV-side: Suspend Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "heading_path": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E09",
+        "use_case_name": "When cable disconnected on EV-side: Stop Transaction",
+        "use_case_refs": "E06, E07, E09, E10",
+        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)         | Configuration Variable: StopTxOnEVSideDisconnect = true A transaction is ongoing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 6   | Postcondition(s)        | Successful postcondition: The Charging Station is in Idle status. Failure postcondition: n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 7   | Error handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "heading_path": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E09",
+        "use_case_name": "When cable disconnected on EV-side: Stop Transaction",
+        "use_case_refs": "E06, E07, E09, E10",
+        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)               | When the Charging Cable is plugged back in, the charging will not resume/continue.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n\nThe scenario description and sequence diagram above are based on the Configuration Variable for stop transaction being configured as follows.\n\nTxStopPoint: Authorized\n\nThis use-case is also valid for other configurations, but then the transaction might stop at another moment, which might change the sequence in which message are sent. For more details see the use case: E06 - Stop Transaction options\n\n\nEV Driver              Charging Station                                                                                  CSMS\n\nA transaction is ongoing.\n\n- unplug cable at car side\n- suspend energy offer\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqN = N + 1, timestamp, triggerReason = EVCommunicationLost, stoppedReason = EVDisconnected, meterValues)\n\nTransactionEventResponse()\n\nalt          [if cable not permanently attached & UnlockOnEVSideDisconnect = true]\n\n- unlock connector\n\n[if cable not permanently attached & UnlockOnEVSideDisconnect = false]\n\n- User authorization successful.\n- unlock connector\n\nUnplug cable\n\nStatusNotificationRequest(Available)\n\nStatusNotificationResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "heading_path": "E09 - When cable disconnected on EV-side: Stop Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E09",
+        "use_case_name": "When cable disconnected on EV-side: Stop Transaction",
+        "use_case_refs": "E06, E07, E09, E10",
+        "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# E09 - When cable disconnected on EV-side: Stop Transaction - Requirements\n\n| ID        | Precondition                                                                                                             | Requirement definition                                                                                                                                                                                        | Note                                                                                                              |\n| --------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |\n| E09.FR.01 | If StopTxOnEVSideDisconnect = true.                                                                                      | The transaction SHALL be deauthorized when the cable is disconnected from the EV. If the EV is reconnected, energy transfer is not allowed until the transaction is authorized once again.                    | Setting StopTxOnEVSideDisconnect to true will prevent sabotage acts when unplugging not locked cables on EV side. |\n| E09.FR.02 | E09.FR.01 AND the cable is not permanently attached AND UnlockOnEvSideDisconnect = true.                                 | The Charging Station SHALL unlock the Charging Cable.                                                                                                                                                         |                                                                                                                   |\n| E09.FR.03 | E09.FR.01 AND the cable is not permanently attached AND UnlockOnEvSideDisconnect = false.                                | The Charging Station SHALL unlock the Charging Cable only after authorization by the EV Driver.                                                                                                               |                                                                                                                   |\n| E09.FR.04 | When a TransactionEventRequest has to be created                                                                         | The Charging Station SHALL set the message’s seqNo field as specified in Sequence Number Generation.                                                                                                          | This enables the CSMS to track the completeness of transaction information. Same as E01.FR.07                     |\n| E09.FR.05 | When configured to send meter data in the TransactionEventRequest (eventType = Ended), See: Meter Values - Configuration | The Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Ended) sent to the CSMS to provide more details about transaction usage. | Same as E08.FR.09                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E09 - When cable disconnected on EV-side: Stop Transaction - Requirements",
+        "heading_path": "E09 - When cable disconnected on EV-side: Stop Transaction - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E09",
+        "use_case_name": "When cable disconnected on EV-side: Stop Transaction",
+        "use_case_refs": "E01, E08, E09",
+        "message_refs": "TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

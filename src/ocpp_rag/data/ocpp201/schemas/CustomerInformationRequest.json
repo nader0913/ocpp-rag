@@ -1,0 +1,57 @@
+[
+  {
+    "content": "## CustomerInformationRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: CustomerInformation\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| customerCertificate | CertificateHashDataType | No |  |\n| idToken | IdTokenType | No | Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers. |\n| requestId | integer | Yes | The Id of the request. |\n| report | boolean | Yes | Flag indicating whether the Charging Station should return NotifyCustomerInformationRequest messages containing information about the customer referred to. |\n| clear | boolean | Yes | Flag indicating whether the Charging Station should clear all information about the customer referred to. |\n| customerIdentifier | string | No | A (e.g. vendor specific) identifier of the customer this request refers to. This field contains a custom identifier other than IdToken and Certificate. One of the possible identifiers (customerIdentifier, customerIdToken or customerCertificate) should be in the request message. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:CustomerInformationRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "CustomerInformationRequest",
+      "heading_path": "JSON Schemas > CustomerInformation > CustomerInformationRequest",
+      "message_name": "CustomerInformationRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"HashAlgorithmEnumType\": {\n      \"description\": \"Used algorithms for the hashes provided.\\r\\n\",\n      \"javaType\": \"HashAlgorithmEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"SHA256\",\n        \"SHA384\",\n        \"SHA512\"\n      ]\n    },\n    \"IdTokenEnumType\": {\n      \"description\": \"Enumeration of possible idToken types.\\r\\n\",\n      \"javaType\": \"IdTokenEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Central\",\n        \"eMAID\",\n        \"ISO14443\",\n        \"ISO15693\",\n        \"KeyCode\",\n        \"Local\",\n        \"MacAddress\",\n        \"NoAuthorization\"\n      ]\n    },\n    \"AdditionalInfoType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"AdditionalInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalIdToken\": {\n          \"description\": \"This field specifies the additional IdToken.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"description\": \"This defines the type of the additionalIdToken. This is a custom type, so the implementation needs to be agreed upon by all involved parties.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"additionalIdToken\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "CustomerInformationRequest",
+      "heading_path": "JSON Schemas > CustomerInformation > CustomerInformationRequest",
+      "message_name": "CustomerInformationRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"type\"\n      ]\n    },\n    \"CertificateHashDataType\": {\n      \"javaType\": \"CertificateHashData\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"hashAlgorithm\": {\n          \"$ref\": \"#/definitions/HashAlgorithmEnumType\"\n        },\n        \"issuerNameHash\": {\n          \"description\": \"Hashed value of the Issuer DN (Distinguished Name).\\r\\n\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 128\n        },\n        \"issuerKeyHash\": {\n          \"description\": \"Hashed value of the issuers public key\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 128\n        },\n        \"serialNumber\": {\n          \"description\": \"The serial number of the certificate.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 40\n        }\n      },\n      \"required\": [\n        \"hashAlgorithm\",\n        \"issuerNameHash\",\n        \"issuerKeyHash\",\n        \"serialNumber\"\n      ]\n    },\n    \"IdTokenType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"IdToken\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalInfo\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/AdditionalInfoType\"\n          },\n          \"minItems\": 1\n        },\n        \"idToken\": {\n          \"description\": \"IdToken is case insensitive. Might hold the hidden id of an RFID tag, but can for example also contain a UUID.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "CustomerInformationRequest",
+      "heading_path": "JSON Schemas > CustomerInformation > CustomerInformationRequest",
+      "message_name": "CustomerInformationRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"$ref\": \"#/definitions/IdTokenEnumType\"\n        }\n      },\n      \"required\": [\n        \"idToken\",\n        \"type\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"customerCertificate\": {\n      \"$ref\": \"#/definitions/CertificateHashDataType\"\n    },\n    \"idToken\": {\n      \"$ref\": \"#/definitions/IdTokenType\"\n    },\n    \"requestId\": {\n      \"description\": \"The Id of the request.\\r\\n\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"report\": {\n      \"description\": \"Flag indicating whether the Charging Station should return NotifyCustomerInformationRequest messages containing information about the customer referred to.\\r\\n\",\n      \"type\": \"boolean\"\n    },\n    \"clear\": {\n      \"description\": \"Flag indicating whether the Charging Station should clear all information about the customer referred to.\\r\\n\",\n      \"type\": \"boolean\"\n    },\n    \"customerIdentifier\": {\n      \"description\": \"A (e.g. vendor specific) identifier of the customer this request refers to. This field contains a custom identifier other than IdToken and Certificate.\\r\\nOne of the possible identifiers (customerIdentifier, customerIdToken or customerCertificate) should be in the request message.\\r\\n\",\n      \"type\": \"string\",\n      \"maxLength\": 64\n    }\n  },\n  \"required\": [\n    \"requestId\",\n    \"report\",\n    \"clear\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "CustomerInformationRequest",
+      "heading_path": "JSON Schemas > CustomerInformation > CustomerInformationRequest",
+      "message_name": "CustomerInformationRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  }
+]

@@ -1,0 +1,371 @@
+[
+  {
+    "content": "# F. Remote Control\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl"
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\nEV Driver Charging Station CSMS\n\n- Plugin cable\n- StatusNotificationRequest(Occupied)\n- StatusNotificationResponse()\n- TransactionEventRequest(eventType = Started, triggerReason = CablePluggedIn, chargingState = EVConnected, transactionId = AB1234, evse.id = 1, evse.connectorId = 1, meterValues, ...)\n- TransactionEventResponse(...)\n- remote start()\n- RequestStartTransactionRequest(idToken, remoteStartId = 123)\n- RequestStartTransactionResponse(status = Accepted, transactionId = AB1234)\n- Match remoteStartId with TransactionId()\n\nopt notification\n\nalt [AuthorizeRemoteStart = true]\nAuthorizeRequest(idToken)\nAuthorizeResponse(idTokenInfo)\n\nalt [if cable not permanently attached]\nlock connector\nstart energy offer\nTransactionEventRequest(eventType = Updated, chargingState = Charging, triggerReason = RemoteStart, remoteStartId = 123, ...)\nTransactionEventResponse(...)\ncontinue regular transaction",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                                                                                  | Requirement definition                                                                                                                                                                                                    | Note                                                                                                                                                                                                                               |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| F01.FR.02 | Charging Station receives a RequestStartTransactionRequest AND ( AuthorizeRemoteStart = false OR idToken.type is Central or NoAuthorization ) | The Charging Station SHALL allow energy transfer for the IdToken given in RequestStartTransactionRequest message without checking authorization.                                                                          | Charging Station will first respond to the request, and send a TransactionEventRequest with the idToken to the CSMS, and the CSMS will check the authorization status of the IdToken when processing this TransactionEventRequest. |\n| F01.FR.03 | F01.FR.01 OR F01.FR.02                                                                                                                        | The Charging Station SHALL send a TransactionEventRequest to the CSMS, and the CSMS will check the authorization status of the IdToken when processing this TransactionEventRequest.                                      | If CSMS returns an authorization status that is not Accepted, then Charging Station must stop energy transfer as per use case E05.                                                                                                 |\n| F01.FR.04 |                                                                                                                                               | RequestStartTransactionRequest SHALL contain an IdToken, which Charging Station SHALL use, if it is able to start a transaction, in the TransactionEventRequest sent to the CSMS.                                         |                                                                                                                                                                                                                                    |\n| F01.FR.05 |                                                                                                                                               | The transaction SHALL be started in the same way as described in E02 - Start Transaction - Cable Plugin First.                                                                                                            |                                                                                                                                                                                                                                    |\n| F01.FR.06 |                                                                                                                                               | RequestStartTransactionRequest MAY contain an evseId if the transaction is to be started on a specific EVSE.                                                                                                              | When no evseId is provided, the Charging Station is in control of the EVSE selection.                                                                                                                                              |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E02, E05, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| F01.FR.07 | If the RequestStartTransactionRequest does not contain an evseId.                                                                             | The Charging Station MAY reject the RequestStartTransactionRequest.                                                                                                                                                       |                                                                                                                                                                                                                                    |\n| F01.FR.08 |                                                                                                                                               | The CSMS MAY include a ChargingProfile in the RequestStartTransactionRequest.                                                                                                                                             |                                                                                                                                                                                                                                    |\n| F01.FR.09 | F01.FR.08                                                                                                                                     | The purpose of this ChargingProfile SHALL be set to TxProfile.                                                                                                                                                            |                                                                                                                                                                                                                                    |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E02, E05, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| F01.FR.10 | F01.FR.08                                                                                                                                     | The Charging Station SHALL use this ChargingProfile for the transaction that is started by this RequestStartTransaction.                                                                                                  |                                                                                                                                                                                                                                    |\n| F01.FR.11 | F01.FR.08                                                                                                                                     | The transactionId in the ChargingProfile SHALL NOT be set.                                                                                                                                                                |                                                                                                                                                                                                                                    |\n| F01.FR.12 | If a Charging Station without support for Smart Charging receives a RequestStartTransactionRequest with a ChargingProfile.                    | The Charging Station SHALL ignore the specified ChargingProfile.                                                                                                                                                          | The device model variable SmartChargingCtrlr.Enabled tells CSMS whether smart charging is supported.                                                                                                                               |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E02, E05, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| F01.FR.13 | When a transaction is created on the Charging Station, but has not been authorized. AND RequestStartTransactionRequest is received.           | The Charging Station SHALL return the transactionId in the RequestStartTransactionResponse.                                                                                                                               |                                                                                                                                                                                                                                    |\n| F01.FR.14 | When configured to send meter data in the TransactionEventRequest (eventType = Started), See: Meter Values - Configuration                    | The Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Started) sent to the CSMS to provide more details at the start of the transaction.   |                                                                                                                                                                                                                                    |\n| F01.FR.15 | When configured to send meter data in the TransactionEventRequest (eventType = Updated), See: Meter Values - Configuration                    | The Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Updated) sent to the CSMS to provide more details during updates of the transaction. | Same as J02.FR.11                                                                                                                                                                                                                  |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E02, E05, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                                                                                                                                            | Requirement definition                                                                                                                                                           | Note                                                                                                                                             |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |\n| F01.FR.16 | F01.FR.15 AND Amount of meter data is too much for 1 TransactionEventRequest (eventType = Updated)                                                                                                      | The Charging Station MAY split meter data over multiple TransactionEventRequest(eventType = Updated) messages with the same timestamp.                                           | Same as J02.FR.14                                                                                                                                |\n| F01.FR.17 | When sending a TransactionEventRequest                                                                                                                                                                  | The Charging Station SHALL set the triggerReason to inform the CSMS about what triggered the event. What reason to use is described in the description of TriggerReasonEnumType. | Same as E01.FR.15                                                                                                                                |\n| F01.FR.18 | After a transaction has been started                                                                                                                                                                    | The Charging Station MAY send additional TransactionEventRequest(eventType = Updated) messages during the transaction when a trigger event occurs.                               |                                                                                                                                                  |\n| F01.FR.19 | When a RequestStartTransactionRequest is received.                                                                                                                                                      | The next TransactionEventRequest SHALL contain triggerreason: RemoteStart.                                                                                                       |                                                                                                                                                  |\n| F01.FR.20 | If the RequestStartTransactionRequest does not contain an evseId AND the Charging Station is capable of selecting an EVSE or accepts a plug-in at an arbitrary EVSE                                     | The Charging Station SHALL report in later TransactionEventRequests the selected EVSE or the EVSE where cable is plugged in.                                                     | See also F01.FR.07 if Charging Station does not support starting at an arbitrary EVSE.                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| F01.FR.21 | When the evseId for RequestStartTransactionRequest is Reserved for an idToken that differs from idToken in the request AND has no reservation for a groupIdToken                                        | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                                  |                                                                                                                                                  |\n| F01.FR.22 | When the evseId for RequestStartTransactionRequest is Reserved for an idToken that differs from idToken in the request AND is Reserved for a groupIdToken that differs from groupIdToken in the request | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                                  | EV is not allowed to use station if neither idToken nor idGroupToken match the reservation.                                                      |\n| F01.FR.23 | When the evse for RequestStartTransactionRequest is Unavailable or Faulted                                                                                                                              | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                                  |                                                                                                                                                  |\n| F01.FR.24 | When the evseId for RequestStartTransactionRequest is Occupied AND this evseId has a transaction that has been authorized                                                                               | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                                  | Only an EVSE with no transaction or with a transaction that has not yet been authorized can be matched with the RequestStartTransaction Request. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| F01.FR.25 | F01.FR.13                                                                                                                                                                                               | The Charging Station SHALL put the remoteStartId in the next TransactionEventRequest it sends for the associated transaction.                                                    |                                                                                                                                                  |\n| F01.FR.26 | If a Charging Station with support for Smart Charging receives a RequestStartTransactionRequest with an invalid ChargingProfile.                                                                        | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected and optionally with reasonCode = \"InvalidProfile\" or \"InvalidSchedule\".           | The device model variable SmartChargingCtrlr.Enabled tells CSMS whether smart charging is supported.                                             |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01, F01, J02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 3   | Objective(s)     | To enable the CSMS to remotely start a transaction while the RequestStartTransactionRequest is sent first, before the connection between Charging Station and EV is established.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 4   | Description      | This use case covers how the CSMS is able to remotely start a transaction for the User. **Actors:** Charging Station, CSMS, External Trigger **Scenario description:**) An External Trigger triggers the remote start.",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "2) The CSMS sends RequestStartTransactionRequest to the Charging Station.\n\n3) The Charging Station responds with RequestStartTransactionResponse to the CSMS.\n\n4) The EV Driver is authorized by the CSMS, dependent on the Configuration Variable settings.\n\n5) The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started.\n\n6) The cable is plugged in.\n\n1. Charging Station sends a StatusNotificationRequest with Occupied.\n2. CSMS sends a StatusNotificationResponse to the Charging Station.\n\n7) The energy offer is started.\n\n8) The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState = Charging) message to inform the CSMS that the charging has started.\n\n9) The CSMS sends TransactionEventResponse to the Charging Station. |\n| 5   | Prerequisite(s)  | Charging Cable not plugged in. Remote start first. Enable mobile apps to control charging transactions via the CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| 6   | Postcondition(s) | **Successful postcondition:** The transaction for which a start was request has started and the EV is charging. **Failure postcondition:** The transaction for which a start was request did not start or the EV is not charging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| 8   | Remark(s)        | An external trigger can be e.g. a Charging Station Operator or an EV Driver app. It is advised not to start transactions remotely without evseId due to the uncertainty which EVSE is started. In case of a Logic Controller with many EVSEs, the EV Driver might not be in front of the activated EVSE. The CSMS is allowed to send a RequestStartTransactionRequest with IdTokenType of type: NoAuthorization. The operator should be aware that if the Charging Station supports local stop transaction, this transaction can be stopped by anyone. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: either EVConnected or Authorized. This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use cases: E01 - Start Transaction options.                                                                                 |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E01",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\nExternal Trigger CSMS Charging Station\n\nTxStartPoint = EVConnected\n\nremote start()\n\nRequestStartTransactionRequest(idToken = ABCD, remoteStartId = 123)\n\nRequestStartTransactionResponse(status = Accepted)\n\nopt notification\n\nopt [AuthorizeRemoteStart = true]\n\nAuthorizeRequest(idToken = ABCD)\n\nAuthorizeResponse(idTokenInfo)\n\nPlugin cable\n\nStatusNotificationRequest(Occupied)\n\nStatusNotificationResponse()\n\nUsing triggerReason = RemoteStart instead of CablePluggedIn! (F02.FR.21)\n\nTransactionEventRequest(eventType = Started, transactionId = AB1234, idToken = ABCD, chargingState = EVConnected, evse.id = 1, evse.connectorId = 1, meterValues, triggerReason = RemoteStart, remoteStartId = 123, ...)\n\nTransactionEventResponse(...)\n\nopt [if cable not permanently attached]\n\nlock connector\n\nstart energy offer\n\nTransactionEventRequest(eventType = Updated, chargingState = Charging, triggerReason = ChargingStateChanged, ...)\n\nTransactionEventResponse(...)",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "F02",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                                                                                                                          | Requirement definition                                                                                                                                                                                              | Note                                                                                                                                                                                                                                                                     |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| F02.FR.06 | This transaction ends a reservation for the specific IdToken.                                                                                                                         | The next TransactionEventRequest SHALL contain the reservationId.                                                                                                                                                   | See H. Reservation.                                                                                                                                                                                                                                                      |\n| F02.FR.07 | When the EV Driver does not plug-in the charging cable before the timeout set by the Configuration Variable: EVConnectionTimeOut AND TxStopPoint does not contain ParkingBayOccupancy | The Charging Station SHALL end the transaction and send a TransactionEventRequest (eventType = Ended, stoppedReason = Timeout, triggerReason = EVConnectionTimeout) to the CSMS.                                    | Otherwise the transaction would not be ended in case the TxStopPoint does not contain Authorized. Same as E03.FR.05                                                                                                                                                      |\n| F02.FR.08 | When the EV Driver does not plug-in the charging cable before the timeout set by the Configuration Variable: EVConnectionTimeOut AND TxStopPoint contains ParkingBayOccupancy         | The Charging Station SHALL deauthorize the transaction and send a TransactionEventRequest (triggerReason = EVConnectionTimeout) to the CSMS.                                                                        | Transaction will be ended normally when driver leaves the parking bay. Same as E03.FR.15                                                                                                                                                                                 |\n| F02.FR.09 | Charging Station receives a RequestStartTransactionRequest AND ( AuthorizeRemoteStart = true AND idToken.type is NOT Central or NoAuthorization )                                     | The Charging Station SHALL behave as if in response to a local action at the Charging Station to start a transaction after successful authorization of the IdToken given in RequestStartTransactionRequest message. | Charging Station will first respond to the request and then try to authorize the IdToken, using the Local Authorization List, Authorization Cache and/or an AuthorizeRequest. A transaction is only started after authorization was obtained. Same as F01.FR.01          |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E03, F01, F02",
+      "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, TransactionEventRequest",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| F02.FR.10 | Charging Station receives a RequestStartTransactionRequest AND ( AuthorizeRemoteStart = false OR idToken.type is Central or NoAuthorization )                                         | The Charging Station SHALL start a transaction for the IdToken given in RequestStartTransactionRequest message without checking authorization.                                                                      | Note that after the transaction has been started, the Charging Station will send a TransactionEventRequest with the idToken to the CSMS, and the CSMS will check the authorization status of the IdToken when processing this TransactionEventRequest. Same as F01.FR.02 |\n| F02.FR.11 | F02.FR.09 OR F02.FR.10                                                                                                                                                                | The Charging Station SHALL send a TransactionEventRequest to the CSMS, and the CSMS will check the authorization status of the IdToken when processing this TransactionEventRequest.                                | Same as F01.FR.03                                                                                                                                                                                                                                                        |\n| F02.FR.12 |                                                                                                                                                                                       | RequestStartTransactionRequest SHALL contain an IdToken, which Charging Station SHALL use, if it is able to start a transaction, in the TransactionEventRequest sent to the CSMS.                                   | Same as F01.FR.04                                                                                                                                                                                                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E03, F01, F02",
+      "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, TransactionEventRequest",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| F02.FR.13 |                                                                                                                                                                                       | The transaction SHALL be started in the same way as described in E03 - Start Transaction - Id Token First.                                                                                                          |                                                                                                                                                                                                                                                                          |\n| F02.FR.14 |                                                                                                                                                                                       | RequestStartTransactionRequest MAY contain an evseId if the transaction is to be started on a specific EVSE.                                                                                                        | When no evseId is provided, the Charging Station is in control of the EVSE selection. Same as F01.FR.06                                                                                                                                                                  |\n| F02.FR.15 | If the RequestStartTransactionRequest does not contain an evseId.                                                                                                                     | The Charging Station MAY reject the RequestStartTransactionRequest.                                                                                                                                                 | Same as F01.FR.07                                                                                                                                                                                                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E03, F01, F02",
+      "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, TransactionEventRequest",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| F02.FR.16 |                                                                                                                                                                                       | The CSMS MAY include a ChargingProfile in the RequestStartTransactionRequest.                                                                                                                                       | Same as F01.FR.08                                                                                                                                                                                                                                                        |\n| F02.FR.17 | F02.FR.16                                                                                                                                                                             | The purpose of this ChargingProfile SHALL be set to TxProfile.                                                                                                                                                      | Same as F01.FR.09                                                                                                                                                                                                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E03, F01, F02",
+      "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, TransactionEventRequest",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                                                                                                                                             | Requirement definition                                                                                                                                                 | Note                                                                                                                                                                                                                                                                                                            |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| F02.FR.18 | F02.FR.16                                                                                                                                                                                                | The Charging Station SHALL use this ChargingProfile for the transaction that is started by this RequestStartTransaction.                                               | Same as F01.FR.10                                                                                                                                                                                                                                                                                               |\n| F02.FR.19 | F02.FR.16                                                                                                                                                                                                | The transactionId in the ChargingProfile SHALL NOT be set.                                                                                                             | Same as F01.FR.11                                                                                                                                                                                                                                                                                               |\n| F02.FR.20 | If a Charging Station without support for Smart Charging receives a RequestStartTransactionRequest with a ChargingProfile.                                                                               | The Charging Station SHALL ignore the specified ChargingProfile.                                                                                                       | The device model variable SmartChargingCtrlr.Enabled tells CSMS whether smart charging is supported. Same as F01.FR.12                                                                                                                                                                                          |\n| F02.FR.21 | When a RequestStartTransactionRequest is received.                                                                                                                                                       | The next TransactionEventRequest SHALL contain triggerReason: RemoteStart and the remoteStartId from the RequestStartTransactionRequest.                               | This is to notify CSMS that this is the result of RequestStartTransaction. Note, that if TxStartPoint=EVConnected the transaction will be started upon cable connection, but the triggerReason = RemoteStart must still be sent. The connection event is reported by the fact that chargingState = EVConnected. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "F01, F02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| F02.FR.22 | If the RequestStartTransactionRequest does not contain an evseId AND the Charging Station is capable of selecting an EVSE or accepts a plug-in at an arbitrary EVSE.                                     | The Charging Station SHALL report in later TransactionEventRequests the selected EVSE or the EVSE where cable is plugged in.                                           | See also F02.FR.15 if Charging Station does not support starting at an arbitrary EVSE. Same as F01.FR.20                                                                                                                                                                                                        |\n| F02.FR.23 | When the evseId for RequestStartTransactionRequest is Reserved for an idToken that differs from idToken in the request AND has no reservation for a groupIdToken.                                        | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                        | Same as F01.FR.21                                                                                                                                                                                                                                                                                               |\n| F02.FR.24 | When the evseId for RequestStartTransactionRequest is Reserved for an idToken that differs from idToken in the request AND is Reserved for a groupIdToken that differs from groupIdToken in the request. | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                        | EV is not allowed to use station if neither idToken nor idGroupToken match the reservation. Same as F01.FR.22                                                                                                                                                                                                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "F01, F02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| F02.FR.25 | When the evseId for RequestStartTransactionRequest is Unavailable or Faulted.                                                                                                                            | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                        | Same as F01.FR.23                                                                                                                                                                                                                                                                                               |\n| F02.FR.26 | When the evseId for RequestStartTransactionRequest is Occupied AND this evseId has a transaction that has been authorized.                                                                               | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected.                                                                        | Only an EVSE with no transaction or with a transaction that has not yet been authorized can be matched with the RequestStartTransaction Request. Same as F01.FR.24                                                                                                                                              |\n| F02.FR.27 | If a Charging Station with support for Smart Charging receives a RequestStartTransactionRequest with an invalid ChargingProfile.                                                                         | The Charging Station SHALL respond with RequestStartTransactionResponse with status = Rejected and optionally with reasonCode = \"InvalidProfile\" or \"InvalidSchedule\". | The device model variable SmartChargingCtrlr.Enabled tells CSMS whether smart charging is supported. Same as F01.FR.26                                                                                                                                                                                          |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "F01, F02",
+      "message_refs": "RequestStartTransactionRequest, RequestStartTransactionResponse, TransactionEventRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                                                                         | Requirement definition                                                                                                                                                           | Note              |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |\n| F03.FR.06 | F03.FR.05                                                                                                                            | When dropping meter data, the Charging Station SHALL drop intermediate values first (2nd value, 4th value, 6th etc), not drop the start and end values from the list.            | Same as E06.FR.13 |\n| F03.FR.07 | When the Charging Station receives a RequestStopTransactionRequest AND the TransactionId can be matched to an active transaction.    | The Charging Station SHALL respond with a RequestStopTransactionResponse with status set to Accepted.                                                                            |                   |\n| F03.FR.08 | When the Charging Station receives a RequestStopTransactionRequest AND the TransactionId cannot be matched to an active transaction. | The Charging Station SHALL respond with a RequestStopTransactionResponse with status set to Rejected.                                                                            |                   |\n| F03.FR.09 | When sending a TransactionEventRequest                                                                                               | The Charging Station SHALL set the triggerReason to inform the CSMS about what triggered the event. What reason to use is described in the description of TriggerReasonEnumType. | Same as E06.FR.15 |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "E06, F03",
+      "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse, TransactionEventRequest"
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                       | Requirement definition                                                                                                                      |\n| --------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |\n| F05.FR.03 | F05.FR.01 AND Specified connector unknown.                                         | The Charging Station SHALL use the status: UnknownConnector in the UnlockConnectorResponse.                                                 |\n| F05.FR.04 | F05.FR.01 AND The Charging Station was able to unlock the specified connector.     | The Charging Station SHALL use the status: Unlocked in the UnlockConnectorResponse.                                                         |\n| F05.FR.05 | F05.FR.01 AND The Charging Station was NOT able to unlock the specified connector. | The Charging Station SHALL use the status: UnlockFailed in the UnlockConnectorResponse.                                                     |\n| F05.FR.06 | F05.FR.01 AND No cable is connected to the connector.                              | The Charging Station SHALL attempt to unlock the connector, even if no cable is detected and SHALL return the result of the unlock attempt. |\n| F05.FR.07 | F05.FR.01 AND The connector has no lock or a manual lock (e.g. sType1)             | The Charging Station SHOULD respond with RPC Framework CALLERROR: NotSupported.                                                             |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "F05",
+      "message_refs": "UnlockConnectorResponse"
+    }
+  },
+  {
+    "content": "# F. Remote Control\n\n| ID        | Precondition                                                                                                                                                                                 | Requirement definition                                                                            | Note                                                                                                                                             |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |\n| F06.FR.13 | When sending a TriggerMessageRequest with requestedMessage set to: StatusNotification                                                                                                        | The CSMS SHALL set the connectorId field                                                          | StatusNotification messages can only be sent at connector level.                                                                                 |\n| F06.FR.14 | If a Charging Station receives a TriggerMessageRequest with requestedMessage set to: LogStatusNotification AND The Charging Station is uploading a log file                                  | The Charging Station SHALL send a LogStatusNotificationRequest to the CSMS with status Uploading. |                                                                                                                                                  |\n| F06.FR.15 | If a Charging Station receives a TriggerMessageRequest with requestedMessage set to: LogStatusNotification AND The Charging Station is NOT uploading a log file                              | The Charging Station SHALL send a LogStatusNotificationRequest to the CSMS with status Idle.      |                                                                                                                                                  |\n| F06.FR.16 | If a Charging Station receives a TriggerMessageRequest with requestedMessage set to: FirmwareStatusNotification AND The Charging Station is not performing firmware update related tasks.    | The Charging Station SHALL send a FirmwareStatusNotificationRequest to the CSMS with status Idle. |                                                                                                                                                  |\n| F06.FR.17 | If Charging Station receives a TriggerMessageRequest with requestedMessage set to: BootNotification AND the response it received from CSMS to the last BootNotificationRequest was: Accepted | Charging Station SHALL respond with a TriggerMessageResponse with status Rejected.                | A trigger to request a Charging Station to send a BootNotification is only meant to be used when the BootNotification has not yet been accepted. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "F. Remote Control",
+      "heading_path": "F. Remote Control",
+      "functional_block": "RemoteControl",
+      "use_case_refs": "F06",
+      "message_refs": "BootNotificationRequest, FirmwareStatusNotificationRequest, LogStatusNotificationRequest, TriggerMessageRequest, TriggerMessageResponse"
+    }
+  }
+]

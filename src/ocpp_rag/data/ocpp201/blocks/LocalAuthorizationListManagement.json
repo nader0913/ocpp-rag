@@ -1,0 +1,92 @@
+[
+  {
+    "content": "# D. Local Authorization List Management\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "D. Local Authorization List Management",
+      "heading_path": "D. Local Authorization List Management",
+      "functional_block": "LocalAuthorizationListManagement"
+    }
+  },
+  {
+    "content": "# D. Local Authorization List Management\n\n| ID        | Precondition                                                                                                                                                            | Requirement definition                                                                                                                                                             | Note                                                                                                                                                                                                                                                                                                |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| D01.FR.03 | If the status in SendLocalListResponse is Failed or VersionMismatch and the updateType was Differential                                                                 | It is RECOMMENDED that the CSMS sends the full Local Authorization List.                                                                                                           | When this list is too large for one message (see D01.FR.11), it shall start by sending an initial list with updateType Full and adding identifiers using updateType Differential until the list is completely sent.                                                                                 |\n| D01.FR.04 | If no localAuthorizationList is given and the updateType is Full.                                                                                                       | The Charging Station SHALL remove all IdTokens from the list.                                                                                                                      | Note, that the version number of the list is still updated to value of versionNumber in the request.                                                                                                                                                                                                |\n| D01.FR.05 |                                                                                                                                                                         | Requesting a Differential update without or with empty localAuthorizationList SHALL have no effect on the list.                                                                    | Note, that the version number of the list is still updated to value of versionNumber in the request.                                                                                                                                                                                                |\n| D01.FR.06 |                                                                                                                                                                         | All IdTokens in the Local Authorization List SHALL be unique.                                                                                                                      | No duplicate values are allowed.                                                                                                                                                                                                                                                                    |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "D. Local Authorization List Management",
+      "heading_path": "D. Local Authorization List Management",
+      "functional_block": "LocalAuthorizationListManagement",
+      "use_case_refs": "D01",
+      "message_refs": "SendLocalListRequest, SendLocalListResponse",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| D01.FR.09 |                                                                                                                                                                         | The Charging Station SHALL NOT modify the contents of the Authorization List by any other means than upon a the receipt of a SendLocalList message from the CSMS.                  |                                                                                                                                                                                                                                                                                                     |\n| D01.FR.10 |                                                                                                                                                                         | The Local Authorization List SHOULD be maintained by the Charging Station in non-volatile memory, and SHOULD be persisted across reboots and power outages.                        |                                                                                                                                                                                                                                                                                                     |\n| D01.FR.11 |                                                                                                                                                                         | The size of a single SendLocalListRequest is limited by the Configuration Variables ItemsPerMessageSendLocalList and BytesPerMessageSendLocalList.                                 |                                                                                                                                                                                                                                                                                                     |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "D. Local Authorization List Management",
+      "heading_path": "D. Local Authorization List Management",
+      "functional_block": "LocalAuthorizationListManagement",
+      "use_case_refs": "D01",
+      "message_refs": "SendLocalListRequest, SendLocalListResponse",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| D01.FR.12 |                                                                                                                                                                         | A Charging Station that supports Local Authorization List SHALL implement the Configuration Variable: LocalAuthListEntries.                                                        | This gives the CSMS a way to know the current amount and maximum possible number of Local Authorization List elements in a Charging Station.                                                                                                                                                        |\n| D01.FR.13 |                                                                                                                                                                         | The Charging Station indicates whether the Local Authorization List is enabled. This is reported and controlled by the LocalAuthListEnabled Configuration Variable.                |                                                                                                                                                                                                                                                                                                     |\n| D01.FR.15 | If the Charging Station receives a SendLocalListRequest with updateType is Full AND localAuthorizationList is non-empty                                                 | The Charging Station SHALL replace its current Local Authorization List with the one in the SendLocalListRequest and set the version number to the value specified in the message. | Otherwise, there is no way to sync the initial Charging Station and CSMS lists. When this list is too large for one message (see D01.FR.11), it shall start by sending an initial list with updateType Full and adding identifiers using updateType Differential until the list is completely sent. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "D. Local Authorization List Management",
+      "heading_path": "D. Local Authorization List Management",
+      "functional_block": "LocalAuthorizationListManagement",
+      "use_case_refs": "D01",
+      "message_refs": "SendLocalListRequest, SendLocalListResponse",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| D01.FR.16 | If the Charging Station receives a SendLocalListRequest with updateType is Differential AND localAuthorizationList contains AuthorizationData elements with idTokenInfo | The Charging Station SHALL update its Local Authorization List with these elements and set the version number to the value specified in the message.                               | Add them if not yet present, update with new information when already present in the Local Authorization List.                                                                                                                                                                                      |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "D. Local Authorization List Management",
+      "heading_path": "D. Local Authorization List Management",
+      "functional_block": "LocalAuthorizationListManagement",
+      "use_case_refs": "D01",
+      "message_refs": "SendLocalListRequest, SendLocalListResponse",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# D. Local Authorization List Management\n\n| ID        | Precondition                                                                                                                                                                    | Requirement definition                                                                                                                                | Note                                                                                                                                      |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |\n| D01.FR.17 | If the Charging Station receives a SendLocalListRequest with updateType is Differential AND localAuthorizationList contains AuthorizationData elements without idTokenInfo      | The Charging Station SHALL remove these elements from its Local Authorization List and set the version number to the value specified in the message.  |                                                                                                                                           |\n| D01.FR.18 |                                                                                                                                                                                 | versionNumber in a SendLocalListRequest SHALL be greater than 0.                                                                                      | In GetLocalListVersionResponse the versionNumber = 0 has a special meaning: No Local List installed. So the value 0 should never be used. |\n| D01.FR.19 | If the Charging Station receives a SendLocalListRequest with updateType = Differential AND versionNumber is less or equal to the version number of its Local Authorization List | The Charging Station SHALL refuse to update its Local Authorization List and SHALL return a SendLocalListResponse with status set to VersionMismatch. |                                                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "D. Local Authorization List Management",
+      "heading_path": "D. Local Authorization List Management",
+      "functional_block": "LocalAuthorizationListManagement",
+      "use_case_refs": "D01",
+      "message_refs": "GetLocalListVersionResponse, SendLocalListRequest, SendLocalListResponse"
+    }
+  }
+]

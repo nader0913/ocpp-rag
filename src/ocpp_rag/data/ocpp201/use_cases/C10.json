@@ -1,0 +1,78 @@
+{
+  "use_case_id": "C10",
+  "functional_block": "Authorization",
+  "use_case_name": "Store Authorization Data in the Authorization Cache",
+  "chunks": [
+    {
+      "content": "# C10 - Store Authorization Data in the Authorization Cache\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                  |\n| --- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Store Authorization Data in the Authorization Cache                                                                                                                                                                                                                          |\n| 2   | ID                      | C10                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)            | To store all the latest received IdTokens in the Authorization Cache.                                                                                                                                                                                                        |\n| 4   | Description             | This use case covers how the Charging Station autonomously stores a record of previously presented identifiers that have been successfully authorized by the CSMS in the Authorization Cache. (Successfully meaning: a response received on a message containing an IdToken) |\n|     | Actors                  | Charging Station, CSMS                                                                                                                                                                                                                                                       |\n|     | Scenario description    | 1. The Charging Station receives a AuthorizeResponse, ReserveNowRequest or TransactionEventResponse response message from the CSMS. 2. The Cache is updated by the Charging Station using all received IdTokenInfo from the response message from the CSMS.                  |\n|     | Alternative scenario(s) | n/a                                                                                                                                                                                                                                                                          |\n| 5   | Prerequisite(s)         | An Authorization Cache is implemented and the value of the AuthCacheEnabled Configuration Variable is set to 'true'.                                                                                                                                                         |\n| 6   | Postcondition(s)        | Successful postcondition: The Charging Station stored the newly received IdTokenInfo data in the Authorization Cache. Failure postcondition: The Charging Station was not able to store the Authorization Cache.                                                             |\n| 7   | Error handling          | n/a                                                                                                                                                                                                                                                                          |\n| 8   | Remark(s)               | n/a                                                                                                                                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C10 - Store Authorization Data in the Authorization Cache",
+        "heading_path": "C10 - Store Authorization Data in the Authorization Cache",
+        "functional_block": "Authorization",
+        "use_case_id": "C10",
+        "use_case_name": "Store Authorization Data in the Authorization Cache",
+        "use_case_refs": "C10",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse, ReserveNowRequest, TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "29",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "Charging Station                 CSMS\n\nalt  [for AuthorizeResponse]\n\nAuthorizeRequest(...)\n\nAuthorizeResponse(idTokenInfo,...)\n\nStore Authorization Data in Authorization Cache()\n\n[for TransactionEventResponse]\n\nTransactionEventRequest(...)\n\nTransactionEventResponse(idTokenInfo,...)\n\nStore Authorization Data in Authorization Cache()\n\nFigure 29. Sequence Diagram: Store Authorization Data in the Authorization Cache",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C10 - Store Authorization Data in the Authorization Cache",
+        "heading_path": "C10 - Store Authorization Data in the Authorization Cache",
+        "functional_block": "Authorization",
+        "use_case_id": "C10",
+        "use_case_name": "Store Authorization Data in the Authorization Cache",
+        "use_case_refs": "C10",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse, ReserveNowRequest, TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "29",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# C10 - Store Authorization Data in the Authorization Cache - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                  | Note |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------- | ---- |\n| C10.FR.01 |              | The Authorization Cache SHALL contain all the latest received identifiers (regardless of their status). |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C10 - Store Authorization Data in the Authorization Cache - Requirements",
+        "heading_path": "C10 - Store Authorization Data in the Authorization Cache - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C10",
+        "use_case_name": "Store Authorization Data in the Authorization Cache",
+        "use_case_refs": "C10"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "29",
+      "title": "Sequence Diagram: Store Authorization Data in the Authorization Cache",
+      "files": [
+        "fig29_p1_Sequence_Diagram__Store_Authorization_Data_in_the.png",
+        "fig29_p2_Sequence_Diagram__Store_Authorization_Data_in_the.png"
+      ]
+    },
+    {
+      "figure_num": "29",
+      "title": "Sequence Diagram: Store Authorization Data in the Authorization Cache",
+      "files": [
+        "fig29_p1_Sequence_Diagram__Store_Authorization_Data_in_the.png",
+        "fig29_p2_Sequence_Diagram__Store_Authorization_Data_in_the.png"
+      ]
+    }
+  ]
+}

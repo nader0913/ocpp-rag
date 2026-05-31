@@ -1,0 +1,69 @@
+{
+  "use_case_id": "K16",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Renegotiation initiated by CSMS",
+  "chunks": [
+    {
+      "content": "# K16 - Renegotiation initiated by CSMS\n\n| No. | Type         | Description                                                                                                                                                                                                                                                                                                                               |\n| --- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Renegotiation initiated by CSMS.                                                                                                                                                                                                                                                                                                          |\n| 2   | ID           | K16                                                                                                                                                                                                                                                                                                                                       |\n| 3   | Objective(s) | To control the charging power or current of a Charging Station                                                                                                                                                                                                                                                                            |\n| 4   | Description  | The CSMS sends a SetChargingProfileRequest to the Charging Station to influence the power or current drawn by the EV. The CSMS calculates a ChargingSchedule to stay within limits which MAY be imposed by an external system. Note: Description of actions between EV and Charging Station is informative only and not mandated by OCPP. |\n\nActors: EV, Charging Station, CSMS",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K16 - Renegotiation initiated by CSMS",
+        "heading_path": "K16 - Renegotiation initiated by CSMS",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K16",
+        "use_case_name": "Renegotiation initiated by CSMS",
+        "use_case_refs": "K16",
+        "message_refs": "SetChargingProfileRequest"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. CSMS sends a SetChargingProfileRequest to the Charging Station.\n2. Charging Station responds with a SetChargingProfileResponse to the CSMS.\n3. When EV sends the next CurrentDemandReq (for DC) or ChargingStatusReq (for AC), the Charging Station will respond with evseNotification = ReNegotiation.\n4. EV sends a PowerDeliveryReq with chargeProgress = ReNegotiate to confirm this.\n5. Charging Station responds with a PowerDeliveryRes.\n6. EV sends a ChargeParameterDiscoveryReq.\n7. Charging Station responds with a ChargeParameterDiscoveryRes with an SAScheduleList that contains the ChargingSchedule data from the SetChargingProfileRequest.\n8. EV sends a PowerDeliveryReq with chargeProgress = Start (with an optional charging profile) to confirm this.\n9. Charging Station responds with PowerDeliveryRes and, if charging was suspended at start of the renegotiation, will resume power delivery.\n10. If EV provided a charging profile in the previous step, then Charging Station will send a NotifyEVChargingScheduleRequest to the CSMS.\n\n| 5 | Prerequisites    | Charging session started according to use case K15.                                                                                                                 |\n| - | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 6 | Postcondition(s) | Charging session uses the new charging profile.                                                                                                                     |\n| 7 | Remark(s)        | Signed SalesTariffs are currently not supported. If these are needed, please use P01 - Data Transfer to the Charging Station to send these to the Charging Station. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K16",
+        "use_case_refs": "K15, P01",
+        "message_refs": "NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse"
+      }
+    },
+    {
+      "content": "# EV Charging Station CSMS\n\nloop   [Charging in progress...]\n\nalt    [if AC Charging]\n\n- ChargingStatusReq()\n- ChargingStatusRes()\n\n[if DC Charging]\n\n- CurrentDemandReq()\n- CurrentDemandRes()\n\nTransactionEventRequest(eventType = Updated,...)\n\nTransactionEventResponse(...)\n\nCSMS sets new schedule\n\nSetChargingProfileRequest(evseId, chargingProfile)\n\nSetChargingProfileResponse(Accepted)\n\nalt    [if AC Charging]\n\n- ChargingStatusReq()\n- ChargingStatusRes(ReNegotiation)\n\n[if DC Charging]\n\n- CurrentDemandReq()\n- CurrentDemandRes(ReNegotiation)\n\n- PowerDeliveryReq(ReNegotiate)\n- PowerDeliveryRes(OK)                                          Power delivery may be halted\n- ChargeParameterDiscoveryReq(EnergyTransferMode, EVChargeParam)\n- ChargeParameterDiscoveryRes(SAScheduleList)                   Charging Station supplies charging profile as SASchedule\n- PowerDeliveryReq(Start, ChargingProfile, EVPowerDeliveryParam)\n- PowerDeliveryRes(OK)                                          Power delivery continues\n\nopt            [If EV provides a charging schedule]\n\n- NotifyEVChargingScheduleRequest(evseId, chargingSchedule)\n- NotifyEVChargingScheduleResponse(Accepted)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Charging Station CSMS",
+        "heading_path": "EV Charging Station CSMS",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K16",
+        "message_refs": "NotifyEVChargingScheduleRequest, NotifyEVChargingScheduleResponse, SetChargingProfileRequest, SetChargingProfileResponse, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# K16 - Renegotiation initiated by CSMS - Requirements\n\n| ID        | Precondition                                     | Requirements                                                                                                         | NOTE                                                                                                                                                                                                                                                                                         |\n| --------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| K16.FR.01 | CSMS sends a new SetChargingProfileReq           | Charging Station SHALL respond with a SetChargingProfileResponse with status = Accepted.                             |                                                                                                                                                                                                                                                                                              |\n| K16.FR.02 | When the composite schedule for the EVSE changes | Charging Station SHALL initiate schedule renegotiation with EV.                                                      | This can be caused by a Set/ClearChargingProfileRequest or a change in ChargingStationExternalConstraints/LocalGeneration charging profiles. In ISO 15118 this is done by replying with EVSENotification=ReNegotiation to a CurrentDemandReq (for DC) or ChargingStatusReq (for AC) message. |\n| K16.FR.03 | K16.FR.02                                        | Charging Station SHALL provide the composite schedule(s) to the EV.                                                  | In ISO 15118 this is done in the ChargeParameterDiscoverRes message.                                                                                                                                                                                                                         |\n| K16.FR.04 | EV returns a charging profile                    | Charging Station SHALL verify that provided charging profile is within boundaries of the ChargingSchedule from CSMS. | In ISO 15118 EV may provide this as part of the PowerDeliveryReq message.                                                                                                                                                                                                                    |\n| K16.FR.05 | K16.FR.04                                        | Charging Station SHALL send the EV charging profile in a NotifyEVChargingScheduleRequest message to CSMS.            |                                                                                                                                                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K16 - Renegotiation initiated by CSMS - Requirements",
+        "heading_path": "K16 - Renegotiation initiated by CSMS - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K16",
+        "use_case_name": "Renegotiation initiated by CSMS",
+        "use_case_refs": "K16",
+        "message_refs": "ClearChargingProfileRequest, NotifyEVChargingScheduleRequest, SetChargingProfileResponse"
+      }
+    }
+  ],
+  "figures": []
+}

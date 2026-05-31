@@ -1,0 +1,69 @@
+[
+  {
+    "content": "# I. Tariff And Cost\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "I. Tariff And Cost",
+      "heading_path": "I. Tariff And Cost",
+      "functional_block": "TariffAndCost"
+    }
+  },
+  {
+    "content": "# I. Tariff And Cost\n\n| No. | Type             | Description                                                                                                                                                                               |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 6   | Postcondition(s) | Successful postcondition: EV Driver has been shown the fallback tariff information message Failure postcondition: EV Driver has no information about the tariff at this Charging Station. |\n| 7   | Error Handling   | n/a                                                                                                                                                                                       |\n| 8   | Remarks          | n/a                                                                                                                                                                                       |\n\nEV Driver Charging Station CSMS\n\npresent IdToken\n\nalt          [if Charging Station is offline]\ncheck authorization cache()\n\nTariffFallbackMessage\n[No specific tariff is available]\nAuthorizeRequest(idToken)\n\nAuthorizeResponse(...)\n\nTariffFallbackMessage",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "I. Tariff And Cost",
+      "heading_path": "I. Tariff And Cost",
+      "functional_block": "TariffAndCost",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse"
+    }
+  },
+  {
+    "content": "# I. Tariff And Cost\n\n| No. | Type             | Description                                                                                                                                                                      |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 5   | Prerequisites    | The Charging Station supports Tariff Information The Charging Station is Offline the Configuration Variable: TotalCostFallbackMessage is configured.                             |\n| 6   | Postcondition(s) | Successful postcondition: The EV Driver has received a pre-configured fallback message. Failure postcondition: The EV Driver has not received a pre-configured fallback message. |\n| 7   | Error Handling   | n/a                                                                                                                                                                              |\n| 8   | Remarks          | n/a                                                                                                                                                                              |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "I. Tariff And Cost",
+      "heading_path": "I. Tariff And Cost",
+      "functional_block": "TariffAndCost"
+    }
+  },
+  {
+    "content": "# I. Tariff And Cost\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 4   | Description          | During charging (especially DC fast charging) it might be useful to show the EV driver updated tariff information when it becomes available. Example: If a tariff has a bandwidth: charging will cost between 0,25 and 0,40 euro/kWh depending on current energy price. Current price is 0,28 euro/kWh. Then when the price changing, this tariff information needs to be updated: charging will cost between 0,25 and 0,40 euro/kWh depending on current energy price. Current price is 0,32 euro/kWh. |\n|     | Scenario description | 1. The Charging Station sends TransactionEventRequest (eventType = Updated) messages during the transaction. 2. When the CSMS receives a TransactionEventRequest message it checks if there is updated tariff information available. 3. The CSMS acknowledges with a TransactionEventResponse message, which contains the updated tariff information if available.                                                                                                                                      |\n| 5   | Prerequisites        | The Charging Station supports Tariff Information. There is a transaction ongoing.                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 6   | Postcondition(s)     | Successful postcondition: The updated tariff information is shown to the EV Driver. Failure postcondition: The EV Driver has not been shown the updated tariff information.                                                                                                                                                                                                                                                                                                                             |\n| 7   | Error Handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 8   | Remarks              | There may be a policy or a legal requirement in place, that the tariff communicated at the start of the transaction must be used for the entire transaction, in which case no updated tariff information should be sent during the transaction.                                                                                                                                                                                                                                                         |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "I. Tariff And Cost",
+      "heading_path": "I. Tariff And Cost",
+      "functional_block": "TariffAndCost",
+      "message_refs": "TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Charging Station      CSMS\n\nA transaction is ongoing.\n\nTransactionEventRequest(eventType = Updated,...)\n\nCheck for updated tariff information\n\nTransactionEventResponse(updatedPersonalMessage,...)",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "I. Tariff And Cost",
+      "heading_path": "I. Tariff And Cost",
+      "functional_block": "TariffAndCost",
+      "message_refs": "TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  }
+]

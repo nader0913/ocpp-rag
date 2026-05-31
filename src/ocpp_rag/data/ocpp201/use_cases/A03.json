@@ -1,0 +1,78 @@
+{
+  "use_case_id": "A03",
+  "functional_block": "Security",
+  "use_case_name": "Update Charging Station Certificate initiated by the Charging Station",
+  "chunks": [
+    {
+      "content": "# A03 - Update Charging Station Certificate initiated by the Charging Station\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Update Charging Station Certificate initiated by the Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID                   | A03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 3   | Objective(s)         | To facilitate the management of the Charging Station client side certificate, a certificate update procedure is provided.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A03 - Update Charging Station Certificate initiated by the Charging Station",
+        "heading_path": "A03 - Update Charging Station Certificate initiated by the Charging Station",
+        "functional_block": "Security",
+        "use_case_id": "A03",
+        "use_case_name": "Update Charging Station Certificate initiated by the Charging Station",
+        "use_case_refs": "A02, A03",
+        "message_refs": "CertificateSignedRequest, CertificateSignedResponse, SignCertificateRequest, SignCertificateResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 4   | Description          | The Charging Station detects that the certificate ChargingStationCertificate or V2GCertificate for ISO 15118-2 ) it is using, will expire in one month. The Charging Station initiates the process to update its key using SignCertificateRequest, indicating the requested certificate in the certificateType field.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n|     | Actors               | Charging Station, CSMS, Certificate Authority Server                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n|     | Scenario description | 1. The Charging Station detects that the Charging Station certificate is due to expire. 2. The Charging Station generates a new public / private key pair. 3. The Charging Station sends a SignCertificateRequest to the CSMS containing the applicable CertificateSigningUse. 4. The CSMS responds with a SignCertificateResponse, with status Accepted. 5. The CSMS forwards the CSR to the Certificate Authority Server. 6. Certificate Authority Server signs the certificate. 7. The Certificate Authority Server returns the Signed Certificate to the CSMS. 8. The CSMS sends a CertificateSignedRequest to the Charging Station. 9. The Charging Station verifies the signed certificate. 10. The Charging Station responds with a CertificateSignedResponse to the CSMS with the status Accepted or Rejected. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A03 - Update Charging Station Certificate initiated by the Charging Station",
+        "heading_path": "A03 - Update Charging Station Certificate initiated by the Charging Station",
+        "functional_block": "Security",
+        "use_case_id": "A03",
+        "use_case_name": "Update Charging Station Certificate initiated by the Charging Station",
+        "use_case_refs": "A02, A03",
+        "message_refs": "CertificateSignedRequest, CertificateSignedResponse, SignCertificateRequest, SignCertificateResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)      | The standard configuration variable OrganizationName MUST be set.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 6   | Postcondition(s)     | Successful postcondition: New Client Side certificate installed in the Charging Station. Failure postcondition: New Client Side certificate is rejected and discarded.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 7   | Error handling       | The CSMS accepts the CSR request from the Charging Station, before forwarding it to the CA. But when the CA cannot be reached, or rejects the CSR, the Charging Station will never be known. The CSMS may do some checks on the CSR, but cannot do all the checks that a CA does, and it does not prevent connection timeout to the CA. When something like this goes wrong, either the CA is offline or the CSR send by the Charging Station is not correct, according to the CA. In both cases this is something an operator at the CSO needs to be notified of. The operator then needs to investigate the issue. When resolved, the operator can re-run A02.                                                                                                                                                       |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A03 - Update Charging Station Certificate initiated by the Charging Station",
+        "heading_path": "A03 - Update Charging Station Certificate initiated by the Charging Station",
+        "functional_block": "Security",
+        "use_case_id": "A03",
+        "use_case_name": "Update Charging Station Certificate initiated by the Charging Station",
+        "use_case_refs": "A02, A03",
+        "message_refs": "CertificateSignedRequest, CertificateSignedResponse, SignCertificateRequest, SignCertificateResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# A03 - Update Charging Station Certificate initiated by the Charging Station - Requirements\n\n| ID        | Precondition                                                                                              | Requirement definition                                                                                                                                                                                                                                                      | Note |\n| --------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| A03.FR.01 |                                                                                                           | A key update MAY be performed after installation of the Charging Station, to change the key from the one initially provisioned by the manufacturer (possibly a default key).                                                                                                |      |\n| A03.FR.02 | When the Charging Station detects that the current Charging Station certificate will expire in one month. | The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 4.2.1.3 of \\[16].                                                                                                                        |      |\n| A03.FR.03 | A03.FR.02                                                                                                 | The Charging Station SHALL send the public key in form of a Certificate Signing Request (CSR) as described in RFC 2986 \\[22] and then PEM encoded, using the SignCertificateRequest message. (Same as A02.FR.03)                                                            |      |\n| A03.FR.04 |                                                                                                           | The CSMS SHOULD NOT sign the certificate itself, but instead forwards the CSR to a dedicated certificate authority server managing the certificates for the Charging Station infrastructure. The dedicated authority server MAY be operated by the CSO. (Same as A02.FR.04) |      |\n| A03.FR.05 |                                                                                                           | The private key generated by the Charging Station during the key update process SHALL NOT leave the Charging Station at any time, and SHALL NOT be readable via OCPP or any other (remote) communication connection. (Same as A02.FR.05)                                    |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "A03 - Update Charging Station Certificate initiated by the Charging Station - Requirements",
+        "heading_path": "A03 - Update Charging Station Certificate initiated by the Charging Station - Requirements",
+        "functional_block": "Security",
+        "use_case_id": "A03",
+        "use_case_name": "Update Charging Station Certificate initiated by the Charging Station",
+        "use_case_refs": "A02, A03",
+        "message_refs": "SignCertificateRequest"
+      }
+    }
+  ],
+  "figures": []
+}

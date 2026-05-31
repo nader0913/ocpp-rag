@@ -1,0 +1,15 @@
+[
+  {
+    "content": "## UnlockConnectorRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: UnlockConnector\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| evseId | integer | Yes | This contains the identifier of the EVSE for which a connector needs to be unlocked. |\n| connectorId | integer | Yes | This contains the identifier of the connector that needs to be unlocked. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:UnlockConnectorRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"evseId\": {\n      \"description\": \"This contains the identifier of the EVSE for which a connector needs to be unlocked.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"connectorId\": {\n      \"description\": \"This contains the identifier of the connector that needs to be unlocked.\\r\\n\",\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"evseId\",\n    \"connectorId\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "UnlockConnectorRequest",
+      "heading_path": "JSON Schemas > UnlockConnector > UnlockConnectorRequest",
+      "message_name": "UnlockConnectorRequest",
+      "message_direction": "Request"
+    }
+  }
+]

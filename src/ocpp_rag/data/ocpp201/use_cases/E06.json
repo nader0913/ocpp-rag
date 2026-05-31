@@ -1,0 +1,322 @@
+{
+  "use_case_id": "E06",
+  "functional_block": "Transactions",
+  "use_case_name": "Stop Transaction options",
+  "chunks": [
+    {
+      "content": "# E06 - Stop Transaction options\n\n| No. | Type         | Description                                                                                                                                                                                        |\n| --- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Stop Transaction options                                                                                                                                                                           |\n| 2   | ID           | E06                                                                                                                                                                                                |\n| 3   | Objective(s) | To inform the CSMS that a transaction at the Charging Station has stopped.                                                                                                                         |\n| 4   | Description  | This use case describes the different moments a Charging Station can stop a transaction (send TransactionEventRequest (eventType = Ended), depending on the configuration of the Charging Station. |\n| 5   | Actors       | Charging Station, CSMS, EV Driver                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E06 - Stop Transaction options",
+        "heading_path": "E06 - Stop Transaction options",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "use_case_name": "Stop Transaction options",
+        "use_case_refs": "E06",
+        "message_refs": "TransactionEventRequest"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The Charging Stations parking bay occupancy detector stops detecting the EV.\n2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the CSMS about a transaction that has ended.\n3. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\nA transaction is ongoing.\n\nConfiguration Variable: TxStopPoint contains: ParkingBayOccupancy",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\nThe transaction is ended and the CSMS is Successfully informed.\n\nFailure postcondition:\n\nThe transaction is still ongoing. or The CSMS is not informed.\n\n| Charging Station                                                                                   | CSMS                                          |\n| -------------------------------------------------------------------------------------------------- | --------------------------------------------- |\n| A transaction is ongoing.                                                                          | parking bay detector no longer detects the EV |\n| TransactionEventRequest(eventType = Ended, triggerReason = EVDeparted, stoppedReason = Local, ...) | TransactionEventResponse()                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. Communication between Charging Station and the EV is lost (Charging cable is unplugged).\n2. If charging cable unplugged on the Charging Station side: send StatusNotificationRequest to the CSMS to inform it about a Connector that became Available.\n3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the CSMS about a transaction that has ended.\n4. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\nA transaction is ongoing.\n\nConfiguration Variable: TxStopPoint contains: EVConnected",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ended and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is still ongoing. or\n- The CSMS is not informed.\n\n| EV Driver             | Charging Station                                                                                                                      | CSMS |\n| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n|                       | A transaction is ongoing.                                                                                                             |      |\n| unplug charging cable |                                                                                                                                       |      |\n|                       | stop energy offer                                                                                                                     |      |\n|                       | TransactionEventRequest(eventType = Ended, chargingState = idle, triggerReason = EVCommunicationLost, stoppedReason = EVDisconnected) |      |\n|                       | TransactionEventResponse()                                                                                                            |      |\n\nFigure 49. Sequence Diagram: Stop Transaction options - EVConnected",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "49"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The Charging Station sends a TransactionEventRequest to the CSMS.\n2. An invalid IdToken is received in a TransactionEventResponse.\n3. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the CSMS about a transaction that has ended.\n4. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\n- A transaction is ongoing.\n- Configuration Variable: TxStopPoint contains: Authorized",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ended and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is still ongoing. or\n- The CSMS is not informed.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# TxStopPoint contains \"Authorized\".\n\nUser locally authorized by the Charging Station\n\nTransactionEventRequest(...)\nTransactionEventResponse(idTokenInfo.status != Accepted, ...)\nstop energy offer\n\nalt    [If StopTxOnInvalidId is true]\nTransactionEventRequest(eventType = Ended,\ntriggerReason = Deauthorized, stoppedReason = DeAuthorized, ...)\nTransactionEventResponse(...)\n[If StopTxOnInvalidId is false]\nTransactionEventRequest(eventType = Updated,\ntriggerReason = ChargingStateChanged, ...)\nTransactionEventResponse(...)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "TxStopPoint contains \"Authorized\".",
+        "heading_path": "TxStopPoint contains \"Authorized\".",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The Charging Station is disconnected from EV and/or the EV driver is no longer authorized.\n2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the CSMS about a transaction that has ended.\n3. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\n- A transaction is ongoing.\n- Configuration Variable: TxStopPoint contains: PowerPathClosed",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\n- The transaction is ended and the CSMS is Successfully informed.\n\nFailure postcondition:\n\n- The transaction is still ongoing. or\n- The CSMS is not informed.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Charging Station    CSMS\n\nA transaction is ongoing.\n\nTransactionEventRequest(eventType = Ended, chargingState = EVConnected, ...)\nTransactionEventResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Charging Station    CSMS",
+        "heading_path": "Charging Station    CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The energy transfer between EV and the Charging Station stops (for example: EV stops charging).\n2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the CSMS about a transaction that has ended.\n3. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\nA transaction is ongoing.\n\nConfiguration Variable: TxStopPoint contains: EnergyTransfer",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\nThe transaction is ended and the CSMS is Successfully informed.\n\nFailure postcondition:\n\nThe transaction is still ongoing. or The CSMS is not informed.\n\n| EV                                              | Charging Station          | CSMS |\n| ----------------------------------------------- | ------------------------- | ---- |\n|                                                 | A transaction is ongoing. |      |\n|                                                 | energy transfer stopped   |      |\n|                                                 | stop energy offer         |      |\n| TransactionEventRequest(eventType = Ended, ...) |                           |      |\n| TransactionEventResponse()                      |                           |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The EV drivers presents an IdToken to end the charging.\n2. The Charging Station sends a TransactionEventRequest (eventType = Ended) notifying the CSMS about a transaction that has ended.\n3. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Prerequisite(s)\n\nA transaction is ongoing.\n\nConfiguration Variable: TxStopPoint contains: Authorized (or PowerPathClosed).",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Prerequisite(s)",
+        "heading_path": "Prerequisite(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06"
+      }
+    },
+    {
+      "content": "# Postcondition(s)\n\nSuccessful postcondition:\n\nThe transaction is ended and the CSMS is Successfully informed.\n\nFailure postcondition:\n\nThe transaction is still ongoing. or The CSMS is not informed.\n\n\nEV Driver  Charging Station                                                                                           CSMS\n\nUser authorization successful.\n\nopt        [if cable not permanently attached & (same identification or authorized)]\n\nunlock connector\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 1, timestamp, chargingState = EVConnected, triggerReason = StopAuthorized, idToken.id = 1234, stoppedReason = Local)\n\nTransactionEventResponse(idTokenInfo.status = Accepted / Blocked / Invalid / Expired)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Postcondition(s)",
+        "heading_path": "Postcondition(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# E06 - Stop Transaction options - Requirements\n\n| ID        | Precondition                                                                                                                  | Requirement definition                                                                                                                                                                |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E06.FR.01 | TxStopPoint contains: ParkingBayOccupancy                                                                                     | The Charging Station SHALL stop the transaction and send a TransactionEventRequest (eventType = Ended) to the CSMS.                                                                   |\n| E06.FR.02 | TxStopPoint contains: EVConnected                                                                                             | The Charging Station SHALL stop the transaction and send a TransactionEventRequest (eventType = Ended) to the CSMS.                                                                   |\n| E06.FR.03 | TxStopPoint contains: Authorized                                                                                              | The Charging Station SHALL stop the transaction and send a TransactionEventRequest (eventType = Ended) to the CSMS.                                                                   |\n| E06.FR.04 | TxStopPoint contains: Authorized                                                                                              | See use case E05 - Start Transaction - Id not Accepted, CSMS returns a non-valid idTokenInfo in a TransactionEventResponse                                                            |\n| E06.FR.06 | TxStopPoint contains: PowerPathClosed                                                                                         | The Charging Station SHALL stop the transaction and send a TransactionEventRequest (eventType = Ended) to the CSMS.                                                                   |\n| E06.FR.07 | TxStopPoint contains: EnergyTransfer                                                                                          | The Charging Station SHALL stop the transaction and send a TransactionEventRequest (eventType = Ended) to the CSMS.                                                                   |\n| E06.FR.08 | If a transaction is not ended by the EV Driver at the Charging Station                                                        | The Charging Station SHALL include the stoppedReason element in the TransactionEventRequest(eventType = Ended). What reason to use is described in the description of reasonEnumType. |\n| E06.FR.09 | If a transaction is ended by the EV Driver at the Charging Station (e.g. EV Driver presented IdToken to stop the transaction) | The Charging Station MAY omit the stoppedReason element in the TransactionEventRequest (eventType = Ended) (hence the CSMS can interpret the reason as local when omitted).           |\n| E06.FR.10 | As part of the normal transaction termination.                                                                                | The Charging Station SHALL unlock the cable (if not permanently attached).                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E06 - Stop Transaction options - Requirements",
+        "heading_path": "E06 - Stop Transaction options - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E06",
+        "use_case_name": "Stop Transaction options",
+        "use_case_refs": "E05, E06",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "49",
+      "title": "Sequence Diagram: Stop Transaction options - EVConnected",
+      "files": [
+        "fig49_p1_Sequence_Diagram__Stop_Transaction_options___EVCon.png",
+        "fig49_p2_Sequence_Diagram__Stop_Transaction_options___EVCon.png"
+      ]
+    }
+  ]
+}

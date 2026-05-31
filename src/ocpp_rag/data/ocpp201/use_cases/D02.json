@@ -1,0 +1,78 @@
+{
+  "use_case_id": "D02",
+  "functional_block": "LocalAuthorizationListManagement",
+  "use_case_name": "Get Local List Version",
+  "chunks": [
+    {
+      "content": "# D02 - Get Local List Version\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                      |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Local List Version                                                                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID                   | D02                                                                                                                                                                                                                                                                                                                                                                                                              |\n|     | Parent use case      | D01 - Send Local Authorization List                                                                                                                                                                                                                                                                                                                                                                              |\n| 3   | Objective(s)         | To support synchronization of Local Authorization List.                                                                                                                                                                                                                                                                                                                                                          |\n| 4   | Description          | The CSMS can request a Charging Station for the version number of the Local Authorization List by sending a GetLocalListVersionRequest.                                                                                                                                                                                                                                                                          |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                           |\n|     | Scenario description | 1. The CSMS sends a GetLocalListVersionRequest to request this value. 2. Upon receipt of the GetLocalListVersionRequest Charging Station responds with a GetLocalListVersionResponse containing the version number of its Local Authorization List.                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "D02 - Get Local List Version",
+        "heading_path": "D02 - Get Local List Version",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D02",
+        "use_case_name": "Get Local List Version",
+        "use_case_refs": "D01, D02",
+        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)      |                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 6   | Postcondition(s)     | The CSMS received the GetLocalListVersionResponse with the Local Authorization List version.                                                                                                                                                                                                                                                                                                                     |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 8   | Remark(s)            | A versionNumber of 0 (zero) is reserved to indicate that no local authorization list exists, either because it is not enabled or because it has not yet received any update from CSMS and thus does not have a version number to return. In contrast, a local authorization list that was emptied, because CSMS sent a SendLocalListRequest with an empty localAuthorizationList, does have a versionNumber > 0. |\n\nCharging Station      CSMS",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "D02 - Get Local List Version",
+        "heading_path": "D02 - Get Local List Version",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D02",
+        "use_case_name": "Get Local List Version",
+        "use_case_refs": "D01, D02",
+        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "GetLocalListVersionRequest()\n\nGetLocalListVersionResponse(versionNumber)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "D02 - Get Local List Version",
+        "heading_path": "D02 - Get Local List Version",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D02",
+        "use_case_name": "Get Local List Version",
+        "use_case_refs": "D01, D02",
+        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# D02 - Get Local List Version - Requirements\n\n| ID        | Precondition                                                                                                                                          | Requirement definition                                                                                                                                                                                                 |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| D02.FR.01 | LocalAuthListEnabled is true                                                                                                                          | When Charging Station receives GetLocalListVersionRequest then Charging Station SHALL respond with a GetLocalListVersionResponse containing the version number of its Local Authorization List.                        |\n| D02.FR.02 | LocalAuthListEnabled is true AND the CSMS has not yet sent any update to the Charging Station for Local Authorization List (via SendLocalListRequest) | When Charging Station receives GetLocalListVersionRequest then Charging Station SHALL respond with a GetLocalListVersionResponse with versionNumber is 0 to indicate that there is no Local Authorization List.        |\n| D02.FR.03 | LocalAuthListEnabled is not true                                                                                                                      | When Charging Station receives GetLocalListVersionRequest then Charging Station SHALL respond with a GetLocalListVersionResponse with versionNumber is 0 (zero) to indicate that there is no Local Authorization List. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "D02 - Get Local List Version - Requirements",
+        "heading_path": "D02 - Get Local List Version - Requirements",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D02",
+        "use_case_name": "Get Local List Version",
+        "use_case_refs": "D02",
+        "message_refs": "GetLocalListVersionRequest, GetLocalListVersionResponse, SendLocalListRequest"
+      }
+    }
+  ],
+  "figures": []
+}

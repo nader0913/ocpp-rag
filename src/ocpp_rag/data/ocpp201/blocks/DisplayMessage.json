@@ -1,0 +1,94 @@
+[
+  {
+    "content": "# O. Display Message\n\n| ID        | Precondition                                                                                                                                                                   | Requirement definition                                                                                                                                                                                                                   |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| O01.FR.03 | When the Charging Station receives a MessageInfoType object via a SetDisplayMessageRequest and the format of the message is not supported by the Charging Station              | The Charging Station SHALL send a SetDisplayMessageResponse with status: NotSupportedMessageFormat. (See configuration variable DisplayMessageSupportedFormats for supported formats).                                                   |\n| O01.FR.04 |                                                                                                                                                                                | When a CSMS sends a message to a Charging Station that does not belong to a transaction, the field: transactionId in the message field SHALL be omitted.                                                                                 |\n| O01.FR.05 |                                                                                                                                                                                | The CSMS MAY include a startTime and endTime when setting a message.                                                                                                                                                                     |\n| O01.FR.06 | O01.FR.05                                                                                                                                                                      | The Charging Station SHALL NOT display the DisplayMessage message before the startTime.                                                                                                                                                  |\n| O01.FR.07 | O01.FR.05                                                                                                                                                                      | The Charging Station SHALL remove a DisplayMessage message after the endTime.                                                                                                                                                            |\n| O01.FR.08 | When the Charging Station knows the language preferences of the EV Driver                                                                                                      | The Charging Station SHALL display the DisplayMessage message in the preferred language, if available.                                                                                                                                   |\n| O01.FR.09 | O01.FR.08                                                                                                                                                                      | When no matching language is available, it is RECOMMENDED to show a DisplayMessage message in English as fall-back, if available.                                                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message",
+      "functional_block": "DisplayMessage",
+      "use_case_refs": "O01",
+      "message_refs": "GetBaseReportRequest, SetDisplayMessageRequest, SetDisplayMessageResponse",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| O01.FR.10 |                                                                                                                                                                                | The Charging Station SHALL store the messages in persistent storage, so they survive a power cycle/reboot of the Charging Station.                                                                                                       |\n| O01.FR.11 | When the Charging Station receives a SetDisplayMessageRequest and the total number of messages after having handled this request will exceed NumberOfDisplayMessages.maxLimit. | The Charging Station SHALL respond with status: Rejected.                                                                                                                                                                                |\n| O01.FR.12 | When the Charging Station receives a SetDisplayMessageRequest and the priority of the message is NormalCycle                                                                   | The Charging Station SHALL show this message at the configured moment in the normal cycle of messages.                                                                                                                                   |\n| O01.FR.13 | When the Charging Station receives a SetDisplayMessageRequest and the priority of the message is InFront                                                                       | The Charging Station SHALL show this message at the configured moment, regardless of the normal cycle of messages.                                                                                                                       |\n| O01.FR.14 | When multiple messages with priority InFront are configured to be shown at the same time                                                                                       | The Charging Station SHALL cycle these messages.                                                                                                                                                                                         |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message",
+      "functional_block": "DisplayMessage",
+      "use_case_refs": "O01",
+      "message_refs": "GetBaseReportRequest, SetDisplayMessageRequest, SetDisplayMessageResponse",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| O01.FR.15 | When the Charging Station receives a SetDisplayMessageRequest and the priority of the message is AlwaysFront                                                                   | The Charging Station SHALL show this message at the configured moment, regardless of other installed messages. Hence, it shall not cycle it with other messages and the Charging Station’s own messages shall not override this message. |\n| O01.FR.16 | O01.FR.15 AND Another message with priority AlwaysFront is already set                                                                                                         | The Charging Station SHALL replace the old message with the newly set message.                                                                                                                                                           |\n| O01.FR.17 |                                                                                                                                                                                | Language SHALL be specified as RFC-5646 tags, see: \\[RFC5646], example: US English is: \"en-US\"                                                                                                                                           |\n| O01.FR.20 | When Charging Station has multiple displays AND Charging Station receives a SetDisplayMessageRequest without a display element in its MessageInfoType                          | Charging Station SHOULD use the message for the main display(s)                                                                                                                                                                          |\n| O01.FR.21 | When receiving a GetBaseReportRequest AND Charging Station has one or more displays                                                                                            | Charging Station SHOULD include in the report a Display component for every display it contains.                                                                                                                                         |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message",
+      "functional_block": "DisplayMessage",
+      "use_case_refs": "O01",
+      "message_refs": "GetBaseReportRequest, SetDisplayMessageRequest, SetDisplayMessageResponse",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| O01.FR.22 | When Charging Station receives a SetDisplayMessageRequest with Display element referencing an unknown Display in its MessageInfoType                                           | Charging Station SHOULD respond with a SetDisplayMessageResponse with status = Rejected.                                                                                                                                                 |\n| O01.FR.23 | When Charging Station receives a SetDisplayMessageRequest with Display element referencing a known Display in its MessageInfoType                                              | Charging Station SHOULD use the message only for the specified display.                                                                                                                                                                  |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message",
+      "functional_block": "DisplayMessage",
+      "use_case_refs": "O01",
+      "message_refs": "GetBaseReportRequest, SetDisplayMessageRequest, SetDisplayMessageResponse",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# O. Display Message\n\n| ID        | Precondition                           | Requirement definition                                                                                                  |\n| --------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |\n| O03.FR.05 | O03.FR.04                              | The Charging Station SHALL set the requestId field to the same value as the requestId in the GetDisplayMessagesRequest. |\n| O03.FR.06 | When NO DisplayMessages are configured | The Charging Station SHALL respond with Unknown.                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message",
+      "functional_block": "DisplayMessage",
+      "use_case_refs": "O03",
+      "message_refs": "GetDisplayMessagesRequest"
+    }
+  },
+  {
+    "content": "# O. Display Message\n\n| ID        | Precondition                           | Requirement definition                                                                                                  |\n| --------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |\n| O04.FR.03 | O04.FR.01                              | The Charging Station SHALL send all configured DisplayMessages via NotifyDisplayMessagesRequest.                        |\n| O04.FR.04 | O04.FR.03                              | The Charging Station SHALL split the DisplayMessages over multiple NotifyDisplayMessagesRequest messages.               |\n|           | AND                                    | There are more DisplayMessages than the Charging Station can send in 1 NotifyDisplayMessagesRequest                     |\n| O04.FR.05 | O04.FR.04                              | The Charging Station SHALL set the tbc field is true in every NotifyDisplayMessagesRequest messages, except the last.   |\n| O04.FR.06 | O04.FR.05                              | The Charging Station SHALL set the requestId field to the same value as the requestId in the GetDisplayMessagesRequest. |\n| O04.FR.07 | When NO DisplayMessages are configured | The Charging Station SHALL respond with Unknown.                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "O. Display Message",
+      "heading_path": "O. Display Message",
+      "functional_block": "DisplayMessage",
+      "use_case_refs": "O04",
+      "message_refs": "GetDisplayMessagesRequest, NotifyDisplayMessagesRequest"
+    }
+  }
+]

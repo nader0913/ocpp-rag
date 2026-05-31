@@ -1,0 +1,59 @@
+{
+  "use_case_id": "A02",
+  "functional_block": "Security",
+  "use_case_name": "Update Charging Station Certificate by request of CSMS",
+  "chunks": [
+    {
+      "content": "# A02 - Update Charging Station Certificate by request of CSMS\n\n| No. | Type         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| --- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Update Charging Station Certificate by request of CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID           | A02                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 3   | Objective(s) | To facilitate the management of the Charging Station client side certificate, a certificate update procedure is provided.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 4   | Description  | The CSMS requests the Charging Station to update its key using TriggerMessageRequest with the requestedMessage field set to SignChargingStationCertificate (or SignV2GCertificate for separate ISO 15118 certificate). If the Charging Station has a separate ISO15118Ctrlr (SECC in ISO 15118) for each EVSE, then CSMS will have to send a request for each of them. The device model the Charging Station will tell if ISO15118Ctrlr is located at toplevel or EVSE-level. If the Charging Station has multiple SECCs that each control multiple EVSEs, then these are represented in device model by an ISO15118Ctrlr for each EVSE. The EVSEs that are controlled by the same SECC report an ISO15118Ctrlr with the same \"SeccId\". |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A02 - Update Charging Station Certificate by request of CSMS",
+        "heading_path": "A02 - Update Charging Station Certificate by request of CSMS",
+        "functional_block": "Security",
+        "use_case_id": "A02",
+        "use_case_name": "Update Charging Station Certificate by request of CSMS",
+        "use_case_refs": "A02",
+        "message_refs": "TriggerMessageRequest",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "Actors: Charging Station, CSMS, Certificate Authority Server",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A02 - Update Charging Station Certificate by request of CSMS",
+        "heading_path": "A02 - Update Charging Station Certificate by request of CSMS",
+        "functional_block": "Security",
+        "use_case_id": "A02",
+        "use_case_name": "Update Charging Station Certificate by request of CSMS",
+        "use_case_refs": "A02",
+        "message_refs": "TriggerMessageRequest",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# A02 - Update Charging Station Certificate by request of CSMS - Requirements\n\nTable 26. A02 - Requirements",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "A02 - Update Charging Station Certificate by request of CSMS - Requirements",
+        "heading_path": "A02 - Update Charging Station Certificate by request of CSMS - Requirements",
+        "functional_block": "Security",
+        "use_case_id": "A02",
+        "use_case_name": "Update Charging Station Certificate by request of CSMS",
+        "use_case_refs": "A02"
+      }
+    }
+  ],
+  "figures": []
+}

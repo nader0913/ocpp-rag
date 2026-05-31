@@ -1,0 +1,60 @@
+{
+  "use_case_id": "N04",
+  "functional_block": "Diagnostics",
+  "use_case_name": "Set Variable Monitoring",
+  "chunks": [
+    {
+      "content": "# N04 - Set Variable Monitoring\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Set Variable Monitoring                                                                                                                                                                                                                                     |\n| 2   | ID                   | N04                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To give the CSMS the ability to request the Charging Station to set monitoring triggers on Variables.                                                                                                                                                       |\n| 4   | Description          | This use case describes how the CSMS requests the Charging Station to set monitoring triggers on Variables. Multiple triggers can be set for upper or lower thresholds, delta changes or periodic reporting.                                                |\n|     | Actors               | Charging Station, CSMS, CSO                                                                                                                                                                                                                                 |\n|     | Scenario description | 1. The CSO triggers the CSMS to request a Charging Station to set a variable monitoring setting. 2. The CSMS sends a SetVariableMonitoringRequest to the Charging Station. 3. The Charging Station responds with a SetVariableMonitoringResponse.           |\n| 5   | Prerequisite(s)      | Charging Station supports Monitoring The specific Variable supports Monitoring                                                                                                                                                                              |\n| 6   | Postcondition(s)     | The Charging Station activated the set of monitoring triggers on the Variables.                                                                                                                                                                             |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)            | All variableMonitoring settings are persistent across reboot. A variableMonitoring setting is persistent after a firmware update, if the monitored variable still exists and it is still monitor-able. Otherwise the variableMonitoring setting is removed. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N04 - Set Variable Monitoring",
+        "heading_path": "N04 - Set Variable Monitoring",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N04",
+        "use_case_name": "Set Variable Monitoring",
+        "use_case_refs": "N04",
+        "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "CSO request to set a monitoring setting for a variable\n\nCSMS SetVariableMonitoringRequest(MonitoringData)\n\nCharging Station SetVariableMonitoringResponse(setMonitoringResult)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N04 - Set Variable Monitoring",
+        "heading_path": "N04 - Set Variable Monitoring",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N04",
+        "use_case_name": "Set Variable Monitoring",
+        "use_case_refs": "N04",
+        "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# N04 - Set Variable Monitoring - Requirements\n\n| ID        | Precondition                                                                                                     | Requirement definition                                                                                                                                                                                                    | Note |\n| --------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| N04.FR.01 | When the Charging Station receives a SetVariableMonitoringRequest with an X number of SetMonitoringData elements | The Charging Station SHALL respond with an SetVariableMonitoringResponse with an equal (X) number of SetMonitoringResult elements, one for every SetMonitoringData element in the SetVariableMonitoringRequest.           |      |\n| N04.FR.02 | N04.FR.01                                                                                                        | Every SetMonitoringResult element in the SetVariableMonitoringResponse SHALL contain the same component and variable combination as one of the SetVariableMonitoringRequest elements in the SetVariableMonitoringRequest. |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N04 - Set Variable Monitoring - Requirements",
+        "heading_path": "N04 - Set Variable Monitoring - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N04",
+        "use_case_name": "Set Variable Monitoring",
+        "use_case_refs": "N04",
+        "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse"
+      }
+    }
+  ],
+  "figures": []
+}

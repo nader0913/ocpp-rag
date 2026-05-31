@@ -1,0 +1,78 @@
+{
+  "use_case_id": "L04",
+  "functional_block": "FirmwareManagement",
+  "use_case_name": "Unpublish Firmware file on Local Controller",
+  "chunks": [
+    {
+      "content": "# L04 - Unpublish Firmware file on Local Controller\n\n| No. | Type                 | Description                                                                                                                                                                                                                     |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Unpublish Firmware file on Local Controller.                                                                                                                                                                                    |\n| 2   | ID                   | L04                                                                                                                                                                                                                             |\n| 3   | Objective(s)         | Stop the Local Controller from publishing a firmware update to Charging Stations.                                                                                                                                               |\n| 4   | Description          | Stop serving a firmware update to connected Charging Stations.                                                                                                                                                                  |\n|     | Actors               | Local Controller, CSMS                                                                                                                                                                                                          |\n|     | Scenario description | 1. The CSMS sends an UnpublishFirmwareRequest to instruct the local controller to unpublish the firmware. 2. The Local Controller unpublishes the firmware. 3. The local Controller responds with an UnpublishFirmwareResponse. |\n| 5   | Prerequisite(s)      | A firmware successfully published by the Local Controller.                                                                                                                                                                      |\n| 6   | Postcondition(s)     | Successful postcondition: Firmware file no longer published. Failure postcondition: n/a                                                                                                                                         |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                             |\n| 8   | Remark(s)            | The CSMS uses a MD5 checksum over the entire firmware file as a unique identifier to indicate which firmware file needs to be unpublished.                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "L04 - Unpublish Firmware file on Local Controller",
+        "heading_path": "L04 - Unpublish Firmware file on Local Controller",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L04",
+        "use_case_name": "Unpublish Firmware file on Local Controller",
+        "use_case_refs": "L04",
+        "message_refs": "UnpublishFirmwareRequest, UnpublishFirmwareResponse",
+        "figure_refs": "119",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "Local Controller     CSMS\n\nUnpublishFirmwareRequest()\n\nUnpublishFirmwareResponse()\n\nFigure 119. Sequence Diagram: Unpublishing a firmware file",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "L04 - Unpublish Firmware file on Local Controller",
+        "heading_path": "L04 - Unpublish Firmware file on Local Controller",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L04",
+        "use_case_name": "Unpublish Firmware file on Local Controller",
+        "use_case_refs": "L04",
+        "message_refs": "UnpublishFirmwareRequest, UnpublishFirmwareResponse",
+        "figure_refs": "119",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# L04 - Unpublish Firmware file on Local Controller - Requirements\n\nTable 113. L04 - Requirements",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "L04 - Unpublish Firmware file on Local Controller - Requirements",
+        "heading_path": "L04 - Unpublish Firmware file on Local Controller - Requirements",
+        "functional_block": "FirmwareManagement",
+        "use_case_id": "L04",
+        "use_case_name": "Unpublish Firmware file on Local Controller",
+        "use_case_refs": "L04"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "119",
+      "title": "Sequence Diagram: Unpublishing a firmware file",
+      "files": [
+        "fig119_p1_Sequence_Diagram__Unpublishing_a_firmware_file.png",
+        "fig119_p2_Sequence_Diagram__Unpublishing_a_firmware_file.png"
+      ]
+    },
+    {
+      "figure_num": "119",
+      "title": "Sequence Diagram: Unpublishing a firmware file",
+      "files": [
+        "fig119_p1_Sequence_Diagram__Unpublishing_a_firmware_file.png",
+        "fig119_p2_Sequence_Diagram__Unpublishing_a_firmware_file.png"
+      ]
+    }
+  ]
+}

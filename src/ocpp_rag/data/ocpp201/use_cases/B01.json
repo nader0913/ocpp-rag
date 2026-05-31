@@ -1,0 +1,170 @@
+{
+  "use_case_id": "B01",
+  "functional_block": "Provisioning",
+  "use_case_name": "Cold Boot Charging Station",
+  "chunks": [
+    {
+      "content": "# B01 - Cold Boot Charging Station\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Cold Boot Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 2   | ID               | B01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B01 - Cold Boot Charging Station",
+        "heading_path": "B01 - Cold Boot Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "use_case_name": "Cold Boot Charging Station",
+        "use_case_refs": "B01, B02, B03",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, HeartbeatRequest, StatusNotificationRequest",
+        "chunk_part": 1,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 3   | Objective(s)     | The objective of this use case is to enable a Charging Station that is powering up to register itself at a CSMS and provide the right state information.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 4   | Description      | This use case describes how the CSMS can control which Charging Stations access it. To be able to control Charging Stations connecting to a CSMS, Charging Stations are required to send BootNotificationRequest. This request contains some general information about the Charging Station. **Actors:** Charging Station, CSMS **Scenario description:**) The Charging Station is powered up.\n2) The Charging Station sends BootNotificationRequest to the CSMS.\n3) The CSMS returns with BootNotificationResponse with the status Accepted.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B01 - Cold Boot Charging Station",
+        "heading_path": "B01 - Cold Boot Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "use_case_name": "Cold Boot Charging Station",
+        "use_case_refs": "B01, B02, B03",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, HeartbeatRequest, StatusNotificationRequest",
+        "chunk_part": 2,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "4) Optional: The Charging Station sends StatusNotificationRequest with status Unavailable to the CSMS for each Connector.\n5) The Charging Station sends StatusNotificationRequest to the CSMS for each Connector. If the status was set to Unavailable or Reserved from the CSMS prior to the (re)boot, the Connector should return to this status, otherwise the status should be Available or, when it resumes a transaction that was ongoing, the status should be Occupied.\n6) Normal operation is resumed.\n7) The Charging Station sends HeartbeatRequest to the CSMS.**Alternative scenario(s):**- B02 - Cold Boot Charging Station - Pending\n- B03 - Cold Boot Charging Station - Rejected |\n| 5   | Prerequisite(s)  | The Charging Station is powered down.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B01 - Cold Boot Charging Station",
+        "heading_path": "B01 - Cold Boot Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "use_case_name": "Cold Boot Charging Station",
+        "use_case_refs": "B01, B02, B03",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, HeartbeatRequest, StatusNotificationRequest",
+        "chunk_part": 3,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s) | Successful postcondition: The Charging Station is in Idle status, and Accepted. Failure postcondition: The Charging Station received the status Rejected, B03 - Cold Boot Charging Station -Rejected applies. The Charging Station received the status Pending, B02 - Cold Boot Charging Station - Pending applies.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 7   | Error handling   | 1. No initial establishment of connection of communication between the CSMS and Charging Station: Retry Connection with the CSMS. 2. No response / time-out from the CSMS: The Charging Station resends BootNotificationRequest after a waiting interval. The Charging Station chooses this interval on its own (since it did not get a BootNotificationResponse containing this interval), in a way that avoids flooding the CSMS with requests.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B01 - Cold Boot Charging Station",
+        "heading_path": "B01 - Cold Boot Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "use_case_name": "Cold Boot Charging Station",
+        "use_case_refs": "B01, B02, B03",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, HeartbeatRequest, StatusNotificationRequest",
+        "chunk_part": 4,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | Multiple options for a self check are possible: some Charging Stations boot and send status notifications with Unavailable, then perform a check of all the hardware and send new NotifyEvents with AvailabilityState Available when the Charging Station is up and running. However, there is no required order for a self check and sending a BootNotificationRequest. A Charging Station can also do the self check before sending a BootNotificationRequest and determine the status before a (mobile) network connection is established and a BootNotificationRequest is sent. When something is wrong with the Charging Station or EVSE, the status SHALL be set to Faulted. Reserved and Unavailable states persist after a reboot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B01 - Cold Boot Charging Station",
+        "heading_path": "B01 - Cold Boot Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "use_case_name": "Cold Boot Charging Station",
+        "use_case_refs": "B01, B02, B03",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, HeartbeatRequest, StatusNotificationRequest",
+        "chunk_part": 5,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# Power up\n\nopt\n\nSelf check\n\nBootNotificationRequest(reason, chargingStation)\nBootNotificationResponse(status = Accepted, currentTime, interval)\n\nopt",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Power up",
+        "heading_path": "Power up",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse"
+      }
+    },
+    {
+      "content": "# loop\n\n[for all Connectors]\n\nStatusNotificationRequest(connectorStatus = Unavailable)\nStatusNotificationResponse()\n\nSelf check",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "loop",
+        "heading_path": "loop",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "message_refs": "StatusNotificationRequest, StatusNotificationResponse"
+      }
+    },
+    {
+      "content": "# alt\n\n[Connector was set to Unavailable/Reserved/Faulted prior to (re)boot]\n\nStatusNotificationRequest(connectorStatus = Unavailable/Reserved/Faulted)\nStatusNotificationResponse()\n\n[else]\n\nStatusNotificationRequest(Connectortatus = Available)\nStatusNotificationResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "alt",
+        "heading_path": "alt",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "message_refs": "StatusNotificationRequest, StatusNotificationResponse"
+      }
+    },
+    {
+      "content": "# loop\n\n[while powered up and no other messages, with frequency based on Interval from BootNotificationResponse]\n\nHeartbeatRequest()\nHeartbeatResponse(currentTime)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "loop",
+        "heading_path": "loop",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "message_refs": "BootNotificationResponse, HeartbeatRequest, HeartbeatResponse"
+      }
+    },
+    {
+      "content": "# B01 - Cold Boot Charging Station - Requirements\n\n| ID        | Precondition                                                                                                    | Requirement definition                                                                                                       | Note                                    |\n| --------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |\n| B01.FR.01 | After start-up.                                                                                                 | The Charging Station SHALL send BootNotificationRequest to the CSMS with information about its configuration.                | Information: e.g. version, vendor, etc. |\n| B01.FR.02 | B01.FR.01                                                                                                       | The CSMS SHALL respond to indicate whether it will accept the Charging Station.                                              |                                         |\n| B01.FR.03 | After a reboot (for instance due to a remote reset command, power outage, firmware update, software error etc.) | The Charging Station SHALL again connect to the CSMS and SHALL send a BootNotificationRequest each time it boots or reboots. |                                         |\n| B01.FR.04 | When the CSMS responds with BootNotificationResponse with the status Accepted AND interval > 0                  | The Charging Station SHALL adjust the heartbeat interval in accordance with the interval from the response message.          |                                         |\n| B01.FR.05 | When the CSMS responds with BootNotificationResponse with the status Accepted.                                  | The Charging Station SHALL send a StatusNotificationRequest for each Connector with its current state.                       |                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B01 - Cold Boot Charging Station - Requirements",
+        "heading_path": "B01 - Cold Boot Charging Station - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B01",
+        "use_case_name": "Cold Boot Charging Station",
+        "use_case_refs": "B01",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, StatusNotificationRequest"
+      }
+    }
+  ],
+  "figures": []
+}

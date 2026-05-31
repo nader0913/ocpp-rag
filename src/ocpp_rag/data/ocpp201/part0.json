@@ -1,0 +1,447 @@
+[
+  {
+    "content": "# Table of Contents\n\nDisclaimer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1\n\nVersion History . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n\n1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.1. OCPP version 2.0.1. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.2. Terms and abbreviations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n\n1.3. References           . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4\n\n2. New functionalities in OCPP2.0.1                    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5\n\n2.1. Device Management . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5\n\n2.2. Improvements for better handling of large amounts of transactions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "2.3. Improvements regarding cyber security                                . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5\n\n2.4. Extended Smart Charging . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5\n\n2.5. Support for ISO 15118 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6\n\n2.6. Improvements for customer experience . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6\n\n2.7. Transport Protocols: OCPP-J Improvements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6\n\n2.8. Minor changes/extensions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7\n\n3. OCPP 2.0.1 Documentation Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8\n\n3.1. Overview of Specification Parts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8\n\n3.2. Functional Blocks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "3.3. All Functional Blocks and use cases . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10\n\n4. Basic implementation of OCPP 2.0.1                         . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Table of Contents",
+      "heading_path": "Table of Contents",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# Disclaimer\n\nCopyright © 2010 – 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Disclaimer",
+      "heading_path": "Disclaimer"
+    }
+  },
+  {
+    "content": "# Version History\n\n| Version         | Date       | Description                                                                                                                                         |\n| --------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 2.0.1 Edition 4 | 2025-12-03 | OCPP 2.0.1 Edition 4. All errata from OCPP 2.0.1 Part 0 until and including Errata 2025-11 have been merged into this version of the specification. |\n| 2.0.1 Edition 3 | 2024-05-06 | OCPP 2.0.1 Edition 3. All errata from OCPP 2.0.1 Part 0 until and including Errata 2024-04 have been merged into this version of the specification. |\n| 2.0.1           | 2020-03-31 | Final version of OCPP 2.0.1                                                                                                                         |\n| 2.0             | 2018-04-11 | OCPP 2.0 April 2018 First release of this Introduction document                                                                                     |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Version History",
+      "heading_path": "Version History"
+    }
+  },
+  {
+    "content": "# Chapter 1. Introduction\n\nElectric Vehicles (EVs) are becoming the new standard for mobility all over the world. This development is only possible with a good coverage of Charging Stations. To advance the roll out of charging infrastructure, open communication standards play a key role: to enable switching from charging network without necessarily replacing all the Charging Stations, to encourage innovation and cost effectiveness and to allow many and diverse players participate in this new industry.\n\nAdditionally, the EV charging infrastructure is part of the Smart Grid, a larger and still evolving ecosystem of actors, devices and protocols. In this Smart Grid ecosystem, open communication standards are key enablers for bidirectional power flows, real time information exchange, demand control and eMobility services.\n\nThe Open Charge Point Protocol (OCPP) is the industry-supported de facto standard for communication between a Charging Station and a Charging Station Management System (CSMS) and is designed to accommodate any type of charging technique. OCPP is an open standard with no cost or licensing barriers for adoption.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 1. Introduction",
+      "heading_path": "Chapter 1. Introduction"
+    }
+  },
+  {
+    "content": "# 1.1. OCPP version 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol’s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.1. OCPP version 2.0.1",
+      "heading_path": "1.1. OCPP version 2.0.1"
+    }
+  },
+  {
+    "content": "# 1.2.1. Terms\n\n| Term                                      | Meaning                                                                                                                                                                                                                                                                   |\n| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Charging Station                          | The Charging Station is the physical system where an EV can be charged. A Charging Station has one or more EVSEs.                                                                                                                                                         |\n| Charging Station Management System (CSMS) | manages Charging Stations and has the information for authorizing Users for using its Charging Stations.                                                                                                                                                                  |\n| Electric Vehicle Supply Equipment (EVSE)  | EVSE is considered as an independently operated and managed part of the Charging Station that can deliver energy to one EV at a time.                                                                                                                                     |\n| Energy Management System (EMS)            | In this document this is defined as a device that manages the local loads (consumption and production) based on local and/or contractual constraints and/or contractual incentives. It has additional inputs, such as sensors and controls from e.g. PV, battery storage. |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.2.1. Terms",
+      "heading_path": "1.2.1. Terms"
+    }
+  },
+  {
+    "content": "# 1.2.2. Abbreviations\n\n| Term | Meaning                            |\n| ---- | ---------------------------------- |\n| CSO  | Charging Station Operator          |\n| CSMS | Charging Station Management System |\n| EMS  | Energy Management System.          |\n| EV   | Electric Vehicle                   |\n| EVSE | Electric Vehicle Supply Equipment  |\n| RFID | Radio-Frequency Identification     |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.2.2. Abbreviations",
+      "heading_path": "1.2.2. Abbreviations"
+    }
+  },
+  {
+    "content": "# Chapter 1. Introduction\n\nElectric Vehicles (EVs) are becoming the new standard for mobility all over the world. This development is only possible with a good coverage of Charging Stations. To advance the roll out of charging infrastructure, open communication standards play a key role: to enable switching from charging network without necessarily replacing all the Charging Stations, to encourage innovation and cost effectiveness and to allow many and diverse players participate in this new industry.\n\nAdditionally, the EV charging infrastructure is part of the Smart Grid, a larger and still evolving ecosystem of actors, devices and protocols. In this Smart Grid ecosystem, open communication standards are key enablers for bidirectional power flows, real time information exchange, demand control and eMobility services.\n\nThe Open Charge Point Protocol (OCPP) is the industry-supported de facto standard for communication between a Charging Station and a Charging Station Management System (CSMS) and is designed to accommodate any type of charging technique. OCPP is an open standard with no cost or licensing barriers for adoption.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 1. Introduction",
+      "heading_path": "Chapter 1. Introduction"
+    }
+  },
+  {
+    "content": "# 1.1. OCPP version 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol’s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.1. OCPP version 2.0.1",
+      "heading_path": "1.1. OCPP version 2.0.1"
+    }
+  },
+  {
+    "content": "# 1.2.1. Terms\n\n| Term                                      | Meaning                                                                                                                                                                                                                                                                   |\n| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Charging Station                          | The Charging Station is the physical system where an EV can be charged. A Charging Station has one or more EVSEs.                                                                                                                                                         |\n| Charging Station Management System (CSMS) | Charging Station Management System: manages Charging Stations and has the information for authorizing Users for using its Charging Stations.                                                                                                                              |\n| Electric Vehicle Supply Equipment (EVSE)  | EVSE is considered as an independently operated and managed part of the Charging Station that can deliver energy to one EV at a time.                                                                                                                                     |\n| Energy Management System (EMS)            | In this document this is defined as a device that manages the local loads (consumption and production) based on local and/or contractual constraints and/or contractual incentives. It has additional inputs, such as sensors and controls from e.g. PV, battery storage. |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.2.1. Terms",
+      "heading_path": "1.2.1. Terms"
+    }
+  },
+  {
+    "content": "# 1.2.2. Abbreviations\n\n| Term | Meaning                            |\n| ---- | ---------------------------------- |\n| CSO  | Charging Station Operator          |\n| CSMS | Charging Station Management System |\n| EMS  | Energy Management System.          |\n| EV   | Electric Vehicle                   |\n| EVSE | Electric Vehicle Supply Equipment  |\n| RFID | Radio-Frequency Identification     |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.2.2. Abbreviations",
+      "heading_path": "1.2.2. Abbreviations"
+    }
+  },
+  {
+    "content": "# 1.3. References\n\n| Reference          | Description                                                                                                                                                                                                                                                                                               |\n| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| \\[IEC61851-1]      | IEC 61851-1 2017: EV conductive charging system - Part 1: General requirements. <https://webstore.iec.ch/publication/33644>                                                                                                                                                                               |\n| \\[IEC62559-2:2015] | Definition of the templates for use cases, actor list and requirements list. <https://webstore.iec.ch/publication/22349>                                                                                                                                                                                  |\n| \\[ISO15118-1]      | ISO 15118-1 specifies terms and definitions, general requirements and use cases as the basis for the other parts of ISO 15118. It provides a general overview and a common understanding of aspects influencing the charge process, payment and load leveling. <https://webstore.iec.ch/publication/9272> |\n| \\[OCPP1.5]         | <http://www.openchargealliance.org/downloads/>                                                                                                                                                                                                                                                            |\n| \\[OCPP1.6]         | <http://www.openchargealliance.org/downloads/>                                                                                                                                                                                                                                                            |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "1.3. References",
+      "heading_path": "1.3. References"
+    }
+  },
+  {
+    "content": "# 2.1. Device Management\n\nDevice Management (also known as Device Model) is a long awaited feature especially welcomed by CSOs who manage a network of (complex) charging stations (from different vendors).\n\nIt provides the following functionality:\n\n- Inventory reporting\n- Improved error and state reporting\n- Improved configuration\n- Customizable Monitoring\n\nThis all should help CSOs to reduce the costs of operating a Charging Station network.\n\nCharging Station Manufacturers are free to decide themselves how much details about a Charging Station they want to publish via Device Management: for example, they can decide what can be monitored, and what not.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.1. Device Management",
+      "heading_path": "2.1. Device Management"
+    }
+  },
+  {
+    "content": "# 2.3. Improvements regarding cyber security\n\nThe following improvements have been added to harden OCPP against cyber attacks:\n\n- Security profiles (3 levels) for Charging Station and/or CSMS authentication and Communication Security\n- Key management for Client-Side certificates\n- Secure firmware updates\n- Security event log",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.3. Improvements regarding cyber security",
+      "heading_path": "2.3. Improvements regarding cyber security"
+    }
+  },
+  {
+    "content": "# 2.4. Extended Smart Charging\n\nIn OCPP 2.0.1 Smart Charging functionality has been extended (compared to OCPP 1.6 [OCPP1.6]) to support:\n\n- Direct Smart Charging inputs from an Energy Management System (EMS) to a Charging Station\n- Improved Smart Charging with a local controller\n- Support for integrated smart charging of the CSMS, Charging Station and EV ([ISO15118-1]).",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.4. Extended Smart Charging",
+      "heading_path": "2.4. Extended Smart Charging"
+    }
+  },
+  {
+    "content": "# 2.5. Support for ISO 15118\n\nThe ISO 15118 standard [ISO15118-1] is a newer protocol for EVSE to EV communication, compared to IEC 61851 [IEC61851-1]. ISO 15118 allows a lot of new features and more secure communication between EVSE and EV. OCPP 2.0.1 supports the ISO 15118 standard, the newly added features are:\n\n- Plug & Charge\n- Smart Charging including input from the EV",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.5. Support for ISO 15118",
+      "heading_path": "2.5. Support for ISO 15118"
+    }
+  },
+  {
+    "content": "# 2.7.2. No SOAP Support\n\nOCPP 2.0.1 no longer supports SOAP as a transport protocol. This decision was taken by the OCA members, who believe that the protocol does no longer lend itself for constrained computing resources that many Charging Stations operate under. The verbosity of the protocol could lead to slower performance and requires a higher bandwidth, which, in many cases, leads to higher cellular costs. SOAP is also difficult to support when communication is via local site networking.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.7.2. No SOAP Support",
+      "heading_path": "2.7.2. No SOAP Support"
+    }
+  },
+  {
+    "content": "# 2.8.1. Renamed messages\n\nIn the OCPP 1.x series, the names of all messages were kept unchanged for backward compatibility, even though some message names were found to be confusing or misleading in practice. In OCPP 2.0.1 message names have been changed, where appropriate, to improve clarity and understanding.\n\nExample: RemoteStartTransaction.req: a lot of implementers thought it meant the Charging Station should start the transaction, but in fact it is a request to try to start a transaction. However, for example, if no cable is plugged in, no transaction can be started. Since the message was always intended to be a request, it has been changed to a more logical name: RequestStartTransactionRequest.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.8.1. Renamed messages",
+      "heading_path": "2.8.1. Renamed messages",
+      "message_refs": "RequestStartTransactionRequest"
+    }
+  },
+  {
+    "content": "# 2.8.5. Personal message\n\nMessage that can be shown to the EV Driver and can be used for tariff information, user greetings and for indicating why a driver is not authorized to charge. When a driver uses an authorization method (RFID for example) and the CSMS does not authorize the driver to start charging, this field can thus contain additional reasons to provide the driver with a meaningful explanation why (s)he is not allowed to charge.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "2.8.5. Personal message",
+      "heading_path": "2.8.5. Personal message"
+    }
+  },
+  {
+    "content": "# 3.1. Overview of Specification Parts\n\nThe overall structure of the standard has been improved, making the new specification easier to read, implement and test.\n\nFor readability and implementation purposes, OCPP 2.0.1 is divided in seven parts.\n\n| Part 0 | Introduction (this document)                                                             |\n| ------ | ---------------------------------------------------------------------------------------- |\n| Part 1 | Architecture & Topology                                                                  |\n| Part 2 | Specification:                                                                           |\n|        | Use Cases and Requirements, Messages, Data Types and Referenced Components and Variables |\n|        | Appendices:                                                                              |\n|        | Security Events, Standardized Units of Measure, Components and Variables                 |\n| Part 3 | Schemas                                                                                  |\n| Part 4 | Implementation Guide JSON                                                                |\n| Part 5 | Certification Profiles                                                                   |\n| Part 6 | Test Cases                                                                               |\n\nIn contrast to OCPP 1.6 [OCPP1.6], the OCPP 2.0.1 specification is written in a different structure, based on [IEC62559-2:2015]: \"Use case methodology - Part 2: Definition of the template for use cases, actor list and requirements list\".\n\nPart 2, the specification, is divided into 'Functional Blocks'. These Functional Blocks contain use cases and requirements. Messages, Data Types and Referenced Components and Variables are described at the end of the document. The Appendices can be found in the separate document: Part 2 - Appendices.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.1. Overview of Specification Parts",
+      "heading_path": "3.1. Overview of Specification Parts"
+    }
+  },
+  {
+    "content": "# 3.2. Functional Blocks\n\nOCPP 2.0.1 consists of the following Functional Blocks.\n\n| Clause | Functional Block Title              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| ------ | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| A.     | Security                            | This Functional Block describes a security specification for the OCPP protocol.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| B.     | Provisioning                        | This Functional Block describes all the functionalities that help a CSO provision their Charging Stations, allowing them to be registered and accepted on their network and retrieving basic configuration information from these Charging Stations.                                                                                                                                                                                                                                                                                               |\n| C.     | Authorization                       | This Functional Block describes all the authorization related functionality: AuthorizeRequest message handling/behavior and Authorization Cache functionality.                                                                                                                                                                                                                                                                                                                                                                                     |\n| D.     | Local Authorization List Management | This Functional Block describes functionality for managing the Local Authorization List.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| E.     | Transactions                        | This Functional Block describes the basic OCPP Transaction related functionality for transactions that are started/stopped on the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.2. Functional Blocks",
+      "heading_path": "3.2. Functional Blocks",
+      "message_refs": "AuthorizeRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| F.     | Remote Control                      | This Functional Block describes three types of use cases for remote control management from the CSMS: Remote Transaction Control, Unlocking a Connector and Remote Trigger.                                                                                                                                                                                                                                                                                                                                                                        |\n| G.     | Availability                        | This functional Block describes the functionality of sending status notification messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| H.     | Reservation                         | This Functional Block describes the reservation functionality of a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| I.     | Tariff and Cost                     | This Functional Block provides tariff and cost information to an EV Driver, when a Charging Station is capable of showing this on a display. Before a driver starts charging tariff information needs to be given, detailed prices for all the components that make up the tariff plan applicable to this driver at this Charging Station. During charging the EV Driver needs to be shown the running total cost, updated at a regular, fitting interval. When the EV Driver stops charging the total cost of this transaction needs to be shown. |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.2. Functional Blocks",
+      "heading_path": "3.2. Functional Blocks",
+      "message_refs": "AuthorizeRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| J.     | Metering                            | This Functional Block describes the functionality for sending meter values, on a periodic sampling and/or clock-aligned timing basis.                                                                                                                                                                                                                                                                                                                                                                                                              |\n| K.     | Smart Charging                      | This Functional Block describes all the functionality that enables the CSO (or indirectly a third party) to influence the charging current/power of a charging session, or set limits to the amount of power/current a Charging Station can offer to an EV.                                                                                                                                                                                                                                                                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.2. Functional Blocks",
+      "heading_path": "3.2. Functional Blocks",
+      "message_refs": "AuthorizeRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# 3.3. All Functional Blocks and use cases\n\nThe following table shows the full list of use cases supported by OCPP 2.0.1 and which use cases were already supported by OCPP 1.6 [OCPP1.6].\n\n| Clause | Functional Block       | UC ID | Use case name                                                             | OCPP 1.6 | New in OCPP 2.0.1 |\n| ------ | ---------------------- | ----- | ------------------------------------------------------------------------- | -------- | ----------------- |\n| A      | Security               | A01   | Update Charging Station Password for HTTP Basic Authentication            | o        |                   |\n| A      | Security               | A02   | Update Charging Station Certificate by request of CSMS                    | o        |                   |\n| A      | Security               | A03   | Update Charging Station Certificate initiated by the Charging Station     | o        |                   |\n| A      | Security               | A04   | Security Event Notification                                               | o        |                   |\n| B      | Provisioning           | B01   | Cold Boot Charging Station                                                | o        |                   |\n| B      | Provisioning           | B02   | Cold Boot Charging Station - Pending                                      | o        |                   |\n| B      | Provisioning           | B03   | Cold Boot Charging Station - Rejected                                     | o        |                   |\n| B      | Provisioning           | B04   | Offline Behavior Idle Charging Station                                    | o        |                   |\n| B      | Provisioning           | B05   | Set Variables                                                             | o        |                   |\n| B      | Provisioning           | B06   | Get Variables                                                             | o        |                   |\n| B      | Provisioning           | B07   | Get Base Report                                                           | o        |                   |\n| B      | Provisioning           | B08   | Get Custom Report                                                         | o        |                   |\n| B      | Provisioning           | B09   | Setting a new NetworkConnectionProfile                                    | o        |                   |\n| B      | Provisioning           | B10   | Migrate to new CSMS                                                       | o        |                   |\n| B      | Provisioning           | B11   | Reset - Without Ongoing Transaction                                       | o        |                   |\n| B      | Provisioning           | B12   | Reset - With Ongoing Transaction                                          | o        |                   |\n| C      | Authorization          | C01   | EV Driver Authorization using RFID                                        | o        |                   |\n| C      | Authorization          | C02   | Authorization using a start button                                        | o        |                   |\n| C      | Authorization          | C03   | Authorization using credit/debit card                                     | o        |                   |\n| C      | Authorization          | C04   | Authorization using PIN-code                                              | o        |                   |\n| C      | Authorization          | C05   | Authorization for CSMS initiated transactions                             | o        |                   |\n| C      | Authorization          | C06   | Authorization using local id type                                         | o        |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.3. All Functional Blocks and use cases",
+      "heading_path": "3.3. All Functional Blocks and use cases",
+      "use_case_refs": "A01, A02, A03, A04, B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, C14, C15, C16, D01, D02, E01, E02, E03, E04",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| C      | Authorization          | C07   | Authorization using Contract Certificates                                 | o        |                   |\n| C      | Authorization          | C08   | Authorization at EVSE using ISO 15118 External Identification Means (EIM) | o        |                   |\n| C      | Authorization          | C09   | Authorization by GroupId                                                  | o        |                   |\n| C      | Authorization          | C10   | Store Authorization Data in the Authorization Cache                       | o        |                   |\n| C      | Authorization          | C11   | Clear Authorization Data in Authorization Cache                           | o        |                   |\n| C      | Authorization          | C12   | Start Transaction - Cached Id                                             | o        |                   |\n| C      | Authorization          | C13   | Offline Authorization through Local Authorization List                    | o        |                   |\n| C      | Authorization          | C14   | Online Authorization through Local Authorization List                     | o        |                   |\n| C      | Authorization          | C15   | Offline Authorization of unknown Id                                       | o        |                   |\n| C      | Authorization          | C16   | Stop Transaction with a Master Pass                                       | o        |                   |\n| D      | LocalAuthorizationList | D01   | Send Local Authorization List                                             | o        |                   |\n| D      | LocalAuthorizationList | D02   | Get Local List Version                                                    | o        |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.3. All Functional Blocks and use cases",
+      "heading_path": "3.3. All Functional Blocks and use cases",
+      "use_case_refs": "A01, A02, A03, A04, B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, C14, C15, C16, D01, D02, E01, E02, E03, E04",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| E      | Transactions           | E01   | Start Transaction Options                                                 | o        |                   |\n| E      | Transactions           | E02   | Start Transaction - Cable Plugin First                                    | o        |                   |\n| E      | Transactions           | E03   | Start Transaction - IdToken First                                         | o        |                   |\n| E      | Transactions           | E04   | Transaction started while Charging Station is offline                     |          |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "3.3. All Functional Blocks and use cases",
+      "heading_path": "3.3. All Functional Blocks and use cases",
+      "use_case_refs": "A01, A02, A03, A04, B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, C14, C15, C16, D01, D02, E01, E02, E03, E04",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# Part 0 - Introduction\n\n| Clause | Functional Block                                        | UC ID | Use case name                                     | OCPP 1.6 | New in OCPP 2.0.1 |\n| ------ | ------------------------------------------------------- | ----- | ------------------------------------------------- | -------- | ----------------- |\n| E      | Transaction                                             | E05   | Start Transaction - Id not Accepted               | o        |                   |\n| E06    | Stop Transaction Options                                | o     |                                                   |          |                   |\n| E07    | Transaction locally stopped by IdToken                  | o     |                                                   |          |                   |\n| E08    | Transaction stopped while Charging Station is offline   | o     |                                                   |          |                   |\n| E09    | When cable disconnected on EV-side: Stop Transaction    | o     |                                                   |          |                   |\n| E10    | When cable disconnected on EV-side: Suspend Transaction | o     |                                                   |          |                   |\n| E11    | Connection Loss During Transaction                      | o     |                                                   |          |                   |\n| E12    | Inform CSMS of an Offline Occurred Transaction          | o     |                                                   |          |                   |\n| E13    | Transaction related message not accepted by CSMS        | o     |                                                   |          |                   |\n| E14    | Check transaction status                                | o     |                                                   |          |                   |\n| E15    | End of charging process                                 | o     |                                                   |          |                   |\n| F      | RemoteControl                                           | F01   | Remote Start Transaction - Cable Plugin First     | o        |                   |\n| F02    | Remote Start Transaction - Remote Start First           | o     |                                                   |          |                   |\n| F03    | Remote Stop Transaction                                 | o     |                                                   |          |                   |\n| F04    | Remote Stop ISO 15118 charging from CSMS                | o     |                                                   |          |                   |\n| F05    | Remotely Unlock Connector                               | o     |                                                   |          |                   |\n| F06    | Trigger Message                                         | o     |                                                   |          |                   |\n| G      | Availability                                            | G01   | Status Notification                               | o        |                   |\n| G02    | Heartbeat                                               | o     |                                                   |          |                   |\n| G03    | Change Availability EVSE                                | o     |                                                   |          |                   |\n| G04    | Change Availability Charging Station                    | o     |                                                   |          |                   |\n| G05    | Lock Failure                                            | o     |                                                   |          |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 0 - Introduction",
+      "heading_path": "Part 0 - Introduction",
+      "use_case_refs": "E05, E06, E07, E08, E09, E10, E11, E12, E13, E14, E15, F01, F02, F03, F04, F05, F06, G01, G02, G03, G04, G05, H01, H02, H03, H04, I01, I02, I03, I04, I05, I06, J01, J02, J03, K01, K02, K03, K04, K05, K06, K07, K08",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| H      | Reservation                                             | H01   | Reservation                                       | o        |                   |\n| H02    | Cancel Reservation                                      | o     |                                                   |          |                   |\n| H03    | Use a reserved EVSE                                     | o     |                                                   |          |                   |\n| H04    | Reservation Ended, not used                             | o     |                                                   |          |                   |\n| I      | Tariff and Costs                                        | I01   | Show EV Driver-specific tariff information        | o        |                   |\n| I02    | Show EV Driver running total cost during charging       | o     |                                                   |          |                   |\n| I03    | Show EV Driver final total cost after charging          | o     |                                                   |          |                   |\n| I04    | Show fallback tariff information                        | o     |                                                   |          |                   |\n| I05    | Show fallback total cost message                        | o     |                                                   |          |                   |\n| I06    | Update Tariff Information During Transaction            | o     |                                                   |          |                   |\n| J      | Metering                                                | J01   | Sending Meter Values not related to a transaction | o        |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 0 - Introduction",
+      "heading_path": "Part 0 - Introduction",
+      "use_case_refs": "E05, E06, E07, E08, E09, E10, E11, E12, E13, E14, E15, F01, F02, F03, F04, F05, F06, G01, G02, G03, G04, G05, H01, H02, H03, H04, I01, I02, I03, I04, I05, I06, J01, J02, J03, K01, K02, K03, K04, K05, K06, K07, K08",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| J02    | Sending transaction related Meter Values                | o     |                                                   |          |                   |\n| J03    | Charging Loop with metering information exchange        | o     |                                                   |          |                   |\n| K      | SmartCharging                                           | K01   | Set Charging Profile                              | o        |                   |\n| K02    | Central Smart Charging                                  | o     |                                                   |          |                   |\n| K03    | Local Smart Charging                                    | o     |                                                   |          |                   |\n| K04    | Internal Load Balancing                                 | o     |                                                   |          |                   |\n| K05    | Remote Start Transaction with Charging Profile          | o     |                                                   |          |                   |\n| K06    | Offline Behavior Smart Charging During Transaction      | o     |                                                   |          |                   |\n| K07    | Offline Behavior Smart Charging at Start of Transaction | o     |                                                   |          |                   |\n| K08    | Get Composite Schedule                                  | o     |                                                   |          |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 0 - Introduction",
+      "heading_path": "Part 0 - Introduction",
+      "use_case_refs": "E05, E06, E07, E08, E09, E10, E11, E12, E13, E14, E15, F01, F02, F03, F04, F05, F06, G01, G02, G03, G04, G05, H01, H02, H03, H04, I01, I02, I03, I04, I05, I06, J01, J02, J03, K01, K02, K03, K04, K05, K06, K07, K08",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# Part 0 - Introduction\n\n| Clause | Functional Block                                                 | UC ID | Use case name                         | OCPP 1.6 | New in OCPP 2.0.1 |\n| ------ | ---------------------------------------------------------------- | ----- | ------------------------------------- | -------- | ----------------- |\n| K      | Charging Profiles                                                | K09   | Get Charging Profiles                 | o        |                   |\n| K10    | Clear Charging Profile                                           | o     |                                       |          |                   |\n| K11    | Set / Update External Charging Limit With Ongoing Transaction    | o     |                                       |          |                   |\n| K12    | Set / Update External Charging Limit Without Ongoing Transaction | o     |                                       |          |                   |\n| K13    | Reset / release external charging limit                          | o     |                                       |          |                   |\n| K14    | External Charging Limit with Local Controller                    | o     |                                       |          |                   |\n| K15    | Charging with load leveling based on High Level Communication    | o     |                                       |          |                   |\n| K16    | Optimized charging with scheduling to the CSMS                   | o     |                                       |          |                   |\n| K17    | Renegotiating a Charging Schedule                                | o     |                                       |          |                   |\n| L      | Firmware Management                                              | L01   | Secure Firmware Update                | o        |                   |\n| L02    | Non-Secure Firmware Update                                       | o     |                                       |          |                   |\n| L03    | Publish Firmware file on Local Controller                        | o     |                                       |          |                   |\n| L04    | Unpublish Firmware file on Local Controller                      | o     |                                       |          |                   |\n| M      | Certificate Management                                           | M01   | Certificate Installation EV           | o        |                   |\n| M02    | Certificate Update EV                                            | o     |                                       |          |                   |\n| M03    | Retrieve list of available certificates from a Charging Station  | o     |                                       |          |                   |\n| M04    | Delete a specific certificate from a Charging Station            | o     |                                       |          |                   |\n| M05    | Install CA certificate in a Charging Station                     | o     |                                       |          |                   |\n| M06    | Get Charging Station Certificate status                          | o     |                                       |          |                   |\n| N      | Diagnostics                                                      | N01   | Retrieve Log Information              | o        |                   |\n| N02    | Get Monitoring report                                            | o     |                                       |          |                   |\n| N03    | Set Monitoring Base                                              | o     |                                       |          |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 0 - Introduction",
+      "heading_path": "Part 0 - Introduction",
+      "use_case_refs": "K09, K10, K11, K12, K13, K14, K15, K16, K17, L01, L02, L03, L04, M01, M02, M03, M04, M05, M06, N01, N02, N03, N04, N05, N06, N07, N08, N09, N10, O01, O02, O03, O04, O05, O06, P01, P02",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N04    | Set Variable Monitoring                                          | o     |                                       |          |                   |\n| N05    | Set Monitoring Level                                             | o     |                                       |          |                   |\n| N06    | Clear / Remove Monitoring                                        | o     |                                       |          |                   |\n| N07    | Alert Event                                                      | o     |                                       |          |                   |\n| N08    | Periodic Event                                                   | o     |                                       |          |                   |\n| N09    | Get Customer Information                                         | o     |                                       |          |                   |\n| N10    | Clear Customer Information                                       | o     |                                       |          |                   |\n| O      | Display Message                                                  | O01   | Set DisplayMessage                    | o        |                   |\n| O02    | Set DisplayMessage for Transaction                               | o     |                                       |          |                   |\n| O03    | Get All DisplayMessages                                          | o     |                                       |          |                   |\n| O04    | Get Specific DisplayMessages                                     | o     |                                       |          |                   |\n| O05    | Clear a DisplayMessage                                           | o     |                                       |          |                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 0 - Introduction",
+      "heading_path": "Part 0 - Introduction",
+      "use_case_refs": "K09, K10, K11, K12, K13, K14, K15, K16, K17, L01, L02, L03, L04, M01, M02, M03, M04, M05, M06, N01, N02, N03, N04, N05, N06, N07, N08, N09, N10, O01, O02, O03, O04, O05, O06, P01, P02",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| O06    | Replace DisplayMessage                                           | o     |                                       |          |                   |\n| P      | DataTransfer                                                     | P01   | Data Transfer to the Charging Station | o        |                   |\n| P02    | Data Transfer to the CSMS                                        | o     |                                       |          |                   |\n\nOCPP is used in many different regions and for many different charging solutions. Not all functionalities offered by OCPP will be applicable to all implementations. Implementers can decide what specific functionalities apply to their charging solution.\n\nFor interoperability purposes, the Open Charge Alliance introduces Certification Profiles in Part 5 of the specification.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Part 0 - Introduction",
+      "heading_path": "Part 0 - Introduction",
+      "use_case_refs": "K09, K10, K11, K12, K13, K14, K15, K16, K17, L01, L02, L03, L04, M01, M02, M03, M04, M05, M06, N01, N02, N03, N04, N05, N06, N07, N08, N09, N10, O01, O02, O03, O04, O05, O06, P01, P02",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# Chapter 4. Basic implementation of OCPP 2.0.1\n\nThis section is informative.\n\nThe OCPP protocol describes a large number of use cases and messages, which are not all needed to implement a basic Charging Station or CSMS. The table below lists messages that are typically implemented to deliver basic functionality for an OCPP managed Charging Station. The purpose of this list is to guide developers that are new to OCPP.\n\nPlease note: this table does not define what needs to be done to become OCPP 2.0.1 \"certified\". The functionality that is to be implemented to become OCPP 2.0.1 certified is described in Part 5 of the specification, \"Certification Profiles\".\n\n| Functionality                            | Use cases                                                                              | Messages                                                                                                                                                                                                                          |\n| ---------------------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Booting a Charging Station               | B01-B04                                                                                | BootNotification                                                                                                                                                                                                                  |\n| Configuring a Charging Station           | B05-B07                                                                                | SetVariables, GetVariables and GetReportBase (respond correctly to requests with reportBase = ConfigurationInventory, FullInventory and SummaryInventory).                                                                        |\n| Resetting a Charging Station             | B11-B12                                                                                | Reset                                                                                                                                                                                                                             |\n| Authorization options                    | One of C01, C02 and C04                                                                | Authorize                                                                                                                                                                                                                         |\n| Transaction mechanism                    | E01 (one of S1-S6), E02-E03, E05, E06 (one of S1-S6), E07-E08, One of E09-E10, E11-E13 | TransactionEvent                                                                                                                                                                                                                  |\n| Availability                             | G01, G03-G04                                                                           | Only ChangeAvailability and StatusNotification.                                                                                                                                                                                   |\n| Monitoring Events                        | G05, N07                                                                               | A basic implementation of the NotifyEvent message to be used to report operational state changes and problem/error conditions of the Charging Station, e.g. for Lock Failure. Also used for reporting built-in monitoring events. |",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 4. Basic implementation of OCPP 2.0.1",
+      "heading_path": "Chapter 4. Basic implementation of OCPP 2.0.1",
+      "use_case_refs": "B01, B04, B05, B07, B11, B12, C01, C02, C04, E01, E02, E03, E05, E06, E07, E08, E09, E10, E11, E13, G01, G03, G04, G05, J02, N07, P01, P02",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| Sending transaction related Meter values | J02                                                                                    | TransactionEvent                                                                                                                                                                                                                  |\n| DataTransfer                             | P01-P02                                                                                | Any OCPP implementations should at least be able to reject any request for DataTransfer if no (special) functionality is implemented.                                                                                             |\n\nNOTE Please also refer to the section on Minimum Device Model in part 1.",
+    "metadata": {
+      "doc_id": "ocpp201_part0",
+      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
+      "ocpp_version": "2.0.1",
+      "content_type": "general",
+      "heading": "Chapter 4. Basic implementation of OCPP 2.0.1",
+      "heading_path": "Chapter 4. Basic implementation of OCPP 2.0.1",
+      "use_case_refs": "B01, B04, B05, B07, B11, B12, C01, C02, C04, E01, E02, E03, E05, E06, E07, E08, E09, E10, E11, E13, G01, G03, G04, G05, J02, N07, P01, P02",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  }
+]

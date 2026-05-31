@@ -1,0 +1,114 @@
+{
+  "use_case_id": "E02",
+  "functional_block": "Transactions",
+  "use_case_name": "Start Transaction - Cable Plugin First",
+  "chunks": [
+    {
+      "content": "# E02 - Start Transaction - Cable Plugin First\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| --- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Start Transaction - Cable Plugin First                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID                      | E02                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E02 - Start Transaction - Cable Plugin First",
+        "heading_path": "E02 - Start Transaction - Cable Plugin First",
+        "functional_block": "Transactions",
+        "use_case_id": "E02",
+        "use_case_name": "Start Transaction - Cable Plugin First",
+        "use_case_refs": "E02, E03, E04, E05, E12",
+        "message_refs": "StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 1,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 3   | Objective(s)            | To inform the CSMS that a transaction at the Charging Station has started.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 4   | Description             | The EV Driver begins the interaction with the Charging Station by plugging in the charging cable first. The CSMS is notified about this. Then, when the communication between EV and EVSE is established, the transaction is started and the CSMS is notified of this. The EV starts charging.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E02 - Start Transaction - Cable Plugin First",
+        "heading_path": "E02 - Start Transaction - Cable Plugin First",
+        "functional_block": "Transactions",
+        "use_case_id": "E02",
+        "use_case_name": "Start Transaction - Cable Plugin First",
+        "use_case_refs": "E02, E03, E04, E05, E12",
+        "message_refs": "StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 2,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "|     | Actors                  | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n|     | Scenario description    | 1. The EV Driver plugs in the cable at the Charging Station. 2. The Charging Station sends a StatusNotificationRequest to the CSMS to inform it about a Connector that became Occupied. 3. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started (even when the driver is not yet known.) 4. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received. 5. The EV Driver is authorized by the Charging Station and/or CSMS. 6. The energy offer starts. 7. The Charging Station sends a TransactionEventRequest (eventType = Updated) with the authorized idToken information to the CSMS to inform about the charging status and which idToken belongs to the transaction. 8. The CSMS responds with a TransactionEventResponse to the Charging Station with the IdTokenInfo.status Accepted. 9. During the charging process, the Charging Stations continues to send TransactionEventRequest (Updated) messages for transaction-related notifications. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E02 - Start Transaction - Cable Plugin First",
+        "heading_path": "E02 - Start Transaction - Cable Plugin First",
+        "functional_block": "Transactions",
+        "use_case_id": "E02",
+        "use_case_name": "Start Transaction - Cable Plugin First",
+        "use_case_refs": "E02, E03, E04, E05, E12",
+        "message_refs": "StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 3,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "|     | Alternative scenario(s) | E03 - Start Transaction - IdToken First E04 - Offline Start Transaction E05 - Start Transaction - Id not Accepted                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 5   | Prerequisite(s)         | The Charging Cable is plugged in first.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E02 - Start Transaction - Cable Plugin First",
+        "heading_path": "E02 - Start Transaction - Cable Plugin First",
+        "functional_block": "Transactions",
+        "use_case_id": "E02",
+        "use_case_name": "Start Transaction - Cable Plugin First",
+        "use_case_refs": "E02, E03, E04, E05, E12",
+        "message_refs": "StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 4,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s)        | Successful postcondition: The transaction is ongoing and the CSMS is Successfully informed. Failure postcondition: The transaction is not ongoing. or The CSMS is not informed. or Start Transaction - Id not accepted.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 7   | Error handling          | Failing to respond with TransactionEventResponse will only cause the Charging Station to try the same message again as specified in E12 - Transaction-related message not accepted by CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E02 - Start Transaction - Cable Plugin First",
+        "heading_path": "E02 - Start Transaction - Cable Plugin First",
+        "functional_block": "Transactions",
+        "use_case_id": "E02",
+        "use_case_name": "Start Transaction - Cable Plugin First",
+        "use_case_refs": "E02, E03, E04, E05, E12",
+        "message_refs": "StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 5,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# E02 - Start Transaction - Cable Plugin First - Requirements\n\n| ID        | Precondition                                                     | Requirement definition                                                                                | Note                                                                                                                                                                                                                                                               |\n| --------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| E02.FR.01 | After the EV Driver is authorized for this transaction.          | The next TransactionEventRequest SHALL contain triggerReason: Authorized AND IdTokenType information. |                                                                                                                                                                                                                                                                    |\n| E02.FR.02 | E02.FR.01                                                        | The CSMS SHALL send a TransactionEventResponse that includes an authorization status value.           |                                                                                                                                                                                                                                                                    |\n| E02.FR.03 | This transaction ends a reservation.                             | The next TransactionEventRequest SHALL contain the reservationId.                                     | See H. Reservation. (Same as E01.FR.13)                                                                                                                                                                                                                            |\n| E02.FR.04 |                                                                  | The CSMS SHALL verify the validity of the identifier in TransactionEventRequest.                      | Because the identifier might have been authorized locally by the Charging Station using outdated information.                                                                                                                                                      |\n| E02.FR.05 | When a cable is plugged in                                       | The Charging Station SHALL send a StatusNotificationRequest with status: Occupied                     | Alternatively, a NotifyEventRequest message for component(name = 'Connector', evse.id = \\<x>, evse.connectorId = \\<y>), variable(name = 'AvailabilityState'), and actualValue = 'Occupied' MAY be sent to signal that Connector \\<y> of EVSE \\<x> is now occupied. |\n| E02.FR.06 | When a cable is plugged in AND TxStartPoint contains EVConnected | The Charging Station SHALL send a TransactionEventRequest.                                            |                                                                                                                                                                                                                                                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E02 - Start Transaction - Cable Plugin First - Requirements",
+        "heading_path": "E02 - Start Transaction - Cable Plugin First - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E02",
+        "use_case_name": "Start Transaction - Cable Plugin First",
+        "use_case_refs": "E01, E02",
+        "message_refs": "NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest, TransactionEventResponse"
+      }
+    }
+  ],
+  "figures": []
+}

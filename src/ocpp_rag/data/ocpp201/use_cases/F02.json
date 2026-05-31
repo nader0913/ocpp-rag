@@ -1,0 +1,53 @@
+{
+  "use_case_id": "F02",
+  "functional_block": "RemoteControl",
+  "use_case_name": "Remote Start Transaction - Remote Start First",
+  "chunks": [
+    {
+      "content": "# F02 - Remote Start Transaction - Remote Start First\n\n| No. | Type            | Description                                         |\n| --- | --------------- | --------------------------------------------------- |\n| 1   | Name            | Remote Start Transaction - Remote Start first       |\n| 2   | ID              | F02                                                 |\n|     | Parent use case | F01 - Remote Start Transaction - Cable Plugin First |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F02 - Remote Start Transaction - Remote Start First",
+        "heading_path": "F02 - Remote Start Transaction - Remote Start First",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F02",
+        "use_case_name": "Remote Start Transaction - Remote Start First",
+        "use_case_refs": "F01, F02"
+      }
+    },
+    {
+      "content": "# Requirement definition\n\nThe Charging Station SHALL put the remoteStartId in the first TransactionEventRequest it sends for this new transaction.\n\nThe Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Started) sent to the CSMS to provide more details at the start of the transaction.\n\nThe Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Updated) sent to the CSMS to provide more details during updates of the transaction.\n\nThe Charging Station MAY split meter data over multiple TransactionEventRequest(eventType = Updated) messages with the same timestamp.\n\nThe next TransactionEventRequest SHALL contain IdTokenType information.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Requirement definition",
+        "heading_path": "Requirement definition",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F02",
+        "message_refs": "TransactionEventRequest"
+      }
+    },
+    {
+      "content": "# F02 - Remote Start Transaction - Remote Start First - Requirements\n\n| ID        | Precondition                                                                                                               |\n| --------- | -------------------------------------------------------------------------------------------------------------------------- |\n| F02.FR.01 | When a transaction is started as a result of a RequestStartTransactionRequest.                                             |\n| F02.FR.02 | When configured to send meter data in the TransactionEventRequest (eventType = Started), See: Meter Values - Configuration |\n| F02.FR.03 | When configured to send meter data in the TransactionEventRequest (eventType = Updated), See: Meter Values - Configuration |\n| F02.FR.04 | F02.FR.03 AND Amount of meter data is too much for 1 TransactionEventRequest (eventType = Updated)                         |\n| F02.FR.05 | When the IdToken information is known.                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F02 - Remote Start Transaction - Remote Start First - Requirements",
+        "heading_path": "F02 - Remote Start Transaction - Remote Start First - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F02",
+        "use_case_name": "Remote Start Transaction - Remote Start First",
+        "use_case_refs": "F02",
+        "message_refs": "RequestStartTransactionRequest, TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

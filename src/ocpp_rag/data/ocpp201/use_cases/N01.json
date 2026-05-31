@@ -1,0 +1,140 @@
+{
+  "use_case_id": "N01",
+  "functional_block": "Diagnostics",
+  "use_case_name": "Retrieve Log Information",
+  "chunks": [
+    {
+      "content": "# N01 - Retrieve Log Information\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Retrieve Log                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 2   | ID                   | N01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s)         | To enable the CSMS retrieving of log information from a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N01 - Retrieve Log Information",
+        "heading_path": "N01 - Retrieve Log Information",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "use_case_name": "Retrieve Log Information",
+        "use_case_refs": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, LogStatusNotificationResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 4   | Description          | This use case covers the functionality of getting log information from a Charging Station. The CSMS can request a Charging Station to upload a file with log information to a given location (URL). The format of this log file is not prescribed. The Charging Station uploads a log file and gives information about the status of the upload by sending status notifications to the CSMS.                                                                                                                                                                                                                                                                                                                                                                   |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n|     | Scenario description | 1. The CSMS sends a GetLogRequest to the Charging Station. 2. The Charging Station responds with a GetLogResponse. 3. The Charging Station sends a LogStatusNotificationRequest with the status Uploading. 4. The CSMS responds with a LogStatusNotificationResponse acknowledging the status update request. 5. Uploading of the diagnostics files. 6. The Charging Station sends LogStatusNotificationRequest with the status Uploaded. 7. The CSMS responds with LogStatusNotificationResponse, acknowledging the status update request.                                                                                                                                                                                                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N01 - Retrieve Log Information",
+        "heading_path": "N01 - Retrieve Log Information",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "use_case_name": "Retrieve Log Information",
+        "use_case_refs": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, LogStatusNotificationResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)      | - Diagnostics information is available for upload. - URL to upload file to is reachable and exists.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s)     | Successful postcondition: Log file successfully uploaded. Failure postcondition: Log file not successfully uploaded and failed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 7   | Error handling       | When the upload fails and the transfer protocol supports \"resume\" the Charging Station is RECOMMENDED to try to resume before aborting the upload.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N01 - Retrieve Log Information",
+        "heading_path": "N01 - Retrieve Log Information",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "use_case_name": "Retrieve Log Information",
+        "use_case_refs": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, LogStatusNotificationResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)            | As an example in this use case the requestId = 123, but this could be any value. When a Charging Station is requested to upload a log file, the CSMS supplies in the request an URL where the Charging Station SHALL upload the file. The URL also contains the protocol which must be used to upload the file. The FTP URL is of format: ftp\\://User:password\\@host:port/path in which the parts User:password@, :password or :port may be excluded. The Charging Station has a required Configuration Variable that reports which file transfer protocols it supports: FileTransferProtocols. The format of the log file is not prescribed. FTP needs to be able to use Passive FTP, to be able to transverse over as much different typologies as possible. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N01 - Retrieve Log Information",
+        "heading_path": "N01 - Retrieve Log Information",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "use_case_name": "Retrieve Log Information",
+        "use_case_refs": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, LogStatusNotificationResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# Charging Station\n\nGetLogRequest(logType)\nGetLogResponse(fileName)\n\nUploading log file...\n\nLogStatusNotificationRequest(status = Uploading, requestId = 123)\nLogStatusNotificationResponse()\n\nUploaded log file...\n\nLogStatusNotificationRequest(status = Uploaded, requestId = 123)\nLogStatusNotificationResponse()\n\nFigure 129. Sequence Diagram: Get Diagnostics",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Charging Station",
+        "heading_path": "Charging Station",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, LogStatusNotificationResponse",
+        "figure_refs": "129"
+      }
+    },
+    {
+      "content": "# N01 - Retrieve Log Information - Requirements\n\n| ID        | Precondition                                                                                                          | Requirement definition                                                                                                                          | Note                                                                                                                                                        |\n| --------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N01.FR.01 | Upon receipt of a GetLogRequest AND if the requested log information is available                                     | The Charging Station SHALL respond with a GetLogResponse stating the name of the file and status Accepted.                                      |                                                                                                                                                             |\n| N01.FR.02 | N01.FR.01                                                                                                             | The Charging Station SHALL start uploading a single log file to the specified location                                                          |                                                                                                                                                             |\n| N01.FR.03 | N01.FR.02                                                                                                             | The Charging Station SHALL upload its security log AND The GetLogRequest contained logType SecurityLog                                          |                                                                                                                                                             |\n| N01.FR.04 | N01.FR.02                                                                                                             | The Charging Station SHALL upload its diagnostics. AND The GetLogRequest contained logType DiagnosticsLog                                       |                                                                                                                                                             |\n| N01.FR.05 | Upon receipt of a GetLogRequest AND if the requested log information is NOT available                                 | The Charging Station SHALL respond with a GetLogResponse WITH status Rejected.                                                                  |                                                                                                                                                             |\n| N01.FR.07 |                                                                                                                       | Every LogStatusNotificationRequest sent for a log upload SHALL contain the same requestId as the GetLogRequest that started this log upload.    |                                                                                                                                                             |\n| N01.FR.08 | When uploading a log document is started                                                                              | The Charging Station SHALL send a LogStatusNotificationRequest with status Uploading.                                                           |                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N01 - Retrieve Log Information - Requirements",
+        "heading_path": "N01 - Retrieve Log Information - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "use_case_name": "Retrieve Log Information",
+        "use_case_refs": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| N01.FR.09 | When a log document is uploaded successfully                                                                          | The Charging Station SHALL send a LogStatusNotificationRequest with status Uploaded.                                                            |                                                                                                                                                             |\n| N01.FR.10 | When uploading a log document failed                                                                                  | The Charging Station SHALL send a LogStatusNotificationRequest with status UploadFailure, BadMessage, PermissionDenied OR NotSupportedOperation | It is RECOMMENDED to send the status only after all retry attempts have failed. A Charging Station MAY send a new Uploading status upon each retry attempt. |\n| N01.FR.12 | When a Charging Station is assembling or uploading the log file AND the Charging Station receives a new GetLogRequest | The Charging Station SHOULD cancel the ongoing log file upload AND respond with GetLogResponse with status AcceptedCanceled.                    |                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N01 - Retrieve Log Information - Requirements",
+        "heading_path": "N01 - Retrieve Log Information - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N01",
+        "use_case_name": "Retrieve Log Information",
+        "use_case_refs": "N01",
+        "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "129",
+      "title": "Sequence Diagram: Get Diagnostics",
+      "files": [
+        "fig129_p1_Sequence_Diagram__Get_Diagnostics.png",
+        "fig129_p2_Sequence_Diagram__Get_Diagnostics.png"
+      ]
+    }
+  ]
+}

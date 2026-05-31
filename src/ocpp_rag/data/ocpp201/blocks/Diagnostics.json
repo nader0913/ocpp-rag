@@ -1,0 +1,433 @@
+[
+  {
+    "content": "# N. Diagnostics\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics"
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                      | Requirement definition                                                                                                                                                         | Note                                                                                                                                                                                                      |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N01.FR.13 | The field requestId in LogStatusNotificationRequest is mandatory, unless the message was triggered by a TriggerMessageRequest AND there is no log upload ongoing. |                                                                                                                                                                                |                                                                                                                                                                                                           |\n| N01.FR.14 | It is RECOMMENDED that Charging Station and CSMS support at least HTTP(s) as transport mechanism for the log file upload                                          |                                                                                                                                                                                | HTTP transport is most likely to be supported, since it is also used for OCPP messaging.                                                                                                                  |\n| N01.FR.15 | Charging Station SHALL at least support the CSMS trust chain for secure transports                                                                                |                                                                                                                                                                                |                                                                                                                                                                                                           |\n| N01.FR.16 | It is RECOMMENDED that Charging Station supports the usual CAs provided by the operating system                                                                   |                                                                                                                                                                                | The log file storage of CSMS may be a cloud service operated separately from the CSMS itself and not part of the CSMS trustchain.                                                                         |\n| N01.FR.17 | When CSMS requires basic authorization for the upload                                                                                                             | CSMS is RECOMMENDED to require a different basic authorization password for the upload, then the one used for OCPP connectivity.                                               | This is to avoid leaking the OCPP password to 3rd parties if the log file storage is a different system. Basic authorization can be added to the URL as follows: http\\://username:password\\@csms.org/logs |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N01",
+      "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, TriggerMessageRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N01.FR.18 | Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.                                                                 |                                                                                                                                                                                |                                                                                                                                                                                                           |\n| N01.FR.19 | When Charging Station uses a HTTP(s) POST request to upload the log file                                                                                          | Charging Station SHALL provide at least the following attributes: Content-Type: (e.g. application/octet-stream) and Content-Disposition: with a specification of the filename. | For example: Content-Type: application/octet-stream Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"logfile\\_20210420.zip\"                                                                 |\n| N01.FR.20 | N01.FR.12 AND Charging Station cancels the log file upload                                                                                                        | The Charging Station SHALL send a LogStatusNotificationRequest with status = AcceptedCanceled.                                                                                 | N01.FR.12 is a \"SHOULD\" requirement. Only send status notification when requirement is executed.                                                                                                          |\n| N01.FR.21 | N01.FR.18 AND the GetLogRequest log.remoteLocation string ends with a slash character (\"/\")                                                                       | The Charging Station SHALL append the filename that it returned in the GetLogResponse filename field to this string.                                                           |                                                                                                                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N01",
+      "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, TriggerMessageRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N01.FR.22 | N01.FR.18 AND the file to upload exceeds the threshold of 1MB (1024 \\* 1024 bytes)                                                                                | The Charging Station MAY include the \"Expect: 100-continue\" header in the HTTP PUT request.                                                                                    | This gives the server a chance to deny the request before a lot of data is sent.                                                                                                                          |\n| N01.FR.23 | N01.FR.18                                                                                                                                                         | The Charging Station MAY implement a mechanism to resume HTTP uploads, if it can identify whether the upload server supports the same mechanism.                               | At the time of this writing, no official HTTP resume mechanism existed, only vendor-specific solutions and an IETF draft, which were not aligned.                                                         |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N01",
+      "message_refs": "GetLogRequest, GetLogResponse, LogStatusNotificationRequest, TriggerMessageRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                                                    | Requirement definition                                                                                                                                                                                                                       |\n| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N02.FR.06 | N02.FR.01 AND monitoringCriteria is NOT absent AND componentVariables is absent.                                                                                                                | The set of monitors reported in one or more notifyMonitoringReportRequest messages is limited to the set defined by monitoringCriteria.                                                                                                      |\n| N02.FR.07 |                                                                                                                                                                                                 | The maximum number of componentVariables in one GetMonitoringReportRequest message is given by the ItemsPerMessageGetReport Configuration Variable.                                                                                          |\n| N02.FR.08 | N02.FR.01 AND monitoringCriteria is absent AND componentVariables is NOT absent.                                                                                                                | The set of monitors reported in one or more notifyMonitoringReportRequest messages is limited to the set defined by componentVariables.                                                                                                      |\n| N02.FR.09 |                                                                                                                                                                                                 | The sequence number contained in the seqNo field of the NotifyMonitoringReportRequest is incremental per report. So the NotifyMonitoringReportRequest message which contains the first report part, SHALL have a seqNo with value 0.         |\n| N02.FR.10 | When the Charging Station receives a GetMonitoringReportRequest with a combination of criteria which results in an empty result set.                                                            | The Charging Station SHALL respond with a GetMonitoringReportResponse(status=EmptyResultSet).                                                                                                                                                |\n| N02.FR.11 | N02.FR.01 AND monitoringCriteria is absent AND componentVariables is absent.                                                                                                                    | The set of all existing monitors is reported in one or more notifyMonitoringReportRequest messages.                                                                                                                                          |\n| N02.FR.12 | If monitoringCriteria contains ThresholdMonitoring                                                                                                                                              | All monitors with type = UpperThreshold or type = LowerThreshold are reported.                                                                                                                                                               |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N02",
+      "message_refs": "GetMonitoringReportRequest, GetMonitoringReportResponse, NotifyMonitoringReportRequest, notifyMonitoringReportRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N02.FR.13 | If monitoringCriteria contains DeltaMonitoring                                                                                                                                                  | All monitors with type = Delta, TargetDelta and TargetDeltaRelative are reported.                                                                                                                                                            |\n| N02.FR.14 | If monitoringCriteria contains PeriodicMonitoring                                                                                                                                               | All monitors with type = Periodic or type = PeriodicClockAligned are reported.                                                                                                                                                               |\n| N02.FR.16 | When Charging Station receives a GetMonitoringReportRequest with componentVariable elements in which variable is missing                                                                        | The Charging Station SHALL report for every variable of the component in componentVariable.                                                                                                                                                  |\n| N02.FR.17 | When Charging Station receives a GetMonitoringReportRequest with componentVariable elements in which variable is present, but instance is missing                                               | The Charging Station SHALL report for every instance of the variable of the component in componentVariable.                                                                                                                                  |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N02",
+      "message_refs": "GetMonitoringReportRequest, GetMonitoringReportResponse, NotifyMonitoringReportRequest, notifyMonitoringReportRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N02.FR.18 | N02.FR.11 AND When Charging Station receives a GetMonitoringReportRequest with a component in a componentVariable element that has a component.evse.id, but component.evse.connector is missing | The Charging Station SHALL report the component(s) with this component.name, component.instance and component.evse.id for every component.evse.connector, whilst taking into account N02.FR.20.                                              |\n| N02.FR.19 | N02.FR.11 AND When Charging Station receives a GetMonitoringReportRequest with a component in a componentVariable element that has no component.evse.id                                         | The Charging Station SHALL report the component(s) with this component.name, component.instance for every component.evse field (including top level component without component.evse), whilst taking into account N02.FR.20.                 |\n| N02.FR.20 | N02.FR.11 AND When Charging Station receives a GetMonitoringReportRequest with a component in a componentVariable element that has a value for component.instance                               | The Charging Station SHALL report the component(s) with this component.name for every component.instance field, whilst taking into account N02.FR.18, N02.FR.19.                                                                             |\n| N02.FR.21 | N02.FR.11 AND When Charging Station receives a GetMonitoringReportRequest with a component in a componentVariable element that has no component.instance field                                  | The Charging Station SHALL report the component(s) with this component.name for every component.instance field or the component(s) without component.instance field, whichever is the case, whilst taking into account N02.FR.18, N02.FR.19. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N02",
+      "message_refs": "GetMonitoringReportRequest, GetMonitoringReportResponse, NotifyMonitoringReportRequest, notifyMonitoringReportRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                   | Requirement definition                                                                                                                                                     |\n| --------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N03.FR.04 | N03.FR.01 AND When the Charging Station received a setMonitoringBaseRequest with monitoringBase FactoryDefault | Then the Charging Station SHALL delete all custom monitors (including overruled pre-configured monitors) and activate the pre-configured monitors of the Charging Station. |\n| N03.FR.05 | N03.FR.01 AND When the Charging Station received a setMonitoringBaseRequest with monitoringBase HardWiredOnly  | Then the Charging Station SHALL clear all custom and disable all pre-configured monitors. Only hard-wired monitors remain active.                                          |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N03",
+      "message_refs": "setMonitoringBaseRequest"
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                                                                                    | Requirement definition                                                                                                                                                                                                         | Note                                                                                                                                                                                                                                                                                                                                      |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N04.FR.03 | When the Charging Station receives a SetVariableMonitoringRequest with an unknown Component in SetMonitoringData                                                                                                                | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: UnknownComponent.                                                                                                        |                                                                                                                                                                                                                                                                                                                                           |\n| N04.FR.04 | When the Charging Station receives a SetVariableMonitoringRequest with a Variable that is unknown for the given Component in SetMonitoringData                                                                                  | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: UnknownVariable.                                                                                                         |                                                                                                                                                                                                                                                                                                                                           |\n| N04.FR.05 | When the Charging Station receives a SetVariableMonitoringRequest with a MonitorType which is not supported by the specific Variable                                                                                            | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: UnsupportedMonitorType.                                                                                                  |                                                                                                                                                                                                                                                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N04, N07",
+      "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N04.FR.06 | When the Charging Station receives a SetVariableMonitoringRequest with ( monitor type = UpperThreshold AND value < minLimit OR value > maxLimit ) OR ( monitor type = LowerThreshold AND value < minLimit OR value > maxLimit ) | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: Rejected.                                                                                                                | minLimit and maxLimit refer to the VariableCharacteristicsType for the VariableType. Be aware that setting a UpperThreshold to the maxLimit or setting a LowerThreshold to the minLimit will result in a monitor that will never trigger. More information on the reason of rejection can be provided in the optional statusInfo element. |\n| N04.FR.07 | When the Charging Station receives a SetVariableMonitoringRequest for a monitor that conflicts with safety requirements.                                                                                                        | The Charging Station MAY set the attributeStatus field in the corresponding SetMonitoringResult to: Rejected.                                                                                                                  | e.g. when the requested monitoring overrides factory set security monitoring.                                                                                                                                                                                                                                                             |\n| N04.FR.08 | When the Charging Station was able to set the given value in the SetMonitoringData                                                                                                                                              | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: Accepted.                                                                                                                | Please refer to use case N07 - Alert Event on how to handle the different monitor types.                                                                                                                                                                                                                                                  |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N04, N07",
+      "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N04.FR.09 |                                                                                                                                                                                                                                 | The maximum size and number of items of monitoringData in one SetVariableMonitoringRequest message is determined by the ItemsPerMessageSetVariableMonitoring and BytesPerMessageSetVariableMonitoring Configuration Variables. |                                                                                                                                                                                                                                                                                                                                           |\n| N04.FR.10 | When the Charging Station receives a SetVariableMonitoringRequest for a component/variable combination for which a monitor with the same type and severity already exists with a different id.                                  | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: Duplicate.                                                                                                               | There cannot be two monitors of the same type with the same severity on the same variable. E.g. when a component/variable has a monitor with an UpperThreshold at value \"67\" and severity \"4-Error\", then there cannot be another UpperThreshold at value \"78\" with same severity \"4-Error\" defined.                                      |\n| N04.FR.11 | When the Charging Station receives a SetVariableMonitoringRequest without an Id AND N04.FR.08                                                                                                                                   | The Charging Station will generate an Id and return it in the SetVariableMonitoringResponse.                                                                                                                                   |                                                                                                                                                                                                                                                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N04, N07",
+      "message_refs": "SetVariableMonitoringRequest, SetVariableMonitoringResponse",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                                                                                | Requirement definition                                                                                           | Note                                                                                                                                                 |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N04.FR.12 | When the Charging Station receives a SetVariableMonitoringRequest with an Id AND A monitor exists matching the given Id AND The given Component/Variable combination corresponds with the existing VariableMonitor.         | The Charging Station SHALL replace the monitor.                                                                  |                                                                                                                                                      |\n| N04.FR.13 | When the Charging Station receives a SetVariableMonitoringRequest with an Id AND No monitor exists matching the given Id.                                                                                                   | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: Rejected.  |                                                                                                                                                      |\n| N04.FR.14 | When the Charging Station receives a SetVariableMonitoringRequest with type Delta and value contains a negative value.                                                                                                      | The Charging Station SHALL set the attributeStatus field in the corresponding SetMonitoringResult to: Rejected.  | More information can be provided in the optional statusInfo element.                                                                                 |\n| N04.FR.15 | N04.FR.12 AND The replaced VariableMonitor belonged to the 'PreconfiguredMonitors'.                                                                                                                                         | The new VariableMonitor shall be classified as a 'CustomMonitor', until reset by a SetMonitoringBaseRequest.     |                                                                                                                                                      |\n| N04.FR.16 | When the Charging Station receives a SetVariableMonitoringRequest with an Id AND a monitor exists matching the given Id AND the given Component/Variable combination does NOT correspond with the existing VariableMonitor. | The Charging Station SHALL respond with Rejected AND NOT replace the VariableMonitor.                            | It is not allowed to change Variable or Component of a monitor.                                                                                      |\n| N04.FR.17 | When the CSMS sends a SetVariableMonitoringRequest with type Delta for a Variable that is NOT of a numeric type.                                                                                                            | It is RECOMMENDED to use a value of 1.                                                                           | value is irrelevant for non-numeric types (e.g. any type except decimal or integer), since the monitor is triggered by every change of the Variable. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N04",
+      "message_refs": "GetMonitoringReportRequest, SetMonitoringBaseRequest, SetVariableMonitoringRequest",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| N04.FR.18 | N04.FR.12 AND The id in the SetVariableMonitoringRequest refers to a HardWiredMonitor.                                                                                                                                      | The Charging Station SHALL respond with Rejected AND NOT replace the VariableMonitor.                            | It is not possible to change a hardwired monitor.                                                                                                    |\n| N04.FR.19 | The Charging Station has rebooted.                                                                                                                                                                                          | The CSMS IS RECOMMENDED to send a GetMonitoringReportRequest message to get a new list of monitors.              | Custom monitors are persistent after reboot or firmware update, but IDs may have changed.                                                            |\n| N04.FR.20 | When the Charging Station receives a SetVariableMonitoringRequest with type Delta and the value is zero.                                                                                                                    | The Charging Station SHOULD set the attributeStatus field in the corresponding SetMonitoringResult to: Rejected. | N04.FR.14 describes rejecting the negative value. This requirement allows the Charging Station to also reject the value zero.                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N04",
+      "message_refs": "GetMonitoringReportRequest, SetMonitoringBaseRequest, SetVariableMonitoringRequest",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                        |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 4   | Description          | It may be desirable to restrict the reporting of monitoring events, to only those monitors with a severity number lower than or equal to a certain severity. For example when the data-traffic between Charging Station and CSMS needs to limited for some reason. The CSMS can control which events it will to be notified of by the Charging Station with the SetMonitoringLevelRequest message. |\n|     | Actors               | Charging Station, CSMS, CSO                                                                                                                                                                                                                                                                                                                                                                        |\n|     | Scenario description | 1. The CSO triggers the CSMS to request a Charging Station to restrict the reporting of monitoring events, by setting a severity level limit. 2. The CSMS sends a SetMonitoringLevelRequest to the Charging Station. 3. The Charging Station responds with a SetMonitoringLevelResponse.                                                                                                           |\n| 5   | Prerequisite(s)      | Charging Station supports Monitoring                                                                                                                                                                                                                                                                                                                                                               |\n| 6   | Postcondition(s)     | The Charging Station restricted the reporting of monitoring events by NotifyEventRequest to only those wanted by the user.                                                                                                                                                                                                                                                                         |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "message_refs": "NotifyEventRequest, SetMonitoringLevelRequest, SetMonitoringLevelResponse",
+      "figure_refs": "133",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "Figure 133. Sequence Diagram: Set Monitoring Level",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "message_refs": "NotifyEventRequest, SetMonitoringLevelRequest, SetMonitoringLevelResponse",
+      "figure_refs": "133",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| No. | Type             | Description                                                               |\n| --- | ---------------- | ------------------------------------------------------------------------- |\n| 6   | Postcondition(s) | The Charging Station cleared / removed the requested monitoring settings. |\n| 7   | Error handling   | n/a                                                                       |\n| 8   | Remark(s)        | n/a                                                                       |\n\nCSO CSMS Charging Station\n\nrequest to clear/remove a variable monitoring\n\nClearVariableMonitoringRequest(id)\n\nClearVariableMonitoringResponse(status)",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "message_refs": "ClearVariableMonitoringRequest, ClearVariableMonitoringResponse"
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 4   | Description          | NotifyEventRequest reports every Component/Variable for which a VariableMonitoring setting was triggered. Only the VariableMonitoring settings that are responsible for triggering an event are included.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N07",
+      "message_refs": "NotifyEventRequest, NotifyEventResponse",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n|     | Scenario description | 1. If a threshold or a delta value has exceeded, the Charging Station sends a NotifyEventRequest to the CSMS. 2. The CSMS responds with a NotifyEventResponse.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N07",
+      "message_refs": "NotifyEventRequest, NotifyEventResponse",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| 5   | Prerequisite(s)      | The Charging Station has active monitoring settings. The monitoring setting(s) might have been configured explicitly via a SetVariableMonitoring message or it might be \"hard-wired\" in the Charging Station’s firmware.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 6   | Postcondition(s)     | The Charging Station notified the CSMS about the monitoring events.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N07",
+      "message_refs": "NotifyEventRequest, NotifyEventResponse",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 8   | Remark(s)            | Requirement N07.FR.04 states that events with a severity equal or less than OfflineMonitoringEventQueuingSeverity shall be queued while the charging station is offline, and delivered once online. This implies that events with a severity greater than OfflineMonitoringEventQueuingSeverity will not be sent to CSMS. The result is, that the logical chain of events may be broken when the charging station is back online. For example, a monitoring event for a variable exceeding a threshold occurred while offline and was not sent. Once back online, at some point in time the monitoring event is reported with the variable cleared set to true, but CSMS did not even know that the threshold had been exceeded. CSMS will have to be able to deal with that. This problem can be prevented, while still adhering to the specification, by not simply discarding these monitoring events, but by delaying the evaluation of those monitors that exceed OfflineMonitoringEventQueuingSeverity, until the charging station comes back online. The result is, that when the charging station is back online, CSMS will get the monitoring events that apply to the current situation, and it is fully up-to-date regarding the monitors. Only those monitoring events that were triggered & cleared during the offline period will remain invisible to CSMS. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N07",
+      "message_refs": "NotifyEventRequest, NotifyEventResponse",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                                                                                                                                                                                            | Requirement definition                                                                                                                         | Note                                                                          |\n| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |\n| N07.FR.05 | When a monitor is triggered AND another event caused this event                                                                                                                                                                                                                                                                         | The Charging Station MAY include the eventId of the other event in the cause field of the eventData element in the NotifyEventRequest message. |                                                                               |\n| N07.FR.06 | When a monitor is triggered                                                                                                                                                                                                                                                                                                             | An eventData element in a NotifyEventRequest SHALL contain the Component, Variable and variableMonitoringId that caused the event.             |                                                                               |\n| N07.FR.07 | When a monitor is triggered                                                                                                                                                                                                                                                                                                             | The Charging Station SHALL set the seqNo of the first NotifyEventRequest sent for this event to 0.                                             |                                                                               |\n| N07.FR.10 | When a monitor is triggered AND A variableMonitoring setting has been set on a write-only variable.                                                                                                                                                                                                                                     | The actualField of the NotifyEventRequest SHALL be empty.                                                                                      |                                                                               |\n| N07.FR.11 | When modifying a set UpperThreshold or LowerThreshold VariableMonitor.                                                                                                                                                                                                                                                                  | The Charging Station SHALL check if the new threshold clears the old threshold OR if the new threshold is exceeded by the monitored value.     |                                                                               |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N05, N07",
+      "message_refs": "NotifyEventRequest, SetMonitoringLevelRequest",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N07.FR.12 | When removing a set UpperThreshold or LowerThreshold VariableMonitor AND the threshold was exceeded.                                                                                                                                                                                                                                    | The Charging Station SHALL NOT send a NotifyEventRequest with an eventData with the attribute cleared is true.                                 |                                                                               |\n| N07.FR.13 |                                                                                                                                                                                                                                                                                                                                         | A VariableMonitoring needs to be stored persistently across reboots.                                                                           |                                                                               |\n| N07.FR.14 | When a variableMonitoring setting of type UpperThreshold or LowerThreshold has been triggered AND after a reboot occurred the monitored value returned within the configured threshold.                                                                                                                                                 | The Charging Station SHALL send a NotifyEventRequest with an eventData with the attribute cleared is true.                                     |                                                                               |\n| N07.FR.15 | When a monitor is triggered AND The severity of the monitor is greater than the monitoring severity level set in a SetMonitoringLevelRequest by the CSMS (see use case N05 - Set Monitoring Level)                                                                                                                                      | The Charging Station SHALL NOT send a NotifyEventRequest for the triggered monitor.                                                            |                                                                               |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N05, N07",
+      "message_refs": "NotifyEventRequest, SetMonitoringLevelRequest",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| N07.FR.16 | When there is a monitor with type UpperThreshold on a Component/Variable combination AND the Actual value (attributeType Actual) of the Variable exceeds value                                                                                                                                                                          | The Charging Station SHALL send a NotifyEventRequest with trigger Alerting for the triggered monitor.                                          | Notification is sent when exceeding the threshold, not on the threshold.      |\n| N07.FR.17 | When there is a monitor with type LowerThreshold on a Component/Variable combination AND the Actual value (attributeType Actual) of the Variable drops below value                                                                                                                                                                      | The Charging Station SHALL send a NotifyEventRequest with trigger Alerting for the triggered monitor.                                          | Notification is sent when dropping below the threshold, not on the threshold. |\n| N07.FR.18 | When there is a monitor with type Delta on a Component/Variable combination AND the Variable is of a numeric type AND the Actual value (attributeType Actual) of the Variable has changed more than plus or minus value since the time that this monitor was set or since the last time this event notice was sent, whichever was last, | The Charging Station SHALL send a NotifyEventRequest with trigger Delta for the triggered monitor.                                             |                                                                               |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N05, N07",
+      "message_refs": "NotifyEventRequest, SetMonitoringLevelRequest",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                                                                                                                                                                     | Requirement definition                                                                             | Note                                                                                                                                                                                                   |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N07.FR.19 | When there is a monitor with type Delta on a Component/Variable combination AND the Variable is NOT of a numeric type AND the Actual value (attributeType\\`Actual\\`) of the Variable has changed since the time that this monitor was set or since the last time this event notice was sent, whichever was last, | The Charging Station SHALL send a NotifyEventRequest with trigger Delta for the triggered monitor. | (Note: For variables that are not numeric, like boolean, string or enumerations, a monitor of type Delta will trigger an event notice whenever the variable changes, regardless of the value of value) |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N07",
+      "message_refs": "NotifyEventRequest"
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                                                                                                                                                                                                                                                      | Requirement definition                                                                                |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |\n| N08.FR.03 | N08.FR.06 OR N08.FR.07 AND The severity number of the monitor is equal to or lower than the severity number set in the Configuration Variable OfflineMonitoringEventQueueingSeverity AND The Charging Station is offline                                                                                                                          | The Charging Station SHALL queue this NotifyEventRequest and deliver it when it is back online.       |\n| N08.FR.04 | N08.FR.06 OR N08.FR.07 AND This NotifyEventRequest is the first or only report part.                                                                                                                                                                                                                                                              | The Charging Station SHALL set seqNo to 0.                                                            |\n| N08.FR.05 | N08.FR.06 OR N08.FR.07 AND When the variableMonitoring setting which triggered the event is either of type Periodic or PeriodicClockAligned                                                                                                                                                                                                       | The Charging Station SHALL set trigger to Periodic.                                                   |\n| N08.FR.06 | When there is a monitor with type Periodic on a Component/Variable combination AND the number of seconds specified in value have passed (starting from the time that this monitor was set or triggered)                                                                                                                                           | The Charging Station SHALL send a NotifyEventRequest with trigger Periodic for the triggered monitor. |\n| N08.FR.07 | When there is a monitor with type PeriodicClockAligned on a Component/Variable combination AND the number of seconds specified by value, starting from the nearest clock-aligned interval after this monitor was set, have passed (For example, a value of 900 will trigger event notices at 0, 15, 30 and 45 minutes after the hour, every hour) | The Charging Station SHALL send a NotifyEventRequest with trigger Periodic for the triggered monitor. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N08",
+      "message_refs": "NotifyEventRequest"
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n|     | Scenario description | 1. The CSMS sends CustomerInformationRequest with the clear flag set to true to the Charging Station with a reference to a customer (idToken, customerCertificate or customerIdentifier). 2. The Charging Station responds with CustomerInformationResponse, indicating whether it will send it or not. 3. If the report flag is set to true, the Charging Station sends one or more NotifyCustomerInformationRequest messages to the CSMS. 4. The CSMS responds with one or more NotifyCustomerInformationResponse messages to the Charging Station. |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 6   | Postcondition(s)     | The CSMS has Successfully received a CustomerInformationResponse message with status Accepted, the Charging Station has removed the customer information as requested and (if report flag was set to true) the CSMS has Successfully received the removed data.                                                                                                                                                                                                                                                                                       |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest, NotifyCustomerInformationResponse",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "CSMS Charging Station\n\nCustomerInformationRequest(report, clear = true)\n\nCustomerInformationResponse()\n\nopt [if report = true]\n\nloop [for each report part]\n\nNotifyCustomerInformationRequest()\n\nNotifyCustomerInformationResponse()\n\nclear customer information",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest, NotifyCustomerInformationResponse",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# N. Diagnostics\n\n| ID        | Precondition                                                                                                            | Requirement definition                                                                                                                                                                                                                                                                                      | Note                                                                                                                                                                           |\n| --------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| N10.FR.05 | When the Charging Station receives a CustomerInformationRequest and is in a state where it cannot process this request. | The Charging Station SHALL respond with a CustomerInformationResponse with status Rejected                                                                                                                                                                                                                  |                                                                                                                                                                                |\n| N10.FR.06 | N10.FR.01 AND receiving a CustomerInformationRequest with the clear flag set to true, the report flag set to false      | The Charging Station SHALL remove all customer related data for the Customer referred to by the customer identifier from the Charging Station, except from the LocalList AND the Charging Station SHALL send one NotifyCustomerInformationRequest message to the CSMS indicating that the data was cleared. | To prevent problems with LocalList versions only the CSMS can change the contents of the LocalList.                                                                            |\n| N10.FR.07 | When receiving a CustomerInformationRequest with both the report flag as well as the clear flag are set to false        | It is RECOMMENDED to respond with a CustomerInformationResponse message with status Rejected.                                                                                                                                                                                                               |                                                                                                                                                                                |\n| N10.FR.08 |                                                                                                                         | The CSMS SHALL include a reference to a customer by including either an idToken, customerCertificate or customerIdentifier in the CustomerInformationRequest.                                                                                                                                               |                                                                                                                                                                                |\n| N10.FR.09 | When clearing user information according to the customerCertificate                                                     | The CSMS SHALL use the hashAlgorithm, which was used to install the certificate.                                                                                                                                                                                                                            | When a new firmware is installed it is RECOMMENDED that the CSMS requests the certificate first using GetInstalledCertificateIds Request to be sure of the used hashAlgorithm. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "N. Diagnostics",
+      "heading_path": "N. Diagnostics",
+      "functional_block": "Diagnostics",
+      "use_case_refs": "N10",
+      "message_refs": "CustomerInformationRequest, CustomerInformationResponse, NotifyCustomerInformationRequest"
+    }
+  }
+]

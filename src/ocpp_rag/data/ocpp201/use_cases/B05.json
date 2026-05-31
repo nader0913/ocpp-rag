@@ -1,0 +1,112 @@
+{
+  "use_case_id": "B05",
+  "functional_block": "Provisioning",
+  "use_case_name": "Set Variables",
+  "chunks": [
+    {
+      "content": "# B05 - Set Variables\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Set Variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                   | B05                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To give the CSMS the ability to make changes to variables in the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 4   | Description          | A Charging Station can have a lot of variables that can be configured/changed by the CSMS. A CSMS can use these variables to for example influence the behavior of a Charging Station. This use case describes how the CSMS requests a Charging Station to set the value of variables of a component. The CSMS can request to set more than one value per request.                                                                                                                                                                                          |\n|     | Actors               | CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B05 - Set Variables",
+        "heading_path": "B05 - Set Variables",
+        "functional_block": "Provisioning",
+        "use_case_id": "B05",
+        "use_case_name": "Set Variables",
+        "use_case_refs": "B05",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "|     | Scenario description | 1. The CSO triggers the CSMS to request setting one or more variables in a Charging Station. 2. The CSMS sends a SetVariablesRequest to the Charging Station. 3. The Charging Station responds with a SetVariablesResponse indicating whether it was able to execute the change(s).                                                                                                                                                                                                                                                                         |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 6   | Postcondition(s)     | Successful postconditions: 1. The change was executed Successfully. Failure postconditions: 1. The variable is supported, but setting could not be changed, the Charging Station responds with the status Rejected. 2. The variable is not supported, the Charging Station responds with the status UnknownVariable.                                                                                                                                                                                                                                        |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B05 - Set Variables",
+        "heading_path": "B05 - Set Variables",
+        "functional_block": "Provisioning",
+        "use_case_id": "B05",
+        "use_case_name": "Set Variables",
+        "use_case_refs": "B05",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)            | The attributeType Actual corresponds with the actual value of the Variable, whereas the attributeTypes Target, MinSet and MaxSet correspond to the target, minimum and maximum values that have been set for this variable. This is best explained by an example: the cooling system is configured to operate with a fan speed between 1000 and 5000 rpm. These boundaries are represented by the MinSet and MaxSet attributes. The current fan speed is represented by the Actual attribute. The desired fan speed is represented by the Target attribute. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B05 - Set Variables",
+        "heading_path": "B05 - Set Variables",
+        "functional_block": "Provisioning",
+        "use_case_id": "B05",
+        "use_case_name": "Set Variables",
+        "use_case_refs": "B05",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# CSO    CSMS    Charging Station\n\nrequest to set one or more variables\n\nSetVariablesRequest(setVariableData)\nSetVariablesResponse(setVariableResult)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "CSO    CSMS    Charging Station",
+        "heading_path": "CSO    CSMS    Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B05",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse"
+      }
+    },
+    {
+      "content": "# B05 - Set Variables - Requirements\n\n| ID        | Precondition                                                                                                                                               | Requirement definition                                                                                                                                                                                                                      |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B05.FR.01 | When the Charging Station receives a SetVariablesRequest with an X number of SetVariableData elements                                                      | The Charging Station SHALL respond with an SetVariablesResponse with an equal (X) number of SetVariableResult elements, one for every SetVariableData element in the SetVariablesRequest.                                                   |\n| B05.FR.02 | B05.FR.01                                                                                                                                                  | Every SetVariableResult element in the SetVariablesResponse SHALL contain the same component and variable combination as one of the SetVariableData elements in the SetVariablesRequest.                                                    |\n| B05.FR.03 | B05.FR.02 AND If the SetVariablesRequest contains an attributeType                                                                                         | The corresponding SetVariableResult element in the SetVariablesResponse SHALL also contain the same attributeType                                                                                                                           |\n| B05.FR.04 | When the Charging Station receives a SetVariablesRequest with an unknown Component in the SetVariableData                                                  | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: UnknownComponent.                                                                                                                       |\n| B05.FR.05 | When the Charging Station receives a SetVariablesRequest with a Variable that is unknown for the given Component in the SetVariableData                    | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: UnknownVariable.                                                                                                                        |\n| B05.FR.06 | When the Charging Station receives a SetVariablesRequest with an attributeType that is unknown for the given Variable in the SetVariableData               | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: NotSupportedAttributeType.                                                                                                              |\n| B05.FR.07 | When the Charging Station receives a SetVariablesRequest with a value that is incorrectly formatted for the given Variable in the SetVariableData          | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: Rejected. (More information can be provided in the optional statusInfo element.)                                                        |\n| B05.FR.08 | When the Charging Station receives a SetVariablesRequest with a value that is lower or higher than the range of the given Variable in the SetVariableData  | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: Rejected. (More information can be provided in the optional statusInfo element.)                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B05 - Set Variables - Requirements",
+        "heading_path": "B05 - Set Variables - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B05",
+        "use_case_name": "Set Variables",
+        "use_case_refs": "B05",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| B05.FR.09 | NOT (B05.FR.04 to B05.FR.08) AND When the Charging Station receives a SetVariablesRequest for a Variable in the SetVariableData, but is not able to set it | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: Rejected. (This happens if the variable is ReadOnly, but may also occur when setting the variable fails because of technical problems.) |\n| B05.FR.10 | When the Charging Station was able to set the given value from the SetVariableData                                                                         | The Charging Station SHALL set the attributeStatus field in the corresponding SetVariableResult to: Accepted.                                                                                                                               |\n| B05.FR.11 |                                                                                                                                                            | The CSMS SHALL NOT send more SetVariableData elements in a SetVariablesRequest than reported by the Charging Station via ItemsPerMessageSetVariables.                                                                                       |\n| B05.FR.12 | When the Charging Station receives a SetVariablesRequest without an attributeType.                                                                         | The corresponding SetVariableResult element in the SetVariablesResponse SHALL contain the attributeType Actual.                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B05 - Set Variables - Requirements",
+        "heading_path": "B05 - Set Variables - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B05",
+        "use_case_name": "Set Variables",
+        "use_case_refs": "B05",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    }
+  ],
+  "figures": []
+}

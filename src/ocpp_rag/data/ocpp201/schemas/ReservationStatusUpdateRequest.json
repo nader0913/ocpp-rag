@@ -1,0 +1,15 @@
+[
+  {
+    "content": "## ReservationStatusUpdateRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: ReservationStatusUpdate\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| reservationId | integer | Yes | The ID of the reservation. |\n| reservationUpdateStatus | enum(Expired,Removed) | Yes | The updated reservation status. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:ReservationStatusUpdateRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"ReservationUpdateStatusEnumType\": {\n      \"description\": \"The updated reservation status.\\r\\n\",\n      \"javaType\": \"ReservationUpdateStatusEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Expired\",\n        \"Removed\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"reservationId\": {\n      \"description\": \"The ID of the reservation.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"reservationUpdateStatus\": {\n      \"$ref\": \"#/definitions/ReservationUpdateStatusEnumType\"\n    }\n  },\n  \"required\": [\n    \"reservationId\",\n    \"reservationUpdateStatus\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ReservationStatusUpdateRequest",
+      "heading_path": "JSON Schemas > ReservationStatusUpdate > ReservationStatusUpdateRequest",
+      "message_name": "ReservationStatusUpdateRequest",
+      "message_direction": "Request"
+    }
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "content": "## ReserveNowRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: ReserveNow\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| id | integer | Yes | Id of reservation. |\n| expiryDateTime | string(date-time) | Yes | Date and time at which the reservation expires. |\n| connectorType | enum(cCCS1,cCCS2,cG105,cTesla,cType1,cType2,s309-1P-16A,s309-1P-32A,s309-3P-16A,s309-3P-32A,sBS1361,sCEE-7-7,sType2,sType3,Other1PhMax16A,Other1PhOver16A,Other3Ph,Pan,wInductive,wResonant,Undetermined,Unknown) | No | This field specifies the connector type. |\n| idToken | IdTokenType | Yes | Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers. |\n| evseId | integer | No | This contains ID of the evse to be reserved. |\n| groupIdToken | IdTokenType | No | Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:ReserveNowRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ReserveNowRequest",
+      "heading_path": "JSON Schemas > ReserveNow > ReserveNowRequest",
+      "message_name": "ReserveNowRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"ConnectorEnumType\": {\n      \"description\": \"This field specifies the connector type.\\r\\n\",\n      \"javaType\": \"ConnectorEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"cCCS1\",\n        \"cCCS2\",\n        \"cG105\",\n        \"cTesla\",\n        \"cType1\",\n        \"cType2\",\n        \"s309-1P-16A\",\n        \"s309-1P-32A\",\n        \"s309-3P-16A\",\n        \"s309-3P-32A\",\n        \"sBS1361\",\n        \"sCEE-7-7\",\n        \"sType2\",\n        \"sType3\",\n        \"Other1PhMax16A\",\n        \"Other1PhOver16A\",\n        \"Other3Ph\",\n        \"Pan\",\n        \"wInductive\",\n        \"wResonant\",\n        \"Undetermined\",\n        \"Unknown\"\n      ]\n    },\n    \"IdTokenEnumType\": {\n      \"description\": \"Enumeration of possible idToken types.\\r\\n\",\n      \"javaType\": \"IdTokenEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Central\",\n        \"eMAID\",\n        \"ISO14443\",\n        \"ISO15693\",\n        \"KeyCode\",\n        \"Local\",\n        \"MacAddress\",\n        \"NoAuthorization\"\n      ]\n    },\n    \"AdditionalInfoType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"AdditionalInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalIdToken\": {\n          \"description\": \"This field specifies the additional IdToken.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"description\": \"This defines the type of the additionalIdToken. This is a custom type, so the implementation needs to be agreed upon by all involved parties.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ReserveNowRequest",
+      "heading_path": "JSON Schemas > ReserveNow > ReserveNowRequest",
+      "message_name": "ReserveNowRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"additionalIdToken\",\n        \"type\"\n      ]\n    },\n    \"IdTokenType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"IdToken\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalInfo\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/AdditionalInfoType\"\n          },\n          \"minItems\": 1\n        },\n        \"idToken\": {\n          \"description\": \"IdToken is case insensitive. Might hold the hidden id of an RFID tag, but can for example also contain a UUID.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"$ref\": \"#/definitions/IdTokenEnumType\"\n        }\n      },\n      \"required\": [\n        \"idToken\",\n        \"type\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"id\": {\n      \"description\": \"Id of reservation.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"expiryDateTime\": {\n      \"description\": \"Date and time at which the reservation expires.\\r\\n\",\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"connectorType\": {\n      \"$ref\": \"#/definitions/ConnectorEnumType\"\n    },\n    \"idToken\": {\n      \"$ref\": \"#/definitions/IdTokenType\"\n    },\n    \"evseId\": {\n      \"description\": \"This contains ID of the evse to be reserved.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ReserveNowRequest",
+      "heading_path": "JSON Schemas > ReserveNow > ReserveNowRequest",
+      "message_name": "ReserveNowRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"type\": \"integer\"\n    },\n    \"groupIdToken\": {\n      \"$ref\": \"#/definitions/IdTokenType\"\n    }\n  },\n  \"required\": [\n    \"id\",\n    \"expiryDateTime\",\n    \"idToken\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ReserveNowRequest",
+      "heading_path": "JSON Schemas > ReserveNow > ReserveNowRequest",
+      "message_name": "ReserveNowRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  }
+]

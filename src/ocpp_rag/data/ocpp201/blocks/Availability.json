@@ -1,0 +1,40 @@
+[
+  {
+    "content": "# G. Availability\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "G. Availability",
+      "heading_path": "G. Availability",
+      "functional_block": "Availability"
+    }
+  },
+  {
+    "content": "# G. Availability\n\n| Initial     | Cable plugin | Cable unplug |\n| ----------- | ------------ | ------------ |\n| Reserved    | -            | -            |\n| Unavailable | -            | -            |\n| Faulted     | -            | -            |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "G. Availability",
+      "heading_path": "G. Availability",
+      "functional_block": "Availability"
+    }
+  },
+  {
+    "content": "# G. Availability\n\n| ID        | Precondition                                                                                                                                            | Requirement definition                                                                                                      | Note |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ---- |\n| G02.FR.07 | When the heartbeat interval timer is continuously reset because of continuous sending of messages AND HeartbeatRequest is used for time synchronisation | It is RECOMMENDED that the Charging Station sends a HeartbeatRequest at least once every 24 hours to synchronise the clock. |      |\n\n198/491 Part 2 - Specification",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "G. Availability",
+      "heading_path": "G. Availability",
+      "functional_block": "Availability",
+      "use_case_refs": "G02",
+      "message_refs": "HeartbeatRequest"
+    }
+  }
+]

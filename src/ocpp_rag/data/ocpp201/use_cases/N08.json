@@ -1,0 +1,79 @@
+{
+  "use_case_id": "N08",
+  "functional_block": "Diagnostics",
+  "use_case_name": "Periodic Event",
+  "chunks": [
+    {
+      "content": "# N08 - Periodic Event\n\n| No. | Type                 | Description                                                                                                                                                                                                              |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                 | Periodic Event                                                                                                                                                                                                           |\n| 2   | ID                   | N08                                                                                                                                                                                                                      |\n| 3   | Objective(s)         | To give the Charging Station the ability to notify the CSMS periodically about monitoring events.                                                                                                                        |\n| 4   | Description          | NotifyEventRequest reports every Component/Variable for which a VariableMonitoring setting was triggered. Only the VariableMonitoring settings that are responsible for triggering an event are included.                |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                   |\n|     | Scenario description | 1. If a periodic value has exceeded, the Charging Station sends a NotifyEventRequest with trigger periodic to the CSMS. 2. The CSMS responds with a NotifyEventResponse.                                                 |\n| 5   | Prerequisite(s)      | The Charging Station has active monitoring settings. The monitoring setting(s) might have been configured explicitly via a SetVariableMonitoring message or it might be \"hard-wired\" in the Charging Station’s firmware. |\n| 6   | Postcondition(s)     | The Charging Station notified the CSMS about the monitoring events.                                                                                                                                                      |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                      |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N08 - Periodic Event",
+        "heading_path": "N08 - Periodic Event",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N08",
+        "use_case_name": "Periodic Event",
+        "use_case_refs": "N08",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse",
+        "figure_refs": "136",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "Charging Station    CSMS\n\nloop  [Each time the periodic value of a monitoring setting has been reached]\n\nloop  [For each report part]\n\nNotifyEventRequest(generatedAt, tbc, seqNo, eventData)\n\nNotifyEventResponse()\n\nFigure 136. Sequence Diagram: Periodic Event",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N08 - Periodic Event",
+        "heading_path": "N08 - Periodic Event",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N08",
+        "use_case_name": "Periodic Event",
+        "use_case_refs": "N08",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse",
+        "figure_refs": "136",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# N08 - Periodic Event - Requirements\n\n| ID        | Precondition                                 | Requirement definition                                    |\n| --------- | -------------------------------------------- | --------------------------------------------------------- |\n| N08.FR.02 | When the CSMS receives an NotifyEventRequest | The CSMS SHALL respond with an empty NotifyEventResponse. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N08 - Periodic Event - Requirements",
+        "heading_path": "N08 - Periodic Event - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N08",
+        "use_case_name": "Periodic Event",
+        "use_case_refs": "N08",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "136",
+      "title": "Sequence Diagram: Periodic Event",
+      "files": [
+        "fig136_p1_Sequence_Diagram__Periodic_Event.png",
+        "fig136_p2_Sequence_Diagram__Periodic_Event.png"
+      ]
+    },
+    {
+      "figure_num": "136",
+      "title": "Sequence Diagram: Periodic Event",
+      "files": [
+        "fig136_p1_Sequence_Diagram__Periodic_Event.png",
+        "fig136_p2_Sequence_Diagram__Periodic_Event.png"
+      ]
+    }
+  ]
+}

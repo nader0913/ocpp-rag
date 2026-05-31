@@ -1,7 +1,7 @@
 """MCP server exposing the OCPP RAG knowledge base as tools for LLM clients."""
 
-import gzip
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -12,11 +12,27 @@ from mcp.server.fastmcp import FastMCP
 from .config import CHROMA_DIR, COLLECTION_NAME
 
 DATA_DIR = Path(__file__).parent / "data"
-CHUNKS_PATH = DATA_DIR / "chunks.json.gz"
 
 mcp = FastMCP("ocpp-rag")
 
 _collection_cache = None
+
+
+def _load_all_chunks():
+    """Load all chunks from the modular data directory."""
+    chunks = []
+    for root, _dirs, files in os.walk(DATA_DIR):
+        for fname in files:
+            if not fname.endswith(".json") or fname.startswith("_"):
+                continue
+            fpath = Path(root) / fname
+            with open(fpath) as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                chunks.extend(data)
+            elif isinstance(data, dict) and "chunks" in data:
+                chunks.extend(data["chunks"])
+    return chunks
 
 
 def _ensure_index():
@@ -34,8 +50,7 @@ def _ensure_index():
 
     print("Building OCPP knowledge index (first run, ~30 seconds)...", file=sys.stderr)
 
-    with gzip.open(CHUNKS_PATH, "rt", encoding="utf-8") as f:
-        chunks = json.load(f)
+    chunks = _load_all_chunks()
 
     try:
         client.delete_collection(COLLECTION_NAME)

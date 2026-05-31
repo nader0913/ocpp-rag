@@ -1,0 +1,131 @@
+{
+  "use_case_id": "G01",
+  "functional_block": "Availability",
+  "use_case_name": "Status Notification",
+  "chunks": [
+    {
+      "content": "# G01 - Status Notification\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Status Notification                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 2   | ID                   | G01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)         | To inform the CSMS about a Connector status change.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 4   | Description          | This use case covers the functionality that a Charging Station sends a notification to the CSMS to inform the CSMS about a Connector status change.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G01 - Status Notification",
+        "heading_path": "G01 - Status Notification",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Status Notification",
+        "use_case_refs": "G01",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Scenario description | 1. A connector status changed, the Charging Station sends a StatusNotificationRequest to the CSMS to inform the CSMS about the new status. 2. The CSMS responds with StatusNotificationResponse to the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n|     | Alternative scenario | 1. Instead of a StatusNotificationRequest a Charging Station can send a NotifyEventRequest with trigger = Delta for component.name = \"Connector\" and the EVSE number in evse.id and the connector number in evse.connectorId, and variable = \"AvailabilityState\" with the value of the new status to the CSMS. 1a. Optionally, Charging Station can also include the state of component = \"ChargingStation\" and component = \"EVSE\" in the NotifyEventRequest. 2. The CSMS responds with NotifyEventResponse to the Charging Station.                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G01 - Status Notification",
+        "heading_path": "G01 - Status Notification",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Status Notification",
+        "use_case_refs": "G01",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 6   | Postcondition(s)     | Successful postconditions: The CSMS is Successfully informed about the status change. Failure postconditions: n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G01 - Status Notification",
+        "heading_path": "G01 - Status Notification",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Status Notification",
+        "use_case_refs": "G01",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)            | The Charging Station MAY use the Unavailable status internally for other purposes (e.g. while updating firmware or waiting for an initial Accepted RegistrationStatus). When one of the connectors on an EVSE is Reserved/Occupied, the CSMS has to take care of the status of the other connectors when presenting availability information to another system or user. The CSMS knows which connectors belong to the same EVSE. Notifying a connector status from the Charging Station to the CSMS will be taken over by the new Device Management Monitoring feature, however this mechanism has not been proven in the field yet. So the old StatusNotificationRequest message remains available for use for now. |\n\nCharging Station    CSMS\n\nStatusNotificationRequest(evseId, connectorId, connectorStatus)\n\nStatusNotificationResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G01 - Status Notification",
+        "heading_path": "G01 - Status Notification",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Status Notification",
+        "use_case_refs": "G01",
+        "message_refs": "NotifyEventRequest, NotifyEventResponse, StatusNotificationRequest, StatusNotificationResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# G01 - Report connector AvailabilityState - State transition overview for connecting/disconnecting\n\n| Initial   | Cable plugin                                         | Cable unplug |\n| --------- | ---------------------------------------------------- | ------------ |\n| Available | → Occupied                                           | -            |\n| Occupied  | -                                                    | → Available  |\n|           | ( → Unavailable, if scheduled to become Unavailable) |              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G01 - Report connector AvailabilityState - State transition overview for connecting/disconnecting",
+        "heading_path": "G01 - Report connector AvailabilityState - State transition overview for connecting/disconnecting",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Report connector AvailabilityState - State transition overview for connecting/disconnecting",
+        "use_case_refs": "G01"
+      }
+    },
+    {
+      "content": "# G01 - Status Notification - Requirements\n\n| ID        | Precondition                                                                                                                                     | Requirement definition                                                                                                                                                                                                                                              |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| G01.FR.01 |                                                                                                                                                  | A Charging Station Connector MUST have one of the valid statuses from the ConnectorStatus enumeration.                                                                                                                                                              |\n| G01.FR.02 | When an EVSE is set to status Unavailable by a ChangeAvailabilityRequest message.                                                                | The EVSE’s Unavailable status SHALL be persistent across reboots.                                                                                                                                                                                                   |\n| G01.FR.03 | The connector is Available when an EV is connecting                                                                                              | The Charging Station SHALL send a NotifyEventRequest for component = \"Connector\", variable = \"AvailabilityState\", actualValue = \"Occupied\" and trigger = \"Delta\" or a StatusNotificationRequest with connectorStatus = Occupied.                                    |\n| G01.FR.04 | The connector is Occupied when an EV is disconnecting AND connector is not scheduled to become Unavailable (G03.FR.05)                           | The Charging Station SHALL send a NotifyEventRequest for component = \"Connector\", variable = \"AvailabilityState\", actualValue = \"Available\" and trigger = \"Delta\" when an EV is disconnected or a StatusNotificationRequest with connectorStatus = Available.       |\n| G01.FR.05 | The connector is Occupied when an EV is disconnecting AND connector is scheduled to become Unavailable (G03.FR.05)                               | The Charging Station SHALL send a NotifyEventRequest for component = \"Connector\", variable = \"AvailabilityState\", actualValue = \"Unavailable\" and trigger = \"Delta\" when an EV is disconnected or a StatusNotificationRequest with connectorStatus = Unavailable.   |\n| G01.FR.06 | The connector is Reserved when an EV is connecting AND EV driver presents an IdToken matching the reservation                                    | The Charging Station SHALL send a NotifyEventRequest for component = \"Connector\", variable = \"AvailabilityState\", actualValue = \"Occupied\" and trigger = \"Delta\" or a StatusNotificationRequest with connectorStatus = Occupied.                                    |\n| G01.FR.07 | When a ChangeAvailabilityRequest leads to a connector status change                                                                              | The Charging Station SHALL send a NotifyEventRequest for component = \"Connector\", variable = \"AvailabilityState\", trigger = \"Delta\" and the corresponding actualValue of \"AvailabilityState\" or a StatusNotificationRequest with the corresponding connectorStatus. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "G01 - Status Notification - Requirements",
+        "heading_path": "G01 - Status Notification - Requirements",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Status Notification",
+        "use_case_refs": "G01, G03",
+        "message_refs": "ChangeAvailabilityRequest, NotifyEventRequest, StatusNotificationRequest",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| G01.FR.08 | When a cable is plugged in to a connector of an EVSE AND the EVSE has multiple connectors                                                        | The Charging Station SHOULD NOT send a NotifyEventRequest or StatusNotificationRequest for the other connector(s), even though they are no longer usable.                                                                                                           |\n| G01.FR.09 | The connector is Reserved when an EV is connecting AND ( No IdToken is presented OR EV driver presents an IdToken not matching the reservation ) | Connector status SHALL NOT change.                                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "G01 - Status Notification - Requirements",
+        "heading_path": "G01 - Status Notification - Requirements",
+        "functional_block": "Availability",
+        "use_case_id": "G01",
+        "use_case_name": "Status Notification",
+        "use_case_refs": "G01, G03",
+        "message_refs": "ChangeAvailabilityRequest, NotifyEventRequest, StatusNotificationRequest",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    }
+  ],
+  "figures": []
+}

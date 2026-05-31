@@ -1,0 +1,78 @@
+{
+  "use_case_id": "B11",
+  "functional_block": "Provisioning",
+  "use_case_name": "Reset - Without Ongoing Transaction",
+  "chunks": [
+    {
+      "content": "# B11 - Reset - Without Ongoing Transaction\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| --- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Reset - Without Ongoing Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 2   | ID                      | B11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 3   | Objective(s)            | To enable the CSMS to request a Charging Station to reset itself or an EVSE, while there is no ongoing transaction.                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 4   | Description             | This use case covers how the CSMS can request the Charging Station to reset itself or an EVSE by sending ResetRequest. (If ResetRequest contains an optional parameter evseId, then only a reset of the specific EVSE is requested.) This could for example be necessary if the Charging Station is not functioning correctly.                                                                                                                                                                                         |\n|     | Actors                  | Charging Station, CSMS, CSO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B11 - Reset - Without Ongoing Transaction",
+        "heading_path": "B11 - Reset - Without Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B11",
+        "use_case_name": "Reset - Without Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "|     | Scenario description    | 1. The CSO requests the CSMS to reset the Charging Station or EVSE. 2. The CSMS sends ResetRequest requesting the Charging Station to reset itself or EVSE. 3. The CSMS requests for an OnIdle or Immediate reset. 4. The Charging Station responds with ResetResponse, indicating whether the Charging Station is able to reset itself or EVSE. 5. The CSMS sends an optional notification to the CSO. 6. Only if no evseId was supplied, then after the reset, the Charging Station will proceed as in use case B01. |\n| 5   | Alternative scenario(s) | B12 - Reset With Ongoing Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 6   | Prerequisite(s)         | No transaction is ongoing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 7   | Postcondition(s)        | Successful postcondition: The Charging Station was able to reset itself or EVSE. Failure postcondition: The Charging Station not was able to reset itself or EVSE.                                                                                                                                                                                                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B11 - Reset - Without Ongoing Transaction",
+        "heading_path": "B11 - Reset - Without Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B11",
+        "use_case_name": "Reset - Without Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Error handling          | n.a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 9   | Remark(s)               | OnIdle refers to the \"idle state\" of a charging station. This is when the Charging Station is not performing any use case related tasks that might interfere with a reset process. The most obvious case is being involved in an active transaction, but there are other conditions when the Charging Station is not idle, for example, when a firmware update process is ongoing, a log file is uploaded to CSMS, a reservation is pending or a cable is still locked in the Charging Station.                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B11 - Reset - Without Ongoing Transaction",
+        "heading_path": "B11 - Reset - Without Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B11",
+        "use_case_name": "Reset - Without Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# B11 - Reset - Without Ongoing Transaction - Requirements\n\n| ID        | Precondition                                                                           | Requirement definition                                                                                                                                                                                     |\n| --------- | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B11.FR.01 | When the Charging Station receives a ResetRequest.                                     | The Charging Station SHALL respond with a ResetResponse.                                                                                                                                                   |\n| B11.FR.02 | If the status was set to Inoperative by the CSMS.                                      | After a reboot of the Charging Station, the EVSEs SHALL return to the state Unavailable as prior to the reboot.                                                                                            |\n| B11.FR.03 | B11.FR.01 AND no evseId parameter is supplied AND ResetResponse has status = Accepted. | The Charging Station MAY send a NotifyEventRequest for component = \"Connector\", variable = \"AvailabilityState\", actualValue = \"Unavailable\" and trigger = \"Delta\" for each EVSE, and SHALL start a reboot. |\n| B11.FR.04 | B11.FR.03                                                                              | The Charging Station SHALL proceed as described in use case B01 - Cold Boot Charging Station.                                                                                                              |\n| B11.FR.05 | If the status of an EVSE was Reserved.                                                 | After a reboot of the Charging Station or resetting of EVSE, the EVSE(s) SHALL return to the state Reserved.                                                                                               |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B11 - Reset - Without Ongoing Transaction - Requirements",
+        "heading_path": "B11 - Reset - Without Ongoing Transaction - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B11",
+        "use_case_name": "Reset - Without Ongoing Transaction",
+        "use_case_refs": "B01, B11",
+        "message_refs": "NotifyEventRequest, ResetRequest, ResetResponse"
+      }
+    }
+  ],
+  "figures": []
+}

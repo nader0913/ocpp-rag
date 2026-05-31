@@ -1,0 +1,85 @@
+[
+  {
+    "content": "## TransactionEventResponse\n\n**Type**: OCPP 2.0.1 Message Schema (Response)\n**Base Message**: TransactionEvent\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| totalCost | number | No | SHALL only be sent when charging has ended. Final total cost of this transaction, including taxes. In the currency configured with the Configuration Variable: &lt;&lt;configkey-currency,`Currency`&gt;&gt;. When omitted, the transaction was NOT free. To indicate a free transaction, the CSMS SHALL send 0.00. |\n| chargingPriority | integer | No | Priority from a business point of view. Default priority is 0, The range is from -9 to 9. Higher values indicate a higher priority. The chargingPriority in &lt;&lt;transactioneventresponse,TransactionEventResponse&gt;&gt; is temporarily, so it may not be set in the &lt;&lt;cmn_idtokeninfotype,IdTokenInfoType&gt;&gt; afterwards. Also the chargingPriority in &lt;&lt;transactioneventresponse,TransactionEventResponse&gt;&gt; overrules the one in &lt;&lt;cmn_idtokeninfotype,IdTokenInfoType&gt;&gt;. |\n| idTokenInfo | IdTokenInfoType | No | ID_ Token urn:x-oca:ocpp:uid:2:233247 Contains status information about an identifier. It is advised to not stop charging for a token that expires during charging, as ExpiryDate is only used for caching purposes. If ExpiryDate is not given, the status has no end date. |\n| updatedPersonalMessage | MessageContentType | No | Message_ Content urn:x-enexis:ecdm:uid:2:234490 Contains message details, for a message to be displayed on a Charging Station. |",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "TransactionEventResponse",
+      "heading_path": "JSON Schemas > TransactionEvent > TransactionEventResponse",
+      "message_name": "TransactionEventResponse",
+      "message_direction": "Response"
+    }
+  },
+  {
+    "content": "### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:TransactionEventResponse\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"AuthorizationStatusEnumType\": {\n      \"description\": \"ID_ Token. Status. Authorization_ Status\\r\\nurn:x-oca:ocpp:uid:1:569372\\r\\nCurrent status of the ID Token.\\r\\n\",\n      \"javaType\": \"AuthorizationStatusEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Accepted\",\n        \"Blocked\",\n        \"ConcurrentTx\",\n        \"Expired\",\n        \"Invalid\",\n        \"NoCredit\",\n        \"NotAllowedTypeEVSE\",\n        \"NotAtThisLocation\",\n        \"NotAtThisTime\",\n        \"Unknown\"\n      ]\n    },\n    \"IdTokenEnumType\": {\n      \"description\": \"Enumeration of possible idToken types.\\r\\n\",\n      \"javaType\": \"IdTokenEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Central\",\n        \"eMAID\",\n        \"ISO14443\",\n        \"ISO15693\",\n        \"KeyCode\",\n        \"Local\",\n        \"MacAddress\",\n        \"NoAuthorization\"\n      ]\n    },\n    \"MessageFormatEnumType\": {\n      \"description\": \"Message_ Content. Format. Message_ Format_ Code\\r\\nurn:x-enexis:ecdm:uid:1:570848\\r\\nFormat of the message.\\r\\n\",\n      \"javaType\": \"MessageFormatEnum\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "TransactionEventResponse",
+      "heading_path": "JSON Schemas > TransactionEvent > TransactionEventResponse",
+      "message_name": "TransactionEventResponse",
+      "message_direction": "Response",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"ASCII\",\n        \"HTML\",\n        \"URI\",\n        \"UTF8\"\n      ]\n    },\n    \"AdditionalInfoType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"AdditionalInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalIdToken\": {\n          \"description\": \"This field specifies the additional IdToken.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"description\": \"This defines the type of the additionalIdToken. This is a custom type, so the implementation needs to be agreed upon by all involved parties.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"additionalIdToken\",\n        \"type\"\n      ]\n    },\n    \"IdTokenInfoType\": {\n      \"description\": \"ID_ Token\\r\\nurn:x-oca:ocpp:uid:2:233247\\r\\nContains status information about an identifier.\\r\\nIt is advised to not stop charging for a token that expires during charging, as ExpiryDate is only used for caching purposes. If ExpiryDate is not given, the status has no end date.\\r\\n\",\n      \"javaType\": \"IdTokenInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"status\": {\n          \"$ref\": \"#/definitions/AuthorizationStatusEnumType\"\n        },\n        \"cacheExpiryDateTime\": {\n          \"description\": \"ID_ Token. Expiry. Date_ Time\\r\\nurn:x-oca:ocpp:uid:1:569373\\r\\nDate and Time after which the token must be considered invalid.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "TransactionEventResponse",
+      "heading_path": "JSON Schemas > TransactionEvent > TransactionEventResponse",
+      "message_name": "TransactionEventResponse",
+      "message_direction": "Response",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"chargingPriority\": {\n          \"description\": \"Priority from a business point of view. Default priority is 0, The range is from -9 to 9. Higher values indicate a higher priority. The chargingPriority in &lt;&lt;transactioneventresponse,TransactionEventResponse&gt;&gt; overrules this one. \\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"language1\": {\n          \"description\": \"ID_ Token. Language1. Language_ Code\\r\\nurn:x-oca:ocpp:uid:1:569374\\r\\nPreferred user interface language of identifier user. Contains a language code as defined in &lt;&lt;ref-RFC5646,[RFC5646]&gt;&gt;.\\r\\n\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 8\n        },\n        \"evseId\": {\n          \"description\": \"Only used when the IdToken is only valid for one or more specific EVSEs, not for the entire Charging Station.\\r\\n\\r\\n\",\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"type\": \"integer\"\n          },\n          \"minItems\": 1\n        },\n        \"groupIdToken\": {\n          \"$ref\": \"#/definitions/IdTokenType\"\n        },\n        \"language2\": {\n          \"description\": \"ID_ Token. Language2. Language_ Code\\r\\nurn:x-oca:ocpp:uid:1:569375\\r\\nSecond preferred user interface language of identifier user. Don\\u2019t use when language1 is omitted, has to be different from language1. Contains a language code as defined in &lt;&lt;ref-RFC5646,[RFC5646]&gt;&gt;.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 8\n        },\n        \"personalMessage\": {\n          \"$ref\": \"#/definitions/MessageContentType\"\n        }\n      },\n      \"required\": [\n        \"status\"\n      ]\n    },\n    \"IdTokenType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "TransactionEventResponse",
+      "heading_path": "JSON Schemas > TransactionEvent > TransactionEventResponse",
+      "message_name": "TransactionEventResponse",
+      "message_direction": "Response",
+      "chunk_part": 4
+    }
+  },
+  {
+    "content": "\"javaType\": \"IdToken\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalInfo\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/AdditionalInfoType\"\n          },\n          \"minItems\": 1\n        },\n        \"idToken\": {\n          \"description\": \"IdToken is case insensitive. Might hold the hidden id of an RFID tag, but can for example also contain a UUID.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"$ref\": \"#/definitions/IdTokenEnumType\"\n        }\n      },\n      \"required\": [\n        \"idToken\",\n        \"type\"\n      ]\n    },\n    \"MessageContentType\": {\n      \"description\": \"Message_ Content\\r\\nurn:x-enexis:ecdm:uid:2:234490\\r\\nContains message details, for a message to be displayed on a Charging Station.\\r\\n\\r\\n\",\n      \"javaType\": \"MessageContent\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"format\": {\n          \"$ref\": \"#/definitions/MessageFormatEnumType\"\n        },\n        \"language\": {\n          \"description\": \"Message_ Content. Language. Language_ Code\\r\\nurn:x-enexis:ecdm:uid:1:570849\\r\\nMessage language identifier. Contains a language code as defined in &lt;&lt;ref-RFC5646,[RFC5646]&gt;&gt;.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 8\n        },\n        \"content\": {\n          \"description\": \"Message_ Content. Content. Message\\r\\nurn:x-enexis:ecdm:uid:1:570852\\r\\nMessage contents.\\r\\n\\r\\n\",\n          \"type\": \"string\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "TransactionEventResponse",
+      "heading_path": "JSON Schemas > TransactionEvent > TransactionEventResponse",
+      "message_name": "TransactionEventResponse",
+      "message_direction": "Response",
+      "chunk_part": 5
+    }
+  },
+  {
+    "content": "\"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"format\",\n        \"content\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"totalCost\": {\n      \"description\": \"SHALL only be sent when charging has ended. Final total cost of this transaction, including taxes. In the currency configured with the Configuration Variable: &lt;&lt;configkey-currency,`Currency`&gt;&gt;. When omitted, the transaction was NOT free. To indicate a free transaction, the CSMS SHALL send 0.00.\\r\\n\\r\\n\",\n      \"type\": \"number\"\n    },\n    \"chargingPriority\": {\n      \"description\": \"Priority from a business point of view. Default priority is 0, The range is from -9 to 9. Higher values indicate a higher priority. The chargingPriority in &lt;&lt;transactioneventresponse,TransactionEventResponse&gt;&gt; is temporarily, so it may not be set in the &lt;&lt;cmn_idtokeninfotype,IdTokenInfoType&gt;&gt; afterwards. Also the chargingPriority in &lt;&lt;transactioneventresponse,TransactionEventResponse&gt;&gt; overrules the one in &lt;&lt;cmn_idtokeninfotype,IdTokenInfoType&gt;&gt;.  \\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"idTokenInfo\": {\n      \"$ref\": \"#/definitions/IdTokenInfoType\"\n    },\n    \"updatedPersonalMessage\": {\n      \"$ref\": \"#/definitions/MessageContentType\"\n    }\n  }\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "TransactionEventResponse",
+      "heading_path": "JSON Schemas > TransactionEvent > TransactionEventResponse",
+      "message_name": "TransactionEventResponse",
+      "message_direction": "Response",
+      "chunk_part": 6
+    }
+  }
+]

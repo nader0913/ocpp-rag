@@ -1,0 +1,57 @@
+[
+  {
+    "content": "## AuthorizeRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: Authorize\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| idToken | IdTokenType | Yes | Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers. |\n| certificate | string | No | The X.509 certificated presented by EV and encoded in PEM format. |\n| iso15118CertificateHashData | array<OCSPRequestDataType> | No |  |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:AuthorizeRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"HashAlgorithmEnumType\": {\n      \"description\": \"Used algorithms for the hashes provided.\\r\\n\",\n      \"javaType\": \"HashAlgorithmEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"SHA256\",\n        \"SHA384\",\n        \"SHA512\"\n      ]\n    },\n    \"IdTokenEnumType\": {\n      \"description\": \"Enumeration of possible idToken types.\\r\\n\",\n      \"javaType\": \"IdTokenEnum\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "AuthorizeRequest",
+      "heading_path": "JSON Schemas > Authorize > AuthorizeRequest",
+      "message_name": "AuthorizeRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Central\",\n        \"eMAID\",\n        \"ISO14443\",\n        \"ISO15693\",\n        \"KeyCode\",\n        \"Local\",\n        \"MacAddress\",\n        \"NoAuthorization\"\n      ]\n    },\n    \"AdditionalInfoType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"AdditionalInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalIdToken\": {\n          \"description\": \"This field specifies the additional IdToken.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"description\": \"This defines the type of the additionalIdToken. This is a custom type, so the implementation needs to be agreed upon by all involved parties.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"additionalIdToken\",\n        \"type\"\n      ]\n    },\n    \"IdTokenType\": {\n      \"description\": \"Contains a case insensitive identifier to use for the authorization and the type of authorization to support multiple forms of identifiers.\\r\\n\",\n      \"javaType\": \"IdToken\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"additionalInfo\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/AdditionalInfoType\"\n          },\n          \"minItems\": 1",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "AuthorizeRequest",
+      "heading_path": "JSON Schemas > Authorize > AuthorizeRequest",
+      "message_name": "AuthorizeRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "},\n        \"idToken\": {\n          \"description\": \"IdToken is case insensitive. Might hold the hidden id of an RFID tag, but can for example also contain a UUID.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"type\": {\n          \"$ref\": \"#/definitions/IdTokenEnumType\"\n        }\n      },\n      \"required\": [\n        \"idToken\",\n        \"type\"\n      ]\n    },\n    \"OCSPRequestDataType\": {\n      \"javaType\": \"OCSPRequestData\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"hashAlgorithm\": {\n          \"$ref\": \"#/definitions/HashAlgorithmEnumType\"\n        },\n        \"issuerNameHash\": {\n          \"description\": \"Hashed value of the Issuer DN (Distinguished Name).\\r\\n\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 128\n        },\n        \"issuerKeyHash\": {\n          \"description\": \"Hashed value of the issuers public key\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 128\n        },\n        \"serialNumber\": {\n          \"description\": \"The serial number of the certificate.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 40\n        },\n        \"responderURL\": {\n          \"description\": \"This contains the responder URL (Case insensitive). \\r\\n\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"hashAlgorithm\",\n        \"issuerNameHash\",\n        \"issuerKeyHash\",\n        \"serialNumber\",\n        \"responderURL\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"idToken\": {\n      \"$ref\": \"#/definitions/IdTokenType\"",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "AuthorizeRequest",
+      "heading_path": "JSON Schemas > Authorize > AuthorizeRequest",
+      "message_name": "AuthorizeRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "},\n    \"certificate\": {\n      \"description\": \"The X.509 certificated presented by EV and encoded in PEM format.\\r\\n\",\n      \"type\": \"string\",\n      \"maxLength\": 5500\n    },\n    \"iso15118CertificateHashData\": {\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"$ref\": \"#/definitions/OCSPRequestDataType\"\n      },\n      \"minItems\": 1,\n      \"maxItems\": 4\n    }\n  },\n  \"required\": [\n    \"idToken\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "AuthorizeRequest",
+      "heading_path": "JSON Schemas > Authorize > AuthorizeRequest",
+      "message_name": "AuthorizeRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  }
+]

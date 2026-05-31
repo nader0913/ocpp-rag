@@ -1,0 +1,29 @@
+[
+  {
+    "content": "## PublishFirmwareStatusNotificationRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: PublishFirmwareStatusNotification\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| status | enum(Idle,DownloadScheduled,Downloading,Downloaded,Published,DownloadFailed,DownloadPaused,InvalidChecksum,ChecksumVerified,PublishFailed) | Yes | This contains the progress status of the publishfirmware installation. |\n| location | array<string> | No | Required if status is Published. Can be multiple URI’s, if the Local Controller supports e.g. HTTP, HTTPS, and FTP. |\n| requestId | integer | No | The request id that was provided in the PublishFirmwareRequest which triggered this action. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:PublishFirmwareStatusNotificationRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"PublishFirmwareStatusEnumType\": {\n      \"description\": \"This contains the progress status of the publishfirmware\\r\\ninstallation.\\r\\n\",\n      \"javaType\": \"PublishFirmwareStatusEnum\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "PublishFirmwareStatusNotificationRequest",
+      "heading_path": "JSON Schemas > PublishFirmwareStatusNotification > PublishFirmwareStatusNotificationRequest",
+      "message_name": "PublishFirmwareStatusNotificationRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Idle\",\n        \"DownloadScheduled\",\n        \"Downloading\",\n        \"Downloaded\",\n        \"Published\",\n        \"DownloadFailed\",\n        \"DownloadPaused\",\n        \"InvalidChecksum\",\n        \"ChecksumVerified\",\n        \"PublishFailed\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"status\": {\n      \"$ref\": \"#/definitions/PublishFirmwareStatusEnumType\"\n    },\n    \"location\": {\n      \"description\": \"Required if status is Published. Can be multiple URI\\u2019s, if the Local Controller supports e.g. HTTP, HTTPS, and FTP.\\r\\n\",\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"type\": \"string\",\n        \"maxLength\": 512\n      },\n      \"minItems\": 1\n    },\n    \"requestId\": {\n      \"description\": \"The request id that was\\r\\nprovided in the\\r\\nPublishFirmwareRequest which\\r\\ntriggered this action.\\r\\n\",\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "PublishFirmwareStatusNotificationRequest",
+      "heading_path": "JSON Schemas > PublishFirmwareStatusNotification > PublishFirmwareStatusNotificationRequest",
+      "message_name": "PublishFirmwareStatusNotificationRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  }
+]

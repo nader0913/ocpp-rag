@@ -1,0 +1,29 @@
+[
+  {
+    "content": "## GetDisplayMessagesRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: GetDisplayMessages\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| id | array<integer> | No | If provided the Charging Station shall return Display Messages of the given ids. This field SHALL NOT contain more ids than set in &lt;&lt;configkey-number-of-display-messages,NumberOfDisplayMessages.maxLimit&gt;&gt; |\n| requestId | integer | Yes | The Id of this request. |\n| priority | enum(AlwaysFront,InFront,NormalCycle) | No | If provided the Charging Station shall return Display Messages with the given priority only. |\n| state | enum(Charging,Faulted,Idle,Unavailable) | No | If provided the Charging Station shall return Display Messages with the given state only. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:GetDisplayMessagesRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"MessagePriorityEnumType\": {\n      \"description\": \"If provided the Charging Station shall return Display Messages with the given priority only.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > GetDisplayMessages > GetDisplayMessagesRequest",
+      "message_name": "GetDisplayMessagesRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"javaType\": \"MessagePriorityEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"AlwaysFront\",\n        \"InFront\",\n        \"NormalCycle\"\n      ]\n    },\n    \"MessageStateEnumType\": {\n      \"description\": \"If provided the Charging Station shall return Display Messages with the given state only. \\r\\n\",\n      \"javaType\": \"MessageStateEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Charging\",\n        \"Faulted\",\n        \"Idle\",\n        \"Unavailable\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"id\": {\n      \"description\": \"If provided the Charging Station shall return Display Messages of the given ids. This field SHALL NOT contain more ids than set in &lt;&lt;configkey-number-of-display-messages,NumberOfDisplayMessages.maxLimit&gt;&gt;\\r\\n\\r\\n\",\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"type\": \"integer\"\n      },\n      \"minItems\": 1\n    },\n    \"requestId\": {\n      \"description\": \"The Id of this request.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"priority\": {\n      \"$ref\": \"#/definitions/MessagePriorityEnumType\"\n    },\n    \"state\": {\n      \"$ref\": \"#/definitions/MessageStateEnumType\"\n    }\n  },\n  \"required\": [\n    \"requestId\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > GetDisplayMessages > GetDisplayMessagesRequest",
+      "message_name": "GetDisplayMessagesRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  }
+]

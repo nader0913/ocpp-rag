@@ -1,0 +1,188 @@
+{
+  "use_case_id": "K03",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Local Smart Charging",
+  "chunks": [
+    {
+      "content": "# K03 - Local Smart Charging\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Local Smart Charging                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 2   | ID                   | K03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 3   | Objective(s)         | To illustrate the process of local load-balancing by a Local Cluster.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 4,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 4   | Description          | This use case is an example of how local load-balancing can be performed. It does not imply that other approaches would not be correct. The process has been simplified for clarity and should not be regarded as prescriptive. A Local Controller is configured with a value for maximum current for the total cluster by CSMS via a charging profile of type ChargingStationMaxProfile to the Local Controller, or an EMS may have set a ChargingStationExternalConstraints charging profile. The Local Controller divides the maximum current among the active transactions. Whenever a transaction starts or finishes, the Local Controller will update the charging profiles of the remaining transactions to divide the maximum current equally. For simplicity’s sake, this use case does not differentiate on departure time or state of charge of vehicles, nor does it take the actual energy consumption of vehicles into account.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 5,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 5   | Actors               | Charging Station (CS01, CS02), Local Controller (LC), CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 6,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 6   | Scenario description | Assume no transactions are active in the local cluster and the maximum current for the local cluster has been configured to be 100 A. The charging stations all have a TxDefaultProfile that allows a current of only 6 A, so that vehicles cannot immediately start charging at full power before the LC had the chance to set a charging profile.1) A transaction starts on charging station CS01. It sends a TransactionEventRequest(Started) to LC.\n2) LC is configured to do local load-balancing (i.e. its SmartChargingCtrlr.Enabled = true), so it registers the transaction id TX1 of the transaction that has been started on CS01, before forwarding the message on the websocket for CS01 towards CSMS.\n3) LC sends a SetChargingProfileRequest to CS01 with chargingProfilePurpose = TxProfile, chargingProfileKind = Relative, transactionId = TX1 and a chargingSchedule with a chargingRateUnit = A that contains one chargingSchedulePeriod with a limit of 94 A, so that the entire quota is available to this transaction minus the TxDefaultProfile amount for new transactions.\n4) Another transaction starts on charging station CS02. It sends a TransactionEventRequest(Started) to LC.\n5) LC registers the new transaction id TX2 and forwards the message on the websocket for CS02 to CSMS.\n6) LC divides the available quota by allowing each transaction a maximum of 47 A.\n7) LC sends a SetChargingProfile message to CS01 that updates the existing TxProfile and sets the limit to 47 A.\n8) LC sends new SetChargingProfile to CS02 with chargingProfilePurpose = TxProfile, chargingProfileKind = Relative, transactionId = TX2 and a chargingSchedule with a chargingRateUnit = A that contains one chargingSchedulePeriod with a limit of 47 A.\n9) The transaction of CS01 finishes. It sends a TransactionEventRequest(Ended) to LC.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 7,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "10) LC registers that transaction TX1 on CS01 has finished and forwards the message on the websocket for CS01 to CSMS.\n11) LC now allows the maximum to TX2. It sends a SetChargingProfile message to CS02 that updates the existing TxProfile and sets the limit to 94 A. (Note, that the TxProfile for TX1 on CS01 has automatically ceased to exist upon termination of the transaction.) |\n| 5   | Prerequisites        | The LC has been configured with a fixed maximum current level. The SmartChargingCtrlr component of Local Controller has been Enabled, which will trigger the Local Controller to read and interpret TransactionEventRequest messages from connected Charging Stations.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 8,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 6   | Post conditions      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 9,
+        "total_parts": 10
+      }
+    },
+    {
+      "content": "| 7   | Error Handling       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K03 - Local Smart Charging",
+        "heading_path": "K03 - Local Smart Charging",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K03",
+        "use_case_name": "Local Smart Charging",
+        "use_case_refs": "K03",
+        "message_refs": "SetChargingProfileRequest, TransactionEventRequest",
+        "chunk_part": 10,
+        "total_parts": 10
+      }
+    }
+  ],
+  "figures": []
+}

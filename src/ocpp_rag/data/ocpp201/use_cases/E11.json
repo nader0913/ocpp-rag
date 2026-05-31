@@ -1,0 +1,79 @@
+{
+  "use_case_id": "E11",
+  "functional_block": "Transactions",
+  "use_case_name": "Connection Loss During Transaction",
+  "chunks": [
+    {
+      "content": "# E11 - Connection Loss During Transaction\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Connection Loss During Transaction                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID                   | E11                                                                                                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)         | To enable a Charging Station to continue a transaction while the Charging Station loses its connection                                                                                                                                                                                                                                                                       |\n| 4   | Description          | This use case describes how a Charging Station can continue an ongoing transaction while losing and regaining the connection with the CSMS.                                                                                                                                                                                                                                  |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                       |\n|     | Scenario description | 1. The connection of the Charging Station is lost, while a transaction is ongoing. 2. The transaction events of the Charging Station are stored. 3. The connection with the CSMS is restored. 4. The Charging Station sends the stored transaction events to the CSMS using TransactionEventRequest (offline = TRUE). 5. The Charging Station resumes regular communication. |\n| 5   | Prerequisite(s)      | Transaction ongoing and connection lost.                                                                                                                                                                                                                                                                                                                                     |\n| 6   | Postcondition(s)     | Successful postcondition: The Charging Station resumes regular communication. Failure postcondition: n/a                                                                                                                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E11 - Connection Loss During Transaction",
+        "heading_path": "E11 - Connection Loss During Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E11",
+        "use_case_name": "Connection Loss During Transaction",
+        "use_case_refs": "E11",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "59",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                          |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                          |\n\nCharging Station    CSMS\n\nA transaction is ongoing.\n\nConnection loss.\n\nopt\nloop  [while transaction running]\nstore TransactionEventRequest() messages\n\nConnection restored.\n\nloop  [for all stored TransactionEventRequest() messages]\nTransactionEventRequest(offline = true)\n\nTransactionEventResponse()\n\nResume regular communication\n\nFigure 59. Sequence Diagram: Connection Loss During Transaction",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E11 - Connection Loss During Transaction",
+        "heading_path": "E11 - Connection Loss During Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E11",
+        "use_case_name": "Connection Loss During Transaction",
+        "use_case_refs": "E11",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse",
+        "figure_refs": "59",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# E11 - Connection Loss During Transaction - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                 |\n| --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E11.FR.01 | When Offline | The Charging Station MUST queue all TransactionEventRequest messages, that it would have sent to the CSMS if the Charging Station had been online. (Same as E12.FR.01) |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E11 - Connection Loss During Transaction - Requirements",
+        "heading_path": "E11 - Connection Loss During Transaction - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E11",
+        "use_case_name": "Connection Loss During Transaction",
+        "use_case_refs": "E11, E12",
+        "message_refs": "TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "59",
+      "title": "Sequence Diagram: Connection Loss During Transaction",
+      "files": [
+        "fig59_p1_Sequence_Diagram__Connection_Loss_During_Transacti.png",
+        "fig59_p2_Sequence_Diagram__Connection_Loss_During_Transacti.png"
+      ]
+    },
+    {
+      "figure_num": "59",
+      "title": "Sequence Diagram: Connection Loss During Transaction",
+      "files": [
+        "fig59_p1_Sequence_Diagram__Connection_Loss_During_Transacti.png",
+        "fig59_p2_Sequence_Diagram__Connection_Loss_During_Transacti.png"
+      ]
+    }
+  ]
+}

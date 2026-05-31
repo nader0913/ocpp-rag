@@ -1,0 +1,96 @@
+{
+  "use_case_id": "E12",
+  "functional_block": "Transactions",
+  "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+  "chunks": [
+    {
+      "content": "# E12 - Inform CSMS of an Offline Occurred Transaction\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Inform CSMS of an Offline Occurred Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID               | E12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 3   | Objective(s)     | To enable the Charging Station to inform the CSMS that a transaction occurred while the Charging Station was Offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E12",
+        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+        "use_case_refs": "E12",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 4   | Description      | This use case covers how the Charging Station starts and stops a transaction since connection loss. **Actors:** Charging Station, CSMS **Scenario description:**) The connection with the CSMS is restored.\n2) The Charging Station sends a Heartbeat message to the CSMS.\n3) The Charging Station sends TransactionEventRequest (eventType = Started, offline = TRUE) to the CSMS.\n4) The CSMS responds with TransactionEventResponse, accepting the transaction.\n5) The Charging Station sends TransactionEventRequest (eventType = Updated, offline = TRUE).\n6) The CSMS responds with TransactionEventResponse.\n7) The Charging Station sends TransactionEventRequest (eventType = Ended, offline = TRUE).\n8) The CSMS responds with TransactionEventResponse. |\n| 5   | Prerequisite(s)  | At least one Offline transaction has taken place.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 6   | Postcondition(s) | **Successful postcondition:** The CSMS has processed all transactions that occurred Offline. **Failure postcondition:** n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E12",
+        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+        "use_case_refs": "E12",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n\nCharging Station\nCSMS\n\nCharging Station is Offline and a transaction has occurred.\n\nConnection restored.\n\nHeartbeatRequest()\nHeartbeatResponse()\nsend queued message()\n\nloop [for all queued TransactionEvent messages since connection loss]",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E12",
+        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+        "use_case_refs": "E12",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "TransactionEventRequest(transactionId = X, offline = true)\nTransactionEventResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction",
+        "functional_block": "Transactions",
+        "use_case_id": "E12",
+        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+        "use_case_refs": "E12",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# E12 - Inform CSMS of an Offline Occurred Transaction - Requirements\n\n| ID        | Precondition                      | Requirement definition                                                                                                                             |\n| --------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E12.FR.01 | When Offline                      | The Charging Station MUST queue all TransactionEventRequest messages, that it would have sent to the CSMS if the Charging Station had been online. |\n| E12.FR.02 | After the connection is restored. | The Charging Station MUST send queued TransactionEventRequest messages with the flag offline set to TRUE.                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E12 - Inform CSMS of an Offline Occurred Transaction - Requirements",
+        "heading_path": "E12 - Inform CSMS of an Offline Occurred Transaction - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E12",
+        "use_case_name": "Inform CSMS of an Offline Occurred Transaction",
+        "use_case_refs": "E12",
+        "message_refs": "TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

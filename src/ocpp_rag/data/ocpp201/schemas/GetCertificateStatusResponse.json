@@ -1,0 +1,29 @@
+[
+  {
+    "content": "## GetCertificateStatusResponse\n\n**Type**: OCPP 2.0.1 Message Schema (Response)\n**Base Message**: GetCertificateStatus\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| status | enum(Accepted,Failed) | Yes | This indicates whether the charging station was able to retrieve the OCSP certificate status. |\n| statusInfo | StatusInfoType | No | Element providing more information about the status. |\n| ocspResult | string | No | OCSPResponse class as defined in &lt;&lt;ref-ocpp_security_24, IETF RFC 6960&gt;&gt;. DER encoded (as defined in &lt;&lt;ref-ocpp_security_24, IETF RFC 6960&gt;&gt;), and then base64 encoded. MAY only be omitted when status is not Accepted. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:GetCertificateStatusResponse\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"GetCertificateStatusEnumType\": {\n      \"description\": \"This indicates whether the charging station was able to retrieve the OCSP certificate status.\\r\\n\",\n      \"javaType\": \"GetCertificateStatusEnum\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetCertificateStatusResponse",
+      "heading_path": "JSON Schemas > GetCertificateStatus > GetCertificateStatusResponse",
+      "message_name": "GetCertificateStatusResponse",
+      "message_direction": "Response"
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Accepted\",\n        \"Failed\"\n      ]\n    },\n    \"StatusInfoType\": {\n      \"description\": \"Element providing more information about the status.\\r\\n\",\n      \"javaType\": \"StatusInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"reasonCode\": {\n          \"description\": \"A predefined code for the reason why the status is returned in this response. The string is case-insensitive.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        },\n        \"additionalInfo\": {\n          \"description\": \"Additional text to provide detailed information.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"reasonCode\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"status\": {\n      \"$ref\": \"#/definitions/GetCertificateStatusEnumType\"\n    },\n    \"statusInfo\": {\n      \"$ref\": \"#/definitions/StatusInfoType\"\n    },\n    \"ocspResult\": {\n      \"description\": \"OCSPResponse class as defined in &lt;&lt;ref-ocpp_security_24, IETF RFC 6960&gt;&gt;. DER encoded (as defined in &lt;&lt;ref-ocpp_security_24, IETF RFC 6960&gt;&gt;), and then base64 encoded. MAY only be omitted when status is not Accepted.\\r\\n\",\n      \"type\": \"string\",\n      \"maxLength\": 5500\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetCertificateStatusResponse",
+      "heading_path": "JSON Schemas > GetCertificateStatus > GetCertificateStatusResponse",
+      "message_name": "GetCertificateStatusResponse",
+      "message_direction": "Response",
+      "chunk_part": 2
+    }
+  }
+]

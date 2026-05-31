@@ -1,0 +1,383 @@
+[
+  {
+    "content": "# C. Authorization\n\nEV Driver Charging Station CSMS\n\npresent RFID(AA12345)\n\nAuthorizeRequest(idToken(id = AA12345, type = ISO14443))\n\nAuthorizeResponse(...)\n\nopt notification",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                                                                                                                                       | Requirement definition                                                                                                            | Note                                                                                                                                                                                              |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| C01.FR.11 |                                                                                                                                                                                                                                                                    | Field: language1 SHALL be different from field language2.                                                                         |                                                                                                                                                                                                   |\n| C01.FR.12 |                                                                                                                                                                                                                                                                    | It is RECOMMENDED to implement messages in English as fall-back.                                                                  |                                                                                                                                                                                                   |\n| C01.FR.13 | If both language1 AND language2 don’t match installed languages in the Charging Station                                                                                                                                                                            | It is RECOMMENDED to show messages to the EV Driver in English.                                                                   |                                                                                                                                                                                                   |\n| C01.FR.17 |                                                                                                                                                                                                                                                                    | Language SHALL be specified as RFC-4646 tags, see: \\[RFC5646], example: US English is: \"en-US\".                                   |                                                                                                                                                                                                   |\n| C01.FR.18 | If the IdToken is valid AND the EV driver is NOT allowed to charge at the type of EVSE(s) this Charging Station provides.                                                                                                                                          | The CSMS SHALL send an AuthorizeResponse with idTokenInfo.status NotAllowedTypeEVSE.                                              |                                                                                                                                                                                                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C01",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse",
+      "chunk_part": 1,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| C01.FR.19 | idToken is allowed for any EVSE of the Charging Station                                                                                                                                                                                                            | The CSMS SHALL send an AuthorizeResponse in which idTokenInfo has an empty (or absent) evseId list.                               | This will be the most common case. Even though the idToken might be allowed on any EVSE, the idTokenInfo.status still needs to be Accepted before charging is allowed.                            |\n| C01.FR.20 | idToken is allowed for a subset of EVSEs of the Charging Station                                                                                                                                                                                                   | The CSMS SHALL send an AuthorizeResponse in which IdTokenInfo has an evseId list with the allowed EVSEs.                          | Note the difference between validity of an idToken and the fact whether this (type of) token is allowed on an EVSE. The idTokenInfo.status still needs to be Accepted before charging is allowed. |\n| C01.FR.21 | C01.FR.20                                                                                                                                                                                                                                                          | The Charging Station SHALL only allow charging on the EVSEs mentioned in the AuthorizeResponse.                                   |                                                                                                                                                                                                   |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C01",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse",
+      "chunk_part": 2,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| C01.FR.22 | idToken is not allowed for any EVSE of the Charging Station                                                                                                                                                                                                        | The CSMS SHALL send an AuthorizeResponse in which idTokenInfo.status is NotAtThisLocation and evseId list is empty (or absent).   | Status NotAtThisLocation needed in order to differentiate with the situation in which idToken is allowed on all EVSEs.                                                                            |\n| C01.FR.23 | When a transaction is still active, that had been authorized earlier by an idToken, but which is now no longer authorized for charging AND a new idToken is presented to the Charging Station for authorization, that differs from the initial idToken             | The Charging Station SHOULD NOT allow the authorization of a different idToken.                                                   | Multiple idTokens for a transaction are most likely not supported by a CSMS.                                                                                                                      |\n| C01.FR.24 | When a transaction is still active, that had been authorized earlier by an idToken, but which is now no longer authorized for charging AND Charging Stations sends an AuthorizeRequest for a new idToken, that differs from the initial idToken of the transaction | The CSMS is RECOMMENDED to respond with an AuthorizeResponse with idTokenInfo.status = NotAtThisTime for this idToken.            | If a second authorization is done by Charging Station then CSMS can reject the idToken.                                                                                                           |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C01",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse",
+      "chunk_part": 3,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "| C01.FR.25 |                                                                                                                                                                                                                                                                    | Two IdTokenType elements are considered to be equal when they have the same value for the fields idToken.idToken and idToken.type | additionalInfo is not taken into account when comparing. See C01.FR.02, C01.FR.03, C01.FR.05 for idToken requirements where idTokens are compared.                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C01",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse",
+      "chunk_part": 4,
+      "total_parts": 4
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                        | Requirement definition                                  | Note                                                                                                        |\n| --------- | ----------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |\n| C01.FR.26 | When an idToken has been authorized | Charging Station SHALL end the authorization of idToken | See also E03.FR.05 and F02.FR.07/08 for additional behavior in case a transaction had already been started. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C01, E03, F02"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID.       | Precondition                                                                                                                                                           | Requirement definition                                                           |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |\n| C02.FR.03 | If the Charging Station has implemented an Authorization Cache AND the Charging Station receives IdTokenInfo for an IdTokenType of type NoAuthorization in any message | The Charging Station SHALL NOT store the information in its Authorization Cache. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C02"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID.       | Precondition                          | Requirement definition                                                                                                                                   |\n| --------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| C04.FR.03 |                                       | A Charging Station MAY store keyCodes in the Authorization Cache.                                                                                        |\n| C04.FR.04 | If an idToken of type keyCode is used | The Charging Station or CSMS SHALL NOT show the IdToken in any logging. key codes should never appear in logs.                                           |\n| C04.FR.05 |                                       | Language SHALL be specified as RFC-5646 tags, see: \\[RFC5646], for example: US English is: \"en-US\".                                                      |\n| C04.FR.06 | If an idToken of type keyCode is used | It is RECOMMENDED to take measures to prevent brute force attacks, for example by increasing backoff times after attempts to enter an incorrect keyCode. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C04"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\nEV Driver      Payment Terminal      Charging Station      CSMS\n\nPlugin cable\n\n- StatusNotificationRequest(Occupied)\n- StatusNotificationResponse()\n- TransactionEventRequest(eventType = Started, triggerReason = CablePluggedIn, ...)\n- TransactionEventResponse(...)\n\npresent parking ticket(1234)\n\n- AuthorizeRequest(idToken(id = 1234, type = Local))\n- AuthorizeResponse(...)\n\nopt notification",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\nEV Charging Station CSMS (Sub)CA\n\nServiceDiscoveryReq()\nServiceDiscoveryRes(PaymentServiceList: Contract, ExternalPayment)\nPaymentServiceSelectionReq(paymentOption: Contract)\nPaymentServiceSelectionRes()\nalt   [Cached certificate checking]\nPaymentDetailsReq(ContractCertificateChain, EMAID)\nAuthorizeRequest(idToken.EMAID, iso15118CertificateHashData[0..4])\ncheck certificate cache()\n\nAuthorizeResponse(idTokenInfo, certificateStatus)\nPaymentDetailsRes(GenChallenge)\nAuthorizationReq(GenChallenge)\nAuthorizationRes(EVSEProcessing, ResponseCode)\n[Real-time certificate checking]\nPaymentDetailsReq(ContractCertificateChain, EMAID)\nAuthorizeRequest(idToken.EMAID, iso15118CertificateHashData[0..4])\nOCSP request()\nPaymentDetailsRes(GenChallenge)\nAuthorizationReq(GenChallenge)\nOCSP response()\nAuthorizeResponse(idTokenInfo, certificateStatus)\nAuthorizationRes(EVSEProcessing, ResponseCode)",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                                                               | Requirement definition                                                                                                                            | Note                                                                                                                     |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |\n| C07.FR.11 | C07.FR.09 AND eMAID found in Authorization Cache                                                                                                                                           | The Charging Station SHALL behave according to use case C12 - Start Transaction - Cached Id.                                                      |                                                                                                                          |\n| C07.FR.12 | C07.FR.09 AND eMAID is not found AND OfflineTxForUnknownIdEnabled = true                                                                                                                   | The Charging Station SHALL allow charging according to use case C15 - Offline Authorization of unknown Id.                                        |                                                                                                                          |\n| C07.FR.13 | C07.FR.04 AND the certificate chain (provided in certificate or iso15118CertificateHashData) is valid AND authorization status of idToken is one of Blocked, Expired, Invalid, Unknown     | CSMS SHALL return an AuthorizationResponse containing a certificateStatus = ContractCancelled and the authorization status in idTokenInfo.status. | Certificate is valid, but EMAID is not accepted.                                                                         |\n| C07.FR.14 | C07.FR.04 AND the certificate chain (provided in certificate or iso15118CertificateHashData) is valid AND authorization status of idToken is NOT one of Blocked, Expired, Invalid, Unknown | CSMS SHALL return an AuthorizationResponse containing a certificateStatus = Accepted and the authorization status in idTokenInfo.status.          | Charging can still not be allowed if idTokenInfo.status is other than Accepted (e.g. ConcurrentTx or NotAtThisLocation). |\n| C07.FR.15 | C07.FR.04 AND the certificate chain (provided in certificate or iso15118CertificateHashData) has expired                                                                                   | CSMS SHALL return an AuthorizationResponse containing a certificateStatus = idTokenInfo.status = Expired                                          | If certificate is expired, then status of idToken is also reported expired.                                              |\n| C07.FR.16 | C07.FR.04 AND the certificate chain (provided in certificate or iso15118CertificateHashData) has been revoked                                                                              | CSMS SHALL return an AuthorizationResponse containing a certificateStatus = idTokenInfo.status = Invalid                                          | If certificate is revoked, then status of idToken is reported as invalid.                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C07, C12, C15",
+      "message_refs": "AuthorizationResponse",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| C07.FR.17 | C07.FR.04 AND the certificate chain (provided in certificate or iso15118CertificateHashData) cannot be verified or is invalid                                                              | CSMS SHALL return an AuthorizationResponse containing a certificateStatus = CertChainError and an idTokenInfo.status = Invalid                    | If certificate cannot be verified, then status of idToken is reported as invalid.                                        |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C07, C12, C15",
+      "message_refs": "AuthorizationResponse",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                                                                                                                                                                                                                             | Requirement definition                                                                                                    |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |\n| C09.FR.03 | When a transaction has been authorized/started with a certain IdToken.                                                                                                                                                                                                                                                                                   | An EV Driver with a different, valid IdToken, but with the same groupIdToken SHALL be authorized to stop the transaction. |\n| C09.FR.04 | C09.FR.03 AND If both IdTokens with their corresponding GroupIdTokens are present in either the Local Authorization List or Authorization Cache.                                                                                                                                                                                                         | The Charging Station MAY send an AuthorizeRequest to the CSMS.                                                            |\n| C09.FR.05 | C09.FR.03 AND (NOT C09.FR.07) AND If the newly presented IdToken with its corresponding GroupIdToken is not present in either the Local Authorization List or Authorization Cache.                                                                                                                                                                       | The Charging Station SHALL send an AuthorizeRequest to the CSMS.                                                          |\n| C09.FR.07 | When an idToken is presented during a transaction that has been authorized AND (a) the presented idToken is the same as the idToken that started the authorization OR (b) when the presented idToken is in the Local Authorization List or Authorization Cache AND is valid AND has the same GroupIdToken as the IdToken that started the authorization. | The Charging Station SHALL end the authorization of the transaction, without first sending an AuthorizeRequest.           |\n| C09.FR.09 | If the IdToken in AuthorizeRequest has an associated groupIdToken                                                                                                                                                                                                                                                                                        | AuthorizeResponse from CSMS SHALL include groupIdToken.                                                                   |\n| C09.FR.10 |                                                                                                                                                                                                                                                                                                                                                          | AuthorizeResponse SHALL include an authorization status value indicating acceptance or a reason for rejection.            |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C09",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| C09.FR.11 | C09.FR.03 AND A different IdToken is presented for stopping, which has the same GroupIdToken, but does not have status = Accepted                                                                                                                                                                                                                        | The Charging Station SHALL NOT stop the transaction.                                                                      |\n| C09.FR.12 | If a TransactionEventRequest contains an IdToken and idToken has an associated groupIdToken                                                                                                                                                                                                                                                              | TransactionEventResponse from CSMS SHALL include groupIdToken.                                                            |\n| C09.FR.13 |                                                                                                                                                                                                                                                                                                                                                          | The field idToken.type of a GroupIdToken SHOULD be Central                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C09",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                | Requirement definition                                                                                                     | Note                                                                                                                                                                     |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| C10.FR.02 |                                                                                                                                             | Cache values SHOULD be persistent across reboots and power outages.                                                        | SHOULD be stored in non-volatile memory.                                                                                                                                 |\n| C10.FR.03 | When an IdToken is presented that is stored in the Authorization Cache with status other than Accepted, and the Charging Station is online. | AuthorizeRequest SHALL be sent to the CSMS to check the current state of the IdToken.                                      | To check the current state of the identifier.                                                                                                                            |\n| C10.FR.04 | Upon receipt of AuthorizeResponse.                                                                                                          | The Charging Station SHALL update the Authorisation Cache entry.                                                           | The update is to be done with the IdTokenInfo value from the response as described under Authorization Cache.                                                            |\n| C10.FR.05 | Upon receipt of TransactionEventResponse.                                                                                                   | The Charging Station SHALL update the Authorisation Cache entry.                                                           | The update is to be done with the IdTokenInfo value from the response as described under Authorization Cache.                                                            |\n| C10.FR.07 |                                                                                                                                             | The Charging Station SHALL have a mechanism to accept new cache entries even when it is full, by deleting older entries.   | It is suggested to remove any entries with status other than Accepted first, and then the oldest valid entries to make space for the new entry.                          |\n| C10.FR.08 | When IdTokenInfoType does not contain a value for cacheExpiryDateTime                                                                       | The time a token is considered to be present in the cache is determined by the Configuration Variable AuthCacheLifeTime.   | This variable indicates how long it takes until a token expires in the Authorization Cache since it is last used.                                                        |\n| C10.FR.09 |                                                                                                                                             | The Charging Station supports Tariff & Cost                                                                                | The Charging Station SHALL NOT store the tariff information in the Cache.                                                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C10",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventResponse",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| C10.FR.10 | NOT C10.FR.13 AND when more than AuthCacheLifeTime seconds have passed since idTokenInfo was last updated                                   | The Authorization Cache entry SHALL be removed from the cache or changed to Expired.                                       | A cacheExpiryDateTime in the past will prevent an idToken from being stored in the authorization cache, or remove it from authorization cache if it was already present. |\n| C10.FR.11 |                                                                                                                                             | Whether the Authorization Cache is enabled or disabled SHALL be controlled by the AuthCacheEnabled Configuration Variable. |                                                                                                                                                                          |\n| C10.FR.12 |                                                                                                                                             | It is RECOMMENDED to store personal information securely                                                                   | E.g. by only storing hashed idTokens in the cache.                                                                                                                       |\n| C10.FR.13 | When IdTokenInfoType contains a value for cacheExpiryDateTime and current time is greater than idTokenInfo.cacheExpiryDateTime              | The Authorization Cache entry SHALL be removed from the cache or changed to Expired.                                       | This expiry of the cache is not the same as the expiration date that is set for the IdToken (e.g. RFID card expiry date).                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C10",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventResponse",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                        |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Offline Authorization through Local Authorization List                                                                                                                                                                                                                                             |\n| 2   | ID               | C13                                                                                                                                                                                                                                                                                                |\n| 3   | Objective(s)     | To authorize an idToken by using the Local Authorization List while Offline.                                                                                                                                                                                                                       |\n| 4   | Description      | This use case describes how to authorize an IdToken, when communication with the CSMS is not possible. The Local Authorization List is a list of idTokens that can be synchronized with the CSMS. The list contains the authorization status of a selected set of idTokens as managed by the CSMS. |\n| 5   | Prerequisite(s)  | Local Authorization List is available Local Authorization List is enabled via LocalAuthListEnabled Charging Station is Offline The Id of the EV Driver is in the Local Authorization List Id is valid                                                                                              |\n| 6   | Postcondition(s) | Successful postcondition: The Charging Station accepts tokens on the Local Authorization List when it is offline. Failure postcondition: The Charging Station does not accept tokens on the Local Authorization List when it is offline.                                                           |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C13"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                                           | Requirement definition                                                                                                                                                                                                                                                                                                                      | Note                                                                                                                   |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |\n| C13.FR.01 |                                                                                                                                                                        | Where both Authorization Cache and Local Authorization List are supported, a Charging Station SHALL treat Local Authorization List entries as having priority over Authorization Cache entries for the same identifiers.                                                                                                                    |                                                                                                                        |\n| C13.FR.02 | If configuration variable OfflineTxForUnknownIdEnabled is false AND The Charging Station is offline AND LocalAuthListSupportsExpiryDateTime does not exist or is false | Only identifiers that are present in a Local Authorization List that have a status Accepted SHALL be allowed to authorize a transaction.                                                                                                                                                                                                    | This means that Charging Station does not check for cacheExpiryDateTime.                                               |\n| C13.FR.03 |                                                                                                                                                                        | The Charging Station MAY authorize the IdToken locally without involving the CSMS.                                                                                                                                                                                                                                                          | As described in Local Authorization List.                                                                              |\n| C13.FR.04 | If configuration variable OfflineTxForUnknownIdEnabled is true AND The Charging Station is offline AND LocalAuthListSupportsExpiryDateTime does not exist or is false  | Any identifier that is present in neither the Authorization Cache nor the Local Authorization List SHALL be allowed to authorize a transaction AND any identifiers that are present in a Local Authorization List that have a status Accepted SHALL be allowed to authorize a transaction.                                                  | This means that Charging Station does not check for cacheExpiryDateTime. See also C15.FR.08                            |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C13, C15",
+      "chunk_part": 1,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "| C13.FR.05 | If configuration variable OfflineTxForUnknownIdEnabled is false AND The Charging Station is offline AND LocalAuthListSupportsExpiryDateTime = true                     | Only identifiers that are present in a Local Authorization List that have a status Accepted and for which cacheExpiryDateTime has not passed SHALL be allowed to authorize a transaction.                                                                                                                                                   | When cacheExpiryDateTime is absent, the idToken will not expire in Local Authorization List.                           |\n| C13.FR.06 | If configuration variable OfflineTxForUnknownIdEnabled is true AND The Charging Station is offline AND LocalAuthListSupportsExpiryDateTime = true                      | Any identifier that is present in neither the Authorization Cache nor the Local Authorization List SHALL be allowed to authorize a transaction AND any identifiers that are present in a Local Authorization List that have a status Accepted and for which cacheExpiryDateTime has not passed SHALL be allowed to authorize a transaction. | This means that an expired token in the Local Authorization List is not authorized, because it is not an \"unknown id\". |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C13, C15",
+      "chunk_part": 2,
+      "total_parts": 2
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| No. | Type             | Description                                                                                                                                                                                        |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 6   | Postcondition(s) | Successful postcondition: The Charging Station accepts tokens on the Local Authorization List. Failure postcondition: The Charging Station does not accept tokens on the Local Authorization List. |\n| 7   | Error handling   | n/a                                                                                                                                                                                                |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                                         | Requirement definition                                                                | Note                                                                                                             |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |\n| C14.FR.05 | Identifier presented is in the Local Authorization List with a status Accepted AND LocalAuthListSupportsExpiryDateTime = true AND the cacheExpiryDateTime has passed | The Charging Station SHALL send an AuthorizeRequest to try to authorize this IdToken. | IdToken will be disregarded, as if not present in Local Authorization List, when cacheExpiryDateTime has passed. |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C14",
+      "message_refs": "AuthorizeRequest"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| ID        | Precondition                                                                                                                                                                                                                                                                 | Requirement definition                                                                                                                                                                                                  | Note                                                                                                                                                                                                                                                                                                                                                                               |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| C15.FR.03 | C15.FR.02 AND The authorization status in TransactionEventResponse is not Accepted AND The transaction is still ongoing AND StopTxOnInvalidId is true AND TxStopPoint does NOT contain: (Authorized OR PowerPathClosed OR EnergyTransfer)                                    | The Charging Station SHALL stop the energy transfer and send TransactionEventRequest (eventType = Updated) with triggerReason set to Deauthorized and chargingState set to SuspendedEVSE or preferably to EVConnected.  | Since the effect of setting chargingState to SuspendedEVSE or EVConnected both have the same effect of not delivering any energy, the use of SuspendedEVSE is still allowed in this situation in order to avoid breaking existing implementations that adhere to the original requirement. Use of SuspendedEVSE in this situation will become deprecated in the next OCPP release. |\n| C15.FR.04 | C15.FR.02 AND The authorization status in TransactionEventResponse is not Accepted AND The transaction is still ongoing AND StopTxOnInvalidId is true AND TxStopPoint does contain: (Authorized OR PowerPathClosed OR EnergyTransfer)                                        | The Charging Station SHALL stop the transaction and send TransactionEventRequest (eventType = Ended) with triggerReason set to Deauthorized and stoppedReason set to DeAuthorized.                                      |                                                                                                                                                                                                                                                                                                                                                                                    |\n| C15.FR.05 | C15.FR.04 AND If the Charging Station has the possibility to lock the Charging Cable                                                                                                                                                                                         | The Charging Station SHOULD keep the Charging Cable locked until the owner presents his identifier.                                                                                                                     |                                                                                                                                                                                                                                                                                                                                                                                    |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C15",
+      "message_refs": "TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 1,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| C15.FR.06 | C15.FR.02 AND The authorization status in TransactionEventResponse is not Accepted AND The transaction is still ongoing AND StopTxOnInvalidId is set to false AND MaxEnergyOnInvalidId is not implemented or has been exceeded. TxStopPoint does NOT contain: EnergyTransfer | The Charging Station SHALL stop the energy delivery to the EV immediately and send TransactionEventRequest (eventType = Updated) with triggerReason set to ChargingStateChanged and chargingState set to SuspendedEVSE. |                                                                                                                                                                                                                                                                                                                                                                                    |\n| C15.FR.07 | C15.FR.02 AND The authorization status in TransactionEventResponse is not Accepted AND The transaction is still ongoing AND StopTxOnInvalidId is set to false AND MaxEnergyOnInvalidId is set and has NOT been exceeded.                                                     | Energy delivery to the EV SHALL be allowed until the amount of energy specified in MaxEnergyOnInvalidId has been reached.                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                    |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C15",
+      "message_refs": "TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 2,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "| C15.FR.08 | When an unknown identifier is presented AND OfflineTxForUnknownIdEnabled is set to true                                                                                                                                                                                      | The Charging Station SHALL accept the presented IdToken.                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                    |",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C15",
+      "message_refs": "TransactionEventRequest, TransactionEventResponse",
+      "chunk_part": 3,
+      "total_parts": 3
+    }
+  },
+  {
+    "content": "# C. Authorization\n\n| No. | Type         | Description                                                                                                                                                                                    |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 2   | ID           | C16                                                                                                                                                                                            |\n| 3   | Objective(s) | Enable stopping of transactions by use of a Master Pass (for example for: Law Enforcement officials).                                                                                          |\n| 4   | Description  | This use case covers how somebody with a Master Pass (User) can stop (selected) ongoing transactions, so the cable becomes unlocked. This Master Pass can be configured in: MasterPassGroupId. |\n\nActors: Charging Station, CSMS, User",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "use_case_refs": "C16"
+    }
+  },
+  {
+    "content": "# C. Authorization\n\nUser Charging Station CSMS\n\none or more transactions are ongoing\n\nPresent IdToken\n\nAuthorizeRequest(...)\nAuthorizeResponse(GroupId = MasterPassGroupId)\n\nalt     [if idToken valid]\nalt     [if Master Pass UI available]\nshow Master Pass UI\n\nselect transaction(s)\n\nloop               [for all (selected) transactions]\nstop energy offer\n\nalt                [if cable not permanently attached]\nunlock connector\n\nTransactionEventRequest(eventType = Ended,\nchargingState = EVConnected, stopReason = MasterPass,...)\n\nTransactionEventResponse(...)",
+    "metadata": {
+      "doc_id": "ocpp201_part2",
+      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+      "ocpp_version": "2.0.1",
+      "content_type": "block_intro",
+      "heading": "C. Authorization",
+      "heading_path": "C. Authorization",
+      "functional_block": "Authorization",
+      "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse"
+    }
+  }
+]

@@ -1,0 +1,133 @@
+{
+  "use_case_id": "J01",
+  "functional_block": "MeterValues",
+  "use_case_name": "Sending Meter Values not related to a transaction",
+  "chunks": [
+    {
+      "content": "# J01 - Sending Meter Values not related to a transaction\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Sending Meter Values not related to a transaction                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID               | J01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 3   | Objective(s)     | To sample the electrical meter or other sensor/transducer hardware to provide information about the Charging Stations' Meter Values.                                                                                                                                                                                                                                                                                                                                                            |\n| 4   | Description      | The Charging Station samples the electrical meter or other sensor/transducer hardware to provide information about its Meter Values. Depending on configuration settings, the Charging Station will send Meter Values. **Actors:** Charging Station, CSMS **Scenario description:** 1. The Charging Station sends a MeterValuesRequest message, for offloading Meter Values to the CSMS. 2. Upon receipt of a MeterValuesRequest message, the CSMS responds with a MeterValuesResponse message. |\n| 5   | Prerequisite(s)  | The Charging Station is configured to send Meter values every XX seconds. No transaction is running.                                                                                                                                                                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s) | Successful postcondition: n/a Failure postcondition: n/a                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "J01 - Sending Meter Values not related to a transaction",
+        "heading_path": "J01 - Sending Meter Values not related to a transaction",
+        "functional_block": "MeterValues",
+        "use_case_id": "J01",
+        "use_case_name": "Sending Meter Values not related to a transaction",
+        "use_case_refs": "J01",
+        "message_refs": "MeterValuesRequest, MeterValuesResponse",
+        "figure_refs": "90",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 8   | Remark(s)        | The phase field is not applicable to all Measurands. The phase rotation of a Connector relative to the grid connection can be derived by querying the PhaseRotation Configuration Variables of all components in the chain from grid connection up to Connector. The nature of each sampledValue is determined by the optional Measurand, context, location, unit and phase fields. The optional SignedMeterValue field can contain digitally signed binary meter value data.                   |\n\nCharging Station      CSMS\n\nMeterValuesRequest(evseId, meterValue)\n\nMeterValuesResponse()\n\nFigure 90. Sequence Diagram: Sending Meter Values",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "J01 - Sending Meter Values not related to a transaction",
+        "heading_path": "J01 - Sending Meter Values not related to a transaction",
+        "functional_block": "MeterValues",
+        "use_case_id": "J01",
+        "use_case_name": "Sending Meter Values not related to a transaction",
+        "use_case_refs": "J01",
+        "message_refs": "MeterValuesRequest, MeterValuesResponse",
+        "figure_refs": "90",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# J01 - Sending Meter Values not related to a transaction - Requirements\n\n| ID        | Precondition                                                                                                | Requirement definition                                                                                                                                                                                                                             | Note                                                                                                                                                                                                    |\n| --------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| J01.FR.01 |                                                                                                             | The Charging Station MAY sample the energy meter (or other sensor/transducer hardware) to provide extra information about its Meter Values.                                                                                                        | It is up to the Charging Station when it will send Meter Values. This can be configured using the SetVariablesRequest message to data acquisition intervals and specify data to be acquired & reported. |\n| J01.FR.02 |                                                                                                             | The MeterValuesRequest message SHALL contain the id of the EVSE from which samples were taken.                                                                                                                                                     |                                                                                                                                                                                                         |\n| J01.FR.03 | J01.FR.02 AND The evseId is 0.                                                                              | The MeterValuesRequest message SHALL be associated with the entire Charging Station.                                                                                                                                                               |                                                                                                                                                                                                         |\n| J01.FR.04 | J01.FR.03 AND Measurand is energy related.                                                                  | The sample SHALL be taken from the main energy meter.                                                                                                                                                                                              |                                                                                                                                                                                                         |\n| J01.FR.05 | If all captured at the same point in time.                                                                  | Each MeterValue element SHALL contain a timestamp.                                                                                                                                                                                                 |                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J01",
+        "use_case_name": "Sending Meter Values not related to a transaction",
+        "use_case_refs": "J01",
+        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| J01.FR.06 | If all captured at the same point in time.                                                                  | Each MeterValue(s) element SHALL contain a set of one or more individual SampledValue elements.                                                                                                                                                    |                                                                                                                                                                                                         |\n| J01.FR.07 |                                                                                                             | The optional measurand field SHALL specify the type of value being measured/reported.                                                                                                                                                              |                                                                                                                                                                                                         |\n| J01.FR.08 |                                                                                                             | The optional context field SHALL specify the reason/event triggering the reading.                                                                                                                                                                  |                                                                                                                                                                                                         |\n| J01.FR.09 |                                                                                                             | The optional location field SHALL specify where the (e.g. Inlet, Outlet) measurement is taken.                                                                                                                                                     |                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J01",
+        "use_case_name": "Sending Meter Values not related to a transaction",
+        "use_case_refs": "J01",
+        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| J01.FR.10 |                                                                                                             | The optional phase field SHALL specify to which phase or phases of the electric installation the value applies.                                                                                                                                    |                                                                                                                                                                                                         |\n| J01.FR.11 |                                                                                                             | The Charging Station SHALL report all phase number dependent values from the electrical meter (or grid connection when absent) point of view.                                                                                                      |                                                                                                                                                                                                         |\n| J01.FR.13 | When reporting phase rotation of a component                                                                | The Charging Station SHALL report the phase rotation relative to the grid connection.                                                                                                                                                              |                                                                                                                                                                                                         |\n| J01.FR.14 | When AlignedDataCtrlr.Interval > 0 AND EVSE for which measurands are sent, is not involved in a transaction | The Charging Station SHALL send a MeterValuesRequest message to the CSMS for the measurands in AlignedDataCtrlr.Measurands at every AlignedDataCtrlr.Interval for all evseIds, locations and phases for which a configured measurand is supported. | It is possible that certain measurands are not available for every location. For example, evseId = 0 (grid meter) will not have a \"Current.Offered\" or \"SoC\" measurand. See also J01.FR.22              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J01",
+        "use_case_name": "Sending Meter Values not related to a transaction",
+        "use_case_refs": "J01",
+        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| J01.FR.15 | J01.FR.14 AND Amount of measurands is too much for 1 MeterValuesRequest                                     | The Charging Station MAY use multiple MeterValuesRequest messages to send all measurands.                                                                                                                                                          |                                                                                                                                                                                                         |\n| J01.FR.17 |                                                                                                             | The timestamp of a MeterValue SHALL apply to all its SampledValues.                                                                                                                                                                                |                                                                                                                                                                                                         |\n| J01.FR.18 | When CSMS receives a MeterValuesRequest                                                                     | CSMS SHALL respond with MeterValuesResponse.                                                                                                                                                                                                       | Failing to respond with MeterValuesResponse might cause the Charging Station to try the same message again.                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "heading_path": "J01 - Sending Meter Values not related to a transaction - Requirements",
+        "functional_block": "MeterValues",
+        "use_case_id": "J01",
+        "use_case_name": "Sending Meter Values not related to a transaction",
+        "use_case_refs": "J01",
+        "message_refs": "MeterValuesRequest, MeterValuesResponse, SetVariablesRequest",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "90",
+      "title": "Sequence Diagram: Sending Meter Values",
+      "files": [
+        "fig90_Sequence_Diagram__Sending_Meter_Values.png"
+      ]
+    },
+    {
+      "figure_num": "90",
+      "title": "Sequence Diagram: Sending Meter Values",
+      "files": [
+        "fig90_Sequence_Diagram__Sending_Meter_Values.png"
+      ]
+    }
+  ]
+}

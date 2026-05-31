@@ -1,0 +1,57 @@
+[
+  {
+    "content": "## GetCompositeScheduleResponse\n\n**Type**: OCPP 2.0.1 Message Schema (Response)\n**Base Message**: GetCompositeSchedule\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| status | enum(Accepted,Rejected) | Yes | The Charging Station will indicate if it was able to process the request |\n| statusInfo | StatusInfoType | No | Element providing more information about the status. |\n| schedule | CompositeScheduleType | No | Composite_ Schedule urn:x-oca:ocpp:uid:2:233362 |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:GetCompositeScheduleResponse\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"ChargingRateUnitEnumType\": {\n      \"description\": \"The unit of measure Limit is\\r\\nexpressed in.\\r\\n\",\n      \"javaType\": \"ChargingRateUnitEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"W\",\n        \"A\"\n      ]\n    },\n    \"GenericStatusEnumType\": {\n      \"description\": \"The Charging Station will indicate if it was\\r\\nable to process the request\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetCompositeScheduleResponse",
+      "heading_path": "JSON Schemas > GetCompositeSchedule > GetCompositeScheduleResponse",
+      "message_name": "GetCompositeScheduleResponse",
+      "message_direction": "Response"
+    }
+  },
+  {
+    "content": "\"javaType\": \"GenericStatusEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Accepted\",\n        \"Rejected\"\n      ]\n    },\n    \"ChargingSchedulePeriodType\": {\n      \"description\": \"Charging_ Schedule_ Period\\r\\nurn:x-oca:ocpp:uid:2:233257\\r\\nCharging schedule period structure defines a time period in a charging schedule.\\r\\n\",\n      \"javaType\": \"ChargingSchedulePeriod\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"startPeriod\": {\n          \"description\": \"Charging_ Schedule_ Period. Start_ Period. Elapsed_ Time\\r\\nurn:x-oca:ocpp:uid:1:569240\\r\\nStart of the period, in seconds from the start of schedule. The value of StartPeriod also defines the stop time of the previous period.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"limit\": {\n          \"description\": \"Charging_ Schedule_ Period. Limit. Measure\\r\\nurn:x-oca:ocpp:uid:1:569241\\r\\nCharging rate limit during the schedule period, in the applicable chargingRateUnit, for example in Amperes (A) or Watts (W). Accepts at most one digit fraction (e.g. 8.1).\\r\\n\",\n          \"type\": \"number\"\n        },\n        \"numberPhases\": {\n          \"description\": \"Charging_ Schedule_ Period. Number_ Phases. Counter\\r\\nurn:x-oca:ocpp:uid:1:569242\\r\\nThe number of phases that can be used for charging. If a number of phases is needed, numberPhases=3 will be assumed unless another number is given.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"phaseToUse\": {\n          \"description\": \"Values: 1..3, Used if numberPhases=1 and if the EVSE is capable of switching the phase connected to the EV, i.e. ACPhaseSwitchingSupported is defined and true. It\\u2019s not allowed unless both conditions above are true. If both conditions are true, and phaseToUse is omitted, the Charging Station / EVSE will make the selection on its own.\\r\\n\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetCompositeScheduleResponse",
+      "heading_path": "JSON Schemas > GetCompositeSchedule > GetCompositeScheduleResponse",
+      "message_name": "GetCompositeScheduleResponse",
+      "message_direction": "Response",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"startPeriod\",\n        \"limit\"\n      ]\n    },\n    \"CompositeScheduleType\": {\n      \"description\": \"Composite_ Schedule\\r\\nurn:x-oca:ocpp:uid:2:233362\\r\\n\",\n      \"javaType\": \"CompositeSchedule\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"chargingSchedulePeriod\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/ChargingSchedulePeriodType\"\n          },\n          \"minItems\": 1\n        },\n        \"evseId\": {\n          \"description\": \"The ID of the EVSE for which the\\r\\nschedule is requested. When evseid=0, the\\r\\nCharging Station calculated the expected\\r\\nconsumption for the grid connection.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"duration\": {\n          \"description\": \"Duration of the schedule in seconds.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"scheduleStart\": {\n          \"description\": \"Composite_ Schedule. Start. Date_ Time\\r\\nurn:x-oca:ocpp:uid:1:569456\\r\\nDate and time at which the schedule becomes active. All time measurements within the schedule are relative to this timestamp.\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"chargingRateUnit\": {\n          \"$ref\": \"#/definitions/ChargingRateUnitEnumType\"\n        }\n      },\n      \"required\": [\n        \"evseId\",\n        \"duration\",\n        \"scheduleStart\",\n        \"chargingRateUnit\",\n        \"chargingSchedulePeriod\"\n      ]\n    },\n    \"StatusInfoType\": {\n      \"description\": \"Element providing more information about the status.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetCompositeScheduleResponse",
+      "heading_path": "JSON Schemas > GetCompositeSchedule > GetCompositeScheduleResponse",
+      "message_name": "GetCompositeScheduleResponse",
+      "message_direction": "Response",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"javaType\": \"StatusInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"reasonCode\": {\n          \"description\": \"A predefined code for the reason why the status is returned in this response. The string is case-insensitive.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        },\n        \"additionalInfo\": {\n          \"description\": \"Additional text to provide detailed information.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"reasonCode\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"status\": {\n      \"$ref\": \"#/definitions/GenericStatusEnumType\"\n    },\n    \"statusInfo\": {\n      \"$ref\": \"#/definitions/StatusInfoType\"\n    },\n    \"schedule\": {\n      \"$ref\": \"#/definitions/CompositeScheduleType\"\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "GetCompositeScheduleResponse",
+      "heading_path": "JSON Schemas > GetCompositeSchedule > GetCompositeScheduleResponse",
+      "message_name": "GetCompositeScheduleResponse",
+      "message_direction": "Response",
+      "chunk_part": 4
+    }
+  }
+]

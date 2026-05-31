@@ -1,0 +1,92 @@
+{
+  "use_case_id": "P01",
+  "functional_block": "DisplayMessage",
+  "use_case_name": "Data Transfer to the Charging Station",
+  "chunks": [
+    {
+      "content": "# P01 - Data Transfer to the Charging Station\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Data Transfer to the Charging Station                                                                                                                                                                                                                                                                                                                                       |\n| 2   | ID               | P01                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)     | To send information from the CSMS to the Charging Station for a function that is not supported by OCPP.                                                                                                                                                                                                                                                                     |\n| 4   | Description      | This use case covers the functionality of sending a DataTransfer message to the Charging Station from the CSMS. **Actors:** Charging Station, CSMS **Scenario description:**) The CSMS sends information to a Charging Station for a function not supported by OCPP with DataTransferRequest.\n2) The Charging Station responds to the CSMS with DataTransferResponse. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "P01 - Data Transfer to the Charging Station",
+        "heading_path": "P01 - Data Transfer to the Charging Station",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "P01",
+        "use_case_name": "Data Transfer to the Charging Station",
+        "use_case_refs": "P01",
+        "message_refs": "DataTransferRequest, DataTransferResponse",
+        "figure_refs": "145",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                         |\n| 6   | Postcondition(s) | **Successful postcondition:** DataTransferRequest is received Successfully and Accepted **Failure postcondition:** Message has been Accepted but the contained request is Rejected. In all other cases the usage of status Accepted or Rejected and the data element is part of the vendor-specific agreement between the parties involved.                                 |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                         |\n| 8   | Remark(s)        | Data Transfer is used if information for a function is not supported by OCPP. The length of data in both the request and response message is undefined and it is RECOMMENDED that this is agreed upon by all parties involved.                                                                                                                                              |\n\nCSMS    Charging Station\n\nDataTransferRequest(vendorId, [messageId], [data])\n\nDataTransferResponse(status, [data])\n\nFigure 145. Sequence Diagram: Data Transfer to the Charging Station",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "P01 - Data Transfer to the Charging Station",
+        "heading_path": "P01 - Data Transfer to the Charging Station",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "P01",
+        "use_case_name": "Data Transfer to the Charging Station",
+        "use_case_refs": "P01",
+        "message_refs": "DataTransferRequest, DataTransferResponse",
+        "figure_refs": "145",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# DataTransfer\n\n| ID        | Precondition                                                                       | Requirement definition                                                                                                                     |\n| --------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |\n| P01.FR.06 | Upon receipt of DataTransferRequest and in case of a messageId mismatch (if used). | The recipient SHALL return status UnknownMessageId.                                                                                        |\n| P01.FR.07 |                                                                                    | The usage of status Accepted or Rejected and the data element SHALL be part of the vendor-specific agreement between the parties involved. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "DataTransfer",
+        "heading_path": "DataTransfer",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "P01",
+        "use_case_refs": "P01",
+        "message_refs": "DataTransferRequest"
+      }
+    },
+    {
+      "content": "# P01 - Data Transfer to the Charging Station - Requirements\n\n| ID        | Precondition                                                                     | Requirement definition                                                                                                                                                                                    |\n| --------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| P01.FR.01 |                                                                                  | The CSMS SHALL only use DataTransferRequest for a function which is not supported by OCPP.                                                                                                                |\n| P01.FR.02 |                                                                                  | The vendorId SHOULD be a value from the reversed DNS namespace, where the top tiers of the name, when reversed, should correspond to the publicly registered primary DNS name of the Vendor organization. |\n| P01.FR.03 |                                                                                  | The messageId in the request message MAY be used to indicate a specific message or implementation.                                                                                                        |\n| P01.FR.04 |                                                                                  | The length of data in both the request and response message is undefined and it is RECOMMENDED that this is agreed upon by all parties involved.                                                          |\n| P01.FR.05 | If the recipient of the request has no implementation for the specific vendorId. | The recipient SHALL return a status UnknownVendor.                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "P01 - Data Transfer to the Charging Station - Requirements",
+        "heading_path": "P01 - Data Transfer to the Charging Station - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "P01",
+        "use_case_name": "Data Transfer to the Charging Station",
+        "use_case_refs": "P01",
+        "message_refs": "DataTransferRequest"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "145",
+      "title": "Sequence Diagram: Data Transfer to the Charging Station",
+      "files": [
+        "fig145_Sequence_Diagram__Data_Transfer_to_the_Charging_St.png"
+      ]
+    },
+    {
+      "figure_num": "145",
+      "title": "Sequence Diagram: Data Transfer to the Charging Station",
+      "files": [
+        "fig145_Sequence_Diagram__Data_Transfer_to_the_Charging_St.png"
+      ]
+    }
+  ]
+}

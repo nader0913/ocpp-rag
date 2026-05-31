@@ -1,0 +1,40 @@
+{
+  "use_case_id": "N06",
+  "functional_block": "Diagnostics",
+  "use_case_name": "Clear / Remove Monitoring",
+  "chunks": [
+    {
+      "content": "# N06 - Clear / Remove Monitoring\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Clear / Remove Monitoring                                                                                                                                                                                                                                   |\n| 2   | ID                   | N06                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To give the CSMS the ability to clear / remove monitoring settings.                                                                                                                                                                                         |\n| 4   | Description          | A monitoring setting can be cleared (removed) by sending a ClearVariableMonitoringRequest with the id of the monitoring setting.                                                                                                                            |\n|     | Actors               | Charging Station, CSMS, CSO                                                                                                                                                                                                                                 |\n|     | Scenario description | 1. The CSO triggers the CSMS to request clearing/removing one or more variables in a Charging Station. 2. The CSMS sends a ClearVariableMonitoringRequest to the Charging Station. 3. The Charging Station responds with a ClearVariableMonitoringResponse. |\n| 5   | Prerequisite(s)      | Charging Station supports Monitoring                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "N06 - Clear / Remove Monitoring",
+        "heading_path": "N06 - Clear / Remove Monitoring",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N06",
+        "use_case_name": "Clear / Remove Monitoring",
+        "use_case_refs": "N06",
+        "message_refs": "ClearVariableMonitoringRequest, ClearVariableMonitoringResponse"
+      }
+    },
+    {
+      "content": "# N06 - Clear / Remove Monitoring - Requirements\n\n| ID        | Precondition                                                                                                                                                       | Requirement definition                                                                                                                                                                                    |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| N06.FR.01 | When the Charging Station accepts a ClearVariableMonitoringRequest                                                                                                 | The Charging Station SHALL send a ClearVariableMonitoringResponse with Accepted.                                                                                                                          |\n| N06.FR.02 | When the Charging Station receives a ClearVariableMonitoringRequest with a non-existing id                                                                         | The Charging Station SHALL send a ClearVariableMonitoringResponse with NotFound.                                                                                                                          |\n| N06.FR.03 | When the Charging Station receives a ClearVariableMonitoringRequest for an id referring to a monitor that cannot be cleared (for example because it is hardcoded). | The Charging Station SHALL send a ClearVariableMonitoringResponse with Rejected.                                                                                                                          |\n| N06.FR.04 |                                                                                                                                                                    | The CSMS SHALL NOT put more id elements in a ClearVariableMonitoringRequest than reported by the Charging Station via: ItemsPerMessageClearVariableMonitoring and BytesPerMessageClearVariableMonitoring. |\n| N06.FR.05 |                                                                                                                                                                    | For every id in a ClearVariableMonitoringRequest the Charging Station SHALL add a clearMonitoringResult element to the ClearVariableMonitoringResponse sent to the CSMS.                                  |\n| N06.FR.06 | Charging Station receives a ClearVariableMonitoringRequest with more id elements than allowed by ItemsPerMessageClearVariableMonitoring                            | The Charging Station MAY respond with a CALLERROR(OccurenceConstraintViolation)                                                                                                                           |\n| N06.FR.07 | Charging Station receives a ClearVariableMonitoringRequest with a length of more bytes than allowed by BytesPerMessageClearVariableMonitoring                      | The Charging Station MAY respond with a CALLERROR(FormatViolation)                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "N06 - Clear / Remove Monitoring - Requirements",
+        "heading_path": "N06 - Clear / Remove Monitoring - Requirements",
+        "functional_block": "Diagnostics",
+        "use_case_id": "N06",
+        "use_case_name": "Clear / Remove Monitoring",
+        "use_case_refs": "N06",
+        "message_refs": "ClearVariableMonitoringRequest, ClearVariableMonitoringResponse"
+      }
+    }
+  ],
+  "figures": []
+}

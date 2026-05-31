@@ -1,0 +1,113 @@
+[
+  {
+    "content": "## NotifyChargingLimitRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: NotifyChargingLimit\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| chargingSchedule | array<ChargingScheduleType> | No |  |\n| evseId | integer | No | The charging schedule contained in this notification applies to an EVSE. evseId must be &gt; 0. |\n| chargingLimit | ChargingLimitType | Yes | Charging_ Limit urn:x-enexis:ecdm:uid:2:234489 |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:NotifyChargingLimitRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"ChargingLimitSourceEnumType\": {\n      \"description\": \"Charging_ Limit. Charging_ Limit_ Source. Charging_ Limit_ Source_ Code\\r\\nurn:x-enexis:ecdm:uid:1:570845\\r\\nRepresents the source of the charging limit.\\r\\n\",\n      \"javaType\": \"ChargingLimitSourceEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"EMS\",\n        \"Other\",\n        \"SO\",\n        \"CSO\"\n      ]\n    },\n    \"ChargingRateUnitEnumType\": {",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"description\": \"Charging_ Schedule. Charging_ Rate_ Unit. Charging_ Rate_ Unit_ Code\\r\\nurn:x-oca:ocpp:uid:1:569238\\r\\nThe unit of measure Limit is expressed in.\\r\\n\",\n      \"javaType\": \"ChargingRateUnitEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"W\",\n        \"A\"\n      ]\n    },\n    \"CostKindEnumType\": {\n      \"description\": \"Cost. Cost_ Kind. Cost_ Kind_ Code\\r\\nurn:x-oca:ocpp:uid:1:569243\\r\\nThe kind of cost referred to in the message element amount\\r\\n\",\n      \"javaType\": \"CostKindEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"CarbonDioxideEmission\",\n        \"RelativePricePercentage\",\n        \"RenewableGenerationPercentage\"\n      ]\n    },\n    \"ChargingLimitType\": {\n      \"description\": \"Charging_ Limit\\r\\nurn:x-enexis:ecdm:uid:2:234489\\r\\n\",\n      \"javaType\": \"ChargingLimit\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"chargingLimitSource\": {\n          \"$ref\": \"#/definitions/ChargingLimitSourceEnumType\"\n        },\n        \"isGridCritical\": {\n          \"description\": \"Charging_ Limit. Is_ Grid_ Critical. Indicator\\r\\nurn:x-enexis:ecdm:uid:1:570847\\r\\nIndicates whether the charging limit is critical for the grid.\\r\\n\",\n          \"type\": \"boolean\"\n        }\n      },\n      \"required\": [\n        \"chargingLimitSource\"\n      ]\n    },\n    \"ChargingSchedulePeriodType\": {\n      \"description\": \"Charging_ Schedule_ Period\\r\\nurn:x-oca:ocpp:uid:2:233257\\r\\nCharging schedule period structure defines a time period in a charging schedule.\\r\\n\",\n      \"javaType\": \"ChargingSchedulePeriod\",\n      \"type\": \"object\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"startPeriod\": {\n          \"description\": \"Charging_ Schedule_ Period. Start_ Period. Elapsed_ Time\\r\\nurn:x-oca:ocpp:uid:1:569240\\r\\nStart of the period, in seconds from the start of schedule. The value of StartPeriod also defines the stop time of the previous period.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"limit\": {\n          \"description\": \"Charging_ Schedule_ Period. Limit. Measure\\r\\nurn:x-oca:ocpp:uid:1:569241\\r\\nCharging rate limit during the schedule period, in the applicable chargingRateUnit, for example in Amperes (A) or Watts (W). Accepts at most one digit fraction (e.g. 8.1).\\r\\n\",\n          \"type\": \"number\"\n        },\n        \"numberPhases\": {\n          \"description\": \"Charging_ Schedule_ Period. Number_ Phases. Counter\\r\\nurn:x-oca:ocpp:uid:1:569242\\r\\nThe number of phases that can be used for charging. If a number of phases is needed, numberPhases=3 will be assumed unless another number is given.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"phaseToUse\": {\n          \"description\": \"Values: 1..3, Used if numberPhases=1 and if the EVSE is capable of switching the phase connected to the EV, i.e. ACPhaseSwitchingSupported is defined and true. It\\u2019s not allowed unless both conditions above are true. If both conditions are true, and phaseToUse is omitted, the Charging Station / EVSE will make the selection on its own.\\r\\n\\r\\n\",\n          \"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"startPeriod\",\n        \"limit\"\n      ]\n    },\n    \"ChargingScheduleType\": {\n      \"description\": \"Charging_ Schedule\\r\\nurn:x-oca:ocpp:uid:2:233256\\r\\nCharging schedule structure defines a list of charging periods, as used in: GetCompositeSchedule.conf and ChargingProfile. \\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"javaType\": \"ChargingSchedule\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"id\": {\n          \"description\": \"Identifies the ChargingSchedule.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"startSchedule\": {\n          \"description\": \"Charging_ Schedule. Start_ Schedule. Date_ Time\\r\\nurn:x-oca:ocpp:uid:1:569237\\r\\nStarting point of an absolute schedule. If absent the schedule will be relative to start of charging.\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"duration\": {\n          \"description\": \"Charging_ Schedule. Duration. Elapsed_ Time\\r\\nurn:x-oca:ocpp:uid:1:569236\\r\\nDuration of the charging schedule in seconds. If the duration is left empty, the last period will continue indefinitely or until end of the transaction if chargingProfilePurpose = TxProfile.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"chargingRateUnit\": {\n          \"$ref\": \"#/definitions/ChargingRateUnitEnumType\"\n        },\n        \"chargingSchedulePeriod\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/ChargingSchedulePeriodType\"\n          },\n          \"minItems\": 1,\n          \"maxItems\": 1024\n        },\n        \"minChargingRate\": {\n          \"description\": \"Charging_ Schedule. Min_ Charging_ Rate. Numeric\\r\\nurn:x-oca:ocpp:uid:1:569239\\r\\nMinimum charging rate supported by the EV. The unit of measure is defined by the chargingRateUnit. This parameter is intended to be used by a local smart charging algorithm to optimize the power allocation for in the case a charging process is inefficient at lower charging rates. Accepts at most one digit fraction (e.g. 8.1)\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  },
+  {
+    "content": "\"type\": \"number\"\n        },\n        \"salesTariff\": {\n          \"$ref\": \"#/definitions/SalesTariffType\"\n        }\n      },\n      \"required\": [\n        \"id\",\n        \"chargingRateUnit\",\n        \"chargingSchedulePeriod\"\n      ]\n    },\n    \"ConsumptionCostType\": {\n      \"description\": \"Consumption_ Cost\\r\\nurn:x-oca:ocpp:uid:2:233259\\r\\n\",\n      \"javaType\": \"ConsumptionCost\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"startValue\": {\n          \"description\": \"Consumption_ Cost. Start_ Value. Numeric\\r\\nurn:x-oca:ocpp:uid:1:569246\\r\\nThe lowest level of consumption that defines the starting point of this consumption block. The block interval extends to the start of the next interval.\\r\\n\",\n          \"type\": \"number\"\n        },\n        \"cost\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/CostType\"\n          },\n          \"minItems\": 1,\n          \"maxItems\": 3\n        }\n      },\n      \"required\": [\n        \"startValue\",\n        \"cost\"\n      ]\n    },\n    \"CostType\": {\n      \"description\": \"Cost\\r\\nurn:x-oca:ocpp:uid:2:233258\\r\\n\",\n      \"javaType\": \"Cost\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"costKind\": {\n          \"$ref\": \"#/definitions/CostKindEnumType\"\n        },\n        \"amount\": {\n          \"description\": \"Cost. Amount. Amount\\r\\nurn:x-oca:ocpp:uid:1:569244\\r\\nThe estimated or actual cost per kWh\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"amountMultiplier\": {\n          \"description\": \"Cost. Amount_ Multiplier. Integer\\r\\nurn:x-oca:ocpp:uid:1:569245\\r\\nValues: -3..3, The amountMultiplier defines the exponent to base 10 (dec). The final value is determined by: amount * 10 ^ amountMultiplier\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 5
+    }
+  },
+  {
+    "content": "\"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"costKind\",\n        \"amount\"\n      ]\n    },\n    \"RelativeTimeIntervalType\": {\n      \"description\": \"Relative_ Timer_ Interval\\r\\nurn:x-oca:ocpp:uid:2:233270\\r\\n\",\n      \"javaType\": \"RelativeTimeInterval\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"start\": {\n          \"description\": \"Relative_ Timer_ Interval. Start. Elapsed_ Time\\r\\nurn:x-oca:ocpp:uid:1:569279\\r\\nStart of the interval, in seconds from NOW.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"duration\": {\n          \"description\": \"Relative_ Timer_ Interval. Duration. Elapsed_ Time\\r\\nurn:x-oca:ocpp:uid:1:569280\\r\\nDuration of the interval, in seconds.\\r\\n\",\n          \"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"start\"\n      ]\n    },\n    \"SalesTariffEntryType\": {\n      \"description\": \"Sales_ Tariff_ Entry\\r\\nurn:x-oca:ocpp:uid:2:233271\\r\\n\",\n      \"javaType\": \"SalesTariffEntry\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"relativeTimeInterval\": {\n          \"$ref\": \"#/definitions/RelativeTimeIntervalType\"\n        },\n        \"ePriceLevel\": {\n          \"description\": \"Sales_ Tariff_ Entry. E_ Price_ Level. Unsigned_ Integer\\r\\nurn:x-oca:ocpp:uid:1:569281\\r\\nDefines the price level of this SalesTariffEntry (referring to NumEPriceLevels). Small values for the EPriceLevel represent a cheaper TariffEntry. Large values for the EPriceLevel represent a more expensive TariffEntry.\\r\\n\",\n          \"type\": \"integer\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 6
+    }
+  },
+  {
+    "content": "\"minimum\": 0.0\n        },\n        \"consumptionCost\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/ConsumptionCostType\"\n          },\n          \"minItems\": 1,\n          \"maxItems\": 3\n        }\n      },\n      \"required\": [\n        \"relativeTimeInterval\"\n      ]\n    },\n    \"SalesTariffType\": {\n      \"description\": \"Sales_ Tariff\\r\\nurn:x-oca:ocpp:uid:2:233272\\r\\nNOTE: This dataType is based on dataTypes from &lt;&lt;ref-ISOIEC15118-2,ISO 15118-2&gt;&gt;.\\r\\n\",\n      \"javaType\": \"SalesTariff\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"id\": {\n          \"description\": \"Identified_ Object. MRID. Numeric_ Identifier\\r\\nurn:x-enexis:ecdm:uid:1:569198\\r\\nSalesTariff identifier used to identify one sales tariff. An SAID remains a unique identifier for one schedule throughout a charging session.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"salesTariffDescription\": {\n          \"description\": \"Sales_ Tariff. Sales. Tariff_ Description\\r\\nurn:x-oca:ocpp:uid:1:569283\\r\\nA human readable title/short description of the sales tariff e.g. for HMI display purposes.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 32\n        },\n        \"numEPriceLevels\": {\n          \"description\": \"Sales_ Tariff. Num_ E_ Price_ Levels. Counter\\r\\nurn:x-oca:ocpp:uid:1:569284\\r\\nDefines the overall number of distinct price levels used across all provided SalesTariff elements.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"salesTariffEntry\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 7
+    }
+  },
+  {
+    "content": "\"$ref\": \"#/definitions/SalesTariffEntryType\"\n          },\n          \"minItems\": 1,\n          \"maxItems\": 1024\n        }\n      },\n      \"required\": [\n        \"id\",\n        \"salesTariffEntry\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"chargingSchedule\": {\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"$ref\": \"#/definitions/ChargingScheduleType\"\n      },\n      \"minItems\": 1\n    },\n    \"evseId\": {\n      \"description\": \"The charging schedule contained in this notification applies to an EVSE. evseId must be &gt; 0.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"chargingLimit\": {\n      \"$ref\": \"#/definitions/ChargingLimitType\"\n    }\n  },\n  \"required\": [\n    \"chargingLimit\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyChargingLimitRequest",
+      "heading_path": "JSON Schemas > NotifyChargingLimit > NotifyChargingLimitRequest",
+      "message_name": "NotifyChargingLimitRequest",
+      "message_direction": "Request",
+      "chunk_part": 8
+    }
+  }
+]

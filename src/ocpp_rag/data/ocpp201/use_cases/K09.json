@@ -1,0 +1,94 @@
+{
+  "use_case_id": "K09",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Get Charging Profiles",
+  "chunks": [
+    {
+      "content": "# K09 - Get Charging Profiles\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Charging Profile                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 2   | ID                   | K09                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s)         | To enable the CSMS to view the Charging Schedules/limits installed in a Charging Station, these can be installed by the CSMS or some other source.                                                                                                                                                                                                                                                                                                                                                             |\n| 4   | Description          | With the GetChargingProfilesRequest message the CSMS can ask a Charging Station to report all, or a subset of all the install Charging Profiles from the different possible sources. This can be used for some automatic smart charging control system, or for debug purposes by a CSO.                                                                                                                                                                                                                        |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n|     | Scenario description | 1 The CSMS asks the Charging Station for the installed charging profiles by sending a GetChargingProfilesRequest message. 2 The Charging Station responds, indicating if it can report Charging Schedules by sending a GetChargingProfilesResponse message. 3 Charging Station sends a number of ReportChargingProfilesRequest messages to CSMS. 4 The CSMS acknowledges reception of the reports by sending a ReportChargingProfilesResponse to the Charging Station for every ReportChargingProfilesRequest. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K09 - Get Charging Profiles",
+        "heading_path": "K09 - Get Charging Profiles",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K09",
+        "use_case_name": "Get Charging Profiles",
+        "use_case_refs": "K09",
+        "message_refs": "GetChargingProfilesRequest, GetChargingProfilesResponse, ReportChargingProfilesRequest, ReportChargingProfilesResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 5   | Prerequisites        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 6   | Postcondition(s)     | The CSMS knows which charging profiles have been installed in the Charging Station that match the requested parameters.                                                                                                                                                                                                                                                                                                                                                                                        |\n| 7   | Error Handling       | When the Charging Station has no charging profiles that match the parameters in the GetChargingProfilesRequest the Charging Station SHALL respond with: NoProfiles.                                                                                                                                                                                                                                                                                                                                            |\n| 8   | Remarks              | The charging profiles report can be split over multiple ReportChargingProfilesRequest messages, this can be because charging profiles for different charging sources need to be reported, or because there is just too much data for one message. To indicate that more reports will follow the flag tbc can be used.                                                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K09 - Get Charging Profiles",
+        "heading_path": "K09 - Get Charging Profiles",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K09",
+        "use_case_name": "Get Charging Profiles",
+        "use_case_refs": "K09",
+        "message_refs": "GetChargingProfilesRequest, GetChargingProfilesResponse, ReportChargingProfilesRequest, ReportChargingProfilesResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# CSMS Charging Station\n\nGetChargingProfileRequest(requestId = 123, chargingProfile,...)\nGetChargingProfileResponse(status = Accepted)\n\nloop    [while tbc = true]\nReportChargingProfilesRequest(requestId = 123, ...)\nReportChargingProfilesResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "CSMS Charging Station",
+        "heading_path": "CSMS Charging Station",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K09",
+        "message_refs": "GetChargingProfileRequest, GetChargingProfileResponse, ReportChargingProfilesRequest, ReportChargingProfilesResponse"
+      }
+    },
+    {
+      "content": "# K09 - Get Charging Profiles - Requirements\n\n| ID        | Precondition                                                                 | Requirements                                                                                                                                                      | Note                                                                                                                                                                                                           |\n| --------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| K09.FR.01 | When requestId is set in the GetChargingProfilesRequest                      | The Charging Station SHALL set the requestId in every ReportChargingProfilesRequest that is sent as a result of this GetChargingProfilesRequest.                  |                                                                                                                                                                                                                |\n| K09.FR.02 | When the charging profiles are reported in more than one                     | The Charging Station SHALL set the tbc flag to true for all ReportChargingProfilesRequest messages except the last.                                               |                                                                                                                                                                                                                |\n| K09.FR.03 |                                                                              | The CSMS SHALL specify in chargingProfile criteria in GetChargingProfilesRequest either:                                                                          | These fields are filter values of equal importance, but because a chargingProfileId uniquely identifies a charging profile, the other fields are not needed if chargingProfileIds are used.                    |\n|           |                                                                              | - a (list of) chargingProfileId(s) OR                                                                                                                             |                                                                                                                                                                                                                |\n|           |                                                                              | - one or more of the fields stackLevel, chargingLimitSource, chargingProfilePurpose.                                                                              |                                                                                                                                                                                                                |\n| K09.FR.04 | If evseId is set to a value greater than 0 in the GetChargingProfilesRequest | The Charging Station SHALL report the installed charging profiles for the specified EVSE that match all fields in chargingProfile.                                |                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K09 - Get Charging Profiles - Requirements",
+        "heading_path": "K09 - Get Charging Profiles - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K09",
+        "use_case_name": "Get Charging Profiles",
+        "use_case_refs": "K01, K09",
+        "message_refs": "GetChargingProfilesRequest, ReportChargingProfilesRequest",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| K09.FR.05 | If evseId is set to 0 in GetChargingProfilesRequest                          | The Charging Station SHALL only report charging profiles installed on the Charging Station itself (the grid connection) that match all fields in chargingProfile. | EVSE #0 can have a ChargingStation MaxProfile, ChargingStation ExternalConstraints or a TxDefaultProfile. Note, that a TxDefaultProfile is not applied to EVSE #0 but to all individual EVSEs (see K01.FR.14). |\n| K09.FR.06 | If evseId is NOT set in the GetChargingProfilesRequest                       | The Charging Station SHALL report all installed charging profiles that match all fields in chargingProfile.                                                       |                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K09 - Get Charging Profiles - Requirements",
+        "heading_path": "K09 - Get Charging Profiles - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K09",
+        "use_case_name": "Get Charging Profiles",
+        "use_case_refs": "K01, K09",
+        "message_refs": "GetChargingProfilesRequest, ReportChargingProfilesRequest",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    }
+  ],
+  "figures": []
+}

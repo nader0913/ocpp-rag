@@ -1,0 +1,29 @@
+[
+  {
+    "content": "## InstallCertificateResponse\n\n**Type**: OCPP 2.0.1 Message Schema (Response)\n**Base Message**: InstallCertificate\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| status | enum(Accepted,Rejected,Failed) | Yes | Charging Station indicates if installation was successful. |\n| statusInfo | StatusInfoType | No | Element providing more information about the status. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:InstallCertificateResponse\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"InstallCertificateStatusEnumType\": {\n      \"description\": \"Charging Station indicates if installation was successful.\\r\\n\",\n      \"javaType\": \"InstallCertificateStatusEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Accepted\",\n        \"Rejected\",\n        \"Failed\"\n      ]\n    },\n    \"StatusInfoType\": {\n      \"description\": \"Element providing more information about the status.\\r\\n\",\n      \"javaType\": \"StatusInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "InstallCertificateResponse",
+      "heading_path": "JSON Schemas > InstallCertificate > InstallCertificateResponse",
+      "message_name": "InstallCertificateResponse",
+      "message_direction": "Response"
+    }
+  },
+  {
+    "content": "\"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"reasonCode\": {\n          \"description\": \"A predefined code for the reason why the status is returned in this response. The string is case-insensitive.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        },\n        \"additionalInfo\": {\n          \"description\": \"Additional text to provide detailed information.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"reasonCode\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"status\": {\n      \"$ref\": \"#/definitions/InstallCertificateStatusEnumType\"\n    },\n    \"statusInfo\": {\n      \"$ref\": \"#/definitions/StatusInfoType\"\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "InstallCertificateResponse",
+      "heading_path": "JSON Schemas > InstallCertificate > InstallCertificateResponse",
+      "message_name": "InstallCertificateResponse",
+      "message_direction": "Response",
+      "chunk_part": 2
+    }
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "use_case_id": "C01",
+  "functional_block": "Authorization",
+  "use_case_name": "EV Driver Authorization using RFID",
+  "chunks": [
+    {
+      "content": "# C01 - EV Driver Authorization using RFID\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                |\n| --- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | EV Driver Authorization using RFID                                                                                                                                                                                                                                                                                                                                                                                         |\n| 2   | ID                      | C01                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 3   | Objective(s)            | To enable the Charging Station to request the CSMS to authorize an EV Driver to start or stop charging.                                                                                                                                                                                                                                                                                                                    |\n| 4   | Description             | When a Charging Station needs to charge an EV, it needs to authorize the EV Driver first before the charging can be started or stopped.                                                                                                                                                                                                                                                                                    |\n|     | Actors                  | Charging Station, CSMS, EV Driver                                                                                                                                                                                                                                                                                                                                                                                          |\n|     | Scenario description    | 1. The EV Driver wants to start or stop charging the EV and presents an RFID card. 2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization. 3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response message indicates whether or not the IdToken is accepted by the CSMS.                                                                                 |\n|     | Alternative scenario(s) | C02 - Authorization using a start button C03 - Authorization using credit/debit card C04 - Authorization using PIN-code C05 - Authorization for CSMS initiated transactions C06 - Authorization using local id type C07 - Authorization using Contract Certificates C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM) C15 - Unknown Offline Authorization                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C01 - EV Driver Authorization using RFID",
+        "heading_path": "C01 - EV Driver Authorization using RFID",
+        "functional_block": "Authorization",
+        "use_case_id": "C01",
+        "use_case_name": "EV Driver Authorization using RFID",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)         | n/a                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 6   | Postcondition(s)        | Successful postcondition: The EV Driver is authorized and can start or stop charging. Failure postcondition: If the authorize message is Invalid, Blocked, Expired or Unknown, the EV Driver can not start or stop charging, except in the case where the EV Driver presents the same token used to start the transaction.                                                                                                 |\n| 7   | Error handling          | When the Authorization is not 'Accepted', the AuthorizeResponse contains an authorization status value indicating the reason for rejection.                                                                                                                                                                                                                                                                                |\n| 8   | Remark(s)               | Assuming idToken is valid for charging and the Charging Station has 3 EVSEs, what is the content of idTokenInfo, when idToken is allowed to charge: . at all EVES: idTokenInfo.status = Accepted. . at EVSE 1: idTokenInfo.status = Accepted, idTokenInfo.evseId = \\[ 1 ]. . at EVSE 1 + 2: idTokenInfo.status = Accepted, idTokenInfo.evseId = \\[ 1, 2 ]. . at none of the EVSEs: \\_idTokenInfo.status=NotAtThisLocation. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C01 - EV Driver Authorization using RFID",
+        "heading_path": "C01 - EV Driver Authorization using RFID",
+        "functional_block": "Authorization",
+        "use_case_id": "C01",
+        "use_case_name": "EV Driver Authorization using RFID",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    }
+  ],
+  "figures": []
+}

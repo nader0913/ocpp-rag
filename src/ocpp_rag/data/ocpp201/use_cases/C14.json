@@ -1,0 +1,40 @@
+{
+  "use_case_id": "C14",
+  "functional_block": "Authorization",
+  "use_case_name": "Online Authorization through Local Authorization List",
+  "chunks": [
+    {
+      "content": "# C14 - Online Authorization through Local Authorization List\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                              |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Online Authorization through Local Authorization List                                                                                                                                                                                                                                                    |\n| 2   | ID                   | C14                                                                                                                                                                                                                                                                                                      |\n| 3   | Objective(s)         | To authorize an idToken by using the Local Authorization List while Online.                                                                                                                                                                                                                              |\n| 4   | Description          | This use case describes how to authorize an IdToken via the Local Authorization List while the Charging Station is online. When online the Charging Station can then locally authorize the IdToken, and is not required to send an AuthorizeRequest for a known IdToken.                                 |\n|     | Actors               | EV Driver, Charging Station                                                                                                                                                                                                                                                                              |\n|     | Scenario description | 1. The EV Driver presents IdToken 2. The Charging Station checks if the IdToken is known and has status Accepted in the Local Authorization List. 3. If the IdToken is not known, or the IdToken is not Accepted the Charging Station sends an AuthorizeRequest 4. The Charging Station starts charging. |\n| 5   | Prerequisite(s)      | Local Authorization List is available Local Authorization List is enabled via LocalAuthListEnabled The Id of the EV Driver is in the Local Authorization List Id is valid LocalPreAuthorize is set to true                                                                                               |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C14 - Online Authorization through Local Authorization List",
+        "heading_path": "C14 - Online Authorization through Local Authorization List",
+        "functional_block": "Authorization",
+        "use_case_id": "C14",
+        "use_case_name": "Online Authorization through Local Authorization List",
+        "use_case_refs": "C14",
+        "message_refs": "AuthorizeRequest"
+      }
+    },
+    {
+      "content": "# C14 - Online Authorization through Local Authorization List - Requirements\n\n| ID        | Precondition                                                                                                                                                             | Requirement definition                                                                                                                                                                                                   | Note                                                                                         |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |\n| C14.FR.01 |                                                                                                                                                                          | Where both Authorization Cache and Local Authorization List are supported, a Charging Station SHALL treat Local Authorization List entries as having priority over Authorization Cache entries for the same identifiers. | Same as C13.FR.01                                                                            |\n| C14.FR.02 | Identifier presented is in the Local Authorization List with a status Accepted AND LocalAuthListSupportsExpiryDateTime does not exist or is false                        | The Charging Station SHALL start charging without sending an AuthorizeRequest.                                                                                                                                           | This means that Charging Station does not check for cacheExpiryDateTime.                     |\n| C14.FR.03 | Identifiers presented is in the Local Authorization List with a status OTHER than Accepted                                                                               | The Charging Station SHALL send an AuthorizeRequest to try to authorize this IdToken.                                                                                                                                    |                                                                                              |\n| C14.FR.04 | Identifier presented is in the Local Authorization List with a status Accepted AND LocalAuthListSupportsExpiryDateTime = true AND the cacheExpiryDateTime has not passed | The Charging Station SHALL start charging without sending an AuthorizeRequest.                                                                                                                                           | When cacheExpiryDateTime is absent, the idToken will not expire in Local Authorization List. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C14 - Online Authorization through Local Authorization List - Requirements",
+        "heading_path": "C14 - Online Authorization through Local Authorization List - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C14",
+        "use_case_name": "Online Authorization through Local Authorization List",
+        "use_case_refs": "C13, C14",
+        "message_refs": "AuthorizeRequest"
+      }
+    }
+  ],
+  "figures": []
+}

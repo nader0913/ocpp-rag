@@ -1,0 +1,92 @@
+{
+  "use_case_id": "E04",
+  "functional_block": "Transactions",
+  "use_case_name": "Transaction started while Charging Station is offline",
+  "chunks": [
+    {
+      "content": "# E04 - Transaction started while Charging Station is offline\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Transaction started while Charging Station is offline                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID               | E04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 3   | Objective(s)     | To enable the EV Driver to start a transaction while the Charging Station is Offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 4   | Description      | This use case covers how the Charging Station, while Offline, is able to start a transaction using the Local Authorization List or the Authorization Cache. **Actors:** Charging Station, CSMS, EV Driver **Scenario description:**) The transaction starts.\n2) The TransactionEventRequest (eventType = Started) is stored/queued by the Charging Station.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E04 - Transaction started while Charging Station is offline",
+        "heading_path": "E04 - Transaction started while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E04",
+        "use_case_name": "Transaction started while Charging Station is offline",
+        "use_case_refs": "E01, E04, E10",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "3) The connection between Charging Station and CSMS is restored.\n4) The Charging Station starts to send queued messages.\n5) The stored TransactionEventRequest is sent, notifying the CSMS about the transaction that was started.**Alternative scenario(s):** E10 - Connection Loss During Transaction |\n| 5   | Prerequisite(s)  | The Charging Station is Offline. The EV Driver is offline/locally authorized by the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 6   | Postcondition(s) | **Successful postcondition:** The TransactionEventRequest has been responded to by the CSMS AND has been removed from the queue of the Charging Station. **Failure postcondition:** The TransactionEventRequest was NOT responded to by the CSMS AND remains in the queue of the Charging Station.                                                                                                                                                                                                                                                                                                                                                                        |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E04 - Transaction started while Charging Station is offline",
+        "heading_path": "E04 - Transaction started while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E04",
+        "use_case_name": "Transaction started while Charging Station is offline",
+        "use_case_refs": "E01, E04, E10",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | The scenario description and sequence diagram above are not based on a specific TxStartPoint. For more details see the use cases: E01 - Start Transaction options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E04 - Transaction started while Charging Station is offline",
+        "heading_path": "E04 - Transaction started while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E04",
+        "use_case_name": "Transaction started while Charging Station is offline",
+        "use_case_refs": "E01, E04, E10",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# EV Driver Charging Station CSMS\n\nCharging Station is Offline\n\nOffline user authorization successful\n\n- opt notification\n- lock connector\n- start energy offer\n- store TransactionEventRequest(offline = true)\n\nConnection loss can be minutes, but can also be days.\n\nConnection restored.\n\n- HeartbeatRequest()\n- HeartbeatResponse()\n- send queued message()\n\nloop  [for all queued transaction messages]\n\n- TransactionEventRequest(offline = true)\n- TransactionEventResponse(...)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Driver Charging Station CSMS",
+        "heading_path": "EV Driver Charging Station CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E04",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# E04 - Transaction started while Charging Station is offline - Requirements\n\n| ID        | Precondition                      | Requirement definition                                                                                                         | Note              |\n| --------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------- |\n| E04.FR.01 | When Offline.                     | The Charging Station MUST queue any TransactionEventRequest messages.                                                          | Same as E12.FR.01 |\n| E04.FR.02 | After the connection is restored. | The Charging Station MUST send queued TransactionEventRequest messages.                                                        | Same as E12.FR.02 |\n| E04.FR.03 | E04.FR.02                         | The flag: \"offline\" SHALL be set to TRUE for any TransactionEventRequest that occurred while the Charging Station was offline. | Same as E12.FR.02 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E04 - Transaction started while Charging Station is offline - Requirements",
+        "heading_path": "E04 - Transaction started while Charging Station is offline - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E04",
+        "use_case_name": "Transaction started while Charging Station is offline",
+        "use_case_refs": "E04, E12",
+        "message_refs": "TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

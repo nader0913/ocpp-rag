@@ -1,0 +1,78 @@
+{
+  "use_case_id": "B06",
+  "functional_block": "Provisioning",
+  "use_case_name": "Get Variables",
+  "chunks": [
+    {
+      "content": "# B06 - Get Variables\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Get Variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 2   | ID               | B06                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 3   | Objective(s)     | To give the CSMS the ability to retrieve the value of an attribute for one or more Variables of one or more Components.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 4   | Description      | This use case describes how the CSMS requests a Charging Station to send the value of an attribute for one or more variables of one or more components. It is not possible to get all attributes of all variables in one call. Actors: Charging Station, CSMS Scenario description: 1. The CSO triggers the CSMS to request for a number of variables in a Charging Station. 2. The CSMS requests the Charging Station for a number of variables with GetVariablesRequest with a list of requested variables. 3. The Charging Station responds with a GetVariablesResponse with the requested variables. 4. The CSMS sends an optional notification to the CSO. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B06 - Get Variables",
+        "heading_path": "B06 - Get Variables",
+        "functional_block": "Provisioning",
+        "use_case_id": "B06",
+        "use_case_name": "Get Variables",
+        "use_case_refs": "B06",
+        "message_refs": "GetVariablesRequest, GetVariablesResponse, getVariablesRequest, getVariablesResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 6   | Postcondition(s) | Successful postcondition: The Charging Station was able to send all the requested variables. Failure postcondition: The Charging Station was not able to send all requested variables.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B06 - Get Variables",
+        "heading_path": "B06 - Get Variables",
+        "functional_block": "Provisioning",
+        "use_case_id": "B06",
+        "use_case_name": "Get Variables",
+        "use_case_refs": "B06",
+        "message_refs": "GetVariablesRequest, GetVariablesResponse, getVariablesRequest, getVariablesResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n\nCSO    CSMS    Charging Station\n\nrequest for a number of variables\n\ngetVariablesRequest(getVariableData)\n\ngetVariablesResponse(getVariableResult)\n\nopt notification",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B06 - Get Variables",
+        "heading_path": "B06 - Get Variables",
+        "functional_block": "Provisioning",
+        "use_case_id": "B06",
+        "use_case_name": "Get Variables",
+        "use_case_refs": "B06",
+        "message_refs": "GetVariablesRequest, GetVariablesResponse, getVariablesRequest, getVariablesResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# B06 - Get Variables - Requirements\n\n| ID        | Precondition                                                                                          | Requirement definition                                                                                                                                                                   |\n| --------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B06.FR.01 | When the Charging Station receives a GetVariablesRequest with an X number of GetVariableData elements | The Charging Station SHALL respond with a GetVariablesResponse with an equal (X) number of GetVariableResult elements, one for every GetVariableData element in the GetVariablesRequest. |\n| B06.FR.02 | B06.FR.01                                                                                             | Every GetVariableResult element in the GetVariablesResponse SHALL contain the same component and variable combination as one of the GetVariableData elements in the GetVariablesRequest. |\n| B06.FR.03 | B06.FR.02                                                                                             | The corresponding GetVariableResult element in the GetVariablesResponse SHALL also contain the same attributeType AND If the GetVariablesRequest contains an attributeType               |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B06 - Get Variables - Requirements",
+        "heading_path": "B06 - Get Variables - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B06",
+        "use_case_name": "Get Variables",
+        "use_case_refs": "B06",
+        "message_refs": "GetVariablesRequest, GetVariablesResponse"
+      }
+    }
+  ],
+  "figures": []
+}

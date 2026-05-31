@@ -1,0 +1,71 @@
+[
+  {
+    "content": "## NotifyDisplayMessagesRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: NotifyDisplayMessages\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| messageInfo | array<MessageInfoType> | No |  |\n| requestId | integer | Yes | The id of the &lt;&lt;getdisplaymessagesrequest,GetDisplayMessagesRequest&gt;&gt; that requested this message. |\n| tbc | boolean | No | \"to be continued\" indicator. Indicates whether another part of the report follows in an upcoming NotifyDisplayMessagesRequest message. Default value when omitted is false. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:NotifyDisplayMessagesRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"MessageFormatEnumType\": {\n      \"description\": \"Message_ Content. Format. Message_ Format_ Code\\r\\nurn:x-enexis:ecdm:uid:1:570848\\r\\nFormat of the message.\\r\\n\",\n      \"javaType\": \"MessageFormatEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"ASCII\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > NotifyDisplayMessages > NotifyDisplayMessagesRequest",
+      "message_name": "NotifyDisplayMessagesRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"HTML\",\n        \"URI\",\n        \"UTF8\"\n      ]\n    },\n    \"MessagePriorityEnumType\": {\n      \"description\": \"Message_ Info. Priority. Message_ Priority_ Code\\r\\nurn:x-enexis:ecdm:uid:1:569253\\r\\nWith what priority should this message be shown\\r\\n\",\n      \"javaType\": \"MessagePriorityEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"AlwaysFront\",\n        \"InFront\",\n        \"NormalCycle\"\n      ]\n    },\n    \"MessageStateEnumType\": {\n      \"description\": \"Message_ Info. State. Message_ State_ Code\\r\\nurn:x-enexis:ecdm:uid:1:569254\\r\\nDuring what state should this message be shown. When omitted this message should be shown in any state of the Charging Station.\\r\\n\",\n      \"javaType\": \"MessageStateEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Charging\",\n        \"Faulted\",\n        \"Idle\",\n        \"Unavailable\"\n      ]\n    },\n    \"ComponentType\": {\n      \"description\": \"A physical or logical component\\r\\n\",\n      \"javaType\": \"Component\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"evse\": {\n          \"$ref\": \"#/definitions/EVSEType\"\n        },\n        \"name\": {\n          \"description\": \"Name of the component. Name should be taken from the list of standardized component names whenever possible. Case Insensitive. strongly advised to use Camel Case.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        },\n        \"instance\": {\n          \"description\": \"Name of instance in case the component exists as multiple instances. Case Insensitive. strongly advised to use Camel Case.\\r\\n\",\n          \"type\": \"string\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > NotifyDisplayMessages > NotifyDisplayMessagesRequest",
+      "message_name": "NotifyDisplayMessagesRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"name\"\n      ]\n    },\n    \"EVSEType\": {\n      \"description\": \"EVSE\\r\\nurn:x-oca:ocpp:uid:2:233123\\r\\nElectric Vehicle Supply Equipment\\r\\n\",\n      \"javaType\": \"EVSE\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"id\": {\n          \"description\": \"Identified_ Object. MRID. Numeric_ Identifier\\r\\nurn:x-enexis:ecdm:uid:1:569198\\r\\nEVSE Identifier. This contains a number (&gt; 0) designating an EVSE of the Charging Station.\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"connectorId\": {\n          \"description\": \"An id to designate a specific connector (on an EVSE) by connector index number.\\r\\n\",\n          \"type\": \"integer\"\n        }\n      },\n      \"required\": [\n        \"id\"\n      ]\n    },\n    \"MessageContentType\": {\n      \"description\": \"Message_ Content\\r\\nurn:x-enexis:ecdm:uid:2:234490\\r\\nContains message details, for a message to be displayed on a Charging Station.\\r\\n\\r\\n\",\n      \"javaType\": \"MessageContent\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"format\": {\n          \"$ref\": \"#/definitions/MessageFormatEnumType\"\n        },\n        \"language\": {\n          \"description\": \"Message_ Content. Language. Language_ Code\\r\\nurn:x-enexis:ecdm:uid:1:570849\\r\\nMessage language identifier. Contains a language code as defined in &lt;&lt;ref-RFC5646,[RFC5646]&gt;&gt;.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 8\n        },\n        \"content\": {\n          \"description\": \"Message_ Content. Content. Message\\r\\nurn:x-enexis:ecdm:uid:1:570852\\r\\nMessage contents.\\r\\n\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > NotifyDisplayMessages > NotifyDisplayMessagesRequest",
+      "message_name": "NotifyDisplayMessagesRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n          \"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"format\",\n        \"content\"\n      ]\n    },\n    \"MessageInfoType\": {\n      \"description\": \"Message_ Info\\r\\nurn:x-enexis:ecdm:uid:2:233264\\r\\nContains message details, for a message to be displayed on a Charging Station.\\r\\n\",\n      \"javaType\": \"MessageInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"display\": {\n          \"$ref\": \"#/definitions/ComponentType\"\n        },\n        \"id\": {\n          \"description\": \"Identified_ Object. MRID. Numeric_ Identifier\\r\\nurn:x-enexis:ecdm:uid:1:569198\\r\\nMaster resource identifier, unique within an exchange context. It is defined within the OCPP context as a positive Integer value (greater or equal to zero).\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"priority\": {\n          \"$ref\": \"#/definitions/MessagePriorityEnumType\"\n        },\n        \"state\": {\n          \"$ref\": \"#/definitions/MessageStateEnumType\"\n        },\n        \"startDateTime\": {\n          \"description\": \"Message_ Info. Start. Date_ Time\\r\\nurn:x-enexis:ecdm:uid:1:569256\\r\\nFrom what date-time should this message be shown. If omitted: directly.\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"endDateTime\": {\n          \"description\": \"Message_ Info. End. Date_ Time\\r\\nurn:x-enexis:ecdm:uid:1:569257\\r\\nUntil what date-time should this message be shown, after this date/time this message SHALL be removed.\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        },\n        \"transactionId\": {\n          \"description\": \"During which transaction shall this message be shown.\\r\\nMessage SHALL be removed by the Charging Station after transaction has\\r\\nended.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > NotifyDisplayMessages > NotifyDisplayMessagesRequest",
+      "message_name": "NotifyDisplayMessagesRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  },
+  {
+    "content": "\"type\": \"string\",\n          \"maxLength\": 36\n        },\n        \"message\": {\n          \"$ref\": \"#/definitions/MessageContentType\"\n        }\n      },\n      \"required\": [\n        \"id\",\n        \"priority\",\n        \"message\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"messageInfo\": {\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"$ref\": \"#/definitions/MessageInfoType\"\n      },\n      \"minItems\": 1\n    },\n    \"requestId\": {\n      \"description\": \"The id of the &lt;&lt;getdisplaymessagesrequest,GetDisplayMessagesRequest&gt;&gt; that requested this message.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"tbc\": {\n      \"description\": \"\\\"to be continued\\\" indicator. Indicates whether another part of the report follows in an upcoming NotifyDisplayMessagesRequest message. Default value when omitted is false.\\r\\n\",\n      \"type\": \"boolean\",\n      \"default\": false\n    }\n  },\n  \"required\": [\n    \"requestId\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "NotifyDisplayMessagesRequest",
+      "heading_path": "JSON Schemas > NotifyDisplayMessages > NotifyDisplayMessagesRequest",
+      "message_name": "NotifyDisplayMessagesRequest",
+      "message_direction": "Request",
+      "chunk_part": 5
+    }
+  }
+]

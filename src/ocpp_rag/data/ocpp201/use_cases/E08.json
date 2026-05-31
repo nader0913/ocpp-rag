@@ -1,0 +1,128 @@
+{
+  "use_case_id": "E08",
+  "functional_block": "Transactions",
+  "use_case_name": "Transaction stopped while Charging Station is offline",
+  "chunks": [
+    {
+      "content": "# E08 - Transaction stopped while Charging Station is offline\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name             | Transaction stopped while Charging Station is offline                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 2   | ID               | E08                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E08 - Transaction stopped while Charging Station is offline",
+        "heading_path": "E08 - Transaction stopped while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "use_case_name": "Transaction stopped while Charging Station is offline",
+        "use_case_refs": "E06, E07, E08",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "|     | Parent use case  | E07 - Local Stop Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 3   | Objective(s)     | To enable the EV Driver to stop a transaction while the Charging Station is Offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E08 - Transaction stopped while Charging Station is offline",
+        "heading_path": "E08 - Transaction stopped while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "use_case_name": "Transaction stopped while Charging Station is offline",
+        "use_case_refs": "E06, E07, E08",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 4   | Description      | This use case describes how an EV Driver can stop a transaction while the Charging Station is Offline. While a transaction is ongoing and the Charging Station is Offline, the EV Driver presents his IdToken, if the Charging Stations knows locally (without asking the CSMS) that this IdToken is allowed to stop the transaction, it will stop the ongoing transaction. When the Charging Station restores the connection with the CSMS, it needs to send the information about this Offline stop transaction to the CSMS. Actors: Charging Station, CSMS, EV Driver Scenario description:1) The EV Driver presents IdToken to stop the transaction.\n2) When this is the same IdToken as was used to start the transaction, or via the Local Authorization List and / or Authorization Cache the GroupId can be validated: the transaction is stopped.\n3) The Charging Station stops the energy offer.\n4) The TransactionEventRequest (eventType = Ended) is stored/queued by the Charging Station.\n5) The connection between Charging Station and CSMS is restored.\n6) The Charging Station starts to send queued messages.\n7) The stored TransactionEventRequest is sent, notifying the CSMS about the transaction that was stopped. |\n| 5   | Prerequisite(s)  | Transaction ongoing and connection lost.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E08 - Transaction stopped while Charging Station is offline",
+        "heading_path": "E08 - Transaction stopped while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "use_case_name": "Transaction stopped while Charging Station is offline",
+        "use_case_refs": "E06, E07, E08",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s) | Charging Station is in Idle status.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E08 - Transaction stopped while Charging Station is offline",
+        "heading_path": "E08 - Transaction stopped while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "use_case_name": "Transaction stopped while Charging Station is offline",
+        "use_case_refs": "E06, E07, E08",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 4,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | groupId check must be done on Local Authorization List and / or Authorization Cache if available.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n\nThe scenario description and sequence diagram above are based on the Configuration Variable for stop transaction being configured as follows.\n\nTxStopPoint: ParkingBayOccupancy, EVConnected, Authorized\n\nThis use-case is also valid for other configurations, but then the transaction might stop at another moment, which might change the sequence in which message are sent. For more details see the use case: E06 - Stop Transaction options.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E08 - Transaction stopped while Charging Station is offline",
+        "heading_path": "E08 - Transaction stopped while Charging Station is offline",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "use_case_name": "Transaction stopped while Charging Station is offline",
+        "use_case_refs": "E06, E07, E08",
+        "message_refs": "TransactionEventRequest",
+        "chunk_part": 5,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# CSMS\n\nCharging Station is Offline and a transaction is ongoing.\n\npresent idToken\n\nalt  [if idToken matches or groupId can be validated]\nstop energy offer\n\nalt  [if cable not permanently attached]\nunlock connector\n\nStore TransactionEventRequest(eventType = Ended,\noffline = true)\n\nConnection loss can be minutes, but can also be days.\n\nConnection restored.\nHeartbeatRequest()\nHeartbeatResponse()\nsend queued message()\n\nTransactionEventRequest(eventType = Ended,\noffline = true)\nTransactionEventResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "CSMS",
+        "heading_path": "CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# E08 - Transaction stopped while Charging Station is offline - Requirements\n\n| ID        | Precondition                                                                                | Requirement definition                                                                                                       | Note                                                                                       |\n| --------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |\n| E08.FR.01 | If the IdToken presented is the same as the IdToken used to start the transaction.          | The Charging Station SHALL stop the energy offering.                                                                         |                                                                                            |\n| E08.FR.02 | If the IdToken presented has the same GroupId as the IdToken used to start the transaction. | The Charging Station SHALL stop the energy offering.                                                                         |                                                                                            |\n| E08.FR.03 | (E08.FR.01 OR E08.FR.02) AND Cable not permanently attached                                 | The Charging Station SHALL unlock the connector.                                                                             |                                                                                            |\n| E08.FR.04 | (E08.FR.01 OR E08.FR.02)                                                                    | The Charging Station SHALL \"generate\" a TransactionEventRequest (eventType = Ended).                                         |                                                                                            |\n| E08.FR.05 | When Offline.                                                                               | The Charging Station MUST queue any TransactionEventRequest messages.                                                        | Same as E12.FR.01                                                                          |\n| E08.FR.06 | After the connection is restored.                                                           | The Charging Station MUST send queued TransactionEventRequest messages.                                                      | E12.FR.02                                                                                  |\n| E08.FR.07 |                                                                                             | The flag: offline SHALL be set to TRUE for any TransactionEventRequest that occurred while the Charging Station was offline. | E12.FR.02                                                                                  |\n| E08.FR.08 | When a TransactionEventRequest has to be created                                            | The Charging Station SHALL set the message’s seqNo field as specified in Sequence Number Generation.                         | This enables the CSMS to track the completeness of transaction information. Same E01.FR.07 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E08 - Transaction stopped while Charging Station is offline - Requirements",
+        "heading_path": "E08 - Transaction stopped while Charging Station is offline - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E08",
+        "use_case_name": "Transaction stopped while Charging Station is offline",
+        "use_case_refs": "E01, E08, E12",
+        "message_refs": "TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

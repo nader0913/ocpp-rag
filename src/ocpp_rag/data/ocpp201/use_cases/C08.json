@@ -1,0 +1,83 @@
+{
+  "use_case_id": "C08",
+  "functional_block": "Authorization",
+  "use_case_name": "Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+  "chunks": [
+    {
+      "content": "# C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                      |\n| --- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                    | Authorization at EVSE using ISO 15118 External Identification Means (EIM)                                                                                                                                                                                                                                                                        |\n| 2   | ID                      | C08 / 15118-1 D4                                                                                                                                                                                                                                                                                                                                 |\n|     | Reference               | ISO15118-1 D4                                                                                                                                                                                                                                                                                                                                    |\n| 3   | Objective(s)            | To authorize the EV via the Charging Station, with help of the CSMS. Also see ISO15118-1, use case Objective D4, page 28.                                                                                                                                                                                                                        |\n| 4   | Description             | The Charging Station sends an AuthorizeRequest message based on information provided by the EV. Also see ISO15118-1, use case Description D4 up to and including \"NOTE\", page 28.                                                                                                                                                                |\n|     | Actors                  | EV, Charging Station, CSMS                                                                                                                                                                                                                                                                                                                       |\n|     | Scenario description    | 15118 See ISO15118-1, use case Description (Scenario Description) D4, page 28.                                                                                                                                                                                                                                                                   |\n|     | OCPP                    | 1. The Charging Station sends an AuthorizeRequest with an idToken containing the External Identification Means (EIM). 2. The CSMS responds with an AuthorizeResponse.                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "heading_path": "C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "functional_block": "Authorization",
+        "use_case_id": "C08",
+        "use_case_name": "Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "|     | Alternative scenario(s) | C01 - EV Driver Authorization using RFID C02 - Authorization using a start button C03 - Authorization using credit/debit card C04 - Authorization using PIN-code C05 - Authorization for CSMS initiated transactions C06 - Authorization using local id type C07 - Authorization using Contract Certificates C15 - Unknown Offline Authorization |\n| 5   | Prerequisites           | Communication between EV and EVSE SHALL be established successfully.                                                                                                                                                                                                                                                                             |\n| 6   | Postcondition(s)        | Authorization is successful. Also see ISO15118-1, use case End conditions D4, page 28.                                                                                                                                                                                                                                                           |\n| 7   | Remark(s)               | Please note that all identification means mentioned in the previous section can be applied to this use case. The only difference is the availability of 15118 communication.                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "heading_path": "C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "functional_block": "Authorization",
+        "use_case_id": "C08",
+        "use_case_name": "Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "use_case_refs": "C01, C02, C03, C04, C05, C06, C07, C08, C15",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# EV Charging Station CSMS\n\nIdentify first\n\nUser might identify prior to connecting the EV to the EVSE\n\nAuthorizeRequest(idToken)\nAuthorizeResponse(idTokenInfo)\n\nServiceDiscoveryReq()\nServiceDiscoveryRes(PaymentServiceList: ExternalPayment)\nPaymentServiceSelectionReq(paymentOption: ExternalPayment)\nPaymentServiceSelectionRes()\nAuthorizationReq()\n\nIdentify after plugin\n\nUser might identify after plugging in, sequence time-out is 60 seconds\n\nAuthorizeRequest(idToken)\nAuthorizeResponse(idTokenInfo)\n\nAuthorizationRes()\n\nFigure 27. Sequence Diagram: Authorization at EVSE using external credentials performed with help of SA.\n\nSource: ISO15118-1",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "EV Charging Station CSMS",
+        "heading_path": "EV Charging Station CSMS",
+        "functional_block": "Authorization",
+        "use_case_id": "C08",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse",
+        "figure_refs": "27"
+      }
+    },
+    {
+      "content": "# C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM) - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                                      |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| C08.FR.01 |              | The Charging Station SHALL send the identification to the CSMS for validation.                                                                                                              |\n| C08.FR.02 |              | EV Driver SHALL activate the authorization within a specific time after connecting the EV to the EVSE or the EVSE SHALL have an HMI to authorize the restart of the identification process. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM) - Requirements",
+        "heading_path": "C08 - Authorization at EVSE using ISO 15118 External Identification Means (EIM) - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C08",
+        "use_case_name": "Authorization at EVSE using ISO 15118 External Identification Means (EIM)",
+        "use_case_refs": "C08"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "27",
+      "title": "Sequence Diagram: Authorization at EVSE using external credentials performed with help of SA.",
+      "files": [
+        "fig27_p1_Sequence_Diagram__Authorization_at_EVSE_using_exte.png",
+        "fig27_p2_Sequence_Diagram__Authorization_at_EVSE_using_exte.png"
+      ]
+    }
+  ]
+}

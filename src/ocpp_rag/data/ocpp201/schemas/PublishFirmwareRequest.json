@@ -1,0 +1,29 @@
+[
+  {
+    "content": "## PublishFirmwareRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: PublishFirmware\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| location | string | Yes | This contains a string containing a URI pointing to a location from which to retrieve the firmware. |\n| retries | integer | No | This specifies how many times Charging Station must try to download the firmware before giving up. If this field is not present, it is left to Charging Station to decide how many times it wants to retry. |\n| checksum | string | Yes | The MD5 checksum over the entire firmware file as a hexadecimal string of length 32. |\n| requestId | integer | Yes | The Id of the request. |\n| retryInterval | integer | No | The interval in seconds after which a retry may be attempted. If this field is not present, it is left to Charging Station to decide how long to wait between attempts. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:PublishFirmwareRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "PublishFirmwareRequest",
+      "heading_path": "JSON Schemas > PublishFirmware > PublishFirmwareRequest",
+      "message_name": "PublishFirmwareRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"location\": {\n      \"description\": \"This contains a string containing a URI pointing to a\\r\\nlocation from which to retrieve the firmware.\\r\\n\",\n      \"type\": \"string\",\n      \"maxLength\": 512\n    },\n    \"retries\": {\n      \"description\": \"This specifies how many times Charging Station must try\\r\\nto download the firmware before giving up. If this field is not\\r\\npresent, it is left to Charging Station to decide how many times it wants to retry.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"checksum\": {\n      \"description\": \"The MD5 checksum over the entire firmware file as a hexadecimal string of length 32. \\r\\n\",\n      \"type\": \"string\",\n      \"maxLength\": 32\n    },\n    \"requestId\": {\n      \"description\": \"The Id of the request.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"retryInterval\": {\n      \"description\": \"The interval in seconds\\r\\nafter which a retry may be\\r\\nattempted. If this field is not\\r\\npresent, it is left to Charging\\r\\nStation to decide how long to wait\\r\\nbetween attempts.\\r\\n\",\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"location\",\n    \"checksum\",\n    \"requestId\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "PublishFirmwareRequest",
+      "heading_path": "JSON Schemas > PublishFirmware > PublishFirmwareRequest",
+      "message_name": "PublishFirmwareRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  }
+]

@@ -1,0 +1,76 @@
+{
+  "use_case_id": "A05",
+  "functional_block": "Security",
+  "use_case_name": "Upgrade Charging Station Security Profile",
+  "chunks": [
+    {
+      "content": "# A05 - Upgrade Charging Station Security Profile\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Upgrade Charging Station Security Profile                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID               | A05                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 3   | Objective(s)     | The CSO wants to change the security of the OCPP connection between CSMS and a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A05 - Upgrade Charging Station Security Profile",
+        "heading_path": "A05 - Upgrade Charging Station Security Profile",
+        "functional_block": "Security",
+        "use_case_id": "A05",
+        "use_case_name": "Upgrade Charging Station Security Profile",
+        "use_case_refs": "A05",
+        "message_refs": "ResetRequest, SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 4   | Description      | Use case when migrating from OCPP 1.6 without security profiles to OCPP 2.0.1. Before migrating to a security profile, the prerequisites, like installed certificates or password, need to be configured. Actors: CSMS, Charging Station Scenario description:1) The CSMS sets a new value for the NetworkConfigurationPriority Configuration Variable via SetVariablesRequest, such that the NetworkConnectionProfile for the new security profile becomes first in the list and the existing connection profile becomes second in the list.\n2) The Charging Station responds with a SetVariablesResponse with status Accepted.\n3) The CSMS sends a ResetRequest(OnIdle).\n4) The Charging Station reboots and connects via the new primary NetworkConnectionProfile. |\n| 5   | Prerequisite(s)  | The CSO ensures that a NetworkConnectionProfile has been set using an allowed security profile AND that the prerequisite(s) for going to the new security profile are met before sending the command to change to the new security profile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 6   | Postcondition(s) | The Charging Station was successfully upgraded to a new security profile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A05 - Upgrade Charging Station Security Profile",
+        "heading_path": "A05 - Upgrade Charging Station Security Profile",
+        "functional_block": "Security",
+        "use_case_id": "A05",
+        "use_case_name": "Upgrade Charging Station Security Profile",
+        "use_case_refs": "A05",
+        "message_refs": "ResetRequest, SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 8   | Remark(s)        | For security reasons it is by default not allowed to revert to a lower Security Profile using OCPP. Only when the variable AllowSecurityProfileDowngrade is implemented and is set to true, it is allowed to downgrade from profile 3 to profile 2. Even in that case, it is not allowed to revert from profile 2 or profile 3 to security profile 1 using OCPP.                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A05 - Upgrade Charging Station Security Profile",
+        "heading_path": "A05 - Upgrade Charging Station Security Profile",
+        "functional_block": "Security",
+        "use_case_id": "A05",
+        "use_case_name": "Upgrade Charging Station Security Profile",
+        "use_case_refs": "A05",
+        "message_refs": "ResetRequest, SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# Operator\n\n| CSMS                                                                      | Charging Station                             |\n| ------------------------------------------------------------------------- | -------------------------------------------- |\n| Change Network Config                                                     |                                              |\n| SetVariablesRequest(NetworkConfigurationPriority)                         | SetVariablesResponse(status: RebootRequired) |\n| ResetRequest(OnIdle)                                                      | ResetResponse(Accepted)                      |\n| Reboot                                                                    |                                              |\n| Connect using (new) NetworkConnectionProfile with higher security profile |                                              |\n| BootNotificationRequest(...)                                              | BootNotificationResponse(...)                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Operator",
+        "heading_path": "Operator",
+        "functional_block": "Security",
+        "use_case_id": "A05",
+        "message_refs": "BootNotificationRequest, BootNotificationResponse, ResetRequest, ResetResponse, SetVariablesRequest, SetVariablesResponse"
+      }
+    }
+  ],
+  "figures": []
+}

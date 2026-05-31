@@ -1,0 +1,67 @@
+{
+  "use_case_id": "E07",
+  "functional_block": "Transactions",
+  "use_case_name": "Transaction locally stopped by IdToken",
+  "chunks": [
+    {
+      "content": "# E07 - Transaction locally stopped by IdToken\n\n| No. | Type         | Description                                                                                                |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Transaction locally stopped by IdToken                                                                     |\n| 2   | ID           | E07                                                                                                        |\n| 3   | Objective(s) | The EV Driver wants to stop an ongoing transaction, by locally presenting his IdToken.                     |\n| 4   | Description  | This use case covers how the EV Driver can stop a transaction when he wants to leave the charging station. |\n\nActors: Charging Station, CSMS, EV Driver",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E07 - Transaction locally stopped by IdToken",
+        "heading_path": "E07 - Transaction locally stopped by IdToken",
+        "functional_block": "Transactions",
+        "use_case_id": "E07",
+        "use_case_name": "Transaction locally stopped by IdToken",
+        "use_case_refs": "E07"
+      }
+    },
+    {
+      "content": "# Scenario description\n\nTxStopPoint = Authorized (or PowerPathClosed)\n\nReporting\n\n1. The EV Driver presents IdToken a second time to end charging.\n2. The Charging Station stops the energy transfer and if the cable is not permanently attached, the Charging Station unlocks the cable.\n3. The Charging Station sends a TransactionEventRequest (eventType = Ended) with triggerReason = StopAuthorized and stoppedReason = Local.\n4. The CSMS responds with a TransactionEventResponse.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "Transactions",
+        "use_case_id": "E07",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# Alternative scenario(s)\n\nTxStopPoint = Authorized (or PowerPathClosed)\n\nReporting\n\n1. The EV Driver presents IdToken a second time to end charging.\n2. The Charging Station sends a TransactionEventRequest (eventType = Updated) with triggerReason = StopAuthorized.\n3. The CSMS responds with a TransactionEventResponse.\n4. The Charging Station stops the energy transfer and if the cable is not permanently attached, the Charging Station unlocks the cable.\n5. The Charging Station sends a TransactionEventRequest (eventType = Ended) with triggerReason = ChargingStateChanged, transactionInfo.chargingState = EVConnected.\n6. The CSMS responds with a TransactionEventResponse.\n\n| 5 | Prerequisite(s)  | A transaction is ongoing.                                                                                                                                                               |\n| - | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 6 | Postcondition(s) | Successful postcondition: The CSMS has received all relevant information about the transaction and the Charging Station is in Idle status.                                              |\n|   |                  | Failure postcondition: The transaction is still ongoing or the Charging Station is in Idle status and still holds information about the transaction that it has to deliver to the CSMS. |\n| 7 | Error handling   | n/a                                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Alternative scenario(s)",
+        "heading_path": "Alternative scenario(s)",
+        "functional_block": "Transactions",
+        "use_case_id": "E07",
+        "message_refs": "TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# E07 - Transaction locally stopped by IdToken - Requirements\n\n| ID        | Precondition                                                                                                                                                                       | Requirement definition                                                                                         |\n| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |\n| E07.FR.01 | When an idToken is presented during a transaction that has been authorized AND                                                                                                     | The Charging Station SHALL end the authorization of the transaction, without first sending an AuthorizeRequest |\n|           | (a) the presented idToken is the same as the idToken that started the authorization OR                                                                                             |                                                                                                                |\n|           | (b) when the presented idToken is in the Local Authorization List or Authorization Cache AND is valid AND has the same GroupIdToken as the IdToken that started the authorization. |                                                                                                                |\n\nNote\n\nThe idToken that started the authorization can always be used to end the authorization. Ending authorization will end delivery of energy. Depending on the of TxStopPoint ending the authorization may also end the transaction. Read use case C09 (C09.FR.05/07) for of detailed description stopping based on groupId.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E07 - Transaction locally stopped by IdToken - Requirements",
+        "heading_path": "E07 - Transaction locally stopped by IdToken - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E07",
+        "use_case_name": "Transaction locally stopped by IdToken",
+        "use_case_refs": "C09, E07",
+        "message_refs": "AuthorizeRequest"
+      }
+    }
+  ],
+  "figures": []
+}

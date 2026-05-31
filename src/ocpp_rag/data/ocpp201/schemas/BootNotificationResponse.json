@@ -1,0 +1,43 @@
+[
+  {
+    "content": "## BootNotificationResponse\n\n**Type**: OCPP 2.0.1 Message Schema (Response)\n**Base Message**: BootNotification\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| currentTime | string(date-time) | Yes | This contains the CSMS’s current time. |\n| interval | integer | Yes | When &lt;&lt;cmn_registrationstatusenumtype,Status&gt;&gt; is Accepted, this contains the heartbeat interval in seconds. If the CSMS returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request. |\n| status | enum(Accepted,Pending,Rejected) | Yes | This contains whether the Charging Station has been registered within the CSMS. |\n| statusInfo | StatusInfoType | No | Element providing more information about the status. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:BootNotificationResponse\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"RegistrationStatusEnumType\": {\n      \"description\": \"This contains whether the Charging Station has been registered\\r\\nwithin the CSMS.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "BootNotificationResponse",
+      "heading_path": "JSON Schemas > BootNotification > BootNotificationResponse",
+      "message_name": "BootNotificationResponse",
+      "message_direction": "Response"
+    }
+  },
+  {
+    "content": "\"javaType\": \"RegistrationStatusEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Accepted\",\n        \"Pending\",\n        \"Rejected\"\n      ]\n    },\n    \"StatusInfoType\": {\n      \"description\": \"Element providing more information about the status.\\r\\n\",\n      \"javaType\": \"StatusInfo\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"reasonCode\": {\n          \"description\": \"A predefined code for the reason why the status is returned in this response. The string is case-insensitive.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        },\n        \"additionalInfo\": {\n          \"description\": \"Additional text to provide detailed information.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 512\n        }\n      },\n      \"required\": [\n        \"reasonCode\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"currentTime\": {\n      \"description\": \"This contains the CSMS\\u2019s current time.\\r\\n\",\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"interval\": {\n      \"description\": \"When &lt;&lt;cmn_registrationstatusenumtype,Status&gt;&gt; is Accepted, this contains the heartbeat interval in seconds. If the CSMS returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request.\\r\\n\",\n      \"type\": \"integer\"\n    },\n    \"status\": {\n      \"$ref\": \"#/definitions/RegistrationStatusEnumType\"\n    },\n    \"statusInfo\": {\n      \"$ref\": \"#/definitions/StatusInfoType\"",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "BootNotificationResponse",
+      "heading_path": "JSON Schemas > BootNotification > BootNotificationResponse",
+      "message_name": "BootNotificationResponse",
+      "message_direction": "Response",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "}\n  },\n  \"required\": [\n    \"currentTime\",\n    \"interval\",\n    \"status\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "BootNotificationResponse",
+      "heading_path": "JSON Schemas > BootNotification > BootNotificationResponse",
+      "message_name": "BootNotificationResponse",
+      "message_direction": "Response",
+      "chunk_part": 3
+    }
+  }
+]

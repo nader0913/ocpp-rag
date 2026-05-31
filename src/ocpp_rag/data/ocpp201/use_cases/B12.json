@@ -1,0 +1,162 @@
+{
+  "use_case_id": "B12",
+  "functional_block": "Provisioning",
+  "use_case_name": "Reset - With Ongoing Transaction",
+  "chunks": [
+    {
+      "content": "# B12 - Reset - With Ongoing Transaction\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                    | Reset - With Ongoing Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                      | B12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B12 - Reset - With Ongoing Transaction",
+        "heading_path": "B12 - Reset - With Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 6
+      }
+    },
+    {
+      "content": "| 3   | Objective(s)            | To enable the CSMS to request a Charging Station to reset itself or EVSE, while there is an ongoing transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 4   | Description             | This use case covers how the CSMS can request the Charging Station to reset itself or an EVSE by sending ResetRequest. (If ResetRequest contains an optional parameter evseId, then only a reset of the specific EVSE is requested.) This could for example be necessary if the Charging Station is not functioning correctly. The CSMS has the possibility to let the Charging Station end all transactions itself and reboot or wait until all ongoing transactions are ended normally (by an EV user) and then reboot.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B12 - Reset - With Ongoing Transaction",
+        "heading_path": "B12 - Reset - With Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 6
+      }
+    },
+    {
+      "content": "|     | Actors                  | Charging Station, CSMS, CSO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n|     | Scenario description    | 1. The CSO requests the CSMS to reset the Charging Station or EVSE. 2. The CSMS sends ResetRequest requesting the Charging Station to reset itself or EVSE. 3a. On receipt of an OnIdle reset, the Charging Station responds with ResetResponse(Scheduled), indicating the Charging Station will try to reset itself or EVSE after all ongoing transactions have ended. The Charging Station continues charging and sets all EVSEs (or only the one provided in the request, if evseId was supplied) that are Available to status Unavailable, waits until all transactions are finished and all TransactionEventRequest (eventType = Ended) messages are sent. 3b. On receipt of an Immediate reset, the Charging Station responds with ResetResponse(Accepted), indicating the Charging Station will try to reset itself or EVSE. The Charging Station attempts to terminate any transaction (or only those running on the EVSE provided in the request, if evseId was supplied) in progress, and sending a TransactionEventRequest (eventType = Ended) message. 4. Only if no evseId was supplied the Charging Station reboots and returns to a state as just having been booted, B01 - Cold Boot Charging Station applies. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B12 - Reset - With Ongoing Transaction",
+        "heading_path": "B12 - Reset - With Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 6
+      }
+    },
+    {
+      "content": "|     | Alternative scenario(s) | B11 - Reset Without Ongoing Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 5   | Prerequisite(s)         | A transaction is ongoing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B12 - Reset - With Ongoing Transaction",
+        "heading_path": "B12 - Reset - With Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest",
+        "chunk_part": 4,
+        "total_parts": 6
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s)        | Successful postcondition: The Charging Station was able to reset itself or EVSE. Failure postcondition: The Charging Station not was able to reset itself or EVSE.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 7   | Error handling          | After having accepted the ResetRequest, TransactionEventRequest messages that cannot be delivered to the CSMS MUST be queued.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B12 - Reset - With Ongoing Transaction",
+        "heading_path": "B12 - Reset - With Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest",
+        "chunk_part": 5,
+        "total_parts": 6
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)               | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B12 - Reset - With Ongoing Transaction",
+        "heading_path": "B12 - Reset - With Ongoing Transaction",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B01, B11, B12",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest",
+        "chunk_part": 6,
+        "total_parts": 6
+      }
+    },
+    {
+      "content": "# CSO  CSMS                                              Charging Station\n\nalt [Reset Charging Station]\n\nTransactions active on one or more EVSEs\n\nreset CS\n\nResetRequest(OnIdle)\n\nResetResponse(Scheduled)\n\nopt [Avoid starting of new transactions on free EVSEs]\n\nloop [for all connectors of Available EVSEs]\n\nStatusNotificationRequest(Unavailable,...)\n\nStatusNotificationResponse(...)\n\nWait for transactions to end, and optionally set connector(s) to Unavailable when a transaction ends.\n\nreboot Charging Station\n\nContinue B01 - Cold Boot Charging Station\n\n[Reset EVSE]\n\nTransaction active on EVSE\n\nreset CS\n\nResetRequest(OnIdle, evseId)\n\nResetResponse(Scheduled)\n\nWait for transaction to end, and optionally set connector(s) to Unavailable when the transaction ends.\n\nreset EVSE\n\nloop [for all connectors of EVSE]\n\nStatusNotificationRequest(Available, evseId, connectorId)\n\nStatusNotificationResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "CSO  CSMS                                              Charging Station",
+        "heading_path": "CSO  CSMS                                              Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_refs": "B01",
+        "message_refs": "ResetRequest, ResetResponse, StatusNotificationRequest, StatusNotificationResponse"
+      }
+    },
+    {
+      "content": "# Charging Station\n\n[Reset Charging Station]\nTransactions active on one or more EVSEs\n\nreset CS\n- ResetRequest(Immediate)\n- ResetResponse(Accepted)\n\nTerminate all transactions, regardless of TxStopPoint.\n\nloop [for all stopped transactions]\n\n- TransactionEventRequest(eventType = Ended, stopReason = ImmediateReset,...)\n- TransactionEventResponse(...)\n\nreboot Charging Station\n\nContinue B01 - Cold Boot Charging Station\n\n[Reset EVSE]\nTransaction active on EVSE\n\nreset CS\n- ResetRequest(Immediate, evseId)\n- ResetResponse(Scheduled)\n\nTerminate transaction, regardless of TxStopPoint.\n\n- TransactionEventRequest(eventType = Ended, stopReason = ImmediateReset,...)\n- TransactionEventResponse(...)\n\nreset EVSE\n\nloop [for all connectors of EVSE]\n\n- StatusNotificationRequest(Available, evseId, connectorId)\n- StatusNotificationResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Charging Station",
+        "heading_path": "Charging Station",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_refs": "B01",
+        "message_refs": "ResetRequest, ResetResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# B12 - Reset - With Ongoing Transaction - Requirements\n\n| ID        | Precondition                                                                                       | Requirement definition                                                                                                                                                                                                                                                                      |\n| --------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B12.FR.01 | When the Charging Station receives a ResetRequest(OnIdle) AND a transaction is ongoing             | The Charging Station SHALL respond with a ResetResponse(Scheduled), to indicate whether the Charging Station will attempt to reset itself or EVSE after all transactions on Charging Station or EVSE have ended.                                                                            |\n| B12.FR.02 | When the Charging Station receives a ResetRequest(Immediate) AND a transaction is ongoing          | The Charging Station SHALL respond with a ResetResponse(Accepted), to indicate whether the Charging Station will attempt to reset itself or EVSE.                                                                                                                                           |\n| B12.FR.03 | If no evseId is supplied AND If any transaction is in progress and an OnIdle reset is received.    | The transaction of the Charging Station SHALL be terminated normally, before the reboot, e.g. as in E06 - Stop Transaction.                                                                                                                                                                 |\n| B12.FR.04 | If no evseId is supplied AND If any transaction is in progress and an Immediate Reset is received. | The Charging Station SHALL attempt to terminate any transaction in progress and send a TransactionEventRequest (eventType = Ended) message with triggerReason = ResetCommand and transactionInfo.stoppedReason = ImmediateReset for each terminated transaction before performing a reboot. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B12 - Reset - With Ongoing Transaction - Requirements",
+        "heading_path": "B12 - Reset - With Ongoing Transaction - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B12",
+        "use_case_name": "Reset - With Ongoing Transaction",
+        "use_case_refs": "B12, E06",
+        "message_refs": "ResetRequest, ResetResponse, TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

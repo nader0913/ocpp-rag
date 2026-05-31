@@ -1,0 +1,53 @@
+{
+  "use_case_id": "O05",
+  "functional_block": "DisplayMessage",
+  "use_case_name": "Clear a DisplayMessage",
+  "chunks": [
+    {
+      "content": "# O05 - Clear a DisplayMessage\n\n| No. | Type         | Description                                                                                                 |\n| --- | ------------ | ----------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Clear a DisplayMessage                                                                                      |\n| 2   | ID           | O05                                                                                                         |\n| 3   | Objective(s) | Enable a CSO to remove a specific message, currently configured in a Charging Station.                      |\n| 4   | Description  | This use case describes how a CSO can remove a specific message, configured via OCPP in a Charging Station. |\n\nActors: CSO, CSMS, Charging Station",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O05 - Clear a DisplayMessage",
+        "heading_path": "O05 - Clear a DisplayMessage",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O05",
+        "use_case_name": "Clear a DisplayMessage",
+        "use_case_refs": "O05"
+      }
+    },
+    {
+      "content": "# Scenario description\n\n1. The CSO asks the CSMS to remove a specific message.\n2. The CSMS sends a ClearDisplayMessageRequest message with the id of the specific message to the Charging Station.\n3. The Charging Station removes the message.\n4. The Charging Station response by sending a ClearDisplayMessageResponse message to the CSMS.\n\n| 5 | Prerequisites    | There is a message with the given id configured in the Charging Station                 |\n| - | ---------------- | --------------------------------------------------------------------------------------- |\n| 6 | Postcondition(s) | The message with the given id is removed from the Charging Station                      |\n| 7 | Error Handling   | n/a                                                                                     |\n| 8 | Remarks          | Only messages configured via OCPP can be cleared/removed via ClearDisplayMessageRequest |\n\nCSO    CSMS    Charging Station\n\nClear Message(id=12)\n\nClearDisplayMessageRequest(id=12)\n\nRemove\n\nMessage(id=12)\n\nClearDisplayMessageResponse(Accepted)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "Scenario description",
+        "heading_path": "Scenario description",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O05",
+        "message_refs": "ClearDisplayMessageRequest, ClearDisplayMessageResponse"
+      }
+    },
+    {
+      "content": "# O05 - Clear a DisplayMessage - Requirements\n\n| ID        | Precondition                                                                                                                               | Requirement definition                                                                               |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- |\n| O05.FR.01 | When a Charging Station receives a ClearDisplayMessageRequest AND there is a message configured in the Charging Station with that id       | The Charging Station SHALL respond with a ClearDisplayMessageResponse message with status: Accepted. |\n| O05.FR.02 | When a Charging Station receives a ClearDisplayMessageRequest AND there is no message configured in the Charging Station with the given id | The Charging Station SHALL respond with a ClearDisplayMessageResponse message with status: Unknown.  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O05 - Clear a DisplayMessage - Requirements",
+        "heading_path": "O05 - Clear a DisplayMessage - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O05",
+        "use_case_name": "Clear a DisplayMessage",
+        "use_case_refs": "O05",
+        "message_refs": "ClearDisplayMessageRequest, ClearDisplayMessageResponse"
+      }
+    }
+  ],
+  "figures": []
+}

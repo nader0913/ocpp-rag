@@ -1,0 +1,144 @@
+{
+  "use_case_id": "O02",
+  "functional_block": "DisplayMessage",
+  "use_case_name": "Set DisplayMessage for Transaction",
+  "chunks": [
+    {
+      "content": "# O02 - Set DisplayMessage for Transaction\n\n| No. | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                    | Set DisplayMessage for Transaction                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID                      | O02                                                                                                                                                                                                                                                                                                                                                                                                            |\n|     | Parent use case         | O01 - Set DisplayMessage                                                                                                                                                                                                                                                                                                                                                                                       |\n| 3   | Objective(s)            | To enable a CSO to display messages during an ongoing transaction on a Charging Station that are not built in to the firmware.                                                                                                                                                                                                                                                                                 |\n| 4   | Description             | This use case describes how a CSO can set a message to be displayed on a Charging Station for a specific transaction. Depending on the given parameters the message shall be displayed a certain way on the Charging Station.                                                                                                                                                                                  |\n|     | Actors                  | CSO, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                                                    |\n|     | Scenario description    | 1. The CSO configures the CSMS to send a request to show a new message during a given transaction. 2. The CSMS sends a SetDisplayMessageRequest message with the transactionId to the Charging Station. 3. The Charging Station accepts the request by sending a SetDisplayMessageResponse message to the CSMS. 4. The Charging Station shows the new message on the display while the transaction is ongoing. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O02 - Set DisplayMessage for Transaction",
+        "heading_path": "O02 - Set DisplayMessage for Transaction",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O02",
+        "use_case_name": "Set DisplayMessage for Transaction",
+        "use_case_refs": "O01, O02, O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
+        "figure_refs": "140",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "|     | Alternative scenario(s) | O01 - Set MessageMessage O06 - Replace MessageMessage                                                                                                                                                                                                                                                                                                                                                          |\n| 5   | Prerequisites           | No messages configured with the same IDs.                                                                                                                                                                                                                                                                                                                                                                      |\n| 6   | Postcondition(s)        | The new message will be displayed on the Charging Station while the transaction is ongoing (time, duration and position depend on configuration)                                                                                                                                                                                                                                                               |\n| 7   | Error Handling          | n/a                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 8   | Remarks                 | The maximum number of messages that can be stored in a Charging Station can be read by the CSMS in the Configuration Variable:NumberOfDisplayMessages.maxLimit.                                                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O02 - Set DisplayMessage for Transaction",
+        "heading_path": "O02 - Set DisplayMessage for Transaction",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O02",
+        "use_case_name": "Set DisplayMessage for Transaction",
+        "use_case_refs": "O01, O02, O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
+        "figure_refs": "140",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "CSO    CSMS                                                                   Charging Station\n\nA transaction with id=123 is ongoing\n\nSet new messages(transactionId=123)\n\nSetDisplayMessagesRequest(transactionId=123,...)\n\nSetDisplayMessagesResponse(Accepted)\n\nopt notification\n\nAt configured moment\n\nDisplay Message\n\nTransaction with id=123 ends\n\nRemove Message\n\nFigure 140. Set DisplayMessage for transaction sequence diagram",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O02 - Set DisplayMessage for Transaction",
+        "heading_path": "O02 - Set DisplayMessage for Transaction",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O02",
+        "use_case_name": "Set DisplayMessage for Transaction",
+        "use_case_refs": "O01, O02, O06",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse, SetDisplayMessagesRequest, SetDisplayMessagesResponse",
+        "figure_refs": "140",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# O02 - Set DisplayMessage for Transaction - Requirements\n\n| ID        | Precondition                                                                                                                                                                   | Requirement definition                                                                                                                                                                                                                  |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| O02.FR.01 | When the Charging Station receives a Message object via a SetDisplayMessageRequest and the transactionId of the message is not known by the Charging Station                   | The Charging Station SHALL send a SetDisplayMessageResponse with status: UnknownTransaction.                                                                                                                                            |\n| O02.FR.02 | When the transaction with the given transactionId ends                                                                                                                         | The Charging Station SHALL remove the message from the list of messages.                                                                                                                                                                |\n| O02.FR.03 | When the Charging Station receives a MessageInfo object via a SetDisplayMessageRequest and the priority of the message is not supported by the Charging Station                | The Charging Station SHALL send a SetDisplayMessageResponse with status: NotSupportedPriority.                                                                                                                                          |\n| O02.FR.04 | When the Charging Station receives a MessageInfo object via a SetDisplayMessageRequest and the state of the message is not supported by the Charging Station                   | The Charging Station SHALL send a SetDisplayMessageResponse with status: NotSupportedState.                                                                                                                                             |\n| O02.FR.05 | When the Charging Station receives a MessageInfo object via a SetDisplayMessageRequest and the format of the message is not supported by the Charging Station                  | The Charging Station SHALL send a SetDisplayMessageResponse with status: NotSupportedMessageFormat.                                                                                                                                     |\n| O02.FR.06 |                                                                                                                                                                                | The Charging Station SHALL NOT display the DisplayMessage message before the startTime.                                                                                                                                                 |\n| O02.FR.07 |                                                                                                                                                                                | The Charging Station SHALL remove a DisplayMessage message after the endTime.                                                                                                                                                           |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O02 - Set DisplayMessage for Transaction - Requirements",
+        "heading_path": "O02 - Set DisplayMessage for Transaction - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O02",
+        "use_case_name": "Set DisplayMessage for Transaction",
+        "use_case_refs": "O02",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| O02.FR.08 | When the Charging Station knows the language preferences of the EV Driver                                                                                                      | The Charging Station SHALL display the DisplayMessage message in the preferred language, if available.                                                                                                                                  |\n| O02.FR.09 | O02.FR.08                                                                                                                                                                      | When no matching language is available, it is RECOMMENDED to show a DisplayMessage message in English as fall-back, if available.                                                                                                       |\n| O02.FR.10 |                                                                                                                                                                                | The Charging Station SHALL store the messages in persistent storage, so they survive a power cycle/reboot of the Charging Station.                                                                                                      |\n| O02.FR.11 | When the Charging Station receives a SetDisplayMessageRequest and the total number of messages after having handled this request will exceed NumberOfDisplayMessages.maxLimit. | The Charging Station SHALL respond with status: Rejected.                                                                                                                                                                               |\n| O02.FR.12 |                                                                                                                                                                                | Language SHALL be specified as RFC-5646 tags, see: \\[RFC5646], example: US English is: \"en-US\"                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O02 - Set DisplayMessage for Transaction - Requirements",
+        "heading_path": "O02 - Set DisplayMessage for Transaction - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O02",
+        "use_case_name": "Set DisplayMessage for Transaction",
+        "use_case_refs": "O02",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| O02.FR.14 | When the Charging Station receives a SetDisplayMessageRequest and the priority of the message is NormalCycle                                                                   | The Charging Station SHALL show this message in the normal cycle of messages.                                                                                                                                                           |\n| O02.FR.15 | When the Charging Station receives a SetDisplayMessageRequest and the priority of the message is InFront                                                                       | The Charging Station SHALL show this message at the configured moment, regardless of the normal cycle of messages.                                                                                                                      |\n| O02.FR.16 | When multiple messages with priority InFront are configured to be shown at the same time                                                                                       | The Charging Station SHALL cycle these messages.                                                                                                                                                                                        |\n| O02.FR.17 | When the Charging Station receives a SetDisplayMessageRequest and the priority of the message is AlwaysFront                                                                   | The Charging Station SHALL show this message at the configured moment, regardless of other installed messages. Hence, it shall not cycle it with other messages and the Charging Station’s own message shall not override this message. |\n| O02.FR.18 | O02.FR.17 AND Another message with priority AlwaysFront is already set                                                                                                         | The Charging Station SHALL replace the old message with the newly set message.                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O02 - Set DisplayMessage for Transaction - Requirements",
+        "heading_path": "O02 - Set DisplayMessage for Transaction - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O02",
+        "use_case_name": "Set DisplayMessage for Transaction",
+        "use_case_refs": "O02",
+        "message_refs": "SetDisplayMessageRequest, SetDisplayMessageResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "140",
+      "title": "Set DisplayMessage for transaction sequence diagram",
+      "files": [
+        "fig140_p1_Set_DisplayMessage_for_transaction_sequence_diagra.png",
+        "fig140_p2_Set_DisplayMessage_for_transaction_sequence_diagra.png"
+      ]
+    },
+    {
+      "figure_num": "140",
+      "title": "Set DisplayMessage for transaction sequence diagram",
+      "files": [
+        "fig140_p1_Set_DisplayMessage_for_transaction_sequence_diagra.png",
+        "fig140_p2_Set_DisplayMessage_for_transaction_sequence_diagra.png"
+      ]
+    },
+    {
+      "figure_num": "140",
+      "title": "Set DisplayMessage for transaction sequence diagram",
+      "files": [
+        "fig140_p1_Set_DisplayMessage_for_transaction_sequence_diagra.png",
+        "fig140_p2_Set_DisplayMessage_for_transaction_sequence_diagra.png"
+      ]
+    }
+  ]
+}

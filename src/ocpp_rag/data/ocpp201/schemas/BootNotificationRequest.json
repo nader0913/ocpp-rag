@@ -1,0 +1,43 @@
+[
+  {
+    "content": "## BootNotificationRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: BootNotification\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| chargingStation | ChargingStationType | Yes | Charge_ Point urn:x-oca:ocpp:uid:2:233122 The physical system where an Electrical Vehicle (EV) can be charged. |\n| reason | enum(ApplicationReset,FirmwareUpdate,LocalReset,PowerUp,RemoteReset,ScheduledReset,Triggered,Unknown,Watchdog) | Yes | This contains the reason for sending this message to the CSMS. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:BootNotificationRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"BootReasonEnumType\": {\n      \"description\": \"This contains the reason for sending this message to the CSMS.\\r\\n\",\n      \"javaType\": \"BootReasonEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"ApplicationReset\",\n        \"FirmwareUpdate\",\n        \"LocalReset\",\n        \"PowerUp\",\n        \"RemoteReset\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "BootNotificationRequest",
+      "heading_path": "JSON Schemas > BootNotification > BootNotificationRequest",
+      "message_name": "BootNotificationRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"ScheduledReset\",\n        \"Triggered\",\n        \"Unknown\",\n        \"Watchdog\"\n      ]\n    },\n    \"ChargingStationType\": {\n      \"description\": \"Charge_ Point\\r\\nurn:x-oca:ocpp:uid:2:233122\\r\\nThe physical system where an Electrical Vehicle (EV) can be charged.\\r\\n\",\n      \"javaType\": \"ChargingStation\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"serialNumber\": {\n          \"description\": \"Device. Serial_ Number. Serial_ Number\\r\\nurn:x-oca:ocpp:uid:1:569324\\r\\nVendor-specific device identifier.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 25\n        },\n        \"model\": {\n          \"description\": \"Device. Model. CI20_ Text\\r\\nurn:x-oca:ocpp:uid:1:569325\\r\\nDefines the model of the device.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        },\n        \"modem\": {\n          \"$ref\": \"#/definitions/ModemType\"\n        },\n        \"vendorName\": {\n          \"description\": \"Identifies the vendor (not necessarily in a unique manner).\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        },\n        \"firmwareVersion\": {\n          \"description\": \"This contains the firmware version of the Charging Station.\\r\\n\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        }\n      },\n      \"required\": [\n        \"model\",\n        \"vendorName\"\n      ]\n    },\n    \"ModemType\": {\n      \"description\": \"Wireless_ Communication_ Module\\r\\nurn:x-oca:ocpp:uid:2:233306\\r\\nDefines parameters required for initiating and maintaining wireless communication with other devices.\\r\\n\",\n      \"javaType\": \"Modem\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "BootNotificationRequest",
+      "heading_path": "JSON Schemas > BootNotification > BootNotificationRequest",
+      "message_name": "BootNotificationRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"iccid\": {\n          \"description\": \"Wireless_ Communication_ Module. ICCID. CI20_ Text\\r\\nurn:x-oca:ocpp:uid:1:569327\\r\\nThis contains the ICCID of the modem\\u2019s SIM card.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        },\n        \"imsi\": {\n          \"description\": \"Wireless_ Communication_ Module. IMSI. CI20_ Text\\r\\nurn:x-oca:ocpp:uid:1:569328\\r\\nThis contains the IMSI of the modem\\u2019s SIM card.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 20\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"chargingStation\": {\n      \"$ref\": \"#/definitions/ChargingStationType\"\n    },\n    \"reason\": {\n      \"$ref\": \"#/definitions/BootReasonEnumType\"\n    }\n  },\n  \"required\": [\n    \"reason\",\n    \"chargingStation\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "BootNotificationRequest",
+      "heading_path": "JSON Schemas > BootNotification > BootNotificationRequest",
+      "message_name": "BootNotificationRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  }
+]

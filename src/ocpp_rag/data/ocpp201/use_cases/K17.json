@@ -1,0 +1,40 @@
+{
+  "use_case_id": "K17",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Renegotiation initiated by EV",
+  "chunks": [
+    {
+      "content": "# K17 - Renegotiation initiated by EV\n\n| No. | Type         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name         | Renegotiation initiated by EV.                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 2   | ID           | K16                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s) | To let an EV request a new charging schedule.                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 4   | Description  | The EV signals the Charging Station that it wants to renegotiate and it provides new charging needs, which the Charging Station sends to the CSMS. Based on this and other parameters, the CSMS calculates a new charging schedule and sends it via SetChargingProfileRequest to Charging Station, which communicates it to the EV. Note: Description of actions between EV and Charging Station is informative only and not mandated by OCPP. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K17 - Renegotiation initiated by EV",
+        "heading_path": "K17 - Renegotiation initiated by EV",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K17",
+        "use_case_name": "Renegotiation initiated by EV",
+        "use_case_refs": "K16, K17",
+        "message_refs": "SetChargingProfileRequest"
+      }
+    },
+    {
+      "content": "# K17 - Renegotiation initiated by EV - Requirements\n\n| ID        | Precondition                                             | Requirements                                                                | Note |\n| --------- | -------------------------------------------------------- | --------------------------------------------------------------------------- | ---- |\n| K17.FR.01 | EV triggers a renegotiation and sends new charging needs | The Charging Station SHALL send a NotifyEVChargingNeedsRequest to the CSMS. |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K17 - Renegotiation initiated by EV - Requirements",
+        "heading_path": "K17 - Renegotiation initiated by EV - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K17",
+        "use_case_name": "Renegotiation initiated by EV",
+        "use_case_refs": "K17",
+        "message_refs": "NotifyEVChargingNeedsRequest"
+      }
+    }
+  ],
+  "figures": []
+}

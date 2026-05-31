@@ -1,0 +1,78 @@
+{
+  "use_case_id": "O04",
+  "functional_block": "DisplayMessage",
+  "use_case_name": "Get Specific DisplayMessages",
+  "chunks": [
+    {
+      "content": "# O04 - Get Specific DisplayMessages\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Get Specific DisplayMessages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 2   | ID                   | O04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | Enable a CSO to retrieve one or more specific DisplayMessages, currently configured in a Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 4   | Description          | This use case describes how a CSO can request/query for (specific) DisplayMessage, configured via OCPP in a Charging Station. The Charging Station can remove messages when they are outdated, or transactions have ended. It can be very useful for a CSO to be able to query the Charging Station for installed DisplayMessages, so the CSO knows which messages are (still) configured.                                                                                                                                                  |\n|     | Actors               | CSO, CSMS, Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O04 - Get Specific DisplayMessages",
+        "heading_path": "O04 - Get Specific DisplayMessages",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O04",
+        "use_case_name": "Get Specific DisplayMessages",
+        "use_case_refs": "O04",
+        "message_refs": "GetDisplayMessagesRequest, GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, NotifyDisplayMessagesResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "|     | Scenario description | 1. The CSO asks the CSMS to query for DisplayMessages. 2. The CSMS sends a GetDisplayMessagesRequest message with the query parameters to the Charging Station. 3. When the Charging Station has DisplayMessages that match the requested parameters, it responds with GetDisplayMessagesResponse Accepted. 4. The Charging Station sends one or more NotifyDisplayMessagesRequest message to the CSMS (depending on the amount of messages to be sent). 5. The CSMS responds to every notify with a NotifyDisplayMessagesResponse message. |\n| 5   | Prerequisites        | There is a message with the given id configured in the Charging Station                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 6   | Postcondition(s)     | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 7   | Error Handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O04 - Get Specific DisplayMessages",
+        "heading_path": "O04 - Get Specific DisplayMessages",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O04",
+        "use_case_name": "Get Specific DisplayMessages",
+        "use_case_refs": "O04",
+        "message_refs": "GetDisplayMessagesRequest, GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, NotifyDisplayMessagesResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remarks              | Only messages configured via OCPP can be retrieved via GetDisplayMessagesRequest.                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n\nCSO    CSMS                                              Charging Station\n\nQuery Messages()\n\nGetDisplayMessagesRequest( NOT EMPTY )\n\nGetDisplayMessagesResponse(Accepted)\n\nloop         [for each DisplayMessages part matching the query]\n\nNotifyDisplayMessagesRequest(requestId, messageInfo, tbc)\n\nNotifyDisplayMessagesResponse()\n\nopt\n\nnotification",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "O04 - Get Specific DisplayMessages",
+        "heading_path": "O04 - Get Specific DisplayMessages",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O04",
+        "use_case_name": "Get Specific DisplayMessages",
+        "use_case_refs": "O04",
+        "message_refs": "GetDisplayMessagesRequest, GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, NotifyDisplayMessagesResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# O04 - Get Specific DisplayMessage - Requirements\n\n| ID        | Precondition                                                                                                                                                               | Requirement definition                            |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |\n| O04.FR.01 | When one or more of the fields in a GetDisplayMessagesRequest are used AND The Charging Station has DisplayMessages configured that match the parameters in the request    | The Charging Station SHALL respond with Accepted. |\n| O04.FR.02 | When one or more of the fields in a GetDisplayMessagesRequest are used AND The Charging Station has NO DisplayMessages configured that match the parameters in the request | The Charging Station SHALL respond with Unknown.  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "O04 - Get Specific DisplayMessage - Requirements",
+        "heading_path": "O04 - Get Specific DisplayMessage - Requirements",
+        "functional_block": "DisplayMessage",
+        "use_case_id": "O04",
+        "use_case_name": "Get Specific DisplayMessage",
+        "use_case_refs": "O04",
+        "message_refs": "GetDisplayMessagesRequest"
+      }
+    }
+  ],
+  "figures": []
+}

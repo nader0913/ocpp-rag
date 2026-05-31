@@ -1,0 +1,78 @@
+{
+  "use_case_id": "D01",
+  "functional_block": "LocalAuthorizationListManagement",
+  "use_case_name": "Send Local Authorization List",
+  "chunks": [
+    {
+      "content": "# D01 - Send Local Authorization List\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Send Local Authorization List                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                   | D01                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To enable the CSMS to send a Local Authorization List which a Charging Station can use for the authorization of idTokens.                                                                                                                                                                                                                                                                                                                                                   |\n| 4   | Description          | The CSMS sends a Local Authorization List which a Charging Station can use for the authorization of idTokens. The list MAY be either a full list to replace the current list in the Charging Station or it MAY be a differential list with updates to be applied to the current list in the Charging Station.                                                                                                                                                               |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n|     | Scenario description | 1. The CSMS sends a SendLocalListRequest to install or update the Local Authorization List. 2. Upon receipt of the SendLocalListRequest the Charging Station responds with a SendLocalListResponse with its status.                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "D01 - Send Local Authorization List",
+        "heading_path": "D01 - Send Local Authorization List",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D01",
+        "use_case_name": "Send Local Authorization List",
+        "use_case_refs": "D01",
+        "message_refs": "SendLocalListRequest, SendLocalListResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)      | Local Authorization List is enabled with Configuration Variable LocalAuthListEnabled.                                                                                                                                                                                                                                                                                                                                                                                       |\n| 6   | Postcondition(s)     | Successful postcondition: - A new Local Authorization List is installed on the Charging Station. Failure postcondition: - The Local Authorization List on the Charging Station stays as it was. - If the status is Failed or VersionMismatch.                                                                                                                                                                                                                               |\n| 7   | Error handling       | If the status is Failed or VersionMismatch and the updateType was Differential, the CSMS will transmit the full Local Authorization List. When this list is too large for one message, it will start by sending an initial list with updateType Full and adding identifiers using updateType Differential until the list is completely sent (the amount of identifiers that can be sent in a single SendLocalListRequest is limited as described in requirement D01.FR.11). |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "D01 - Send Local Authorization List",
+        "heading_path": "D01 - Send Local Authorization List",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D01",
+        "use_case_name": "Send Local Authorization List",
+        "use_case_refs": "D01",
+        "message_refs": "SendLocalListRequest, SendLocalListResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "CSMS Charging Station\n\nSendLocalListRequest(versionNumber, updateType,...)\n\nSendLocalListResponse(Accepted)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "D01 - Send Local Authorization List",
+        "heading_path": "D01 - Send Local Authorization List",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D01",
+        "use_case_name": "Send Local Authorization List",
+        "use_case_refs": "D01",
+        "message_refs": "SendLocalListRequest, SendLocalListResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# D01 - Send Local Authorization List - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                                                        | Note |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |\n| D01.FR.01 |              | SendLocalListRequest SHALL contain the type of update (updateType) and a version number (versionNumber) that the Charging Station MUST associate with the Local Authorization List after it has been updated. |      |\n| D01.FR.02 |              | SendLocalListResponse SHALL indicate whether the Charging Station has accepted the update of the Local Authorization List                                                                                     |      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "D01 - Send Local Authorization List - Requirements",
+        "heading_path": "D01 - Send Local Authorization List - Requirements",
+        "functional_block": "LocalAuthorizationListManagement",
+        "use_case_id": "D01",
+        "use_case_name": "Send Local Authorization List",
+        "use_case_refs": "D01",
+        "message_refs": "SendLocalListRequest, SendLocalListResponse"
+      }
+    }
+  ],
+  "figures": []
+}

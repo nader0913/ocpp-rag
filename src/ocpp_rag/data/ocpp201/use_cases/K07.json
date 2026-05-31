@@ -1,0 +1,113 @@
+{
+  "use_case_id": "K07",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+  "chunks": [
+    {
+      "content": "# K07 - Offline Behavior Smart Charging at Start of Transaction\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Offline Behavior Smart Charging at Start of Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "heading_path": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K07",
+        "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+        "use_case_refs": "K07",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "chunk_part": 1,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 2   | ID               | K07                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| 3   | Objective(s)     | To enable the Charging Station to continue to use a ChargingProfile for a transaction which is started Offline.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "heading_path": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K07",
+        "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+        "use_case_refs": "K07",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "chunk_part": 2,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 4   | Description      | By setting a TxDefaultProfile on a Charging Station, the CSMS can assure that any transaction, which is started while the communication with the CSMS is Offline, uses this profile. **Actors:** Charging Station, CSMS, EV, EV Driver **Scenario description:**) The CSMS sends a SetChargingProfileRequest to the Charging Station with a TxDefaultProfile.\n\n2) The Charging Station responds with a SetChargingProfileResponse.\n\n3) The Charging Station goes Offline and operates stand-alone.\n\n4) The Charging Station allows automatic authorization of any presented IdToken by either:\n\n* a. The Local Authorization List; a list of identifiers that can be synchronized with the CSMS.\n* b. Authorization Cache entries; which autonomously maintains a record of previously presented identifiers that have been successfully authorized by the CSMS. (Successfully meaning: a response received on a message containing an IdToken).\n* c. Configuration Variable: OfflineTxForUnknownIdEnabled = TRUE\n\n5) The transaction is started in the same way as described in E. Transactions.\n\n6) While charging is in progress the EVSE will continuously adapt the maximum current or power according to the already installed ChargingProfiles. |\n| 5   | Prerequisite(s)  | The Charging Station is Offline. The Functional Block Smart Charging is installed. The IdToken is known in the Local Authorization List, the IdToken is known in the Authorization Cache, or unknown offline authorization is enabled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "heading_path": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K07",
+        "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+        "use_case_refs": "K07",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "chunk_part": 3,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s) | **Successful postcondition:** The Charging Station uses the installed TxDefaultProfile which are available for the Offline started transaction. **Failure postcondition:** n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "heading_path": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K07",
+        "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+        "use_case_refs": "K07",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "chunk_part": 4,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | See section Combining Charging Profile Purposes for a description on how to combine different charging profile purposes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "heading_path": "K07 - Offline Behavior Smart Charging at Start of Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K07",
+        "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+        "use_case_refs": "K07",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "chunk_part": 5,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# K07 - Offline Behavior Smart Charging at Start of Transaction - Requirements\n\n| ID        | Precondition                                                                                                                                             | Requirement definition                                                    | Note                                                                            |\n| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |\n| K07.FR.01 | If a Charging Station goes Offline before a transaction is started or before a transaction-specific ChargingProfile with purpose TxProfile was received. | The Charging Station SHALL use the charging profiles which are available. | With purpose TxDefaultProfile for the duration of the current transaction only. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K07 - Offline Behavior Smart Charging at Start of Transaction - Requirements",
+        "heading_path": "K07 - Offline Behavior Smart Charging at Start of Transaction - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K07",
+        "use_case_name": "Offline Behavior Smart Charging at Start of Transaction",
+        "use_case_refs": "K07"
+      }
+    }
+  ],
+  "figures": []
+}

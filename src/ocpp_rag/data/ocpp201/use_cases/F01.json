@@ -1,0 +1,114 @@
+{
+  "use_case_id": "F01",
+  "functional_block": "RemoteControl",
+  "use_case_name": "Remote Start Transaction - Cable Plugin First",
+  "chunks": [
+    {
+      "content": "# F01 - Remote Start Transaction - Cable Plugin First\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |\n| --- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Remote Start Transaction - Cable Plugin First                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
+        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "use_case_refs": "E01, F01",
+        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 1,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 2   | ID               | F01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 3   | Objective(s)     | 1. To remotely start a transaction by the CSMS. 2. To enable a CSO to help an EV Driver that has problems starting a transaction. 3. To enable third parties (e.g. mobile apps) to control charging transactions via the CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
+        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "use_case_refs": "E01, F01",
+        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 2,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 4   | Description      | This use case describes how the CSMS remotely requests the Charging Station to start a transaction by sending RequestStartTransactionRequest. Upon receipt, the Charging Station responds with RequestStartTransactionResponse and a status indicating whether it is able to try to start a transaction or not. **Actors:** Charging Station, CSMS, CSO **Scenario description:** 1. The EV Driver plugs in the cable at the Charging Station. 2. The Charging Station sends a StatusNotificationRequest to the CSMS to inform it about a Connector that became Occupied. 3. The CSMS responds with a StatusNotificationResponse, confirming that the StatusNotificationRequest was received. 4. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the CSMS about a transaction that has started (even when the driver is not yet known). 5. The CSMS responds with a TransactionEventResponse, confirming that the TransactionEventRequest was received. 6. An external trigger (as example in this use case: EV Driver) triggers the remote start. 7. The CSMS sends a RequestStartTransactionRequest to the Charging Station. 8. The Charging Station responds with a RequestStartTransactionResponse with the transactionId of the already started transaction to the CSMS. 9. Optionally: the EV Driver is authorized by the CSMS. 10. The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState = Charging) message to inform the CSMS that the charging has started. |\n| 5   | Prerequisite(s)  | Charging Cable plugged in first.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
+        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "use_case_refs": "E01, F01",
+        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 3,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s) | The Charging Station offers energy. If the value of AuthorizeRemoteStart is true, the Charging Station will only offer energy when it successfully authorized the IdToken, using Local Authorization List, Authorization Cache and/or an AuthorizeRequest.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
+        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "use_case_refs": "E01, F01",
+        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 4,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | An external trigger can be e.g. a Charging Station Operator or an EV Driver app. The RequestStartTransactionResponse contains a status which indicates whether the Charging Station has accepted the request and will attempt to start a transaction. The CSMS is allowed to send a RequestStartTransactionRequest with IdTokenType of type: NoAuthorization. The operator should be aware that if the Charging Station supports local stop transaction, this transaction can be stopped by anyone. The scenario description and sequence diagram above are based on the Configuration Variable for start transaction being configured as follows: TxStartPoint: EVConnected. This use-case is also valid for other configurations, but then the transaction might start/stop at another moment, which might change the sequence in which message are send. For more details see the use cases: E01 - Start Transaction options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F01 - Remote Start Transaction - Cable Plugin First",
+        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "use_case_refs": "E01, F01",
+        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest, RequestStartTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 5,
+        "total_parts": 5
+      }
+    },
+    {
+      "content": "# F01 - Remote Start Transaction - Cable Plugin First - Requirements\n\n| ID        | Precondition                                                   | Requirement definition                                                                                                                                                                                                | Note                                                                                                                                                                                                                                            |\n| --------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| F01.FR.01 | Charging Station receives a RequestStartTransactionRequest AND | The Charging Station SHALL behave as if in response to a local action at the Charging Station to allow energy transfer after successful authorization of the IdToken given in RequestStartTransactionRequest message. | Charging Station will first respond to the request and then try to authorize the IdToken, using the Local Authorization List, Authorization Cache and/or an AuthorizeRequest. Energy transfer is only allowed after authorization was obtained. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F01 - Remote Start Transaction - Cable Plugin First - Requirements",
+        "heading_path": "F01 - Remote Start Transaction - Cable Plugin First - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F01",
+        "use_case_name": "Remote Start Transaction - Cable Plugin First",
+        "use_case_refs": "F01",
+        "message_refs": "AuthorizeRequest, RequestStartTransactionRequest"
+      }
+    }
+  ],
+  "figures": []
+}

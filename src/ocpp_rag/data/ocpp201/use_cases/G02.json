@@ -1,0 +1,60 @@
+{
+  "use_case_id": "G02",
+  "functional_block": "Availability",
+  "use_case_name": "Heartbeat",
+  "chunks": [
+    {
+      "content": "# G02 - Heartbeat\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                          |\n| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| 1   | Name                 | Heartbeat                                                                                                                                                                                                                                                                                                                                                                            |\n| 2   | ID                   | G02                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)         | To let the CSMS know that a Charging Station is still connected, optionally the Heartbeat can be used for time synchronisation.                                                                                                                                                                                                                                                      |\n| 4   | Description          | This use case describes a way to let the CSMS know the Charging Station is still connected, a Charging Station sends a heartbeat after a configurable time interval. Depending on the configuration the Heartbeat can be used for time synchronisation.                                                                                                                              |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                               |\n|     | Scenario description | 1. If there is no activity for a certain time, the Charging Station sends HeartbeatRequest for ensuring that the CSMS knows that a Charging Station is still alive. 2. Upon receipt of HeartbeatRequest, the CSMS responds with HeartbeatResponse. The response message contains the current time of the CSMS, which the Charging Station MAY use to synchronize its internal clock. |\n| 5   | Prerequisite(s)      | The heartbeat interval is set.                                                                                                                                                                                                                                                                                                                                                       |\n| 6   | Postcondition(s)     | Successful postconditions: The CSMS knows the Charging Station is still connected. Failure postconditions: The CSMS concludes that the Charging Station is Offline.                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G02 - Heartbeat",
+        "heading_path": "G02 - Heartbeat",
+        "functional_block": "Availability",
+        "use_case_id": "G02",
+        "use_case_name": "Heartbeat",
+        "use_case_refs": "G02",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                  |\n| 8   | Remark(s)            | With JSON over WebSocket, sending heartbeats is not instrumental to keeping websockets alive, since websockets already provide a mechanism for this. However, if the Charging Station uses the heartbeat for time synchronization, it is advised to at least send one heartbeat per 24 hours.                                                                                        |\n\nCharging Station      CSMS\n\nHeartbeatRequest()\n\nHeartbeatResponse(currentTime)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "G02 - Heartbeat",
+        "heading_path": "G02 - Heartbeat",
+        "functional_block": "Availability",
+        "use_case_id": "G02",
+        "use_case_name": "Heartbeat",
+        "use_case_refs": "G02",
+        "message_refs": "HeartbeatRequest, HeartbeatResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# G02 - Heartbeat - Requirements\n\n| ID        | Precondition                                                                 | Requirement definition                                                                                                          | Note                                                                  |\n| --------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |\n| G02.FR.01 | When the CSMS responds with BootNotificationResponse with a status Accepted. | The Charging Station SHALL adjust the heartbeat interval in accordance with the interval from the response message.             |                                                                       |\n| G02.FR.02 |                                                                              | The Charging Station SHALL send HeartbeatRequest after a configurable time interval.                                            | To ensure that the CSMS knows that a Charging Station is still alive. |\n| G02.FR.03 |                                                                              | The HeartbeatResponse message SHALL contain the current time of the CSMS.                                                       |                                                                       |\n| G02.FR.04 | Whenever a message from a Charging Station has been received.                | The CSMS SHALL assume availability of that Charging Station.                                                                    |                                                                       |\n| G02.FR.05 |                                                                              | It is RECOMMENDED that the Charging Station resets its heartbeat interval timer when another message has been sent to the CSMS. |                                                                       |\n| G02.FR.06 | When the Charging Station receives a HeartbeatResponse.                      | It is RECOMMENDED that the Charging Station uses the current time to synchronize its internal clock.                            |                                                                       |\n\n\nOCPP 2.0.1 Edition 4 - © Open Charge Alliance 2025",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "G02 - Heartbeat - Requirements",
+        "heading_path": "G02 - Heartbeat - Requirements",
+        "functional_block": "Availability",
+        "use_case_id": "G02",
+        "use_case_name": "Heartbeat",
+        "use_case_refs": "G02",
+        "message_refs": "BootNotificationResponse, HeartbeatRequest, HeartbeatResponse"
+      }
+    }
+  ],
+  "figures": []
+}

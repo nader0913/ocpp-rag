@@ -1,0 +1,79 @@
+{
+  "use_case_id": "K01",
+  "functional_block": "SmartCharging",
+  "use_case_name": "SetChargingProfile",
+  "chunks": [
+    {
+      "content": "# K01 - SetChargingProfile\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                      |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | SetChargingProfile                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                   | K01                                                                                                                                                                                                                                                                                                                                                              |\n| 3   | Objective(s)         | To enable the CSMS to influence the charging power or current drawn from a specific EVSE or the entire Charging Station over a period of time.                                                                                                                                                                                                                   |\n| 4   | Description          | The CSMS sends a SetChargingProfileRequest to the Charging Station to influence the power or current drawn by EVs. The CSMS calculates a ChargingSchedule to stay within certain limits, which MAY be imposed by any external system.                                                                                                                            |\n|     | Actors               | Charging Station, CSMS, EV                                                                                                                                                                                                                                                                                                                                       |\n|     | Scenario description | 1. The CSMS sets charging limits by sending SetChargingProfileRequest to the Charging Station. 2. The Charging Station responds with SetChargingProfileResponse.                                                                                                                                                                                                 |\n| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                              |\n| 6   | Postcondition(s)     | Successful postcondition: The Charging Station Successfully influences the charging power or current of a specific EV, following the SetChargingProfileRequest sent by the CSMS. Failure postcondition: The Charging Station was not able to influence the charging power or current of a specific EV, following the SetChargingProfileRequest sent by the CSMS. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K01 - SetChargingProfile",
+        "heading_path": "K01 - SetChargingProfile",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K01",
+        "use_case_name": "SetChargingProfile",
+        "use_case_refs": "K01",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "figure_refs": "99",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                              |\n| 8   | Remark(s)            | n/a                                                                                                                                                                                                                                                                                                                                                              |\n\nCSMS Charging Station\n\nSetChargingProfileRequest(evseId, chargingProfile)\n\nSetChargingProfileResponse(Accepted)\n\nFigure 99. Sequence Diagram: SetChargingProfile",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K01 - SetChargingProfile",
+        "heading_path": "K01 - SetChargingProfile",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K01",
+        "use_case_name": "SetChargingProfile",
+        "use_case_refs": "K01",
+        "message_refs": "SetChargingProfileRequest, SetChargingProfileResponse",
+        "figure_refs": "99",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# K01 - SetChargingProfile - Requirements\n\n| ID        | Precondition                                   | Requirement definition                                                                                   | Note                                                                      |\n| --------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |\n| K01.FR.01 |                                                | The CSMS MAY choose to set charging limits to a transaction using TxProfile.                             |                                                                           |\n| K01.FR.02 |                                                | The CSMS MAY send a new charging profile for the EVSE that SHALL be used as a limit schedule for the EV. |                                                                           |\n| K01.FR.03 |                                                | The CSMS SHALL include the transactionId in the SetChargingProfileRequest when setting a TxProfile.      | The transactionId is used to match the profile to a specific transaction. |\n| K01.FR.04 | K01.FR.03 AND the given transactionId is known | The Charging Station SHALL apply the sent TxProfile to the transaction with the specified transactionId. |                                                                           |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K01 - SetChargingProfile - Requirements",
+        "heading_path": "K01 - SetChargingProfile - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K01",
+        "use_case_name": "SetChargingProfile",
+        "use_case_refs": "K01",
+        "message_refs": "SetChargingProfileRequest"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "99",
+      "title": "Sequence Diagram: SetChargingProfile",
+      "files": [
+        "fig99_p1_Sequence_Diagram__SetChargingProfile.png",
+        "fig99_p2_Sequence_Diagram__SetChargingProfile.png"
+      ]
+    },
+    {
+      "figure_num": "99",
+      "title": "Sequence Diagram: SetChargingProfile",
+      "files": [
+        "fig99_p1_Sequence_Diagram__SetChargingProfile.png",
+        "fig99_p2_Sequence_Diagram__SetChargingProfile.png"
+      ]
+    }
+  ]
+}

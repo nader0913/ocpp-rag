@@ -1,0 +1,78 @@
+{
+  "use_case_id": "B08",
+  "functional_block": "Provisioning",
+  "use_case_name": "Get Custom Report",
+  "chunks": [
+    {
+      "content": "# B08 - Get Custom Report\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Get Custom Report                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 2   | ID               | B08                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 3   | Objective(s)     | To give the CSMS the ability to request a report of all Components and Variables limited to those that match ComponentCriteria and/or the list of ComponentVariables.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B08 - Get Custom Report",
+        "heading_path": "B08 - Get Custom Report",
+        "functional_block": "Provisioning",
+        "use_case_id": "B08",
+        "use_case_name": "Get Custom Report",
+        "use_case_refs": "B08",
+        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest, NotifyReportResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 4   | Description      | This use case describes how the CSMS requests a Charging Station to send a report of all Components and Variables limited to those that match ComponentCriteria and/or the list of ComponentVariables. The result will be returned asynchronously in one or more NotifyReportRequest messages. **Actors:** Charging Station, CSMS **Scenario description:**) The CSO triggers the CSMS to request a report from a Charging Station.\n2) The CSMS requests the Charging Station for a report with a GetReportRequest.\n3) The Charging Station responds with a GetReportResponse.\n4) The Charging Station asynchronously sends the results in one or more NotifyReportRequest messages.\n5) The CSMS responds with a NotifyReportResponse. |\n| 5   | Prerequisite(s)  | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 6   | Postcondition(s) | **Successful postcondition:** The Charging Station was able to send the requested report. **Failure postcondition:** The Charging Station was not able to send the requested report.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B08 - Get Custom Report",
+        "heading_path": "B08 - Get Custom Report",
+        "functional_block": "Provisioning",
+        "use_case_id": "B08",
+        "use_case_name": "Get Custom Report",
+        "use_case_refs": "B08",
+        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest, NotifyReportResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n\nCSO    CSMS    Charging Station\n\nrequest for a custom report\n\nGetReportRequest(requestId, componentCriteria, componentVariables)\n\nGetReportResponse(status)\n\nloop [for each report part]\n\nNotifyReportRequest(generatedAt, requestId, tbc, reportData,...)\n\nNotifyReportResponse()",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "B08 - Get Custom Report",
+        "heading_path": "B08 - Get Custom Report",
+        "functional_block": "Provisioning",
+        "use_case_id": "B08",
+        "use_case_name": "Get Custom Report",
+        "use_case_refs": "B08",
+        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest, NotifyReportResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# B08 - Get Custom Report - Requirements\n\n| ID        | Precondition                                                                                                     | Requirement definition                                                                                                                                           |\n| --------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| B08.FR.01 | NOT B08.FR.15 AND NOT B08.FR.16 AND When the Charging Station receives a GetReportRequest for supported criteria | The Charging Station SHALL send a GetReportResponse with Accepted                                                                                                |\n| B08.FR.02 | When the Charging Station receives a GetReportRequest for not supported criteria                                 | The Charging Station SHALL send a GetReportResponse with NotSupported                                                                                            |\n| B08.FR.03 | B08.FR.01                                                                                                        | The Charging Station SHALL send the requested information, excluding the value of WriteOnly variables, via one or more NotifyReportRequest messages to the CSMS. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "B08 - Get Custom Report - Requirements",
+        "heading_path": "B08 - Get Custom Report - Requirements",
+        "functional_block": "Provisioning",
+        "use_case_id": "B08",
+        "use_case_name": "Get Custom Report",
+        "use_case_refs": "B08",
+        "message_refs": "GetReportRequest, GetReportResponse, NotifyReportRequest"
+      }
+    }
+  ],
+  "figures": []
+}

@@ -1,0 +1,95 @@
+{
+  "use_case_id": "C09",
+  "functional_block": "Authorization",
+  "use_case_name": "Authorization by GroupId",
+  "chunks": [
+    {
+      "content": "# C09 - Authorization by GroupId\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| --- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Authorization by GroupId                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                   | C09                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 3   | Objective(s)         | To enable 2 EV drivers with different IdTokens to be authorized using the same GroupId.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 4   | Description          | This use cases covers how a Charging Station can authorize an action for an EV Driver based on GroupId information. This could for example be used if 2 people regularly use the same EV: they can use their own IdToken (e.g. RFID card), and can deauthorize transactions that were started with the other idToken (with the same GroupId).                                                                                                                                                                                                                                                                                                                                                                          |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C09 - Authorization by GroupId",
+        "heading_path": "C09 - Authorization by GroupId",
+        "functional_block": "Authorization",
+        "use_case_id": "C09",
+        "use_case_name": "Authorization by GroupId",
+        "use_case_refs": "C09",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "|     | Actors               | Charging Station, CSMS, EV Driver1, EV Driver2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n|     | Scenario description | 1. EV Driver 1 presents an IdToken. 2. The Charging Station sends AuthorizeRequest to the CSMS to request authorization. 3. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response message includes the GroupId. 4. The Charging Station stores the GroupIdToken with the authorization information of EV Driver 1. 5. EV Driver 2 presents an IdToken. 6. The Charging Station sends AuthorizeRequest to the CSMS to request authorization. 7. Upon receipt of AuthorizeRequest, the CSMS responds with AuthorizeResponse. This response message includes the GroupId. 8. Based on the matching GroupId information in both responses, the Charging Station authorizes the action. |\n| 5   | Prerequisite(s)      | EV Driver 1 and EV Driver 2 have the same GroupId.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C09 - Authorization by GroupId",
+        "heading_path": "C09 - Authorization by GroupId",
+        "functional_block": "Authorization",
+        "use_case_id": "C09",
+        "use_case_name": "Authorization by GroupId",
+        "use_case_refs": "C09",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s)     | GroupId is known by the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 8   | Remark(s)            | IdTokenType data used as groupId may often use a shared central account identifier for the GroupId, instead of using one of the idTokens belonging to an account. The groupId mechanism as described in this use case also works when using the Authorization Cache, as the groupId is stored in the cache.                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C09 - Authorization by GroupId",
+        "heading_path": "C09 - Authorization by GroupId",
+        "functional_block": "Authorization",
+        "use_case_id": "C09",
+        "use_case_name": "Authorization by GroupId",
+        "use_case_refs": "C09",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "EVDriver1  EVDriver2        Charging Station                                                                                       CSMS\n\npresent IdToken(001)\n\nopt                 [if IdToken is not present in the Local Authorization List or Authorization Cache.]\n\nAuthorizeRequest(IdToken = 001)\n\nAuthorizeResponse(groupIdToken = 123, status)\n\nopt\n\nnotification\n\nTransactionEventRequest(eventType = Started, triggerReason = Authorized, ...)\n\nTransactionEventResponse(...)\n\npresent IdToken(002)\n\nopt                 [if the IdToken used for stopping the transaction is different from the IdToken that started the transaction AND NOT (The GroupIdTokens used to start and stop the transaction are present in either the Local Authorization List or Authorization Cache AND they are the same).]\n\nAuthorizeRequest(IdToken = 002)\n\nAuthorizeResponse(groupIdToken = 123, status)\n\nTransactionEventRequest(eventType = Ended, triggerReason = StopAuthorized, stoppedReason = Local, ...)\n\nTransactionEventResponse(...)\n\nopt\n\nnotification",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "C09 - Authorization by GroupId",
+        "heading_path": "C09 - Authorization by GroupId",
+        "functional_block": "Authorization",
+        "use_case_id": "C09",
+        "use_case_name": "Authorization by GroupId",
+        "use_case_refs": "C09",
+        "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# C09 - Authorization by GroupId - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                       |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| C09.FR.02 |              | IdTokens that are part of the same group for authorization purposes SHALL have a common group identifier in the optional groupIdToken element in IdTokenInfo |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "C09 - Authorization by GroupId - Requirements",
+        "heading_path": "C09 - Authorization by GroupId - Requirements",
+        "functional_block": "Authorization",
+        "use_case_id": "C09",
+        "use_case_name": "Authorization by GroupId",
+        "use_case_refs": "C09"
+      }
+    }
+  ],
+  "figures": []
+}

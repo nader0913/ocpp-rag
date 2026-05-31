@@ -1,0 +1,78 @@
+{
+  "use_case_id": "A01",
+  "functional_block": "Security",
+  "use_case_name": "Update Charging Station Password for HTTP Basic Authentication",
+  "chunks": [
+    {
+      "content": "# A01 - Update Charging Station Password for HTTP Basic Authentication\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| --- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Update Charging Station Password for HTTP Basic Authentication                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 2   | ID               | A01                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| 3   | Objective(s)     | This use case defines how to use the BasicAuthPassword, the password used to authenticate Charging Stations in the Basic and TLS with Basic Authentication security profiles.                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 4   | Description      | To enable the CSMS to configure a new password for HTTP Basic Authentication, the CSMS can send a new value for the BasicAuthPassword Configuration Variable. **Actors:** Charging Station, CSMS **Scenario description:**) The CSMS sends a SetVariablesRequest(ComponentName=SecurityCtrlr, VariableName=BasicAuthPassword) to the Charging Station.\n2) The Charging Station responds with SetVariablesResponse and the status Accepted.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A01 - Update Charging Station Password for HTTP Basic Authentication",
+        "heading_path": "A01 - Update Charging Station Password for HTTP Basic Authentication",
+        "functional_block": "Security",
+        "use_case_id": "A01",
+        "use_case_name": "Update Charging Station Password for HTTP Basic Authentication",
+        "use_case_refs": "A01",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "3) The Charging Station disconnects its current connection. (Storing any queued messages)\n4) The Charging Station connects to the CSMS with the new password. |\n| 5   | Prerequisite(s)  | Security Profile: Basic Security Profile or TLS with Basic Authentication in use.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |\n| 6   | Postcondition(s) | **Successful postcondition:** The Charging Station has reconnected to the CSMS with the new password. **Failure postcondition:** If the Charging Station responds to the SetVariablesRequest with a SetVariablesResponse with a status other than Accepted, the Charging Station will keep using the old credentials. The CSMS might treat the Charging Station differently, e.g. by not accepting the Charging Station’s boot notifications.                                                                                                                                                                  |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A01 - Update Charging Station Password for HTTP Basic Authentication",
+        "heading_path": "A01 - Update Charging Station Password for HTTP Basic Authentication",
+        "functional_block": "Security",
+        "use_case_id": "A01",
+        "use_case_name": "Update Charging Station Password for HTTP Basic Authentication",
+        "use_case_refs": "A01",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n\nCSMS Charging Station\n\nSetVariablesRequest(BasicAuthPassword)\n\nSetVariablesResponse(status = Accepted)\n\ndisconnect\n\nconnect (using new password)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "A01 - Update Charging Station Password for HTTP Basic Authentication",
+        "heading_path": "A01 - Update Charging Station Password for HTTP Basic Authentication",
+        "functional_block": "Security",
+        "use_case_id": "A01",
+        "use_case_name": "Update Charging Station Password for HTTP Basic Authentication",
+        "use_case_refs": "A01",
+        "message_refs": "SetVariablesRequest, SetVariablesResponse",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# A01 - Update Charging Station Password for HTTP Basic Authentication - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                                       |\n| --------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| A01.FR.01 |              | The password SHALL be stored in the configuration variable BasicAuthPassword.                                                                                                                |\n| A01.FR.02 |              | To set a Charging Station’s basic authorization password via OCPP, the CSMS SHALL send the Charging Station a SetVariablesRequest message with the BasicAuthPassword Configuration Variable. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "A01 - Update Charging Station Password for HTTP Basic Authentication - Requirements",
+        "heading_path": "A01 - Update Charging Station Password for HTTP Basic Authentication - Requirements",
+        "functional_block": "Security",
+        "use_case_id": "A01",
+        "use_case_name": "Update Charging Station Password for HTTP Basic Authentication",
+        "use_case_refs": "A01",
+        "message_refs": "SetVariablesRequest"
+      }
+    }
+  ],
+  "figures": []
+}

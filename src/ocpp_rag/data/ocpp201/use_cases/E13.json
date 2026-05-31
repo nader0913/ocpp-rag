@@ -1,0 +1,118 @@
+{
+  "use_case_id": "E13",
+  "functional_block": "Transactions",
+  "use_case_name": "Transaction-related message not accepted by CSMS",
+  "chunks": [
+    {
+      "content": "# E13 - Transaction-related message not accepted by CSMS\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                          |\n| --- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Transaction-related message not accepted by CSMS                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 2   | ID                   | E13                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 3   | Objective(s)         | To define how a Charging Station shall handle not accepted messages.                                                                                                                                                                                                                                                                                                                                                                                                 |\n| 4   | Description          | There are a situations/issues why a CSMS might not accept a transaction related message, or does not reply within the MessageTimeout. Most are error scenarios. When something like this happens, the Charging Station SHALL retry the messages a couple of times.                                                                                                                                                                                                   |\n|     | Actors               | Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n|     | Scenario description | 1. The Charging Station sends a transaction-related message to the CSMS. 2. The message is not accepted and MessageAttemptsTransactionEvent not reached. 3. The Charging Station waits the number of preceding transmissions of this same message times MessageAttemptIntervalTransactionEvent seconds. 4. The Charging Station resends the transaction-related message to the CSMS.                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E13 - Transaction-related message not accepted by CSMS",
+        "heading_path": "E13 - Transaction-related message not accepted by CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E13",
+        "use_case_name": "Transaction-related message not accepted by CSMS",
+        "use_case_refs": "E13",
+        "figure_refs": "61",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)      | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 6   | Postcondition(s)     | Successful postcondition: MessageAttemptsTransactionEvent is not reached AND the transaction-related message is accepted. MessageAttemptsTransactionEvent is reached AND the transaction-related message is disposed. Failure postcondition: MessageAttemptsTransactionEvent is not reached AND the transaction-related message is disposed. MessageAttemptsTransactionEvent is reached AND the transaction-related message is not disposed and still being re-sent. |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |\n| 8   | Remark(s)            | This use case describes the expected behaviour when the CSMS does not accept a message, or does not reply within the message timeout, this is different from a situation where the communication between Charging Station and CSMS is Offline.                                                                                                                                                                                                                       |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E13 - Transaction-related message not accepted by CSMS",
+        "heading_path": "E13 - Transaction-related message not accepted by CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E13",
+        "use_case_name": "Transaction-related message not accepted by CSMS",
+        "use_case_refs": "E13",
+        "figure_refs": "61",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "Charging Station\n\nCSMS\n\ntransaction related message request()\n\nloop [while number of messages sent has not reached MessageAttemptsTransactionEvent]\n\nalt [if message delivered successfully]\n\ntransaction related message response()\n\nContinue processing next message()\n\n[if message not accepted]\n\nfailure to process the message()\n\nwait number of attempts x\n\nMessageAttemptIntervalTransactionEvent seconds\n\nresend message()\n\ndispose message()\n\nFigure 61. Sequence Diagram: Transaction-related message not accepted by CSMS",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E13 - Transaction-related message not accepted by CSMS",
+        "heading_path": "E13 - Transaction-related message not accepted by CSMS",
+        "functional_block": "Transactions",
+        "use_case_id": "E13",
+        "use_case_name": "Transaction-related message not accepted by CSMS",
+        "use_case_refs": "E13",
+        "figure_refs": "61",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# E13 - Transaction-related message not accepted by CSMS - Example\n\nAs an example, consider a Charging Station that has the value \"3\" for the MessageAttemptsTransactionEvent Configuration Variable and the value \"60\" for the MessageAttemptIntervalTransactionEvent Configuration Variable. It sends a TransactionEventRequest message and detects a failure to process the message in the CSMS. The Charging Station SHALL wait for 60 seconds, and resend the message. In the case when there is a second failure, the Charging Station SHALL wait for 120 seconds, before resending the message. If this final attempt fails, the Charging Station SHALL discard the message and continue with the next transaction-related message, if there is any.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "E13 - Transaction-related message not accepted by CSMS - Example",
+        "heading_path": "E13 - Transaction-related message not accepted by CSMS - Example",
+        "functional_block": "Transactions",
+        "use_case_id": "E13",
+        "use_case_name": "Transaction-related message not accepted by CSMS - Example",
+        "use_case_refs": "E13",
+        "message_refs": "TransactionEventRequest"
+      }
+    },
+    {
+      "content": "# E13 - Transaction-related message not accepted by CSMS - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                                                                                                                     |\n| --------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| E13.FR.01 |              | The number of times and the interval with which the Charging Station should retry such failed transaction-related messages MAY be configured using the MessageAttemptsTransactionEvent and MessageAttemptIntervalTransactionEvent Configuration Variables. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "E13 - Transaction-related message not accepted by CSMS - Requirements",
+        "heading_path": "E13 - Transaction-related message not accepted by CSMS - Requirements",
+        "functional_block": "Transactions",
+        "use_case_id": "E13",
+        "use_case_name": "Transaction-related message not accepted by CSMS",
+        "use_case_refs": "E13"
+      }
+    }
+  ],
+  "figures": [
+    {
+      "figure_num": "61",
+      "title": "Sequence Diagram: Transaction-related message not accepted by CSMS",
+      "files": [
+        "fig61_p1_Sequence_Diagram__Transaction_related_message_not.png",
+        "fig61_p2_Sequence_Diagram__Transaction_related_message_not.png"
+      ]
+    },
+    {
+      "figure_num": "61",
+      "title": "Sequence Diagram: Transaction-related message not accepted by CSMS",
+      "files": [
+        "fig61_p1_Sequence_Diagram__Transaction_related_message_not.png",
+        "fig61_p2_Sequence_Diagram__Transaction_related_message_not.png"
+      ]
+    },
+    {
+      "figure_num": "61",
+      "title": "Sequence Diagram: Transaction-related message not accepted by CSMS",
+      "files": [
+        "fig61_p1_Sequence_Diagram__Transaction_related_message_not.png",
+        "fig61_p2_Sequence_Diagram__Transaction_related_message_not.png"
+      ]
+    }
+  ]
+}

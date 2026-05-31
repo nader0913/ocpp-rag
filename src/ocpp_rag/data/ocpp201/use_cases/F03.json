@@ -1,0 +1,110 @@
+{
+  "use_case_id": "F03",
+  "functional_block": "RemoteControl",
+  "use_case_name": "Remote Stop Transaction",
+  "chunks": [
+    {
+      "content": "# F03 - Remote Stop Transaction\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| --- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Remote Stop Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 2   | ID               | F03                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F03 - Remote Stop Transaction",
+        "heading_path": "F03 - Remote Stop Transaction",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F03",
+        "use_case_name": "Remote Stop Transaction",
+        "use_case_refs": "E06, F03",
+        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 3   | Objective(s)     | 1. To enable a CSO to help an EV Driver who has problems stopping a transaction. or 2. Enable mobile apps to control transactions via the CSMS.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |\n| 4   | Description      | This use case describes how the CSMS requests the Charging Station to stop a transaction. **Actors:** Charging Station, CSMS, CSO, EV Driver **Scenario description:** 1. An External Trigger triggers a remote stop. 2. The CSMS requests a Charging Station to stop a transaction by sending RequestStopTransactionRequest to the Charging Station with the transactionId of the transaction. 3. The Charging Station responds with RequestStopTransactionResponse and a status indicating whether it has accepted the request and a transaction with the given transactionId is ongoing and will be stopped. 4. Charging is stopped, the Charging Station sends TransactionEventRequest (eventType = Updated) and, if applicable, unlocks the Connector. 5. After the EV Driver unplugs the cable, the Charging Station sends StatusNotificationRequest with status Available. 6. The Charging Station ends the transaction and sends a TransactionEventRequest (eventType = Ended, stoppedReason = Remote) message to the CSMS. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F03 - Remote Stop Transaction",
+        "heading_path": "F03 - Remote Stop Transaction",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F03",
+        "use_case_name": "Remote Stop Transaction",
+        "use_case_refs": "E06, F03",
+        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 5   | Prerequisite(s)  | A transaction is ongoing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |\n| 6   | Postcondition(s) | Successful postcondition: The transaction for which a stop was request has ended. Failure postcondition: The transaction for which a stop was requested is still ongoing.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F03 - Remote Stop Transaction",
+        "heading_path": "F03 - Remote Stop Transaction",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F03",
+        "use_case_name": "Remote Stop Transaction",
+        "use_case_refs": "E06, F03",
+        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 7   | Remark(s)        | This remote request to stop a transaction is equal to a local action to stop a transaction. The scenario description and sequence diagram above are based on the Configuration Variable for stop transaction being configured as follows. TxStopPoint: ParkingBayOccupancy, EVConnected This use-case is also valid for other configurations, but then the transaction might stop at another moment, which might change the sequence in which message are send. For more details see the use case: E06 - Stop Transaction options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F03 - Remote Stop Transaction",
+        "heading_path": "F03 - Remote Stop Transaction",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F03",
+        "use_case_name": "Remote Stop Transaction",
+        "use_case_refs": "E06, F03",
+        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse, StatusNotificationRequest, TransactionEventRequest",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# External Trigger\n\nCSMS\n\nCharging Station\n\nremote stop()\nRequestStopTransactionRequest(transactionId)\nRequestStopTransactionResponse(Accepted)\n\nopt\nnotification\n\nstop energy offer\n\nopt           [if cable not permanently attached]\nUnlock connector\n\nTransactionEventRequest(eventType = Updated, chargingState = EVConnected,\ntriggerReason = RemoteStop, ...)\nTransactionEventResponse(...)\n\nopt\nnotification\n\nUnplug cable\nStatusNotificationRequest(Available)\nStatusNotificationResponse()\nTransactionEventRequest(eventType = Ended, stoppedReason = Remote, ...)\nTransactionEventResponse(...)",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "External Trigger",
+        "heading_path": "External Trigger",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F03",
+        "message_refs": "RequestStopTransactionRequest, RequestStopTransactionResponse, StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# F03 - Remote Stop Transaction - Requirements\n\n| ID        | Precondition                                                                                                                                            | Requirement definition                                                                                                                                                                                        | Note                                                                                                   |\n| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |\n| F03.FR.01 | When the CSMS receives a remote stop transaction trigger (For example when terminating using a smartphone app, exceeding a (non local) prepaid credit.) | The CSMS SHALL send a RequestStopTransactionRequest to the Charging Station with the transactionId of the transaction.                                                                                        |                                                                                                        |\n| F03.FR.02 | F03.FR.01 AND TxStopPoint configuration does not cause transaction to end (E.g. TxStopPoint is NOT Authorized or PowerPathClosed)                       | The Charging Station SHALL stop the energy offer and send a TransactionEventRequest (eventType = Updated, triggerReason = RemoteStop) to the CSMS.                                                            | For example when TxStopPoint = EVConnected the transaction will not be ended until EV is disconnected. |\n| F03.FR.03 | F03.FR.01 AND TxStopPoint configuration causes transaction to end (E.g. TxStopPoint is Authorized or PowerPathClosed)                                   | The Charging Station SHALL send a TransactionEventRequest (eventType = Ended, triggerReason = RemoteStop, stoppedReason = Remote) to the CSMS.                                                                |                                                                                                        |\n| F03.FR.04 | When configured to send meter data in the TransactionEventRequest (eventType = Ended), See: Meter Values - Configuration                                | The Charging Station SHALL add the configured measurands to the optional meterValue field in the TransactionEventRequest(eventType = Ended) sent to the CSMS to provide more details about transaction usage. | Same as E08.FR.09                                                                                      |\n| F03.FR.05 | F03.FR.04 AND The Charging Station is running low on memory                                                                                             | The Charging Station MAY drop meter data.                                                                                                                                                                     | Same as E06.FR.12                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F03 - Remote Stop Transaction - Requirements",
+        "heading_path": "F03 - Remote Stop Transaction - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F03",
+        "use_case_name": "Remote Stop Transaction",
+        "use_case_refs": "E06, E08, F03",
+        "message_refs": "RequestStopTransactionRequest, TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

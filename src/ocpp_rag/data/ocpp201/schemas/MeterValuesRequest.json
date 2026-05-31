@@ -1,0 +1,85 @@
+[
+  {
+    "content": "## MeterValuesRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: MeterValues\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| evseId | integer | Yes | Request_ Body. EVSEID. Numeric_ Identifier urn:x-enexis:ecdm:uid:1:571101 This contains a number (&gt;0) designating an EVSE of the Charging Station. ‘0’ (zero) is used to designate the main power meter. |\n| meterValue | array<MeterValueType> | Yes |  |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:MeterValuesRequest\",\n  \"description\": \"Request_ Body\\r\\nurn:x-enexis:ecdm:uid:2:234744\\r\\n\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"LocationEnumType\": {\n      \"description\": \"Sampled_ Value. Location. Location_ Code\\r\\nurn:x-oca:ocpp:uid:1:569265\\r\\nIndicates where the measured value has been sampled. Default =  \\\"Outlet\\\"\\r\\n\\r\\n\",\n      \"javaType\": \"LocationEnum\",\n      \"type\": \"string\",\n      \"default\": \"Outlet\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Body\",\n        \"Cable\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "MeterValuesRequest",
+      "heading_path": "JSON Schemas > MeterValues > MeterValuesRequest",
+      "message_name": "MeterValuesRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"EV\",\n        \"Inlet\",\n        \"Outlet\"\n      ]\n    },\n    \"MeasurandEnumType\": {\n      \"description\": \"Sampled_ Value. Measurand. Measurand_ Code\\r\\nurn:x-oca:ocpp:uid:1:569263\\r\\nType of measurement. Default = \\\"Energy.Active.Import.Register\\\"\\r\\n\",\n      \"javaType\": \"MeasurandEnum\",\n      \"type\": \"string\",\n      \"default\": \"Energy.Active.Import.Register\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Current.Export\",\n        \"Current.Import\",\n        \"Current.Offered\",\n        \"Energy.Active.Export.Register\",\n        \"Energy.Active.Import.Register\",\n        \"Energy.Reactive.Export.Register\",\n        \"Energy.Reactive.Import.Register\",\n        \"Energy.Active.Export.Interval\",\n        \"Energy.Active.Import.Interval\",\n        \"Energy.Active.Net\",\n        \"Energy.Reactive.Export.Interval\",\n        \"Energy.Reactive.Import.Interval\",\n        \"Energy.Reactive.Net\",\n        \"Energy.Apparent.Net\",\n        \"Energy.Apparent.Import\",\n        \"Energy.Apparent.Export\",\n        \"Frequency\",\n        \"Power.Active.Export\",\n        \"Power.Active.Import\",\n        \"Power.Factor\",\n        \"Power.Offered\",\n        \"Power.Reactive.Export\",\n        \"Power.Reactive.Import\",\n        \"SoC\",\n        \"Voltage\"\n      ]\n    },\n    \"PhaseEnumType\": {\n      \"description\": \"Sampled_ Value. Phase. Phase_ Code\\r\\nurn:x-oca:ocpp:uid:1:569264\\r\\nIndicates how the measured value is to be interpreted. For instance between L1 and neutral (L1-N) Please note that not all values of phase are applicable to all Measurands. When phase is absent, the measured value is interpreted as an overall value.\\r\\n\",\n      \"javaType\": \"PhaseEnum\",\n      \"type\": \"string\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"L1\",\n        \"L2\",\n        \"L3\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "MeterValuesRequest",
+      "heading_path": "JSON Schemas > MeterValues > MeterValuesRequest",
+      "message_name": "MeterValuesRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"N\",\n        \"L1-N\",\n        \"L2-N\",\n        \"L3-N\",\n        \"L1-L2\",\n        \"L2-L3\",\n        \"L3-L1\"\n      ]\n    },\n    \"ReadingContextEnumType\": {\n      \"description\": \"Sampled_ Value. Context. Reading_ Context_ Code\\r\\nurn:x-oca:ocpp:uid:1:569261\\r\\nType of detail value: start, end or sample. Default = \\\"Sample.Periodic\\\"\\r\\n\",\n      \"javaType\": \"ReadingContextEnum\",\n      \"type\": \"string\",\n      \"default\": \"Sample.Periodic\",\n      \"additionalProperties\": false,\n      \"enum\": [\n        \"Interruption.Begin\",\n        \"Interruption.End\",\n        \"Other\",\n        \"Sample.Clock\",\n        \"Sample.Periodic\",\n        \"Transaction.Begin\",\n        \"Transaction.End\",\n        \"Trigger\"\n      ]\n    },\n    \"MeterValueType\": {\n      \"description\": \"Meter_ Value\\r\\nurn:x-oca:ocpp:uid:2:233265\\r\\nCollection of one or more sampled values in MeterValuesRequest and TransactionEvent. All sampled values in a MeterValue are sampled at the same point in time.\\r\\n\",\n      \"javaType\": \"MeterValue\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"sampledValue\": {\n          \"type\": \"array\",\n          \"additionalItems\": false,\n          \"items\": {\n            \"$ref\": \"#/definitions/SampledValueType\"\n          },\n          \"minItems\": 1\n        },\n        \"timestamp\": {\n          \"description\": \"Meter_ Value. Timestamp. Date_ Time\\r\\nurn:x-oca:ocpp:uid:1:569259\\r\\nTimestamp for measured value(s).\\r\\n\",\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        }\n      },\n      \"required\": [\n        \"timestamp\",\n        \"sampledValue\"\n      ]\n    },\n    \"SampledValueType\": {\n      \"description\": \"Sampled_ Value\\r\\nurn:x-oca:ocpp:uid:2:233266\\r\\nSingle sampled value in MeterValues. Each value can be accompanied by optional fields.\\r\\n\\r\\nTo save on mobile data usage, default values of all of the optional fields are such that. The value without any additional fields will be interpreted, as a register reading of active import energy in Wh (Watt-hour) units.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "MeterValuesRequest",
+      "heading_path": "JSON Schemas > MeterValues > MeterValuesRequest",
+      "message_name": "MeterValuesRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  },
+  {
+    "content": "\"javaType\": \"SampledValue\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"value\": {\n          \"description\": \"Sampled_ Value. Value. Measure\\r\\nurn:x-oca:ocpp:uid:1:569260\\r\\nIndicates the measured value.\\r\\n\\r\\n\",\n          \"type\": \"number\"\n        },\n        \"context\": {\n          \"$ref\": \"#/definitions/ReadingContextEnumType\"\n        },\n        \"measurand\": {\n          \"$ref\": \"#/definitions/MeasurandEnumType\"\n        },\n        \"phase\": {\n          \"$ref\": \"#/definitions/PhaseEnumType\"\n        },\n        \"location\": {\n          \"$ref\": \"#/definitions/LocationEnumType\"\n        },\n        \"signedMeterValue\": {\n          \"$ref\": \"#/definitions/SignedMeterValueType\"\n        },\n        \"unitOfMeasure\": {\n          \"$ref\": \"#/definitions/UnitOfMeasureType\"\n        }\n      },\n      \"required\": [\n        \"value\"\n      ]\n    },\n    \"SignedMeterValueType\": {\n      \"description\": \"Represent a signed version of the meter value.\\r\\n\",\n      \"javaType\": \"SignedMeterValue\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"signedMeterData\": {\n          \"description\": \"Base64 encoded, contains the signed data which might contain more then just the meter value. It can contain information like timestamps, reference to a customer etc.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 2500\n        },\n        \"signingMethod\": {\n          \"description\": \"Method used to create the digital signature.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        },\n        \"encodingMethod\": {",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "MeterValuesRequest",
+      "heading_path": "JSON Schemas > MeterValues > MeterValuesRequest",
+      "message_name": "MeterValuesRequest",
+      "message_direction": "Request",
+      "chunk_part": 4
+    }
+  },
+  {
+    "content": "\"description\": \"Method used to encode the meter values before applying the digital signature algorithm.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 50\n        },\n        \"publicKey\": {\n          \"description\": \"Base64 encoded, sending depends on configuration variable _PublicKeyWithSignedMeterValue_.\\r\\n\",\n          \"type\": \"string\",\n          \"maxLength\": 2500\n        }\n      },\n      \"required\": [\n        \"signedMeterData\",\n        \"signingMethod\",\n        \"encodingMethod\",\n        \"publicKey\"\n      ]\n    },\n    \"UnitOfMeasureType\": {\n      \"description\": \"Represents a UnitOfMeasure with a multiplier\\r\\n\",\n      \"javaType\": \"UnitOfMeasure\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"unit\": {\n          \"description\": \"Unit of the value. Default = \\\"Wh\\\" if the (default) measurand is an \\\"Energy\\\" type.\\r\\nThis field SHALL use a value from the list Standardized Units of Measurements in Part 2 Appendices. \\r\\nIf an applicable unit is available in that list, otherwise a \\\"custom\\\" unit might be used.\\r\\n\",\n          \"type\": \"string\",\n          \"default\": \"Wh\",\n          \"maxLength\": 20\n        },\n        \"multiplier\": {\n          \"description\": \"Multiplier, this value represents the exponent to base 10. I.e. multiplier 3 means 10 raised to the 3rd power. Default is 0.\\r\\n\",\n          \"type\": \"integer\",\n          \"default\": 0\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"evseId\": {\n      \"description\": \"Request_ Body. EVSEID. Numeric_ Identifier\\r\\nurn:x-enexis:ecdm:uid:1:571101\\r\\nThis contains a number (&gt;0) designating an EVSE of the Charging Station. \\u20180\\u2019 (zero) is used to designate the main power meter.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "MeterValuesRequest",
+      "heading_path": "JSON Schemas > MeterValues > MeterValuesRequest",
+      "message_name": "MeterValuesRequest",
+      "message_direction": "Request",
+      "chunk_part": 5
+    }
+  },
+  {
+    "content": "\"type\": \"integer\"\n    },\n    \"meterValue\": {\n      \"type\": \"array\",\n      \"additionalItems\": false,\n      \"items\": {\n        \"$ref\": \"#/definitions/MeterValueType\"\n      },\n      \"minItems\": 1\n    }\n  },\n  \"required\": [\n    \"evseId\",\n    \"meterValue\"\n  ]\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "MeterValuesRequest",
+      "heading_path": "JSON Schemas > MeterValues > MeterValuesRequest",
+      "message_name": "MeterValuesRequest",
+      "message_direction": "Request",
+      "chunk_part": 6
+    }
+  }
+]

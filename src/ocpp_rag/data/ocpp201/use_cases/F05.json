@@ -1,0 +1,60 @@
+{
+  "use_case_id": "F05",
+  "functional_block": "RemoteControl",
+  "use_case_name": "Remotely Unlock Connector",
+  "chunks": [
+    {
+      "content": "# F05 - Remotely Unlock Connector\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                       |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Remotely Unlock Connector                                                                                                                                                                                                                                                                                                                                                                                         |\n| 2   | ID                   | F05                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 3   | Objective(s)         | To enable the CSO to help an EV-driver that has problems unplugging his charging cable because the unlock process failed after the transaction has ended.                                                                                                                                                                                                                                                         |\n| 4   | Description          | It sometimes happens that a connector of a Charging Station socket does not unlock correctly. This happens most of the time when there is tension on the charging cable. This means the driver cannot unplug his charging cable from the Charging Station. To help a driver, the CSO can send a UnlockConnectorRequest to the Charging Station. The Charging Station will then try to unlock the connector again. |\n|     | Actors               | Charging Station, CSMS, External Trigger                                                                                                                                                                                                                                                                                                                                                                          |\n|     | Scenario description | 1. An External Trigger (probably the CSO) requests the unlocking of a specific connector of a Charging Station. 2. The CSMS sends an UnlockConnectorRequest to the Charging Station. 3. Upon receipt of UnlockConnectorRequest, the Charging Station responds with UnlockConnectorResponse. 4. The response message indicates whether the Charging Station was able to unlock its Connector.                      |\n| 5   | Prerequisite(s)      | No ongoing transaction on the specified connector The Charging Station has a connector lock.                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F05 - Remotely Unlock Connector",
+        "heading_path": "F05 - Remotely Unlock Connector",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F05",
+        "use_case_name": "Remotely Unlock Connector",
+        "use_case_refs": "F05",
+        "message_refs": "UnlockConnectorRequest, UnlockConnectorResponse",
+        "chunk_part": 1,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "| 6   | Postcondition(s)     | The Charging Station was able to unlock the Connector.                                                                                                                                                                                                                                                                                                                                                            |\n| 7   | Error handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 8   | Remark(s)            | An external trigger, triggering the Unlock command, can be e.g. a Charging Station Operator or an EV Driver app. UnlockConnectorRequest is intended only for unlocking the cable retention lock on the Connector, not for unlocking a Connector access door.                                                                                                                                                      |\n\nExternal Trigger     CSMS     Charging Station\n\nunlock connector\n\nUnlockConnectorRequest(evseId, connectorId)\n\nunlock connector\n\nUnlockConnectorResponse(unlocked)\n\nopt\n\nnotification",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "F05 - Remotely Unlock Connector",
+        "heading_path": "F05 - Remotely Unlock Connector",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F05",
+        "use_case_name": "Remotely Unlock Connector",
+        "use_case_refs": "F05",
+        "message_refs": "UnlockConnectorRequest, UnlockConnectorResponse",
+        "chunk_part": 2,
+        "total_parts": 2
+      }
+    },
+    {
+      "content": "# F05 - Remotely Unlock Connector - Requirements\n\n| ID        | Precondition                                                                         | Requirement definition                                                                                                                                                |\n| --------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| F05.FR.01 | Upon receipt of an UnlockConnectorRequest.                                           | The Charging Station SHALL respond with UnlockConnectorResponse.                                                                                                      |\n| F05.FR.02 | F05.FR.01 AND There is an authorized transaction ongoing on the specified connector. | The Charging Station SHALL NOT try to unlock the connector (or stop the transaction) but use the status: OngoingAuthorizedTransaction in the UnlockConnectorResponse. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "F05 - Remotely Unlock Connector - Requirements",
+        "heading_path": "F05 - Remotely Unlock Connector - Requirements",
+        "functional_block": "RemoteControl",
+        "use_case_id": "F05",
+        "use_case_name": "Remotely Unlock Connector",
+        "use_case_refs": "F05",
+        "message_refs": "UnlockConnectorRequest, UnlockConnectorResponse"
+      }
+    }
+  ],
+  "figures": []
+}

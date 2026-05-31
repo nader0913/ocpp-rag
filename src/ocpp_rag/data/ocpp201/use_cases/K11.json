@@ -1,0 +1,110 @@
+{
+  "use_case_id": "K11",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Set / Update External Charging Limit With Ongoing Transaction",
+  "chunks": [
+    {
+      "content": "# K11 - Set / Update External Charging Limit With Ongoing Transaction\n\n| No. | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |\n| --- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name                 | Set / Update External Charging Limit With Ongoing Transaction                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |\n| 2   | ID                   | K11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |\n| 3   | Objective(s)         | To inform the CSMS of a charging schedule or charging limit imposed by an External Control System on the Charging Station with ongoing transaction(s).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "heading_path": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K11",
+        "use_case_name": "Set / Update External Charging Limit With Ongoing Transaction",
+        "use_case_refs": "K11",
+        "message_refs": "NotifyChargingLimitRequest, NotifyChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 1,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 4   | Description          | An External Control System sends a charging limit/schedule to a Charging Station. This limit is sent to the CSMS. The External Control System can be a DSO, but also a smart meter or a home energy management system. The interface between External Control System and Charging Station is not specified. It can be any protocol that is supported by Charging Station for this purpose, even OCPP.                                                                                                                                                                                                                                                                                                                                                       |\n|     | Actors               | External Control System, Charging Station, CSMS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n|     | Scenario description | 1. External control system sends charging limit/schedule to Charging Station. 2. Optional: Charging Station calculates new charging schedule. 3. Charging Station adjusts the charging speed of the ongoing transaction(s). 4. If the charging limit changed by more than: LimitChangeSignificance, the Charging Station sends a NotifyChargingLimitRequest message to CSMS with optionally the set charging limit/schedule. 5. The CSMS responds with NotifyChargingLimitResponse to the Charging Station. 6. If the charging rate changes by more than: LimitChangeSignificance, the Charging Station sends a TransactionEventRequest message to inform the CSMS. 7. The CSMS responds with TransactionEventResponse to the Charging Station.             |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "heading_path": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K11",
+        "use_case_name": "Set / Update External Charging Limit With Ongoing Transaction",
+        "use_case_refs": "K11",
+        "message_refs": "NotifyChargingLimitRequest, NotifyChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 2,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 5   | Prerequisites        | Charging Station is not in error state. The external system can set/clear a charging limit/schedule on the Charging Station via a direct connection to the Charging Station.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 6   | Postcondition(s)     | The ongoing transaction will be limited by the received charging limit from the external system. The CSMS is informed of the new limit/schedule imposed by the external system.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |\n| 7   | Error Handling       | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "heading_path": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K11",
+        "use_case_name": "Set / Update External Charging Limit With Ongoing Transaction",
+        "use_case_refs": "K11",
+        "message_refs": "NotifyChargingLimitRequest, NotifyChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 3,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "| 8   | Remarks              | The external system could, for example, use IEC 61850 \\[IEC61850-7-420] or OpenADR \\[OPENADR] to communicate the grid limit to the Charging Station, but this could be any protocol. Furthermore, an example of an external system is given, in this case a DSO that might set an external charging limit in case of grid problems, but this could be any other external system or reason to set a charging limit. If the external limit is represented by an Absolute or Relative ChargingStationExternalConstraints charging profile, then every update of the external limit requires (K11.FR.06) that the existing ChargingStationExternalConstraints charging profile is replaced by a new one. This one can use the same chargingProfile.id, however. |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "heading_path": "K11 - Set / Update External Charging Limit With Ongoing Transaction",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K11",
+        "use_case_name": "Set / Update External Charging Limit With Ongoing Transaction",
+        "use_case_refs": "K11",
+        "message_refs": "NotifyChargingLimitRequest, NotifyChargingLimitResponse, TransactionEventRequest, TransactionEventResponse",
+        "chunk_part": 4,
+        "total_parts": 4
+      }
+    },
+    {
+      "content": "# External Control System\n\n(e.g. smart meter) Charging Station CSMS\n\nloop\n\n- TransactionEventRequest(eventType = Updated, ...)\n- TransactionEventResponse(...)\n\nSet grid limit\n\n- opt\n- - recalculate charging schedule\n- set charging limit(minimum of all known limits)\n\nopt [if charging limit changed more than: LimitChangeSignificance]\n- - NotifyChargingLimitRequest(evseId, chargingSchedule, chargingLimit)\n- NotifyChargingLimitResponse()\n\nopt [if charging rate changed more than: LimitChangeSignificance]",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "general",
+        "heading": "External Control System",
+        "heading_path": "External Control System",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K11",
+        "message_refs": "NotifyChargingLimitRequest, NotifyChargingLimitResponse, TransactionEventRequest, TransactionEventResponse"
+      }
+    },
+    {
+      "content": "# K11 - Set / Update External Charging Limit With Ongoing Transaction - Requirements\n\n| ID        | Precondition                                                                       | Requirements                                                                                                                                          | Note                                           |\n| --------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |\n| K11.FR.01 | When an external charging limit/schedule is received during an ongoing transaction | The Charging Station SHALL NOT charge the ongoing transaction faster than this given limit/schedule.                                                  |                                                |\n| K11.FR.02 | K11.FR.01 AND                                                                      | The Charging Station SHALL inform the CSMS of the new charging limit/schedule imposed by the external system by sending a NotifyChargingLimitRequest. |                                                |\n| K11.FR.03 | K11.FR.02 AND                                                                      | The NotifyChargingLimitRequest SHALL contain the charging limits/schedules as set by the external system.                                             | EnableNotifyChargingLimitWithSchedules is true |\n| K11.FR.04 | K11.FR.01 AND                                                                      | The Charging Station SHALL send a TransactionEventRequest message to the CSMS with trigger = ChargingRateChanged                                      |                                                |\n| K11.FR.05 | K11.FR.02                                                                          | The Charging Station SHALL NOT set the chargingLimitSource to CSO in the NotifyChargingLimitRequest.                                                  |                                                |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K11 - Set / Update External Charging Limit With Ongoing Transaction - Requirements",
+        "heading_path": "K11 - Set / Update External Charging Limit With Ongoing Transaction - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K11",
+        "use_case_name": "Set / Update External Charging Limit With Ongoing Transaction",
+        "use_case_refs": "K11",
+        "message_refs": "NotifyChargingLimitRequest, TransactionEventRequest"
+      }
+    }
+  ],
+  "figures": []
+}

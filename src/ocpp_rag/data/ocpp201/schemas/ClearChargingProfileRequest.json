@@ -1,0 +1,43 @@
+[
+  {
+    "content": "## ClearChargingProfileRequest\n\n**Type**: OCPP 2.0.1 Message Schema (Request)\n**Base Message**: ClearChargingProfile\n\n### Properties\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| customData | CustomDataType | No | This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data. |\n| chargingProfileId | integer | No | The Id of the charging profile to clear. |\n| chargingProfileCriteria | ClearChargingProfileType | No | Charging_ Profile urn:x-oca:ocpp:uid:2:233255 A ChargingProfile consists of a ChargingSchedule, describing the amount of power or current that can be delivered per time interval. |\n\n### Full JSON Schema\n```json\n{\n  \"$schema\": \"http://json-schema.org/draft-06/schema#\",\n  \"$id\": \"urn:OCPP:Cp:2:2020:3:ClearChargingProfileRequest\",\n  \"comment\": \"OCPP 2.0.1 FINAL\",\n  \"definitions\": {\n    \"CustomDataType\": {\n      \"description\": \"This class does not get 'AdditionalProperties = false' in the schema generation, so it can be extended with arbitrary JSON properties to allow adding custom data.\",\n      \"javaType\": \"CustomData\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"vendorId\": {\n          \"type\": \"string\",\n          \"maxLength\": 255\n        }\n      },\n      \"required\": [\n        \"vendorId\"\n      ]\n    },\n    \"ChargingProfilePurposeEnumType\": {\n      \"description\": \"Charging_ Profile. Charging_ Profile_ Purpose. Charging_ Profile_ Purpose_ Code\\r\\nurn:x-oca:ocpp:uid:1:569231\\r\\nSpecifies to purpose of the charging profiles that will be cleared, if they meet the other criteria in the request.\\r\\n\",\n      \"javaType\": \"ChargingProfilePurposeEnum\",\n      \"type\": \"string\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ClearChargingProfileRequest",
+      "heading_path": "JSON Schemas > ClearChargingProfile > ClearChargingProfileRequest",
+      "message_name": "ClearChargingProfileRequest",
+      "message_direction": "Request"
+    }
+  },
+  {
+    "content": "\"additionalProperties\": false,\n      \"enum\": [\n        \"ChargingStationExternalConstraints\",\n        \"ChargingStationMaxProfile\",\n        \"TxDefaultProfile\",\n        \"TxProfile\"\n      ]\n    },\n    \"ClearChargingProfileType\": {\n      \"description\": \"Charging_ Profile\\r\\nurn:x-oca:ocpp:uid:2:233255\\r\\nA ChargingProfile consists of a ChargingSchedule, describing the amount of power or current that can be delivered per time interval.\\r\\n\",\n      \"javaType\": \"ClearChargingProfile\",\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"customData\": {\n          \"$ref\": \"#/definitions/CustomDataType\"\n        },\n        \"evseId\": {\n          \"description\": \"Identified_ Object. MRID. Numeric_ Identifier\\r\\nurn:x-enexis:ecdm:uid:1:569198\\r\\nSpecifies the id of the EVSE for which to clear charging profiles. An evseId of zero (0) specifies the charging profile for the overall Charging Station. Absence of this parameter means the clearing applies to all charging profiles that match the other criteria in the request.\\r\\n\\r\\n\",\n          \"type\": \"integer\"\n        },\n        \"chargingProfilePurpose\": {\n          \"$ref\": \"#/definitions/ChargingProfilePurposeEnumType\"\n        },\n        \"stackLevel\": {\n          \"description\": \"Charging_ Profile. Stack_ Level. Counter\\r\\nurn:x-oca:ocpp:uid:1:569230\\r\\nSpecifies the stackLevel for which charging profiles will be cleared, if they meet the other criteria in the request.\\r\\n\",\n          \"type\": \"integer\"\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"customData\": {\n      \"$ref\": \"#/definitions/CustomDataType\"\n    },\n    \"chargingProfileId\": {\n      \"description\": \"The Id of the charging profile to clear.\\r\\n\",",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ClearChargingProfileRequest",
+      "heading_path": "JSON Schemas > ClearChargingProfile > ClearChargingProfileRequest",
+      "message_name": "ClearChargingProfileRequest",
+      "message_direction": "Request",
+      "chunk_part": 2
+    }
+  },
+  {
+    "content": "\"type\": \"integer\"\n    },\n    \"chargingProfileCriteria\": {\n      \"$ref\": \"#/definitions/ClearChargingProfileType\"\n    }\n  }\n}\n```",
+    "metadata": {
+      "doc_id": "ocpp201_json_schemas",
+      "doc_title": "OCPP 2.0.1 JSON Schemas",
+      "ocpp_version": "2.0.1",
+      "content_type": "json_schema",
+      "heading": "ClearChargingProfileRequest",
+      "heading_path": "JSON Schemas > ClearChargingProfile > ClearChargingProfileRequest",
+      "message_name": "ClearChargingProfileRequest",
+      "message_direction": "Request",
+      "chunk_part": 3
+    }
+  }
+]

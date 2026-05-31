@@ -1,0 +1,74 @@
+{
+  "use_case_id": "K04",
+  "functional_block": "SmartCharging",
+  "use_case_name": "Internal Load Balancing",
+  "chunks": [
+    {
+      "content": "# K04 - Internal Load Balancing\n\n| No. | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |\n| --- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 1   | Name             | Internal Load Balancing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |\n| 2   | ID               | K04                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |\n| 3   | Objective(s)     | To enable internal load balancing within the Charging Station and between EVSEs.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |\n| 4   | Description      | The Load Balancing use case is about internal load balancing within the Charging Station, where the Charging Station controls current/power per EVSE. The Charging Station is configured with a fixed limit, e.g. the maximum current of the connection to the grid. See K01 - Set Charging Profile **Actors:** Charging Station, CSMS **Scenario description:**) The CSMS sets known physical grid connection limits by sending a ChargingProfile.\n2) The Charging Station controls current/power per EVSE.",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K04 - Internal Load Balancing",
+        "heading_path": "K04 - Internal Load Balancing",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K04",
+        "use_case_name": "Internal Load Balancing",
+        "use_case_refs": "K01, K04",
+        "chunk_part": 1,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "3) The EVSE sends a Control Pilot signal to the EV. |\n| 5   | Prerequisite(s)  | The Functional Block Smart Charging is installed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |\n| 6   | Postcondition(s) | **Successful postcondition:** The Charging Station Successfully balances the current/power between the different EVSEs, based on what the CSMS is sending. **Failure postcondition:** ChargingProfile is not Accepted. Charging is possible, although the Charging Station will not adhere to the ChargingProfile.                                                                                                                                                                                                                                                     |\n| 7   | Error handling   | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K04 - Internal Load Balancing",
+        "heading_path": "K04 - Internal Load Balancing",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K04",
+        "use_case_name": "Internal Load Balancing",
+        "use_case_refs": "K01, K04",
+        "chunk_part": 2,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "| 8   | Remark(s)        | n/a                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "use_case",
+        "heading": "K04 - Internal Load Balancing",
+        "heading_path": "K04 - Internal Load Balancing",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K04",
+        "use_case_name": "Internal Load Balancing",
+        "use_case_refs": "K01, K04",
+        "chunk_part": 3,
+        "total_parts": 3
+      }
+    },
+    {
+      "content": "# K04 - Internal Load Balancing - Requirements\n\n| ID        | Precondition | Requirement definition                                                                                                                                 | Note                                                                                                                                                                            |\n| --------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| K04.FR.01 |              | The Charging Station SHALL control the ChargingSchedule per EVSE.                                                                                      |                                                                                                                                                                                 |\n| K04.FR.02 |              | The Charging Station SHALL be configured with a fixed limit.                                                                                           | e.g. the maximum current of the connection to the grid.                                                                                                                         |\n| K04.FR.03 |              | A ChargingProfile with the purpose ChargingStationMaxProfile can only be set at Charging Station EVSE with Id 0.                                       | EVSE 0 refers to entire Charging Station.                                                                                                                                       |\n| K04.FR.04 |              | The optional ChargingSchedule field minChargingRate MAY be used by the Charging Station to optimize the power distribution between the EVSEs.          | The parameter informs the charging station that charging below minChargingRate is inefficient, giving the possibility to select another balancing strategy. (Same as K01.FR.21) |\n| K04.FR.05 |              | The combined energy flow of all EVSEs (and the Charging Station hardware itself) SHALL NOT be greater than the limit set by ChargingStationMaxProfile. |                                                                                                                                                                                 |",
+      "metadata": {
+        "doc_id": "ocpp201_part2",
+        "doc_title": "OCPP 2.0.1 Part 2 - Specification",
+        "ocpp_version": "2.0.1",
+        "content_type": "requirements",
+        "heading": "K04 - Internal Load Balancing - Requirements",
+        "heading_path": "K04 - Internal Load Balancing - Requirements",
+        "functional_block": "SmartCharging",
+        "use_case_id": "K04",
+        "use_case_name": "Internal Load Balancing",
+        "use_case_refs": "K01, K04"
+      }
+    }
+  ],
+  "figures": []
+}
