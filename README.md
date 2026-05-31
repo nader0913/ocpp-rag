@@ -2,7 +2,7 @@
 
 MCP server that gives AI assistants deep knowledge of EV charging protocols. Connect it to Claude and ask anything about OCPP 1.6, OCPP 2.0.1, Plug & Charge, and related standards.
 
-**3,800+ indexed chunks** from 13 official documents — use cases, requirements, message schemas, device model variables, test cases, and more.
+**3,500+ indexed chunks** from 19 official documents — use cases, requirements, message schemas, device model variables, test cases, 146 figures, and more.
 
 ## Setup
 
@@ -74,6 +74,12 @@ The index builds automatically on first run (~30 seconds).
 
 ### Other
 - Using ISO 15118 Plug & Charge with OCPP 1.6 (OCA Whitepaper)
+- OCPP & California Pricing Requirements v3.1
+- OCPP 1.6 Security Whitepaper (Edition 4)
+- OCPP Security Operations Guide v1.0
+- What is New in OCPP 2.0.1
+- Signed Meter Values / Eichrecht v1.0
+- OCPP 2.Lite — OCPP for Resource-Constrained Devices v2
 
 ## Example Queries
 
@@ -85,6 +91,9 @@ Once connected, ask Claude things like:
 - "List all Smart Charging use cases"
 - "What device model variables are available for the EVSE component?"
 - "How does Plug & Charge work with ISO 15118?"
+- "What are the California pricing requirements for OCPP?"
+- "Explain Eichrecht signed meter values"
+- "What security profiles exist in OCPP 1.6?"
 
 ## License
 
