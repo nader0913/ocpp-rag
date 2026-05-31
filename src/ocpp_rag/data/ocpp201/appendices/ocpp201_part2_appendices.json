@@ -449,20 +449,6 @@
     }
   },
   {
-    "content": "Updated in v1.5",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.1.16. SmartChargingCtrlr",
-      "heading_path": "3.1.16. SmartChargingCtrlr",
-      "message_refs": "NotifyChargingLimitRequest, TransactionEventRequest",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "# 3.1.17. TariffCostCtrlr\n\nDescription\n\nLogical Component responsible for configuration relating to tariff and cost display.\n\nCost: boolean\nTariff: boolean\nCost: boolean\nTariff: boolean\nstring\nstring\nstring",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -2241,19 +2227,6 @@
       "heading": "Chapter 5. Reason Codes",
       "heading_path": "Chapter 5. Reason Codes",
       "chunk_part": 1,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 5. Reason Codes",
-      "heading_path": "Chapter 5. Reason Codes",
-      "chunk_part": 2,
       "total_parts": 3
     }
   },

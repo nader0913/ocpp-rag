@@ -1,18 +1,5 @@
 [
   {
-    "content": "# Table of Contents",
-    "metadata": {
-      "doc_id": "california_pricing",
-      "doc_title": "OCPP & California Pricing Requirements v3.1",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "Table of Contents",
-      "heading_path": "Table of Contents",
-      "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n2. Cost Calculation in OCPP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2\n3. Tariff and Cost Features in OCPP 1.6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n1. Displaying Price and Cost in OCPP 1.6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3\n2. Multi-language support for tariffs (new in v3) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8\n3. Timezone for Display. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11\n4. Idle Fees. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11\n5. Direct Payment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14\n6. Sequence diagrams showing the OCPP 1.6 customizations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14\n7. Sequence diagrams for (partly) offline situations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18\n4. Tariff and Cost Features in OCPP 2.0.1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n1. Displaying Price and Cost in OCPP 2.0.1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23\n2. Device Model Settings for Tariff and Cost. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26\n3. Multi-language support for tariffs (new in v3) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27\n4. Idle Fees. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29\n5. Direct Payment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31\n6. Sequence diagram showing OCPP 2.0.1 messages. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31\n7. Offline behavior . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33\n5. Checklist Items Requiring Attention . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34\n6. Appendix: Relevant Requirements per Section . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36",
     "metadata": {
       "doc_id": "california_pricing",
@@ -781,19 +768,6 @@
       "heading": "4.3.2. Multi-language driver/user specific tariffs",
       "heading_path": "4.3.2. Multi-language driver/user specific tariffs",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "california_pricing",
-      "doc_title": "OCPP & California Pricing Requirements v3.1",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "4.3.2. Multi-language driver/user specific tariffs",
-      "heading_path": "4.3.2. Multi-language driver/user specific tariffs",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },

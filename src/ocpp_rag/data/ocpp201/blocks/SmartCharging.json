@@ -663,22 +663,6 @@
     }
   },
   {
-    "content": "# K. Smart Charging\n\n",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "K. Smart Charging",
-      "heading_path": "K. Smart Charging",
-      "functional_block": "SmartCharging",
-      "use_case_refs": "K15, P01",
-      "message_refs": "NotifyEVChargingNeedsRequest, NotifyEVChargingNeedsResponse, NotifyEVChargingScheduleRequest, SetChargingProfileRequest, SetChargingProfileResponse",
-      "chunk_part": 1,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "- 5: 6; Prerequisites: Postcondition(s); Charging session started according to use case K15.: Charging session uses the new charging profile.",
     "metadata": {
       "doc_id": "ocpp201_part2",

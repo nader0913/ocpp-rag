@@ -58,22 +58,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "H. Reservation",
-      "heading_path": "H. Reservation",
-      "functional_block": "Reservation",
-      "use_case_refs": "H01",
-      "message_refs": "NotifyEventRequest, ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "# H. Reservation\n\nH02.FR.04 (Precondition: H02.FR.03): The Charging Station SHALL send a StatusNotificationRequest with status Available or a NotifyEventRequest with AvailabilityState set to Available to the CSMS for each connector, notifying the CSMS that all the connectors of this EVSE are available again for any EV Driver.\nH02.FR.05 (Precondition: H02.FR.02 AND If no specific EVSE was reserved for this reservation): The Charging Station SHALL allow charging on all EVSE which were not reserved explicitly.\nH02.FR.06 (Precondition: H01.FR.05 AND before cancelling the reservation the amount of EVSEs reserved was equal to the amount of reservations): The Charging Station SHALL send for all connectors of all EVSEs which were not reserved explicitly:",
     "metadata": {
       "doc_id": "ocpp201_part2",

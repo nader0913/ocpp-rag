@@ -854,19 +854,6 @@
     }
   },
   {
-    "content": "# E: Transactions",
-    "metadata": {
-      "doc_id": "ocpp2_lite",
-      "doc_title": "OCPP 2.Lite - OCPP for Resource-Constrained Devices v2",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "E: Transactions",
-      "heading_path": "E: Transactions",
-      "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "- Start transaction options - PowerPathClosed: Start transaction options - EnergyTransfer; -: x; 3091: 3090\n- Start transaction options - PowerPathClosed: Local start transaction - Cable plugin first - Success; -: -; 3091: 2835\n- Start transaction options - PowerPathClosed: Local start transaction - Authorization first - Success; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Local start transaction - Authorization first - Cable plugin timeout; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Local Stop Transaction - Accepted; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Stop transaction options - PowerPathClosed - Local stop; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Start transaction options - EVConnected; -: -; 3091: 2021\n- Start transaction options - PowerPathClosed: Start transaction options - Authorized - Remote; -: -; 3091: 2946\n- Start transaction options - PowerPathClosed: Stop transaction options - StopAuthorized - Local; -: -; 3091: 3086\n- Start transaction options - PowerPathClosed: Stop transaction options - Deauthorized - EV side disconnect; -: -; 3091: 3086\n- Start transaction options - PowerPathClosed: Testcase; -: Pass; 3091: Heap usage (Bytes)\n- Start transaction options - PowerPathClosed: Stop transaction options - EVDisconnected - EV side (able to charge IEC 61851-1 EV); -: -; 3091: 3087\n- Start transaction options - PowerPathClosed: Stop transaction options - StopAuthorized - Remote; -: -; 3091: 3086\n- Start transaction options - PowerPathClosed: Disconnect cable on EV-side - Deauthorize transaction - UnlockOnEVSideDisconnect is true; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Disconnect cable on EV-side - Deauthorize transaction - UnlockOnEVSideDisconnect is false; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Check Transaction status - TransactionId unknown; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ongoing - with message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ongoing - without message in queue; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ended - with message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Transaction with id ended - without message in queue; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Check Transaction status - Without transactionId - with message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Check Transaction status - Without transactionId - without message in queue; -: -; 3091: 1397\n- Start transaction options - PowerPathClosed: Stop transaction options - PowerPathClosed - Remote stop; -: -; 3091: 3091\n- Start transaction options - PowerPathClosed: Stop transaction options - Deauthorized - timeout; -: x; 3091: 2973",
     "metadata": {
       "doc_id": "ocpp2_lite",

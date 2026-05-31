@@ -67,19 +67,5 @@
       "message_direction": "Request",
       "chunk_part": 5
     }
-  },
-  {
-    "content": "]\n}\n```",
-    "metadata": {
-      "doc_id": "ocpp201_json_schemas",
-      "doc_title": "OCPP 2.0.1 JSON Schemas",
-      "ocpp_version": "2.0.1",
-      "content_type": "json_schema",
-      "heading": "SetNetworkProfileRequest",
-      "heading_path": "JSON Schemas > SetNetworkProfile > SetNetworkProfileRequest",
-      "message_name": "SetNetworkProfileRequest",
-      "message_direction": "Request",
-      "chunk_part": 6
-    }
   }
 ]

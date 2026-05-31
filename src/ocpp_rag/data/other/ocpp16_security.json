@@ -110,19 +110,6 @@
     }
   },
   {
-    "content": "# 1.7. References",
-    "metadata": {
-      "doc_id": "ocpp16_security",
-      "doc_title": "OCPP 1.6 Security Whitepaper (Edition 4)",
-      "ocpp_version": "1.6",
-      "content_type": "general",
-      "heading": "1.7. References",
-      "heading_path": "1.7. References",
-      "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "\\[1]: ENISA European Network and Information Security Agency, Algorithms, key size and parameters report 2014, 2014. (last accessed on 17 January 2016) <https://www.enisa.europa.eu/publications/algorithms-key-size-and-parameters-report-2014>\n\\[2]: Cooper, D., et al., Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile, Internet Engineering Task Force, Request for Comments 5280, May 2008, <http://www.ietf.org/rfc/rfc5280.txt>\n\\[3]: Dierks, T. and Rescorla, E., The Transport Layer Security (TLS) Protocol Version 1.2, Internet Engineering Task Force, Request for Comments 5246, August 2008, <http://www.ietf.org/rfc/rfc5246.txt>\n\\[4]: Hollenbeck, S., \"Transport Layer Security Protocol Compression Methods\", RFC 3749, May 2004. <https://www.ietf.org/rfc/rfc3749.txt>\n\\[5]: Bundesamt f\u00fcr Sicherheit in der Informationstechnik: Anwendungshinweise und Interpretationen zum Schema, AIS 20, Funktionalit\u00e4tsklassen und Evaluationsmethodologie f\u00fcr deterministische Zufallszahlengeneratoren, Version 3.0, Bonn, Germany, May 2013. (in German) <https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Zertifizierung/Interpretationen/AIS_20_pdf.html>\n\\[6]: Adams, C., Farrell, S., Kause, T., and T. Mononen, \"Internet X.509 Public Key Infrastructure Certificate Management Protocol (CMP)\", RFC 4210, September 2005. <https://www.ietf.org/rfc/rfc4210.txt>\n\\[7]: National Institute of Standards and Technology. Special Publication 800-57 Part 1 Rev. 4, Recommendation for Key Management. January 2016. <https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-4/final>\n\\[8]: RFC 2617. HTTP Authentication: Basic and Digest Access Authentication. <https://www.ietf.org/rfc/rfc2617.txt>\n\\[9]: RFC 5280. Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile. <https://www.ietf.org/rfc/rfc5280.txt>\n\\[10]: OCPP 1.6. Interface description between Charge Point and Central System. October 2015. <http://www.openchargealliance.org/downloads/>",
     "metadata": {
       "doc_id": "ocpp16_security",
@@ -446,19 +433,6 @@
       "heading": "2.5. TLS with Client Side Certificates Profile - 3",
       "heading_path": "2.5. TLS with Client Side Certificates Profile - 3",
       "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "7\nRemark(s)\nN/a",
-    "metadata": {
-      "doc_id": "ocpp16_security",
-      "doc_title": "OCPP 1.6 Security Whitepaper (Edition 4)",
-      "ocpp_version": "1.6",
-      "content_type": "general",
-      "heading": "2.5. TLS with Client Side Certificates Profile - 3",
-      "heading_path": "2.5. TLS with Client Side Certificates Profile - 3",
-      "chunk_part": 3,
       "total_parts": 3
     }
   },
@@ -1688,19 +1662,6 @@
     }
   },
   {
-    "content": "# Central System",
-    "metadata": {
-      "doc_id": "ocpp16_security",
-      "doc_title": "OCPP 1.6 Security Whitepaper (Edition 4)",
-      "ocpp_version": "1.6",
-      "content_type": "general",
-      "heading": "Central System",
-      "heading_path": "Central System",
-      "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "- SignedUpdateFirmware.req(requestId = 123): Waiting for retrieveDate...; *Verify* certificate: SignedFirmwareStatusNotification.req(status = Downloading, requestId = 123); SignedUpdateFirmware.conf(): SignedFirmwareStatusNotification.conf()\n- SignedUpdateFirmware.req(requestId = 123): Download firmware; *Verify* certificate: Downloading firmware...; SignedUpdateFirmware.conf(): SignedFirmwareStatusNotification.req(status = Downloaded, requestId = 123)\n- SignedUpdateFirmware.req(requestId = 123): SignedFirmwareStatusNotification.conf(); *Verify* certificate: *Verify* signature; SignedUpdateFirmware.conf(): *SignedFirmwareStatusNotification.req(status = SignatureVerified, requestId = 123)*\n- SignedUpdateFirmware.req(requestId = 123): SignedFirmwareStatusNotification.conf(); *Verify* certificate: Waiting for transactions to finish...\n- SignedUpdateFirmware.req(requestId = 123): alt \\[reboot required before installing firmware]; *Verify* certificate: It is not fixed in what order the; SignedUpdateFirmware.conf(): SignedFirmwareStatusNotification.req\n- SignedUpdateFirmware.req(requestId = 123): SignedFirmwareStatusNotification.req(status = InstallRebooting, requestId = 123); *Verify* certificate: SignedFirmwareStatusNotification.conf(); SignedUpdateFirmware.conf(): SignedFirmwareStatusNotification.req\n- SignedUpdateFirmware.req(requestId = 123): Reset.req(Soft); *Verify* certificate: Reset.req(Accepted); SignedUpdateFirmware.conf(): *Reboot*\n- SignedUpdateFirmware.req(requestId = 123): Rebooting...; *Verify* certificate: SignedFirmwareStatusNotification.req(status = Installing, requestId = 123); SignedUpdateFirmware.conf(): SignedFirmwareStatusNotification.conf()\n- SignedUpdateFirmware.req(requestId = 123): *Install* firmware; *Verify* certificate: Installing...; SignedUpdateFirmware.conf(): \\[no reboot required]\n- SignedUpdateFirmware.req(requestId = 123): SignedFirmwareStatusNotification.req(Status = Installing, requestId = 123); *Verify* certificate: SignedFirmwareStatusNotification.conf(); SignedUpdateFirmware.conf(): *Install* firmware\n- SignedUpdateFirmware.req(requestId = 123): Installing...; *Verify* certificate: SignedFirmwareStatusNotification.req(status = Installed, requestId = 123); SignedUpdateFirmware.conf(): SignedFirmwareStatusNotification.conf()",
     "metadata": {
       "doc_id": "ocpp16_security",
@@ -1733,17 +1694,6 @@
       "content_type": "general",
       "heading": "8 Remark(s)",
       "heading_path": "8 Remark(s)"
-    }
-  },
-  {
-    "content": "# Idle\n\n",
-    "metadata": {
-      "doc_id": "ocpp16_security",
-      "doc_title": "OCPP 1.6 Security Whitepaper (Edition 4)",
-      "ocpp_version": "1.6",
-      "content_type": "general",
-      "heading": "Idle",
-      "heading_path": "Idle"
     }
   },
   {

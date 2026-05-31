@@ -397,51 +397,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 3. Generic Requirements",
-      "heading_path": "Chapter 3. Generic Requirements",
-      "use_case_refs": "B02, B03",
-      "message_refs": "BootNotificationRequest",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 3. Generic Requirements",
-      "heading_path": "Chapter 3. Generic Requirements",
-      "use_case_refs": "B02, B03",
-      "message_refs": "BootNotificationRequest",
-      "chunk_part": 3,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 3. Generic Requirements",
-      "heading_path": "Chapter 3. Generic Requirements",
-      "use_case_refs": "B02, B03",
-      "message_refs": "BootNotificationRequest",
-      "chunk_part": 4,
-      "total_parts": 4
-    }
-  },
-  {
     "content": "# 3.1. Time Format Requirements\n\nThis section is normative.\n\nAll time values exchanged between CSMS and Charging Station SHALL be formatted as defined in RFC-3339 [RFC3339]. Additionally fractional seconds have been given an extra limit. The number of decimal places SHALL NOT exceed the maximum of 3. However, it is RECOMMENDED to omit fractional seconds entirely, because it is of limited use and omitting it reduces data usages.\n\nIt is strongly RECOMMENDED to exchange all time values between CSMS and Charging Station as UTC, with the time zone designator 'Z', as specified by RFC-3339 [RFC3339]. This will improve interoperability between CSMS and Charging Station.",
     "metadata": {
       "doc_id": "ocpp201_part2",

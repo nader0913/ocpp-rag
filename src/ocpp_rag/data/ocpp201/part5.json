@@ -626,19 +626,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "# Part 5 - Certification Profiles\n\n- Test Case: TC\\_E\\_38; Description: EV not ready; Condition: C M; Options: For CS: not supporting start transaction; Authorization Method: NOT C-09.5 and NOT Start transaction options - EnergyTransfer\n- Test Case: TC\\_C\\_56; Description: Authorization Unknown; Condition: C; Options: Charging Station: - The Charging Station supports at least one of the following local start authorization options: C-30, C-31, C-32; Authorization Method: Local Authorization - using RFID and NOT AQ-2 ISO14443 / RFID ISO15693 / KeyCode\n- Test Case: TC\\_C\\_05; Description: Authorization invalid - Cable lock; Condition: C; Options: For CS: - The Charging Station has a cable lock, which prevents the EV driver to connect the EV and EVSE before authorization. - The Charging Station supports at least one of the following local start authorization options C-30, C-31, C-32 - The Charging Station does NOT have the following configuration: TxStartPoint ReadOnly AND value Authorized is NOT set.; Authorization Method: Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode\n- Test Case: TC\\_C\\_04; Description: Different idToken; Condition: C; Options: Charging Station: - The Charging Station supports at least one of the following local start authorization options: C-70, C-71, C-72; Authorization Method: Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode\n- Test Case: TC\\_E\\_06; Description: Accepted; Condition: C; Options: The Charging Station supports E07 Transaction locally stopped by IdToken with at least one of the following local start authorization options: C-70, C-71, C-72, C-75; Authorization Method: Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode / NoAuthorization",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -688,19 +675,6 @@
       "heading": "Part 5 - Certification Profiles",
       "heading_path": "Part 5 - Certification Profiles",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },
@@ -1322,34 +1296,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Advanced User Interface",
-      "heading_path": "Advanced User Interface",
-      "message_refs": "transactionEventResponse",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Advanced User Interface",
-      "heading_path": "Advanced User Interface",
-      "message_refs": "transactionEventResponse",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "# Part 5 - Certification Profiles\n\n- Related features: TC\\_O\\_28; Test Case: Remove message after EndTime; Status: C; Comments: C; UI: UI-0\n- Related features: TC\\_O\\_30; Test Case: Multiple In front priority; Status: C; Comments: CS: If value \"InFront\" supported; UI: UI-0 and UI-1.2\n- Related features: TC\\_O\\_32; Test Case: Second Alwaysfront priority; Status: C; Comments: CS: If value \"AlwaysFront\" supported; UI: UI-0 and UI-1.1\n- Related features: Get all Display Messages\n- Related features: TC\\_O\\_02; Test Case: Success; Status: C; Comments: C; UI: UI-0\n- Related features: TC\\_O\\_03; Test Case: No DisplayMessages configured; Status: C; Comments: C; UI: UI-0\n- Related features: Get a Specific Display Message\n- Related features: TC\\_O\\_07; Test Case: Id; Status: C; Comments: C; UI: UI-0\n- Related features: TC\\_O\\_08; Test Case: Priority; Status: C; Comments: C; UI: UI-0\n- Related features: TC\\_O\\_09; Test Case: State; Status: C; Comments: C; UI: UI-0\n- Related features: TC\\_O\\_11; Test Case: Unknown parameters; Status: C; UI: UI-0\n- Related features: TC\\_O\\_33; Test Case: No DisplayMessages configured; Status: C; UI: UI-0\n- Related features: TC\\_O\\_34; Test Case: Known Id, but not matching State; Status: C; UI: UI-0\n- Related features: TC\\_O\\_35; Test Case: Known Id, but not matching Priority; Status: C; Comments: Only if multiple messagePriorities supported; UI: UI-0 and ((UI-1.1 and UI-1.2) or (UI-1.2 and UI-1.3) or (UI-1.3 and UI-1.1))\n- Related features: Clear Display Message\n- Related features: TC\\_O\\_04; Test Case: Success; Status: C; Comments: C; UI: UI-0",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -1462,19 +1408,6 @@
       "heading": "4.5. Test Cases ISO 15118 Support",
       "heading_path": "4.5. Test Cases ISO 15118 Support",
       "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "4.5. Test Cases ISO 15118 Support",
-      "heading_path": "4.5. Test Cases ISO 15118 Support",
-      "chunk_part": 3,
       "total_parts": 3
     }
   },
@@ -1648,20 +1581,6 @@
       "heading_path": "Chapter 8. Appendix C: Features vs. OCPP use cases",
       "use_case_refs": "B11, B12, C10, C11, C12, C15, C16, E01, E05, E06, E09, E10, G01, L01, N09, N10",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 8. Appendix C: Features vs. OCPP use cases",
-      "heading_path": "Chapter 8. Appendix C: Features vs. OCPP use cases",
-      "use_case_refs": "B11, B12, C10, C11, C12, C15, C16, E01, E05, E06, E09, E10, G01, L01, N09, N10",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },

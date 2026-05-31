@@ -304,54 +304,6 @@
     }
   },
   {
-    "content": "# A. Security\n\n",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "A. Security",
-      "heading_path": "A. Security",
-      "functional_block": "Security",
-      "use_case_refs": "A02",
-      "message_refs": "CertificateSignedRequest, CertificateSignedResponse, GetReportRequest, SignCertificateRequest, SignCertificateResponse, TriggerMessageRequest, TriggerMessageResponse",
-      "chunk_part": 1,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "A. Security",
-      "heading_path": "A. Security",
-      "functional_block": "Security",
-      "use_case_refs": "A02",
-      "message_refs": "CertificateSignedRequest, CertificateSignedResponse, GetReportRequest, SignCertificateRequest, SignCertificateResponse, TriggerMessageRequest, TriggerMessageResponse",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "A. Security",
-      "heading_path": "A. Security",
-      "functional_block": "Security",
-      "use_case_refs": "A02",
-      "message_refs": "CertificateSignedRequest, CertificateSignedResponse, GetReportRequest, SignCertificateRequest, SignCertificateResponse, TriggerMessageRequest, TriggerMessageResponse",
-      "chunk_part": 3,
-      "total_parts": 4
-    }
-  },
-  {
     "content": "- 6: 7; Postcondition(s): Error handling; Successful postcondition: New Client Side certificate installed in the Charging Station. Failure postcondition: New Client Side certificate is rejected and discarded.: The CSMS accepts the CSR request from the Charging Station, before forwarding it to the CA. But when the CA cannot be reached, or rejects the CSR, the Charging Station will never be known. The CSMS may do some checks on the CSR, but cannot do all the checks that a CA does, and it does not prevent connection timeout to the CA. When something like this goes wrong, either the CA is offline or the CSR send by the Charging Station is not correct, according to the CA. In both cases this is something an operator at the CSO needs to be notified of. The operator then needs to investigate the issue. When resolved, the operator can re-run A02.",
     "metadata": {
       "doc_id": "ocpp201_part2",

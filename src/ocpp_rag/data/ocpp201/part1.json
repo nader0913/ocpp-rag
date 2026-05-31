@@ -694,19 +694,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part1",
-      "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 1 - Architecture &#x26; Topology",
-      "heading_path": "Part 1 - Architecture &#x26; Topology",
-      "chunk_part": 4,
-      "total_parts": 4
-    }
-  },
-  {
     "content": "# \u00abContent\u00bb\n\n- MRID: NumericIdentifierType [0..1]\n- ObjectID: IdentifierType [0..*]\n- Name: NameType [0..1]\n- AliasName: NameType [0..*]\n- Description: TextType [0..*]",
     "metadata": {
       "doc_id": "ocpp201_part1",

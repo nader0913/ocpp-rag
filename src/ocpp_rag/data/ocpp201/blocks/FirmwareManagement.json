@@ -164,22 +164,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "L. Firmware Management",
-      "heading_path": "L. Firmware Management",
-      "functional_block": "FirmwareManagement",
-      "use_case_refs": "L01",
-      "message_refs": "FirmwareStatusNotificationRequest, SecurityEventNotificationRequest",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "- L01.FR.33: L01.FR.34; L01.FR.05 AND The Charging Station has ongoing transactions AND a reboot is needed to activate the installed firmware: L01.FR.04 AND installDateTime is not set AND Charging Station is waiting for a transaction to finish; The Charging Station SHALL wait until all transactions have ended, before activating the installed firmware.: The Charging Station MAY send a FirmwareStatusNotificationRequest with status InstallScheduled.; E.g. in case of A/B firmware updates.: The case where installDateTime is set is covered by L01.FR.16.",
     "metadata": {
       "doc_id": "ocpp201_part2",
@@ -269,22 +253,6 @@
       "use_case_refs": "L01, L02",
       "message_refs": "FirmwareStatusNotificationRequest, TriggerMessageRequest, UpdateFirmwareRequest",
       "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "L. Firmware Management",
-      "heading_path": "L. Firmware Management",
-      "functional_block": "FirmwareManagement",
-      "use_case_refs": "L01, L02",
-      "message_refs": "FirmwareStatusNotificationRequest, TriggerMessageRequest, UpdateFirmwareRequest",
-      "chunk_part": 3,
       "total_parts": 4
     }
   },

@@ -136,38 +136,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "B. Provisioning",
-      "heading_path": "B. Provisioning",
-      "functional_block": "Provisioning",
-      "use_case_refs": "B07",
-      "message_refs": "NotifyReportRequest, getBaseReportRequest, getBaseReportResponse",
-      "chunk_part": 2,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "B. Provisioning",
-      "heading_path": "B. Provisioning",
-      "functional_block": "Provisioning",
-      "use_case_refs": "B07",
-      "message_refs": "NotifyReportRequest, getBaseReportRequest, getBaseReportResponse",
-      "chunk_part": 3,
-      "total_parts": 5
-    }
-  },
-  {
     "content": "- B07.FR.10: B07.FR.11; B07.FR.08; The sequence number contained in the seqNo field of the NotifyReportRequest is incremental per report. So the NotifyReportRequest message which contains the first report part, SHALL have a seqNo with value 0.: All attribute types of a variable, that are supported by the Charging Station, SHALL be reported, even if they have no value (are unset).; This allows a CSMS to know which attribute types are supported by the Charging Station.\n- B07.FR.10: B07.FR.12; The sequence number contained in the seqNo field of the NotifyReportRequest is incremental per report. So the NotifyReportRequest message which contains the first report part, SHALL have a seqNo with value 0.: The Charging Station SHALL support at least the base reports: ConfigurationInventory and FullInventory.",
     "metadata": {
       "doc_id": "ocpp201_part2",

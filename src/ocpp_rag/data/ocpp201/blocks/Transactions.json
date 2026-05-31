@@ -269,20 +269,6 @@
     }
   },
   {
-    "content": "# E. Transactions\n\n",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "E. Transactions",
-      "heading_path": "E. Transactions",
-      "functional_block": "Transactions",
-      "use_case_refs": "E04",
-      "message_refs": "TransactionEventRequest"
-    }
-  },
-  {
     "content": "# E. Transactions\n\nE05.FR.03 (Precondition: E05.FR.01 AND The authorization status in TransactionEventResponse is not Accepted AND The transaction is still ongoing AND StopTxOnInvalidId is set to false AND MaxEnergyOnInvalidId is set and has NOT been exceeded.): Energy delivery to the EV SHALL be allowed until the amount of energy specified in MaxEnergyOnInvalidId has been reached.\nE05.FR.04 (Precondition: When a TransactionEventRequest has to be created): The Charging Station SHALL set the message\u2019s seqNo field as specified in Sequence Number Generation.\nE05.FR.05 (Precondition: When configured to send meter data in the TransactionEventRequest (eventType = Started), See: Meter Values - Configuration AND EVSE is known at start of transaction): The Charging Station SHALL add the configured measurands to the optional meterValue field with context = Transaction.Begin in the TransactionEventRequest(eventType = Started) sent to the CSMS to provide more details during the transaction.",
     "metadata": {
       "doc_id": "ocpp201_part2",

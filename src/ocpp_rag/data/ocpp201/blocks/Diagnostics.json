@@ -263,22 +263,6 @@
     }
   },
   {
-    "content": "",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "N. Diagnostics",
-      "heading_path": "N. Diagnostics",
-      "functional_block": "Diagnostics",
-      "use_case_refs": "N07",
-      "message_refs": "NotifyEventRequest, NotifyEventResponse",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
     "content": "- 5: 6; Prerequisite(s): Postcondition(s); The Charging Station has active monitoring settings. The monitoring setting(s) might have been configured explicitly via a SetVariableMonitoring message or it might be \"hard-wired\" in the Charging Station\u2019s firmware.: The Charging Station notified the CSMS about the monitoring events.",
     "metadata": {
       "doc_id": "ocpp201_part2",
