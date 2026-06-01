@@ -13,7 +13,12 @@
       "CSMS",
       "Charging Station"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. The CSMS sends a RequestStopTransactionRequest to the Charging Station.",
+      "2. The Charging Station stops the energy offer to the EV via ISO 15118 signaling.",
+      "3. The EV sends ChargingStatusReq (AC) or CurrentDemandReq (DC) with EVSENotification=StopCharging.",
+      "4. The Charging Station sends TransactionEventRequest (eventType = Ended) to the CSMS."
+    ],
     "prerequisites": "- If authorization according use cases in Functional Block C is applied, it SHALL be finished\nsuccessfully.\nSee ISO15118-1, use case Prerequisites F2, page 38.",
     "postconditions": "See ISO15118-1, use case End conditions F2, page 38.",
     "error_handling": "n/a",
@@ -59,7 +64,7 @@
   },
   "chunks": [
     {
-      "content": "# F04 - Remote Stop ISO 15118 Charging from CSMS\n\n**Objective:** See ISO15118-1, use case Objective F2, page 38.\n\n**Description:** See ISO15118-1, use case Description F2, page 38.\n\n**Actors:** EV, CSMS, Charging Station\n\n**Prerequisites:** - If authorization according use cases in Functional Block C is applied, it SHALL be finished\nsuccessfully.\nSee ISO15118-1, use case Prerequisites F2, page 38.\n\n**Postconditions:** See ISO15118-1, use case End conditions F2, page 38.",
+      "content": "# F04 - Remote Stop ISO 15118 Charging from CSMS\n\n**Objective:** See ISO15118-1, use case Objective F2, page 38.\n\n**Description:** See ISO15118-1, use case Description F2, page 38.\n\n**Actors:** EV, CSMS, Charging Station\n\n**Scenario:**\n1. The CSMS sends a RequestStopTransactionRequest to the Charging Station.\n2. The Charging Station stops the energy offer to the EV via ISO 15118 signaling.\n3. The EV sends ChargingStatusReq (AC) or CurrentDemandReq (DC) with EVSENotification=StopCharging.\n4. The Charging Station sends TransactionEventRequest (eventType = Ended) to the CSMS.\n\n**Prerequisites:** - If authorization according use cases in Functional Block C is applied, it SHALL be finished\nsuccessfully.\nSee ISO15118-1, use case Prerequisites F2, page 38.\n\n**Postconditions:** See ISO15118-1, use case End conditions F2, page 38.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

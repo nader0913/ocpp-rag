@@ -771,17 +771,6 @@
     }
   },
   {
-    "content": "# \u00abContent\u00bb\n\n- MRID: NumericIdentifierType [0..1]\n- ObjectID: IdentifierType [0..*]\n- Name: NameType [0..1]\n- AliasName: NameType [0..*]\n- Description: TextType [0..*]",
-    "metadata": {
-      "doc_id": "ocpp201_part1",
-      "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "\u00abContent\u00bb",
-      "heading_path": "\u00abContent\u00bb"
-    }
-  },
-  {
     "content": "# \u00abContent\u00bb\n\n- Server: URIType [0..1]\n- User: UserNameType [0..1]\n- Group: GroupNameType [0..1]\n- Password: PasswordType [0..1]\n- Key: VPNKeyType [0..1]\n- Type: VPNCodeType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
@@ -816,17 +805,6 @@
   },
   {
     "content": "# \u00abContent\u00bb\n\n- ICCID: SimIdentifierType [0..1]\n- IMSI: SimIdentifierType [0..1]",
-    "metadata": {
-      "doc_id": "ocpp201_part1",
-      "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "\u00abContent\u00bb",
-      "heading_path": "\u00abContent\u00bb"
-    }
-  },
-  {
-    "content": "# \u00abContent\u00bb\n\n- MRID: NumericIdentifierType [0..1]\n- ObjectID: IdentifierType [0..*]\n- Name: NameType [0..1]\n- AliasName: NameType [0..*]\n- Description: TextType [0..*]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",

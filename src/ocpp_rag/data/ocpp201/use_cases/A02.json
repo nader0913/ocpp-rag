@@ -13,7 +13,20 @@
       "CSMS",
       "Certificate Authority Server"
     ],
-    "scenario": [],
+    "scenario": [
+      "SignChargingStationCertificate",
+      "1. The CSMS requests the Charging Station to update its certificate using the\nTriggerMessageRequest with the requestedMessage field set to SignChargingStationCertificate.",
+      "2. The Charging Station responds with TriggerMessageResponse",
+      "3. The Charging Station generates a new public / private key pair.",
+      "4. The Charging Station sends a SignCertificateRequest to the CSMS containing the\ncertificateType = ChargingStationCertificate .",
+      "5. The CSMS responds with SignCertificateResponse, with status Accepted.",
+      "6. The CSMS forwards the CSR to the Certificate Authority Server.",
+      "7. Certificate Authority Server signs the certificate.",
+      "8. The Certificate Authority Server returns the Signed Certificate to the CSMS.",
+      "9. The CSMS sends CertificateSignedRequest to the Charging Station.",
+      "0. The Charging Station verifies the Signed Certificate.",
+      "1. The Charging Station responds with CertificateSignedResponse to the CSMS with the status\nAccepted or Rejected."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -137,7 +150,7 @@
   },
   "chunks": [
     {
-      "content": "# A02 - Update Charging Station Certificate by request of CSMS\n\n**Objective:** To facilitate the management of the Charging Station client side certificate, a certificate update\nprocedure is provided.\n\n**Description:** The CSMS requests the Charging Station to update its key using TriggerMessageRequest with the\nrequestedMessage field set to SignChargingStationCertificate (or\nSignV2GCertificate for separate ISO 15118 certificate).\nIf the Charging Station has a separate ISO15118Ctrlr (SECC in ISO 15118) for each EVSE, then\nCSMS will have to send a request for each of them. The device model the Charging Station will tell\nif ISO15118Ctrlr is located at toplevel or EVSE-level.\nIf the Charging Station has multiple SECCs that each control multiple EVSEs, then these are\nrepresented in device model by an ISO15118Ctrlr for each EVSE. The EVSEs that are controlled by\nthe same SECC report an ISO15118Ctrlr with the same \"SeccId\".\n\n**Actors:** Charging Station, CSMS, Certificate Authority Server",
+      "content": "# A02 - Update Charging Station Certificate by request of CSMS\n\n**Objective:** To facilitate the management of the Charging Station client side certificate, a certificate update\nprocedure is provided.\n\n**Description:** The CSMS requests the Charging Station to update its key using TriggerMessageRequest with the\nrequestedMessage field set to SignChargingStationCertificate (or\nSignV2GCertificate for separate ISO 15118 certificate).\nIf the Charging Station has a separate ISO15118Ctrlr (SECC in ISO 15118) for each EVSE, then\nCSMS will have to send a request for each of them. The device model the Charging Station will tell\nif ISO15118Ctrlr is located at toplevel or EVSE-level.\nIf the Charging Station has multiple SECCs that each control multiple EVSEs, then these are\nrepresented in device model by an ISO15118Ctrlr for each EVSE. The EVSEs that are controlled by\nthe same SECC report an ISO15118Ctrlr with the same \"SeccId\".\n\n**Actors:** Charging Station, CSMS, Certificate Authority Server\n\n**Scenario:**\nSignChargingStationCertificate\n1. The CSMS requests the Charging Station to update its certificate using the\nTriggerMessageRequest with the requestedMessage field set to SignChargingStationCertificate.\n2. The Charging Station responds with TriggerMessageResponse\n3. The Charging Station generates a new public / private key pair.\n4. The Charging Station sends a SignCertificateRequest to the CSMS containing the\ncertificateType = ChargingStationCertificate .\n5. The CSMS responds with SignCertificateResponse, with status Accepted.\n6. The CSMS forwards the CSR to the Certificate Authority Server.\n7. Certificate Authority Server signs the certificate.\n8. The Certificate Authority Server returns the Signed Certificate to the CSMS.\n9. The CSMS sends CertificateSignedRequest to the Charging Station.\n0. The Charging Station verifies the Signed Certificate.\n1. The Charging Station responds with CertificateSignedResponse to the CSMS with the status\nAccepted or Rejected.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

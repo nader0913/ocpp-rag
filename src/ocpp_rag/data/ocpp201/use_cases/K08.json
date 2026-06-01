@@ -8,8 +8,15 @@
     "functional_block": "SmartCharging",
     "objective": "To request the Charging Station to report the composite charging schedule.",
     "description": "",
-    "actors": [],
-    "scenario": [],
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. The CSMS requests the Charging Station to report the Composite Charging Schedule by\nsending a GetCompositeScheduleRequest.",
+      "2. The Charging Station calculates the schedule.",
+      "3. The Charging Station responds with a GetCompositeScheduleResponse with the status and\nChargingSchedule."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -60,7 +67,7 @@
   },
   "chunks": [
     {
-      "content": "# K08 - Get Composite Schedule\n\n**Objective:** To request the Charging Station to report the composite charging schedule.\n\n**Description:** ",
+      "content": "# K08 - Get Composite Schedule\n\n**Objective:** To request the Charging Station to report the composite charging schedule.\n\n**Description:** \n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to report the Composite Charging Schedule by\nsending a GetCompositeScheduleRequest.\n2. The Charging Station calculates the schedule.\n3. The Charging Station responds with a GetCompositeScheduleResponse with the status and\nChargingSchedule.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

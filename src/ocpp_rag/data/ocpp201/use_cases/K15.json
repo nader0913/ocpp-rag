@@ -11,9 +11,16 @@
     "actors": [
       "EV",
       "Charging Station",
-      "CSMS."
+      "CSMS"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. The EV provides its charging needs to the Charging Station.",
+      "2. The Charging Station sends a NotifyEVChargingNeedsRequest to the CSMS.",
+      "3. The CSMS calculates a charging schedule based on the EV's needs and grid constraints.",
+      "4. The CSMS sends a SetChargingProfileRequest with chargingProfilePurpose = TxProfile to the Charging Station.",
+      "5. The Charging Station communicates the schedule to the EV via ISO 15118.",
+      "6. The EV returns its own charging profile, which the Charging Station sends to the CSMS via NotifyEVChargingScheduleRequest."
+    ],
     "prerequisites": "Both the Charging Station and the EV support ISO 15118.\nThe configured TxStartPoint needs to contain at least one of ParkingBayOccupied, EVConnected,\nAuthorized or PowerPathClosed, such that the OCPP transaction is started before\nChargeParameterDiscoverReq is sent by EV, such that CSMS can send a TxProfile charging\nprofile.",
     "postconditions": "See ISO15118-1, use case End conditions E1, page 29.",
     "error_handling": "The Charging Station needs to use the information from the SetChargingProfileRequest message\nto create the response to the ISO 15118 ChargeParameterDiscoveryReq towards the EV. This\nmessage has a timeout of 60 seconds, which means the SetChargingProfileRequest has to be\nsent well within 60 seconds after receiving the NotifyEVChargingNeedsRequest. If the Charging\nStation does not receive the SetChargingProfileRequest in time or when the\nNotifyEVChargingNeedsResponse has status = Processing, then the Charging Station will return\na schedule in ChargeParameterDiscoverRes that matches the capabilities of the EVSE. When\nCSMS sends the SetChargingProfileRequest at a later time, then this will trigger a renegotiation\naccording to use case K16 - Renegotiation initiated by CSMS.",
@@ -127,7 +134,7 @@
   },
   "chunks": [
     {
-      "content": "# K15 - Charging with load leveling based on High Level Communication.\n\n**Objective:** See ISO15118-1, use case Objective E1, page 29.\n\n**Description:** See ISO15118-1, use case Description E1, page 29.\n\n**Actors:** EV, Charging Station, CSMS.\n\n**Prerequisites:** Both the Charging Station and the EV support ISO 15118.\nThe configured TxStartPoint needs to contain at least one of ParkingBayOccupied, EVConnected,\nAuthorized or PowerPathClosed, such that the OCPP transaction is started before\nChargeParameterDiscoverReq is sent by EV, such that CSMS can send a TxProfile charging\nprofile.\n\n**Postconditions:** See ISO15118-1, use case End conditions E1, page 29.\n\n**Error handling:** The Charging Station needs to use the information from the SetChargingProfileRequest message\nto create the response to the ISO 15118 ChargeParameterDiscoveryReq towards the EV. This\nmessage has a timeout of 60 seconds, which means the SetChargingProfileRequest has to be\nsent well within 60 seconds after receiving the NotifyEVChargingNeedsRequest. If the Charging\nStation does not receive the SetChargingProfileRequest in time or when the\nNotifyEVChargingNeedsResponse has status = Processing, then the Charging Station will return\na schedule in ChargeParameterDiscoverRes that matches the capabilities of the EVSE. When\nCSMS sends the SetChargingProfileRequest at a later time, then this will trigger a renegotiation\naccording to use case K16 - Renegotiation initiated by CSMS.\n\n**Remarks:** Signed SalesTariffs are currently not supported. If these are needed please use P01 - Data\nTransfer to the Charging Station to send these to the Charging Station.",
+      "content": "# K15 - Charging with load leveling based on High Level Communication.\n\n**Objective:** See ISO15118-1, use case Objective E1, page 29.\n\n**Description:** See ISO15118-1, use case Description E1, page 29.\n\n**Actors:** EV, Charging Station, CSMS\n\n**Scenario:**\n1. The EV provides its charging needs to the Charging Station.\n2. The Charging Station sends a NotifyEVChargingNeedsRequest to the CSMS.\n3. The CSMS calculates a charging schedule based on the EV's needs and grid constraints.\n4. The CSMS sends a SetChargingProfileRequest with chargingProfilePurpose = TxProfile to the Charging Station.\n5. The Charging Station communicates the schedule to the EV via ISO 15118.\n6. The EV returns its own charging profile, which the Charging Station sends to the CSMS via NotifyEVChargingScheduleRequest.\n\n**Prerequisites:** Both the Charging Station and the EV support ISO 15118.\nThe configured TxStartPoint needs to contain at least one of ParkingBayOccupied, EVConnected,\nAuthorized or PowerPathClosed, such that the OCPP transaction is started before\nChargeParameterDiscoverReq is sent by EV, such that CSMS can send a TxProfile charging\nprofile.\n\n**Postconditions:** See ISO15118-1, use case End conditions E1, page 29.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

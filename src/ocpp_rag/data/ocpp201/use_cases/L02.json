@@ -12,7 +12,18 @@
       "CSMS",
       "Charging Station"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. The CSMS sends an UpdateFirmwareRequest message that contains the location of the\nfirmware, the time after which it should be retrieved, and information on how many times the\nCharging Station should retry downloading the firmware.",
+      "2. The Charging station responds with an UpdateFirmwareResponse.",
+      "3. The Charging station sends a FirmwareStatusNotificationRequest with status Downloading.",
+      "4. The CSMS responds with a FirmwareStatusNotificationResponse.",
+      "5. The Charging station sends a FirmwareStatusNotificationRequest with status Downloaded.",
+      "6. The CSMS responds with a FirmwareStatusNotificationResponse.",
+      "7. The Charging station sends a FirmwareStatusNotificationRequest with status Installing.",
+      "8. The CSMS responds with a FirmwareStatusNotificationResponse.",
+      "9. The Charging station sends a FirmwareStatusNotificationRequest with status Installed.",
+      "0. The CSMS responds with a FirmwareStatusNotificationResponse."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -127,7 +138,7 @@
   },
   "chunks": [
     {
-      "content": "# L02 - Non-Secure Firmware Update\n\n**Objective:** Download and install a Non-Secure firmware update.\n\n**Description:** Illustrate how a Charging Station processes a Non-Secure firmware update.\n\n**Actors:** CSMS, Charging Station",
+      "content": "# L02 - Non-Secure Firmware Update\n\n**Objective:** Download and install a Non-Secure firmware update.\n\n**Description:** Illustrate how a Charging Station processes a Non-Secure firmware update.\n\n**Actors:** CSMS, Charging Station\n\n**Scenario:**\n1. The CSMS sends an UpdateFirmwareRequest message that contains the location of the\nfirmware, the time after which it should be retrieved, and information on how many times the\nCharging Station should retry downloading the firmware.\n2. The Charging station responds with an UpdateFirmwareResponse.\n3. The Charging station sends a FirmwareStatusNotificationRequest with status Downloading.\n4. The CSMS responds with a FirmwareStatusNotificationResponse.\n5. The Charging station sends a FirmwareStatusNotificationRequest with status Downloaded.\n6. The CSMS responds with a FirmwareStatusNotificationResponse.\n7. The Charging station sends a FirmwareStatusNotificationRequest with status Installing.\n8. The CSMS responds with a FirmwareStatusNotificationResponse.\n9. The Charging station sends a FirmwareStatusNotificationRequest with status Installed.\n0. The CSMS responds with a FirmwareStatusNotificationResponse.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

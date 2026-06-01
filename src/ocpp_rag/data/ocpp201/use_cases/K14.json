@@ -14,7 +14,16 @@
       "Charging Station",
       "CSMS"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. External control system sends a charging limit/schedule to Local Controller.",
+      "2. Local Controller sends a NotifyChargingLimitRequest message to the CSMS.",
+      "3. Local Controller calculates new Charging Profiles for all connected Charging Stations.",
+      "4. Local Controller sends a SetChargingProfileRequest message to all Charging Stations for\nwhich the charging profile has changed.",
+      "5. External control releases a charging limit/schedule to Local Controller.",
+      "6. Local Controller sends a ClearedChargingLimitRequest message to the CSMS.",
+      "7. Local Controller clears Charging Profiles for all connected Charging Stations.",
+      "8. Local Controller sends a ClearChargingProfileRequest messages to all affected Charging\nStations."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -59,7 +68,7 @@
   },
   "chunks": [
     {
-      "content": "# K14 - Handle external charging limit with a local controller\n\n**Objective:** To adjust the charging limits according to the External Control System requirements.\n\n**Description:** An external control system sends a charging limit to the Local Controller. The Local Controller\nnotifies the CSMS, calculates the new charging schedules and sends a\nSetChargingProfileRequest messages to all Charging Stations for which the charging profile has\nchanged.\n\n**Actors:** External control system, Local Controller, Charging Station, CSMS",
+      "content": "# K14 - Handle external charging limit with a local controller\n\n**Objective:** To adjust the charging limits according to the External Control System requirements.\n\n**Description:** An external control system sends a charging limit to the Local Controller. The Local Controller\nnotifies the CSMS, calculates the new charging schedules and sends a\nSetChargingProfileRequest messages to all Charging Stations for which the charging profile has\nchanged.\n\n**Actors:** External control system, Local Controller, Charging Station, CSMS\n\n**Scenario:**\n1. External control system sends a charging limit/schedule to Local Controller.\n2. Local Controller sends a NotifyChargingLimitRequest message to the CSMS.\n3. Local Controller calculates new Charging Profiles for all connected Charging Stations.\n4. Local Controller sends a SetChargingProfileRequest message to all Charging Stations for\nwhich the charging profile has changed.\n5. External control releases a charging limit/schedule to Local Controller.\n6. Local Controller sends a ClearedChargingLimitRequest message to the CSMS.\n7. Local Controller clears Charging Profiles for all connected Charging Stations.\n8. Local Controller sends a ClearChargingProfileRequest messages to all affected Charging\nStations.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

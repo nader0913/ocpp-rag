@@ -13,7 +13,11 @@
       "CSMS",
       "Charging Station"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. The EV and Charging Station exchange metering information during a charging session via ISO 15118.",
+      "2. The Charging Station sends periodic TransactionEventRequest messages with meter values to the CSMS.",
+      "3. The CSMS responds with TransactionEventResponse, optionally including updated charging profiles or tariff information."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -38,7 +42,7 @@
   },
   "chunks": [
     {
-      "content": "# J03 - Charging Loop with metering information exchange\n\n**Objective:** See ISO15118-1, use case Objective F1, page 37.\n\n**Description:** See ISO15118-1, use case Description F1, page 37.\n\n**Actors:** EV, CSMS, Charging Station",
+      "content": "# J03 - Charging Loop with metering information exchange\n\n**Objective:** See ISO15118-1, use case Objective F1, page 37.\n\n**Description:** See ISO15118-1, use case Description F1, page 37.\n\n**Actors:** EV, CSMS, Charging Station\n\n**Scenario:**\n1. The EV and Charging Station exchange metering information during a charging session via ISO 15118.\n2. The Charging Station sends periodic TransactionEventRequest messages with meter values to the CSMS.\n3. The CSMS responds with TransactionEventResponse, optionally including updated charging profiles or tariff information.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

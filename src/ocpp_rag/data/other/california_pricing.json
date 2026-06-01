@@ -530,19 +530,6 @@
     }
   },
   {
-    "content": "Transaction is in progress Receiving a meter value loop \\[During transaction] MeterValue.req( 1234000 ) MeterValue.conf() Central System sends DataTransfer.req( \"RunningCost\", \"{ \"transactionId\": \\<txId>, \"time\": \"2021-03-19T12:00:00Z\", \"meterValue\": 1234000, \"cost\": 3.12, \"state\": \"Charging\", \"chargingPrice\": {\"kWhPrice\": 0.123 } } ) next period price DataTransfer.conf( Accepted ): CP sends new meter value CP recalibrates cost calibrate locally calculated *cost* with central cost loop \\[Display usage and cost] calculate and display cost based on locally measured usage\nConnection to Central System is lost Charge Point goes offline MeterValue.req(): loop \\[While offline] calculate and display cost based on unit price for charging. No idle fee calculation.\nUser stops transaction StopTransaction.req( txId, meterValue=1244000 ) CP queues message: Later, when connection to Central System is restored Charge Point back online StopTransaction.req( txId, meterValue=1244000 ) CP sends stop notification StopTransaction.conf()\nCentral System sends DataTransfer.req( \"FinalCost\", \\<txId>, 1.23, \"$1.23 @ $0.123/kWh, $0.00 @ $1/h, TOTAL KWH: 10.0 TIME: 01:30H COST: $1.23\" ): DataTransfer.conf( Accepted ) CP only displays information if this is the most recent transaction and no other transaction in progress",
-    "metadata": {
-      "doc_id": "california_pricing",
-      "doc_title": "OCPP & California Pricing Requirements v3.1",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3.7.2. Price calculation for offline stopped transaction",
-      "heading_path": "3.7.2. Price calculation for offline stopped transaction",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "# 3.7.3. Price calculation for offline started transaction\n\nUser-specific price is not known. Charge point cannot show running costs, unless it has been configured with unit prices for the default pricing. The user agrees to use default pricing. If the charge point gets back online, Central System continues to use the default price scheme.\n\nNOTE Alternatively, charging could be disallowed or be free of charge while offline.",
     "metadata": {
       "doc_id": "california_pricing",
@@ -578,19 +565,6 @@
       "heading": "3.7.4. Price calculation for completely offline transaction",
       "heading_path": "3.7.4. Price calculation for completely offline transaction",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "Central System: Charge Point\nDefault price was installed previously ChangeConfiguration.req( \"DefaultPrice\", \"priceText\": \"0.15 $/kWh, idle fee after charging: 1 $/hr\", \"chargingPrice\": { \"kWhPrice\": 0.15, \"hourPrice\": 0.00, \"flatFee\": 0.00 } ) ChangeConfiguration.conf( Accepted ): CP goes offline Transaction is started while offline\nCharge Point is offline Authorize.req( \\<idToken> ): User tries to authorize lookup \\<idToken> in cache/*local* list\nCP authorizes offline \"No price information of user is known Using default pricing. Agree? Y/N\": StartTransaction.req( 1, \\<idToken> ) User plugs in\nCP caches start notification: loop \\[Display usage and cost] calculate and display cost based on locally measured usage. No idle fee calculation *while* offline.\nStopTransaction.req( txId ) User stops transaction: Connection to Central System is restored",
-    "metadata": {
-      "doc_id": "california_pricing",
-      "doc_title": "OCPP & California Pricing Requirements v3.1",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3.7.4. Price calculation for completely offline transaction",
-      "heading_path": "3.7.4. Price calculation for completely offline transaction",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },

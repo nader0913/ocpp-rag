@@ -12,7 +12,12 @@
       "Charging Station",
       "CSMS"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. The CSMS sends CustomerInformationRequest with the clear flag set to true to the Charging\nStation with a reference to a customer (idToken, customerCertificate or customerIdentifier).",
+      "2. The Charging Station responds with CustomerInformationResponse, indicating whether it will\nsend it or not.",
+      "3. If the report flag is set to true, the Charging Station sends one or more\nNotifyCustomerInformationRequest messages to the CSMS.",
+      "4. The CSMS responds with one or more NotifyCustomerInformationResponse messages to the\nCharging Station."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -72,7 +77,7 @@
   },
   "chunks": [
     {
-      "content": "# N10 - Clear Customer Information\n\n**Objective:** To enable the CSMS to clear (and retrieve) raw customer information from a Charging Station.\n\n**Description:** The CSMS sends a message to the Charging Station to clear (and retrieve) raw customer\ninformation, for example to be compliant with local privacy laws. The Charging Station notifies\nthe CSMS by sending one or more reports.\n\n**Actors:** Charging Station, CSMS",
+      "content": "# N10 - Clear Customer Information\n\n**Objective:** To enable the CSMS to clear (and retrieve) raw customer information from a Charging Station.\n\n**Description:** The CSMS sends a message to the Charging Station to clear (and retrieve) raw customer\ninformation, for example to be compliant with local privacy laws. The Charging Station notifies\nthe CSMS by sending one or more reports.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends CustomerInformationRequest with the clear flag set to true to the Charging\nStation with a reference to a customer (idToken, customerCertificate or customerIdentifier).\n2. The Charging Station responds with CustomerInformationResponse, indicating whether it will\nsend it or not.\n3. If the report flag is set to true, the Charging Station sends one or more\nNotifyCustomerInformationRequest messages to the CSMS.\n4. The CSMS responds with one or more NotifyCustomerInformationResponse messages to the\nCharging Station.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

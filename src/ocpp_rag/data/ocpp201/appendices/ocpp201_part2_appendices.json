@@ -1205,61 +1205,6 @@
     }
   },
   {
-    "content": "# 3.2.40. LocalEnergyStorage (updated in v1.3)\n\nDescription\n\nLocal energy storage device\n\nEnergyCapacity: Maximum storage capacity\nIdentity: Local Energy Storage identity",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.2.40. LocalEnergyStorage (updated in v1.3)",
-      "heading_path": "3.2.40. LocalEnergyStorage (updated in v1.3)"
-    }
-  },
-  {
-    "content": "# 3.2.41. OverCurrentProtection\n\nDescription\n\nProtects equipment by disconnecting the electrical supply when the current drawn (on any phase) exceeds the rated value to a substantial degree.\n\nActive: Tripped. Trip when over MaxSet/MaxLimit.\nOperated: Breaker opened and auto-reclosed\nACCurrent: Measured total AC current \\[per phase]",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.2.41. OverCurrentProtection",
-      "heading_path": "3.2.41. OverCurrentProtection"
-    }
-  },
-  {
-    "content": "# 3.2.42. OverCurrentProtectionRecloser\n\nDescription\n\nRecloser mechanism of an OverCurrentProtection to perform re-arm retries after a trip, or may be set for remotely controlled re-arming on command.\n\nEnabled: Auto reclosing enabled\nActive: Reclosing\nActive(Set): Initiate manual reclose\nComplete: Reclose cycle completed\nProblem: Recloser Fault\nMode: Reclose Mode (None, Auto, Commanded)\nTries: (Re)tries taken on last attempt\nTries(SetLimit): Configured auto retry count\nTries(MaxLimit): Maximum auto retry count",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.2.42. OverCurrentProtectionRecloser",
-      "heading_path": "3.2.42. OverCurrentProtectionRecloser"
-    }
-  },
-  {
-    "content": "# 3.2.43. PowerContactor\n\nDescription\n\nSwitches on and off the power to the EV after all authorization and safety requirements have been met. May have secondary contacts to report closure state.\n\nActive: Closed\nTripped: Mirror contact protection tripped\nProblem: Close/Open failed",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.2.43. PowerContactor",
-      "heading_path": "3.2.43. PowerContactor"
-    }
-  },
-  {
-    "content": "# 3.2.44. RCD\n\nDescription\n\nA Residual Current Device (US: ground fault breaker) protects human life and/or downstream equipment by quickly detecting abnormal current flows (usually indicative in earth faults) in the Charging Station, cable, or EV during charging.\n\nTripped: Breaker opened (manual reset required)\nOperated: Breaker opened and auto-reclosed",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.2.44. RCD",
-      "heading_path": "3.2.44. RCD"
-    }
-  },
-  {
     "content": "# 3.2.45. RCDRecloser\n\nDescription\n\nA motorized recloser mechanism of an RCD that may be configured to perform re-arm retries after a trip, or may be set for remotely controlled re-arming on command.\n\nEnabled: Auto reclosing enabled\nActive: Reclosing in progress\nActive(Set): Initiate manual reclose\nComplete: Reclose cycle completed\nProblem: Recloser Fault\nTries: (Re)tries taken on last attempt\nTries(SetLimit): Configured auto (re)try count\nTries(MaxLimit): Maximum auto (re)try count",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -2188,36 +2133,6 @@
     }
   },
   {
-    "content": "# Chapter 4. Standardized Variables\n\ninteger: s\ninteger: s",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "A02",
-      "message_refs": "BootNotificationResponse, TransactionEventRequest",
-      "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "- VehicleCertificate: VehicleId; string: string; For ConnectedEV: The PEM encoded X.509 leaf/intermediate/root certificate when present in the vehicle certificate chain.: ID that EV provides to charging station. Encoded as a hexbinary string. In ISO 15118 the EVCCID is 6 bytes (MAC address), in CHAdeMO the vehicle id can be 24 bytes.\n- VehicleCertificate: VersionDate; string: dateTime; \\[RFC3339]\n- VehicleCertificate: VersionNumber; string: string; For ConnectedEV: The PEM encoded X.509 leaf/intermediate/root certificate when present in the vehicle certificate chain.: Version number of hardware.\n- VehicleCertificate: VoltageImbalance; string: decimal; Percent; For ConnectedEV: The PEM encoded X.509 leaf/intermediate/root certificate when present in the vehicle certificate chain.: Percentage voltage imbalance in three phase supply.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "A02",
-      "message_refs": "BootNotificationResponse, TransactionEventRequest",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "# Chapter 5. Reason Codes\n\nThe table below provides a list of standardized reason codes that can be used in the optional statusInfo element (of type StatusInfoType) of a response.\n\nFor each reason code, some messages that might typically return them are shown. This is not an exhaustive list and only indicative.\n\nStatusInfo is optional. Any implementation should be able to function properly without statusInfo, because every message has the response code values that are essential to perform the function. The reasonCode and additionalInfo in StatusInfoType are meant to provide more insight on what is happening and maybe allow for some automatic recovery.\n\nThe grouping of the reasonCodes in the table below is only to make it easier to look-up codes for certain situations. The grouping does not affect the meaning of the reasonCode.\n\nIMPORTANT The existence of a reason code in this table does not imply a requirement to use it nor does it imply a requirement to any of the mentioned messages.\n\n(Updated in v1.5)\n\n- Group: Charging Profiles; Reason code: DuplicateProfile; Description: A charging profile with same stackLevel - chargingProfilePurpose combination already exists on the Charging Station and has an overlapping validity period.; Typically used for: SetChargingProfile",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -2310,34 +2225,6 @@
       "heading_path": "Chapter 5. Reason Codes",
       "message_refs": "SetNetworkProfileRequest, SetVariablesRequest, UnsupportedRequest",
       "chunk_part": 1,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- NotEnabled: ReadOnly; Feature is not enabled.: Targeted variable is read-only and cannot be set.; ClearCache: SetVariables\n- NotEnabled: WriteOnly; Feature is not enabled.: Targeted variable is write-only and cannot be read.; ClearCache: GetVariables\n- NotEnabled: Security; Feature is not enabled.: InvalidCSR; ClearCache: Provided CSR is invalid; SignCertificate\n- NotEnabled: InvalidCertificate; Feature is not enabled.: Provided certificate is invalid.; ClearCache: CertificateSigned, InstallCertificate\n- NotEnabled: InvalidURL; Feature is not enabled.: Provided URL is invalid.; ClearCache: UpdateFirmware, PublishFirmware",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 5. Reason Codes",
-      "heading_path": "Chapter 5. Reason Codes",
-      "message_refs": "SetNetworkProfileRequest, SetVariablesRequest, UnsupportedRequest",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- RedirectNotAllowed: System Errors; HTTP Redirection is not allowed: InternalError; LogStatusNotification: Operation cannot be completed due to an internal error.; (generic)\n- RedirectNotAllowed: OutOfMemory; HTTP Redirection is not allowed: Operation not possible, because system does not have enough memory.; LogStatusNotification: (generic)\n- RedirectNotAllowed: OutOfStorage; HTTP Redirection is not allowed: Operation not possible, because system does not have enough storage.; LogStatusNotification: (generic)\n- RedirectNotAllowed: Transactions; HTTP Redirection is not allowed: InvalidIdToken; LogStatusNotification: Provided idToken is not valid.; RequestStartTransaction\n- RedirectNotAllowed: TxInProgress; HTTP Redirection is not allowed: A transaction is in progress.; LogStatusNotification: ChangeAvailability, Reset, RequestStartTransaction",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 5. Reason Codes",
-      "heading_path": "Chapter 5. Reason Codes",
-      "message_refs": "SetNetworkProfileRequest, SetVariablesRequest, UnsupportedRequest",
-      "chunk_part": 3,
       "total_parts": 4
     }
   },

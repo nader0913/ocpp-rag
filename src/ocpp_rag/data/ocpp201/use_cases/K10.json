@@ -12,7 +12,10 @@
       "Charging Station",
       "CSMS"
     ],
-    "scenario": [],
+    "scenario": [
+      "1. The CSMS sends a ClearChargingProfileRequest to the Charging Station.",
+      "2. The Charging Station responds with a ClearChargingProfileResponse specifying whether it was\nable to process the request in the status."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -68,7 +71,7 @@
   },
   "chunks": [
     {
-      "content": "# K10 - Clear Charging Profile\n\n**Objective:** To clear some or all of the charging profiles.\n\n**Description:** If the CSMS wishes to clear some or all of the charging profiles that were previously sent to the\nCharging Station, then the CSMS sends a ClearChargingProfileRequest to the Charging Station.\n\n**Actors:** Charging Station, CSMS",
+      "content": "# K10 - Clear Charging Profile\n\n**Objective:** To clear some or all of the charging profiles.\n\n**Description:** If the CSMS wishes to clear some or all of the charging profiles that were previously sent to the\nCharging Station, then the CSMS sends a ClearChargingProfileRequest to the Charging Station.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS sends a ClearChargingProfileRequest to the Charging Station.\n2. The Charging Station responds with a ClearChargingProfileResponse specifying whether it was\nable to process the request in the status.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

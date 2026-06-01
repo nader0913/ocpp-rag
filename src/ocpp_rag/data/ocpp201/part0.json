@@ -105,28 +105,6 @@
     }
   },
   {
-    "content": "# Chapter 1. Introduction\n\nElectric Vehicles (EVs) are becoming the new standard for mobility all over the world. This development is only possible with a good coverage of Charging Stations. To advance the roll out of charging infrastructure, open communication standards play a key role: to enable switching from charging network without necessarily replacing all the Charging Stations, to encourage innovation and cost effectiveness and to allow many and diverse players participate in this new industry.\n\nAdditionally, the EV charging infrastructure is part of the Smart Grid, a larger and still evolving ecosystem of actors, devices and protocols. In this Smart Grid ecosystem, open communication standards are key enablers for bidirectional power flows, real time information exchange, demand control and eMobility services.\n\nThe Open Charge Point Protocol (OCPP) is the industry-supported de facto standard for communication between a Charging Station and a Charging Station Management System (CSMS) and is designed to accommodate any type of charging technique. OCPP is an open standard with no cost or licensing barriers for adoption.",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 1. Introduction",
-      "heading_path": "Chapter 1. Introduction"
-    }
-  },
-  {
-    "content": "# 1.1. OCPP version 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol\u2019s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "1.1. OCPP version 2.0.1",
-      "heading_path": "1.1. OCPP version 2.0.1"
-    }
-  },
-  {
     "content": "# 1.2.1. Terms\n\nCharging Station: The Charging Station is the physical system where an EV can be charged. A Charging Station has one or more EVSEs.\nCharging Station Management System (CSMS): Charging Station Management System: manages Charging Stations and has the information for authorizing Users for using its Charging Stations.\nElectric Vehicle Supply Equipment (EVSE): EVSE is considered as an independently operated and managed part of the Charging Station that can deliver energy to one EV at a time.\nEnergy Management System (EMS): In this document this is defined as a device that manages the local loads (consumption and production) based on local and/or contractual constraints and/or contractual incentives. It has additional inputs, such as sensors and controls from e.g. PV, battery storage.",
     "metadata": {
       "doc_id": "ocpp201_part0",
@@ -135,17 +113,6 @@
       "content_type": "general",
       "heading": "1.2.1. Terms",
       "heading_path": "1.2.1. Terms"
-    }
-  },
-  {
-    "content": "# 1.2.2. Abbreviations\n\nCSO: Charging Station Operator\nCSMS: Charging Station Management System\nEMS: Energy Management System.\nEV: Electric Vehicle\nEVSE: Electric Vehicle Supply Equipment\nRFID: Radio-Frequency Identification",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "1.2.2. Abbreviations",
-      "heading_path": "1.2.2. Abbreviations"
     }
   },
   {

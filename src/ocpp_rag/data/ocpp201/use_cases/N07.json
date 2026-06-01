@@ -8,8 +8,14 @@
     "functional_block": "Diagnostics",
     "objective": "To give the Charging Station the ability to notify the CSMS about monitoring events.",
     "description": "",
-    "actors": [],
-    "scenario": [],
+    "actors": [
+      "Charging Station",
+      "CSMS"
+    ],
+    "scenario": [
+      "1. If a threshold or a delta value has exceeded, the Charging Station sends a NotifyEventRequest\nto the CSMS.",
+      "2. The CSMS responds with a NotifyEventResponse."
+    ],
     "prerequisites": "",
     "postconditions": "",
     "error_handling": "n/a",
@@ -105,7 +111,7 @@
   },
   "chunks": [
     {
-      "content": "# N07 - Alert Event\n\n**Objective:** To give the Charging Station the ability to notify the CSMS about monitoring events.\n\n**Description:** ",
+      "content": "# N07 - Alert Event\n\n**Objective:** To give the Charging Station the ability to notify the CSMS about monitoring events.\n\n**Description:** \n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. If a threshold or a delta value has exceeded, the Charging Station sends a NotifyEventRequest\nto the CSMS.\n2. The CSMS responds with a NotifyEventResponse.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

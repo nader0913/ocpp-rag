@@ -392,61 +392,6 @@
     }
   },
   {
-    "content": "# 3. Guidance for both Charging Stations and Charging Stations Management Systems",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3. Guidance for both Charging Stations and Charging Stations Management Systems",
-      "heading_path": "3. Guidance for both Charging Stations and Charging Stations Management Systems"
-    }
-  },
-  {
-    "content": "# 3.1. Introduction\n\nIn this chapter \u2014 and in Chapters 4 and 5 \u2014 security measures for Charging Stations (4) and Charging Station Management Systems (5) are described. The OCPP specification defines security in dedicated sections (for OCPP 2.x: Functional Blocks A, L, and M; for OCPP 1.6: the Security Whitepaper \u201cImproved security for OCPP 1.6-J\u201d). Items identified as part of OCPP (marked as \"About the OCPP specification\") are mandatory for compliant implementations and are covered by the OCPP Certification Program. A way to check that these security requirements are met is to pass all relevant security test cases \u2014 either by obtaining formal certification or by running the same tests yourself with the OCPP Compliance Test Tool (OCTT). The latter has no official status (e.g. for regulators), but can help a vendor to adhere to the security requirements of OCPP.\n\nFor OCPP 1.6, the former separate Security certification has been integrated into the OCPP 1.6 Core certification as of October 2025. For OCPP 2.x, security requirements are a mandatory part of the Core; certification requires support for Security Profile 2 (TLS with Basic Authentication). For both OCPP 1.6 and 2.0.1, an Advanced Security certification profile is available for implementations that use client-side certificates for TLS (Security Profile 3).",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3.1. Introduction",
-      "heading_path": "3.1. Introduction"
-    }
-  },
-  {
-    "content": "# 3.2. Trustworthy Time\n\nFor many EV charging related functions, but also for basic security guarantees each charging station MUST have access to a trustworthy time source in a secure way. Since certificate validation, Time-based One-Time Password (TOTP) windows, log-signatures, OCSP stapling checks, and tariff/metrology evidence all depend on correct time, secure time synchronization SHALL be the first successful operation after boot before any outbound TLS control connections. This implies that the Heartbeat message cannot be used as a trustworthy source of time as it is not available before an outbound control connection is set up. It is RECOMMENDED to use NTS (see also 7.2.3).",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3.2. Trustworthy Time",
-      "heading_path": "3.2. Trustworthy Time"
-    }
-  },
-  {
-    "content": "# 3.3.1. Curves for ECDSA certificates\n\nAbout the OCPP specification\n\nThe security for OCPP uses X.509 certificates, at the time of writing, both RSA and ECDSA certificates are used. For security and interoperability it is important that the correct curves are used when using ECDSA certificates. For ECDSA (based on RFC 6605) the OCPP 1.6, 2.0.1 and 2.1 specifications require that keys used are at least 224 bits long and that the secp256r1 curve (a.k.a. prime256v1) is used. Other curves are not allowed, this is also validated during certification. Please note that the two RSA cipher suites currently allowed SHOULD be gradually phased out because they do not support perfect forward secrecy. See chapter 6 for more information on the TLS roadmap for the future.",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3.3.1. Curves for ECDSA certificates",
-      "heading_path": "3.3.1. Curves for ECDSA certificates"
-    }
-  },
-  {
-    "content": "# 3. Guidance for both Charging Stations and Charging Stations Management Systems",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "3. Guidance for both Charging Stations and Charging Stations Management Systems",
-      "heading_path": "3. Guidance for both Charging Stations and Charging Stations Management Systems"
-    }
-  },
-  {
     "content": "# 3.1. Introduction\n\nIn this chapter \u2014 and in Chapters 4 and 5 \u2014 security measures for Charging Stations (4) and Charging Station Management Systems (5) are described. The OCPP specification defines security in dedicated sections (for OCPP 2.x: Functional Blocks A, L, and M; for OCPP 1.6: the Security Whitepaper \u201cImproved security for OCPP 1.6-J\u201d). Items identified as part of OCPP (marked as \"About the OCPP specification\") are mandatory for compliant implementations and are covered by the OCPP Certification Program. A way to check that these security requirements are met is to pass all relevant security test cases \u2014 either by obtaining formal certification or by running the same tests yourself with the OCPP Compliance Test Tool (OCTT). The latter has no official status (e.g. for regulators), but can help a vendor to adhere to the security requirements of OCPP.\n\nFor OCPP 1.6, the former separate Security certification has been integrated into the OCPP 1.6 Core certification as of October 2025. For OCPP 2.x, security requirements are a mandatory part of the Core; certification requires support for Security Profile 2 (TLS with Basic Authentication). For both OCPP 1.6 and 2.0.1, an Advanced Security certification profile is available for implementations that use client-side certificates for TLS (Security Profile 3).",
     "metadata": {
       "doc_id": "security_ops_guide",
@@ -902,17 +847,6 @@
     }
   },
   {
-    "content": "# 5.8. Setting up a cybersecurity management system",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "5.8. Setting up a cybersecurity management system",
-      "heading_path": "5.8. Setting up a cybersecurity management system"
-    }
-  },
-  {
     "content": "# OCA recommendations beyond OCPP\n\nCPOs that are classified as a high-impact entity under the NCCS SHALL set up a cybersecurity management system. Requirements for such a management system are included in Article 32 of the NCCS. The requirements are based on the ISO/IEC 27001 standards[9]. So, CPOs can comply by setting up a management system compliant to that standard.\n\nIf a CPO is classified as a critical-impact entity, it SHALL also provide verification evidence of the implementation of the management system. CPOs can do this by getting their management system certified against ISO/IEC 27001. If the competent authority in a member state supports it, they could also provide verification evidence through audits by the authority or through peer reviews by other critical-impact entities.\n\nWhether an entity such as a CPO is high- or critical-impact is determined through so-called Electricity Cybersecurity Impact Indices (ECII). The ECII measures the possible impact on the European electricity system if the entity is compromised in a cyber-attack. ENTSO-E and the DSO entity have published a set of provisional ECII. For a CPO, the ECII is defined as the total charging capacity of all recharging points that it operates. The document also defines thresholds for when an entity would be considered high- or critical-impact for each EU member state. For instance, for countries in continental Europe, the critical-impact threshold is 3,000 MW. CPOs that are above these provisional thresholds should have been informed by their competent authority by 13 March 2025.\n\nThe real (non-provisional) ECII will be published after a Union-wide risk assessment has been performed.",
     "metadata": {
       "doc_id": "security_ops_guide",
@@ -1295,19 +1229,6 @@
       "content_type": "general",
       "heading": "Updating the root certificate",
       "heading_path": "Updating the root certificate"
-    }
-  },
-  {
-    "content": "# 9. Referenced documents",
-    "metadata": {
-      "doc_id": "security_ops_guide",
-      "doc_title": "OCPP Security Operations Guide v1.0",
-      "ocpp_version": null,
-      "content_type": "general",
-      "heading": "9. Referenced documents",
-      "heading_path": "9. Referenced documents",
-      "chunk_part": 1,
-      "total_parts": 3
     }
   },
   {
