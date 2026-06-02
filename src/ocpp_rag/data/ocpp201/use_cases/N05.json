@@ -7,7 +7,7 @@
     "id": "N05",
     "functional_block": "Diagnostics",
     "objective": "To give the CSMS the ability to request the Charging Station to restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a severity number lower than or equal\nto a certain severity.",
-    "description": "",
+    "description": "A monitoring setting can be cleared (removed) by sending a ClearVariableMonitoringRequest with\nthe id of the monitoring setting.",
     "actors": [
       "Charging Station",
       "CSMS",
@@ -47,7 +47,7 @@
   },
   "chunks": [
     {
-      "content": "# N05 - Set Monitoring Level\n\n**Objective:** To give the CSMS the ability to request the Charging Station to restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a severity number lower than or equal\nto a certain severity.\n\n**Description:** \n\n**Actors:** Charging Station, CSMS, CSO\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a Charging Station to restrict the reporting of monitoring\nevents, by setting a severity level limit.\n2. The CSMS sends a SetMonitoringLevelRequest to the Charging Station.\n3. The Charging Station responds with a SetMonitoringLevelResponse.",
+      "content": "# N05 - Set Monitoring Level\n\n**Objective:** To give the CSMS the ability to request the Charging Station to restrict the reporting of monitoring\nevents by NotifyEventRequest to only those monitors with a severity number lower than or equal\nto a certain severity.\n\n**Description:** A monitoring setting can be cleared (removed) by sending a ClearVariableMonitoringRequest with\nthe id of the monitoring setting.\n\n**Actors:** Charging Station, CSMS, CSO\n\n**Scenario:**\n1. The CSO triggers the CSMS to request a Charging Station to restrict the reporting of monitoring\nevents, by setting a severity level limit.\n2. The CSMS sends a SetMonitoringLevelRequest to the Charging Station.\n3. The Charging Station responds with a SetMonitoringLevelResponse.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

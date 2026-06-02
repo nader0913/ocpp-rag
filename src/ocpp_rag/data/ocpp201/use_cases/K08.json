@@ -7,7 +7,7 @@
     "id": "K08",
     "functional_block": "SmartCharging",
     "objective": "To request the Charging Station to report the composite charging schedule.",
-    "description": "",
+    "description": "With the GetChargingProfilesRequest message the CSMS can ask a Charging Station to report all,\nor a subset of all the install Charging Profiles from the different possible sources. This can be\nused for some automatic smart charging control system, or for debug purposes by a CSO.",
     "actors": [
       "Charging Station",
       "CSMS"
@@ -67,7 +67,7 @@
   },
   "chunks": [
     {
-      "content": "# K08 - Get Composite Schedule\n\n**Objective:** To request the Charging Station to report the composite charging schedule.\n\n**Description:** \n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to report the Composite Charging Schedule by\nsending a GetCompositeScheduleRequest.\n2. The Charging Station calculates the schedule.\n3. The Charging Station responds with a GetCompositeScheduleResponse with the status and\nChargingSchedule.",
+      "content": "# K08 - Get Composite Schedule\n\n**Objective:** To request the Charging Station to report the composite charging schedule.\n\n**Description:** With the GetChargingProfilesRequest message the CSMS can ask a Charging Station to report all,\nor a subset of all the install Charging Profiles from the different possible sources. This can be\nused for some automatic smart charging control system, or for debug purposes by a CSO.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. The CSMS requests the Charging Station to report the Composite Charging Schedule by\nsending a GetCompositeScheduleRequest.\n2. The Charging Station calculates the schedule.\n3. The Charging Station responds with a GetCompositeScheduleResponse with the status and\nChargingSchedule.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

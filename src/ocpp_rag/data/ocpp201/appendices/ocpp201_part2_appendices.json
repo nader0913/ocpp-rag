@@ -2227,19 +2227,5 @@
       "chunk_part": 1,
       "total_parts": 4
     }
-  },
-  {
-    "content": "- TxNotFound: TxStarted; There is no such transaction.: A transaction had already started (e.g. due to cable being plugged in).; RequestStopTransaction, SetChargingProfile, GetVehicleCertificate: RequestStartTransaction\n\nOCPP 2.0.1 - \u00a9 Open Charge Alliance 2025    45/46    Part 2 - Appendices",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 5. Reason Codes",
-      "heading_path": "Chapter 5. Reason Codes",
-      "message_refs": "SetNetworkProfileRequest, SetVariablesRequest, UnsupportedRequest",
-      "chunk_part": 4,
-      "total_parts": 4
-    }
   }
 ]

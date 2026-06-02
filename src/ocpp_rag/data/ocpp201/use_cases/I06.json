@@ -7,7 +7,7 @@
     "id": "I06",
     "functional_block": "TariffAndCost",
     "objective": "To show an EV Driver updated tariff information during a transaction.",
-    "description": "",
+    "description": "During charging (especially DC fast charging) it might be useful to show the EV driver updated\ntariff information when it becomes available.\nExample: If a tariff has a bandwidth:\ncharging will cost between 0,25 and 0,40 euro/kWh depending on current energy price. Current\nprice is 0,28 euro/kWh.\nThen when the price changing, this tariff information needs to be updated:\ncharging will cost between 0,25 and 0,40 euro/kWh depending on current energy price. Current\nprice is 0,32 euro/kWh.",
     "actors": [
       "Charging Station",
       "CSMS",
@@ -47,7 +47,7 @@
   },
   "chunks": [
     {
-      "content": "# I06 - Update Tariff Information During Transaction\n\n**Objective:** To show an EV Driver updated tariff information during a transaction.\n\n**Description:** \n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The Charging Station sends TransactionEventRequest (eventType = Updated) messages during a transaction.\n2. When the CSMS receives a TransactionEventRequest, it checks for updated tariff information.\n3. If updated tariff information is available, the CSMS responds with a TransactionEventResponse including the updated personalMessage.",
+      "content": "# I06 - Update Tariff Information During Transaction\n\n**Objective:** To show an EV Driver updated tariff information during a transaction.\n\n**Description:** During charging (especially DC fast charging) it might be useful to show the EV driver updated\ntariff information when it becomes available.\nExample: If a tariff has a bandwidth:\ncharging will cost between 0,25 and 0,40 euro/kWh depending on current energy price. Current\nprice is 0,28 euro/kWh.\nThen when the price changing, this tariff information needs to be updated:\ncharging will cost between 0,25 and 0,40 euro/kWh depending on current energy price. Current\nprice is 0,32 euro/kWh.\n\n**Actors:** Charging Station, CSMS, EV Driver\n\n**Scenario:**\n1. The Charging Station sends TransactionEventRequest (eventType = Updated) messages during a transaction.\n2. When the CSMS receives a TransactionEventRequest, it checks for updated tariff information.\n3. If updated tariff information is available, the CSMS responds with a TransactionEventResponse including the updated personalMessage.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

@@ -979,19 +979,6 @@
     }
   },
   {
-    "content": "Tool validations\n* Step 2:\nMessage ResetResponse\n- status Accepted\n* Step 3:\nMessage BootNotificationRequest\nreason RemoteReset\n* Step 5:\nFor <Configured connectorId>:\nMessage: StatusNotificationRequest\n- connectorStatus Reserved\nMessage: NotifyEventRequest\n- eventData[0].trigger Delta\n- eventData[0].actualValue \"Reserved\"\n- eventData[0].component.name \"Connector\"\n- eventData[0].variable.name \"AvailabilityState\"\nFor <Other connector(s)>:\nMessage: StatusNotificationRequest\n- connectorStatus Available\nMessage: NotifyEventRequest\n- eventData[0].trigger Delta\n- eventData[0].actualValue \"Available\"\n- eventData[0].component.name \"Connector\"\n- eventData[0].variable.name \"AvailabilityState\"\nPost scenario validations:\n- A message to report the state of a connector has been received for all connectors.\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n64/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "BootNotificationRequest, NotifyEventRequest, ResetResponse, StatusNotificationRequest"
-    }
-  },
-  {
     "content": "TC_B_41_CS: Reset Charging Station - With multiple ongoing transactions - OnIdle\nTest case name\nReset Charging Station - With multiple ongoing transactions - OnIdle\nTest case Id\nTC_B_41_CS\nUse case Id(s)\nB12\nRequirement(s)\nB12.FR.01, B12.FR.03, E07.FR.03\nSystem under test\nCharging Station\nDescription\nThis test case covers how the CSMS can remotely request the Charging Station to reset itself by sending a\nResetRequest during a transaction. When ResetRequest \"OnIdle\" is send the charging stations schedules a\nreboot after all transactions are stopped.\nThis could for example be necessary if the Charging Station is not functioning correctly.\nPurpose\nTo verify if the Charging Station is able to perform the reset mechanism while there are multiple ongoing\ntransactions as described at the OCPP specification.\nPrerequisite(s)\nThe Charging Station has more than one EVSE.\nBefore (Preparations)\nConfiguration State:\nN/a\nMemory State:\nN/a\nReusable State(s):\nState is EnergyTransferStarted for EVSE.id = 1\nState is EnergyTransferStarted for EVSE.id = 2\nMain (Test scenario)\nCharging Station\nCSMS\n2. The Charging Station responds with a ResetResponse\n1. The Test System sends a ResetRequest\nwith type OnIdle\n3. Execute Reusable State StopAuthorized for EVSE.id = 1\n4. Execute Reusable State EVConnectedPostSession for EVSE.id = 1\n5. Execute Reusable State EVDisconnected for EVSE.id = 1\n6. Execute Reusable State ParkingBayUnoccupied for EVSE.id = 1\n7. Execute Reusable State StopAuthorized for EVSE.id = 2\n8. Execute Reusable State EVConnectedPostSession for EVSE.id = 2\nNote(s):\nIf TxStopPoint contains one of the following values; Authorized, EnergyTransfer, PowerPathClosed, DataSigned.\nThen the transaction will have ended at the EVConnectedPostSession state AND the Charging Station will proceed with resetting",
     "metadata": {
       "doc_id": "ocpp201_part6",
@@ -1601,19 +1588,6 @@
     }
   },
   {
-    "content": "Tool validations\n* Step 3:\nMessage TransactionEventRequest\nA message with (optional):\n- triggerReason Authorized\n- idToken.idToken <Configured valid_idtoken_idtoken>\n- idToken.type <Configured valid_idtoken_type>\n- offline True\nA message with:\n- triggerReason ChargingStateChanged\n- offline True\nA message with:\n- triggerReason Deauthorized\nPost scenario validations:\n- Energyflow stops on receiving status invalid\nNOTE\nIf the Charging Station supports ISO15118, this testcase needs to be executed using EIM.\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n106/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "TransactionEventRequest"
-    }
-  },
-  {
     "content": "TC_C_17_CS: Authorization through authorization cache - StopTxOnInvalidId =\nfalse\nTest case name\nAuthorization through authorization cache - StopTxOnInvalidId = false\nTest case Id\nTC_C_17_CS\nUse case Id(s)\nC12\nRequirement(s)\nC12.FR.02, C12.FR.04. C15.FR.06\nSystem under test\nCharging Station\nDescription\nThis test case describes how the EV Driver is authorized to start a transaction while the Charging Station\nuses Cached IdToken. This enables the EV Driver to Online start a transaction by using the Authorization\nCache in which the Charging Station can respond faster, as no AuthorizeRequest is being sent.\nPurpose\nTo verify if the Charging Station is able to respond correctly to an idToken which has status \"Accepted\" in\nits cache but is \"Invalid\" in the CSMS when StopTxOnInvalidId is false according to the mechanism as\ndescribed in the OCPP specification.\nPrerequisite(s)\n- AuthCacheCtrlr.Available is implemented with value true\n- At least one of the following must be supported; Local auth list, auth cache, StartTxUnknownIds.\n- The Charging Station supports authorization methods other than NoAuthorization\nBefore (Preparations)\nConfiguration State:\nAuthCacheEnabled is true (If implemented)\nLocalPreAuthorize is true (If implemented)\nOfflineTxForUnknownIdEnabled is true (If implemented)\nStopTxOnInvalidId is false\nMaxEnergyOnInvalidId is 0\nMemory State:\nIdTokenCached for <Configured valid IdToken fields> (If implemented) A known valid idToken is configured in the Local auth list (if\nimplemented) and auth cache (if implemented)\nReusable State(s):\nState is EVConnectedPreSession\nMain (Test scenario)\nCharging Station\nCSMS\n1. The Test System closes the WebSocket connection AND does not accept a reconnect.\nManual Action: Present valid idToken which is already configured in the Authorization Cache\nNote(s): The Test System will wait for 5 seconds\n2. The Test System accepts reconnection attempt from the Charging Station.\nNote(s):\n- The Charging Station will empty its Transaction message queue. This will contain one or more TransactionEventRequest messages\n3. The Charging Station sends a TransactionEventRequest\n4. The Test System responds with a TransactionEventResponse\nwith\nidTokenInfo.status Invalid (if idToken is not omitted)\n5. The Charging Station sends a TransactionEventRequest with\ntriggerReason SuspendedEVSE\n6. The Test System responds with a TransactionEventResponse\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n107/914\nPart 6 - Test Cases",
     "metadata": {
       "doc_id": "ocpp201_part6",
@@ -1667,19 +1641,6 @@
       "use_case_refs": "C12",
       "message_refs": "AuthorizeRequest, TransactionEventRequest, TransactionEventResponse",
       "chunk_part": 2
-    }
-  },
-  {
-    "content": "Tool validations\n* Step 3:\nMessage TransactionEventRequest\nA message with (optional):\n- triggerReason Authorized\n- idToken.idToken <Configured valid_idtoken_idtoken>\n- idToken.type <Configured valid_idtoken_type>\n- offline True\nA message with:\n- triggerReason ChargingStateChanged\n- offline True\n* Step 5:\nA message with:\n- triggerReason Deauthorized\n- offline False\nPost scenario validations:\n- Energyflow stops on receiving status invalid\nNOTE\nIf the Charging Station supports ISO15118, this testcase needs to be executed using EIM.\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n110/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "TransactionEventRequest"
     }
   },
   {
@@ -2001,19 +1962,6 @@
     }
   },
   {
-    "content": "Tool validations\n* Step 1:\nMessage TransactionEventRequest\n- triggerReason Authorized\n- idToken.idToken <Configured valid_idtoken_idtoken>\n- idToken.type <Configured valid_idtoken_type>\nif transaction was already started\n- eventType Updated\nelse\n- eventType Started\n* Step 4:\nMessage AuthorizeRequest\n- idToken.idToken <Configured valid_idtoken_idtoken>\n- idToken.type <Configured valid_idtoken_type>\n* Step 6:\nMessage TransactionEventRequest\n- triggerReason StopAuthorized\n- idToken.idToken <Configured valid_idtoken_idtoken>\n- idToken.type <Configured valid_idtoken_type>\n- eventType Updated\nPost scenario validations:\n- N/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n134/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "AuthorizeRequest, TransactionEventRequest"
-    }
-  },
-  {
     "content": "TC_C_44_CS: Authorization by GroupId - Invalid status with Authorization Cache\nTest case name\nAuthorization by GroupId - Invalid status with Authorization Cache\nTest case Id\nTC_C_44_CS\nUse case Id(s)\nC09\nRequirement(s)\nC09_FR_02, C09_FR_03, C09_FR_07\nSystem under test\nCharging Station\nDescription\nThis test case covers how a Charging Station can authorize an action for an EV Driver based on GroupId\ninformation. This could for example be used if 2 people regularly use the same EV: they can use their own\nIdToken (e.g. RFID card), and can deauthorize transactions that were started with the other idToken (with\nthe same GroupId).\nPurpose\nTo verify if the Charging Station is able to correctly handle the Authorization of idTokens with the same\nGroupId when stored in the Authorization Cache, but one of them is invalid, according to the mechanism as\ndescribed in the OCPP specification.\nPrerequisite(s)\n- AuthCacheCtrlr.Available is implemented with value true\n- The Charging Station supports authorization methods other than NoAuthorization\nBefore (Preparations)\nConfiguration State:\nAuthCacheEnabled is true (If implemented)\nLocalPreAuthorize is true (If implemented)\nAuthCacheCtrlrDisablePostAuthorize is false (If implemented)\nMemory State:\nIdTokenCached for <Configured valid IdToken fields>\nIdTokenCached for <Configured invalid IdToken fields>\nReusable State(s):\nState is EVConnectedPreSession\nMain (Test scenario)\nCharging Station\nCSMS\nManual Action: Present valid idToken with <Configured GroupId> which is configured in the Authorization Cache\n1. The Charging Station sends a TransactionEventRequest\nNote(s):\n- This step needs to be executed when TxStartPoint contains\nAuthorized OR the transaction already started. So in the case\nTxStartPoint contains ParkingBayOccupancy\n2. The Test System responds with a TransactionEventResponse\nwith\n- idTokenInfo.status Accepted\n- idTokenInfo.groupIdToken.idToken <Configured\ngroupIdToken>\n3. Execute Reusable State EnergyTransferStarted\nManual Action: Present invalid idToken with <Configured GroupId> which is configured in the Authorization Cache\n4. The Charging Station sends an AuthorizeRequest\n5. The Test System responds with an AuthorizeResponse with\n- idTokenInfo.status Invalid\n- idTokenInfo.groupIdToken.idToken <Configured\ngroupIdToken>\nNote(s): Test System will wait to see if CS indeed doesn\u2019t send a TransactionEventRequest\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n135/914\nPart 6 - Test Cases",
     "metadata": {
       "doc_id": "ocpp201_part6",
@@ -2093,19 +2041,6 @@
       "page_number": 1,
       "use_case_refs": "C01, C04, C16",
       "message_refs": "AuthorizeRequest, AuthorizeResponse, TransactionEventRequest, TransactionEventResponse"
-    }
-  },
-  {
-    "content": "Tool validations\n* Step 1:\nMessage AuthorizeRequest\n- idToken.idToken <Configured masterpass_idtoken_idtoken>\n- idToken.type <Configured masterpass_idtoken_type>\n* Step 3:\nMessage TransactionEventRequest\n- transactionInfo.stoppedReason MasterPass\n- idToken omit or\n- idToken.idToken <Configured masterpass_idtoken_idtoken> and\n- idToken.type <Configured masterpass_idtoken_type>\nPost scenario validations:\n- All other EVSE still transfer energy\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n142/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "AuthorizeRequest, TransactionEventRequest"
     }
   },
   {
@@ -4870,19 +4805,6 @@
     }
   },
   {
-    "content": "Tool validations\n* Step 2:\nMessage SetChargingProfileResponse\n- status Accepted\n* Step 4:\nMessage GetChargingProfilesResponse\n- status Accepted\n* Step 5:\nMessage ReportChargingProfilesRequest\n- requestId <Generated requestId>\n- EVSEId 0\n- tbc false\n- chargingProfile <Configured chargingProfile>\nPost scenario validations:\n- The same profile is reported as send in step 1\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n340/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "GetChargingProfilesResponse, ReportChargingProfilesRequest, SetChargingProfileResponse"
-    }
-  },
-  {
     "content": "TC_K_11_CS: Set Charging Profile - Unable to set TxProfile on all EVSE at once\nTest case name\nSet Charging Profile - Unable to set TxProfile on all EVSE at once\nTest case Id\nTC_K_11_CS\nUse case Id(s)\nK01\nRequirement(s)\nK01.FR.04, K01.FR.16\nSystem under test\nCharging Station\nDescription\nTo enable the CSMS to influence the charging power or current drawn from a specific EVSE or the entire\nCharging Station over a period of time. The CSMS sends a SetChargingProfileRequest to the Charging\nStation to influence the power or current drawn by EVs. The CSMS calculates a ChargingSchedule to stay\nwithin certain limits, which MAY be imposed by any external system.\nPurpose\nTo verify if the Charging station is able to deny a TxProfile when sent to all EVSE as described at the OCPP\nspecification.\nPrerequisite(s)\nn/a\nBefore (Preparations)\nConfiguration State:\nN/a\nMemory State:\nN/a\nReusable State:\nN/a\nMain (Test scenario)\nCharging Station\nCSMS\n2. The Charging Station responds with a\nSetChargingProfileResponse\n1. The Test System sends a SetChargingProfileRequest with\nevseId 0 AND\nchargingProfile.id <Configured chargingProfileId> AND\nchargingProfile.chargingProfilePurpose TxProfile\nTool validations\n* Step 2:\nMessage SetChargingProfileResponse\n- status Rejected\nPost scenario validations:\n- N/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n341/914\nPart 6 - Test Cases",
     "metadata": {
       "doc_id": "ocpp201_part6",
@@ -5702,19 +5624,6 @@
       "page_number": 1,
       "use_case_refs": "L01",
       "message_refs": "FirmwareStatusNotificationRequest, FirmwareStatusNotificationResponse, SecurityEventNotificationRequest, SecurityEventNotificationResponse, UpdateFirmwareRequest, UpdateFirmwareResponse"
-    }
-  },
-  {
-    "content": "Tool validations\n* Step 2:\nMessage UpdateFirmwareResponse\n- status Accepted\n* Step 3:\nMessage FirmwareStatusNotificationRequest\n- status Downloading\n* Step 5:\nMessage FirmwareStatusNotificationRequest\n- status Downloaded\n* Step 7:\nMessage FirmwareStatusNotificationRequest\n- status InvalidSignature\n* Step 9:\nMessage SecurityEventNotificationRequest\n- type InvalidFirmwareSignature\nPost scenario validations:\nN/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n400/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "FirmwareStatusNotificationRequest, SecurityEventNotificationRequest, UpdateFirmwareResponse"
     }
   },
   {
@@ -8159,19 +8068,6 @@
     }
   },
   {
-    "content": "Tool validations\n* Step 2:\nMessage SetDisplayMessageResponse\n- status Accepted\n* Step 12:\nMessage GetDisplayMessagesResponse\n- status Accepted\n* Step 13:\nMessage NotifyDisplayMessagesRequest\n- requestId <Generated requestId>\n- state Idle\nPost scenario validations:\n- N/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n567/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "GetDisplayMessagesResponse, NotifyDisplayMessagesRequest, SetDisplayMessageResponse"
-    }
-  },
-  {
     "content": "TC_O_38_CS: Set Display Message -  State Unavailable\nTest case name\nSet Display Message - State Unavailable\nTest case Id\nTC_O_38_CS\nUse case Id(s)\nO01\nRequirement(s)\nN/a\nSystem under test\nCharging Station\nDescription\nThis test case describes how the CSMS can be requested to sent an SetDisplayMessageRequest to the\ncharging station. Depending on the given parameters the message shall be displayed a certain way and at a\ncertain moment on the Charging Station. These messages are displayed additionally on a Charging Station\nand are not part of the firmware.\nPurpose\nTo verify if the Charging Station is able to display specific messages while the chargingState is Unavailable\naccording to the DisplayMessage mechanism as described in the OCPP specification.\nPrerequisite(s)\nN/a\nBefore (Preparations)\nConfiguration State:\nN/a\nMemory State:\nN/a\nReusable State:\nN/a\nMain (Test scenario)\nCharging Station\nCSMS\n2. The Charging Station responds with a\nSetDisplayMessageResponse\n1. The Test System sends a SetDisplayMessageRequest with\nmessage.id <Generated displayMessageId>\nmessage.priority <Configured Priority>\nmessage.state Unavailable\nmessage.display <Configured display component variable>\n(Omitted when left empty)\nNote(s): The display message should NOT be displayed.\n3. Execute Reusable State Unavailable\nNote(s): The display message should be displayed.\n5. The Charging Station responds with a\nChangeAvailabilityResponse\n4. The Test System sends a ChangeAvailabilityRequest\nwith operationalStatus Operative\n6. The Charging Station notifies the CSMS about the current\nstate of all its connectors (and optionally also the Charging\nStation itself and all EVSE).\n7. The Test System responds accordingly.\nNote(s): The display message should NOT be displayed.\n9. The Charging Station responds with a\nGetDisplayMessagesResponse\n8. The Test System sends a GetDisplayMessagesRequest with\nid <Generated displayMessageId>\nrequestId <Generated requestId>\n10. The Charging Station sends a\nNotifyDisplayMessagesRequest\n11. The Test System responds with a\nNotifyDisplayMessagesResponse .\nNote(s): If tbc is True at Step 10 then step 10 and 11 will be repeated\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n568/914\nPart 6 - Test Cases",
     "metadata": {
       "doc_id": "ocpp201_part6",
@@ -9886,19 +9782,6 @@
     }
   },
   {
-    "content": "Tool validations\n* Step 2:\nMessage: AuthorizeResponse\n- idTokenInfo.status must be Accepted\n* Step 6:\nMessage: TransactionEventResponse\n- idTokenInfo.status must be Accepted\nPost scenario validations:\nN/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n694/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "AuthorizeResponse, TransactionEventResponse"
-    }
-  },
-  {
     "content": "TC_E_12_CSMS: Start transaction options - ParkingBayOccupied\nTest case name\nStart transaction options - ParkingBayOccupied\nTest case Id\nTC_E_12_CSMS\nUse case Id(s)\nE01(S1)\nRequirement(s)\nE01.FR.01\nSystem under test\nCSMS\nDescription\nOCPP 2.x.x has a flexible transaction mechanism that allows the transaction start and stop points to be\nconfigured differently. This test covers one of the start options.\nPurpose\nTo verify if the CSMS is able to handle a Charging Station that starts a transaction when the EV and EVSE\nare connected.\nPrerequisite(s)\nN/a\nBefore (Preparations)\nConfiguration State:\nN/a\nMemory State:\nN/a\nReusable State(s):\nN/a\nMain (Test scenario)\nCharging Station\nCSMS\n1. The Test System sends a TransactionEventRequest\nWith eventType is Started\ntriggerReason is EVDetected\n2. The CSMS responds with a TransactionEventResponse\nTool validations\nN/a\nPost scenario validations:\nN/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n695/914\nPart 6 - Test Cases",
     "metadata": {
       "doc_id": "ocpp201_part6",
@@ -10590,19 +10473,6 @@
       "page_number": 1,
       "use_case_refs": "H02",
       "message_refs": "CancelReservationRequest, CancelReservationResponse, NotifyEventRequest, ReserveNowRequest, ReserveNowResponse, StatusNotificationRequest"
-    }
-  },
-  {
-    "content": "Tool validations\n* Step 1:\nMessage: ReserveNowRequest\n- evseId must be <Configured evseId>\n- connectorType must be omitted\n- idToken.idToken <Configured valid_idtoken_idtoken>\n- idToken.type <Configured valid_idtoken_type>\n* Step 5:\nMessage: CancelReservationRequest\n- reservationId must be equal to the id provided at step 1\nPost scenario validations:\nN/a\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n745/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Tool validations",
-      "heading_path": "Tool validations",
-      "page_number": 1,
-      "message_refs": "CancelReservationRequest, ReserveNowRequest"
     }
   },
   {
@@ -12711,19 +12581,6 @@
       "heading_path": "TC_P_03_CSMS: CustomData - Receive custom data",
       "page_number": 1,
       "message_refs": "StatusNotificationRequest, StatusNotificationResponse, TransactionEventRequest, TransactionEventResponse"
-    }
-  },
-  {
-    "content": "Reusable states\nTestcases can refer to a reusable state at the before or main stage. The steps described at the reusable state will be executed and\nthen it will return to the testcase that called the reusable state.\nBooted\nState\nBooted\nSystem under test\nCSMS\nDescription\nThis state will simulate that the Charging Station is completely power cycled. The Test System end in a\nstate where it is \"booted\" back up and is in idle mode.\nBefore (Preparations)\nConfiguration State:\nN/a\nMemory State:\nN/a\nReusable State(s):\nN/a\nMain (Test scenario)\nCharging Station\nCSMS\n1. The Test System sends a BootNotificationRequest\nwith reason PowerUp\nchargingStation.model <Configured model>\nchargingStation.vendorName <Configured vendorName>\n2. The CSMS responds with a BootNotificationResponse\n3. The Test System notifies the CSMS about the current state of\nall connectors.\nMessage: StatusNotificationRequest\nwith connectorStatus Available\nMessage: NotifyEventRequest\nwith trigger Delta\nactualValue \"Available\"\ncomponent.name \"Connector\"\nvariable.name \"AvailabilityState\"\n4. The CSMS responds accordingly.\nTool validations\n* Step 2:\nMessage: BootNotificationResponse\n- status Accepted\nPost scenario validations:\nState is Booted\nEdition 4, 2025-12-03\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025\n901/914\nPart 6 - Test Cases",
-    "metadata": {
-      "doc_id": "ocpp201_part6",
-      "doc_title": "OCPP 2.0.1 Part 6 - Test Cases",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Reusable states",
-      "heading_path": "Reusable states",
-      "page_number": 1,
-      "message_refs": "BootNotificationRequest, BootNotificationResponse, NotifyEventRequest, StatusNotificationRequest"
     }
   },
   {

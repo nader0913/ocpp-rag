@@ -6,8 +6,8 @@
     "name": "Remote Start Transaction - Remote Start first",
     "id": "F02",
     "functional_block": "RemoteControl",
-    "objective": "",
-    "description": "",
+    "objective": "To enable the CSMS to remotely start a transaction while the RequestStartTransactionRequest is\nsent first, before the connection between Charging Station and EV is established.",
+    "description": "This use case covers how the CSMS is able to remotely start a transaction for the User.",
     "actors": [
       "Charging Station",
       "CSMS",
@@ -174,7 +174,7 @@
   },
   "chunks": [
     {
-      "content": "# F02 - Remote Start Transaction - Remote Start first\n\n**Objective:** \n\n**Description:** \n\n**Actors:** Charging Station, CSMS, External Trigger\n\n**Scenario:**\n1. An External Trigger triggers the remote start.\n2. The CSMS sends RequestStartTransactionRequest to the Charging Station.\n3. The Charging Station responds with RequestStartTransactionResponse to the CSMS.\n4. The EV Driver is authorized by the CSMS, dependent on the Configuration Variable settings.\n5. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started\n6. The cable is plugged in.\n6a. Charging Station sends a StatusNotificationRequest with Occupied.\n6b. CSMS sends a StatusNotificationResponse to the Charging Station\n7. The energy offer is started.\n8. The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState =\nCharging) message to inform the CSMS that the charging has started.\n9. The CSMS sends TransactionEventResponse to the Charging Station",
+      "content": "# F02 - Remote Start Transaction - Remote Start first\n\n**Objective:** To enable the CSMS to remotely start a transaction while the RequestStartTransactionRequest is\nsent first, before the connection between Charging Station and EV is established.\n\n**Description:** This use case covers how the CSMS is able to remotely start a transaction for the User.\n\n**Actors:** Charging Station, CSMS, External Trigger\n\n**Scenario:**\n1. An External Trigger triggers the remote start.\n2. The CSMS sends RequestStartTransactionRequest to the Charging Station.\n3. The Charging Station responds with RequestStartTransactionResponse to the CSMS.\n4. The EV Driver is authorized by the CSMS, dependent on the Configuration Variable settings.\n5. The Charging Station sends a TransactionEventRequest (eventType = Started) notifying the\nCSMS about a transaction that has started\n6. The cable is plugged in.\n6a. Charging Station sends a StatusNotificationRequest with Occupied.\n6b. CSMS sends a StatusNotificationResponse to the Charging Station\n7. The energy offer is started.\n8. The Charging Station sends a TransactionEventRequest (eventType = Updated, chargingState =\nCharging) message to inform the CSMS that the charging has started.\n9. The CSMS sends TransactionEventResponse to the Charging Station",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",

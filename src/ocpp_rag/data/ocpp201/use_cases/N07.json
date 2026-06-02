@@ -7,7 +7,7 @@
     "id": "N07",
     "functional_block": "Diagnostics",
     "objective": "To give the Charging Station the ability to notify the CSMS about monitoring events.",
-    "description": "",
+    "description": "NotifyEventRequest reports every Component/Variable for which a VariableMonitoring setting\nwas triggered. Only the VariableMonitoring settings that are responsible for triggering an event\nare included.",
     "actors": [
       "Charging Station",
       "CSMS"
@@ -111,7 +111,7 @@
   },
   "chunks": [
     {
-      "content": "# N07 - Alert Event\n\n**Objective:** To give the Charging Station the ability to notify the CSMS about monitoring events.\n\n**Description:** \n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. If a threshold or a delta value has exceeded, the Charging Station sends a NotifyEventRequest\nto the CSMS.\n2. The CSMS responds with a NotifyEventResponse.",
+      "content": "# N07 - Alert Event\n\n**Objective:** To give the Charging Station the ability to notify the CSMS about monitoring events.\n\n**Description:** NotifyEventRequest reports every Component/Variable for which a VariableMonitoring setting\nwas triggered. Only the VariableMonitoring settings that are responsible for triggering an event\nare included.\n\n**Actors:** Charging Station, CSMS\n\n**Scenario:**\n1. If a threshold or a delta value has exceeded, the Charging Station sends a NotifyEventRequest\nto the CSMS.\n2. The CSMS responds with a NotifyEventResponse.",
       "metadata": {
         "doc_id": "ocpp201_part2",
         "doc_title": "OCPP 2.0.1 Part 2 - Specification",
