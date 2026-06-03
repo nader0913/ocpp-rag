@@ -3,7 +3,8 @@ name = "ocpp-rag"
 version = "0.1.0"
 description = "MCP server with RAG knowledge base for OCPP 1.6, OCPP 2.0.1, and EV charging standards"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "Polyform-Noncommercial-1.0.0"}
+authors = [{name = "Nader Ouerdiane", email = "ouerdiane.nader@gmail.com"}]
 requires-python = ">=3.12"
 dependencies = [
     "chromadb>=1.5.9",
