@@ -304,18 +304,18 @@ def get_component_variable(
 ) -> list[dict]:
     """Look up OCPP 2.0.1 device model components and variables.
 
+    Returns chunks from the OCPP 2.0.1 device model appendices describing
+    components and their variables. Filter by a component or variable name to
+    narrow the results.
+
     Args:
-        component: Optional component name to filter by (e.g. "EVSE", "Connector",
+        component: Optional component name to search for (e.g. "EVSE", "Connector",
             "ChargingStation").
-        variable: Optional variable name to search for in content.
+        variable: Optional variable name to search for (e.g. "Enabled", "Available").
     """
     collection = get_collection()
 
-    filters: dict = {"content_type": "component_variable"}
-    if component is not None:
-        filters["component_name"] = component
-    where = _build_where_clause(filters)
-
+    where = _build_where_clause({"content_type": "component_variable"})
     results = collection.get(where=where, include=["documents", "metadatas"])
 
     output = []
@@ -323,6 +323,8 @@ def get_component_variable(
         meta = results["metadatas"][i] or {}
         content = results["documents"][i]
 
+        if component is not None and component.lower() not in content.lower():
+            continue
         if variable is not None and variable.lower() not in content.lower():
             continue
 

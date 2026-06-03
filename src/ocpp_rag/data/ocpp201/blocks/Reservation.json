@@ -30,7 +30,7 @@
     }
   },
   {
-    "content": "- H01.FR.23: H01.FR.24; If the Charging Station receives a ReserveNowRequest for evseId AND this EVSE is Available: H01.FR.06 AND amount of reservations for a specific connectorType equals the amount of available EVSEs with that specific connectorType; The Charging Station SHALL respond with a ReserveNowResponse with status Accepted AND SHALL send for all connectors of the EVSE:: The Charging Station SHALL send for all connectors of the EVSEs that have the specific connectorType:; If an EVSE is reserved, all of its connectors are reported as reserved.: If an EVSE is reserved for a specific connectorType, all connectors on the EVSE are reported as reserved.",
+    "content": "- H01.FR.23: H01.FR.24; If the Charging Station receives a ReserveNowRequest for evseId AND this EVSE is Available: H01.FR.06 AND amount of reservations for a specific connectorType equals the amount of available EVSEs with that specific connectorType; The Charging Station SHALL respond with a ReserveNowResponse with status Accepted AND SHALL send for all connectors of the EVSE: The Charging Station SHALL send for all connectors of the EVSEs that have the specific connectorType:; If an EVSE is reserved, all of its connectors are reported as reserved.: If an EVSE is reserved for a specific connectorType, all connectors on the EVSE are reported as reserved.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

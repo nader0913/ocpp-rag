@@ -39,7 +39,7 @@
     }
   },
   {
-    "content": "# Disclaimer\n\nCopyright \u00a9 2010 \u2013 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "content": "# Disclaimer\n\nCopyright © 2010 – 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
     "metadata": {
       "doc_id": "ocpp201_part5",
       "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
@@ -365,7 +365,7 @@
     }
   },
   {
-    "content": "# C-41 Supported Cipher Suites\n\n- Id: C-41; Feature: Supported Cipher Suites; Charging Station: { list of cipher suites } \u2192 at least one of",
+    "content": "# C-41 Supported Cipher Suites\n\n- Id: C-41; Feature: Supported Cipher Suites; Charging Station: { list of cipher suites } → at least one of",
     "metadata": {
       "doc_id": "ocpp201_part5",
       "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
@@ -418,29 +418,6 @@
       "content_type": "general",
       "heading": "Local Authorization List Management",
       "heading_path": "Local Authorization List Management"
-    }
-  },
-  {
-    "content": "# Advanced User Interface\n\n- UI-0: UI-1; Support for Advanced User Interface: Supported message priorities (DisplayMessageSupportedPriorities); Optional: (At least one of the suboptions below is required, if UI-0 is supported)\n- UI-0: UI-1.1; Support for Advanced User Interface: AlwaysFront; Optional: Optional\n- UI-0: UI-1.2; Support for Advanced User Interface: InFront; Optional: Optional\n- UI-0: UI-1.3; Support for Advanced User Interface: NormalCycle; Optional: Optional\n- UI-0: UI-2; Support for Advanced User Interface: Supported message formats (DisplayMessageSupportedFormats); Optional: (At least one of the suboptions below is required, if UI-0 is supported)\n- UI-0: UI-2.1; Support for Advanced User Interface: ASCII; Optional: Optional\n- UI-0: UI-2.2; Support for Advanced User Interface: HTML; Optional: Optional\n- UI-0: UI-2.3; Support for Advanced User Interface: URI; Optional: Optional\n- UI-0: UI-2.4; Support for Advanced User Interface: UTF8; Optional: Optional",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Advanced User Interface",
-      "heading_path": "Advanced User Interface"
-    }
-  },
-  {
-    "content": "# Advanced Security\n\n- AS-2: (AdditionalRootCertificateCheck)\n- AS-2: AS-3; Additional root certificate check mechanism implemented: Update Charging Station Certificate - CertificateSignedRequest Timeout; Optional: Optional\n- AS-2: (CertSigningWaitMinimum,CertSigningRepeatTimes)\n- AS-2: AS-4; Additional root certificate check mechanism implemented: Security downgrades from profile 3 to 2 (AllowSecurityProfileDowngrade); Optional: (At least one of the suboptions below is required)\n- AS-2: AS-4.1; Additional root certificate check mechanism implemented: Support for disallowing security downgrades from profile 3 to 2; Optional: Optional\n- AS-2: AS-4.2; Additional root certificate check mechanism implemented: Support for allowing security downgrades from profile 3 to 2; Optional: Optional",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Advanced Security",
-      "heading_path": "Advanced Security",
-      "message_refs": "CertificateSignedRequest"
     }
   },
   {
@@ -546,73 +523,6 @@
     }
   },
   {
-    "content": "- TC_B_32: TC_B_33; Unknown component: Unknown variable; M: M\n- TC_B_32: TC_B_34; Unknown component: Not supported attribute type; M: M\n- TC_B_32: TC_B_09; Unknown component: single value; M: M; M\n- TC_B_32: TC_B_10; Unknown component: multiple values; M: M; C; If the CSMS supports multiple elements in a SetVariablesRequest\n- TC_B_32: TC_B_35; Unknown component: Unknown component; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "message_refs": "BootNotificationRequest, GetVariablesRequest, SetVariablesRequest",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- TC_B_36: TC_B_37; Unknown variable: Not supported attribute type; M: M\n- TC_B_36: TC_B_11; Unknown variable: invalidly formatted values; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "message_refs": "BootNotificationRequest, GetVariablesRequest, SetVariablesRequest",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "# Related features\n\n- TC_B_39: TC_B_12; Read-only: ConfigurationInventory; M: M; Get Base Report: C; C-17 OR DM-0 ConfigurationInventory\n- TC_B_39: TC_B_13; Read-only: FullInventory; M: M; Get Base Report: C; C-50.2 GetBaseReport - FullInventory - Manual trigger\n- TC_B_39: TC_B_14; Read-only: SummaryInventory; M: C\n- TC_B_39: TC_B_15; Read-only: Not Supported base report; M: C; Get Base Report: For CS: If reportBase SummaryInventory is not supported. This is the case when Certification Profile Advanced Device Management is not supported.; Not C-56\n- TC_B_39: TC_B_53; Read-only: Test mandatory DM variables via FullInventory; M: M\n- TC_B_39: TC_B_20; Read-only: Without ongoing transaction - OnIdle; M: M; Get Base Report: M\n- TC_B_39: TC_B_21; Read-only: With Ongoing Transaction - OnIdle; M: M; Get Base Report: M\n- TC_B_39: TC_B_22; Read-only: With Ongoing Transaction - Immediate; M: M; Get Base Report: M\n- TC_B_39: TC_B_23; Read-only: Unavailable persists reset; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features",
-      "chunk_part": 1,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- TC_B_41: TC_B_25; With multiple ongoing transactions - OnIdle: Without ongoing transaction; C: C; For CS: if no. of EVSEs > 1: C; C-13 Reset per EVSE\n- TC_B_41: TC_B_26; With multiple ongoing transactions - OnIdle: With Ongoing Transaction - OnIdle; C: C; For CS: if no. of EVSEs > 1: C; C-13 Reset per EVSE\n- TC_B_41: TC_B_27; With multiple ongoing transactions - OnIdle: With Ongoing Transaction - Immediate; C: C; For CS: if no. of EVSEs > 1: C; C-13 Reset per EVSE\n- TC_B_41: TC_B_28; With multiple ongoing transactions - OnIdle: Not Supported; C: C; For CS: if no. of EVSEs > 1: For CS: Charging Station does not support resetting an individual EVSE; HFS-8 > 1: NOT C-13\n- TC_B_41: TC_B_29; With multiple ongoing transactions - OnIdle: With ongoing transaction - Not Supported; C: C; For CS: if no. of EVSEs > 1: For CS: Charging Station does not support resetting an individual EVSE; HFS-8 > 1: NOT C-13",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- TC_B_42: TC_B_43; Set new NetworkConnectionProfile: Rejected; Accepted: M\n- TC_B_42: TC_B_44; Set new NetworkConnectionProfile: Failed; Accepted: M\n- TC_B_42: TC_B_45; Set new NetworkConnectionProfile: Migrate to new ConnectionProfile; Accepted: Success - Same CSMS Root; M: M; For CS: at least two configuration slots for networkConnectionProfiles must be supported\n- TC_B_42: TC_B_46; Set new NetworkConnectionProfile: Fallback mechanism - Same CSMS Root; Accepted: M; M: For CS: at least two configuration slots for networkConnectionProfiles must be supported",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "# Part 5 - Certification Profiles\n\n- Test Case: TC_B_47; Description: Fallback after NetworkProfileConnectionAttempts per NetworkConfigurationPriority failed - New CSMS; Severity: C; Requirements: For CS: at least two configuration slots for networkConnectionProfiles must be supported; Notes: AS-2 and C-47 Additional Root Certificate check mechanism implemented & Reconnect after NetworkProfileConnectionAttempts\n- Test Case: TC_B_49; Description: Fallback after NetworkProfileConnectionAttempts per NetworkConfigurationPriority failed - Same CSMS; Severity: C; Requirements: For CS: at least two configuration slots for networkConnectionProfiles must be supported; Notes: C-47 Reconnect after NetworkProfileConnectionAttempts\n- Test Case: TC_B_50; Description: Success - New CSMS Root - New CSMS Network Reconnection; Severity: M; Requirements: For CS: at least two configuration slots for networkConnectionProfiles must be supported\n- Test Case: TC_B_57; Description: After connection loss; Severity: M\n- Test Case: TC_B_58; Description: WebSocket Subprotocol negotiation; Severity: M; Notes: Local start transaction\n- Test Case: TC_C_02; Description: Authorization Invalid/Unknown; Severity: C; Requirements: M; Notes: Charging Station: (C-30 or C-31 or C-32) Local Authorization - using RFID\n- Test Case: TC_C_06; Description: Authorization Blocked; Severity: C; Requirements: M; Notes: For CS: NOT AQ-2 and (C-30 or C-31 or C-32) Local Authorization - using RFID",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -636,20 +546,6 @@
       "heading_path": "Part 5 - Certification Profiles",
       "use_case_refs": "E07",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "- TC_C_39: TC_C_45; Success: Master pass - Not able to start transaction + groupId; C M: C; For CS: the Charging Station supports at least one of the following local start authorization options: C-30, C-31, C-32: For CS: the Charging Station supports at least one of the following local start authorization options: C-30, C-31, C-32 and Master Pass; (C-30 and C-70) or (C-31 and C-71) or (C-32 and C-72) Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode: ((C-30 and C-70) or (C-31 and C-71) or (C-32 and C-72)) AND (C-07 OR C-08) Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode and Master Pass\n- TC_C_39: TC_C_42; Success: Not stopped by GroupId; C M: C; For CS: the Charging Station supports at least one of the following local start authorization options: C-30, C-31, C-32: For CS: the Charging Station supports at least one of the following local start authorization options: C-30, C-31, C-32; (C-30 and C-70) or (C-31 and C-71) or (C-32 and C-72) Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode: (C-30 and C-70) or (C-31 and C-71) or (C-32 and C-72) Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "use_case_refs": "E07",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },
@@ -703,32 +599,6 @@
     }
   },
   {
-    "content": "- TC_C_57: Local start transaction - Cable plugin first\n- TC_C_57: TC_E_03; AuthCacheDisablePostAuthorize: Success; C: C; If the Charging Station supports the option for disabling remote authorization for cached invalid idTokens AND has an authorization cache AND the Charging Station supports at least one of the following local start authorization options: C-30, C-31, C-32, C-34 OR supports at least one of the following remote start authorization options: C-36, C-37: M; C-59 and C-49 and (((C-30 and C-70) or (C-31 and C-71) or (C-32 and C-72)) or (C-36 or C-37)): Applicable if one or more of the local start authorization options is implemented.",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- TC_E_04: TC_E_05; Success: Cable plugin timeout; C: C; Applicable if one or more of the local start authorization options is implemented.: Applicable if one or more of the local start authorization options is implemented.\n- TC_E_04: TC_E_52; Success: DisableRemoteAuthorization; C: C; M: If the Charging Station supports the option for disabling remote authorization and The Charging Station supports at least one of the following local start authorization options C-30, C-31, C-32 and Either Authorization Cache or Local Authorization List is supported.; Applicable if one or more of the local start authorization options is implemented.: C-58 and (C-30 or C-31 or C-32) and (C-49 or Local Authorization List Management)",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 3,
-      "total_parts": 4
-    }
-  },
-  {
     "content": "| Local Authorization - using RFID ISO14443 / RFID ISO15693 / KeyCode & Authorization Cache & Local Authorization List. |                                                    |           |                                                                                                                                                                                                                                                                                                                                                              |                                                                                               |",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -755,19 +625,6 @@
     }
   },
   {
-    "content": "- TC_E_02: TC_E_12; EnergyTransfer: ParkingBayOccupied; C: C; M: M; TxStartPoint can either be ReadOnly with a subset of the values or have a valueList of supported values, that contains a subset. This testcase is applicable if the value EnergyTransfer is a supported value. And it should be possible to not set ParkingBayOccupancy and EVConnected and Authorized and DataSigned and PowerPathClosed.: TxStartPoint can either be ReadOnly with a subset of the values or have a valueList of supported values, that contains a subset. This testcase is applicable if the value ParkingBayOccupied is a supported value.; C-09.5 and (C-51 or NOT (C-09.1 or C-09.2 or C-09.3 or C-09.4 or C-09.6)): C-09.6",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Supported Transaction Start Points",
-      "heading_path": "Supported Transaction Start Points",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "# Supported Transaction Stop Points\n\nEVDisconnected - Charging Station side: C\nEVDisconnected - EV side (able to charge IEC 61851-1 EV): C",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -789,20 +646,6 @@
       "heading_path": "Part 5 - Certification Profiles",
       "use_case_refs": "C15, C75, E07",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "- TC_E_16: TC_E_17; Deauthorized - Invalid idToken: Deauthorized - EV side disconnect; C: C; TxStopPoint can either be ReadOnly with a subset of the values or have a valueList of supported values, that contains a subset. This testcase is applicable if the value Authorized or PowerPathClosed is a supported value. Charging Station: If one or more of the local start authorization options is implemented. AND either a cache, local authorization list or UnknownIdtag (C15) is implemented.: This testcase is applicable if the value Authorized is a supported value for TxStopPoint AND EVConnected, PowerPathClosed and EnergyTransfer must not be set as TxStopPoint.; StopTxOnEVSideDisconnect true must be a supported value.; (C-10.2 or C-10.3) and C-01 and NOT C-35: C-10.2 and C-06.2 and AQ-9 and NOT (NOT C-52 AND (C-10.1 OR C-10.3 OR C-10.4))",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "use_case_refs": "C15, C75, E07",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },
@@ -862,41 +705,6 @@
     }
   },
   {
-    "content": "- TC_E_26: TC_E_27; Suspend transaction: Suspend transaction - Fixed cable connection timeout; C: C; TxStopPoint can either be ReadOnly with a subset of the values or have a valueList of supported values, that contains a subset. This testcase is applicable if the value ParkingBayOccupancy or Authorized is a supported value. And it should be possible to not set EnergyTransfer and PowerPathClosed and EVConnected. UnlockOnEVSideDisconnect can be set to false. StopTxOnEVSideDisconnect can be set to false.: TxStopPoint can either be ReadOnly with a subset of the values or have a valueList of supported values, that contains a subset. This testcase is applicable if the value ParkingBayOccupancy or Authorized is a supported value. And it should be possible to not set EnergyTransfer and PowerPathClosed and EVConnected. The Charging Station has a permanently attached cable at the Charging Station side. UnlockOnEVSideDisconnect can be set to false. StopTxOnEVSideDisconnect can be set to false.; (C-10.2 or C-10.5) and (C-52 or NOT (C-10.1 or C-10.3 or C-10.4)) and C-06.1 and C-12.2 and NOT (HFS-4 or (ISO 15118 support and NOT AQ-9)) and NOT Product Subtype \"Mode 1/2-only Charging Station\": (C-10.2 or C-10.5) and (C-52 or NOT (C-10.1 or C-10.3 or C-10.4)) and C-06.1 and C-12.2 and HFS-2 and NOT (HFS-4 or (ISO 15118 support and NOT AQ-9)) and NOT Product Subtype \"Mode 1/2-only Charging Station\"",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "# Related features\n\n- Retry sending transaction message when failed: Offline Behaviour; TC_E_41: TC_E_40; Max retry count reached: Connection loss during transaction; M: M\n- Retry sending transaction message when failed: Charging Station: If offline authorization is supported.; TC_E_41: TC_E_44; Max retry count reached: Stop transaction during offline period; M: C\n- Retry sending transaction message when failed: Charging Station: If one or more of the local stop authorization options is implemented.; TC_E_41: TC_E_45; Max retry count reached: Stop transaction during offline period - Same GroupId; M: C",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features"
-    }
-  },
-  {
-    "content": "# Check Transaction status\n\n- TC_E_28: TC_E_29; TransactionId unknown: Transaction with id ongoing - with message in queue; M: M; C\n- TC_E_28: TC_E_31; TransactionId unknown: Transaction with id ended - with message in queue; M: C; C\n- TC_E_28: - No local authorization methods are supported AND; M: - TxStopPoint mutability is ReadOnly and only contains Authorized AND\n- TC_E_28: - TxCtrlr.StopTxOnEVSideDisconnect mutability is false and value is false; M: AND NOT C-06.2",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Check Transaction status",
-      "heading_path": "Check Transaction status"
-    }
-  },
-  {
     "content": "# Part 5 - Certification Profiles\n\n- Related features: TC_E_32; Test Case ID: Transaction with id ended - without message in queue; Description: M\n- Related features: TC_E_33; Test Case ID: Without transactionId - with message in queue; Description: M; Condition: C; Reference: C-16 Check TransactionStatus\n- Related features: TC_E_34; Test Case ID: Without transactionId - without message in queue; Description: M; Condition: C; Reference: C-16 Check TransactionStatus\n- Related features: Reset Sequence Number; Test Case ID: TC_E_53; Description: CSMS accepting seqNo = 0 at start of transaction; Condition: M\n- Related features: Remote start transaction; Test Case ID: TC_F_01; Description: Cable plugin first; Condition: C; Reference: M\n- Related features: TC_F_02; Test Case ID: Remote start first - AuthorizeRemoteStart is true; Description: C; Condition: M; Reference: If AuthorizeRemoteStart can be set to true\n- Related features: TC_F_03; Test Case ID: Remote start first - AuthorizeRemoteStart is false; Description: C; Condition: M; Reference: If AuthorizeRemoteStart can be set to false",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -906,32 +714,6 @@
       "heading": "Part 5 - Certification Profiles",
       "heading_path": "Part 5 - Certification Profiles",
       "chunk_part": 1,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- TC_F_04: Remote stop transaction; Remote start first - Cable plugin timeout: TC_F_08; M: Success; M: M\n- TC_F_04: Remote unlock Connector; Remote start first - Cable plugin timeout: TC_F_05; M: With ongoing transaction; M: C; If the Charging Station has a detachable cable, HFS-1 and AQ-18\n- TC_F_04: TC_F_06; Remote start first - Cable plugin timeout: Without ongoing transaction - Accepted; M: C; M: C; If the Charging Station has a detachable cable, CSMS: C-11 CS: HFS-1 and AQ-18",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- TC_F_07: TC_F_10; Without ongoing transaction - No cable connected: Without ongoing transaction - UnknownConnector; C: C; C: C; If the Charging Station has a detachable cable, HFS-1 and AQ-18: If the Charging Station has a detachable cable, HFS-1 and AQ-18\n- TC_F_07: Trigger message; Without ongoing transaction - No cable connected: TC_F_11; C: MeterValues - Specific EVSE; C: C; If the Charging Station has a detachable cable, HFS-1 and AQ-18: C\n- TC_F_07: TC_F_12; Without ongoing transaction - No cable connected: MeterValues - All EVSE; C: C; C: C; If the Charging Station has a detachable cable, HFS-1 and AQ-18: If the SUT supports TriggerMessage for requestedMessage MeterValues for all EVSE.",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 3,
       "total_parts": 3
     }
   },
@@ -949,19 +731,6 @@
     }
   },
   {
-    "content": "- StatusNotification - Specific EVSE - Occupied: BootNotification - Rejected; TC_F_24: TC_F_26; If the SUT supports TriggerMessage for requestedMessage StatusNotification for a specific EVSE.: If the Charging Station supports TriggerMessage for requestedMessage BootNotification.; C: C\n- StatusNotification - Specific EVSE - Occupied: NotImplemented; TC_F_24: TC_F_27; If the SUT supports TriggerMessage for requestedMessage StatusNotification for a specific EVSE.: For CS: can only be done when SignCombinedCertificate is not implemented. Charging Station: This can either be implemented with the StatusNotification or NotifyEvent message. CSMS: Both StatusNotification and NotifyEvent must be supported.; C: C; C-29.5 TriggerMessage: M\n- StatusNotification - Specific EVSE - Occupied: Available to Occupied; TC_F_24: TC_G_01; C: M\n- StatusNotification - Specific EVSE - Occupied: Occupied to Available; TC_F_24: TC_G_02; C: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "| Lock Failure                                            | TC_G_20    |                                                                                                                                                                                                                                                 | M           |                       |",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -972,39 +741,6 @@
       "heading_path": "Part 5 - Certification Profiles",
       "chunk_part": 3,
       "total_parts": 3
-    }
-  },
-  {
-    "content": "# Change Availability EVSE\n\nCharging Station: This can either be implemented with the StatusNotification or NotifyEvent message.\n\nCSMS: Both StatusNotification and NotifyEvent must be supported.\n\n- TC_G_03: TC_G_09; Operative to inoperative: Operative to operative; M: M\n- TC_G_03: TC_G_04; Operative to inoperative: Inoperative to operative; M: M; M: M\n- TC_G_03: TC_G_10; Operative to inoperative: Inoperative to inoperative; M: M\n- TC_G_03: TC_G_11; Operative to inoperative: With ongoing transaction; M: M; M: M\n- TC_G_03: TC_G_18; Operative to inoperative: state persists across reboot; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Change Availability EVSE",
-      "heading_path": "Change Availability EVSE"
-    }
-  },
-  {
-    "content": "# Change Availability Charging Station\n\nCharging Station: This can either be implemented with the StatusNotification or NotifyEvent message.\n\nCSMS: Both StatusNotification and NotifyEvent must be supported.\n\n- TC_G_05: TC_G_12; Operative to inoperative: Operative to operative; M: M\n- TC_G_05: TC_G_06; Operative to inoperative: Inoperative to operative; M: M; M: M\n- TC_G_05: TC_G_13; Operative to inoperative: Inoperative to inoperative; M: M\n- TC_G_05: TC_G_21; Operative to inoperative: state persists across reboot; M: M\n- TC_G_05: TC_G_14; Operative to inoperative: With ongoing transaction; M: M; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Change Availability Charging Station",
-      "heading_path": "Change Availability Charging Station"
-    }
-  },
-  {
-    "content": "# Change Availability Connector\n\nCharging Station: This can either be implemented with the StatusNotification or NotifyEvent message.\n\nCSMS: Both StatusNotification and NotifyEvent must be supported.\n\n- TC_G_07: TC_G_15; Operative to inoperative: Operative to operative; M: M\n- TC_G_07: TC_G_08; Operative to inoperative: Inoperative to operative; M: M; M: M\n- TC_G_07: TC_G_16; Operative to inoperative: Inoperative to inoperative; M: M\n- TC_G_07: TC_G_17; Operative to inoperative: With ongoing transaction; M: M; M: M\n- TC_G_07: TC_G_19; Operative to inoperative: state persists across reboot; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Change Availability Connector",
-      "heading_path": "Change Availability Connector"
     }
   },
   {
@@ -1054,19 +790,6 @@
     }
   },
   {
-    "content": "- TC_M_12: TC_M_13; CSMSRootCertificate: ManufacturerRootCertificate; M: M; M\n- TC_M_12: TC_M_17; CSMSRootCertificate: CSMSRootCertificate & ManufacturerRootCertificate; M: M\n- TC_M_12: TC_M_18; CSMSRootCertificate: All certificateTypes; M: M; M\n- TC_M_12: TC_M_19; CSMSRootCertificate: No matching certificate found; M: M; M\n- TC_M_12: TC_M_20; CSMSRootCertificate: Success; M: M; M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "| TC_M_21 | Failed                                                                                                           | M         |             |                                                                                                                                                              |",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -1093,19 +816,6 @@
     }
   },
   {
-    "content": "- TC_N_26: TC_N_35; Diagnostics Log - Upload failed: Security Log - Success; M: M; M\n- TC_N_26: TC_N_36; Diagnostics Log - Upload failed: Second Request; M: C; If the Charging Station is able to cancel an ongoing log file upload.\n- TC_N_26: Get Customer Information\n- TC_N_26: TC_N_27; Diagnostics Log - Upload failed: Accepted + data; M: C; For CS: The Charging Station needs to support Local Authorization and either the Local Authorization List or Authorization Cache. IdToken is used as customer information.\n- TC_N_26: TC_N_28; Diagnostics Log - Upload failed: Accepted + no data; M: C; For CS: The Charging Station needs to support Local Authorization and either the Local Authorization List or Authorization Cache. IdToken is used as customer information.",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "- TC_N_29: Clear Customer Information\n- TC_N_29: TC_N_30; Not Accepted: Clear and report + data; M: C; For CS: The Charging Station needs to support Local Authorization or the Authorization Cache. IdToken is used as customer information.",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -1116,19 +826,6 @@
       "heading_path": "Part 5 - Certification Profiles",
       "chunk_part": 3,
       "total_parts": 3
-    }
-  },
-  {
-    "content": "# Part 5 - Certification Profiles\n\n- Related features: TC_N_32; TC_N_31: Clear and no report; C: M; M: M\n- Related features: TC_N_62; TC_N_31: Clear and report - customerIdentifier; Clear and report + no data: C; C: C; M: Support for retrieving / deleting; For CS: The Charging Station needs to support: CustomerInformation - CustomerIdentifier; ((C-30 and C-70) or (C-31 and C-71)) and: C-14\n- Related features: Data Transfer to the Charging Station; TC_N_31: TC_P_01; Clear and report + no data: Rejected / Unknown VendorId / Unknown; C: M; M: Charging Station must be able to Reject the; For CS: The Charging Station needs to support: message.\n- Related features: Data Transfer to the CSMS; TC_N_31: TC_P_02; Clear and report + no data: Rejected / Unknown VendorId / Unknown; C: M; M: CSMS must be able to Reject the message.\n- Related features: CustomData; TC_N_31: TC_P_03; Clear and report + no data: Receive custom data; C: M; M: M\n- Related features: Local Authorization List Management; TC_N_31: Offline authorization through local; Clear and report + no data: authorization list; C: TC_C_21; M: Accepted; For CS: The Charging Station needs to support: C; ((C-30 and C-70) or (C-31 and C-71)) and: The Charging Station must support at least one; (Local Authorization List Management or C-49): LA-0 and C-30 and C-70) or (C-31 and C-71); or (C-32 and C-72)\n- Related features: TC_C_22; TC_N_31: Invalid; Clear and report + no data: C; M: The Charging Station must support at least one; For CS: The Charging Station needs to support: LA-0 and (C-30 or C-31 or C-32)\n- Related features: TC_C_23; TC_N_31: Blocked; Clear and report + no data: C; M: The Charging Station must support at least one; For CS: The Charging Station needs to support: LA-0 and (C-30 or C-31 or C-32)\n- Related features: TC_C_24; TC_N_31: Expired; Clear and report + no data: C; M: The Charging Station must support at least one; For CS: The Charging Station needs to support: LA-0 and (C-30 or C-31 or C-32)",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 1,
-      "total_parts": 2
     }
   },
   {
@@ -1154,32 +851,6 @@
       "heading": "Part 5 - Certification Profiles",
       "heading_path": "Part 5 - Certification Profiles",
       "chunk_part": 1,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- TC_D_02: TC_D_03; Differential Update: Differential Remove; C: C; C: C; LA-0: LA-0\n- TC_D_02: TC_D_04; Differential Update: Full with empty list; C: C; C: C; LA-0: LA-0\n- TC_D_02: TC_D_05; Differential Update: Differential with empty list; C: C; LA-0: LA-0\n- TC_D_02: TC_D_06; Differential Update: VersionMismatch; C: C; LA-0: LA-0",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- TC_D_07: Get Local List Version\n- TC_D_07: TC_D_08; Persistent over reboot: Success; C: C; C; LA-0: CS: LA-0 GetLocalListVersion\n- TC_D_07: TC_D_09; Persistent over reboot: No list available; C: C; LA-0: LA-0\n- TC_D_07: TC_D_10; Persistent over reboot: Function disabled; C: C; LA-0: LA-0",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 3,
       "total_parts": 5
     }
   },
@@ -1223,19 +894,6 @@
     }
   },
   {
-    "content": "- TC_H_12: TC_H_13; Unavailable: Rejected; C: C; Depending on configuration variable R-0 and R-2 Support reservations of unspecified EVSE: Depending on the Charging Station not supporting the configuration variable ReservationNonSpecificEVSE R-0 and NOT R-2 Support reservations of unspecified EVSE\n- TC_H_12: TC_H_14; Unavailable: Amount of EVSEs available equals the amount of reservations; C: C; C; Depending on configuration variable R-0 and R-2 Support reservations of unspecified EVSE: For CS: Depending on configuration variable ReservationNonSpecificEVSE R-0 and R-2 Support reservations of unspecified EVSE For CSMS: this will be tested with > 1 EVSE\n- TC_H_12: TC_H_24; Unavailable: GroupIdToken; C: C; Depending on configuration variable R-0 and R-2 Support reservations of unspecified EVSE: For CS: Depending on configuration variable ReservationNonSpecificEVSE R-0 and R-2 Support reservations of unspecified EVSE\n- TC_H_12: TC_H_15; Unavailable: Success; C: C; C; Depending on configuration variable R-0 and R-2 Support reservations of unspecified EVSE: R-0 and R-1 Support reservations of connectorType\n- TC_H_12: TC_H_16; Unavailable: Amount of available connectors of a type equals the amount of reservations; C: C; Depending on configuration variable R-0 and R-2 Support reservations of unspecified EVSE: R-0 and R-1 Support reservations of connectorType\n- TC_H_12: TC_H_17; Unavailable: Success; C: C; C; Depending on configuration variable R-0 and R-2 Support reservations of unspecified EVSE: R-0",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "| TC_H_18 | Rejected                                                                   | C  |      | R-0                                                                                                                                                                     |",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -1257,42 +915,6 @@
       "content_type": "general",
       "heading": "Part 5 - Certification Profiles",
       "heading_path": "Part 5 - Certification Profiles"
-    }
-  },
-  {
-    "content": "# Related features\n\n- TC_N_37: TC_N_39; Unknown Variable: Component/Variable combination does NOT correspond; C: C; DM-0: DM-0\n- TC_N_37: TC_N_40; Unknown Variable: Replace Variable Monitor; C: C; DM-0: DM-0\n- TC_N_37: TC_N_41; Unknown Variable: Return to FactoryDefault; C: C; DM-0: DM-0\n- TC_N_37: TC_N_43; Unknown Variable: First SetMonitoringData and third SetMonitoringData are valid, but the second contains an out of range value; C: C; DM-0: DM-0\n- TC_N_37: TC_N_51; Unknown Variable: Modifying a VariableMonitor and trigger; C: C; DM-0: DM-0\n- TC_N_37: TC_N_52; Unknown Variable: Removing a VariableMonitor; C: C; DM-0: DM-0\n- TC_N_37: TC_N_16; Unknown Variable: Success; C: C; DM-0: C; DM-0\n- TC_N_37: TC_N_17; Unknown Variable: Out of range; C: C; DM-0: C; DM-0\n- TC_N_37: TC_N_18; Unknown Variable: Success; C: C; DM-0: C; DM-0\n- TC_N_37: TC_N_19; Unknown Variable: Not found; C: C; DM-0: DM-0\n- TC_N_37: TC_N_44; Unknown Variable: Rejected; C: C; DM-0: C; CS: If the Charging Station has at least one hardWired monitor.; CS: DM-0 and AQ-5; CSMS: DM-0\n- TC_N_37: TC_N_20; Unknown Variable: Threshold value exceeded; C: C; DM-0: DM-0\n- TC_N_37: TC_N_21; Unknown Variable: HardWiredMonitor; C: C; DM-0: C; CS: If the Charging Station has at least one hardWired monitor.; CS: DM-0 and AQ-5; CSMS: DM-0",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features"
-    }
-  },
-  {
-    "content": "# Part 5 - Certification Profiles\n\n- TC_N_45: TC_N_48; Delta value exceeded: Variable monitoring on write only; C: C; CS: if the CS supports Delta monitoring on the; DM-0: DM-0 and AQ-10\n- TC_N_45: TC_N_49; Delta value exceeded: LowerThreshold/UpperThreshold cleared after; C: C; DM-0: DM-0\n- TC_N_45: TC_N_50; Delta value exceeded: Periodic Triggered; C: C; DM-0: DM-0\n- TC_N_45: TC_N_53; Delta value exceeded: Persistant over reboot; C: C; DM-0: DM-0\n- TC_N_45: TC_N_56; Delta value exceeded: Delta value NOT numeric exceeded; C: C; DM-0: DM-0\n- TC_N_45: TC_N_22; Delta value exceeded: OfflineMonitoringEventQueuingSeverity set; C: C; DM-0: DM-0 and DM-3\n- TC_N_45: TC_N_23; Delta value exceeded: OfflineMonitoringEventQueuingSeverity set; C: C; DM-0: DM-0 and DM-3",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles"
-    }
-  },
-  {
-    "content": "# Advanced User Interface\n\n- Show costs to EV Driver: Set Display Message; TC_I_01: TC_O_01; Show EV Driver running total cost during: Success; C: C; C: C; UI-0: UI-0",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Advanced User Interface",
-      "heading_path": "Advanced User Interface",
-      "message_refs": "transactionEventResponse",
-      "chunk_part": 1,
-      "total_parts": 3
     }
   },
   {
@@ -1347,19 +969,6 @@
     }
   },
   {
-    "content": "- TC_K_16: TC_K_21; Unknown transactionId: ValidFrom; M: M\n- TC_K_16: TC_K_22; Unknown transactionId: ValidTo; M: M\n- TC_K_16: TC_K_23; Unknown transactionId: StartSchedule; M: M\n- TC_K_16: TC_K_70; Unknown transactionId: Multiple Profiles; M: M; Remark for CSMS: at least two different stacklevels, amount of ChargingProfiles: at least 2 different id\u2019s",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "4.4. Test Cases Smart Charging",
-      "heading_path": "4.4. Test Cases Smart Charging",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
     "content": "# Part 5 - Certification Profiles\n\n- Related features: Remote start transaction with charging profile; Test Case ID: TC_K_04; Requirement: M; Remark: M\n- Related features: Success; Test Case ID: TC_K_37; Requirement: M; Remark: M\n- Related features: No ChargingProfile installed on Charging Station; Test Case ID: TC_K_39; Requirement: M\n- Related features: Stacking ChargingProfiles; Test Case ID: TC_K_40; Requirement: M; Remark: Remark for Charging Station: At least max stacklevel 1\n- Related features: Combining chargingProfilePurposes; Test Case ID: TC_K_41; Requirement: M; Remark: Remark for Charging Station: amount of ChargingProfiles at least 3\n- Related features: chargingRateUnit not supported; Test Case ID: TC_K_42; Requirement: C; Remark: If one of the ChargingRateUnits is not supported. NOT (SC-2.1 and SC-2.2)\n- Related features: Specific EVSE; Test Case ID: TC_K_43; Requirement: M\n- Related features: Charging Station; Test Case ID: TC_K_44; Requirement: M\n- Related features: Unknown EVSEId; Test Case ID: TC_K_47; Requirement: M\n- Related features: Get Charging Profile\n- Related features: EvseId 0; Test Case ID: TC_K_29; Requirement: M; Remark: M\n- Related features: EvseId > 0; Test Case ID: TC_K_30; Requirement: M; Remark: M\n- Related features: No EvseId; Test Case ID: TC_K_31; Requirement: M; Remark: M\n- Related features: chargingProfileId; Test Case ID: TC_K_32; Requirement: M; Remark: M\n- Related features: EvseId > 0 + stackLevel; Test Case ID: TC_K_33; Requirement: M; Remark: M\n- Related features: EvseId > 0 + chargingLimitSource; Test Case ID: TC_K_34; Requirement: M; Remark: M\n- Related features: EvseId > 0 + chargingProfilePurpose; Test Case ID: TC_K_35; Requirement: M; Remark: M\n- Related features: EvseId > 0 + chargingProfilePurpose + stackLevel; Test Case ID: TC_K_36; Requirement: M; Remark: M\n- Related features: Clear Charging Profile\n- Related features: With chargingProfileId; Test Case ID: TC_K_05; Requirement: M; Remark: M\n- Related features: With stackLevel/purpose combination for one profile; Test Case ID: TC_K_06; Requirement: M; Remark: M",
     "metadata": {
       "doc_id": "ocpp201_part5",
@@ -1369,19 +978,6 @@
       "heading": "Part 5 - Certification Profiles",
       "heading_path": "Part 5 - Certification Profiles",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "- With unknown stackLevel/purpose combination: Without previous charging profile; TC_K_07: TC_K_08; M: M; M\n- With unknown stackLevel/purpose combination: Clearing a TxDefaultProfile - With ongoing transaction; TC_K_07: TC_K_09; M: M\n- With unknown stackLevel/purpose combination: With stackLevel/purpose combination for multiple profiles; TC_K_07: TC_K_24; M: C; Applicable if the Charging Station has more than one EVSE.",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 5 - Certification Profiles",
-      "heading_path": "Part 5 - Certification Profiles",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },
@@ -1396,67 +992,6 @@
       "heading_path": "4.5. Test Cases ISO 15118 Support",
       "chunk_part": 1,
       "total_parts": 3
-    }
-  },
-  {
-    "content": "- TC_K_11: TC_K_03; Unable to set TxProfile on all EVSE at once: ChargingStationMaxProfile; M: M; M\n- TC_K_11: TC_K_19; Unable to set TxProfile on all EVSE at once: ChargingProfileKind is Recurring; M: M; M\n- TC_K_11: TC_K_12; Unable to set TxProfile on all EVSE at once: ChargerRateUnit Rejected; M: C; If only 1 of the 2 ChargingRateUnits is NOT (SC-2.1 and SC-2.2) supported by the Charging Station\n- TC_K_11: TC_K_13; Unable to set TxProfile on all EVSE at once: Persistent over reboot; M: M\n- TC_K_11: TC_K_14; Unable to set TxProfile on all EVSE at once: Unexisting EVSEid; M: M\n- TC_K_11: TC_K_28; Unable to set TxProfile on all EVSE at once: TxDefaultProfile with transaction ongoing; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "4.5. Test Cases ISO 15118 Support",
-      "heading_path": "4.5. Test Cases ISO 15118 Support",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "# Related features\n\n- TC_K_21: TC_K_22; ValidFrom: ValidTo; M: M\n- TC_K_21: TC_K_23; ValidFrom: StartSchedule; M: M\n- TC_K_21: Replace charging profile\n- TC_K_21: TC_K_04; ValidFrom: With chargingProfileId; M: M\n- TC_K_21: Get Composite Schedule\n- TC_K_21: TC_K_39; ValidFrom: No ChargingProfile installed on Charging Station; M: M\n- TC_K_21: TC_K_40; ValidFrom: Stacking ChargingProfiles; M: M\n- TC_K_21: TC_K_41; ValidFrom: Combining chargingProfilePurposes; M: M\n- TC_K_21: TC_K_42; ValidFrom: chargingRateUnit not supported; M: C\n- TC_K_21: If one of the ChargingRateUnits is not supported.; M: NOT (SC-2.1 and SC-2.2)\n- TC_K_21: TC_K_43; ValidFrom: Specific EVSE; M: M\n- TC_K_21: TC_K_44; ValidFrom: Charging Station; M: M\n- TC_K_21: TC_K_47; ValidFrom: Unknown EVSEId; M: M\n- TC_K_21: Get Charging Profile\n- TC_K_21: TC_K_29; ValidFrom: EvseId 0; M: M\n- TC_K_21: TC_K_30; ValidFrom: EvseId > 0; M: M\n- TC_K_21: TC_K_31; ValidFrom: No EvseId; M: M\n- TC_K_21: TC_K_32; ValidFrom: chargingProfileId; M: M\n- TC_K_21: TC_K_33; ValidFrom: EvseId > 0 + stackLevel; M: M\n- TC_K_21: TC_K_34; ValidFrom: EvseId > 0 + chargingLimitSource; M: M\n- TC_K_21: TC_K_35; ValidFrom: EvseId > 0 + chargingProfilePurpose; M: M\n- TC_K_21: TC_K_36; ValidFrom: EvseId > 0 + chargingProfilePurpose + stackLevel; M: M\n- TC_K_21: Clear Charging Profile\n- TC_K_21: TC_K_05; ValidFrom: With chargingProfileId; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features",
-      "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "- TC_K_06: TC_K_24; With stackLevel/purpose combination for one profile: With stackLevel/purpose combination for multiple profiles; M: C\n- TC_K_06: Applicable if the Charging Station has more than one EVSE.; M: HFS-8 > 1\n- TC_K_06: TC_K_07; With stackLevel/purpose combination for one profile: With unknown stackLevel/purpose combination; M: M\n- TC_K_06: TC_K_08; With stackLevel/purpose combination for one profile: Without previous charging profile; M: M\n- TC_K_06: TC_K_09; With stackLevel/purpose combination for one profile: Clearing a TxDefaultProfile - With ongoing transaction; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features",
-      "chunk_part": 2,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "# Related features\n\n- TC_K_53: TC_K_54; Success: No SASchedule (rejected); M: M\n- TC_K_53: TC_K_55; Success: EV charging profile exceeds limits; M: M\n- TC_K_53: TC_K_56; Success: Offline; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Related features",
-      "heading_path": "Related features"
-    }
-  },
-  {
-    "content": "# Renegotiating a Charging Schedule\n\n- TC_K_57: TC_K_58; Initiated by EV: Initiated by CSMS; M: M; M: M\n- TC_K_57: TC_K_59; Initiated by EV: Initiated by CSMS - Send NotifyEVChargingNeeds; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Renegotiating a Charging Schedule",
-      "heading_path": "Renegotiating a Charging Schedule"
     }
   },
   {
@@ -1479,28 +1014,6 @@
       "content_type": "general",
       "heading": "Certificate Update EV",
       "heading_path": "Certificate Update EV"
-    }
-  },
-  {
-    "content": "# Retrieve certificates from Charging Station\n\n- TC_M_14: TC_M_15; V2GRootCertificate: V2GCertificateChain; M: M; M: M\n- TC_M_14: TC_M_16; V2GRootCertificate: MORootCertificate; M: M; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Retrieve certificates from Charging Station",
-      "heading_path": "Retrieve certificates from Charging Station"
-    }
-  },
-  {
-    "content": "# Install CA certificate\n\n- TC_M_03: TC_M_04; V2GRootCertificate: MORootCertificate; M: M; M: M",
-    "metadata": {
-      "doc_id": "ocpp201_part5",
-      "doc_title": "OCPP 2.0.1 Part 5 - Certification Profiles",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Install CA certificate",
-      "heading_path": "Install CA certificate"
     }
   },
   {

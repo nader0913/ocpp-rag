@@ -11,7 +11,7 @@
     }
   },
   {
-    "content": "# Disclaimer\n\nCopyright \u00a9 2010 \u2013 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "content": "# Disclaimer\n\nCopyright © 2010 – 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -61,35 +61,7 @@
     }
   },
   {
-    "content": "- TamperDetectionActivated: InvalidFirmwareSignature; The physical tamper detection sensor was triggered: The firmware signature is not valid; Yes: Yes\n- TamperDetectionActivated: InvalidFirmwareSigningCertificate; The physical tamper detection sensor was triggered: The certificate used to verify the firmware signature is not valid; Yes: Yes\n- TamperDetectionActivated: InvalidCsmsCertificate; The physical tamper detection sensor was triggered: The certificate that the CSMS uses was not valid or could not be verified; Yes: Yes\n- TamperDetectionActivated: InvalidChargingStationCertificate; The physical tamper detection sensor was triggered: The certificate sent to the Charging Station using the CertificateSignedRequest message is not a valid certificate; Yes: Yes",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 1. Security Events",
-      "heading_path": "Chapter 1. Security Events",
-      "message_refs": "CertificateSignedRequest",
-      "chunk_part": 3,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- DiscardedRenewedClientCertificate: InvalidTLSVersion; The Charging Station discarded the renewed client certificate, because it was unable to successfully establish a connection using it.: The TLS version used by the CSMS is lower than 1.2 and is not allowed by the security specification; Yes: Yes\n- DiscardedRenewedClientCertificate: InvalidTLSCipherSuite; The Charging Station discarded the renewed client certificate, because it was unable to successfully establish a connection using it.: The CSMS did only allow connections using TLS cipher suites that are not allowed by the security specification; Yes: Yes\n- DiscardedRenewedClientCertificate: MaintenanceLoginAccepted; The Charging Station discarded the renewed client certificate, because it was unable to successfully establish a connection using it.: Successful login to the local maintenance interface. It is recommended to include information like the user identification and the origin of the login attempt, which can be an ip-address or a touch screen for example, to the techInfo field. For this the following format is strongly recommended: '{\\\\'user\\\\': \\\\'\u2026\\\\', \\\\'origin\\\\': \\\\'\u2026\\\\'}'; Yes: Yes\n- DiscardedRenewedClientCertificate: MaintenanceLoginFailed; The Charging Station discarded the renewed client certificate, because it was unable to successfully establish a connection using it.: Failed login attempt to the local maintenance interface. It is recommended to include information like the user identification and the origin of the login attempt, which can be an ip-address or a touch screen for example, to the techInfo field. For this the following format is strongly recommended: '{\\\\'user\\\\': \\\\'\u2026\\\\', \\\\'origin\\\\': \\\\'\u2026\\\\'}'; Yes: Yes",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 1. Security Events",
-      "heading_path": "Chapter 1. Security Events",
-      "message_refs": "CertificateSignedRequest",
-      "chunk_part": 4,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "# Chapter 2. Standardized Units of Measure\n\nThe standardized values for Unit of Measure. Default value of \"unit\" is always \"Wh\".\n\nA: Amperes (current)\nASU: Arbitrary Strength Unit (Signal Strength)\nB: Bytes\nCelsius: Degrees (temperature)\ndB: Decibel (for example Signal Strength)\ndBm: Power relative to 1mW (\u00b9\u2070log(P/1mW))\nDeg: Degrees (angle/rotation)\nFahrenheit: Degrees (temperature)\nHz: Hertz (frequency)\nmHz: milliHertz (frequency)\nK: Degrees Kelvin (temperature)\nlx: Lux (Light Intensity)\nm: Meter (length)\nms\u00b2: m/s\u00b2 (Acceleration)\nN: Newtons (Force)\nOhm: Ohm (Impedance)\nkPa: kiloPascal (Pressure)\nPercent: Percentage\nRH: Relative Humidity%\nRPM: Revolutions per Minute\ns: Seconds (Time)\nV: Voltage (DC or r.m.s. AC)\nVA: Volt-Ampere (apparent power)\nkVA: kiloVolt-Ampere (apparent power)\nVAh: Volt-Ampere-hours (apparent energy)\nkVAh: kiloVolt-Ampere-hours (apparent energy)\nvar: vars (reactive power)\nkvar: kilovars (reactive power)\nvarh: var-hours (reactive energy)\nkvarh: kilovar-hours (reactive energy)\nW: Watts (power)\nkW: kilowatts (power)\nWh: Watt-hours (energy). Default\nkWh: kilowatt-hours (energy)",
+    "content": "# Chapter 2. Standardized Units of Measure\n\nThe standardized values for Unit of Measure. Default value of \"unit\" is always \"Wh\".\n\nA: Amperes (current)\nASU: Arbitrary Strength Unit (Signal Strength)\nB: Bytes\nCelsius: Degrees (temperature)\ndB: Decibel (for example Signal Strength)\ndBm: Power relative to 1mW (¹⁰log(P/1mW))\nDeg: Degrees (angle/rotation)\nFahrenheit: Degrees (temperature)\nHz: Hertz (frequency)\nmHz: milliHertz (frequency)\nK: Degrees Kelvin (temperature)\nlx: Lux (Light Intensity)\nm: Meter (length)\nms²: m/s² (Acceleration)\nN: Newtons (Force)\nOhm: Ohm (Impedance)\nkPa: kiloPascal (Pressure)\nPercent: Percentage\nRH: Relative Humidity%\nRPM: Revolutions per Minute\ns: Seconds (Time)\nV: Voltage (DC or r.m.s. AC)\nVA: Volt-Ampere (apparent power)\nkVA: kiloVolt-Ampere (apparent power)\nVAh: Volt-Ampere-hours (apparent energy)\nkVAh: kiloVolt-Ampere-hours (apparent energy)\nvar: vars (reactive power)\nkvar: kilovars (reactive power)\nvarh: var-hours (reactive energy)\nkvarh: kilovar-hours (reactive energy)\nW: Watts (power)\nkW: kilowatts (power)\nWh: Watt-hours (energy). Default\nkWh: kilowatt-hours (energy)",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -231,34 +203,6 @@
     }
   },
   {
-    "content": "- ContractValidationOffline: CentralContractValidationAllow; boolean: boolean; Supports validation of a contract certificate when offline: Contract certificates can be validated by the CSMS\n- ContractValidationOffline: PnCEnabled; boolean: boolean; Supports validation of a contract certificate when offline: If this variable is true, then ISO 15118 plug and charge as described by use case C07 - Authorization using Contract Certificates is enabled. If this variable is false, then ISO 15118 plug and charge as described by use case C07 - Authorization using Contract Certificates is disabled.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.1.9. ISO15118Ctrlr (Updated in v1.3)",
-      "heading_path": "3.1.9. ISO15118Ctrlr (Updated in v1.3)",
-      "use_case_refs": "A02, A03, C07, M01, M02",
-      "chunk_part": 3,
-      "total_parts": 6
-    }
-  },
-  {
-    "content": "- V2GCertificateInstallationEnabled: ContractCertificateInstallationEnabled; boolean: boolean; If this variable is true, then ISO 15118 V2G Charging Station certificate installation as described by use case A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station is enabled. If this variable is false, then ISO 15118 V2G Charging Station certificate installation as described by use case A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station is disabled.: If this variable is true, then ISO 15118 contract certificate installation/update as described by use case M01 - Certificate installation EV and M02 - Certificate Update EV is enabled. If this variable is false, then ISO 15118 contract certificate installation/update as described by use case M01 - Certificate installation EV and M02 - Certificate Update EV is disabled.\n- V2GCertificateInstallationEnabled: RequestMeteringReceipt; boolean: boolean; If this variable is true, then ISO 15118 V2G Charging Station certificate installation as described by use case A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station is enabled. If this variable is false, then ISO 15118 V2G Charging Station certificate installation as described by use case A02 - Update Charging Station Certificate by request of CSMS and A03 - Update Charging Station Certificate initiated by the Charging Station is disabled.: If this variable is true, then Charging Station shall request a metering receipt from EV before sending a fiscal meter value to CSMS.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.1.9. ISO15118Ctrlr (Updated in v1.3)",
-      "heading_path": "3.1.9. ISO15118Ctrlr (Updated in v1.3)",
-      "use_case_refs": "A02, A03, C07, M01, M02",
-      "chunk_part": 4,
-      "total_parts": 6
-    }
-  },
-  {
     "content": "- OrganizationName: CountryName; string: string; The organizationName of the CSO operating the charging station. It is used as the organizationName (O) of the SECC leaf certificate. Example: \"John Doe Charging Services Ltd\". Note: This value will usually be identical to SecurityCtrlr.OrganizationName, but it does not have to be.: The countryName of the SECC in the ISO 3166-1 format. It is used as the countryName (C) of the SECC leaf certificate. Example: \"DE\".\n- OrganizationName: MaxScheduleEntries; string: integer; The organizationName of the CSO operating the charging station. It is used as the organizationName (O) of the SECC leaf certificate. Example: \"John Doe Charging Services Ltd\". Note: This value will usually be identical to SecurityCtrlr.OrganizationName, but it does not have to be.: MaxEntriesSAScheduleType (15118-2) or MaximumSupportingPoints (15118-20) Number of allowed schedule periods",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -322,34 +266,6 @@
       "heading_path": "Description",
       "message_refs": "HeartbeatRequest, StatusNotificationRequest, TransactionEventRequest",
       "chunk_part": 1,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- NetworkProfileConnectionAttempts: OfflineThreshold; integer: integer; Specifies the number of connection attempts the Charging Station executes before switching to a different profile.: When the offline period in seconds of a Charging Station exceeds the OfflineThreshold it is recommended to send a StatusNotificationRequest for all its Connectors when the Charging Station is back online.\n- NetworkProfileConnectionAttempts: PublicKeyWithSignedMeterValue; integer: boolean; Specifies the number of connection attempts the Charging Station executes before switching to a different profile.: This Configuration Variable can be used to configure whether a public key needs to be sent with a signed meter value.\n- NetworkProfileConnectionAttempts: QueueAllMessages; integer: boolean; Specifies the number of connection attempts the Charging Station executes before switching to a different profile.: When this variable is set to true, the Charging Station will queue all message until they are delivered to the CSMS.\n- NetworkProfileConnectionAttempts: RetryBackOffRepeatTimes; integer: integer; Specifies the number of connection attempts the Charging Station executes before switching to a different profile.: When the Charging Station is reconnecting, after a connection loss, it will use this variable for the amount of times it will double the previous back-off time.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Description",
-      "heading_path": "Description",
-      "message_refs": "HeartbeatRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- RetryBackOffRandomRange: RetryBackOffWaitMinimum; integer: integer; When the Charging Station is reconnecting, after a connection loss, it will use this variable as the maximum value for the random part of the back-off time.: When the Charging Station is reconnecting, after a connection loss, it will use this variable as the minimum back-off time, the first time it tries to reconnect.\n- RetryBackOffRandomRange: UnlockOnEVSideDisconnect; integer: boolean; When the Charging Station is reconnecting, after a connection loss, it will use this variable as the maximum value for the random part of the back-off time.: When set to true, the Charging Station SHALL unlock the cable on the Charging Station side when the cable is unplugged at the EV. For an EVSE with only fixed cables, the mutability SHALL be ReadOnly and the actual value SHALL be false. For a charging station with fixed cables and sockets, the variable is only applicable to the sockets.\n- RetryBackOffRandomRange: WebSocketPingInterval; integer: integer; When the Charging Station is reconnecting, after a connection loss, it will use this variable as the maximum value for the random part of the back-off time.: Number of seconds between pings.\n- RetryBackOffRandomRange: FieldLength; integer: integer; When the Charging Station is reconnecting, after a connection loss, it will use this variable as the maximum value for the random part of the back-off time.: This variable is used to report the length of \\<field> in \\<message> when it is larger than the length that is defined in the standard OCPP message schema.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Description",
-      "heading_path": "Description",
-      "message_refs": "HeartbeatRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 3,
       "total_parts": 3
     }
   },
@@ -460,7 +376,7 @@
     }
   },
   {
-    "content": "# Description\n\nLogical Component responsible for configuration relating to transaction characteristics and behaviour.\n\ninteger: Interval in seconds from between \"starting\" of a transaction until incipient transaction is automatically canceled, due to failure of EV driver to (correctly) insert the charging cable connector(s) into the appropriate socket(s). The Charging Station SHALL go back to the original state, probably: 'Available'. \"Starting\" might be the swiping of the RFID, pressing a start button, a RequestStartTransactionRequest being received etc.\nboolean: With this configuration variable the Charging Station can be configured to allow charging before having received a BootNotificationResponse with RegistrationStatus: Accepted. See: Transactions before being accepted by a CSMS.\nMemberList: Defines when the Charging Station starts a new transaction: first transactioneventRequest: eventType = Started. When any event in the given list occurs, the Charging Station SHALL start a transaction. The Charging Station SHALL only send the Started event once for every transaction. It is advised to put all events that should be part of a transaction in the list, in case the start event never occurs. Because the possible events don\u2019t always have to come in the same order it is possible to provide a list of events. Which ever comes first will then cause a transaction to be started. For example: EVConnected, Authorized would mean that a transaction is started when an EV is detected (Cable is connected), or when an EV Driver swipes his RFID card en the CSMS successfully authorizes the ID for charging.",
+    "content": "# Description\n\nLogical Component responsible for configuration relating to transaction characteristics and behaviour.\n\ninteger: Interval in seconds from between \"starting\" of a transaction until incipient transaction is automatically canceled, due to failure of EV driver to (correctly) insert the charging cable connector(s) into the appropriate socket(s). The Charging Station SHALL go back to the original state, probably: 'Available'. \"Starting\" might be the swiping of the RFID, pressing a start button, a RequestStartTransactionRequest being received etc.\nboolean: With this configuration variable the Charging Station can be configured to allow charging before having received a BootNotificationResponse with RegistrationStatus: Accepted. See: Transactions before being accepted by a CSMS.\nMemberList: Defines when the Charging Station starts a new transaction: first transactioneventRequest: eventType = Started. When any event in the given list occurs, the Charging Station SHALL start a transaction. The Charging Station SHALL only send the Started event once for every transaction. It is advised to put all events that should be part of a transaction in the list, in case the start event never occurs. Because the possible events don’t always have to come in the same order it is possible to provide a list of events. Which ever comes first will then cause a transaction to be started. For example: EVConnected, Authorized would mean that a transaction is started when an EV is detected (Cable is connected), or when an EV Driver swipes his RFID card en the CSMS successfully authorizes the ID for charging.",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -513,7 +429,7 @@
     }
   },
   {
-    "content": "# 3.2.2. AcDcConverter\n\nDescription\n\nProvides a variable DC current source to force energy directly into an EV battery stack, under tight control of the EV\u2019s battery management system.\n\nEnabled: (not commanded Out of Service)\nProblem: some problem/fault exists\nTripped: A problem requiring intervention has occurred\nOverload: Excessive current/power consumption\nDCVoltage: measured DC voltage\nDCCurrent: measured DC current\nPower: measured power\nTemperature: temperature of converter\nFanSpeed: Speed of cooling fan(s)",
+    "content": "# 3.2.2. AcDcConverter\n\nDescription\n\nProvides a variable DC current source to force energy directly into an EV battery stack, under tight control of the EV’s battery management system.\n\nEnabled: (not commanded Out of Service)\nProblem: some problem/fault exists\nTripped: A problem requiring intervention has occurred\nOverload: Excessive current/power consumption\nDCVoltage: measured DC voltage\nDCCurrent: measured DC current\nPower: measured power\nTemperature: temperature of converter\nFanSpeed: Speed of cooling fan(s)",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -673,7 +589,7 @@
     }
   },
   {
-    "content": "- ProtocolAgreed: ProtocolSupportedBy EV[\"1\"]; multi-instance string: string; A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. This is the protocol uri and version information that was agreed upon between EV and EVSE in the supportedAppProtocolReq handshake from ISO 15118.: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d.; Example for ISO 15118-20: \"urn:iso:std:iso:15118:-20:DC,1,0\" (or AC, ACDP, WPT, etc.): Example for ISO 15118-20: \"urn:iso:std:iso:15118:-20:DC,1,0\" (or AC, ACDP, WPT, etc.)\n- ProtocolAgreed: ProtocolSupportedBy EV[\"20\"]; A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. This is the protocol uri and version information that was agreed upon between EV and EVSE in the supportedAppProtocolReq handshake from ISO 15118.: This is information from the SupportedAppProtocolReq message from ISO 15118. This variable has 20 instances; one for each priority number. Priority is a number from 1 to 20 as a string, i.e. \"1\", \"2\", etc.; Example for ISO 15118-20: \"urn:iso:std:iso:15118:-20:DC,1,0\" (or AC, ACDP, WPT, etc.): Example: - ConnectedEV.ProtocolSupportedByEV[\"1\"] = \"urn:iso:15118:2:2013:MsgDef,2,0\" - ConnectedEV.ProtocolSupportedByEV[\"2\"] = \"urn:iso:15118:2:2010:MsgDef,1,0\"",
+    "content": "- ProtocolAgreed: ProtocolSupportedBy EV[\"1\"]; multi-instance string: string; A string with the following comma-separated items: “\\<uri>,\\<major>,\\<minor>”. This is the protocol uri and version information that was agreed upon between EV and EVSE in the supportedAppProtocolReq handshake from ISO 15118.: A string with the following comma-separated items: “\\<uri>,\\<major>,\\<minor>”.; Example for ISO 15118-20: \"urn:iso:std:iso:15118:-20:DC,1,0\" (or AC, ACDP, WPT, etc.): Example for ISO 15118-20: \"urn:iso:std:iso:15118:-20:DC,1,0\" (or AC, ACDP, WPT, etc.)\n- ProtocolAgreed: ProtocolSupportedBy EV[\"20\"]; A string with the following comma-separated items: “\\<uri>,\\<major>,\\<minor>”. This is the protocol uri and version information that was agreed upon between EV and EVSE in the supportedAppProtocolReq handshake from ISO 15118.: This is information from the SupportedAppProtocolReq message from ISO 15118. This variable has 20 instances; one for each priority number. Priority is a number from 1 to 20 as a string, i.e. \"1\", \"2\", etc.; Example for ISO 15118-20: \"urn:iso:std:iso:15118:-20:DC,1,0\" (or AC, ACDP, WPT, etc.): Example: - ConnectedEV.ProtocolSupportedByEV[\"1\"] = \"urn:iso:15118:2:2013:MsgDef,2,0\" - ConnectedEV.ProtocolSupportedByEV[\"2\"] = \"urn:iso:15118:2:2010:MsgDef,1,0\"",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -705,18 +621,6 @@
       "content_type": "general",
       "heading": "Power, energy and time values:",
       "heading_path": "Power, energy and time values:"
-    }
-  },
-  {
-    "content": "# Chapter 3. Standardized Components\n\n- Variable: EnergyImport(MaxSet); Unit: Wh; ISO 15118-2 value: EVEnergyCapacity (DC)\n- Variable: EnergyImport(MinSet); Unit: Wh; ISO 15118-2 value: -\n- Variable: EnergyImport(Target); Unit: Wh; ISO 15118-2 value: EVEnergyRequest (DC) EAmount (AC)\n- Variable: BatteryCapacity; Unit: Wh; ISO 15118-2 value: EVEnergyCapacity (DC)\n- Variable: DepartureTime; Unit: dateTime; ISO 15118-2 value: DepartureTime Provided as seconds since message receipt. Converted to absolute time.\n- Variable: RemainingTimeBulk; Unit: s; ISO 15118-2 value: RemainingTimeToBulkSoC (CurrentDemandReq)\n- Variable: RemainingTimeFull(MaxSet); Unit: s; ISO 15118-2 value: -\n- Variable: RemainingTimeFull; Unit: s; ISO 15118-2 value: RemainingTimeToFullSoc (CurrentDemandReq)\n- Variable: StateOfChargeBulk; Unit: %; ISO 15118-2 value: BulkSoC\n- Variable: StateOfCharge(MaxSet); Unit: %; ISO 15118-2 value: FullSoC\n- Variable: StateOfCharge; Unit: %; ISO 15118-2 value: DC_EVStatus.EVRESSSOC\n- Variable: ChargingCompleteBulk; Unit: boolean; ISO 15118-2 value: BulkChargingComplete\n- Variable: ChargingCompleteFull; Unit: boolean; ISO 15118-2 value: ChargingComplete",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 3. Standardized Components",
-      "heading_path": "Chapter 3. Standardized Components",
-      "message_refs": "EVEnergyRequest"
     }
   },
   {
@@ -754,7 +658,7 @@
     }
   },
   {
-    "content": "# Chapter 3. Standardized Components\n\n- Variable: ProtocolAgreed; Unit: string; CHAdeMO value: Lowest of Chademo protocol number from EV (H'102.0) and charger (H'109.0) Example for CHAdeMO 2.0.1: \"CHAdeMO,3\" (3 = version reported by CHAdeMO for v2.0.1)\n- Variable: ProtocolSupportedByEV[\"1\"]; Unit: string; CHAdeMO value: Chademo protocol number (H'102.0) supported by EV A string with the following comma-separated items: \u201cCHAdeMO,\u201d. Example for CHAdeMO 2.0.1: - ConnectedEV.ProtocolSupportedByEV = \"CHAdeMO,3\"",
+    "content": "# Chapter 3. Standardized Components\n\n- Variable: ProtocolAgreed; Unit: string; CHAdeMO value: Lowest of Chademo protocol number from EV (H'102.0) and charger (H'109.0) Example for CHAdeMO 2.0.1: \"CHAdeMO,3\" (3 = version reported by CHAdeMO for v2.0.1)\n- Variable: ProtocolSupportedByEV[\"1\"]; Unit: string; CHAdeMO value: Chademo protocol number (H'102.0) supported by EV A string with the following comma-separated items: “CHAdeMO,”. Example for CHAdeMO 2.0.1: - ConnectedEV.ProtocolSupportedByEV = \"CHAdeMO,3\"",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -776,17 +680,6 @@
     }
   },
   {
-    "content": "# Power, energy and time values:\n\n- Variable: Power(MaxSet); Unit: W; CHAdeMO value: -\n- Variable: EnergyImport(MaxSet); Unit: Wh; CHAdeMO value: Total capacity of traction battery * 100 (H'101.5,6)\n- Variable: EnergyImport(Target); Unit: Wh; CHAdeMO value: -\n- Variable: DepartureTime; Unit: dateTime; CHAdeMO value: -\n- Variable: RemainingTimeBulk; Unit: s; CHAdeMO value: -\n- Variable: RemainingTimeFull(MaxSet); Unit: s; CHAdeMO value: Maximum charging time * 60 (H'101.2)\n- Variable: RemainingTimeFull; Unit: s; CHAdeMO value: Estimated charging time * 60 (H'101.3)\n- Variable: StateOfChargeBulk; Unit: %; CHAdeMO value: -\n- Variable: StateOfCharge(MaxSet); Unit: %; CHAdeMO value: Charged rate reference constant (H'100.6)\n- Variable: StateOfCharge; Unit: %; CHAdeMO value: State of charge (H'102.6)\n- Variable: ChargingCompleteBulk; Unit: boolean; CHAdeMO value: -\n- Variable: ChargingCompleteFull; Unit: boolean; CHAdeMO value: -",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Power, energy and time values:",
-      "heading_path": "Power, energy and time values:"
-    }
-  },
-  {
     "content": "# ChargingState\n\nwith a memberlist consisting of the following values:\n\n- BatteryOvervoltage - Battery overvoltage (H'102.4.0)\n- BatteryUndervoltage - Battery undervoltage (H'102.4.1)\n- ChargingCurrentDeviation - Battery current deviation (H'102.4.2)\n- BatteryTemperature - High battery temperature (H'102.4.3)\n- VoltageDeviation - Battery voltage deviation (H'102.4.4)\n- ChargingSystemError - Charging system error (H'102.5.2)\n- VehicleShiftPosition - Vehicle shift position (H'102.5.1)\n- VehicleChargingEnabled - Vehicle charging enabled (H'102.5.0)\n- ChargingSystemIncompatibility -\n- ChargerConnectorLockFault -",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -795,32 +688,6 @@
       "content_type": "general",
       "heading": "ChargingState",
       "heading_path": "ChargingState"
-    }
-  },
-  {
-    "content": "# ConnectedEV Component Parameters\n\nThe following parameters coming from the WPT_ChargeLoopReq messages can be represented in the ConnectedEV component. This information might be useful for troubleshooting, but is not required for normal operation.\n\n- Variable: WPT_EVPCPowerRequest; Unit: decimal; ISO 15118-20 value: Power the EVPC would like to have as output in Watt.\n- Variable: WPT_EVPCPowerOutput; Unit: decimal; ISO 15118-20 value: Power measured at the output of the EVPC electronics in Watt.\n- Variable: WPT_EVPCChargeDiagnostics; Unit: OptionList; ISO 15118-20 value: Values are: \"EVPCNoIssue\", \"EVPCTempOverheatDetected\", \"EVPCPowerTransferAnomalyDetected\", \"EVPCAnomalyDetected\"\n- Variable: WPT_EVPCOperatingFrequency; Unit: decimal; ISO 15118-20 value: EVPC measured MF-WPT operating frequency.\n- Variable: WPT_EVPCCoilCurrentRequest; Unit: decimal; ISO 15118-20 value: EVPC wants the primary device to set a specific (preferred) coil current value.\n- Variable: WPT_EVPCCoilCurrentInformation; Unit: decimal; ISO 15118-20 value: Secondary device coil current (AC).\n- Variable: WPT_EVPCCurrentOutputInformation; Unit: decimal; ISO 15118-20 value: DC current supplied to the EV.\n- Variable: WPT_EVPCVoltageOutputInformation; Unit: decimal; ISO 15118-20 value: DC bus or battery voltage.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "ConnectedEV Component Parameters",
-      "heading_path": "ConnectedEV Component Parameters",
-      "message_refs": "_EVPCCoilCurrentRequest, _EVPCPowerRequest"
-    }
-  },
-  {
-    "content": "# ConnectedEV for ACDP\n\nThe following parameters from ACDP_VehiclePositioningReq, ACPD_ConnectReq, ACDP_DisconnectReq and ACDP_SystemStatusReq can be represented in the ConnectedEV component. This information might be useful for troubleshooting, but is not required for normal operation.\n\n- Variable: ACDP_EVMobilityStatus; Unit: boolean; ISO 15118-20 value: Is true when an EV is immobilized\n- Variable: ACDP_EVPositioningSupport; Unit: boolean; ISO 15118-20 value: Is true when EV has positioning support\n- Variable: ACDP_EVElectricalChargingDevice Status; Unit: OptionList; ISO 15118-20 value: Values are: \"State_A\" (disconnected), \"State_B\", \"State_C\", \"State_D\" (connected)\n- Variable: ACDP_EVReadyToCharge; Unit: boolean; ISO 15118-20 value: Element signalizes if the EV is READY or NOT READY to charge.\n- Variable: ACDP_EVImmobilizationRequest; Unit: boolean; ISO 15118-20 value: Represents the request of immobilization of the EV. This may be related to the hand brake status.\n- Variable: ACDP_EVImmobilized; Unit: boolean; ISO 15118-20 value: The immobilization of the EV is a mandatory precondition to activate the pantograph.\n- Variable: ACDP_WLANStrength; Unit: decimal; ISO 15118-20 value: Element signalizes EV WiFi reception signal strength (-dBm)\n- Variable: ACDP_EVCPStatus; Unit: OptionList; ISO 15118-20 value: Values are: \"State_A\", \"State_B\", \"State_C\", \"State_D\", \"State_E\". Refer to IEC 61851-23-1.\n- Variable: ACDP_EVSOC; Unit: decimal; ISO 15118-20 value: For operation usable SOC status in %. This value may differ from physical SOC of the battery. This parameter can be same as PresentSOC in DisplayParameter.\n- Variable: ACDP_EVErrorCode; Unit: OptionList; ISO 15118-20 value: One of: \"OK_NoEVError\", \"FAILED\", \"FAILED_EmergencyEvent\", \"FAILED_Breaker\", \"FAILED_RESSTemperatureInhibit\", \"FAILED_RESS\", \"FAILED_ChargingCurrentDifferential\", \"FAILED_ChargingVoltageOutOfRange\", \"FAILED_Reserved1\", \"FAILED_Reserved2\"",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "ConnectedEV for ACDP",
-      "heading_path": "ConnectedEV for ACDP",
-      "message_refs": "_EVImmobilizationRequest",
-      "chunk_part": 1,
-      "total_parts": 2
     }
   },
   {
@@ -838,7 +705,7 @@
     }
   },
   {
-    "content": "# 3.2.14. Connector\n\nDescription\n\nA means to connect an EV to a Charging Station with either a socket, an attached cable & inline connector, or any wireless power transfer device.\n\nEnabled: Connector available for use (not commanded Out of Service)\nProblem: problem/fault exists (e.g. over-temperature)\nTripped: A problem requiring intervention has occurred.\n\nOCPP 2.0.1 - \u00a9 Open Charge Alliance 2025\n\nv1.5, 2025-12-03",
+    "content": "# 3.2.14. Connector\n\nDescription\n\nA means to connect an EV to a Charging Station with either a socket, an attached cable & inline connector, or any wireless power transfer device.\n\nEnabled: Connector available for use (not commanded Out of Service)\nProblem: problem/fault exists (e.g. over-temperature)\nTripped: A problem requiring intervention has occurred.\n\nOCPP 2.0.1 - © Open Charge Alliance 2025\n\nv1.5, 2025-12-03",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -1365,7 +1232,7 @@
     }
   },
   {
-    "content": "# Chapter 3. Standardized Components\n\nSmartChargingCt: Logical Component responsible for configuration relating to smart charging.\nTariffCostCtrlr: Logical Component responsible for configuration relating to tariff and cost display.\nTxCtrlr: Logical Component responsible for configuration relating to transaction characteristics and behaviour.\nV2XChargingCtrlr: Responsible for configuration relating to V2X charging/discharging. This component exists on the EVSE tier hierarchy.\nWebPaymentsCtr: Responsible for configuration of a dynamic QR code for ad hoc payments.\nAccessBarrier: Allows physical access of vehicles to a charging site to be controlled.\nAcDcConverter: Provides a variable DC current source to force energy directly into an EV battery stack, under tight control of the EV\u2019s battery management system.\nAcPhaseSelector: Allows a specific AC phase to be selected (typically at EVSE tier) for single phase vehicle charging in order to lower overall (e.g. site) phase imbalance.\nActuator: A general purpose electro-mechanical output system, with optional completion tracking sensing. Each output should use a Variable instance key indicating the nature of the output.",
+    "content": "# Chapter 3. Standardized Components\n\nSmartChargingCt: Logical Component responsible for configuration relating to smart charging.\nTariffCostCtrlr: Logical Component responsible for configuration relating to tariff and cost display.\nTxCtrlr: Logical Component responsible for configuration relating to transaction characteristics and behaviour.\nV2XChargingCtrlr: Responsible for configuration relating to V2X charging/discharging. This component exists on the EVSE tier hierarchy.\nWebPaymentsCtr: Responsible for configuration of a dynamic QR code for ad hoc payments.\nAccessBarrier: Allows physical access of vehicles to a charging site to be controlled.\nAcDcConverter: Provides a variable DC current source to force energy directly into an EV battery stack, under tight control of the EV’s battery management system.\nAcPhaseSelector: Allows a specific AC phase to be selected (typically at EVSE tier) for single phase vehicle charging in order to lower overall (e.g. site) phase imbalance.\nActuator: A general purpose electro-mechanical output system, with optional completion tracking sensing. Each output should use a Variable instance key indicating the nature of the output.",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
       "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
@@ -1586,19 +1453,6 @@
     }
   },
   {
-    "content": "- AllowEnergyTransferResumption: AllowNewSessionsPendingFirmwareUpdate; boolean: boolean; This variable defines whether energy transfer is allowed to be resumed when the transaction is resumed after a reset or power outage.: Indicates whether new sessions can be started on EVSEs, while Charging Station is waiting for all EVSEs to become Available in order to start a pending firmware update.\n- AllowEnergyTransferResumption: AllowReset; boolean: boolean; This variable defines whether energy transfer is allowed to be resumed when the transaction is resumed after a reset or power outage.: Component can be reset. Can be used to announce that an EVSE can be reset individually.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "chunk_part": 4,
-      "total_parts": 5
-    }
-  },
-  {
     "content": "- AllowSecurityProfileDowngrade: Angle; boolean: decimal; Deg; If this variable is implemented and set to true, then the Charging Station allows downgrading the security profile from 3 to 2.: Angle(s) relative to normal/design idle position. Multiple Variable instance values may be used to indicate angular position in multiple axes (e.g. Left-Right, Forward-Back).\n- AllowSecurityProfileDowngrade: Attempts; boolean: integer; If this variable is implemented and set to true, then the Charging Station allows downgrading the security profile from 3 to 2.: Number of attempts (INCLUDING the original attempt) in the last successful or attempted, cycle of operation. Applies typically to self-monitoring motorized electro-mechanical equipment, etc. {Null}: Unknown, 0: Not Attempted/Not allowed, 1: Single attempt/No retries [allowed], 2-N: [up to] N tries [allowed]",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -1622,62 +1476,6 @@
       "heading_path": "Chapter 4. Standardized Variables",
       "message_refs": "AuthorizeRequest, CertificateSignedRequest, GetMonitoringReportRequest, GetReportRequest, GetVariableRequest, RequestStartTransactionRequest, SignCertificateRequest",
       "chunk_part": 1,
-      "total_parts": 6
-    }
-  },
-  {
-    "content": "- CentralContractValidationAllowed: CertSigningRepeatTimes; boolean: integer; If this variable exists and has the value true, then Charging Station can provide a contract certificate that it cannot validate, to the CSMS for validation as part of the AuthorizeRequest.: This variable can be used to configure the amount of times the Charging Station SHALL double the previous back-off time, starting with the number of seconds configured at CertSigningWaitMinimum, every time the back-off time expires without having received the CertificateSignedRequest containing the from the CSR generated signed certificate.\n- CentralContractValidationAllowed: CertSigningWaitMinimum; boolean: integer; If this variable exists and has the value true, then Charging Station can provide a contract certificate that it cannot validate, to the CSMS for validation as part of the AuthorizeRequest.: This configuration variable defines how long the Charging Station has to wait before generating another CSR, in the case the CSMS accepts the SignCertificateRequest, but never returns the signed certificate.\n- CentralContractValidationAllowed: Certificate; boolean: string; If this variable exists and has the value true, then Charging Station can provide a contract certificate that it cannot validate, to the CSMS for validation as part of the AuthorizeRequest.: Digital Certificate (in Base64 encoding)",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "AuthorizeRequest, CertificateSignedRequest, GetMonitoringReportRequest, GetReportRequest, GetVariableRequest, RequestStartTransactionRequest, SignCertificateRequest",
-      "chunk_part": 2,
-      "total_parts": 6
-    }
-  },
-  {
-    "content": "- CertificateEntries: CertificateStatusSource; integer: string; Amount of Certificates currently installed on the Charging Station.: When present, this variable tells CSMS whether Charging Station uses OCSP or CRL to check for revoked certificates.\n- CertificateEntries: ChargeProtocol; integer: string; Amount of Certificates currently installed on the Charging Station.: The Charging Control Protocol applicable to a Connector. CHAdeMO: CHAdeMO protocol, ISO15118: ISO15118 V2G protocol (wired or wireless) as used with CCS, CPPWM: IEC61851-1 / SAE J1772 protocol (ELV DC & PWM signalling via Control Pilot wire), Uncontrolled: No charging power management applies (e.g. Schuko socket), Undetermined: Yet to be determined (e.g. before plugged in), Unknown: Not determinable, NOTE: ChargeProtocol is distinct from and orthogonal to connectorType.\n- CertificateEntries: ChargingCompleteBulk; integer: boolean; Amount of Certificates currently installed on the Charging Station.: Charging up to StateOfChargeBulk has completed.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "AuthorizeRequest, CertificateSignedRequest, GetMonitoringReportRequest, GetReportRequest, GetVariableRequest, RequestStartTransactionRequest, SignCertificateRequest",
-      "chunk_part": 3,
-      "total_parts": 6
-    }
-  },
-  {
-    "content": "- ChargingCompleteFull: ChargingProfilePersistence; boolean: boolean; Charging up to StateOfCharge.maxSet has completed.: If an instance of this variable is true, then charging profiles with the chargingProfilePurpose mentioned in the variableInstance are persistent, i.e. they are stored persistently and will still exist after a reboot.\n- ChargingCompleteFull: ChargingState; boolean: OptionList; Charging up to StateOfCharge.maxSet has completed.: This variable reports the current transaction charging state for an EVSE.\n- ChargingCompleteFull: ChargingTime; boolean: decimal; s; Charging up to StateOfCharge.maxSet has completed.: Time from earliest to latest substantive energy transfer",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "AuthorizeRequest, CertificateSignedRequest, GetMonitoringReportRequest, GetReportRequest, GetVariableRequest, RequestStartTransactionRequest, SignCertificateRequest",
-      "chunk_part": 4,
-      "total_parts": 6
-    }
-  },
-  {
-    "content": "- Color: CommunicationParent; string: string; Standard 24 bit hexadecimal RGB values. Reg Green Blue color intensity, expressed as standard 24 bit hexadecimal RGB values: 3 00-FF (0-255), in order RRGGBB). E.g. 000000: Black, FF0000: Red, 00FF00: Green, 0000FF: Blue, FFFF00:Yellow, FFFFFF: White, 008000: Medium intensity green.: Points to a communication parent component (data flow source), to allow rendering the communication hierarchy in a UI.\n- Color: Complete; string: boolean; Standard 24 bit hexadecimal RGB values. Reg Green Blue color intensity, expressed as standard 24 bit hexadecimal RGB values: 3 00-FF (0-255), in order RRGGBB). E.g. 000000: Black, FF0000: Red, 00FF00: Green, 0000FF: Blue, FFFF00:Yellow, FFFFFF: White, 008000: Medium intensity green.: Component\u2019s operation cycle has completed. Used only in event notifications, where it is always true.\n- Color: ConditionsSupported; string: boolean; Standard 24 bit hexadecimal RGB values. Reg Green Blue color intensity, expressed as standard 24 bit hexadecimal RGB values: 3 00-FF (0-255), in order RRGGBB). E.g. 000000: Black, FF0000: Red, 00FF00: Green, 0000FF: Blue, FFFF00:Yellow, FFFFFF: White, 008000: Medium intensity green.: If set to true the Charging Station supports tariffs with conditions.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "AuthorizeRequest, CertificateSignedRequest, GetMonitoringReportRequest, GetReportRequest, GetVariableRequest, RequestStartTransactionRequest, SignCertificateRequest",
-      "chunk_part": 5,
       "total_parts": 6
     }
   },
@@ -1711,51 +1509,6 @@
     }
   },
   {
-    "content": "- DCInputPhaseControl: DCVoltage; boolean: decimal; V; When DCInputPhaseControl is true, then the values of numberPhases and PhaseToUse in a ChargingSchedulePeriodType will select the input phases from the grid to be used by the DC EVSE.: DC Voltage (volts). May be an instantaneous measurement, or a period average, depending on context/equipment.\n- DCInputPhaseControl: DataText; boolean: string; When DCInputPhaseControl is true, then the values of numberPhases and PhaseToUse in a ChargingSchedulePeriodType will select the input phases from the grid to be used by the DC EVSE.: Text associated with a Component, e.g. a Display.\n- DCInputPhaseControl: DateTime; boolean: dateTime; When DCInputPhaseControl is true, then the values of numberPhases and PhaseToUse in a ChargingSchedulePeriodType will select the input phases from the grid to be used by the DC EVSE.: Point in time value, in [RFC3339] datetime format. Time zone optional.\n- DCInputPhaseControl: DepartureTime; boolean: dateTime; When DCInputPhaseControl is true, then the values of numberPhases and PhaseToUse in a ChargingSchedulePeriodType will select the input phases from the grid to be used by the DC EVSE.: Time in [RFC3339] datetime format, when an EV intends to leave the charging station.\n- DCInputPhaseControl: DisablePostAuthorize; boolean: boolean; When DCInputPhaseControl is true, then the values of numberPhases and PhaseToUse in a ChargingSchedulePeriodType will select the input phases from the grid to be used by the DC EVSE.: When set to true this variable disables the behavior to request authorization for an",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "M01",
-      "message_refs": "SetDisplayMessageRequest, TriggerMessageRequest",
-      "chunk_part": 2,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- DisableRemoteAuthorization: DisplayMessages; boolean: integer; When set to true this instructs the Charging Station to not issue any AuthorizationRequests, but only use Authorization Cache and Local Authorization List to determine validity of idTokens.: Maximum number of different messages that can configured in this Charging Station simultaneous, via SetDisplayMessageRequest.\n- DisableRemoteAuthorization: ECVariant; boolean: string; When set to true this instructs the Charging Station to not issue any AuthorizationRequests, but only use Authorization Cache and Local Authorization List to determine validity of idTokens.: Production series variants reflecting internal design changes or sub-component substitutions not affecting external functionality.\n- DisableRemoteAuthorization: EVConnectionTimeOut; boolean: integer; s; When set to true this instructs the Charging Station to not issue any AuthorizationRequests, but only use Authorization Cache and Local Authorization List to determine validity of idTokens.: Interval from between 'starting' of a transaction until incipient transaction is automatically canceled, due to failure of EV driver to (correctly) insert the charging cable connector(s) into the appropriate socket(s).\n- DisableRemoteAuthorization: ElectricalParent; boolean: string; When set to true this instructs the Charging Station to not issue any AuthorizationRequests, but only use Authorization Cache and Local Authorization List to determine validity of idTokens.: Points to a electrical parent component (energy flow source), to allow rendering the electrical hierarchy in a UI.\n- DisableRemoteAuthorization: Enabled; boolean: boolean; When set to true this instructs the Charging Station to not issue any AuthorizationRequests, but only use Authorization Cache and Local Authorization List to determine validity of idTokens.: The Component is Enabled for operation. For Available components that cannot be selectively (remotely) enabled / disabled, this value is always true. Note: Available cannot be false of Enabled is true, so during inventory reporting, Enabled=1 also logically states Available=true",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "M01",
-      "message_refs": "SetDisplayMessageRequest, TriggerMessageRequest",
-      "chunk_part": 3,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- Energy: EnergyCapacity; decimal: decimal; Wh: Wh; Energy quantity (in Wh) for reporting/configuring values related to stored energy (i.e. not transferred energy).: Energy capacity in Wh of an energy storage device.\n- Energy: EnergyExport; decimal: decimal; Wh: Wh; Energy quantity (in Wh) for reporting/configuring values related to stored energy (i.e. not transferred energy).: Total energy transferred: e.g. from EV during (ongoing or terminated) charging session (in wH by default)\n- Energy: EnergyExportRegister; decimal: decimal; Wh: Wh; Energy quantity (in Wh) for reporting/configuring values related to stored energy (i.e. not transferred energy).: Cumulative export kWh register value, such as from a (certified) fiscal energy meter.\n- Energy: EnergyImport; decimal: decimal; Wh: Wh; Energy quantity (in Wh) for reporting/configuring values related to stored energy (i.e. not transferred energy).: Total energy transferred.\n- Energy: EnergyImportRegister; decimal: decimal; Wh: Wh; Energy quantity (in Wh) for reporting/configuring values related to stored energy (i.e. not transferred energy).: Cumulative export kWh register value, such as from a (certified) fiscal energy meter.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "M01",
-      "message_refs": "SetDisplayMessageRequest, TriggerMessageRequest",
-      "chunk_part": 4,
-      "total_parts": 5
-    }
-  },
-  {
     "content": "| Entries                                | integer    |         | General purpose variable for reporting/managing numbers of entries in repetitive data structures. maxLimit characteristic reports maximum possible entries.                                                                                                                             |",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -1785,62 +1538,6 @@
     }
   },
   {
-    "content": "- FirmwareVersion: Force; string: decimal; N; Version number of firmware.: Reports (impact) force/acceleration values (estimates) in one or more directions, in units of Newtons or \u201cg\u201d. Multiple force readings in different (orthogonal) dimensions may be reported using Variable instance values, such as Down, Right, Forward.\n- FirmwareVersion: Formats; string: MemberList; Version number of firmware.: List of message formats supported by this Charging Station. Possible values: ASCII, HTML, URI, UTF-8.\n- FirmwareVersion: Frequency; string: decimal; Hz; Version number of firmware.: Frequency of AC power, signal, or component operation.\n- FirmwareVersion: FrequencySchedule; string: string; Version number of firmware.: A JSON-formatted string with an array of { time, freq } pairs, in which time is",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "GetMonitoringReportRequest, GetReportRequest, HeartbeatRequest",
-      "chunk_part": 2,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- FuseRating: HeartbeatInterval; decimal: integer; A: s; Current rating of a fuse/breaker. Variable instances keyed by phase identifier (L1/L2/L3/N).: Interval of inactivity (no OCPP exchanges) with CSMS after which the Charging Station should send HeartbeatRequest.\n- FuseRating: Height; decimal: decimal; A: m; Current rating of a fuse/breaker. Variable instances keyed by phase identifier (L1/L2/L3/N).: Height above(+)/below(-) reference level (ground level unless context demands otherwise).\n- FuseRating: Humidity; decimal: decimal; A: RH; Current rating of a fuse/breaker. Variable instances keyed by phase identifier (L1/L2/L3/N).: The relative humidity in %.\n- FuseRating: Hysteresis; decimal: decimal; A: Percent; Current rating of a fuse/breaker. Variable instances keyed by phase identifier (L1/L2/L3/N).: Specifies the width of a 'dead band' (as a percentage of the threshold) around the central value of a threshold setting (e.g. MinSet, MaxSet, monitor thresholds) to avoid repeated triggering when the measured quantity lies close to the threshold and is subject to small variations.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "GetMonitoringReportRequest, GetReportRequest, HeartbeatRequest",
-      "chunk_part": 3,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- ICCID: IMSI; string: string; ICCID (Integrated Circuit Card IDentifier) of mobile data SIM card.: IMSI (International Mobile Subscriber Identity) number of mobile data SIM card\n- ICCID: ISO15118EvseId; string: string; ICCID (Integrated Circuit Card IDentifier) of mobile data SIM card.: EVSE ID in string format as used in ISO 15118 and IEC 63119-2\n- ICCID: IdToken; string: string; ICCID (Integrated Circuit Card IDentifier) of mobile data SIM card.: The IdToken used to authorize a charging transaction.\n- ICCID: Identity; string: string; ICCID (Integrated Circuit Card IDentifier) of mobile data SIM card.: The Charging Station identity.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "GetMonitoringReportRequest, GetReportRequest, HeartbeatRequest",
-      "chunk_part": 4,
-      "total_parts": 5
-    }
-  },
-  {
-    "content": "- Impedance: Interval; decimal: integer; Ohm: s; Impedance: Primary value is real (resistive only) impedance. Where a complex impedance is to be reported, the imaginary part (reactance) must be represented with a separate Variable instance value of 'reactance'. Reactance values are expressed at the (nominal) relevant operating frequency of the Component (e.g. 50/60Hz for mains electricity feed).: Minimum Interval (in seconds) between (attempted) operations.\n- Impedance: ItemsPerMessage; decimal: integer; Impedance: Primary value is real (resistive only) impedance. Where a complex impedance is to be reported, the imaginary part (reactance) must be represented with a separate Variable instance value of 'reactance'. Reactance values are expressed at the (nominal) relevant operating frequency of the Component (e.g. 50/60Hz for mains electricity feed).: Maximum number of ComponentVariable entries that can be sent in one GetReportRequest or GetMonitoringReportRequest message.\n- Impedance: Label; decimal: string; Impedance: Primary value is real (resistive only) impedance. Where a complex impedance is to be reported, the imaginary part (reactance) must be represented with a separate Variable instance value of 'reactance'. Reactance values are expressed at the (nominal) relevant operating frequency of the Component (e.g. 50/60Hz for mains electricity feed).: Label for a component. Specifies a non-unique label to be used in a hierarchy UI rendering, in place of the unique component name and instance",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "GetMonitoringReportRequest, GetReportRequest, HeartbeatRequest",
-      "chunk_part": 5,
-      "total_parts": 5
-    }
-  },
-  {
     "content": "# Chapter 4. Standardized Variables\n\ndecimal: m\ninteger: s\ndecimal: lx",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -1851,34 +1548,6 @@
       "heading_path": "Chapter 4. Standardized Variables",
       "message_refs": "AuthorizeResponse, CertificateSignedRequest, MeterValuesRequest, NotifyChargingLimitRequest, StatusNotificationRequest, TransactionEventRequest",
       "chunk_part": 1,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- MaxCertificateChainSize: MaxEnergyOnInvalidId; integer: integer; Wh; This configuration variable can be used to limit the size of the 'certificateChain' field from the CertificateSignedRequest PDU.: Maximum amount of energy in Wh delivered when an identifier is deauthorized by the CSMS after start of a transaction.\n- MaxCertificateChainSize: MaxExternalConstraintsId; integer: integer; This configuration variable can be used to limit the size of the 'certificateChain' field from the CertificateSignedRequest PDU.: Defines the highest value that a charging profile id of a ChargingStationExternalConstraints profile in the Charging Station can have.\n- MaxCertificateChainSize: MaxPriceElements; integer: integer; This configuration variable can be used to limit the size of the 'certificateChain' field from the CertificateSignedRequest PDU.: For ISO15118Ctrlr: The maximum number of priceRuleStacks and priceLevelScheduleEntries that Charging Station is able to accept in a ChargingScheduleType.\n- MaxCertificateChainSize: Measurands; integer: MemberList; This configuration variable can be used to limit the size of the 'certificateChain' field from the CertificateSignedRequest PDU.: Measurand(s) to be included in MeterValuesRequest or TransactionEventRequest\n- MaxCertificateChainSize: Message; integer: string; This configuration variable can be used to limit the size of the 'certificateChain' field from the CertificateSignedRequest PDU.: Specific stored message for display.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "AuthorizeResponse, CertificateSignedRequest, MeterValuesRequest, NotifyChargingLimitRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- MessageAttemptInterval: MessageAttempts; integer: integer; How long the Charging Station should wait before resubmitting a TransactionEventRequest message that the CSMS failed to process.: How often the Charging Station should try to submit a TransactionEventRequest message when the CSMS fails to process it.\n- MessageAttemptInterval: MessageTimeout; integer: integer; s: s; How long the Charging Station should wait before resubmitting a TransactionEventRequest message that the CSMS failed to process.: The purpose of the message timeout is to be able to consider a request message as not sent and continue with other tasks when the message did not arrive due to communication errors or software failure.\n- MessageAttemptInterval: MinimumStatusDuration; integer: integer; s: s; How long the Charging Station should wait before resubmitting a TransactionEventRequest message that the CSMS failed to process.: Minimum duration that a Charging Station or EVSE status is stable before StatusNotificationRequest is sent to the CSMS.\n- MessageAttemptInterval: Mode; integer: string; How long the Charging Station should wait before resubmitting a TransactionEventRequest message that the CSMS failed to process.: Operating mode string from among valid options (communicated by OptionList, etc. during capability/configuration discovery).\n- MessageAttemptInterval: Model; integer: string; How long the Charging Station should wait before resubmitting a TransactionEventRequest message that the CSMS failed to process.: Manufacturer\u2019s Model code/number of Component, including suffixes etc. to identify functional, regional or linguistic variation, but NOT engineering change level internal variation not affecting external behaviour, etc.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "AuthorizeResponse, CertificateSignedRequest, MeterValuesRequest, NotifyChargingLimitRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 3,
       "total_parts": 4
     }
   },
@@ -1912,126 +1581,6 @@
     }
   },
   {
-    "content": "- OfflineThreshold: OfflineTxForUnknownIdEnabled; integer: boolean; When the offline period of a Charging Station exceeds the OfflineThreshold it is recommended to send a StatusNotificationRequest for all its Connectors when the Charging Station is back online.: If this key exists and is true, the Charging Station supports Unknown Offline Authorization.\n- OfflineThreshold: Operated; integer: boolean; When the offline period of a Charging Station exceeds the OfflineThreshold it is recommended to send a StatusNotificationRequest for all its Connectors when the Charging Station is back online.: The Component operated in an instantaneous, transient, or immediately self-resetting pattern. Used only in event notifications, where it is always true.\n- OfflineThreshold: OperatingTimes; integer: string; When the offline period of a Charging Station exceeds the OfflineThreshold it is recommended to send a StatusNotificationRequest for all its Connectors when the Charging Station is back online.: Recurring operating times in iCalendar RRULE format.\n- OfflineThreshold: OrganizationName; integer: string; When the offline period of a Charging Station exceeds the OfflineThreshold it is recommended to send a StatusNotificationRequest for all its Connectors when the Charging Station is back online.: The organizationName of the CSO operating the charging station.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 2,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- Overload: Percent; boolean: decimal; Percent; Component is in Overload state.: Generic dimensionless value reporting/setting value.\n- Overload: PeriodsPerSchedule; boolean: integer; Component is in Overload state.: Maximum number of periods that may be defined per ChargingSchedule.\n- Overload: PhaseRotation; boolean: string; Component is in Overload state.: This variable describes the phase rotation of a Component relative to its parent Component, using a\n- Overload: Phases3to1; boolean: boolean; Component is in Overload state.: If defined and true, this Charging Station supports switching from 3 to 1 phase during a transaction.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 3,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- PhysicalParent: PnCEnabled; string: boolean; Points to a physical parent component (container), to allow rendering an overview of the Charging Station component locations in a UI.: If this variable is true, then ISO 15118 plug and charge as described by use case C07 - Authorization using Contract Certificates is enabled.\n- PhysicalParent: Policy; string: OptionList; Points to a physical parent component (container), to allow rendering an overview of the Charging Station component locations in a UI.: Cache Entry Replacement Policy: least recently used, least frequently used, first in first out, other custom mechanism.\n- PhysicalParent: PostChargingTime; string: decimal; s; Points to a physical parent component (container), to allow rendering an overview of the Charging Station component locations in a UI.: Elapsed time in seconds since last substantive energy transfer\n- PhysicalParent: Power; string: decimal; W,kW; Points to a physical parent component (container), to allow rendering an overview of the Charging Station component locations in a UI.: Instantaneous (real) Power (measured/calculated, including power factor for AC). Where a component (e.g. AC to DC Power Converter) has multiple power measurements, the default (unkeyed) instance is \u201cinput\u201d power.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 4,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- Present: Problem; boolean: boolean; Component exists, but might not be locally configured/wired for use, nor (remotely) Enabled.: Component itself has a 'Problem' condition that impacts in any significant way on its normal operation. By definition, 'Problem' state includes (logical OR) 'Fault' state. 'Problem' specifically INCLUDES inability to operate that is propagated (up/down/sideways) from any other associated/connected/containing/contained Component.\n- Present: ProfileStackLevel; boolean: integer; Component exists, but might not be locally configured/wired for use, nor (remotely) Enabled.: Maximum acceptable value for stackLevel in a ChargingProfile.\n- Present: Protecting; boolean: boolean; Component exists, but might not be locally configured/wired for use, nor (remotely) Enabled.: Applies to 'sensor' type Components that have an associated protection capability, whereby they can disconnect power (e.g. using the main PowerContactor) if the sensed quantity is outside preset/configured limits. If Protecting is true, the Component is actively preventing/interrupting charging.\n- Present: ProtocolAgreed; boolean: string; Component exists, but might not be locally configured/wired for use, nor (remotely) Enabled.: For ConnectedEV: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. This is the protocol uri and version information that was agreed upon between EV and EVSE in the supportedAppProtocolReq handshake from ISO 15118.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 5,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- ProtocolSupported: ProtocolSupportedByEV; string: string; For ISO15118Ctrlr: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. \\<uri> is in the format as used in the SupportedAppProtocolReq message from ISO 15118-2 and ISO 15118-20. This variable has at most 20 instances, one for each supported protocol version.: For ConnectedEV: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. This is information from the SupportedAppProtocolReq message from ISO 15118. Each priority is given its own variable instance. Priority is a number from 1 to 20 as a string.\n- ProtocolSupported: PublicKey; string: string; For ISO15118Ctrlr: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. \\<uri> is in the format as used in the SupportedAppProtocolReq message from ISO 15118-2 and ISO 15118-20. This variable has at most 20 instances, one for each supported protocol version.: Configuration variable that can be used to retrieve the public key for a meter connected to a specific EVSE.\n- ProtocolSupported: PublicKeyWithSignedMeterValue; string: boolean; For ISO15118Ctrlr: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. \\<uri> is in the format as used in the SupportedAppProtocolReq message from ISO 15118-2 and ISO 15118-20. This variable has at most 20 instances, one for each supported protocol version.: This Configuration Variable can be used to configure whether a public key needs to be sent with a signed meter value.\n- ProtocolSupported: QueueAllMessages; string: boolean; For ISO15118Ctrlr: A string with the following comma-separated items: \u201c\\<uri>,\\<major>,\\<minor>\u201d. \\<uri> is in the format as used in the SupportedAppProtocolReq message from ISO 15118-2 and ISO 15118-20. This variable has at most 20 instances, one for each supported protocol version.: When this variable is set to true, the Charging Station will queue all message until they are delivered to the CSMS.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 6,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- RateUnit: RegisterValuesWithoutPhases; string: boolean; A list of supported quantities (A, W) for use in a ChargingSchedule.: If this variable reports a value of true, then meter values of measurand Energy.Active.Import.Register will only report the total energy over all phases without reporting the individual phase values.\n- RateUnit: RemainingTimeBulk; string: integer; s; A list of supported quantities (A, W) for use in a ChargingSchedule.: Number of seconds remaining to charge to bulk state of charge, given by StateOfChargeBulk.\n- RateUnit: RemainingTimeFull; string: integer; s; A list of supported quantities (A, W) for use in a ChargingSchedule.: Number of seconds remaining to charge to 100% state of charge.\n- RateUnit: ReportingValueSize; string: integer; A list of supported quantities (A, W) for use in a ChargingSchedule.: This Configuration Variable can be used to limit the following fields: GetVariableResult.attributeValue, VariableAttribute.value and EventData.actualValue.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 7,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- RequestMeteringReceipt: ResetRetries; boolean: integer; For ISO15118Ctrlr: If this variable is true, then Charging Station shall request a metering receipt: Number of times to retry a reset of the Charging Station when a reset was unsuccessful.\n- RequestMeteringReceipt: ResumptionTimeout; boolean: integer; s; For ISO15118Ctrlr: If this variable is true, then Charging Station shall request a metering receipt: This variable defines the maximum number of seconds that a transaction may be interrupted by a power outage and still be resumed afterwards.\n- RequestMeteringReceipt: SampledMeasurands; boolean: MemberList; For ISO15118Ctrlr: If this variable is true, then Charging Station shall request a metering receipt: The set of measurands to be sampled by the DataCollector component.\n- RequestMeteringReceipt: SamplingInterval; boolean: decimal; s; For ISO15118Ctrlr: If this variable is true, then Charging Station shall request a metering receipt: The sampling interval in seconds.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 8,
-      "total_parts": 10
-    }
-  },
-  {
-    "content": "- SeccId: SecurityProfile; string: integer; The name of the SECC in the string format as required by ISO 15118.: This configuration variable is used to report the security profile used by the Charging Station.\n- SeccId: SendDuringIdle; string: boolean; The name of the SECC in the string format as required by ISO 15118.: For AlignedDataCtrlr: If set to true, the Charging Station SHALL only send clock aligned meter values when there is no transaction ongoing.\n- SeccId: SerialNumber; string: string; The name of the SECC in the string format as required by ISO 15118.: Serial number of Component.\n- SeccId: ServiceRenegotiationSupport; string: boolean; The name of the SECC in the string format as required by ISO 15118.: For ISO15118Ctrlr: If set to 'True' the SECC (EVSE) is capable of ServiceRenegotiation.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "C07",
-      "message_refs": "NotifyChargingLimitRequest, NotifyEventRequest, StatusNotificationRequest, TransactionEventRequest",
-      "chunk_part": 9,
-      "total_parts": 10
-    }
-  },
-  {
     "content": "- SignReadings: SignStartedReadings; boolean: boolean; If set to true, the Charging Station SHALL include signed meter values in the TransactionEventRequest(Ended).: If set to true, the Charging Station SHALL include signed meter values for context = Transaction.Begin in the metervalues field in the TransactionEventRequest(Started or Updated).",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -2061,48 +1610,6 @@
     }
   },
   {
-    "content": "- Storage: SupplyPhases; integer: integer; In bytes. Amount of storage occupied. Storage(maxLimit) specifies absolute limit Storage(MaxSet) restricts usage to specified Max, if supported.: Number of alternating current phases connected/available. 1 or 3 for AC, 0 means DC (no alternating phases). Null value indicates that the number of phases (e.g. in use) is unknown.\n- Storage: SupportsExpiryDateTime; integer: boolean; In bytes. Amount of storage occupied. Storage(maxLimit) specifies absolute limit Storage(MaxSet) restricts usage to specified Max, if supported.: For LocalAuthListCtrlr: When set to true Charging Station will disregard idTokens for authorization as if not present in the Local Authorization List when current date/time is past the value of cacheExpiryDateTime.\n- Storage: Suspending; integer: boolean; In bytes. Amount of storage occupied. Storage(maxLimit) specifies absolute limit Storage(MaxSet) restricts usage to specified Max, if supported.: If Suspending is true, the Component can is currently suspending charging.\n- Storage: Suspension; integer: boolean; In bytes. Amount of storage occupied. Storage(maxLimit) specifies absolute limit Storage(MaxSet) restricts usage to specified Max, if supported.: Applies to 'sensor' type Components that have a charging suspension capability, typically for safety or equipment protection reasons. If Suspension is true, the component can suspend charging when the sensed quantity is outside preset/configured limits.\n- Storage: TariffFallbackMessage; integer: string; In bytes. Amount of storage occupied. Storage(maxLimit) specifies absolute limit Storage(MaxSet) restricts usage to specified Max, if supported.: Message (and/or tariff information) to be shown to an EV Driver when there is no driver specific tariff information available.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "TransactionEventRequest, TransactionEventResponse",
-      "chunk_part": 2,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- Temperature: Time; decimal: dateTime; Temperature(s) of component (in Celsius, by default). Components may have multiple indexed temperature sensors.: Point in time value, in ISO 8601 datetime format. Time zone optional.\n- Temperature: TimeAdjustmentReportingThreshold; decimal: integer; Celsius, Fahrenheit: s; Temperature(s) of component (in Celsius, by default). Components may have multiple indexed temperature sensors.: When the clock time is adjusted forwards or backwards for more than TimeAdjustmentReportingThreshold number of seconds, a SecurityEventNotification('SettingSystemTime') is sent by the charging station.\n- Temperature: TimeOffset; decimal: string; Temperature(s) of component (in Celsius, by default). Components may have multiple indexed temperature sensors.: A Time Offset with respect to Coordinated Universal Time (aka UTC or Greenwich Mean Time) in the form of an [RFC3339] time (zone) offset suffix, including the mandatory \u201c+\u201d or \u201c-\u201c prefix.\n- Temperature: TimeSource; decimal: SequenceList; Temperature(s) of component (in Celsius, by default). Components may have multiple indexed temperature sensors.: Via this variable, the Charging Station provides the CSMS with the option to configure a clock source.\n- Temperature: TimeZone; decimal: string; Temperature(s) of component (in Celsius, by default). Components may have multiple indexed temperature sensors.: Configured current local time zone in the format: 'Europe/Oslo', 'Asia/Singapore' etc.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "TransactionEventRequest, TransactionEventResponse",
-      "chunk_part": 3,
-      "total_parts": 4
-    }
-  },
-  {
-    "content": "- Timeout: Timeout; decimal: integer; s: s; Generic timeout value for Component operation (in seconds).: For BatterySwapCtrlr: Timeout in seconds in which a set of batteries must be inserted or removed after successful authorization.\n- Timeout: Token; decimal: string; Generic timeout value for Component operation (in seconds).: String of bytes representing an ID token.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "message_refs": "TransactionEventRequest, TransactionEventResponse",
-      "chunk_part": 4,
-      "total_parts": 4
-    }
-  },
-  {
     "content": "# Chapter 4. Standardized Variables\n\ninteger: s\ninteger: s",
     "metadata": {
       "doc_id": "ocpp201_part2_appendices",
@@ -2114,21 +1621,6 @@
       "use_case_refs": "A02",
       "message_refs": "BootNotificationResponse, TransactionEventRequest",
       "chunk_part": 1,
-      "total_parts": 2
-    }
-  },
-  {
-    "content": "- VehicleCertificate: VehicleId; string: string; For ConnectedEV: The PEM encoded X.509 leaf/intermediate/root certificate when present in the vehicle certificate chain.: ID that EV provides to charging station. Encoded as a hexbinary string. In ISO 15118 the EVCCID is 6 bytes (MAC address), in CHAdeMO the vehicle id can be 24 bytes.\n- VehicleCertificate: VersionDate; string: dateTime; [RFC3339]\n- VehicleCertificate: VersionNumber; string: string; For ConnectedEV: The PEM encoded X.509 leaf/intermediate/root certificate when present in the vehicle certificate chain.: Version number of hardware.\n- VehicleCertificate: VoltageImbalance; string: decimal; Percent; For ConnectedEV: The PEM encoded X.509 leaf/intermediate/root certificate when present in the vehicle certificate chain.: Percentage voltage imbalance in three phase supply.",
-    "metadata": {
-      "doc_id": "ocpp201_part2_appendices",
-      "doc_title": "OCPP 2.0.1 Part 2 - Appendices",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Chapter 4. Standardized Variables",
-      "heading_path": "Chapter 4. Standardized Variables",
-      "use_case_refs": "A02",
-      "message_refs": "BootNotificationResponse, TransactionEventRequest",
-      "chunk_part": 2,
       "total_parts": 2
     }
   },

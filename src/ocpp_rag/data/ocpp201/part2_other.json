@@ -72,7 +72,7 @@
     }
   },
   {
-    "content": "# Part 2 - Specification\n\nDisclaimer\n\nCopyright \u00a9 2010 \u2013 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "content": "# Part 2 - Specification\n\nDisclaimer\n\nCopyright © 2010 – 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -83,7 +83,7 @@
     }
   },
   {
-    "content": "# OCPP 2.0.1 Edition 4\n\n\u00a9 Open Charge Alliance 2025",
+    "content": "# OCPP 2.0.1 Edition 4\n\n© Open Charge Alliance 2025",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -116,7 +116,7 @@
     }
   },
   {
-    "content": "# 1.1. OCPP 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol\u2019s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAs a rule, existing numbered requirements are only updated or removed, previously used requirements numbers are never reused for a totally different requirement.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
+    "content": "# 1.1. OCPP 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol’s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAs a rule, existing numbered requirements are only updated or removed, previously used requirements numbers are never reused for a totally different requirement.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -127,7 +127,7 @@
     }
   },
   {
-    "content": "# 1.2. OCPP 2.0.1 Edition 4\n\nA number of errata documents have been released for OCPP 2.0.1 Edition 3 that was released in 2024. These errata until and including Errata 2025-11 have been incorporated in this document, \u201cOCPP-2.0.1_edition4_part2_specification\u201d, such that it is no longer necessary to read these errata in addition to the specification. The incorporation of the errata in edition 4 does not affect any schemas of OCPP messages. Certain errata did contain changes to requirements or even new requirements, but only in cases where a requirement contains an obvious error and would not or could not be implemented as described. New requirements were only added when they were already implicitly there. These changes have been discussed in or were proposed by the Technology Working Group of the Open Charge Alliance.\n\nThe appendices of the OCPP 2.0.1 part 2 can be updated without requiring a new OCPP release. This mainly concerns the components and variables of the OCPP device model, which can be extended with new components or variables, as long as they are optional.",
+    "content": "# 1.2. OCPP 2.0.1 Edition 4\n\nA number of errata documents have been released for OCPP 2.0.1 Edition 3 that was released in 2024. These errata until and including Errata 2025-11 have been incorporated in this document, “OCPP-2.0.1_edition4_part2_specification”, such that it is no longer necessary to read these errata in addition to the specification. The incorporation of the errata in edition 4 does not affect any schemas of OCPP messages. Certain errata did contain changes to requirements or even new requirements, but only in cases where a requirement contains an obvious error and would not or could not be implemented as described. New requirements were only added when they were already implicitly there. These changes have been discussed in or were proposed by the Technology Working Group of the Open Charge Alliance.\n\nThe appendices of the OCPP 2.0.1 part 2 can be updated without requiring a new OCPP release. This mainly concerns the components and variables of the OCPP device model, which can be extended with new components or variables, as long as they are optional.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -382,7 +382,7 @@
     }
   },
   {
-    "content": "# Chapter 3. Generic Requirements\n\nThis section is normative.\n\nThe generic requirements build the basis for defining the use case elements described in the Functional Blocks.\n\nIMPORTANT This section requires knowledge of chapter 4 in Part 4 of the specification ([ref-ocpp20-part4]).\n\nFR.01: The sender of a Request SHALL wait for a Response or a timeout, before sending another request message.\nFR.02 (Precondition: When the Charging Station receives a valid OCPP request message according to the JSON schemas / RPC Framework AND the other system is not causing a security violation): The Charging Station SHALL respond with a RPC Framework: CALLRESULT.\nFR.03 (Precondition: When the Charging Station/CSMS receives an invalid OCPP request message according to the JSON schemas / RPC Framework OR the other system causes a security violation): The Charging Station/CSMS SHALL respond with a RPC Framework: CALLERROR.\nFR.04 (Precondition: When the CSMS rejected the BootNotificationRequest from the Charging Station AND The Charging Station sends a message other than BootNotificationRequest): The CSMS SHALL respond with a RPC Framework: CALLERROR: SecurityError.\nFR.05 (Precondition: There are a few messages that do not provide their result in the response message, but send one or more messages that contain the result.): The Charging Station SHALL acknowledge the requests in the list below with a response message (shown after the arrow \"\u2192\") with the same requestId as the request:",
+    "content": "# Chapter 3. Generic Requirements\n\nThis section is normative.\n\nThe generic requirements build the basis for defining the use case elements described in the Functional Blocks.\n\nIMPORTANT This section requires knowledge of chapter 4 in Part 4 of the specification ([ref-ocpp20-part4]).\n\nFR.01: The sender of a Request SHALL wait for a Response or a timeout, before sending another request message.\nFR.02 (Precondition: When the Charging Station receives a valid OCPP request message according to the JSON schemas / RPC Framework AND the other system is not causing a security violation): The Charging Station SHALL respond with a RPC Framework: CALLRESULT.\nFR.03 (Precondition: When the Charging Station/CSMS receives an invalid OCPP request message according to the JSON schemas / RPC Framework OR the other system causes a security violation): The Charging Station/CSMS SHALL respond with a RPC Framework: CALLERROR.\nFR.04 (Precondition: When the CSMS rejected the BootNotificationRequest from the Charging Station AND The Charging Station sends a message other than BootNotificationRequest): The CSMS SHALL respond with a RPC Framework: CALLERROR: SecurityError.\nFR.05 (Precondition: There are a few messages that do not provide their result in the response message, but send one or more messages that contain the result.): The Charging Station SHALL acknowledge the requests in the list below with a response message (shown after the arrow \"→\") with the same requestId as the request:",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -420,7 +420,7 @@
     }
   },
   {
-    "content": "# 3.3. Language support\n\nThis section is informative.\n\nA CSMS can provide the Charging Station with preferred languages for an EV Driver, enabling the Charging Station to communicate with the EV Driver in a language according to his/her preferences.\n\nFor any Charging Station that shows messages on a display it is RECOMMENDED to at least also implement these in \"English\". When the preferred languages for an EV-driver (provided by the CSMS) are not \"English\" and don\u2019t match any of the other languages implemented in the Charging Station, it is RECOMMENDED to use \"English\" as fall-back.",
+    "content": "# 3.3. Language support\n\nThis section is informative.\n\nA CSMS can provide the Charging Station with preferred languages for an EV Driver, enabling the Charging Station to communicate with the EV Driver in a language according to his/her preferences.\n\nFor any Charging Station that shows messages on a display it is RECOMMENDED to at least also implement these in \"English\". When the preferred languages for an EV-driver (provided by the CSMS) are not \"English\" and don’t match any of the other languages implemented in the Charging Station, it is RECOMMENDED to use \"English\" as fall-back.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -491,7 +491,7 @@
     }
   },
   {
-    "content": "# 1.5. Certificate Revocation\n\nThis section is normative.\n\nIn some cases a certificate may become invalid prior to the expiration of the validity period. Such cases include changes of the organization name, or the compromise or suspected compromise of the certificate\u2019s private key. In such cases, the certificate needs to be revoked or indicate it is no longer valid. The revocation of the certificate does not mean that the connection needs to be closed as the connection can stay open longer than 24 hours.\n\nDifferent methods are recommended for certificate revocation, see below Table.\n\nCSMS certificate: Fast expiration\nCharging Station certificate: Online verification\nFirmware Signing certificate: Online verification\n\nA00.FR.701: Fast expiration SHOULD be used to revoke the CSMS certificate. (See Note 1)\nA00.FR.702: The CSMS SHOULD use online certificate verification to verify the validity of the Charging Station certificates.\nA00.FR.703: It is RECOMMENDED that a separate certificate authority server is used to manage the certificates.\nA00.FR.704 (Precondition: A00.FR.703): This server SHOULD also keep track of which certificates have been revoked.\nA00.FR.705: The CSMS SHALL verify the validity of the certificate with the certificate authority server. (See Note 2)\nA00.FR.707: Prior to providing the certificate for firmware validation to the Charging Station, the CSMS SHOULD validate both, the certificate and the signed firmware update.",
+    "content": "# 1.5. Certificate Revocation\n\nThis section is normative.\n\nIn some cases a certificate may become invalid prior to the expiration of the validity period. Such cases include changes of the organization name, or the compromise or suspected compromise of the certificate’s private key. In such cases, the certificate needs to be revoked or indicate it is no longer valid. The revocation of the certificate does not mean that the connection needs to be closed as the connection can stay open longer than 24 hours.\n\nDifferent methods are recommended for certificate revocation, see below Table.\n\nCSMS certificate: Fast expiration\nCharging Station certificate: Online verification\nFirmware Signing certificate: Online verification\n\nA00.FR.701: Fast expiration SHOULD be used to revoke the CSMS certificate. (See Note 1)\nA00.FR.702: The CSMS SHOULD use online certificate verification to verify the validity of the Charging Station certificates.\nA00.FR.703: It is RECOMMENDED that a separate certificate authority server is used to manage the certificates.\nA00.FR.704 (Precondition: A00.FR.703): This server SHOULD also keep track of which certificates have been revoked.\nA00.FR.705: The CSMS SHALL verify the validity of the certificate with the certificate authority server. (See Note 2)\nA00.FR.707: Prior to providing the certificate for firmware validation to the Charging Station, the CSMS SHOULD validate both, the certificate and the signed firmware update.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -935,7 +935,7 @@
     }
   },
   {
-    "content": "# Chapter 1. Introduction\n\nThis Functional Block specifies how the Charging Station can inform the CSMS of its current availability for starting new transactions.\n\nFor the CSO it is important to know if a Charging Station is available for new EVs to be charged. The CSO wants to know this information so they can tell EV Drivers whether the Charging Station is available. To know this, the Charging Station should send any status changes of itself or one of its EVSEs to the CSMS. See for an example: B04 - Offline Behavior Idle Charging Station.\n\nFor the CSO it is very helpful to know the status of the transaction, therefore the Charging Station can send detailed statuses to the CSMS. This can be very useful when helping an EV Driver when he experiences problems during charging.\n\nWhen a fault is detected by the Charging Station it can send a message notifying the CSMS about the fault.\n\nWhen the CSO wants the Charging Station to no longer start new transactions, it can change the availability. For example: they need to do maintenance on the Charging Station, and for this reason they don\u2019t want the Charging Station to be in use.\n\nThe CSO can also change the availability for one or more EVSEs. For example: A customer calls, complaining about a broken EVSE on the Charging Station. The CSO can then set the Connector to unavailable, making it impossible for an EV Driver to use that Connector.\n\nObviously, it is also possible to make the Charging Station or a Connector available again with a command from the CSMS.\n\nNOTE An overview of the Connectors Statuses can be found in: ConnectorStatusEnumType.",
+    "content": "# Chapter 1. Introduction\n\nThis Functional Block specifies how the Charging Station can inform the CSMS of its current availability for starting new transactions.\n\nFor the CSO it is important to know if a Charging Station is available for new EVs to be charged. The CSO wants to know this information so they can tell EV Drivers whether the Charging Station is available. To know this, the Charging Station should send any status changes of itself or one of its EVSEs to the CSMS. See for an example: B04 - Offline Behavior Idle Charging Station.\n\nFor the CSO it is very helpful to know the status of the transaction, therefore the Charging Station can send detailed statuses to the CSMS. This can be very useful when helping an EV Driver when he experiences problems during charging.\n\nWhen a fault is detected by the Charging Station it can send a message notifying the CSMS about the fault.\n\nWhen the CSO wants the Charging Station to no longer start new transactions, it can change the availability. For example: they need to do maintenance on the Charging Station, and for this reason they don’t want the Charging Station to be in use.\n\nThe CSO can also change the availability for one or more EVSEs. For example: A customer calls, complaining about a broken EVSE on the Charging Station. The CSO can then set the Connector to unavailable, making it impossible for an EV Driver to use that Connector.\n\nObviously, it is also possible to make the Charging Station or a Connector available again with a command from the CSMS.\n\nNOTE An overview of the Connectors Statuses can be found in: ConnectorStatusEnumType.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -960,7 +960,7 @@
     }
   },
   {
-    "content": "# Scenario description\n\nTxStartPoint = \"Authorized\"; IdToken presented first\n\n1. The EV Driver presents an IdTokenType at the Charging Station that is not the same as the reservation\u2019s IdTokenType, but the reservation contains a groupIdToken.\n2. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local Authorization List or Authorization Cache, and checks if the groupIdToken of the IdTokenType matches with the reservation.\n3. If groupIdTokens match:",
+    "content": "# Scenario description\n\nTxStartPoint = \"Authorized\"; IdToken presented first\n\n1. The EV Driver presents an IdTokenType at the Charging Station that is not the same as the reservation’s IdTokenType, but the reservation contains a groupIdToken.\n2. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local Authorization List or Authorization Cache, and checks if the groupIdToken of the IdTokenType matches with the reservation.\n3. If groupIdTokens match:",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -973,7 +973,7 @@
     }
   },
   {
-    "content": "# Scenario description #2\n\nTxStartPoint = \"EVConnected\"; Cable plugged in first\n\n1. The EV Driver connects the cable.\n2. Charging Station starts a transaction, but connector status remains Reserved.\n3. The EV Driver presents an IdTokenType at the Charging Station that is not the same as the reservation\u2019s IdTokenType, but the reservation contains a groupIdToken.\n4. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local Authorization List or Authorization Cache, and checks if the groupIdToken of the IdTokenType matches with the reservation.\n5. If groupIdTokens match:",
+    "content": "# Scenario description #2\n\nTxStartPoint = \"EVConnected\"; Cable plugged in first\n\n1. The EV Driver connects the cable.\n2. Charging Station starts a transaction, but connector status remains Reserved.\n3. The EV Driver presents an IdTokenType at the Charging Station that is not the same as the reservation’s IdTokenType, but the reservation contains a groupIdToken.\n4. Charging Station authorizes the IdTokenType via an AuthorizeRequest, Local Authorization List or Authorization Cache, and checks if the groupIdToken of the IdTokenType matches with the reservation.\n5. If groupIdTokens match:",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -986,7 +986,7 @@
     }
   },
   {
-    "content": "# Scenario description #2\n\nTxStartPoint = \"EVConnected\"; Cable plugged in first\n\n1. The EV Driver connects the cable\n2. Charging Station reports connector status as Occupied\n3. Charging Station starts a transaction\n4. The EV Driver presents an IdTokenType at the Charging Station that is the same as the reservation\u2019s IdTokenType\n5. Charging Station matches IdTokenType with the reservation\n6. Charging Station optionally authorizes the IdTokenType via an AuthorizeRequest\n7. If authorization accepted, or authorization step was skipped:\n1. Charging Station starts a transaction as in E02 - Start Transaction - Cable Plugin First\n\n- 5: 6; Prerequisite(s): Postcondition(s); Unspecified EVSE has been reserved for idToken. EVSE connector status is Available.: n/a",
+    "content": "# Scenario description #2\n\nTxStartPoint = \"EVConnected\"; Cable plugged in first\n\n1. The EV Driver connects the cable\n2. Charging Station reports connector status as Occupied\n3. Charging Station starts a transaction\n4. The EV Driver presents an IdTokenType at the Charging Station that is the same as the reservation’s IdTokenType\n5. Charging Station matches IdTokenType with the reservation\n6. Charging Station optionally authorizes the IdTokenType via an AuthorizeRequest\n7. If authorization accepted, or authorization step was skipped:\n1. Charging Station starts a transaction as in E02 - Start Transaction - Cable Plugin First\n\n- 5: 6; Prerequisite(s): Postcondition(s); Unspecified EVSE has been reserved for idToken. EVSE connector status is Available.: n/a",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -1538,21 +1538,6 @@
       "functional_block": "CertificateManagement",
       "message_refs": "TransactionEventRequest, TransactionEventResponse",
       "figure_refs": "120"
-    }
-  },
-  {
-    "content": "# 2.1. ISO 15118 Certificate structure\n\nThe ISO 15118 standard provides a Plug & Charge mechanism. This is an identification and authorization mode where the customer just has to plug his electric vehicle into the EVSE and all aspects of authentication, authorization, load control and billing are automatically taken care of without the need for further user interaction. This is facilitated by the application of digital signatures and exchange of X.509 certificates bound to a Public Key Infrastructures (PKI) model.\n\nThe PKI structure defined by ISO 15118 is shown in the figure below. In general, four PKIs need to be in place.\n\n- PKI for the Charging Station Operator (CSO)\n- PKI for the Certificate Provisioning Service (CPS)\n- PKI for the Mobility Operator (MO)\n- PKI for the car manufacturer (OEM)\n\nThe trust anchor (root CA) for the CSO and CPS is the so-called V2G Root CA. On the other hand, it is up to the respective OEM and MO to operate a Root CA of their own or derive their certificates from a V2G Root CA (indicated by the dotted lines between V2G Root and MO Sub-CA 1 and OEM Sub-CA 1, respectively).\n\n- Prov Sub-CA 1: Prov Sub-CA 2; OCSP Signer: OCSP Signer; Response: Response; CSO Sub-CA 1: CSO Sub-CA 2; OEM Sub-CA 1: OEM Sub-CA 2; MO Sub-CA 1: MO Sub-CA 2\n- Prov Sub-CA 1: Provisioning EVSE Vehicle\n- Prov Sub-CA 1: Leaf Prov; OCSP Signer: EVSE Leaf; Response: OEM Prov; CSO Sub-CA 1: Contract; OEM Sub-CA 1: Signs; MO Sub-CA 1: Certificate",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "2.1. ISO 15118 Certificate structure",
-      "heading_path": "2.1. ISO 15118 Certificate structure",
-      "functional_block": "CertificateManagement",
-      "figure_refs": "121",
-      "chunk_part": 1,
-      "total_parts": 2
     }
   },
   {

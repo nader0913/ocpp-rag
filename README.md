@@ -2,7 +2,7 @@
 
 MCP server that gives AI assistants deep knowledge of EV charging protocols. Add it to Claude and ask anything about OCPP 1.6, OCPP 2.0.1, Plug & Charge, smart charging, and related standards.
 
-3,500+ indexed chunks from 19 official documents, 119 structured use cases, 128 JSON schemas, and 146 figures.
+3,500+ indexed chunks from 18 official documents, 119 structured use cases, 128 JSON schemas, and 146 figures.
 
 ## Quick Start
 
@@ -42,7 +42,7 @@ The ChromaDB index builds automatically on first run (~30 seconds).
 
 | Tool | Description |
 |------|-------------|
-| `search_ocpp` | Semantic search across all 19 documents. Filter by version (`1.6` / `2.0.1`) or content type (`use_case`, `requirements`, `json_schema`, `component_variable`). |
+| `search_ocpp` | Semantic search across all 18 documents. Filter by version (`1.6` / `2.0.1`) or content type (`use_case`, `requirements`, `json_schema`, `component_variable`). |
 | `get_use_case` | Retrieve full structured details for any use case (e.g. `B01`, `E02`, `K08`) including description, actors, scenario, requirements, and figures. |
 | `list_use_cases` | List all use cases, filterable by OCPP version and functional block. |
 | `get_message_schema` | Look up the JSON schema for any OCPP 2.0.1 message (e.g. `BootNotificationRequest`, `TransactionEventResponse`). |
@@ -76,7 +76,6 @@ The ChromaDB index builds automatically on first run (~30 seconds).
 - OCPP 1.6 Security Whitepaper (Edition 4)
 - OCPP Security Operations Guide v1.0
 - What is New in OCPP 2.0.1
-- Signed Meter Values / Eichrecht v1.0
 - OCPP 2.Lite - OCPP for Resource-Constrained Devices v2
 
 ### Figures
@@ -97,7 +96,7 @@ src/ocpp_rag/data/
     spec.json        OCPP 1.6 specification
     j.json           OCPP-J 1.6
   other/
-    7 whitepaper JSON files
+    6 whitepaper JSON files
   figures/
     146 PNG files + manifest
 ```
@@ -131,7 +130,6 @@ Each use case is stored as structured JSON with proper fields:
 - *"What device model variables are available for the EVSE component?"*
 - *"How does Plug & Charge work with ISO 15118?"*
 - *"What are the California pricing requirements for OCPP?"*
-- *"Explain Eichrecht signed meter values"*
 - *"What security profiles exist in OCPP 1.6?"*
 
 ## Running Tests

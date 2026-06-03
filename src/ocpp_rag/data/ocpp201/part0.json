@@ -39,7 +39,7 @@
     }
   },
   {
-    "content": "# Disclaimer\n\nCopyright \u00a9 2010 \u2013 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
+    "content": "# Disclaimer\n\nCopyright © 2010 – 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
     "metadata": {
       "doc_id": "ocpp201_part0",
       "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
@@ -72,7 +72,7 @@
     }
   },
   {
-    "content": "# 1.1. OCPP version 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol\u2019s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
+    "content": "# 1.1. OCPP version 2.0.1\n\nThis specification defines version 2.0.1 of OCPP.\n\nAfter the release of OCPP 2.0, some issues were found in OCPP 2.0. Some of these issues could not be fixed issuing errata to the specification text only, as has been done with OCPP 1.6, but required changes to the protocol’s machine-readable schema definition files that cannot be backward compatible.\n\nTo prevent confusion in the market and possible interoperability issues in the field, OCA has decided to name this version: 2.0.1. OCPP 2.0.1 contains fixes for all the known issues, to date, not only the fixes to the messages.\n\nThis version replaces OCPP 2.0. OCA advises implementers of OCPP to no longer implement OCPP 2.0 and only use version 2.0.1 going forward.\n\nAny mentions of \"OCPP 2.0\" refers to revision 2.0.1 unless specifically stated otherwise.",
     "metadata": {
       "doc_id": "ocpp201_part0",
       "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
@@ -272,34 +272,6 @@
     }
   },
   {
-    "content": "- C: C; Authorization: Authorization; C07: C08; Authorization using Contract Certificates: Authorization at EVSE using ISO 15118 External Identification Means (EIM); o: o\n- C: C; Authorization: Authorization; C07: C09; Authorization using Contract Certificates: Authorization by GroupId; o: o\n- C: C; Authorization: Authorization; C07: C10; Authorization using Contract Certificates: Store Authorization Data in the Authorization Cache; o: o\n- C: C; Authorization: Authorization; C07: C11; Authorization using Contract Certificates: Clear Authorization Data in Authorization Cache; o: o\n- C: C; Authorization: Authorization; C07: C12; Authorization using Contract Certificates: Start Transaction - Cached Id; o: o\n- C: C; Authorization: Authorization; C07: C13; Authorization using Contract Certificates: Offline Authorization through Local Authorization List; o: o\n- C: C; Authorization: Authorization; C07: C14; Authorization using Contract Certificates: Online Authorization through Local Authorization List; o: o\n- C: C; Authorization: Authorization; C07: C15; Authorization using Contract Certificates: Offline Authorization of unknown Id; o: o\n- C: C; Authorization: Authorization; C07: C16; Authorization using Contract Certificates: Stop Transaction with a Master Pass; o: o\n- C: D; Authorization: LocalAuthorizationList; C07: D01; Authorization using Contract Certificates: Send Local Authorization List; o: o\n- C: D; Authorization: LocalAuthorizationList; C07: D02; Authorization using Contract Certificates: Get Local List Version; o: o",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.3. All Functional Blocks and use cases",
-      "heading_path": "3.3. All Functional Blocks and use cases",
-      "use_case_refs": "A01, A02, A03, A04, B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, C14, C15, C16, D01, D02, E01, E02, E03, E04",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- E: E; Transactions: Transactions; E01: E02; Start Transaction Options: Start Transaction - Cable Plugin First; o: o\n- E: E; Transactions: Transactions; E01: E03; Start Transaction Options: Start Transaction - IdToken First; o: o\n- E: E; Transactions: Transactions; E01: E04; Start Transaction Options: Transaction started while Charging Station is offline",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "3.3. All Functional Blocks and use cases",
-      "heading_path": "3.3. All Functional Blocks and use cases",
-      "use_case_refs": "A01, A02, A03, A04, B01, B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, C01, C02, C03, C04, C05, C06, C07, C08, C09, C10, C11, C12, C13, C14, C15, C16, D01, D02, E01, E02, E03, E04",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "# Part 0 - Introduction\n\n- Clause: E; Functional Block: Transaction; UC ID: E05; Use case name: Start Transaction - Id not Accepted; OCPP 1.6: o\n- Clause: E06; Functional Block: Stop Transaction Options; UC ID: o\n- Clause: E07; Functional Block: Transaction locally stopped by IdToken; UC ID: o\n- Clause: E08; Functional Block: Transaction stopped while Charging Station is offline; UC ID: o\n- Clause: E09; Functional Block: When cable disconnected on EV-side: Stop Transaction; UC ID: o\n- Clause: E10; Functional Block: When cable disconnected on EV-side: Suspend Transaction; UC ID: o\n- Clause: E11; Functional Block: Connection Loss During Transaction; UC ID: o\n- Clause: E12; Functional Block: Inform CSMS of an Offline Occurred Transaction; UC ID: o\n- Clause: E13; Functional Block: Transaction related message not accepted by CSMS; UC ID: o\n- Clause: E14; Functional Block: Check transaction status; UC ID: o\n- Clause: E15; Functional Block: End of charging process; UC ID: o\n- Clause: F; Functional Block: RemoteControl; UC ID: F01; Use case name: Remote Start Transaction - Cable Plugin First; OCPP 1.6: o\n- Clause: F02; Functional Block: Remote Start Transaction - Remote Start First; UC ID: o\n- Clause: F03; Functional Block: Remote Stop Transaction; UC ID: o\n- Clause: F04; Functional Block: Remote Stop ISO 15118 charging from CSMS; UC ID: o\n- Clause: F05; Functional Block: Remotely Unlock Connector; UC ID: o\n- Clause: F06; Functional Block: Trigger Message; UC ID: o\n- Clause: G; Functional Block: Availability; UC ID: G01; Use case name: Status Notification; OCPP 1.6: o\n- Clause: G02; Functional Block: Heartbeat; UC ID: o\n- Clause: G03; Functional Block: Change Availability EVSE; UC ID: o\n- Clause: G04; Functional Block: Change Availability Charging Station; UC ID: o\n- Clause: G05; Functional Block: Lock Failure; UC ID: o",
     "metadata": {
       "doc_id": "ocpp201_part0",
@@ -314,34 +286,6 @@
     }
   },
   {
-    "content": "- H: H02; Reservation: Cancel Reservation; H01: o\n- H: H03; Reservation: Use a reserved EVSE; H01: o\n- H: H04; Reservation: Reservation Ended, not used; H01: o\n- H: I; Reservation: Tariff and Costs; H01: I01; Reservation: Show EV Driver-specific tariff information; o: o\n- H: I02; Reservation: Show EV Driver running total cost during charging; H01: o\n- H: I03; Reservation: Show EV Driver final total cost after charging; H01: o\n- H: I04; Reservation: Show fallback tariff information; H01: o\n- H: I05; Reservation: Show fallback total cost message; H01: o\n- H: I06; Reservation: Update Tariff Information During Transaction; H01: o\n- H: J; Reservation: Metering; H01: J01; Reservation: Sending Meter Values not related to a transaction; o: o",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 0 - Introduction",
-      "heading_path": "Part 0 - Introduction",
-      "use_case_refs": "E05, E06, E07, E08, E09, E10, E11, E12, E13, E14, E15, F01, F02, F03, F04, F05, F06, G01, G02, G03, G04, G05, H01, H02, H03, H04, I01, I02, I03, I04, I05, I06, J01, J02, J03, K01, K02, K03, K04, K05, K06, K07, K08",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- J02: J03; Sending transaction related Meter Values: Charging Loop with metering information exchange; o: o\n- J02: K; Sending transaction related Meter Values: SmartCharging; o: K01; Set Charging Profile; o\n- J02: K02; Sending transaction related Meter Values: Central Smart Charging; o: o\n- J02: K03; Sending transaction related Meter Values: Local Smart Charging; o: o\n- J02: K04; Sending transaction related Meter Values: Internal Load Balancing; o: o\n- J02: K05; Sending transaction related Meter Values: Remote Start Transaction with Charging Profile; o: o\n- J02: K06; Sending transaction related Meter Values: Offline Behavior Smart Charging During Transaction; o: o\n- J02: K07; Sending transaction related Meter Values: Offline Behavior Smart Charging at Start of Transaction; o: o\n- J02: K08; Sending transaction related Meter Values: Get Composite Schedule; o: o",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 0 - Introduction",
-      "heading_path": "Part 0 - Introduction",
-      "use_case_refs": "E05, E06, E07, E08, E09, E10, E11, E12, E13, E14, E15, F01, F02, F03, F04, F05, F06, G01, G02, G03, G04, G05, H01, H02, H03, H04, I01, I02, I03, I04, I05, I06, J01, J02, J03, K01, K02, K03, K04, K05, K06, K07, K08",
-      "chunk_part": 3,
-      "total_parts": 3
-    }
-  },
-  {
     "content": "# Part 0 - Introduction\n\n- Clause: K; Functional Block: Charging Profiles; UC ID: K09; Use case name: Get Charging Profiles; OCPP 1.6: o\n- Clause: K10; Functional Block: Clear Charging Profile; UC ID: o\n- Clause: K11; Functional Block: Set / Update External Charging Limit With Ongoing Transaction; UC ID: o\n- Clause: K12; Functional Block: Set / Update External Charging Limit Without Ongoing Transaction; UC ID: o\n- Clause: K13; Functional Block: Reset / release external charging limit; UC ID: o\n- Clause: K14; Functional Block: External Charging Limit with Local Controller; UC ID: o\n- Clause: K15; Functional Block: Charging with load leveling based on High Level Communication; UC ID: o\n- Clause: K16; Functional Block: Optimized charging with scheduling to the CSMS; UC ID: o\n- Clause: K17; Functional Block: Renegotiating a Charging Schedule; UC ID: o\n- Clause: L; Functional Block: Firmware Management; UC ID: L01; Use case name: Secure Firmware Update; OCPP 1.6: o\n- Clause: L02; Functional Block: Non-Secure Firmware Update; UC ID: o\n- Clause: L03; Functional Block: Publish Firmware file on Local Controller; UC ID: o\n- Clause: L04; Functional Block: Unpublish Firmware file on Local Controller; UC ID: o\n- Clause: M; Functional Block: Certificate Management; UC ID: M01; Use case name: Certificate Installation EV; OCPP 1.6: o\n- Clause: M02; Functional Block: Certificate Update EV; UC ID: o\n- Clause: M03; Functional Block: Retrieve list of available certificates from a Charging Station; UC ID: o\n- Clause: M04; Functional Block: Delete a specific certificate from a Charging Station; UC ID: o\n- Clause: M05; Functional Block: Install CA certificate in a Charging Station; UC ID: o\n- Clause: M06; Functional Block: Get Charging Station Certificate status; UC ID: o\n- Clause: N; Functional Block: Diagnostics; UC ID: N01; Use case name: Retrieve Log Information; OCPP 1.6: o\n- Clause: N02; Functional Block: Get Monitoring report; UC ID: o\n- Clause: N03; Functional Block: Set Monitoring Base; UC ID: o",
     "metadata": {
       "doc_id": "ocpp201_part0",
@@ -352,34 +296,6 @@
       "heading_path": "Part 0 - Introduction",
       "use_case_refs": "K09, K10, K11, K12, K13, K14, K15, K16, K17, L01, L02, L03, L04, M01, M02, M03, M04, M05, M06, N01, N02, N03, N04, N05, N06, N07, N08, N09, N10, O01, O02, O03, O04, O05, O06, P01, P02",
       "chunk_part": 1,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- N04: N05; Set Variable Monitoring: Set Monitoring Level; o: o\n- N04: N06; Set Variable Monitoring: Clear / Remove Monitoring; o: o\n- N04: N07; Set Variable Monitoring: Alert Event; o: o\n- N04: N08; Set Variable Monitoring: Periodic Event; o: o\n- N04: N09; Set Variable Monitoring: Get Customer Information; o: o\n- N04: N10; Set Variable Monitoring: Clear Customer Information; o: o\n- N04: O; Set Variable Monitoring: Display Message; o: O01; Set DisplayMessage; o\n- N04: O02; Set Variable Monitoring: Set DisplayMessage for Transaction; o: o\n- N04: O03; Set Variable Monitoring: Get All DisplayMessages; o: o\n- N04: O04; Set Variable Monitoring: Get Specific DisplayMessages; o: o\n- N04: O05; Set Variable Monitoring: Clear a DisplayMessage; o: o",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 0 - Introduction",
-      "heading_path": "Part 0 - Introduction",
-      "use_case_refs": "K09, K10, K11, K12, K13, K14, K15, K16, K17, L01, L02, L03, L04, M01, M02, M03, M04, M05, M06, N01, N02, N03, N04, N05, N06, N07, N08, N09, N10, O01, O02, O03, O04, O05, O06, P01, P02",
-      "chunk_part": 2,
-      "total_parts": 3
-    }
-  },
-  {
-    "content": "- O06: P; Replace DisplayMessage: DataTransfer; o: P01; Data Transfer to the Charging Station; o\n- O06: P02; Replace DisplayMessage: Data Transfer to the CSMS; o: o\n\nOCPP is used in many different regions and for many different charging solutions. Not all functionalities offered by OCPP will be applicable to all implementations. Implementers can decide what specific functionalities apply to their charging solution.\n\nFor interoperability purposes, the Open Charge Alliance introduces Certification Profiles in Part 5 of the specification.",
-    "metadata": {
-      "doc_id": "ocpp201_part0",
-      "doc_title": "OCPP 2.0.1 Part 0 - Introduction",
-      "ocpp_version": "2.0.1",
-      "content_type": "general",
-      "heading": "Part 0 - Introduction",
-      "heading_path": "Part 0 - Introduction",
-      "use_case_refs": "K09, K10, K11, K12, K13, K14, K15, K16, K17, L01, L02, L03, L04, M01, M02, M03, M04, M05, M06, N01, N02, N03, N04, N05, N06, N07, N08, N09, N10, O01, O02, O03, O04, O05, O06, P01, P02",
-      "chunk_part": 3,
       "total_parts": 3
     }
   },
