@@ -1,6 +1,6 @@
 [project]
 name = "ocpp-rag"
-version = "0.1.0"
+version = "1.0.0"
 description = "MCP server with RAG knowledge base for OCPP 1.6, OCPP 2.0.1, and EV charging standards"
 readme = "README.md"
 license = {text = "Polyform-Noncommercial-1.0.0"}
@@ -12,25 +12,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-parse = [
-    "llama-parse>=0.6.94",
-    "pymupdf>=1.27.2.3",
-    "python-dotenv>=1.2.2",
-]
-query = [
-    "anthropic>=0.40.0",
-    "python-dotenv>=1.2.2",
-]
 dev = [
     "pytest>=8.0",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-markers = [
-    "integration: marks tests that need the full pipeline (deselect with '-m \"not integration\"')",
-    "requires_api: marks tests that need external API keys",
-]
 
 [build-system]
 requires = ["hatchling"]

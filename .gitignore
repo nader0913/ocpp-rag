@@ -1,22 +1,12 @@
-# Python
 __pycache__/
 *.py[oc]
 build/
 dist/
 wheels/
 *.egg-info
-
-# Virtual environments
 .venv
-
-# Secrets
 .env
-
-# Source docs (used for parsing, not needed at runtime)
-source_docs/
-
-# Parse/build artifacts
-output/
-
-# OS files
 .DS_Store
+.pytest_cache/
+source_docs/
+output/
