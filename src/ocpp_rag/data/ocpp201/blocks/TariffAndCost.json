@@ -1,17 +1,5 @@
 [
   {
-    "content": "# I. Tariff And Cost\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "I. Tariff And Cost",
-      "heading_path": "I. Tariff And Cost",
-      "functional_block": "TariffAndCost"
-    }
-  },
-  {
     "content": "# I. Tariff And Cost\n\nPostcondition(s): Successful postcondition: EV Driver has been shown the fallback tariff information message Failure postcondition: EV Driver has no information about the tariff at this Charging Station.\nError Handling: n/a\nRemarks: n/a\n\nEV Driver Charging Station CSMS\n\npresent IdToken\n\nalt          [if Charging Station is offline]\ncheck authorization cache()\n\nTariffFallbackMessage\n[No specific tariff is available]\nAuthorizeRequest(idToken)\n\nAuthorizeResponse(...)\n\nTariffFallbackMessage",
     "metadata": {
       "doc_id": "ocpp201_part2",

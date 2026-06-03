@@ -140,7 +140,7 @@
     }
   },
   {
-    "content": "# Chapter 3. Information Model\n\nThis section is informative.\n\nGiven the growing complexity of the messages of OCPP, OCPP 2.0.1 is based on an Information Model as a blueprint for the messages and inherent schemas of OCPP. With an information model, we mean a logical object set, describing real objects with all their properties. This provides an informative representation of information structure in the protocol. Furthermore, it enables making objects within OCPP reusable and enables consistent definition of messages and automatically generated message schemas (Part 3).\n\nThe Information Model is a model, also called Domain Model or Core Model, based on which the OCPP messages and datatypes are generated. These datatypes are extracted from the OCPP 1.6 specification and are named Core DataTypes and Qualified DataTypes. The figure below illustrates how the DataTypes in the information model are built up.\n\nIn part 2 - Specification, chapter Datatypes, some DataTypes have the Common: prefix. This originates from the Information Model. It means that the DataType is able to be shared among other DataTypes and Messages. This has no impact on the OCPP implementation of a device.\n\n\u00abXSDsimpleType\u00bb: \u00abXSDsimpleType\u00bb\nXSDDatatypes::decimal: XSDDatatypes::normalizedString\n\u00abPRIMSimpleType\u00bb: \u00abPRIMSimpleType\u00bb\nDecimal: NormalizedString\n(from PrimitiveDataTypes): (from PrimitiveDataTypes)\n\u00abCDTComplexType,LDT,ECDMChange,CDT\u00bb: IdentifierType\n\u00abSupplementary\u00bb: + identificationScheme: String \\[0..1]\n\u00abCDTComplexType,ECDMChange,...: + identificationScheme.Agency: String \\[0..1]\n\u00abCDTSimpleType,LDT,EC...: AmountType\nMeasureType: + identificationScheme.AgencyName: String \\[0..1]\nNumericType: + identificationScheme.Name: String \\[0..1]\n\u00abSupplementary\u00bb: + identificationScheme.UniformResource: String \\[0..1]\n\u00abSupplementary\u00bb: + currency: String \\[0..1]\n+ measureUnit: String \\[0..1]: + identificationScheme.Version: String \\[0..1]\n+ format: String \\[0..1]: + currencyCodeListVersion: String \\[0..1]\n+ measureUnit.CodeListVersion: String \\[0..1]: + identificationSchemeData.UniformResource: String \\[0..1]\n(from CoreDataTypes): (from CoreDataTypes)\n\u00abBDTSimpleType\u00bb: \u00abBDTSimpleType\u00bb\n\u00abBDTComplexType\u00bb: \u00abBDTComplexType\u00bb\nIntegerType: PercentageType\nPositiveAmount: PowerType\nCertificateSerialNumberType: ",
+    "content": "# Chapter 3. Information Model\n\nThis section is informative.\n\nGiven the growing complexity of the messages of OCPP, OCPP 2.0.1 is based on an Information Model as a blueprint for the messages and inherent schemas of OCPP. With an information model, we mean a logical object set, describing real objects with all their properties. This provides an informative representation of information structure in the protocol. Furthermore, it enables making objects within OCPP reusable and enables consistent definition of messages and automatically generated message schemas (Part 3).\n\nThe Information Model is a model, also called Domain Model or Core Model, based on which the OCPP messages and datatypes are generated. These datatypes are extracted from the OCPP 1.6 specification and are named Core DataTypes and Qualified DataTypes. The figure below illustrates how the DataTypes in the information model are built up.\n\nIn part 2 - Specification, chapter Datatypes, some DataTypes have the Common: prefix. This originates from the Information Model. It means that the DataType is able to be shared among other DataTypes and Messages. This has no impact on the OCPP implementation of a device.\n\n\u00abXSDsimpleType\u00bb: \u00abXSDsimpleType\u00bb\nXSDDatatypes::decimal: XSDDatatypes::normalizedString\n\u00abPRIMSimpleType\u00bb: \u00abPRIMSimpleType\u00bb\nDecimal: NormalizedString\n(from PrimitiveDataTypes): (from PrimitiveDataTypes)\n\u00abCDTComplexType,LDT,ECDMChange,CDT\u00bb: IdentifierType\n\u00abSupplementary\u00bb: + identificationScheme: String [0..1]\n\u00abCDTComplexType,ECDMChange,...: + identificationScheme.Agency: String [0..1]\n\u00abCDTSimpleType,LDT,EC...: AmountType\nMeasureType: + identificationScheme.AgencyName: String [0..1]\nNumericType: + identificationScheme.Name: String [0..1]\n\u00abSupplementary\u00bb: + identificationScheme.UniformResource: String [0..1]\n\u00abSupplementary\u00bb: + currency: String [0..1]\n+ measureUnit: String [0..1]: + identificationScheme.Version: String [0..1]\n+ format: String [0..1]: + currencyCodeListVersion: String [0..1]\n+ measureUnit.CodeListVersion: String [0..1]: + identificationSchemeData.UniformResource: String [0..1]\n(from CoreDataTypes): (from CoreDataTypes)\n\u00abBDTSimpleType\u00bb: \u00abBDTSimpleType\u00bb\n\u00abBDTComplexType\u00bb: \u00abBDTComplexType\u00bb\nIntegerType: PercentageType\nPositiveAmount: PowerType\nCertificateSerialNumberType:",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -179,7 +179,7 @@
     }
   },
   {
-    "content": "Components do not in themselves hold data: all externally accessible data associated with each component instance is represented by a set of variables that can be read, set, and/or monitored for changes. The relationship of a Component with one or more Variables is illustrated in below.\n\n- ComponentType: \\*; Name: 0..1\n- ComponentType: VariableType; Name: Name; Instance \\[0..1]: Id; Instance \\[0..1]; *ConnectorId \\[0..1]*\n\nThe table below illustrates some common components (by their standardized component-names), and examples of the hierarchical location levels at which they typically occur for a basic home charger and a typical public Charging Station.",
+    "content": "Components do not in themselves hold data: all externally accessible data associated with each component instance is represented by a set of variables that can be read, set, and/or monitored for changes. The relationship of a Component with one or more Variables is illustrated in below.\n\n- ComponentType: *; Name: 0..1\n- ComponentType: VariableType; Name: Name; Instance [0..1]: Id; Instance [0..1]; *ConnectorId [0..1]*\n\nThe table below illustrates some common components (by their standardized component-names), and examples of the hierarchical location levels at which they typically occur for a basic home charger and a typical public Charging Station.",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -225,7 +225,7 @@
     }
   },
   {
-    "content": "# 4.3. Characteristics and Attributes\n\nEach variable, in addition to its primary (\"Actual\") value, can have a set of associated secondary data that is linked to the same primary variable name and variableInstance. This greatly avoids cluttering the variables namespace with confusing clusters of ancillary variable names (e.g. FanSpeed, FanSpeedUnits, MinimumFanSpeed, BaseFanSpeed) that lack consistence and discoverability. The ancillary variable data includes:\n\n- Variable characteristics meta-data (read-only)\n- Unit of measure (V,W,kW,kWh, etc.)\n- Data type (Integer, Decimal, String, Date, OptionList, etc.)\n- Lower limit\n- Upper limit\n- List of allowed values for enumerated variables\n- Variable attributes (read-write):\n- Actual value\n- Target value\n- Configured lower limit\n- Configured upper limit\n- Mutability (whether the value can be altered or not, e.g. ReadOnly or ReadWrite)\n- Persistence (whether the value is preserved in case of a reboot or power loss)\n\nThe relationship of a Variable with one or more VariableAttributes is illustrated in the figure below.\n\n- ComponentType: Name; Name: Id; Instance \\[0..1]: *ConnectorId \\[0..1]*\n- ComponentType: VariableAttributeType; Instance \\[0..1]: VariableCharacteristicsType\n- ComponentType: Type \\[0..1]; Name: Unit \\[0..1]\n- ComponentType: Value; Name: DataType\n- ComponentType: Mutability \\[0..1]; Instance \\[0..1]: MinLimit \\[0..1]\n- ComponentType: Persistent; Instance \\[0..1]: MaxLimit \\[0..1]\n- ComponentType: Constant; Instance \\[0..1]: ValuesList \\[0..1]",
+    "content": "# 4.3. Characteristics and Attributes\n\nEach variable, in addition to its primary (\"Actual\") value, can have a set of associated secondary data that is linked to the same primary variable name and variableInstance. This greatly avoids cluttering the variables namespace with confusing clusters of ancillary variable names (e.g. FanSpeed, FanSpeedUnits, MinimumFanSpeed, BaseFanSpeed) that lack consistence and discoverability. The ancillary variable data includes:\n\n- Variable characteristics meta-data (read-only)\n- Unit of measure (V,W,kW,kWh, etc.)\n- Data type (Integer, Decimal, String, Date, OptionList, etc.)\n- Lower limit\n- Upper limit\n- List of allowed values for enumerated variables\n- Variable attributes (read-write):\n- Actual value\n- Target value\n- Configured lower limit\n- Configured upper limit\n- Mutability (whether the value can be altered or not, e.g. ReadOnly or ReadWrite)\n- Persistence (whether the value is preserved in case of a reboot or power loss)\n\nThe relationship of a Variable with one or more VariableAttributes is illustrated in the figure below.\n\n- ComponentType: Name; Name: Id; Instance [0..1]: *ConnectorId [0..1]*\n- ComponentType: VariableAttributeType; Instance [0..1]: VariableCharacteristicsType\n- ComponentType: Type [0..1]; Name: Unit [0..1]\n- ComponentType: Value; Name: DataType\n- ComponentType: Mutability [0..1]; Instance [0..1]: MinLimit [0..1]\n- ComponentType: Persistent; Instance [0..1]: MaxLimit [0..1]\n- ComponentType: Constant; Instance [0..1]: ValuesList [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -239,7 +239,7 @@
     }
   },
   {
-    "content": "Figure 4. Variable attributes and characteristics\n\nThere is a difference between how to implement (physical) devices and (virtual) controller components, using the DeviceModel. A (virtual) controller component has to be implemented as described in part 2 chapter the \"Referenced Components and Variables\". These kind of components/variables are only using the variableAttribute type 'Actual'. Depending on if this variableAttribute is writable, the CSMS can use this to set a new value.\n(Physical) devices are a bit more complex to implement. For example, there is a fan with a fan speed, that has a (physical) limit with a range of 0 - 1000. But it should not be allowed to set the value below 200, because the fan can stop functioning. And it should not be set above 500, because that would be bad for the fan on the long run. When implementing this device using the DeviceModel, it can be defined as follows:\n\n\n\n & Topology\n\n- Variable name: variableAttribute 1; FanSpeed: type; Actual\n- Variable name: variableAttribute 2; FanSpeed: type; Target\n- Variable name: variableAttribute 3; FanSpeed: type; MaxSet\n- Variable name: variableAttribute 4; FanSpeed: type; MinSet\n- Variable name: variableCharacteristics; FanSpeed: maxLimit; \\<The value '1000' from the example. This could be the physical max limit of the fan.>",
+    "content": "Figure 4. Variable attributes and characteristics\n\nThere is a difference between how to implement (physical) devices and (virtual) controller components, using the DeviceModel. A (virtual) controller component has to be implemented as described in part 2 chapter the \"Referenced Components and Variables\". These kind of components/variables are only using the variableAttribute type 'Actual'. Depending on if this variableAttribute is writable, the CSMS can use this to set a new value.\n(Physical) devices are a bit more complex to implement. For example, there is a fan with a fan speed, that has a (physical) limit with a range of 0 - 1000. But it should not be allowed to set the value below 200, because the fan can stop functioning. And it should not be set above 500, because that would be bad for the fan on the long run. When implementing this device using the DeviceModel, it can be defined as follows:\n\n & Topology\n\n- Variable name: variableAttribute 1; FanSpeed: type; Actual\n- Variable name: variableAttribute 2; FanSpeed: type; Target\n- Variable name: variableAttribute 3; FanSpeed: type; MaxSet\n- Variable name: variableAttribute 4; FanSpeed: type; MinSet\n- Variable name: variableCharacteristics; FanSpeed: maxLimit; \\<The value '1000' from the example. This could be the physical max limit of the fan.>",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -281,7 +281,7 @@
     }
   },
   {
-    "content": "\u2022 When a delta monitor is triggered OR when the Charging Station has rebooted, the Charging Station shall set a new momentary value.\n\n\u2022 For Periodic and PeriodicClockAligned the value represents the interval in seconds.\n\nThe relationship between a Variable and one or more VariableMonitoring elements is illustrated in the figure below.\n\n- ComponentType: 1; Name: 1; Instance \\[0..1]: \\*\n- ComponentType: 0..1; Name: VariableType; Instance \\[0..1]: EVSEType\n- ComponentType: Name; Name: Id; Instance \\[0..1]: Instance \\[0..1]\n- ComponentType: *ConnectorId \\[0..1]*; Name: 1; Instance \\[0..1]: 1\n- ComponentType: 1..\\*; Name: 0..1; Instance \\[0..1]: 0..\\*\n- ComponentType: VariableAttributeType; Name: VariableCharacteristicsType; Instance \\[0..1]: VariableMonitoringType\n- ComponentType: Type \\[0..1]; Name: Unit \\[0..1]; Instance \\[0..1]: Id\n- ComponentType: Value; Name: DataType; Instance \\[0..1]: Severity\n- ComponentType: Mutability \\[0..1]; Name: MinLimit \\[0..1]; Instance \\[0..1]: Transaction\n- ComponentType: Persistent; Name: MaxLimit \\[0..1]; Instance \\[0..1]: Type\n- ComponentType: Constant; Name: ValuesList \\[0..1]; Instance \\[0..1]: Value\n\nFigure 5. Variables and monitoring",
+    "content": "\u2022 When a delta monitor is triggered OR when the Charging Station has rebooted, the Charging Station shall set a new momentary value.\n\n\u2022 For Periodic and PeriodicClockAligned the value represents the interval in seconds.\n\nThe relationship between a Variable and one or more VariableMonitoring elements is illustrated in the figure below.\n\n- ComponentType: 1; Name: 1; Instance [0..1]: *\n- ComponentType: 0..1; Name: VariableType; Instance [0..1]: EVSEType\n- ComponentType: Name; Name: Id; Instance [0..1]: Instance [0..1]\n- ComponentType: *ConnectorId [0..1]*; Name: 1; Instance [0..1]: 1\n- ComponentType: 1..*; Name: 0..1; Instance [0..1]: 0..*\n- ComponentType: VariableAttributeType; Name: VariableCharacteristicsType; Instance [0..1]: VariableMonitoringType\n- ComponentType: Type [0..1]; Name: Unit [0..1]; Instance [0..1]: Id\n- ComponentType: Value; Name: DataType; Instance [0..1]: Severity\n- ComponentType: Mutability [0..1]; Name: MinLimit [0..1]; Instance [0..1]: Transaction\n- ComponentType: Persistent; Name: MaxLimit [0..1]; Instance [0..1]: Type\n- ComponentType: Constant; Name: ValuesList [0..1]; Instance [0..1]: Value\n\nFigure 5. Variables and monitoring",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -398,7 +398,7 @@
     }
   },
   {
-    "content": "# Part 1 - Architecture & Topology\n\ncharging at a later time is \"better\", the Energy Management System can impose an external limit (e.g. 0) to a Charging Station, which the Charging Station in turn can report to the CSMS via OCPP. The Energy Management System might get input from e.g. Local port of Smart Meter to prevent overloading connection but can also have other reasons for not charging (e.g. weather conditions).\n\n\n\nFigure 12. Parallel control by CSMS and EMS",
+    "content": "# Part 1 - Architecture & Topology\n\ncharging at a later time is \"better\", the Energy Management System can impose an external limit (e.g. 0) to a Charging Station, which the Charging Station in turn can report to the CSMS via OCPP. The Energy Management System might get input from e.g. Local port of Smart Meter to prevent overloading connection but can also have other reasons for not charging (e.g. weather conditions).\n\nFigure 12. Parallel control by CSMS and EMS",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -410,7 +410,7 @@
     }
   },
   {
-    "content": "# 9.1. Explanation of UML representation and message generation\n\nIn the next paragraph, the UML schemes of the OCPP Information Model are shown. The model is based on the Common Information Model (CIM) and to some extent to the CEFACT naming standards (only part of the standard). The objects in the model are named BusinessComponents and inherit properties from the CIM IdentifiedObject, such as MRID and Name. In the UML diagrams the attributes that are inherited from IdentifiedObject are shown under the IdentifiedObject stereotype (between  >>). Other attributes are listed under the stereotype  Content >>.\n\nThe messages in OCPP are derived from the model represented in the next paragraph, in a 3 step process:\n\n\n\nFigure 13. Process from information Model to Messages / schemes\n\nAfter creating the Information Model, the messages are created based on the Information Model. However, in this transition (first arrow), some rules are (manually) applied for modelling messages. The most important rule that is applied, is that messages containing a reference to a class> with only one field>, are replaced by a field with the name class>field>. For example, if a message contains a Transaction, with only an Id, this is replaced by a transactionId.",
+    "content": "# 9.1. Explanation of UML representation and message generation\n\nIn the next paragraph, the UML schemes of the OCPP Information Model are shown. The model is based on the Common Information Model (CIM) and to some extent to the CEFACT naming standards (only part of the standard). The objects in the model are named BusinessComponents and inherit properties from the CIM IdentifiedObject, such as MRID and Name. In the UML diagrams the attributes that are inherited from IdentifiedObject are shown under the IdentifiedObject stereotype (between  >>). Other attributes are listed under the stereotype  Content >>.\n\nThe messages in OCPP are derived from the model represented in the next paragraph, in a 3 step process:\n\nFigure 13. Process from information Model to Messages / schemes\n\nAfter creating the Information Model, the messages are created based on the Information Model. However, in this transition (first arrow), some rules are (manually) applied for modelling messages. The most important rule that is applied, is that messages containing a reference to a class> with only one field>, are replaced by a field with the name class>field>. For example, if a message contains a Transaction, with only an Id, this is replaced by a transactionId.",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -422,7 +422,7 @@
     }
   },
   {
-    "content": "# 9.2. Visual Representation of OCPP Information Model\n\n- \u00abBusinessComponent\u00bb: Components; f; +TxnStartSampledValue: ::IdentiiedObject; \u00abBusinessComponent\u00bb: Metering::SampledValueType\n- \u00abBusinessComponent\u00bb: \u00abContent\u00bb; + MRID: NumericIdentifierType\\[0..1]; +TxnStartSampledValue: + ObjectID: IdentifierType\\[0..\\*]; \u00abBusinessComponent\u00bb: + Name: NameType \\[0..1]\\[0..\\*]\n- \u00abBusinessComponent\u00bb: + AliasName: NameType; + Description: TextType 0..\\*; +TxnStartSampledValue: + Priority: MessagePriorityEnumType \\[0..1]; \u00abBusinessComponent\u00bb: + State: MessageStateEnumType \\[0..1]\n- \u00abBusinessComponent\u00bb: + StartDateTime: DateTimeType \\[0..1]; + EndDateTime: DateTimeType \\[0..1]; +TxnStartSampledValue: 0..\\*; \u00abBusinessComponent\u00bb: DeviceType\n- \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb; + MeteringFunction; +TxnStartSampledValue: + Trans; \u00abBusinessComponent\u00bb: action\n- \u00abBusinessComponent\u00bb: + SeqNo: CounterType \\[0..1]; + ChargingState: ChargingStateEnumType \\[0..1]; +TxnStartSampledValue: + Offline: IndicatorType\\[0..1]; \u00abBusinessComponent\u00bb: + StartedTimestamp: DateTimeType \\[0..1]\n- \u00abBusinessComponent\u00bb: + StoppedTimestamp: DateTimeType \\[0..1]; + TimeSpentCharging: SecondsType \\[0..1]; +TxnStartSampledValue: + StoppedReason: ReasonEnumType \\[0..1]; \u00abBusinessComponent\u00bb: + NumberOfPhasesUsed: CounterType \\[0..1]\n- \u00abBusinessComponent\u00bb: + MaxAllowedHours: SecondsType \\[0..1]; + MaxAllowedKwh: PowerType \\[0..1]; +TxnStartSampledValue: + TriggerReason: TriggerReasonEnumType \\[0..1]; \u00abBusinessComponent\u00bb: 0..\\*\n- \u00abBusinessComponent\u00bb: + RemoteStartID: RequestIdType \\[0..1]; + Id: Trans; +TxnStartSampledValue: actionIdType 0..1; \u00abBusinessComponent\u00bb: + RunningCost: AmountType \\[0..1]\n- \u00abBusinessComponent\u00bb: + TotalCost: AmountType \\[0..1]; + ChargingProfile 0..\\*; +TxnStartSampledValue: + IDToken 0..\\*; \u00abBusinessComponent\u00bb: + CreationTimestamp: DateTimeType 0..1\n- \u00abBusinessComponent\u00bb: + IDToken: TokenType \\[0..1]; + Type: IDTokenEnumType \\[0..1]; +TxnStartSampledValue: + StackLevel: CounterType; \u00abBusinessComponent\u00bb: + Primary: IndicatorType \\[0..1]\n- \u00abBusinessComponent\u00bb: + TimeBase: DateTimeType \\[0..1]; + ChargingProfilePurpose: ChargingProfilePurposeEnumType \\[0..1]; +TxnStartSampledValue: + ChargingProfileKind: ChargingProfileKindEnumType \\[0..1]; \u00abBusinessComponent\u00bb: + RecurrencyKind: RecurrencyKindEnumType \\[0..1]\n- \u00abBusinessComponent\u00bb: + ValidFrom: DateTimeType \\[0..1]; + ValidTo: DateTimeType \\[0..1]; +TxnStartSampledValue: + ChargingLimitSource: ChargingLimitSourceEnumType \\[0..\\*]; \u00abBusinessComponent\u00bb: + ChargingProfile 0..\\*\n- \u00abBusinessComponent\u00bb: + Status: AuthorizationStatusEnumType 0..1; + CacheExpiryDateTime: DateTimeType \\[0..1]; +TxnStartSampledValue: + Language1: LanguageType \\[0..1]; \u00abBusinessComponent\u00bb: + Language2: LanguageType \\[0..1]",
+    "content": "# 9.2. Visual Representation of OCPP Information Model\n\n- \u00abBusinessComponent\u00bb: Components; f; +TxnStartSampledValue: ::IdentiiedObject; \u00abBusinessComponent\u00bb: Metering::SampledValueType\n- \u00abBusinessComponent\u00bb: \u00abContent\u00bb; + MRID: NumericIdentifierType[0..1]; +TxnStartSampledValue: + ObjectID: IdentifierType[0..*]; \u00abBusinessComponent\u00bb: + Name: NameType [0..1][0..*]\n- \u00abBusinessComponent\u00bb: + AliasName: NameType; + Description: TextType 0..*; +TxnStartSampledValue: + Priority: MessagePriorityEnumType [0..1]; \u00abBusinessComponent\u00bb: + State: MessageStateEnumType [0..1]\n- \u00abBusinessComponent\u00bb: + StartDateTime: DateTimeType [0..1]; + EndDateTime: DateTimeType [0..1]; +TxnStartSampledValue: 0..*; \u00abBusinessComponent\u00bb: DeviceType\n- \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb; + MeteringFunction; +TxnStartSampledValue: + Trans; \u00abBusinessComponent\u00bb: action\n- \u00abBusinessComponent\u00bb: + SeqNo: CounterType [0..1]; + ChargingState: ChargingStateEnumType [0..1]; +TxnStartSampledValue: + Offline: IndicatorType[0..1]; \u00abBusinessComponent\u00bb: + StartedTimestamp: DateTimeType [0..1]\n- \u00abBusinessComponent\u00bb: + StoppedTimestamp: DateTimeType [0..1]; + TimeSpentCharging: SecondsType [0..1]; +TxnStartSampledValue: + StoppedReason: ReasonEnumType [0..1]; \u00abBusinessComponent\u00bb: + NumberOfPhasesUsed: CounterType [0..1]\n- \u00abBusinessComponent\u00bb: + MaxAllowedHours: SecondsType [0..1]; + MaxAllowedKwh: PowerType [0..1]; +TxnStartSampledValue: + TriggerReason: TriggerReasonEnumType [0..1]; \u00abBusinessComponent\u00bb: 0..*\n- \u00abBusinessComponent\u00bb: + RemoteStartID: RequestIdType [0..1]; + Id: Trans; +TxnStartSampledValue: actionIdType 0..1; \u00abBusinessComponent\u00bb: + RunningCost: AmountType [0..1]\n- \u00abBusinessComponent\u00bb: + TotalCost: AmountType [0..1]; + ChargingProfile 0..*; +TxnStartSampledValue: + IDToken 0..*; \u00abBusinessComponent\u00bb: + CreationTimestamp: DateTimeType 0..1\n- \u00abBusinessComponent\u00bb: + IDToken: TokenType [0..1]; + Type: IDTokenEnumType [0..1]; +TxnStartSampledValue: + StackLevel: CounterType; \u00abBusinessComponent\u00bb: + Primary: IndicatorType [0..1]\n- \u00abBusinessComponent\u00bb: + TimeBase: DateTimeType [0..1]; + ChargingProfilePurpose: ChargingProfilePurposeEnumType [0..1]; +TxnStartSampledValue: + ChargingProfileKind: ChargingProfileKindEnumType [0..1]; \u00abBusinessComponent\u00bb: + RecurrencyKind: RecurrencyKindEnumType [0..1]\n- \u00abBusinessComponent\u00bb: + ValidFrom: DateTimeType [0..1]; + ValidTo: DateTimeType [0..1]; +TxnStartSampledValue: + ChargingLimitSource: ChargingLimitSourceEnumType [0..*]; \u00abBusinessComponent\u00bb: + ChargingProfile 0..*\n- \u00abBusinessComponent\u00bb: + Status: AuthorizationStatusEnumType 0..1; + CacheExpiryDateTime: DateTimeType [0..1]; +TxnStartSampledValue: + Language1: LanguageType [0..1]; \u00abBusinessComponent\u00bb: + Language2: LanguageType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -435,7 +435,7 @@
     }
   },
   {
-    "content": "| + ChargingPriority: NumericIdentifierType\\[0..1] | + ListID: IdentifierType 0..1                                    | + ListEntryTimestamp: DateTimeType \\[0..1]                  |                                                  |",
+    "content": "| + ChargingPriority: NumericIdentifierType[0..1] | + ListID: IdentifierType 0..1                                    | + ListEntryTimestamp: DateTimeType [0..1]                  |                                                  |",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -448,7 +448,7 @@
     }
   },
   {
-    "content": "# 9.2. Visual Representation of OCPP Information Model\n\n- \u00abBusinessComponent\u00bb: Components; +TxnStartSampledValue: f; \u00abBusinessComponent\u00bb: ::IdentiiedObject\n- \u00abBusinessComponent\u00bb: \u00abContent\u00bb; +TxnStartSampledValue: + MRID: NumericIdentifierType\\[0..1]; \u00abBusinessComponent\u00bb: + Value: MeasureType \\[0..1]\n- \u00abBusinessComponent\u00bb: + ObjectID: IdentifierType\\[0..\\*]; +TxnStartSampledValue: +TxnStopSampledValue; \u00abBusinessComponent\u00bb: \\[0..1]\n- \u00abBusinessComponent\u00bb: + Context: ReadingContextEnumType; +TxnStartSampledValue: 0..\\*; \u00abBusinessComponent\u00bb: + Measurand: MeasurandEnumType \\[0..1]\n- \u00abBusinessComponent\u00bb: + Phase: PhaseEnumType \\[0..1]; +TxnStartSampledValue: + Location: LocationEnumType\\[0..1]; \u00abBusinessComponent\u00bb: +TxnUpdateSampledValue\n- \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb; +TxnStartSampledValue: +MeteringFunction; \u00abBusinessComponent\u00bb: +Trans\n- \u00abBusinessComponent\u00bb: action; +TxnStartSampledValue: +EVSE; \u00abBusinessComponent\u00bb: \u00abContent\u00bb\n- \u00abBusinessComponent\u00bb: + ConnectorId: NumericIdentifierType 0..1; +TxnStartSampledValue: +Trans; \u00abBusinessComponent\u00bb: + ChargingState: ChargingStateEnumType \\[0..1]\n- \u00abBusinessComponent\u00bb: + Offline: IndicatorType\\[0..1]; +TxnStartSampledValue: + StartedTimestamp: DateTimeType \\[0..1]; \u00abBusinessComponent\u00bb: 0..\\*\n- \u00abBusinessComponent\u00bb: 0..1; +TxnStartSampledValue: + Switch3To1PhaseSupported: IndicatorType \\[0..1]; \u00abBusinessComponent\u00bb: +EVSE\n- \u00abBusinessComponent\u00bb: 0..1; +TxnStartSampledValue: +EVSE; \u00abBusinessComponent\u00bb: 0..1\n- \u00abBusinessComponent\u00bb: + Trans; +TxnStartSampledValue: action; \u00abBusinessComponent\u00bb: +EVSE\n- \u00abBusinessComponent\u00bb: + Trans; +TxnStartSampledValue: action; \u00abBusinessComponent\u00bb: 0..\\*\n- \u00abBusinessComponent\u00bb: + ChargingProfile; +TxnStartSampledValue: 0..\\*; \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb\n- \u00abBusinessComponent\u00bb: SmartCharging::ChargingProfileType; +TxnStartSampledValue: + Trans; \u00abBusinessComponent\u00bb: \\[ ]\n- \u00abBusinessComponent\u00bb: + ChargingProfile; +TxnStartSampledValue: + IDToken; \u00abBusinessComponent\u00bb: 0..\\*\n- \u00abBusinessComponent\u00bb: + IDToken: TokenType \\[0..1]; +TxnStartSampledValue: + Type: IDTokenEnumType \\[0..1]; \u00abBusinessComponent\u00bb: + GroupIDToken\n- \u00abBusinessComponent\u00bb: + Res; +TxnStartSampledValue: + CreationTimestamp: DateTimeType 0..1; \u00abBusinessComponent\u00bb: + ExpiryDateTime: DateTimeType\n- \u00abBusinessComponent\u00bb: + IDTokenInfo 0..1; +TxnStartSampledValue: + Connector 0..1; \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb\n- \u00abBusinessComponent\u00bb: + ConnectorType: ConnectorEnumType \\[0..1]; +TxnStartSampledValue: + CableCapacity: CurrentType \\[0..\\*]; \u00abBusinessComponent\u00bb: + ListID: IdentifierType 0..1\n- \u00abBusinessComponent\u00bb: + ListEntryTimestamp: DateTimeType \\[0..1]",
+    "content": "# 9.2. Visual Representation of OCPP Information Model\n\n- \u00abBusinessComponent\u00bb: Components; +TxnStartSampledValue: f; \u00abBusinessComponent\u00bb: ::IdentiiedObject\n- \u00abBusinessComponent\u00bb: \u00abContent\u00bb; +TxnStartSampledValue: + MRID: NumericIdentifierType[0..1]; \u00abBusinessComponent\u00bb: + Value: MeasureType [0..1]\n- \u00abBusinessComponent\u00bb: + ObjectID: IdentifierType[0..*]; +TxnStartSampledValue: +TxnStopSampledValue; \u00abBusinessComponent\u00bb: [0..1]\n- \u00abBusinessComponent\u00bb: + Context: ReadingContextEnumType; +TxnStartSampledValue: 0..*; \u00abBusinessComponent\u00bb: + Measurand: MeasurandEnumType [0..1]\n- \u00abBusinessComponent\u00bb: + Phase: PhaseEnumType [0..1]; +TxnStartSampledValue: + Location: LocationEnumType[0..1]; \u00abBusinessComponent\u00bb: +TxnUpdateSampledValue\n- \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb; +TxnStartSampledValue: +MeteringFunction; \u00abBusinessComponent\u00bb: +Trans\n- \u00abBusinessComponent\u00bb: action; +TxnStartSampledValue: +EVSE; \u00abBusinessComponent\u00bb: \u00abContent\u00bb\n- \u00abBusinessComponent\u00bb: + ConnectorId: NumericIdentifierType 0..1; +TxnStartSampledValue: +Trans; \u00abBusinessComponent\u00bb: + ChargingState: ChargingStateEnumType [0..1]\n- \u00abBusinessComponent\u00bb: + Offline: IndicatorType[0..1]; +TxnStartSampledValue: + StartedTimestamp: DateTimeType [0..1]; \u00abBusinessComponent\u00bb: 0..*\n- \u00abBusinessComponent\u00bb: 0..1; +TxnStartSampledValue: + Switch3To1PhaseSupported: IndicatorType [0..1]; \u00abBusinessComponent\u00bb: +EVSE\n- \u00abBusinessComponent\u00bb: 0..1; +TxnStartSampledValue: +EVSE; \u00abBusinessComponent\u00bb: 0..1\n- \u00abBusinessComponent\u00bb: + Trans; +TxnStartSampledValue: action; \u00abBusinessComponent\u00bb: +EVSE\n- \u00abBusinessComponent\u00bb: + Trans; +TxnStartSampledValue: action; \u00abBusinessComponent\u00bb: 0..*\n- \u00abBusinessComponent\u00bb: + ChargingProfile; +TxnStartSampledValue: 0..*; \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb\n- \u00abBusinessComponent\u00bb: SmartCharging::ChargingProfileType; +TxnStartSampledValue: + Trans; \u00abBusinessComponent\u00bb: [ ]\n- \u00abBusinessComponent\u00bb: + ChargingProfile; +TxnStartSampledValue: + IDToken; \u00abBusinessComponent\u00bb: 0..*\n- \u00abBusinessComponent\u00bb: + IDToken: TokenType [0..1]; +TxnStartSampledValue: + Type: IDTokenEnumType [0..1]; \u00abBusinessComponent\u00bb: + GroupIDToken\n- \u00abBusinessComponent\u00bb: + Res; +TxnStartSampledValue: + CreationTimestamp: DateTimeType 0..1; \u00abBusinessComponent\u00bb: + ExpiryDateTime: DateTimeType\n- \u00abBusinessComponent\u00bb: + IDTokenInfo 0..1; +TxnStartSampledValue: + Connector 0..1; \u00abBusinessComponent\u00bb: \u00abBusinessComponent\u00bb\n- \u00abBusinessComponent\u00bb: + ConnectorType: ConnectorEnumType [0..1]; +TxnStartSampledValue: + CableCapacity: CurrentType [0..*]; \u00abBusinessComponent\u00bb: + ListID: IdentifierType 0..1\n- \u00abBusinessComponent\u00bb: + ListEntryTimestamp: DateTimeType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -462,7 +462,7 @@
     }
   },
   {
-    "content": "Figure 14. OCPP Information Model: Transactions\n\n & Topology\n\n- \u00abBusinessComponent\u00bb: + ChargingLimit; ChargingSchedulePeriodType: Limit: SingleFractionDigitNumericType 0..1; \u00abContent\u00bb: \\[0..1]\n- \u00abBusinessComponent\u00bb: + ChargingRateUnit: ChargingRateUnitEnumType; ChargingSchedulePeriodType: + ChargingLimitSource: ChargingLimitSourceEnumType; \u00abContent\u00bb: 0..1\n- \u00abBusinessComponent\u00bb: + IsGridCritical: IndicatorType 0..1; ChargingSchedulePeriodType: + ChargingSchedule 0..\\*; \u00abContent\u00bb: \u00abBusinessComponent\u00bb\n- \u00abBusinessComponent\u00bb: CompositeScheduleType; ChargingSchedulePeriodType: + CompositeSchedule; \u00abContent\u00bb: \u00abContent\u00bb\n- \u00abBusinessComponent\u00bb: + Duration: SecondsType 0..\\*; ChargingSchedulePeriodType: + ChargingSchedule 0..1; \u00abContent\u00bb: + StartDateTime: DateTimeType \\[0..1]\n- \u00abBusinessComponent\u00bb: + StartSchedule: DateTimeType \\[0..1]; ChargingSchedulePeriodType: + Duration: SecondsType \\[0..1]; \u00abContent\u00bb: + CompositeSchedule 0..\\*\n- \u00abBusinessComponent\u00bb: + ChargingRateUnit: ChargingRateUnitEnumType; ChargingSchedulePeriodType: \u00abBusinessComponent\u00bb; \u00abContent\u00bb: + EVSE 0..\\*\n- \u00abBusinessComponent\u00bb: + EVSE 0..1; ChargingSchedulePeriodType: + ConnectorId: NumericIdentifierType 0..1; \u00abContent\u00bb: + ChargingState: ChargingStateEnumType 0..1\n- \u00abBusinessComponent\u00bb: + Offline: IndicatorType 0..1; ChargingSchedulePeriodType: + StartedTimestamp: DateTimeType \\[0..1]; \u00abContent\u00bb: + StoppedTimestamp: DateTimeType \\[0..1]\n- \u00abBusinessComponent\u00bb: + TimeSpentCharging: SecondsType \\[0..1]; ChargingSchedulePeriodType: + StoppedReason: ReasonEnumType \\[0..1]; \u00abContent\u00bb: + NumberOfPhasesUsed: CounterType \\[0..1]\n- \u00abBusinessComponent\u00bb: + MaxAllowedHours: SecondsType \\[0..1]; ChargingSchedulePeriodType: + MaxAllowedKwh: PowerType \\[0..1]; \u00abContent\u00bb: + TriggerReason: TriggerReasonEnumType \\[0..1]\n- \u00abBusinessComponent\u00bb: + RemoteStartID: RequestIdType \\[0..1]; ChargingSchedulePeriodType: + Id: TransactionIdType \\[0..1]; \u00abContent\u00bb: + RunningCost: AmountType \\[0..1]\n- \u00abBusinessComponent\u00bb: + TotalCost: AmountType \\[0..1]; ChargingSchedulePeriodType: + ChargingProfile 0..\\*; \u00abContent\u00bb: + ChargingProfilePurpose: ChargingProfilePurposeEnumType \\[0..1]\n- \u00abBusinessComponent\u00bb: + ChargingProfileKind: ChargingProfileKindEnumType \\[0..1]; ChargingSchedulePeriodType: + RecurrencyKind: RecurrencyKindEnumType \\[0..1]; \u00abContent\u00bb: + ValidFrom: DateTimeType \\[0..1]\n- \u00abBusinessComponent\u00bb: + ValidTo: DateTimeType \\[0..1]; ChargingSchedulePeriodType: + ChargingLimitSource: ChargingLimitSourceEnumType \\[0..\\*]; \u00abContent\u00bb: + Connector 0..\\*\n- \u00abBusinessComponent\u00bb: + Connector 0..1; ChargingSchedulePeriodType: + EV 0..1; \u00abContent\u00bb: + ChargingNeeds 0..\\*\n- \u00abBusinessComponent\u00bb: + RequestedEnergyTransfer: EnergyTransferModeEnumType; ChargingSchedulePeriodType: + DepartureTime: DateTimeType \\[0..1]; \u00abContent\u00bb: + EVCC 0..1\n- \u00abBusinessComponent\u00bb: + ACChargingParameters; ChargingSchedulePeriodType: + EMAID: ChargingContractIdentifierType \\[0..1]; \u00abContent\u00bb: + ContractSignatureEncryptedPrivateKey: SmallBinaryObjectType",
+    "content": "Figure 14. OCPP Information Model: Transactions\n\n & Topology\n\n- \u00abBusinessComponent\u00bb: + ChargingLimit; ChargingSchedulePeriodType: Limit: SingleFractionDigitNumericType 0..1; \u00abContent\u00bb: [0..1]\n- \u00abBusinessComponent\u00bb: + ChargingRateUnit: ChargingRateUnitEnumType; ChargingSchedulePeriodType: + ChargingLimitSource: ChargingLimitSourceEnumType; \u00abContent\u00bb: 0..1\n- \u00abBusinessComponent\u00bb: + IsGridCritical: IndicatorType 0..1; ChargingSchedulePeriodType: + ChargingSchedule 0..*; \u00abContent\u00bb: \u00abBusinessComponent\u00bb\n- \u00abBusinessComponent\u00bb: CompositeScheduleType; ChargingSchedulePeriodType: + CompositeSchedule; \u00abContent\u00bb: \u00abContent\u00bb\n- \u00abBusinessComponent\u00bb: + Duration: SecondsType 0..*; ChargingSchedulePeriodType: + ChargingSchedule 0..1; \u00abContent\u00bb: + StartDateTime: DateTimeType [0..1]\n- \u00abBusinessComponent\u00bb: + StartSchedule: DateTimeType [0..1]; ChargingSchedulePeriodType: + Duration: SecondsType [0..1]; \u00abContent\u00bb: + CompositeSchedule 0..*\n- \u00abBusinessComponent\u00bb: + ChargingRateUnit: ChargingRateUnitEnumType; ChargingSchedulePeriodType: \u00abBusinessComponent\u00bb; \u00abContent\u00bb: + EVSE 0..*\n- \u00abBusinessComponent\u00bb: + EVSE 0..1; ChargingSchedulePeriodType: + ConnectorId: NumericIdentifierType 0..1; \u00abContent\u00bb: + ChargingState: ChargingStateEnumType 0..1\n- \u00abBusinessComponent\u00bb: + Offline: IndicatorType 0..1; ChargingSchedulePeriodType: + StartedTimestamp: DateTimeType [0..1]; \u00abContent\u00bb: + StoppedTimestamp: DateTimeType [0..1]\n- \u00abBusinessComponent\u00bb: + TimeSpentCharging: SecondsType [0..1]; ChargingSchedulePeriodType: + StoppedReason: ReasonEnumType [0..1]; \u00abContent\u00bb: + NumberOfPhasesUsed: CounterType [0..1]\n- \u00abBusinessComponent\u00bb: + MaxAllowedHours: SecondsType [0..1]; ChargingSchedulePeriodType: + MaxAllowedKwh: PowerType [0..1]; \u00abContent\u00bb: + TriggerReason: TriggerReasonEnumType [0..1]\n- \u00abBusinessComponent\u00bb: + RemoteStartID: RequestIdType [0..1]; ChargingSchedulePeriodType: + Id: TransactionIdType [0..1]; \u00abContent\u00bb: + RunningCost: AmountType [0..1]\n- \u00abBusinessComponent\u00bb: + TotalCost: AmountType [0..1]; ChargingSchedulePeriodType: + ChargingProfile 0..*; \u00abContent\u00bb: + ChargingProfilePurpose: ChargingProfilePurposeEnumType [0..1]\n- \u00abBusinessComponent\u00bb: + ChargingProfileKind: ChargingProfileKindEnumType [0..1]; ChargingSchedulePeriodType: + RecurrencyKind: RecurrencyKindEnumType [0..1]; \u00abContent\u00bb: + ValidFrom: DateTimeType [0..1]\n- \u00abBusinessComponent\u00bb: + ValidTo: DateTimeType [0..1]; ChargingSchedulePeriodType: + ChargingLimitSource: ChargingLimitSourceEnumType [0..*]; \u00abContent\u00bb: + Connector 0..*\n- \u00abBusinessComponent\u00bb: + Connector 0..1; ChargingSchedulePeriodType: + EV 0..1; \u00abContent\u00bb: + ChargingNeeds 0..*\n- \u00abBusinessComponent\u00bb: + RequestedEnergyTransfer: EnergyTransferModeEnumType; ChargingSchedulePeriodType: + DepartureTime: DateTimeType [0..1]; \u00abContent\u00bb: + EVCC 0..1\n- \u00abBusinessComponent\u00bb: + ACChargingParameters; ChargingSchedulePeriodType: + EMAID: ChargingContractIdentifierType [0..1]; \u00abContent\u00bb: + ContractSignatureEncryptedPrivateKey: SmallBinaryObjectType",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -476,7 +476,7 @@
     }
   },
   {
-    "content": "- + DHPublicKey: PublicKeyType \\[0..1]: + EVMinCurrent: CurrentType \\[0..1]; + Signature: SignatureType \\[0..1]: + EVMaxCurrent: CurrentType \\[0..1]; + EnergyAmount: EnergyAmountType \\[0..1]: + EVMaxVoltage: VoltageType \\[0..1]\n- + DHPublicKey: PublicKeyType \\[0..1]: + X509IssuerName: IssuerIdentifierType \\[0..1]; + Signature: SignatureType \\[0..1]: + X509SerialNumber: IntegerType \\[0..1]; + EnergyAmount: EnergyAmountType \\[0..1]: + Certificate: Base64StringType \\[0..1]\n- + DHPublicKey: PublicKeyType \\[0..1]: + CertificateSerial: CI20TextType \\[0..1]; + Signature: SignatureType \\[0..1]: + ExpiryDate: DateType \\[0..1]; + EnergyAmount: EnergyAmountType \\[0..1]: + OEMProvisioningCertificate\n- + DHPublicKey: PublicKeyType \\[0..1]: + MRID: NumericIdentifierType \\[0..1]; + Signature: SignatureType \\[0..1]: + ObjectID: IdentifierType \\[0..\\*]; + EnergyAmount: EnergyAmountType \\[0..1]: + Name: NameType \\[0..1]\n- + DHPublicKey: PublicKeyType \\[0..1]: + AliasName: NameType \\[0..\\*]; + Signature: SignatureType \\[0..1]: + Description: TextType \\[0..\\*]\n\nFigure 15. OCPP Information Model: SmartCharging\n\n & Topology",
+    "content": "- + DHPublicKey: PublicKeyType [0..1]: + EVMinCurrent: CurrentType [0..1]; + Signature: SignatureType [0..1]: + EVMaxCurrent: CurrentType [0..1]; + EnergyAmount: EnergyAmountType [0..1]: + EVMaxVoltage: VoltageType [0..1]\n- + DHPublicKey: PublicKeyType [0..1]: + X509IssuerName: IssuerIdentifierType [0..1]; + Signature: SignatureType [0..1]: + X509SerialNumber: IntegerType [0..1]; + EnergyAmount: EnergyAmountType [0..1]: + Certificate: Base64StringType [0..1]\n- + DHPublicKey: PublicKeyType [0..1]: + CertificateSerial: CI20TextType [0..1]; + Signature: SignatureType [0..1]: + ExpiryDate: DateType [0..1]; + EnergyAmount: EnergyAmountType [0..1]: + OEMProvisioningCertificate\n- + DHPublicKey: PublicKeyType [0..1]: + MRID: NumericIdentifierType [0..1]; + Signature: SignatureType [0..1]: + ObjectID: IdentifierType [0..*]; + EnergyAmount: EnergyAmountType [0..1]: + Name: NameType [0..1]\n- + DHPublicKey: PublicKeyType [0..1]: + AliasName: NameType [0..*]; + Signature: SignatureType [0..1]: + Description: TextType [0..*]\n\nFigure 15. OCPP Information Model: SmartCharging\n\n & Topology",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -490,7 +490,7 @@
     }
   },
   {
-    "content": "# ChargingSchedulePeriodType\n\nChargingLimit: Limit: S \\[ ]\nChargingRateUnit:: ChargingRateUnitEnumType \\[0..1]\nChargingLimitSource:: ChargingLimitSourceEnumType\nIsGridCritical:: IndicatorType \\[ ]",
+    "content": "# ChargingSchedulePeriodType\n\nChargingLimit: Limit: S [ ]\nChargingRateUnit:: ChargingRateUnitEnumType [0..1]\nChargingLimitSource:: ChargingLimitSourceEnumType\nIsGridCritical:: IndicatorType [ ]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -501,7 +501,7 @@
     }
   },
   {
-    "content": "# ChargingSchedule\n\nDuration:: S \\[ ]\nChargingRateUnit:: ChargingRateUnitEnumType \\[0..1]",
+    "content": "# ChargingSchedule\n\nDuration:: S [ ]\nChargingRateUnit:: ChargingRateUnitEnumType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -512,7 +512,7 @@
     }
   },
   {
-    "content": "# EVSE\n\nDuration:: S \\[ ]\nMinChargingRate:: NumericType \\[0..1]\nConnectorId:: NumericIdentifierType \\[ ]\nSwitch3To1PhaseSupported:: IndicatorType \\[0..1]\nChargingState:: ChargingStateEnumType\nOffline:: IndicatorType \\[ ]\nStartedTimestamp:: DateTimeType \\[0..1]\nStoppedTimestamp:: DateTimeType \\[0..1]\nTimeSpentCharging:: SecondsType \\[0..1]\nStoppedReason:: ReasonEnumType \\[0..1]\nNumberOfPhasesUsed:: CounterType \\[0..1]\nMaxAllowedHours:: SecondsType \\[0..1]\nMaxAllowedKwh:: PowerType \\[0..1]\nTriggerReason:: TriggerReasonEnumType \\[0..1]\nRemoteStartID:: RequestIdType \\[0..1]\nId:: TransactionIdType \\[0..1]\nRunningCost:: AmountType \\[0..1]\nTotalCost:: AmountType \\[0..1]\nStackLevel:: CounterType \\[0..\\*]\nPrimary:: IndicatorType \\[0..1]\nTimeBase:: DateTimeType \\[0..1]",
+    "content": "# EVSE\n\nDuration:: S [ ]\nMinChargingRate:: NumericType [0..1]\nConnectorId:: NumericIdentifierType [ ]\nSwitch3To1PhaseSupported:: IndicatorType [0..1]\nChargingState:: ChargingStateEnumType\nOffline:: IndicatorType [ ]\nStartedTimestamp:: DateTimeType [0..1]\nStoppedTimestamp:: DateTimeType [0..1]\nTimeSpentCharging:: SecondsType [0..1]\nStoppedReason:: ReasonEnumType [0..1]\nNumberOfPhasesUsed:: CounterType [0..1]\nMaxAllowedHours:: SecondsType [0..1]\nMaxAllowedKwh:: PowerType [0..1]\nTriggerReason:: TriggerReasonEnumType [0..1]\nRemoteStartID:: RequestIdType [0..1]\nId:: TransactionIdType [0..1]\nRunningCost:: AmountType [0..1]\nTotalCost:: AmountType [0..1]\nStackLevel:: CounterType [0..*]\nPrimary:: IndicatorType [0..1]\nTimeBase:: DateTimeType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -523,7 +523,7 @@
     }
   },
   {
-    "content": "# ChargingProfile\n\nChargingProfileKind:: ChargingProfileKindEnumType \\[0..1]\nRecurrencyKind:: RecurrencyKindEnumType \\[0..1]\nValidFrom:: DateTimeType \\[0..1]\nValidTo:: DateTimeType \\[0..1]",
+    "content": "# ChargingProfile\n\nChargingProfileKind:: ChargingProfileKindEnumType [0..1]\nRecurrencyKind:: RecurrencyKindEnumType [0..1]\nValidFrom:: DateTimeType [0..1]\nValidTo:: DateTimeType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -534,7 +534,7 @@
     }
   },
   {
-    "content": "# Connector\n\nRequestedEnergyTransfer:: EnergyTransferModeEnumType \\[0..1]\nDepartureTime:: DateTimeType \\[0..1]\nConnectorType:: ConnectorEnumType \\[0..1]\nCableCapacity:: CurrentType \\[0..\\*]",
+    "content": "# Connector\n\nRequestedEnergyTransfer:: EnergyTransferModeEnumType [0..1]\nDepartureTime:: DateTimeType [0..1]\nConnectorType:: ConnectorEnumType [0..1]\nCableCapacity:: CurrentType [0..*]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -545,7 +545,7 @@
     }
   },
   {
-    "content": "# ACChargingParameters\n\nContractSignatureEncryptedPrivateKey:: SmallBinaryObjectType \\[0..1]\nDHPublicKey:: PublicKeyType \\[0..1]\nSignature:: SignatureType \\[0..1]",
+    "content": "# ACChargingParameters\n\nContractSignatureEncryptedPrivateKey:: SmallBinaryObjectType [0..1]\nDHPublicKey:: PublicKeyType [0..1]\nSignature:: SignatureType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -556,7 +556,7 @@
     }
   },
   {
-    "content": "# DCChargingParameters\n\nEVMaxCurrent:: CurrentType \\[0..1]\nEVMaxVoltage:: VoltageType \\[0..1]",
+    "content": "# DCChargingParameters\n\nEVMaxCurrent:: CurrentType [0..1]\nEVMaxVoltage:: VoltageType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -567,7 +567,7 @@
     }
   },
   {
-    "content": "# CertificateChain\n\nX509SerialNumber:: IntegerType \\[0..1]",
+    "content": "# CertificateChain\n\nX509SerialNumber:: IntegerType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -578,7 +578,7 @@
     }
   },
   {
-    "content": "# MeterValueType\n\nmeasureUnit:: String \\[0..1]",
+    "content": "# MeterValueType\n\nmeasureUnit:: String [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -589,7 +589,7 @@
     }
   },
   {
-    "content": "# SampledValueType\n\nContext:: ReadingContextEnumType \\[0..1]\nMeasurand:: MeasurandEnumType \\[0..1]\nPhase:: PhaseEnumType \\[0..1]\nLocation:: LocationEnumType \\[0..1]",
+    "content": "# SampledValueType\n\nContext:: ReadingContextEnumType [0..1]\nMeasurand:: MeasurandEnumType [0..1]\nPhase:: PhaseEnumType [0..1]\nLocation:: LocationEnumType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -600,7 +600,7 @@
     }
   },
   {
-    "content": "# DeviceType\n\nMeterValuesAlignedData:: MeasurandEnumType \\[0..1]\nTxnStoppedAlignedData:: MeasurandEnumType \\[0..\\*]",
+    "content": "# DeviceType\n\nMeterValuesAlignedData:: MeasurandEnumType [0..1]\nTxnStoppedAlignedData:: MeasurandEnumType [0..*]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -611,7 +611,7 @@
     }
   },
   {
-    "content": "# UnitOfMeasureType\n\nMultiplier:: IntegerType \\[0..1]",
+    "content": "# UnitOfMeasureType\n\nMultiplier:: IntegerType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -622,7 +622,7 @@
     }
   },
   {
-    "content": "# ComponentType\n\nInstance:: CI50TextType \\[0..1]\nevse:: NumericIdentifierType \\[0..1]\nconnector:: NumericIdentifierType \\[0..1]",
+    "content": "# ComponentType\n\nInstance:: CI50TextType [0..1]\nevse:: NumericIdentifierType [0..1]\nconnector:: NumericIdentifierType [0..1]",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -633,7 +633,7 @@
     }
   },
   {
-    "content": "# VariableMonitoringType\n\nType:: MonitorEnumType\nSeverity:: SeverityEnumType\nCleared:: IndicatorType \\[0..1] = false\nTransaction:: IndicatorType \\[0..1]\nType:: AttributeEnumType \\[0..1] = Actual\nValue:: CI255TextType\nMutability:: MutabilityEnumType \\[0..1]\nPersistence:: IndicatorType \\[0..1]\nConstant:: IndicatorType",
+    "content": "# VariableMonitoringType\n\nType:: MonitorEnumType\nSeverity:: SeverityEnumType\nCleared:: IndicatorType [0..1] = false\nTransaction:: IndicatorType [0..1]\nType:: AttributeEnumType [0..1] = Actual\nValue:: CI255TextType\nMutability:: MutabilityEnumType [0..1]\nPersistence:: IndicatorType [0..1]\nConstant:: IndicatorType",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -644,7 +644,7 @@
     }
   },
   {
-    "content": "# VariableCharacteristicsType\n\nDataType:: DataEnumType\nMinLimit:: IntegerType \\[0..1]\nMaxLimit:: IntegerType \\[0..1]\nValuesList:: CI500TextType \\[0..1]\nSupportsMonitoring:: IndicatorType",
+    "content": "# VariableCharacteristicsType\n\nDataType:: DataEnumType\nMinLimit:: IntegerType [0..1]\nMaxLimit:: IntegerType [0..1]\nValuesList:: CI500TextType [0..1]\nSupportsMonitoring:: IndicatorType",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -655,7 +655,7 @@
     }
   },
   {
-    "content": "# Part 1 - Architecture & Topology\n\n- DeviceType: \u00abContent\u00bb; + \u00abContent\u00bb; \u00abBusinessComponent\u00bb: \\[0..1]; + EVSECount: CounterType; IdentifiedObject: + RemoteLocation: URIType 0..1\n- DeviceType: :+ :IdentifiedObject; f; \\[ ]; \u00abBusinessComponent\u00bb: +ChargePoint 0..1; + LogStartedDateTime: DateTimeType \\[0..1]\n- DeviceType: cription: TextType 0..\\*; +ManufacturerHierarchy; +ChargePointOperatorHierarchy; 0..1; IdentifiedObject: 0..1",
+    "content": "# Part 1 - Architecture & Topology\n\n- DeviceType: \u00abContent\u00bb; + \u00abContent\u00bb; \u00abBusinessComponent\u00bb: [0..1]; + EVSECount: CounterType; IdentifiedObject: + RemoteLocation: URIType 0..1\n- DeviceType: :+ :IdentifiedObject; f; [ ]; \u00abBusinessComponent\u00bb: +ChargePoint 0..1; + LogStartedDateTime: DateTimeType [0..1]\n- DeviceType: cription: TextType 0..*; +ManufacturerHierarchy; +ChargePointOperatorHierarchy; 0..1; IdentifiedObject: 0..1",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -668,7 +668,7 @@
     }
   },
   {
-    "content": "- + UserName: UserNameType \\[0..1]: + Password: PasswordType \\[0..1]; + ChargePointCertificate: X509CertificateDiges: + CentralServerCertificate: X509CertificateDiges; \\[ ]: \\[ ]; tType 0..1\n- + UserName: UserNameType \\[0..1]: +CertificateChain 0..\\*; + ChargePointCertificate: X509CertificateDiges: +CentralServerCertificate; IdentifiedObject; \u00abBusinessComponent\u00bb; CertificateChainType",
+    "content": "- + UserName: UserNameType [0..1]: + Password: PasswordType [0..1]; + ChargePointCertificate: X509CertificateDiges: + CentralServerCertificate: X509CertificateDiges; [ ]: [ ]; tType 0..1\n- + UserName: UserNameType [0..1]: +CertificateChain 0..*; + ChargePointCertificate: X509CertificateDiges: +CentralServerCertificate; IdentifiedObject; \u00abBusinessComponent\u00bb; CertificateChainType",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",
@@ -681,7 +681,7 @@
     }
   },
   {
-    "content": "- +RootCertificate 0..\\*: \u00abContent\u00bb; + Certificate: Bas; \u00abBusinessComponent\u00bb: + CertificateSerie64String800Type\\[ 0.].1; 0..1: f; 0..1: X509IssuerSerialType",
+    "content": "- +RootCertificate 0..*: \u00abContent\u00bb; + Certificate: Bas; \u00abBusinessComponent\u00bb: + CertificateSerie64String800Type[ 0.].1; 0..1: f; 0..1: X509IssuerSerialType",
     "metadata": {
       "doc_id": "ocpp201_part1",
       "doc_title": "OCPP 2.0.1 Part 1 - Architecture & Topology",

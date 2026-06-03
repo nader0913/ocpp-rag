@@ -98,7 +98,7 @@
     }
   },
   {
-    "content": "# 2.3. Abbreviations\n\nCPO: Charge Point Operator\nDNS: Domain Name System\nDST: Daylight Saving Time\nEV: Electrical Vehicle\nEVSE: Electric Vehicle Supply Equipment \\[IEC61851-1]\nFTP(S): File Transport Protocol (Secure)\nHTTP(S): HyperText Transport Protocol (Secure)\nICCID: Integrated Circuit Card Identifier\nIMSI: International Mobile Subscription Identity\nJSON: Java Simple Object Notation\nNAT: Native Address Translation\nPDU: Protocol Data Unit\nSC: Smart Charging\nSOAP: Simple Object Access Protocol\nURL: Uniform Resource Locator\nRST: 3 phase power connection, Standard Reference Phasing\nRTS: 3 phase power connection, Reversed Reference Phasing\nSRT: 3 phase power connection, Reversed 240 degree rotation\nSTR: 3 phase power connection, Standard 120 degree rotation\nTRS: 3 phase power connection, Standard 240 degree rotation\nTSR: 3 phase power connection, Reversed 120 degree rotation\nUTC: Coordinated Universal Time",
+    "content": "# 2.3. Abbreviations\n\nCPO: Charge Point Operator\nDNS: Domain Name System\nDST: Daylight Saving Time\nEV: Electrical Vehicle\nEVSE: Electric Vehicle Supply Equipment [IEC61851-1]\nFTP(S): File Transport Protocol (Secure)\nHTTP(S): HyperText Transport Protocol (Secure)\nICCID: Integrated Circuit Card Identifier\nIMSI: International Mobile Subscription Identity\nJSON: Java Simple Object Notation\nNAT: Native Address Translation\nPDU: Protocol Data Unit\nSC: Smart Charging\nSOAP: Simple Object Access Protocol\nURL: Uniform Resource Locator\nRST: 3 phase power connection, Standard Reference Phasing\nRTS: 3 phase power connection, Reversed Reference Phasing\nSRT: 3 phase power connection, Reversed 240 degree rotation\nSTR: 3 phase power connection, Standard 120 degree rotation\nTRS: 3 phase power connection, Standard 240 degree rotation\nTSR: 3 phase power connection, Reversed 120 degree rotation\nUTC: Coordinated Universal Time",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -109,7 +109,7 @@
     }
   },
   {
-    "content": "# 2.4. References\n\n\\[OCPP1.5]: \u201cOCPP 1.5: Open Charge Point Protocol 1.5\u201d <http://www.openchargealliance.org/downloads/>\n\\[OCPP\\_1.6CT]: \u201cOCPP 1.6 Compliance testing\u201d <http://www.openchargealliance.org/downloads/>\n\\[OCPP\\_IMP\\_J]: \u201cOCPP JSON Specification\u201d <http://www.openchargealliance.org/downloads/>\n\\[OCPP\\_IMP\\_S]: \u201cOCPP SOAP Specification\u201d <http://www.openchargealliance.org/downloads/>\n\\[RFC2119]: \u201cKey words for use in RFCs to Indicate Requirement Levels\u201d. S. Bradner. March 1997. <http://www.ietf.org/rfc/rfc2119.txt>",
+    "content": "# 2.4. References\n\n[OCPP1.5]: \u201cOCPP 1.5: Open Charge Point Protocol 1.5\u201d <http://www.openchargealliance.org/downloads/>\n[OCPP_1.6CT]: \u201cOCPP 1.6 Compliance testing\u201d <http://www.openchargealliance.org/downloads/>\n[OCPP_IMP_J]: \u201cOCPP JSON Specification\u201d <http://www.openchargealliance.org/downloads/>\n[OCPP_IMP_S]: \u201cOCPP SOAP Specification\u201d <http://www.openchargealliance.org/downloads/>\n[RFC2119]: \u201cKey words for use in RFCs to Indicate Requirement Levels\u201d. S. Bradner. March 1997. <http://www.ietf.org/rfc/rfc2119.txt>",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -120,7 +120,7 @@
     }
   },
   {
-    "content": "# 3.2. Feature Profiles\n\nThis section is informative.\n\nIn OCPP 1.6 features and associated messages are grouped in profiles. Depending on the required functionality, implementers can choose to implement one or more of the following profiles.\n\nCore: Basic Charge Point functionality comparable with OCPP 1.5 \\[OCPP1.5] without support for firmware updates, local authorization list management and reservations.\nFirmware Management: Support for firmware update management and diagnostic log file download.\nLocal Auth List Management: Features to manage the local authorization list in Charge Points.\nReservation: Support for reservation of a Charge Point.\nSmart Charging: Support for basic Smart Charging, for instance using control pilot.\nRemote Trigger: Support for remote triggering of Charge Point initiated messages.",
+    "content": "# 3.2. Feature Profiles\n\nThis section is informative.\n\nIn OCPP 1.6 features and associated messages are grouped in profiles. Depending on the required functionality, implementers can choose to implement one or more of the following profiles.\n\nCore: Basic Charge Point functionality comparable with OCPP 1.5 [OCPP1.5] without support for firmware updates, local authorization list management and reservations.\nFirmware Management: Support for firmware update management and diagnostic log file download.\nLocal Auth List Management: Features to manage the local authorization list in Charge Points.\nReservation: Support for reservation of a Charge Point.\nSmart Charging: Support for basic Smart Charging, for instance using control pilot.\nRemote Trigger: Support for remote triggering of Charge Point initiated messages.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -146,7 +146,7 @@
     }
   },
   {
-    "content": "\n\n- Message: ReserveNow; Local Auth Management: X\n- Message: ClearChargingProfile; Smart Charging: X\n- Message: GetCompositeSchedule; Smart Charging: X\n- Message: SetChargingProfile; Smart Charging: X\n- Message: TriggerMessage; Remote Trigger: X\n\nThe support for the specific charging profiles is reported by the SupportedFeatureProfiles configuration key.",
+    "content": "- Message: ReserveNow; Local Auth Management: X\n- Message: ClearChargingProfile; Smart Charging: X\n- Message: GetCompositeSchedule; Smart Charging: X\n- Message: SetChargingProfile; Smart Charging: X\n- Message: TriggerMessage; Remote Trigger: X\n\nThe support for the specific charging profiles is reported by the SupportedFeatureProfiles configuration key.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -159,7 +159,7 @@
     }
   },
   {
-    "content": "# 3.3. General views of operation\n\nThis section is informative.\n\nThe following figures describe the general views of the operations between Charge Point and Central System for two cases:\n\n1. a Charge Point requesting authentication of a card and sending charge transaction status,\n2. Central System requesting a Charge Point to update its firmware.\n\nThe arrow labels in the following figures indicate the PDUs exchanged during the invocations of the operations. These PDUs are defined in detail in the Messages section.\n\nAuthorize.req(idTag): \nAuthorize.conf(idTagInfo): \nStart Charging: \nStartTransaction.req(connectorld, idTag, meterStart, timestamp, \\[reservationld]): \nStartTransaction.conf(idTagInfo, transactionld): \nCharging...: \nAuthorize.req(idTag): \nAuthorize.conf(idTagInfo): \nStop Charging: \nStopTransaction.req(meterStop, timestamp, transactionld, \\[reason], \\[idTag], \\[transactionData]): \nStopTransaction.conf(idTagInfo): ",
+    "content": "# 3.3. General views of operation\n\nThis section is informative.\n\nThe following figures describe the general views of the operations between Charge Point and Central System for two cases:\n\n1. a Charge Point requesting authentication of a card and sending charge transaction status,\n2. Central System requesting a Charge Point to update its firmware.\n\nThe arrow labels in the following figures indicate the PDUs exchanged during the invocations of the operations. These PDUs are defined in detail in the Messages section.\n\nAuthorize.req(idTag): \nAuthorize.conf(idTagInfo): \nStart Charging: \nStartTransaction.req(connectorld, idTag, meterStart, timestamp, [reservationld]): \nStartTransaction.conf(idTagInfo, transactionld): \nCharging...: \nAuthorize.req(idTag): \nAuthorize.conf(idTagInfo): \nStop Charging: \nStopTransaction.req(meterStop, timestamp, transactionld, [reason], [idTag], [transactionData]): \nStopTransaction.conf(idTagInfo):",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -173,7 +173,7 @@
     }
   },
   {
-    "content": "Figure 1. Sequence Diagram: Example of starting and stopping a transaction\n\nWhen a Charge Point needs to charge an electric vehicle, it needs to authenticate the user first before the charging can be started. If the user is authorized the Charge Point informs the Central System that it has started with charging.\nWhen a user wishes to unplug the electric vehicle from the Charge Point, the Charge Point needs to verify that the user is either the one that initiated the charging or that the user is in the same group and thus allowed to terminate the charging. Once authorized, the Charge Point informs the Central System that the charging has been stopped.\n\nNOTE A Charge Point MUST NOT send an Authorize.req before stopping a transaction if the presented idTag is the same as the idTag presented to start the transaction.\n\nUpdateFirmware.req(location, retrieveDate, \\[retries], \\[retryInterval]): \nUpdateFirmware.conf(): \nDownloading firmware...: \nFirmwareStatusNotification.req(status: Downloaded): \nFirmwareStatusNotification.conf(): \nInstalling...: \nFirmwareStatusNotification.req(status: Installed): \nFirmwareStatusNotification.conf(): \nReboot: \nBootNotification.req(chargePointModel, chargePointVendor,\\[chargeBoxSerialNumber],\\[chargePointSerialNumber],\\[firmwareVersion], \\[iccid], \\[imsi], \\[meterSerialNumber], \\[meterType]): \nBootNotification.conf(currentTime, heartbeatInterval, status): ",
+    "content": "Figure 1. Sequence Diagram: Example of starting and stopping a transaction\n\nWhen a Charge Point needs to charge an electric vehicle, it needs to authenticate the user first before the charging can be started. If the user is authorized the Charge Point informs the Central System that it has started with charging.\nWhen a user wishes to unplug the electric vehicle from the Charge Point, the Charge Point needs to verify that the user is either the one that initiated the charging or that the user is in the same group and thus allowed to terminate the charging. Once authorized, the Charge Point informs the Central System that the charging has been stopped.\n\nNOTE A Charge Point MUST NOT send an Authorize.req before stopping a transaction if the presented idTag is the same as the idTag presented to start the transaction.\n\nUpdateFirmware.req(location, retrieveDate, [retries], [retryInterval]): \nUpdateFirmware.conf(): \nDownloading firmware...: \nFirmwareStatusNotification.req(status: Downloaded): \nFirmwareStatusNotification.conf(): \nInstalling...: \nFirmwareStatusNotification.req(status: Installed): \nFirmwareStatusNotification.conf(): \nReboot: \nBootNotification.req(chargePointModel, chargePointVendor,[chargeBoxSerialNumber],[chargePointSerialNumber],[firmwareVersion], [iccid], [imsi], [meterSerialNumber], [meterType]): \nBootNotification.conf(currentTime, heartbeatInterval, status):",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -220,7 +220,7 @@
     }
   },
   {
-    "content": "# Figure 3. Sequence Diagram: Example of a full local authorization list update\n\nSendLocalList.req(listVersion: 234, updateType: Full, \\[localAuthorizationList]): SendLocalList.conf(status: Accepted)",
+    "content": "# Figure 3. Sequence Diagram: Example of a full local authorization list update\n\nSendLocalList.req(listVersion: 234, updateType: Full, [localAuthorizationList]): SendLocalList.conf(status: Accepted)",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -232,7 +232,7 @@
     }
   },
   {
-    "content": "# Figure 4. Sequence Diagram: Example of a differential local authorization list update\n\nGetLocalListVersion.req: \nGetLocalListVersion.conf(listVersion: 234): \nSendLocalList.req(listVersion: 239, updateType: Differential, \\[AuthorisationData]): \nSendLocalList.conf(status: Accepted): \n\nThe Charge Point SHALL NOT modify the contents of the Authorization List by any other means than upon the receipt of a SendLocalList PDU from the Central System.\nConflicts between the local authorization list and the validity reported in, for instance, a StartTransaction.conf message might occur. When this happens the Charge Point SHALL inform the Central System by sending a StatusNotification with ConnectorId set to 0, and ErrorCode set to 'LocalListConflict'.",
+    "content": "# Figure 4. Sequence Diagram: Example of a differential local authorization list update\n\nGetLocalListVersion.req: \nGetLocalListVersion.conf(listVersion: 234): \nSendLocalList.req(listVersion: 239, updateType: Differential, [AuthorisationData]): \nSendLocalList.conf(status: Accepted): \n\nThe Charge Point SHALL NOT modify the contents of the Authorization List by any other means than upon the receipt of a SendLocalList PDU from the Central System.\nConflicts between the local authorization list and the validity reported in, for instance, a StartTransaction.conf message might occur. When this happens the Charge Point SHALL inform the Central System by sending a StatusNotification with ConnectorId set to 0, and ErrorCode set to 'LocalListConflict'.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -452,7 +452,7 @@
     }
   },
   {
-    "content": "- User EV: set max current(limit); Charge Point: switch power on); Central System: start charging\n- User EV: loop Change according to charging profile; Charge Point: \\[for each interval period in charging profile]\n- User EV: set max current(limit); Charge Point: opt; Central System: \\[Change of limits by Central System]\n- User EV: RFID or other Authorization; Charge Point: end charging",
+    "content": "- User EV: set max current(limit); Charge Point: switch power on); Central System: start charging\n- User EV: loop Change according to charging profile; Charge Point: [for each interval period in charging profile]\n- User EV: set max current(limit); Charge Point: opt; Central System: [Change of limits by Central System]\n- User EV: RFID or other Authorization; Charge Point: end charging",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -466,7 +466,7 @@
     }
   },
   {
-    "content": "|                                           | StopTransaction.req(meterStop, timestamp, transactionId, reason, \\[idTag], \\[transactionData])                                                                                         | StopTransaction.conf(\\[idTagInfo])                                                                             |",
+    "content": "|                                           | StopTransaction.req(meterStop, timestamp, transactionId, reason, [idTag], [transactionData])                                                                                         | StopTransaction.conf([idTagInfo])                                                                             |",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -531,7 +531,7 @@
     }
   },
   {
-    "content": "# Figure 11. Sequence Diagram: Local Smart Charging\n\n- User EV: set max current(limit); Charge Point: switch power on\n- User EV: start charging(); Charge Point: StartTransaction.req(connectorld, idTag, meterStart, timestamp, \\[reservationld]); Central System: StartTransaction.req(connectorld, idTag, meterStart, timestamp, \\[reservationld])\n- User EV: loop Change according to charging profile\n- User EV: \\[for each interval period in charging profile]; Charge Point: get limit from charging profile(): limit; Local Controller: Charge Point implements charging profile via the Control Pilot signal whenever maximum current needs changing.\n- User EV: set max current(limit); Local Controller: \\[Change of limits by controller]",
+    "content": "# Figure 11. Sequence Diagram: Local Smart Charging\n\n- User EV: set max current(limit); Charge Point: switch power on\n- User EV: start charging(); Charge Point: StartTransaction.req(connectorld, idTag, meterStart, timestamp, [reservationld]); Central System: StartTransaction.req(connectorld, idTag, meterStart, timestamp, [reservationld])\n- User EV: loop Change according to charging profile\n- User EV: [for each interval period in charging profile]; Charge Point: get limit from charging profile(): limit; Local Controller: Charge Point implements charging profile via the Control Pilot signal whenever maximum current needs changing.\n- User EV: set max current(limit); Local Controller: [Change of limits by controller]",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -545,7 +545,7 @@
     }
   },
   {
-    "content": "- end charging(): StopTransaction.req(meterStop, timestamp, transactionld, reason, \\[idTag], \\[transactionData]); StopTransaction.req(meterStop, timestamp, transactionld, reason, \\[idTag], \\[transactionData])",
+    "content": "- end charging(): StopTransaction.req(meterStop, timestamp, transactionld, reason, [idTag], [transactionData]); StopTransaction.req(meterStop, timestamp, transactionld, reason, [idTag], [transactionData])",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -570,7 +570,7 @@
     }
   },
   {
-    "content": "# Figure 11. Sequence Diagram: Local Smart Charging\n\n- User EV: set max current(limit); Charge Point: switch power on); Local Controller: start charging(); Central System: StartTransaction.req(connectorld, idTag, meterStart, timestamp, \\[reservationld])\n- User EV: loop Change according to charging profile\n- User EV: \\[for each interval period in charging profile]; Central System: Charge Point implements charging\n- User EV: set max current(limit); Charge Point: opt; Local Controller: \\[Change of limits by controller]\n- User EV: RFID or other Authorization; Charge Point: end charging); Local Controller: switch power off0; Central System: StopTransaction.reg(meterStop, timestamp, transactionld, reason, \\[idTag], \\[transactionData])",
+    "content": "# Figure 11. Sequence Diagram: Local Smart Charging\n\n- User EV: set max current(limit); Charge Point: switch power on); Local Controller: start charging(); Central System: StartTransaction.req(connectorld, idTag, meterStart, timestamp, [reservationld])\n- User EV: loop Change according to charging profile\n- User EV: [for each interval period in charging profile]; Central System: Charge Point implements charging\n- User EV: set max current(limit); Charge Point: opt; Local Controller: [Change of limits by controller]\n- User EV: RFID or other Authorization; Charge Point: end charging); Local Controller: switch power off0; Central System: StopTransaction.reg(meterStop, timestamp, transactionld, reason, [idTag], [transactionData])",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -584,7 +584,7 @@
     }
   },
   {
-    "content": "\nExplanation for the above figure:\n\n- After authorization the connector will set a maximum current to use, via the Control Pilot signal. This limit is based on a (default) charging profile that the connector had previously received from the Local Controller. The EV starts charging and sends a StartTransaction.req.\n- The StartTransaction.req is sent to the Central System via the Local Controller, so that also the Local Controller knows a transaction has started. The Local Controller just passes on the messages between Charge Point and Central System, so that the Central System can address all the Local Smart Charging group members individually.\n- While charging is in progress the connector will continuously adapt the maximum current according to the charging profile. Optionally, at any point in time the Local Controller may send a new charging profile to the connector that shall be used as a limit schedule for the EV.",
+    "content": "Explanation for the above figure:\n\n- After authorization the connector will set a maximum current to use, via the Control Pilot signal. This limit is based on a (default) charging profile that the connector had previously received from the Local Controller. The EV starts charging and sends a StartTransaction.req.\n- The StartTransaction.req is sent to the Central System via the Local Controller, so that also the Local Controller knows a transaction has started. The Local Controller just passes on the messages between Charge Point and Central System, so that the Central System can address all the Local Smart Charging group members individually.\n- While charging is in progress the connector will continuously adapt the maximum current according to the charging profile. Optionally, at any point in time the Local Controller may send a new charging profile to the connector that shall be used as a limit schedule for the EV.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -643,7 +643,7 @@
     }
   },
   {
-    "content": "# 4.2. Boot Notification\n\nBootNotification.req(chargePointModel, chargePointVendor, \\[chargeBoxSerialNumber], \\[chargePointSerialNumber], \\[firmwareVersion], \\[iccid], \\[imsi], \\[meterSerialNumber], \\[meterType]): BootNotification.conf(currentTime, heartbeatInterval, status)\n\nFigure 13. Sequence Diagram: Boot Notification\n\nAfter start-up, a Charge Point SHALL send a request to the Central System with information about its configuration (e.g. version, vendor, etc.). The Central System SHALL respond to indicate whether it will accept the Charge Point.\n\nThe Charge Point SHALL send a BootNotification.req PDU each time it boots or reboots. Between the physical power-on/reboot and the successful completion of a BootNotification, where Central System returns Accepted or Pending, the Charge Point SHALL NOT send any other request to the Central System. This includes cached messages that are still present in the Charge Point from before.\n\nWhen the Central System responds with a BootNotification.conf with a status Accepted, the Charge Point will adjust the heartbeat interval in accordance with the interval from the response PDU and it is RECOMMENDED to synchronize its internal clock with the supplied Central System\u2019s current time. If the Central System returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request. If that interval value is zero, the Charge Point chooses a waiting interval on its own, in a way that avoids flooding the Central System with requests. A Charge Point SHOULD NOT send a BootNotification.req earlier, unless requested to do so with a TriggerMessage.req.",
+    "content": "# 4.2. Boot Notification\n\nBootNotification.req(chargePointModel, chargePointVendor, [chargeBoxSerialNumber], [chargePointSerialNumber], [firmwareVersion], [iccid], [imsi], [meterSerialNumber], [meterType]): BootNotification.conf(currentTime, heartbeatInterval, status)\n\nFigure 13. Sequence Diagram: Boot Notification\n\nAfter start-up, a Charge Point SHALL send a request to the Central System with information about its configuration (e.g. version, vendor, etc.). The Central System SHALL respond to indicate whether it will accept the Charge Point.\n\nThe Charge Point SHALL send a BootNotification.req PDU each time it boots or reboots. Between the physical power-on/reboot and the successful completion of a BootNotification, where Central System returns Accepted or Pending, the Charge Point SHALL NOT send any other request to the Central System. This includes cached messages that are still present in the Charge Point from before.\n\nWhen the Central System responds with a BootNotification.conf with a status Accepted, the Charge Point will adjust the heartbeat interval in accordance with the interval from the response PDU and it is RECOMMENDED to synchronize its internal clock with the supplied Central System\u2019s current time. If the Central System returns something other than Accepted, the value of the interval field indicates the minimum wait time before sending a next BootNotification request. If that interval value is zero, the Charge Point chooses a waiting interval on its own, in a way that avoids flooding the Central System with requests. A Charge Point SHOULD NOT send a BootNotification.req earlier, unless requested to do so with a TriggerMessage.req.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -671,7 +671,7 @@
     }
   },
   {
-    "content": "# 4.3. Data Transfer\n\nDataTransfer.req(vendorId, \\[messageId], \\[data]): DataTransfer.conf(status, \\[data])\n\nFigure 14. Sequence Diagram: Data Transfer\n\nIf a Charge Point needs to send information to the Central System for a function not supported by OCPP, it SHALL use the DataTransfer.req PDU. The vendorId in the request SHOULD be known to the Central System and uniquely identify the vendor-specific implementation. The VendorId SHOULD be a value from the reversed DNS namespace, where the top tiers of the name, when reversed, should correspond to the publicly registered primary DNS name of the Vendor organisation. Optionally, the messageId in the request PDU MAY be used to indicate a specific message or implementation. The length of data in both the request and response PDU is undefined and should be agreed upon by all parties involved. If the recipient of the request has no implementation for the specific vendorId it SHALL return a status \u2018UnknownVendor\u2019 and the data element SHALL not be present. In case of a messageId mismatch (if used) the recipient SHALL return status \u2018UnknownMessageId\u2019. In all other cases the usage of status \u2018Accepted\u2019 or \u2018Rejected\u2019 and the data element is part of the vendor-specific agreement between the parties involved.",
+    "content": "# 4.3. Data Transfer\n\nDataTransfer.req(vendorId, [messageId], [data]): DataTransfer.conf(status, [data])\n\nFigure 14. Sequence Diagram: Data Transfer\n\nIf a Charge Point needs to send information to the Central System for a function not supported by OCPP, it SHALL use the DataTransfer.req PDU. The vendorId in the request SHOULD be known to the Central System and uniquely identify the vendor-specific implementation. The VendorId SHOULD be a value from the reversed DNS namespace, where the top tiers of the name, when reversed, should correspond to the publicly registered primary DNS name of the Vendor organisation. Optionally, the messageId in the request PDU MAY be used to indicate a specific message or implementation. The length of data in both the request and response PDU is undefined and should be agreed upon by all parties involved. If the recipient of the request has no implementation for the specific vendorId it SHALL return a status \u2018UnknownVendor\u2019 and the data element SHALL not be present. In case of a messageId mismatch (if used) the recipient SHALL return status \u2018UnknownMessageId\u2019. In all other cases the usage of status \u2018Accepted\u2019 or \u2018Rejected\u2019 and the data element is part of the vendor-specific agreement between the parties involved.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -718,7 +718,7 @@
     }
   },
   {
-    "content": "# 4.7. Meter Values\n\n(MeterValues.req(connectorld, meterValue, \\[transactionld])): (MeterValues.conf())\n\nA Charge Point MAY sample the energy meter or other sensor/transducer hardware to provide extra information about its meter values. It is up to the Charge Point to decide when it will send meter values. This can be configured using the ChangeConfiguration.req message to data acquisition intervals and specify data to be acquired & reported. The Charge Point SHALL send a MeterValues.req PDU for offloading meter values. The request PDU SHALL contain for each sample:\n\n1. The id of the Connector from which samples were taken. If the connectorId is 0, it is associated with the entire Charge Point. If the connectorId is 0 and the Measurand is energy related, the sample SHOULD be taken from the main energy meter.\n2. The transactionId of the transaction to which these values are related, if applicable. If there is no transaction in progress or if the values are taken from the main meter, then transaction id may be omitted.\n3. One or more meterValue elements, of type MeterValue, each representing a set of one or more data values taken at a particular point in time.\n\nEach MeterValue element contains a timestamp and a set of one or more individual sampledvalue elements, all captured at the same point in time. Each sampledValue element contains a single value datum. The nature of each sampledValue is determined by the optional measurand, context, location, unit, phase, and format fields. The optional measurand field specifies the type of value being measured/reported. The optional context field specifies the reason/event triggering the reading. The optional location field specifies where the measurement is taken (e.g. Inlet, Outlet). The optional phase field specifies to which phase or phases of the electric installation the value applies. The Charging Point SHALL report all phase number dependant values from the power meter (or grid connection when absent) point of view.",
+    "content": "# 4.7. Meter Values\n\n(MeterValues.req(connectorld, meterValue, [transactionld])): (MeterValues.conf())\n\nA Charge Point MAY sample the energy meter or other sensor/transducer hardware to provide extra information about its meter values. It is up to the Charge Point to decide when it will send meter values. This can be configured using the ChangeConfiguration.req message to data acquisition intervals and specify data to be acquired & reported. The Charge Point SHALL send a MeterValues.req PDU for offloading meter values. The request PDU SHALL contain for each sample:\n\n1. The id of the Connector from which samples were taken. If the connectorId is 0, it is associated with the entire Charge Point. If the connectorId is 0 and the Measurand is energy related, the sample SHOULD be taken from the main energy meter.\n2. The transactionId of the transaction to which these values are related, if applicable. If there is no transaction in progress or if the values are taken from the main meter, then transaction id may be omitted.\n3. One or more meterValue elements, of type MeterValue, each representing a set of one or more data values taken at a particular point in time.\n\nEach MeterValue element contains a timestamp and a set of one or more individual sampledvalue elements, all captured at the same point in time. Each sampledValue element contains a single value datum. The nature of each sampledValue is determined by the optional measurand, context, location, unit, phase, and format fields. The optional measurand field specifies the type of value being measured/reported. The optional context field specifies the reason/event triggering the reading. The optional location field specifies where the measurement is taken (e.g. Inlet, Outlet). The optional phase field specifies to which phase or phases of the electric installation the value applies. The Charging Point SHALL report all phase number dependant values from the power meter (or grid connection when absent) point of view.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -744,7 +744,7 @@
     }
   },
   {
-    "content": "# 4.8. Start Transaction\n\nStartTransaction.req(connectorld, idTag, meterStart, timestamp, \\[reservationld]): StartTransaction.conf(idTagInfo, transactionld)\n\nFigure 19. Sequence Diagram: Start Transaction\n\nThe Charge Point SHALL send a StartTransaction.req PDU to the Central System to inform about a transaction that has been started. If this transaction ends a reservation (see Reserve Now operation), then the StartTransaction.req MUST contain the reservationId.\n\nUpon receipt of a StartTransaction.req PDU, the Central System SHOULD respond with a StartTransaction.conf PDU. This response PDU MUST include a transaction id and an authorization status value.\n\nThe Central System MUST verify validity of the identifier in the StartTransaction.req PDU, because the identifier might have been authorized locally by the Charge Point using outdated information. The identifier, for instance, may have been blocked since it was added to the Charge Point\u2019s Authorization Cache.\n\nIf Charge Point has implemented an Authorization Cache, then upon receipt of a StartTransaction.conf PDU the Charge Point SHALL update the cache entry, if the idTag is not in the Local Authorization List, with the IdTagInfo value from the response as described under Authorization Cache.\n\nIt is likely that The Central System applies sanity checks to the data contained in a StartTransaction.req it received. The outcome of such sanity checks SHOULD NOT ever cause the Central System to not respond with a StartTransaction.conf. Failing to respond with a StartTransaction.conf will only cause the Charge Point to try the same message again as specified in Error responses to transaction-related messages.",
+    "content": "# 4.8. Start Transaction\n\nStartTransaction.req(connectorld, idTag, meterStart, timestamp, [reservationld]): StartTransaction.conf(idTagInfo, transactionld)\n\nFigure 19. Sequence Diagram: Start Transaction\n\nThe Charge Point SHALL send a StartTransaction.req PDU to the Central System to inform about a transaction that has been started. If this transaction ends a reservation (see Reserve Now operation), then the StartTransaction.req MUST contain the reservationId.\n\nUpon receipt of a StartTransaction.req PDU, the Central System SHOULD respond with a StartTransaction.conf PDU. This response PDU MUST include a transaction id and an authorization status value.\n\nThe Central System MUST verify validity of the identifier in the StartTransaction.req PDU, because the identifier might have been authorized locally by the Charge Point using outdated information. The identifier, for instance, may have been blocked since it was added to the Charge Point\u2019s Authorization Cache.\n\nIf Charge Point has implemented an Authorization Cache, then upon receipt of a StartTransaction.conf PDU the Charge Point SHALL update the cache entry, if the idTag is not in the Local Authorization List, with the IdTagInfo value from the response as described under Authorization Cache.\n\nIt is likely that The Central System applies sanity checks to the data contained in a StartTransaction.req it received. The outcome of such sanity checks SHOULD NOT ever cause the Central System to not respond with a StartTransaction.conf. Failing to respond with a StartTransaction.conf will only cause the Charge Point to try the same message again as specified in Error responses to transaction-related messages.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -756,7 +756,7 @@
     }
   },
   {
-    "content": "# 4.9. Status Notification\n\nStatusNotification.req(connectorld, errorCode, status, \\[timestamp], \\[info], \\[vendorld], \\[vendorErrorCode]): StatusNotification.conf()\n\nFigure 20. Sequence Diagram: Status Notification\n\nA Charge Point sends a notification to the Central System to inform the Central System about a status change or an error within the Charge Point. The following table depicts changes from a previous status (left column) to a new status (upper row) upon which a Charge Point MAY send a StatusNotification.req PDU to the Central System.\n\nIMPORTANT The Occupied state as defined in previous OCPP versions is no longer relevant. The Occupied state is split into five new statuses: Preparing, Charging, SuspendedEV, SuspendedEVSE and Finishing.\n\nNOTE EVSE is used in Status Notification instead of Socket or Charge Point for future compatibility.\n\n- A: B; Available: Preparing; A2: B1; A4: B3; A5: B4; B5; A9: B9\n- A: C; Available: Charging; A2: C1; A4: C4; A5: C5; C6; A8: C8; A9: C9\n- A: D; Available: SuspendedEV; A2: D1; A3: D3; A5: D5; D6; A8: D8; A9: D9\n- A: E; Available: SuspendedEVSE; A2: E1; A3: E3; A5: E4; A7: E6; A9: E8; E9\n- A: F; Available: Finishing; A2: F1; A3: F2; A8: F8; A9: F9\n- A: G; Available: Reserved; A2: G1; A3: G2; A8: G8; A9: G9\n- A: H; Available: Unavailable; A2: H1; A3: H2; A4: H3; A5: H4; H5; A9: H9\n- A: I; Available: Faulted; A2: I1; A3: I2; A4: I3; A5: I4; I5; A7: I6; A9: I7; I8\n\nNOTE The table above is only applicable to ConnectorId > 0. For ConnectorId 0, only a limited set is applicable, namely: Available, Unavailable and Faulted.",
+    "content": "# 4.9. Status Notification\n\nStatusNotification.req(connectorld, errorCode, status, [timestamp], [info], [vendorld], [vendorErrorCode]): StatusNotification.conf()\n\nFigure 20. Sequence Diagram: Status Notification\n\nA Charge Point sends a notification to the Central System to inform the Central System about a status change or an error within the Charge Point. The following table depicts changes from a previous status (left column) to a new status (upper row) upon which a Charge Point MAY send a StatusNotification.req PDU to the Central System.\n\nIMPORTANT The Occupied state as defined in previous OCPP versions is no longer relevant. The Occupied state is split into five new statuses: Preparing, Charging, SuspendedEV, SuspendedEVSE and Finishing.\n\nNOTE EVSE is used in Status Notification instead of Socket or Charge Point for future compatibility.\n\n- A: B; Available: Preparing; A2: B1; A4: B3; A5: B4; B5; A9: B9\n- A: C; Available: Charging; A2: C1; A4: C4; A5: C5; C6; A8: C8; A9: C9\n- A: D; Available: SuspendedEV; A2: D1; A3: D3; A5: D5; D6; A8: D8; A9: D9\n- A: E; Available: SuspendedEVSE; A2: E1; A3: E3; A5: E4; A7: E6; A9: E8; E9\n- A: F; Available: Finishing; A2: F1; A3: F2; A8: F8; A9: F9\n- A: G; Available: Reserved; A2: G1; A3: G2; A8: G8; A9: G9\n- A: H; Available: Unavailable; A2: H1; A3: H2; A4: H3; A5: H4; H5; A9: H9\n- A: I; Available: Faulted; A2: I1; A3: I2; A4: I3; A5: I4; I5; A7: I6; A9: I7; I8\n\nNOTE The table above is only applicable to ConnectorId > 0. For ConnectorId 0, only a limited set is applicable, namely: Available, Unavailable and Faulted.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -865,7 +865,7 @@
     }
   },
   {
-    "content": "4. The StatusNotification.req messages MUST be sent in the order in which the events that they describe occurred.\n\nUpon receipt of a StatusNotification.req PDU, the Central System SHALL respond with a StatusNotification.conf PDU.\nStopTransaction.req(meterStop, timestamp, transactionId, reason, \\[idTag], \\[transactionData]): StopTransaction.conf(\\[idTagInfo])\n\nFigure 21. Sequence Diagram: Stop Transaction\n\nWhen a transaction is stopped, the Charge Point SHALL send a StopTransaction.req PDU, notifying to the Central System that the transaction has stopped. A StopTransaction.req PDU MAY contain an optional TransactionData element to provide more details about transaction usage. The optional TransactionData element is a container for any number of MeterValues, using the same data structure as the meterValue elements of the MeterValues.req PDU (See section MeterValues). Upon receipt of a StopTransaction.req PDU, the Central System SHALL respond with a StopTransaction.conf PDU.\n\nThe Central System cannot prevent a transaction from stopping. It MAY only inform the Charge Point it has received the StopTransaction.req and MAY send information about the idTag used to stop the transaction. This information SHOULD be used to update the Authorization Cache, if implemented.\n\nThe idTag in the request PDU MAY be omitted when the Charge Point itself needs to stop the transaction. For instance, when the Charge Point is requested to reset. If a transaction is ended in a normal way (e.g. EV-driver presented his identification to stop the transaction), the Reason element MAY be omitted and the Reason SHOULD be assumed 'Local'. If the transaction is not ended normally, the Reason SHOULD be set to a correct value. As part of the normal transaction termination, the Charge Point SHALL unlock the cable (if not permanently attached). The Charge Point MAY unlock the cable (if not permanently attached) when the cable is disconnected at the EV. If supported, this functionality is reported and controlled by the configuration key UnlockConnectorOnEVSideDisconnect.",
+    "content": "4. The StatusNotification.req messages MUST be sent in the order in which the events that they describe occurred.\n\nUpon receipt of a StatusNotification.req PDU, the Central System SHALL respond with a StatusNotification.conf PDU.\nStopTransaction.req(meterStop, timestamp, transactionId, reason, [idTag], [transactionData]): StopTransaction.conf([idTagInfo])\n\nFigure 21. Sequence Diagram: Stop Transaction\n\nWhen a transaction is stopped, the Charge Point SHALL send a StopTransaction.req PDU, notifying to the Central System that the transaction has stopped. A StopTransaction.req PDU MAY contain an optional TransactionData element to provide more details about transaction usage. The optional TransactionData element is a container for any number of MeterValues, using the same data structure as the meterValue elements of the MeterValues.req PDU (See section MeterValues). Upon receipt of a StopTransaction.req PDU, the Central System SHALL respond with a StopTransaction.conf PDU.\n\nThe Central System cannot prevent a transaction from stopping. It MAY only inform the Charge Point it has received the StopTransaction.req and MAY send information about the idTag used to stop the transaction. This information SHOULD be used to update the Authorization Cache, if implemented.\n\nThe idTag in the request PDU MAY be omitted when the Charge Point itself needs to stop the transaction. For instance, when the Charge Point is requested to reset. If a transaction is ended in a normal way (e.g. EV-driver presented his identification to stop the transaction), the Reason element MAY be omitted and the Reason SHOULD be assumed 'Local'. If the transaction is not ended normally, the Reason SHOULD be set to a correct value. As part of the normal transaction termination, the Charge Point SHALL unlock the cable (if not permanently attached). The Charge Point MAY unlock the cable (if not permanently attached) when the cable is disconnected at the EV. If supported, this functionality is reported and controlled by the configuration key UnlockConnectorOnEVSideDisconnect.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -967,7 +967,7 @@
     }
   },
   {
-    "content": "# 5.6. Data Transfer\n\nDataTransfer.req(vendorId, \\[messageId], \\[data]): DataTransfer.conf(status, \\[data])\n\nFigure 27. Sequence Diagram: Data Transfer\n\nIf the Central System needs to send information to a Charge Point for a function not supported by OCPP, it SHALL use the DataTransfer.req PDU. Behaviour of this operation is identical to the Data Transfer operation initiated by the Charge Point. See Data Transfer for details.",
+    "content": "# 5.6. Data Transfer\n\nDataTransfer.req(vendorId, [messageId], [data]): DataTransfer.conf(status, [data])\n\nFigure 27. Sequence Diagram: Data Transfer\n\nIf the Central System needs to send information to a Charge Point for a function not supported by OCPP, it SHALL use the DataTransfer.req PDU. Behaviour of this operation is identical to the Data Transfer operation initiated by the Charge Point. See Data Transfer for details.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -979,7 +979,7 @@
     }
   },
   {
-    "content": "# 5.7. Get Composite Schedule\n\nGetCompositeSchedule.req(connectorId, duration, \\[schedulingUnit]): GetCompositeSchedule.conf(status, \\[connectorId], \\[scheduleStart], \\[chargingSchedule])\n\nFigure 28. Sequence Diagram: Get Composite Schedule\n\nThe Central System MAY request the Charge Point to report the Composite Charging Schedule by sending a GetCompositeSchedule.req PDU. The reported schedule, in the GetCompositeSchedule.conf PDU, is the result of the calculation of all active schedules and possible local limits present in the Charge Point. Also IEC 15118 limits might be taken into account.\n\nUpon receipt of a GetCompositeSchedule.req, the Charge Point SHALL calculate the scheduled time intervals up to the Duration is met and send them to the central system. If the ConnectorId in the request is set to '0', the Charge Point SHALL report the total expected energy flow of the Charge Point for the requested time period.\n\nNOTE: Please note that the charging schedule sent by the charge point is only indicative for that point in time. This schedule might change over time due to external causes (for instance, local balancing based on grid connection capacity is active and one Connector becomes available).\n\nIf the Charge Point is not able to report the requested schedule, for instance if the connectorId is unknown, it SHALL respond with a status Rejected.",
+    "content": "# 5.7. Get Composite Schedule\n\nGetCompositeSchedule.req(connectorId, duration, [schedulingUnit]): GetCompositeSchedule.conf(status, [connectorId], [scheduleStart], [chargingSchedule])\n\nFigure 28. Sequence Diagram: Get Composite Schedule\n\nThe Central System MAY request the Charge Point to report the Composite Charging Schedule by sending a GetCompositeSchedule.req PDU. The reported schedule, in the GetCompositeSchedule.conf PDU, is the result of the calculation of all active schedules and possible local limits present in the Charge Point. Also IEC 15118 limits might be taken into account.\n\nUpon receipt of a GetCompositeSchedule.req, the Charge Point SHALL calculate the scheduled time intervals up to the Duration is met and send them to the central system. If the ConnectorId in the request is set to '0', the Charge Point SHALL report the total expected energy flow of the Charge Point for the requested time period.\n\nNOTE: Please note that the charging schedule sent by the charge point is only indicative for that point in time. This schedule might change over time due to external causes (for instance, local balancing based on grid connection capacity is active and one Connector becomes available).\n\nIf the Charge Point is not able to report the requested schedule, for instance if the connectorId is unknown, it SHALL respond with a status Rejected.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -991,7 +991,7 @@
     }
   },
   {
-    "content": "# 5.8. Get Configuration\n\nGetConfiguration.req(\\[key]): GetConfiguration.conf(configurationKey, \\[unknownKey])\n\nFigure 29. Sequence Diagram: Get Configuration\n\nTo retrieve the value of configuration settings, the Central System SHALL send a GetConfiguration.req PDU to the Charge Point. If the list of keys in the request PDU is empty or missing (it is optional), the Charge Point SHALL return a list of all configuration settings in GetConfiguration.conf. Otherwise, Charge Point SHALL return a list of recognized keys and their corresponding values and read-only state. Unrecognized keys SHALL be placed in the response PDU as part of the optional unknown key list element of GetConfiguration.conf. The number of configuration keys requested in a single PDU MAY be limited by the Charge Point. This maximum can be retrieved by reading the configuration key GetConfigurationMaxKeys.",
+    "content": "# 5.8. Get Configuration\n\nGetConfiguration.req([key]): GetConfiguration.conf(configurationKey, [unknownKey])\n\nFigure 29. Sequence Diagram: Get Configuration\n\nTo retrieve the value of configuration settings, the Central System SHALL send a GetConfiguration.req PDU to the Charge Point. If the list of keys in the request PDU is empty or missing (it is optional), the Charge Point SHALL return a list of all configuration settings in GetConfiguration.conf. Otherwise, Charge Point SHALL return a list of recognized keys and their corresponding values and read-only state. Unrecognized keys SHALL be placed in the response PDU as part of the optional unknown key list element of GetConfiguration.conf. The number of configuration keys requested in a single PDU MAY be limited by the Charge Point. This maximum can be retrieved by reading the configuration key GetConfigurationMaxKeys.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1003,7 +1003,7 @@
     }
   },
   {
-    "content": "# 5.9. Get Diagnostics\n\nGetDiagnostics.req(location, \\[retries], \\[retryInterval], \\[startTime], \\[stopTime]): GetDiagnostics.conf(\\[fileName])\n\nFigure 30. Sequence Diagram: Get Diagnostics\n\nCentral System can request a Charge Point for diagnostic information. The Central System SHALL send a GetDiagnostics.req PDU for getting diagnostic information of a Charge Point with a location where the Charge Point MUST upload its diagnostic data to and optionally a begin and end time for the requested diagnostic information.\n\nUpon receipt of a GetDiagnostics.req PDU, and if diagnostics information is available then Charge Point SHALL respond with a GetDiagnostics.conf PDU stating the name of the file containing the diagnostic information that will be uploaded. Charge Point SHALL upload a single file. Format of the diagnostics file is not prescribed. If no diagnostics file is available, then GetDiagnostics.conf SHALL NOT contain a file name.",
+    "content": "# 5.9. Get Diagnostics\n\nGetDiagnostics.req(location, [retries], [retryInterval], [startTime], [stopTime]): GetDiagnostics.conf([fileName])\n\nFigure 30. Sequence Diagram: Get Diagnostics\n\nCentral System can request a Charge Point for diagnostic information. The Central System SHALL send a GetDiagnostics.req PDU for getting diagnostic information of a Charge Point with a location where the Charge Point MUST upload its diagnostic data to and optionally a begin and end time for the requested diagnostic information.\n\nUpon receipt of a GetDiagnostics.req PDU, and if diagnostics information is available then Charge Point SHALL respond with a GetDiagnostics.conf PDU stating the name of the file containing the diagnostic information that will be uploaded. Charge Point SHALL upload a single file. Format of the diagnostics file is not prescribed. If no diagnostics file is available, then GetDiagnostics.conf SHALL NOT contain a file name.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1027,7 +1027,7 @@
     }
   },
   {
-    "content": "# 5.11. Remote Start Transaction\n\nRemoteStartTransaction.req(idTag, \\[connectorId], \\[chargingProfile]): RemoteStartTransaction.conf(status)\n\nFigure 32. Sequence Diagram: Remote Start Transaction\n\nThe Central System can request a Charge Point to start a transaction by sending a RemoteStartTransaction.req. Upon receipt, the Charge Point SHALL reply with RemoteStartTransaction.conf and a status indicating whether it is able to start a transaction or not. The effect of the RemoteStartTransaction.req message depends on the value of the AuthorizeRemoteTxRequests configuration key in the Charge Point.\n\n- If the value of AuthorizeRemoteTxRequests is true, the Charge Point SHALL behave as if in response to a local action at the Charge Point to start a transaction with the idTag given in the RemoteStartTransaction.req message. This means that the Charge Point will first try to authorize the idTag, using the Local Authorization List, Authorization Cache and/or an Authorize.req request. A transaction will only be started after authorization was obtained.\n- If the value of AuthorizeRemoteTxRequests is false, the Charge Point SHALL immediately try to start a transaction for the idTag given in the RemoteStartTransaction.req message. Note that after the transaction has been started, the Charge Point will send a StartTransaction request to the Central System, and the Central System will check the authorization status of the idTag when processing this StartTransaction request.\n\nThe following typical use cases are the reason for Remote Start Transaction:",
+    "content": "# 5.11. Remote Start Transaction\n\nRemoteStartTransaction.req(idTag, [connectorId], [chargingProfile]): RemoteStartTransaction.conf(status)\n\nFigure 32. Sequence Diagram: Remote Start Transaction\n\nThe Central System can request a Charge Point to start a transaction by sending a RemoteStartTransaction.req. Upon receipt, the Charge Point SHALL reply with RemoteStartTransaction.conf and a status indicating whether it is able to start a transaction or not. The effect of the RemoteStartTransaction.req message depends on the value of the AuthorizeRemoteTxRequests configuration key in the Charge Point.\n\n- If the value of AuthorizeRemoteTxRequests is true, the Charge Point SHALL behave as if in response to a local action at the Charge Point to start a transaction with the idTag given in the RemoteStartTransaction.req message. This means that the Charge Point will first try to authorize the idTag, using the Local Authorization List, Authorization Cache and/or an Authorize.req request. A transaction will only be started after authorization was obtained.\n- If the value of AuthorizeRemoteTxRequests is false, the Charge Point SHALL immediately try to start a transaction for the idTag given in the RemoteStartTransaction.req message. Note that after the transaction has been started, the Charge Point will send a StartTransaction request to the Central System, and the Central System will check the authorization status of the idTag when processing this StartTransaction request.\n\nThe following typical use cases are the reason for Remote Start Transaction:",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1067,7 +1067,7 @@
     }
   },
   {
-    "content": "# 5.13. Reserve Now\n\nReserveNow\\.req(connectorld, expiryDate, idTag, reservationld, \\[parentIdTag]): ReserveNow\\.conf(status)\n\nFigure 34. Sequence Diagram: Reserve Now\n\nA Central System can issue a ReserveNow.req to a Charge Point to reserve a connector for use by a specific idTag.\n\nTo request a reservation the Central System SHALL send a ReserveNow.req PDU to a Charge Point. The Central System MAY specify a connector to be reserved. Upon receipt of a ReserveNow.req PDU, the Charge Point SHALL respond with a ReserveNow.conf PDU.\n\nIf the reservationId in the request matches a reservation in the Charge Point, then the Charge Point SHALL replace that reservation with the new reservation in the request.\n\nIf the reservationId does not match any reservation in the Charge Point, then the Charge Point SHALL return the status value \u2018Accepted\u2019 if it succeeds in reserving a connector. The Charge Point SHALL return \u2018Occupied\u2019 if the Charge Point or the specified connector are occupied. The Charge Point SHALL also return \u2018Occupied\u2019 when the Charge Point or connector has been reserved for the same or another idTag. The Charge Point SHALL return \u2018Faulted\u2019 if the Charge Point or the connector are in the Faulted state. The Charge Point SHALL return \u2018Unavailable\u2019 if the Charge Point or connector are in the Unavailable state. The Charge Point SHALL return \u2018Rejected\u2019 if it is configured not to accept reservations.\n\nIf the Charge Point accepts the reservation request, then it SHALL refuse charging for all incoming idTags on the reserved connector, except when the incoming idTag or the parent idTag match the idTag or parent idTag of the reservation.",
+    "content": "# 5.13. Reserve Now\n\nReserveNow\\.req(connectorld, expiryDate, idTag, reservationld, [parentIdTag]): ReserveNow\\.conf(status)\n\nFigure 34. Sequence Diagram: Reserve Now\n\nA Central System can issue a ReserveNow.req to a Charge Point to reserve a connector for use by a specific idTag.\n\nTo request a reservation the Central System SHALL send a ReserveNow.req PDU to a Charge Point. The Central System MAY specify a connector to be reserved. Upon receipt of a ReserveNow.req PDU, the Charge Point SHALL respond with a ReserveNow.conf PDU.\n\nIf the reservationId in the request matches a reservation in the Charge Point, then the Charge Point SHALL replace that reservation with the new reservation in the request.\n\nIf the reservationId does not match any reservation in the Charge Point, then the Charge Point SHALL return the status value \u2018Accepted\u2019 if it succeeds in reserving a connector. The Charge Point SHALL return \u2018Occupied\u2019 if the Charge Point or the specified connector are occupied. The Charge Point SHALL also return \u2018Occupied\u2019 when the Charge Point or connector has been reserved for the same or another idTag. The Charge Point SHALL return \u2018Faulted\u2019 if the Charge Point or the connector are in the Faulted state. The Charge Point SHALL return \u2018Unavailable\u2019 if the Charge Point or connector are in the Unavailable state. The Charge Point SHALL return \u2018Rejected\u2019 if it is configured not to accept reservations.\n\nIf the Charge Point accepts the reservation request, then it SHALL refuse charging for all incoming idTags on the reserved connector, except when the incoming idTag or the parent idTag match the idTag or parent idTag of the reservation.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1121,7 +1121,7 @@
     }
   },
   {
-    "content": "# 5.15. Send Local List\n\nSendLocalList.reg(listVersion, updateType, \\[localAuthorisationList]): \nSendLocalList.conf(status): \n\nFigure 36. Sequence Diagram: Send Local List\n\nThe Central System can send a Local Authorization List that a Charge Point can use for authorization of idTags. The list MAY be either a full list to replace the current list in the Charge Point or it MAY be a differential list with updates to be applied to the current list in the Charge Point.\n\nThe Central System SHALL send a SendLocalList.req PDU to send the list to a Charge Point. The SendLocalList.req PDU SHALL contain the type of update (full or differential) and the version number that the Charge Point MUST associate with the local authorization list after it has been updated.\n\nUpon receipt of a SendLocalList.req PDU, the Charge Point SHALL respond with a SendLocalList.conf PDU. The response PDU SHALL indicate whether the Charge Point has accepted the update of the local authorization list. If the status is Failed or VersionMismatch and the updateType was Differential, then Central System SHOULD retry sending the full local authorization list with updateType Full.",
+    "content": "# 5.15. Send Local List\n\nSendLocalList.reg(listVersion, updateType, [localAuthorisationList]): \nSendLocalList.conf(status): \n\nFigure 36. Sequence Diagram: Send Local List\n\nThe Central System can send a Local Authorization List that a Charge Point can use for authorization of idTags. The list MAY be either a full list to replace the current list in the Charge Point or it MAY be a differential list with updates to be applied to the current list in the Charge Point.\n\nThe Central System SHALL send a SendLocalList.req PDU to send the list to a Charge Point. The SendLocalList.req PDU SHALL contain the type of update (full or differential) and the version number that the Charge Point MUST associate with the local authorization list after it has been updated.\n\nUpon receipt of a SendLocalList.req PDU, the Charge Point SHALL respond with a SendLocalList.conf PDU. The response PDU SHALL indicate whether the Charge Point has accepted the update of the local authorization list. If the status is Failed or VersionMismatch and the updateType was Differential, then Central System SHOULD retry sending the full local authorization list with updateType Full.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1133,7 +1133,7 @@
     }
   },
   {
-    "content": "# 5.16. Set Charging Profile\n\nalt: \\[at start of transaction]\nStartTransaction.req(connectorld, idTag, meterStart, timestamp \\[reservationld]): StartTransaction.conf(idTagInfo, transactionld)\nSetChargingProfile.req(Connectorld, csChargingProfiles): SetChargingProfile.conf(status)\n\\[otherwise]: \nSetChargingProfile.req(Connectorld, csChargingProfiles): SetChargingProfile.conf(status)\n\nFigure 37. Sequence Diagram: Set Charging Profile\n\nA Central System can send a SetChargingProfile.req to a Charge Point, to set a charging profile, in the following situations:\n\n- At the start of a transaction to set the charging profile for the transaction;\n- In a RemoteStartTransaction request sent to a Charge Point\n- During a transaction to change the active profile for the transaction;\n- Outside the context of a transaction as a separate message to set a charging profile to a local controller, Charge Point, or a default charging profile to a connector.\n\nTo prevent mismatch between transactions and a TxProfile, The Central System IMPORTANT SHALL include the transactionId in a SetChargingProfile.req if the profile applies to a specific transaction.\n\nThese situations are described below.",
+    "content": "# 5.16. Set Charging Profile\n\nalt: [at start of transaction]\nStartTransaction.req(connectorld, idTag, meterStart, timestamp [reservationld]): StartTransaction.conf(idTagInfo, transactionld)\nSetChargingProfile.req(Connectorld, csChargingProfiles): SetChargingProfile.conf(status)\n[otherwise]: \nSetChargingProfile.req(Connectorld, csChargingProfiles): SetChargingProfile.conf(status)\n\nFigure 37. Sequence Diagram: Set Charging Profile\n\nA Central System can send a SetChargingProfile.req to a Charge Point, to set a charging profile, in the following situations:\n\n- At the start of a transaction to set the charging profile for the transaction;\n- In a RemoteStartTransaction request sent to a Charge Point\n- During a transaction to change the active profile for the transaction;\n- Outside the context of a transaction as a separate message to set a charging profile to a local controller, Charge Point, or a default charging profile to a connector.\n\nTo prevent mismatch between transactions and a TxProfile, The Central System IMPORTANT SHALL include the transactionId in a SetChargingProfile.req if the profile applies to a specific transaction.\n\nThese situations are described below.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1178,7 +1178,7 @@
     }
   },
   {
-    "content": "# 5.17. Trigger Message\n\nTriggerMessage.req(requestedMessage, \\[connectorld]): TriggerMessage.conf(status)\n\nFigure 38. Sequence Diagram: Trigger Message\n\nDuring normal operation, the Charge Point informs the Central System of its state and any relevant occurrences. If there is nothing to report the Charge Point will send at least a heartBeat at a predefined interval. Under normal circumstances this is just fine, but what if the Central System has (whatever) reason to doubt the last known state? What can a Central System do if a firmware update is in progress and the last status notification it received about it was much longer ago than could reasonably be expected? The same can be asked for the progress of a diagnostics request. The problem in these situations is not that the information needed isn\u2019t covered by existing messages, the problem is strictly a timing issue. The Charge Point has the information, but has no way of knowing that the Central System would like an update.\n\nThe TriggerMessage.req makes it possible for the Central System, to request the Charge Point, to send Charge Point-initiated messages. In the request the Central System indicates which message it wishes to receive. For every such requested message the Central System MAY optionally indicate to which connector this request applies. The requested message is leading: if the specified connectorId is not relevant to the message, it should be ignored. In such cases the requested message should still be sent. Inversely, if the connectorId is relevant but absent, this should be interpreted as \u201cfor all allowed connectorId values\u201d. For example, a request for a statusNotification for connectorId 0 is a request for the status of the Charge Point. A request for a statusNotification without connectorId is a request for multiple statusNotifications: the notification for the Charge Point itself and a notification for each of its connectors.",
+    "content": "# 5.17. Trigger Message\n\nTriggerMessage.req(requestedMessage, [connectorld]): TriggerMessage.conf(status)\n\nFigure 38. Sequence Diagram: Trigger Message\n\nDuring normal operation, the Charge Point informs the Central System of its state and any relevant occurrences. If there is nothing to report the Charge Point will send at least a heartBeat at a predefined interval. Under normal circumstances this is just fine, but what if the Central System has (whatever) reason to doubt the last known state? What can a Central System do if a firmware update is in progress and the last status notification it received about it was much longer ago than could reasonably be expected? The same can be asked for the progress of a diagnostics request. The problem in these situations is not that the information needed isn\u2019t covered by existing messages, the problem is strictly a timing issue. The Charge Point has the information, but has no way of knowing that the Central System would like an update.\n\nThe TriggerMessage.req makes it possible for the Central System, to request the Charge Point, to send Charge Point-initiated messages. In the request the Central System indicates which message it wishes to receive. For every such requested message the Central System MAY optionally indicate to which connector this request applies. The requested message is leading: if the specified connectorId is not relevant to the message, it should be ignored. In such cases the requested message should still be sent. Inversely, if the connectorId is relevant but absent, this should be interpreted as \u201cfor all allowed connectorId values\u201d. For example, a request for a statusNotification for connectorId 0 is a request for the status of the Charge Point. A request for a statusNotification without connectorId is a request for multiple statusNotifications: the notification for the Charge Point itself and a notification for each of its connectors.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1217,7 +1217,7 @@
     }
   },
   {
-    "content": "# 5.19. Update Firmware\n\nUpdateFirmware.reg(location, retrieveDate, \\[retries], \\[retryInterval]): updateFirmware.conf()\n\nFigure 41. Sequence Diagram: Update Firmware\n\nCentral System can notify a Charge Point that it needs to update its firmware. The Central System SHALL send an UpdateFirmware.req PDU to instruct the Charge Point to install new firmware. The PDU SHALL contain a date and time after which the Charge Point is allowed to retrieve the new firmware and the location from which the firmware can be downloaded.\nUpon receipt of an UpdateFirmware.req PDU, the Charge Point SHALL respond with a UpdateFirmware.conf PDU. The Charge Point SHOULD start retrieving the firmware as soon as possible after retrieve-date.",
+    "content": "# 5.19. Update Firmware\n\nUpdateFirmware.reg(location, retrieveDate, [retries], [retryInterval]): updateFirmware.conf()\n\nFigure 41. Sequence Diagram: Update Firmware\n\nCentral System can notify a Charge Point that it needs to update its firmware. The Central System SHALL send an UpdateFirmware.req PDU to instruct the Charge Point to install new firmware. The PDU SHALL contain a date and time after which the Charge Point is allowed to retrieve the new firmware and the location from which the firmware can be downloaded.\nUpon receipt of an UpdateFirmware.req PDU, the Charge Point SHALL respond with a UpdateFirmware.conf PDU. The Charge Point SHOULD start retrieving the firmware as soon as possible after retrieve-date.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1471,7 +1471,7 @@
     }
   },
   {
-    "content": "# 6.23. GetConfiguration.req\n\nThis contains the field definition of the GetConfiguration.req PDU sent by the Central System to the Charge Point. See also Get Configuration\n\nCiString50Type: 0..\\*",
+    "content": "# 6.23. GetConfiguration.req\n\nThis contains the field definition of the GetConfiguration.req PDU sent by the Central System to the Charge Point. See also Get Configuration\n\nCiString50Type: 0..*",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1482,7 +1482,7 @@
     }
   },
   {
-    "content": "# 6.24. GetConfiguration.conf\n\nThis contains the field definition of the GetConfiguration.conf PDU sent by Charge Point to the Central System in response to a GetConfiguration.req. See also Get Configuration\n\nKeyValue: 0..\\*\nCiString50Type: 0..\\*",
+    "content": "# 6.24. GetConfiguration.conf\n\nThis contains the field definition of the GetConfiguration.conf PDU sent by Charge Point to the Central System in response to a GetConfiguration.req. See also Get Configuration\n\nKeyValue: 0..*\nCiString50Type: 0..*",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1559,7 +1559,7 @@
     }
   },
   {
-    "content": "# 6.31. MeterValues.req\n\nThis contains the field definition of the MeterValues.req PDU sent by the Charge Point to the Central System. See also Meter Values\n\ninteger: 1..1\ninteger: 0..1\nMeterValue: 1..\\*",
+    "content": "# 6.31. MeterValues.req\n\nThis contains the field definition of the MeterValues.req PDU sent by the Charge Point to the Central System. See also Meter Values\n\ninteger: 1..1\ninteger: 0..1\nMeterValue: 1..*",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1669,7 +1669,7 @@
     }
   },
   {
-    "content": "# 6.41. SendLocalList.req\n\ninteger: 1..1\nAuthorizationData: 0..\\*\nUpdateType: 1..1",
+    "content": "# 6.41. SendLocalList.req\n\ninteger: 1..1\nAuthorizationData: 0..*\nUpdateType: 1..1",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1757,7 +1757,7 @@
     }
   },
   {
-    "content": "# 6.49. StopTransaction.req\n\nThis contains the field definition of the StopTransaction.req PDU sent by the Charge Point to the Central System. See also Stop Transaction\n\nIdToken: 0..1\ninteger: 1..1\ndateTime: 1..1\n\ninteger: 1..1\nReason: 0..1\nMeterValue: 0..\\*",
+    "content": "# 6.49. StopTransaction.req\n\nThis contains the field definition of the StopTransaction.req PDU sent by the Charge Point to the Central System. See also Stop Transaction\n\nIdToken: 0..1\ninteger: 1..1\ndateTime: 1..1\n\ninteger: 1..1\nReason: 0..1\nMeterValue: 0..*",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1952,7 +1952,7 @@
     }
   },
   {
-    "content": "# ChargingProfile\n\n- chargingProfileId: transactionId; int \\[1..1]: int \\[0..1]; ChargingProfilePurposeType: stackLevel; ChargingProfileKindType: int \\[1..1]\n- chargingProfileId: chargingProfilePurpose; int \\[1..1]: ChargingProfilePurposeType \\[1..1]; ChargingProfilePurposeType: TxDefaultProfile; ChargingProfileKindType: Recurring\n- chargingProfileId: chargingProfileKind; int \\[1..1]: ChargingProfileKindType \\[1..1]; ChargingProfilePurposeType: TxProfile; ChargingProfileKindType: Relative\n- chargingProfileId: recurrencyKind; int \\[1..1]: RecurrencyKindType \\[0..1]; ChargingProfilePurposeType: validFrom; ChargingProfileKindType: DateTime \\[0..1]\n- chargingProfileId: validTo; int \\[1..1]: DateTime \\[0..1]; ChargingProfilePurposeType: chargingSchedule; ChargingProfileKindType: ChargingSchedule \\[1..1]",
+    "content": "# ChargingProfile\n\n- chargingProfileId: transactionId; int [1..1]: int [0..1]; ChargingProfilePurposeType: stackLevel; ChargingProfileKindType: int [1..1]\n- chargingProfileId: chargingProfilePurpose; int [1..1]: ChargingProfilePurposeType [1..1]; ChargingProfilePurposeType: TxDefaultProfile; ChargingProfileKindType: Recurring\n- chargingProfileId: chargingProfileKind; int [1..1]: ChargingProfileKindType [1..1]; ChargingProfilePurposeType: TxProfile; ChargingProfileKindType: Relative\n- chargingProfileId: recurrencyKind; int [1..1]: RecurrencyKindType [0..1]; ChargingProfilePurposeType: validFrom; ChargingProfileKindType: DateTime [0..1]\n- chargingProfileId: validTo; int [1..1]: DateTime [0..1]; ChargingProfilePurposeType: chargingSchedule; ChargingProfileKindType: ChargingSchedule [1..1]",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1963,7 +1963,7 @@
     }
   },
   {
-    "content": "# ChargingSchedule\n\n- duration: startSchedule; int \\[0..1]: DateTime \\[0..1]; RecurrencyKindType: schedulingUnit; SchedulingUnitType \\[1..1]\n- duration: chargingSchedulePeriod; int \\[0..1]: ChargingSchedulePeriod \\[1..\\*]; RecurrencyKindType: minChargingRate; decimal \\[0..1]",
+    "content": "# ChargingSchedule\n\n- duration: startSchedule; int [0..1]: DateTime [0..1]; RecurrencyKindType: schedulingUnit; SchedulingUnitType [1..1]\n- duration: chargingSchedulePeriod; int [0..1]: ChargingSchedulePeriod [1..*]; RecurrencyKindType: minChargingRate; decimal [0..1]",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -1974,7 +1974,7 @@
     }
   },
   {
-    "content": "# ChargingSchedulePeriod\n\nlimit: int \\[1..1]\nnumberPhases: int \\[0..1]",
+    "content": "# ChargingSchedulePeriod\n\nlimit: int [1..1]\nnumberPhases: int [0..1]",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2040,7 +2040,7 @@
     }
   },
   {
-    "content": "# Class\n\ninteger: 0..1\nDateTime: 0..1\nChargingRateUnitType: 1..1\nChargingSchedulePeriod: 1..\\*\ndecimal: 0..1",
+    "content": "# Class\n\ninteger: 0..1\nDateTime: 0..1\nChargingRateUnitType: 1..1\nChargingSchedulePeriod: 1..*\ndecimal: 0..1",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2062,7 +2062,7 @@
     }
   },
   {
-    "content": "# 7.15. CiString20Type\n\nClass\n\nGeneric used case insensitive string of 20 characters.\n\nCiString\\[20]: String is case insensitive.",
+    "content": "# 7.15. CiString20Type\n\nClass\n\nGeneric used case insensitive string of 20 characters.\n\nCiString[20]: String is case insensitive.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2073,7 +2073,7 @@
     }
   },
   {
-    "content": "# 7.16. CiString25Type\n\nClass\n\nGeneric used case insensitive string of 25 characters.\n\nCiString\\[25]: String is case insensitive.",
+    "content": "# 7.16. CiString25Type\n\nClass\n\nGeneric used case insensitive string of 25 characters.\n\nCiString[25]: String is case insensitive.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2084,7 +2084,7 @@
     }
   },
   {
-    "content": "# 7.17. CiString50Type\n\nClass\n\nGeneric used case insensitive string of 50 characters.\n\nCiString\\[50]: String is case insensitive.",
+    "content": "# 7.17. CiString50Type\n\nClass\n\nGeneric used case insensitive string of 50 characters.\n\nCiString[50]: String is case insensitive.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2095,7 +2095,7 @@
     }
   },
   {
-    "content": "# 7.18. CiString255Type\n\nClass\n\nGeneric used case insensitive string of 255 characters.\n\nCiString\\[255]: String is case insensitive.",
+    "content": "# 7.18. CiString255Type\n\nClass\n\nGeneric used case insensitive string of 255 characters.\n\nCiString[255]: String is case insensitive.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2106,7 +2106,7 @@
     }
   },
   {
-    "content": "# 7.19. CiString500Type\n\nClass\n\nGeneric used case insensitive string of 500 characters.\n\nCiString\\[500]: String is case insensitive.",
+    "content": "# 7.19. CiString500Type\n\nClass\n\nGeneric used case insensitive string of 500 characters.\n\nCiString[500]: String is case insensitive.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2205,7 +2205,7 @@
     }
   },
   {
-    "content": "# 7.28. IdToken\n\nClass\n\nContains the identifier to use for authorization. It is a case insensitive string. In future releases this may become a complex type to support multiple forms of identifiers.\n\nString\\[20]: Required. IdToken is case insensitive.",
+    "content": "# 7.28. IdToken\n\nClass\n\nContains the identifier to use for authorization. It is a case insensitive string. In future releases this may become a complex type to support multiple forms of identifiers.\n\nString[20]: Required. IdToken is case insensitive.",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",
@@ -2260,7 +2260,7 @@
     }
   },
   {
-    "content": "# Class\n\nCollection of one or more sampled values in MeterValues.req. All sampled values in a MeterValue are sampled at the same point in time.\n\ndateTime: 1..1\nSampledValue: 1..\\*",
+    "content": "# Class\n\nCollection of one or more sampled values in MeterValues.req. All sampled values in a MeterValue are sampled at the same point in time.\n\ndateTime: 1..1\nSampledValue: 1..*",
     "metadata": {
       "doc_id": "ocpp16_spec",
       "doc_title": "OCPP 1.6 Specification",

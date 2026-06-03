@@ -1,6 +1,6 @@
 [
   {
-    "content": "# K. Smart Charging\n\nA logical component that controls a group of Charging Stations. A typical use would be a number of Charging Stations in a parking garage where the rating of the connection to the grid is less than the sum of the ratings of the Charging Stations. Another application might be that the Local Controller receives information about the availability of power from a DSO or a local smart grid node.\n\n\n\nFigure 95. Local Smart Charging Topology",
+    "content": "# K. Smart Charging\n\nA logical component that controls a group of Charging Stations. A typical use would be a number of Charging Stations in a parking garage where the rating of the connection to the grid is less than the sum of the ratings of the Charging Stations. Another application might be that the Local Controller receives information about the availability of power from a DSO or a local smart grid node.\n\nFigure 95. Local Smart Charging Topology",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -205,7 +205,7 @@
     }
   },
   {
-    "content": "- K01.FR.49: K01.FR.50; When a SetChargingProfileRequest without a value for numberPhases is received AND the EVSE is of type AC: When a SetChargingProfileRequest with a chargingRateUnit = W is received AND The charging profile is used for AC charging; The Charging Station SHALL assume numberPhases = 3 as a default value.: The Charging Station SHALL calculate the phase current limit via: Current per phase = limit / (Line Voltage \\* numberPhases), in which limit and numberPhases are the values from the ChargingSchedulePeriod.; Regions with a single phase network should always provide numberPhases = 1, otherwise 3 phases will be assumed.: The \"Line Voltage\" used in the calculation is not the measured voltage, but the set voltage for the area (for example, 230 or 110 V). When numberPhases is not specified, a value of 3 is assumed (see K01.FR.49). It is usually more convenient to use chargingRateUnit = A for AC charging, since in that case the power does not change depending on number of phases in use.",
+    "content": "- K01.FR.49: K01.FR.50; When a SetChargingProfileRequest without a value for numberPhases is received AND the EVSE is of type AC: When a SetChargingProfileRequest with a chargingRateUnit = W is received AND The charging profile is used for AC charging; The Charging Station SHALL assume numberPhases = 3 as a default value.: The Charging Station SHALL calculate the phase current limit via: Current per phase = limit / (Line Voltage * numberPhases), in which limit and numberPhases are the values from the ChargingSchedulePeriod.; Regions with a single phase network should always provide numberPhases = 1, otherwise 3 phases will be assumed.: The \"Line Voltage\" used in the calculation is not the measured voltage, but the set voltage for the area (for example, 230 or 110 V). When numberPhases is not specified, a value of 3 is assumed (see K01.FR.49). It is usually more convenient to use chargingRateUnit = A for AC charging, since in that case the power does not change depending on number of phases in use.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

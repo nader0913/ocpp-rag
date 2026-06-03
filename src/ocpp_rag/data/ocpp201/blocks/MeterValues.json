@@ -1,17 +1,5 @@
 [
   {
-    "content": "# J. Meter Values\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "J. Meter Values",
-      "heading_path": "J. Meter Values",
-      "functional_block": "MeterValues"
-    }
-  },
-  {
     "content": "# J. Meter Values\n\nmeter data aggregation intervals per day, starting at 00:00:00 (midnight) intended to be transmitted in the TransactionEventRequest (eventType = Ended) message.\n\nFor example, a value of 900 (15 minutes) indicates that every day should be broken into 96 15-minute intervals, starting at 0:00 and then measured every 15 minutes: 0:15, 0:30, 0:45, 1:00, 1:15 etc.\n\nAlignedDataMeasurands is a comma separated list that prescribes the set of measurands to be included in a MeterValuesRequest PDU, every AlignedDataInterval seconds.\n\nAlignedDataTxEndedMeasurands is a comma separated list that prescribes the set of clock-aligned periodic measurands to be included in the meterValue elements of TransactionEventRequest (eventType = Ended) PDU for every AlignedDataTxEndedInterval of the transaction.\n\n- AlignedDataUpstreamMeasurands\n- AlignedDataUpstreamInterval\n\nAlignedDataSendDuringIdle can be used to only send clock aligned meter values when there are no ongoing transactions.\n\nNOTE Clock-aligned meter values for an EVSE that is involved in a transaction MAY be transmitted in TransactionEventRequests with context = Sample.Clock instead of in MeterValuesRequests.",
     "metadata": {
       "doc_id": "ocpp201_part2",
@@ -51,7 +39,7 @@
     }
   },
   {
-    "content": "# J. Meter Values\n\nJ02.FR.16 (Precondition: All \"Register\" values relating to a single charging transaction, or a non-transactional consumer (e.g. Charging Station internal power supply, overall supply) MUST be monotonically increasing in time.): \nJ02.FR.17 (Precondition: For improved auditability, \".Register\" values SHOULD be reported exactly as they are directly read from a non-volatile register in the electrical metering hardware, and SHOULD NOT be re-based to zero at the start of transactions): \nJ02.FR.18 (Precondition: The timestamp of a MeterValue SHALL apply to all its SampledValues.): ",
+    "content": "# J. Meter Values\n\nJ02.FR.16 (Precondition: All \"Register\" values relating to a single charging transaction, or a non-transactional consumer (e.g. Charging Station internal power supply, overall supply) MUST be monotonically increasing in time.): \nJ02.FR.17 (Precondition: For improved auditability, \".Register\" values SHOULD be reported exactly as they are directly read from a non-volatile register in the electrical metering hardware, and SHOULD NOT be re-based to zero at the start of transactions): \nJ02.FR.18 (Precondition: The timestamp of a MeterValue SHALL apply to all its SampledValues.):",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

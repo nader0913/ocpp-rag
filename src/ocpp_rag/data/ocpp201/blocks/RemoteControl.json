@@ -1,17 +1,5 @@
 [
   {
-    "content": "# F. Remote Control\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "F. Remote Control",
-      "heading_path": "F. Remote Control",
-      "functional_block": "RemoteControl"
-    }
-  },
-  {
     "content": "# F. Remote Control\n\nEV Driver Charging Station CSMS\n\n- Plugin cable\n- StatusNotificationRequest(Occupied)\n- StatusNotificationResponse()\n- TransactionEventRequest(eventType = Started, triggerReason = CablePluggedIn, chargingState = EVConnected, transactionId = AB1234, evse.id = 1, evse.connectorId = 1, meterValues, ...)\n- TransactionEventResponse(...)\n- remote start()\n- RequestStartTransactionRequest(idToken, remoteStartId = 123)\n- RequestStartTransactionResponse(status = Accepted, transactionId = AB1234)\n- Match remoteStartId with TransactionId()\n\nopt notification\n\nalt [AuthorizeRemoteStart = true]\nAuthorizeRequest(idToken)\nAuthorizeResponse(idTokenInfo)\n\nalt [if cable not permanently attached]\nlock connector\nstart energy offer\nTransactionEventRequest(eventType = Updated, chargingState = Charging, triggerReason = RemoteStart, remoteStartId = 123, ...)\nTransactionEventResponse(...)\ncontinue regular transaction",
     "metadata": {
       "doc_id": "ocpp201_part2",

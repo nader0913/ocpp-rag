@@ -1,17 +1,5 @@
 [
   {
-    "content": "# E. Transactions\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "E. Transactions",
-      "heading_path": "E. Transactions",
-      "functional_block": "Transactions"
-    }
-  },
-  {
     "content": "# E. Transactions\n\nIn OCPP 1.x the moment a Charging Station should send StartTransaction.req was not defined very precise, generally this was done when the Charging Station was ready to deliver energy: cable is connected and user is authorized.\n\nTo support similar transaction start behaviour, the value: PowerPathClosed is to be used.\n\nTxStartPoint: PowerPathClosed\nTxStopPoint: EVConnected, Authorized",
     "metadata": {
       "doc_id": "ocpp201_part2",
@@ -363,7 +351,7 @@
     }
   },
   {
-    "content": "TransactionEventResponse()\n\n[TxStopPoint = EVConnected OR TxStopPoint = ParkingBayOccupancy]\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp, triggerReason = ChargingStateChanged, chargingState = EVConnected)\n\nTransactionEventResponse()\n\nUnplug cable\n\nStatusNotificationRequest(Available)\n\nStatusNotificationResponse()\n\nalt [TxStopPoint = EVConnected]\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 3, timestamp, triggerReason = EVCommunicationLost, stoppedReason = Local)\n\nTransactionEventResponse()\n\n[TxStopPoint = ParkingBayOccupancy]\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 3, timestamp, triggerReason = EVCommunicationLost)\n\nTransactionEventResponse()\n\nDrive out of parking bay\n\nalt [TxStopPoint = ParkingBayOccupancy]\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 3, timestamp, triggerReason = EVDeparted, stoppedReason = Local)\n\nTransactionEventResponse()\n\nFigure 54. Sequence Diagram: Transaction locally stopped by IdToken with TransactionEventRequest reported strictly by TxStopPoint configuration\n\n\nEV Driver Charging Station CSMS\n\nUser authorization successful.\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp,\ntriggerReason = StopAuthorized, idToken.id = 1234)\nTransactionEventResponse(idTokenInfo.status)\n\nopt [if cable not permanently attached & (same identification or authorized)]\n\nunlock connector\n\nalt [TxStopPoint = Authorized OR PowerPathClosed OR EnergyTransfer]\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 2, timestamp,\ntriggerReason = ChargingStateChanged, chargingState = EVConnected, stoppedReason = Local, meterValues)",
+    "content": "TransactionEventResponse()\n\n[TxStopPoint = EVConnected OR TxStopPoint = ParkingBayOccupancy]\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp, triggerReason = ChargingStateChanged, chargingState = EVConnected)\n\nTransactionEventResponse()\n\nUnplug cable\n\nStatusNotificationRequest(Available)\n\nStatusNotificationResponse()\n\nalt [TxStopPoint = EVConnected]\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 3, timestamp, triggerReason = EVCommunicationLost, stoppedReason = Local)\n\nTransactionEventResponse()\n\n[TxStopPoint = ParkingBayOccupancy]\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 3, timestamp, triggerReason = EVCommunicationLost)\n\nTransactionEventResponse()\n\nDrive out of parking bay\n\nalt [TxStopPoint = ParkingBayOccupancy]\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 3, timestamp, triggerReason = EVDeparted, stoppedReason = Local)\n\nTransactionEventResponse()\n\nFigure 54. Sequence Diagram: Transaction locally stopped by IdToken with TransactionEventRequest reported strictly by TxStopPoint configuration\n\nEV Driver Charging Station CSMS\n\nUser authorization successful.\n\nTransactionEventRequest(eventType = Updated, transactionId = AB1234, seqNo = N + 1, timestamp,\ntriggerReason = StopAuthorized, idToken.id = 1234)\nTransactionEventResponse(idTokenInfo.status)\n\nopt [if cable not permanently attached & (same identification or authorized)]\n\nunlock connector\n\nalt [TxStopPoint = Authorized OR PowerPathClosed OR EnergyTransfer]\n\nTransactionEventRequest(eventType = Ended, transactionId = AB1234, seqNo = N + 2, timestamp,\ntriggerReason = ChargingStateChanged, chargingState = EVConnected, stoppedReason = Local, meterValues)",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -590,7 +578,7 @@
     }
   },
   {
-    "content": "# E. Transactions\n\nRemark(s): See ISO15118-1, use case Requirements H1, page 44 for the trigger.\n\nThe scenario description and sequence diagram above are based on the Configuration Variable for stop transaction being configured as follows.\n\nTxStopPoint: ParkingBayOccupancy, EVConnected, Authorized, PowerPathClosed\n\nThis use-case is also valid for other configurations, but then the transaction might stop at another moment, which might change the sequence in which message are sent. For more details see the use case: E06 - Stop Transaction options\n\nEV Charging Station CSMS\n\n15118\n\nPowerDeliveryRes(): SessionStopReq()\nSessionStopRes(): unplug cable\n\nOCPP\n\n\n\nFigure 63. End of charging process\n\nSource: ISO15118-1",
+    "content": "# E. Transactions\n\nRemark(s): See ISO15118-1, use case Requirements H1, page 44 for the trigger.\n\nThe scenario description and sequence diagram above are based on the Configuration Variable for stop transaction being configured as follows.\n\nTxStopPoint: ParkingBayOccupancy, EVConnected, Authorized, PowerPathClosed\n\nThis use-case is also valid for other configurations, but then the transaction might stop at another moment, which might change the sequence in which message are sent. For more details see the use case: E06 - Stop Transaction options\n\nEV Charging Station CSMS\n\n15118\n\nPowerDeliveryRes(): SessionStopReq()\nSessionStopRes(): unplug cable\n\nOCPP\n\nFigure 63. End of charging process\n\nSource: ISO15118-1",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

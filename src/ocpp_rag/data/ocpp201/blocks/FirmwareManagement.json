@@ -1,17 +1,5 @@
 [
   {
-    "content": "# L. Firmware Management\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "L. Firmware Management",
-      "heading_path": "L. Firmware Management",
-      "functional_block": "FirmwareManagement"
-    }
-  },
-  {
     "content": "# L. Firmware Management\n\nRemark(s): As an example in this use case the requestId = 123, but this could be any value.\n\nMeasures SHOULD be taken to secure the firmware when it is stored on a server or workstation.\n\nThe Charging Station has a required Configuration Variable that reports which file transfer protocols it supports: FileTransferProtocols\n\nWhen migrating to a new version of OCPP it is RECOMMENDED to install a fallback NetworkConnectionProfile with the new configuration.\n\nThe requirements for the Firmware Signing Certificate are described in the: Certificate Properties section.\n\nThe manufacturer SHALL NOT use intermediate certificates for the firmware signing certificate in the Charging Station.\n\nFTP needs to be able to use Passive FTP, to be able to transverse over as many different typologies as possible.",
     "metadata": {
       "doc_id": "ocpp201_part2",
@@ -68,7 +56,7 @@
     }
   },
   {
-    "content": "- L01.FR.10: L01.FR.11; Every FirmwareStatusNotificationRequest sent for a firmware update SHALL contain the same requestId as the UpdateFirmwareRequest that started this firmware update.: For security purposes the CSMS SHALL include the Firmware Signing certificate (see Keys used in OCPP) in the UpdateFirmwareRequest.\n- L01.FR.10: L01.FR.12; Every FirmwareStatusNotificationRequest sent for a firmware update SHALL contain the same requestId as the UpdateFirmwareRequest that started this firmware update.: For verifying the certificate (see Certificate Hierarchy) use the rules for X.509 certificates \\[19]. The Charging Station MUST verify the file\u2019s digital signature using the Firmware Signing certificate.",
+    "content": "- L01.FR.10: L01.FR.11; Every FirmwareStatusNotificationRequest sent for a firmware update SHALL contain the same requestId as the UpdateFirmwareRequest that started this firmware update.: For security purposes the CSMS SHALL include the Firmware Signing certificate (see Keys used in OCPP) in the UpdateFirmwareRequest.\n- L01.FR.10: L01.FR.12; Every FirmwareStatusNotificationRequest sent for a firmware update SHALL contain the same requestId as the UpdateFirmwareRequest that started this firmware update.: For verifying the certificate (see Certificate Hierarchy) use the rules for X.509 certificates [19]. The Charging Station MUST verify the file\u2019s digital signature using the Firmware Signing certificate.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

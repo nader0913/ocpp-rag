@@ -1,17 +1,5 @@
 [
   {
-    "content": "# A. Security\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "A. Security",
-      "heading_path": "A. Security",
-      "functional_block": "Security"
-    }
-  },
-  {
     "content": "# A. Security\n\nProfile No.: 1\nDescription: The Unsecured Transport with Basic Authentication profile provides a low level of security. Charging Station authentication is done through a username and password. No measures are included to secure the communication channel.\nCharging Station Authentication: For Charging Station authentication HTTP Basic authentication is used.\nCSMS Authentication: In this profile, the CSMS does not authenticate itself to the Charging Station. The Charging Station has to trust that the server it connects to is indeed the CSMS.\nCommunication Security: No communication security measures are included in the profile.",
     "metadata": {
       "doc_id": "ocpp201_part2",
@@ -57,7 +45,7 @@
     }
   },
   {
-    "content": "# A. Security\n\nA00.FR.315 (Precondition: A00.FR.314): The CSMS SHALL terminate the connection. AND The CSMS detects that the Charging Station only allows connections using an older version of TLS, or only allows SSL\nA00.FR.316 (Precondition: A00.FR.314): The Charging Station SHALL trigger an InvalidTLSVersion security event AND terminate the connection (See part 2 appendices for the full list of security events). NOTE: This is a critical security event that will need to be queued and sent to CSMS once a successful connection has been made, as described in use case A04. A security event only needs to be sent once for repeated failed connection attempts, in order to avoid overflow to the offline queue.\nA00.FR.317: TLS SHALL be implemented as in \\[4] or its successor standards without any modifications.",
+    "content": "# A. Security\n\nA00.FR.315 (Precondition: A00.FR.314): The CSMS SHALL terminate the connection. AND The CSMS detects that the Charging Station only allows connections using an older version of TLS, or only allows SSL\nA00.FR.316 (Precondition: A00.FR.314): The Charging Station SHALL trigger an InvalidTLSVersion security event AND terminate the connection (See part 2 appendices for the full list of security events). NOTE: This is a critical security event that will need to be queued and sent to CSMS once a successful connection has been made, as described in use case A04. A security event only needs to be sent once for repeated failed connection attempts, in order to avoid overflow to the offline queue.\nA00.FR.317: TLS SHALL be implemented as in [4] or its successor standards without any modifications.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -72,7 +60,7 @@
     }
   },
   {
-    "content": "- A00.FR.318: A00.FR.319; The CSMS SHALL support at least the following four cipher suites: TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384 TLS\\_RSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 TLS\\_RSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384 Note: The CSMS will have to provide 2 different certificates to support both cipher suites. Also when using security profile 3, the CSMS should be capable of generating client side certificates for both cipher suites.: The Charging Station SHALL support at least the cipher suites: (TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 AND TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384) OR (TLS\\_RSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 AND TLS\\_RSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384) Note 1: TLS\\_RSA does not support forward secrecy, therefore TLS\\_ECDHE is RECOMMENDED. In certain jurisdictions forward secrecy is mandatory. Furthermore, if the Charging Station detects an algorithm used that is not secure, it SHOULD trigger an InvalidTLSCipherSuite security event (See part 2 appendices for the full list of security events). Note 2: Please note that ISO15118-2 prescribes to implement the following cipher suites for the communication between EV and Charging Station: TLS\\_ECDH\\_ECDSA\\_WITH\\_AES\\_128\\_CBC\\_SHA256, TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_CBC\\_SHA256\n- A00.FR.318: A00.FR.320; The CSMS SHALL support at least the following four cipher suites: TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384 TLS\\_RSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 TLS\\_RSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384 Note: The CSMS will have to provide 2 different certificates to support both cipher suites. Also when using security profile 3, the CSMS should be capable of generating client side certificates for both cipher suites.: The Charging Station and CSMS SHALL NOT use cipher suites that use cryptographic primitives marked as unsuitable for legacy use in \\[1]. This will mean that when one (or more) of the cipher suites described in this specification becomes marked as unsuitable for legacy use, it SHALL NOT be used anymore.",
+    "content": "- A00.FR.318: A00.FR.319; The CSMS SHALL support at least the following four cipher suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_RSA_WITH_AES_128_GCM_SHA256 TLS_RSA_WITH_AES_256_GCM_SHA384 Note: The CSMS will have to provide 2 different certificates to support both cipher suites. Also when using security profile 3, the CSMS should be capable of generating client side certificates for both cipher suites.: The Charging Station SHALL support at least the cipher suites: (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 AND TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384) OR (TLS_RSA_WITH_AES_128_GCM_SHA256 AND TLS_RSA_WITH_AES_256_GCM_SHA384) Note 1: TLS_RSA does not support forward secrecy, therefore TLS_ECDHE is RECOMMENDED. In certain jurisdictions forward secrecy is mandatory. Furthermore, if the Charging Station detects an algorithm used that is not secure, it SHOULD trigger an InvalidTLSCipherSuite security event (See part 2 appendices for the full list of security events). Note 2: Please note that ISO15118-2 prescribes to implement the following cipher suites for the communication between EV and Charging Station: TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\n- A00.FR.318: A00.FR.320; The CSMS SHALL support at least the following four cipher suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_RSA_WITH_AES_128_GCM_SHA256 TLS_RSA_WITH_AES_256_GCM_SHA384 Note: The CSMS will have to provide 2 different certificates to support both cipher suites. Also when using security profile 3, the CSMS should be capable of generating client side certificates for both cipher suites.: The Charging Station and CSMS SHALL NOT use cipher suites that use cryptographic primitives marked as unsuitable for legacy use in [1]. This will mean that when one (or more) of the cipher suites described in this specification becomes marked as unsuitable for legacy use, it SHALL NOT be used anymore.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -87,7 +75,7 @@
     }
   },
   {
-    "content": "- A00.FR.321: A00.FR.322; A00.FR.320; The TLS Server and Client SHALL NOT use TLS compression methods to avoid compression side-channel attacks and to ensure interoperability as described in Section 6 of \\[10].: The CSMS SHALL terminate the connection. AND The CSMS detects that the Charging Station only allows connections using one of these suites",
+    "content": "- A00.FR.321: A00.FR.322; A00.FR.320; The TLS Server and Client SHALL NOT use TLS compression methods to avoid compression side-channel attacks and to ensure interoperability as described in Section 6 of [10].: The CSMS SHALL terminate the connection. AND The CSMS detects that the Charging Station only allows connections using one of these suites",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -130,7 +118,7 @@
     }
   },
   {
-    "content": "- A00.FR.411: A00.FR.412; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3]. (Same as A00.FR.308): The Charging Station SHALL verify that the commonName matches the CSMS\u2019s FQDN. (Same as A00.FR.309)\n- A00.FR.411: A00.FR.413; If the CSMS does not own a valid certificate, or if the certification path is invalid; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3]. (Same as A00.FR.308): The Charging Station SHALL trigger an InvalidCsmsCertificate security event (See part 2 appendices for the full list of security events). (Same as A00.FR.310)\n- A00.FR.411: A00.FR.414; A00.FR.413; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3]. (Same as A00.FR.308): The Charging Station SHALL terminate the connection. (Same as A00.FR.311)\n- A00.FR.411: A00.FR.415; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3]. (Same as A00.FR.308): The communication channel SHALL be secured using Transport Layer Security (TLS) \\[4]. (Same as A00.FR.312)",
+    "content": "- A00.FR.411: A00.FR.412; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3]. (Same as A00.FR.308): The Charging Station SHALL verify that the commonName matches the CSMS\u2019s FQDN. (Same as A00.FR.309)\n- A00.FR.411: A00.FR.413; If the CSMS does not own a valid certificate, or if the certification path is invalid; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3]. (Same as A00.FR.308): The Charging Station SHALL trigger an InvalidCsmsCertificate security event (See part 2 appendices for the full list of security events). (Same as A00.FR.310)\n- A00.FR.411: A00.FR.414; A00.FR.413; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3]. (Same as A00.FR.308): The Charging Station SHALL terminate the connection. (Same as A00.FR.311)\n- A00.FR.411: A00.FR.415; The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3]. (Same as A00.FR.308): The communication channel SHALL be secured using Transport Layer Security (TLS) [4]. (Same as A00.FR.312)",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -160,7 +148,7 @@
     }
   },
   {
-    "content": "| A00.FR.420 |                                                                                                                      | TLS SHALL be implemented as in \\[4] or its successor standards without any modifications. (Same as A00.FR.317)                                                                                                                                                                            |",
+    "content": "| A00.FR.420 |                                                                                                                      | TLS SHALL be implemented as in [4] or its successor standards without any modifications. (Same as A00.FR.317)                                                                                                                                                                            |",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -175,7 +163,7 @@
     }
   },
   {
-    "content": "# A. Security\n\nA00.FR.421: The CSMS SHALL support at least the following four cipher suites: TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384 TLS\\_RSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 TLS\\_RSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384 (Same as A00.FR.318) Note: The CSMS will have to provide 2 different certificates to support both cipher suites. Also when using security profile 3, the CSMS should be capable of generating client side certificates for both cipher suites.\nA00.FR.422: The Charging Station SHALL support at least the cipher suites: (TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 AND TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384) OR (TLS\\_RSA\\_WITH\\_AES\\_128\\_GCM\\_SHA256 AND TLS\\_RSA\\_WITH\\_AES\\_256\\_GCM\\_SHA384) (Same as A00.FR.319) Note 1: TLS\\_RSA does not support forward secrecy, therefore TLS\\_ECDHE is RECOMMENDED. In certain jurisdictions forward secrecy is mandatory. Furthermore, if the Charging Station detects an algorithm used that is not secure, it SHOULD trigger an InvalidTLSCipherSuite security event (See part 2 appendices for the full list of security events). Note 2: Please note that ISO15118-2 prescribes to implement the following cipher suites for the communication between EV and Charging Station: TLS\\_ECDH\\_ECDSA\\_WITH\\_AES\\_128\\_CBC\\_SHA256, TLS\\_ECDHE\\_ECDSA\\_WITH\\_AES\\_128\\_CBC\\_SHA256\nA00.FR.423: The Charging Station and CSMS SHALL NOT use cipher suites that use cryptographic primitives marked as unsuitable for legacy use in \\[1]. This will mean that when one (or more) of the cipher suites described in this specification becomes marked as unsuitable for legacy use, it SHALL NOT be used anymore. (Same as A00.FR.320)",
+    "content": "# A. Security\n\nA00.FR.421: The CSMS SHALL support at least the following four cipher suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_RSA_WITH_AES_128_GCM_SHA256 TLS_RSA_WITH_AES_256_GCM_SHA384 (Same as A00.FR.318) Note: The CSMS will have to provide 2 different certificates to support both cipher suites. Also when using security profile 3, the CSMS should be capable of generating client side certificates for both cipher suites.\nA00.FR.422: The Charging Station SHALL support at least the cipher suites: (TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 AND TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384) OR (TLS_RSA_WITH_AES_128_GCM_SHA256 AND TLS_RSA_WITH_AES_256_GCM_SHA384) (Same as A00.FR.319) Note 1: TLS_RSA does not support forward secrecy, therefore TLS_ECDHE is RECOMMENDED. In certain jurisdictions forward secrecy is mandatory. Furthermore, if the Charging Station detects an algorithm used that is not secure, it SHOULD trigger an InvalidTLSCipherSuite security event (See part 2 appendices for the full list of security events). Note 2: Please note that ISO15118-2 prescribes to implement the following cipher suites for the communication between EV and Charging Station: TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256\nA00.FR.423: The Charging Station and CSMS SHALL NOT use cipher suites that use cryptographic primitives marked as unsuitable for legacy use in [1]. This will mean that when one (or more) of the cipher suites described in this specification becomes marked as unsuitable for legacy use, it SHALL NOT be used anymore. (Same as A00.FR.320)",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -190,7 +178,7 @@
     }
   },
   {
-    "content": "- A00.FR.424: A00.FR.425; A00.FR.424; The TLS Server and Client SHALL NOT use TLS compression methods to avoid compression side-channel attacks and to ensure interoperability as described in Section 6 of \\[10]. (Same as A00.FR.321): The CSMS SHALL terminate the connection. (Same as A00.FR.322)",
+    "content": "- A00.FR.424: A00.FR.425; A00.FR.424; The TLS Server and Client SHALL NOT use TLS compression methods to avoid compression side-channel attacks and to ensure interoperability as described in Section 6 of [10]. (Same as A00.FR.321): The CSMS SHALL terminate the connection. (Same as A00.FR.322)",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -248,7 +236,7 @@
     }
   },
   {
-    "content": "# A. Security\n\nA00.FR.511: For the Charging Station certificate, the subject field SHALL contain a CN (commonName) RDN which consists of the unique serial number of the Charging Station. This serial number SHALL NOT be in the format of a URL or an IP address so that Charging Station certificates can be differentiated from CSMS certificates.\nNote: According to RFC 2818, if a subjectAltName extension of type dnsName is present, that must be used as the identity. This would be incompliant with OCPP and ISO 15118. Therefore it SHOULD NOT be used in Charging Station and CSMS certificates. It is allowed to use the subjectAltName extension of type dnsName for a CSMS, when the CSMS has multiple network paths to reach it (for example, via a private APN + VPN using its IP address in the VPN and via public Internet using a named URL).: \nA00.FR.512: For all certificates the X.509 Key Usage extension \\[19] SHOULD be used to restrict the usage of the certificate to the operations for which it will be used.",
+    "content": "# A. Security\n\nA00.FR.511: For the Charging Station certificate, the subject field SHALL contain a CN (commonName) RDN which consists of the unique serial number of the Charging Station. This serial number SHALL NOT be in the format of a URL or an IP address so that Charging Station certificates can be differentiated from CSMS certificates.\nNote: According to RFC 2818, if a subjectAltName extension of type dnsName is present, that must be used as the identity. This would be incompliant with OCPP and ISO 15118. Therefore it SHOULD NOT be used in Charging Station and CSMS certificates. It is allowed to use the subjectAltName extension of type dnsName for a CSMS, when the CSMS has multiple network paths to reach it (for example, via a private APN + VPN using its IP address in the VPN and via public Internet using a named URL).: \nA00.FR.512: For all certificates the X.509 Key Usage extension [19] SHOULD be used to restrict the usage of the certificate to the operations for which it will be used.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -334,7 +322,7 @@
     }
   },
   {
-    "content": "# A. Security\n\nA02.FR.01: A key update SHOULD be performed after installation of the Charging Station, to change the key from the one initially provisioned by the manufacturer (possibly a default key).\nA02.FR.02 (Precondition: After sending a TriggerMessageRespons / private key pair using one of the key generation functions described in Section 4.2.1.3 of \\[16].): The Charging Station SHALL generate a new public",
+    "content": "# A. Security\n\nA02.FR.01: A key update SHOULD be performed after installation of the Charging Station, to change the key from the one initially provisioned by the manufacturer (possibly a default key).\nA02.FR.02 (Precondition: After sending a TriggerMessageRespons / private key pair using one of the key generation functions described in Section 4.2.1.3 of [16].): The Charging Station SHALL generate a new public",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -350,7 +338,7 @@
     }
   },
   {
-    "content": "- A02.FR.03: A02.FR.04; The Charging Station SHALL send the public key in form of a Certificate Signing Request (CSR) as described in RFC 2986 \\[22] and then PEM encoded, using the SignCertificateRequest message.: The CSMS SHOULD NOT sign the certificate itself, but instead forwards the CSR to a dedicated certificate authority server managing the certificates for the Charging Station infrastructure. The dedicated authority server MAY be operated by the CSO.",
+    "content": "- A02.FR.03: A02.FR.04; The Charging Station SHALL send the public key in form of a Certificate Signing Request (CSR) as described in RFC 2986 [22] and then PEM encoded, using the SignCertificateRequest message.: The CSMS SHOULD NOT sign the certificate itself, but instead forwards the CSR to a dedicated certificate authority server managing the certificates for the Charging Station infrastructure. The dedicated authority server MAY be operated by the CSO.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

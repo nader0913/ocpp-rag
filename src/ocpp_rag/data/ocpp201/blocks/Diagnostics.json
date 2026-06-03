@@ -1,17 +1,5 @@
 [
   {
-    "content": "# N. Diagnostics\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "N. Diagnostics",
-      "heading_path": "N. Diagnostics",
-      "functional_block": "Diagnostics"
-    }
-  },
-  {
     "content": "# N. Diagnostics\n\nN01.FR.13 (Precondition: The field requestId in LogStatusNotificationRequest is mandatory, unless the message was triggered by a TriggerMessageRequest AND there is no log upload ongoing.): \nN01.FR.14 (Precondition: It is RECOMMENDED that Charging Station and CSMS support at least HTTP(s) as transport mechanism for the log file upload): \nN01.FR.15 (Precondition: Charging Station SHALL at least support the CSMS trust chain for secure transports): \nN01.FR.16 (Precondition: It is RECOMMENDED that Charging Station supports the usual CAs provided by the operating system): \nN01.FR.17 (Precondition: When CSMS requires basic authorization for the upload): CSMS is RECOMMENDED to require a different basic authorization password for the upload, then the one used for OCPP connectivity.",
     "metadata": {
       "doc_id": "ocpp201_part2",
@@ -28,7 +16,7 @@
     }
   },
   {
-    "content": "- N01.FR.18: N01.FR.19; Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.: When Charging Station uses a HTTP(s) POST request to upload the log file; Charging Station SHALL provide at least the following attributes: Content-Type: (e.g. application/octet-stream) and Content-Disposition: with a specification of the filename.; For example: Content-Type: application/octet-stream Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"logfile\\_20210420.zip\"\n- N01.FR.18: N01.FR.20; Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.: N01.FR.12 AND Charging Station cancels the log file upload; The Charging Station SHALL send a LogStatusNotificationRequest with status = AcceptedCanceled.; N01.FR.12 is a \"SHOULD\" requirement. Only send status notification when requirement is executed.\n- N01.FR.18: N01.FR.21; Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.: N01.FR.18 AND the GetLogRequest log.remoteLocation string ends with a slash character (\"/\"); The Charging Station SHALL append the filename that it returned in the GetLogResponse filename field to this string.",
+    "content": "- N01.FR.18: N01.FR.19; Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.: When Charging Station uses a HTTP(s) POST request to upload the log file; Charging Station SHALL provide at least the following attributes: Content-Type: (e.g. application/octet-stream) and Content-Disposition: with a specification of the filename.; For example: Content-Type: application/octet-stream Content-Disposition: form-data; name=\"uploadedfile\"; filename=\"logfile_20210420.zip\"\n- N01.FR.18: N01.FR.20; Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.: N01.FR.12 AND Charging Station cancels the log file upload; The Charging Station SHALL send a LogStatusNotificationRequest with status = AcceptedCanceled.; N01.FR.12 is a \"SHOULD\" requirement. Only send status notification when requirement is executed.\n- N01.FR.18: N01.FR.21; Is is RECOMMENDED that CSMS accepts both PUT and POST requests for uploads from Charging Station.: N01.FR.18 AND the GetLogRequest log.remoteLocation string ends with a slash character (\"/\"); The Charging Station SHALL append the filename that it returned in the GetLogResponse filename field to this string.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -44,7 +32,7 @@
     }
   },
   {
-    "content": "- N01.FR.22: N01.FR.23; N01.FR.18 AND the file to upload exceeds the threshold of 1MB (1024 \\* 1024 bytes): N01.FR.18; The Charging Station MAY include the \"Expect: 100-continue\" header in the HTTP PUT request.: The Charging Station MAY implement a mechanism to resume HTTP uploads, if it can identify whether the upload server supports the same mechanism.; This gives the server a chance to deny the request before a lot of data is sent.: At the time of this writing, no official HTTP resume mechanism existed, only vendor-specific solutions and an IETF draft, which were not aligned.",
+    "content": "- N01.FR.22: N01.FR.23; N01.FR.18 AND the file to upload exceeds the threshold of 1MB (1024 * 1024 bytes): N01.FR.18; The Charging Station MAY include the \"Expect: 100-continue\" header in the HTTP PUT request.: The Charging Station MAY implement a mechanism to resume HTTP uploads, if it can identify whether the upload server supports the same mechanism.; This gives the server a chance to deny the request before a lot of data is sent.: At the time of this writing, no official HTTP resume mechanism existed, only vendor-specific solutions and an IETF draft, which were not aligned.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

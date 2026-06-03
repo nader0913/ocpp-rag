@@ -50,7 +50,7 @@
     }
   },
   {
-    "content": "# 2.1. Page 12 - (2026-02) - Updated reference 17 and added new references\n\nSpecial Publication 800-57 updated with latest revision\n\n- Reference: Old \\[17]; Description: National Institute of Standards and Technology. Special Publication 800-57 Part 1 Rev. 4, Recommendation for Key Management. January 2016. <https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-4/final>\n- Reference: New \\[17]; Description: National Institute of Standards and Technology. Special Publication 800-57 Part 1 Rev. 5, Recommendation for Key Management. May 2020. <https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final>\n\nRFC 6818 defines certificate validation rules in A00.FR.308, A00.FR.403, and A00.FR.413.\n\n\\[26]: RFC 6818. Updates to the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile. <https://tools.ietf.org/html/rfc6818>\n\\[27]: European Cybersecurity Certification Group Sub-group on Cryptography, Agreed Cryptographic Mechanisms, Version 2.0, April 2025 <https://certification.enisa.europa.eu/document/download/a845662b-aee0-484e-9191-890c4cfa7aaa_en?filename=ECCG%20Agreed%20Cryptographic%20Mechanisms%20version%202.pdf>",
+    "content": "# 2.1. Page 12 - (2026-02) - Updated reference 17 and added new references\n\nSpecial Publication 800-57 updated with latest revision\n\n- Reference: Old [17]; Description: National Institute of Standards and Technology. Special Publication 800-57 Part 1 Rev. 4, Recommendation for Key Management. January 2016. <https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-4/final>\n- Reference: New [17]; Description: National Institute of Standards and Technology. Special Publication 800-57 Part 1 Rev. 5, Recommendation for Key Management. May 2020. <https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final>\n\nRFC 6818 defines certificate validation rules in A00.FR.308, A00.FR.403, and A00.FR.413.\n\n[26]: RFC 6818. Updates to the Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile. <https://tools.ietf.org/html/rfc6818>\n[27]: European Cybersecurity Certification Group Sub-group on Cryptography, Agreed Cryptographic Mechanisms, Version 2.0, April 2025 <https://certification.enisa.europa.eu/document/download/a845662b-aee0-484e-9191-890c4cfa7aaa_en?filename=ECCG%20Agreed%20Cryptographic%20Mechanisms%20version%202.pdf>",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -73,7 +73,7 @@
     }
   },
   {
-    "content": "# 2.3. Page 21 - (2026-02) - A00.FR.308 - Additional requirement references\n\nOld (Precondition: A00.FR.30): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3].\nNew (Precondition: A00.FR.30): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3] and Section 4 of \\[26].\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2026  5/24    Errata 2026-04",
+    "content": "# 2.3. Page 21 - (2026-02) - A00.FR.308 - Additional requirement references\n\nOld (Precondition: A00.FR.30): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3].\nNew (Precondition: A00.FR.30): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3] and Section 4 of [26].\n\nOCPP 2.0.1 Edition 4 -",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -85,7 +85,7 @@
     }
   },
   {
-    "content": "# 2.4. Page 23 - (2026-02) - A00.FR.403 - Additional requirement references\n\nOld (Precondition: A00.FR.40): The CSMS SHALL verify the certification path of the Charging Station\u2019s certificate according to the path validation rules established in Section 6 of \\[3].\nNew (Precondition: A00.FR.40): The CSMS SHALL verify the certification path of the Charging Station\u2019s certificate according to the path validation rules established in Section 6 of \\[3] and Section 4 of \\[26].",
+    "content": "# 2.4. Page 23 - (2026-02) - A00.FR.403 - Additional requirement references\n\nOld (Precondition: A00.FR.40): The CSMS SHALL verify the certification path of the Charging Station\u2019s certificate according to the path validation rules established in Section 6 of [3].\nNew (Precondition: A00.FR.40): The CSMS SHALL verify the certification path of the Charging Station\u2019s certificate according to the path validation rules established in Section 6 of [3] and Section 4 of [26].",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -139,7 +139,7 @@
     }
   },
   {
-    "content": "- Old: New; B12.FR.08: B12.FR.08; If an evseId is supplied AND If a transaction is in progress on the EVSE and an Immediate Reset is received.: B12.FR.02 AND If an evseId is supplied; The Charging Station SHALL attempt to terminate the transaction in progress on the EVSE and send a TransactionEventRequest (eventType = Ended) message with triggerReason = ResetCommand and transactionInfo.stoppedReason = ImmediateReset before resetting the EVSE.: The Charging Station SHALL attempt to terminate the transaction in progress on the EVSE and send a TransactionEventRequest (eventType = Ended) message with triggerReason = ResetCommand and transactionInfo.stoppedReason = ImmediateReset before resetting the EVSE.\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2026  6/24    Errata 2026-04",
+    "content": "- Old: New; B12.FR.08: B12.FR.08; If an evseId is supplied AND If a transaction is in progress on the EVSE and an Immediate Reset is received.: B12.FR.02 AND If an evseId is supplied; The Charging Station SHALL attempt to terminate the transaction in progress on the EVSE and send a TransactionEventRequest (eventType = Ended) message with triggerReason = ResetCommand and transactionInfo.stoppedReason = ImmediateReset before resetting the EVSE.: The Charging Station SHALL attempt to terminate the transaction in progress on the EVSE and send a TransactionEventRequest (eventType = Ended) message with triggerReason = ResetCommand and transactionInfo.stoppedReason = ImmediateReset before resetting the EVSE.\n\nOCPP 2.0.1 Edition 4 -",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -154,7 +154,7 @@
     }
   },
   {
-    "content": "# 2.6. Page 24 - (2026-02) - A00.FR.411 - Additional requirement references\n\nOld A00.FR.41 (Precondition: 1): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3]. (Same as A00.FR.308)\nNew A00.FR.41 (Precondition: 1): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of \\[3] and Section 4 of \\[26]. (Same as A00.FR.308)",
+    "content": "# 2.6. Page 24 - (2026-02) - A00.FR.411 - Additional requirement references\n\nOld A00.FR.41 (Precondition: 1): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3]. (Same as A00.FR.308)\nNew A00.FR.41 (Precondition: 1): The Charging Station SHALL verify the certification path of the CSMS\u2019s certificate according to the path validation rules established in Section 6 of [3] and Section 4 of [26]. (Same as A00.FR.308)",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -166,7 +166,7 @@
     }
   },
   {
-    "content": "# 2.7. Page 34 - (2026-02) - A02.FR.02 - Requirement reference correction\n\nOld A02.FR.02: The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 4.2.1.3 of \\[16].\nNew A02.FR.02: The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 8.1 of \\[27].",
+    "content": "# 2.7. Page 34 - (2026-02) - A02.FR.02 - Requirement reference correction\n\nOld A02.FR.02: The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 4.2.1.3 of [16].\nNew A02.FR.02: The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 8.1 of [27].",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -178,7 +178,7 @@
     }
   },
   {
-    "content": "# 2.8. Page 37 - (2026-02) - A03.FR.02 - Requirement reference correction\n\nOld (Precondition: A03.FR.02): The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 4.2.1.3 of \\[16].\nNew (Precondition: A03.FR.02): The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 8.1 of \\[27].",
+    "content": "# 2.8. Page 37 - (2026-02) - A03.FR.02 - Requirement reference correction\n\nOld (Precondition: A03.FR.02): The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 4.2.1.3 of [16].\nNew (Precondition: A03.FR.02): The Charging Station SHALL generate a new public / private key pair using one of the key generation functions described in Section 8.1 of [27].",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -240,7 +240,7 @@
     }
   },
   {
-    "content": "# 2.13. Page 412 - (2026-02) - Improved description of UnitOfMeasureType [670]\n\nstring\\[0..20]: 0..1\ninteger: 0..1",
+    "content": "# 2.13. Page 412 - (2026-02) - Improved description of UnitOfMeasureType [670]\n\nstring[0..20]: 0..1\ninteger: 0..1",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -295,7 +295,7 @@
     }
   },
   {
-    "content": "# 6.2.1. Page 23 - (2026-02) - TC_A_20_CS - Added note that the testcase will end when the SetNetworkProfile is rejected\n\nTest case Id: TC\\_A\\_20\\_CS\n\nMain (Test scenario)\n\n1. The Test System sends a SetNetworkProfileRequest: with - configurationSlot is \\<Configured configurationSlot2> or \\<Configured configurationSlot> (the one currently not used for the active connection)\n2. The Charging Station responds with a SetNetworkProfileResponse: - connectionData.messageTimeout \\<Configured messageTimeout2> - connectionData.ocppCsmsUrl \\<ocppCsmsUrl that is not currently active> - connectionData.ocppInterface \\<Configured ocppInterface2> - connectionData.ocppVersion OCPP20 - connectionData.securityProfile \\<Configured securityProfile2>\n*Note*: If the Charging Station responds with a SetNetworkProfileResponse with status Rejected, then step 3/4 will not be executed.: \n3. The Test System sends a SetVariablesRequest: \n4. The Charging Station responds with a SetVariablesResponse: with variable.name is \"NetworkConfigurationPriority\" component.name is \"OCPPCommCtrlr\" attributeValue is \\<configurationSlot set at step 1>, \\<previous configurationSlot>",
+    "content": "# 6.2.1. Page 23 - (2026-02) - TC_A_20_CS - Added note that the testcase will end when the SetNetworkProfile is rejected\n\nTest case Id: TC_A_20_CS\n\nMain (Test scenario)\n\n1. The Test System sends a SetNetworkProfileRequest: with - configurationSlot is \\<Configured configurationSlot2> or \\<Configured configurationSlot> (the one currently not used for the active connection)\n2. The Charging Station responds with a SetNetworkProfileResponse: - connectionData.messageTimeout \\<Configured messageTimeout2> - connectionData.ocppCsmsUrl \\<ocppCsmsUrl that is not currently active> - connectionData.ocppInterface \\<Configured ocppInterface2> - connectionData.ocppVersion OCPP20 - connectionData.securityProfile \\<Configured securityProfile2>\n*Note*: If the Charging Station responds with a SetNetworkProfileResponse with status Rejected, then step 3/4 will not be executed.: \n3. The Test System sends a SetVariablesRequest: \n4. The Charging Station responds with a SetVariablesResponse: with variable.name is \"NetworkConfigurationPriority\" component.name is \"OCPPCommCtrlr\" attributeValue is \\<configurationSlot set at step 1>, \\<previous configurationSlot>",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -307,7 +307,7 @@
     }
   },
   {
-    "content": "# Main (Test scenario)\n\n1. The Test System sends a ResetRequest: with type OnIdle\n2. The Charging Station responds with a ResetResponse: \n3. Execute Reusable State StopAuthorized: ",
+    "content": "# Main (Test scenario)\n\n1. The Test System sends a ResetRequest: with type OnIdle\n2. The Charging Station responds with a ResetResponse: \n3. Execute Reusable State StopAuthorized:",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -342,7 +342,7 @@
     }
   },
   {
-    "content": "# Post scenario validations:\n\n- A message to report the state of a connector has been received for all connectors.\nThe test case has been updated to provide clarity on when the charging station is allowed to reboot. The charging station is expected to reboot either after the transaction has ended or if the transaction ends before the cable is disconnected, once the cable is disconnected.\n\nTest case Id: TC\\_B\\_41\\_CS",
+    "content": "# Post scenario validations:\n\n- A message to report the state of a connector has been received for all connectors.\nThe test case has been updated to provide clarity on when the charging station is allowed to reboot. The charging station is expected to reboot either after the transaction has ended or if the transaction ends before the cable is disconnected, once the cable is disconnected.\n\nTest case Id: TC_B_41_CS",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -353,7 +353,7 @@
     }
   },
   {
-    "content": "# Main (Test scenario)\n\n| Charging Station | CSMS |\n| ---------------- | ---- |\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2026  16/24    Errata 2026-04",
+    "content": "# Main (Test scenario)\n\n| Charging Station | CSMS |\n| ---------------- | ---- |\n\nOCPP 2.0.1 Edition 4 -",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -376,7 +376,7 @@
     }
   },
   {
-    "content": "# 14.\n\nThe Test System responds accordingly.\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2026  17/24    Errata 2026-04",
+    "content": "# 14.\n\nThe Test System responds accordingly.\n\nOCPP 2.0.1 Edition 4 -",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -410,7 +410,7 @@
     }
   },
   {
-    "content": "# Main (Test scenario)\n\n1. The Test System closes the WebSocket connection AND does not accept a reconnect.: *Manual Action*: Present valid idToken which is already configured in the Authorization Cache\n*Note(s)*: The Test System will wait for 5 seconds: \n2. The Test System accepts reconnection attempt from the Charging Station.: *Note(s)*: The Charging Station will empty its Transaction message queue. This will contain one or more TransactionEventRequest messages\n3. The Charging Station sends a TransactionEventRequest: 4. The Test System responds with a TransactionEventResponse with idTokenInfo.status Invalid (if idToken is not omitted)\n3. The Charging Stations empties its Transaction message queue: TransactionEventRequest: 4. The Test System responds with a TransactionEventResponse\n*Note(s)*: This will contain one or more TransactionEventRequest messages: *Note(s)*: The Test System will respond to the TransactionEventRequest containing the idToken, with idtokenInfo.status Invalid\n5. The Charging Station sends a TransactionEventRequest with triggerReason SuspendedEVSE transactionInfo.chargingState SuspendedEVSE: 6. The Test System responds with a TransactionEventResponse\n*Note(s)*: Steps 5 & 6 can occur before or during the sending of messages from the offline queue (steps 3 & 4).: ",
+    "content": "# Main (Test scenario)\n\n1. The Test System closes the WebSocket connection AND does not accept a reconnect.: *Manual Action*: Present valid idToken which is already configured in the Authorization Cache\n*Note(s)*: The Test System will wait for 5 seconds: \n2. The Test System accepts reconnection attempt from the Charging Station.: *Note(s)*: The Charging Station will empty its Transaction message queue. This will contain one or more TransactionEventRequest messages\n3. The Charging Station sends a TransactionEventRequest: 4. The Test System responds with a TransactionEventResponse with idTokenInfo.status Invalid (if idToken is not omitted)\n3. The Charging Stations empties its Transaction message queue: TransactionEventRequest: 4. The Test System responds with a TransactionEventResponse\n*Note(s)*: This will contain one or more TransactionEventRequest messages: *Note(s)*: The Test System will respond to the TransactionEventRequest containing the idToken, with idtokenInfo.status Invalid\n5. The Charging Station sends a TransactionEventRequest with triggerReason SuspendedEVSE transactionInfo.chargingState SuspendedEVSE: 6. The Test System responds with a TransactionEventResponse\n*Note(s)*: Steps 5 & 6 can occur before or during the sending of messages from the offline queue (steps 3 & 4).:",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -445,7 +445,7 @@
     }
   },
   {
-    "content": "# 6.2.5. Page 124 - (2026-02) - TC_C_38_CS - Removed memory state IdTokenCached [1164]\n\nThere is no need to call memory state IdTokenCached if the Authorization Cache has been disabled. Thas has therefore been removed.\n\nTest case Id: TC\\_C\\_38\\_CS\n\u2026: ",
+    "content": "# 6.2.5. Page 124 - (2026-02) - TC_C_38_CS - Removed memory state IdTokenCached [1164]\n\nThere is no need to call memory state IdTokenCached if the Authorization Cache has been disabled. Thas has therefore been removed.\n\nTest case Id: TC_C_38_CS\n\u2026:",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -503,7 +503,7 @@
     }
   },
   {
-    "content": "# Main (Test scenario)\n\n1. The Test System sends a UpdateFirmwareRequest: with firmware.installDateTime \\<Current DateTime - 2 hours>\n2. The Charging Station responds with a UpdateFirmwareResponse: firmware.location \"does\\_not\\_exist\\_download\" + \\<Configured firmware location> + \"\\_does\\_not\\_exist\"\nfirmware.retrieveDateTime: \\<Current DateTime - 2 hours>\nfirmware.signingCertificate: \\<Configured signingCertificate>\nfirmware.signature: \\<Configured signature>\n\nNote(s) :\n- The firmware location is mutated such that \"does_not_exist_download\" is pre-appended to the file path.",
+    "content": "# Main (Test scenario)\n\n1. The Test System sends a UpdateFirmwareRequest: with firmware.installDateTime \\<Current DateTime - 2 hours>\n2. The Charging Station responds with a UpdateFirmwareResponse: firmware.location \"does_not_exist_download\" + \\<Configured firmware location> + \"_does_not_exist\"\nfirmware.retrieveDateTime: \\<Current DateTime - 2 hours>\nfirmware.signingCertificate: \\<Configured signingCertificate>\nfirmware.signature: \\<Configured signature>\n\nNote(s) :\n- The firmware location is mutated such that \"does_not_exist_download\" is pre-appended to the file path.",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",
@@ -572,7 +572,7 @@
     }
   },
   {
-    "content": "# Main (Test scenario)\n\n*Manual Action*: Power cycle the Charging Station. OR execute step 1 and 2, depending on the testcase.: \n1. The Test System sends a ResetRequest: \n2. The Charging Station responds with a ResetResponse with status Accepted: \n3. The Charging Station notifies the CSMS about the unavailability of all connectors.: 4. The Test System responds accordingly.\n*Note:* This step is optional.: \n5. The Charging Station sends a BootNotificationRequest: \n6. The Test System responds with a BootNotificationResponse with status Accepted: \n7. The Charging Station notifies the CSMS about the current state of all connectors.: 8. The Test System responds accordingly.\n9. The Charging Station sends a SecurityEventNotificationRequest: \n10. The Test System responds with a SecurityEventNotificationResponse: ",
+    "content": "# Main (Test scenario)\n\n*Manual Action*: Power cycle the Charging Station. OR execute step 1 and 2, depending on the testcase.: \n1. The Test System sends a ResetRequest: \n2. The Charging Station responds with a ResetResponse with status Accepted: \n3. The Charging Station notifies the CSMS about the unavailability of all connectors.: 4. The Test System responds accordingly.\n*Note:* This step is optional.: \n5. The Charging Station sends a BootNotificationRequest: \n6. The Test System responds with a BootNotificationResponse with status Accepted: \n7. The Charging Station notifies the CSMS about the current state of all connectors.: 8. The Test System responds accordingly.\n9. The Charging Station sends a SecurityEventNotificationRequest: \n10. The Test System responds with a SecurityEventNotificationResponse:",
     "metadata": {
       "doc_id": "ocpp201_errata",
       "doc_title": "OCPP 2.0.1 Edition 4 Errata (2026-04)",

@@ -72,7 +72,7 @@
     }
   },
   {
-    "content": "# Part 2 - Specification\n\n\nDisclaimer\n\nCopyright \u00a9 2010 \u2013 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
+    "content": "# Part 2 - Specification\n\nDisclaimer\n\nCopyright \u00a9 2010 \u2013 2025 Open Charge Alliance. All rights reserved.\n\nThis document is made available under the Creative Commons Attribution-NoDerivatives 4.0 International Public License (https://creativecommons.org/licenses/by-nd/4.0/legalcode).",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -83,7 +83,7 @@
     }
   },
   {
-    "content": "# OCPP 2.0.1 Edition 4\n\n\u00a9 Open Charge Alliance 2025\n\nPart 2 - Specification",
+    "content": "# OCPP 2.0.1 Edition 4\n\n\u00a9 Open Charge Alliance 2025",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -138,7 +138,7 @@
     }
   },
   {
-    "content": "# Terminology\n\nCryptography: The ENISA Algorithms, Key Sizes and Parameters Report (OCPP Security \\[1]) provides an overview of the current state of the art.\nCSMS: Charging Station Management System. The system that manages Charging Stations and has the information for authorizing Users for using its Charging Stations.\nData Integrity: See Integrity and Message authentication.\nDigital Signature: Authenticates the sender. In practice digital signatures are implemented using elliptic curves (EC).\nEncryption: Using a cryptographic scheme, the message is mapped to a random-looking undecipherable string (ciphertext). Decryption reverses the encryption process and can only be performed with the corresponding decryption key. This decryption key is either the same as the encryption key (symmetric cryptography) or the private key in a public-key cryptosystem. The confidentiality of the message can be guaranteed only while the keys are kept secret.\nEnergy Management System: A device that manages the local loads (consumption and production) based on local and/or contractual constraints and/or contractual incentives. It has additional inputs, such as sensors and controls from e.g. PV, battery storage.",
+    "content": "# Terminology\n\nCryptography: The ENISA Algorithms, Key Sizes and Parameters Report (OCPP Security [1]) provides an overview of the current state of the art.\nCSMS: Charging Station Management System. The system that manages Charging Stations and has the information for authorizing Users for using its Charging Stations.\nData Integrity: See Integrity and Message authentication.\nDigital Signature: Authenticates the sender. In practice digital signatures are implemented using elliptic curves (EC).\nEncryption: Using a cryptographic scheme, the message is mapped to a random-looking undecipherable string (ciphertext). Decryption reverses the encryption process and can only be performed with the corresponding decryption key. This decryption key is either the same as the encryption key (symmetric cryptography) or the private key in a public-key cryptosystem. The confidentiality of the message can be guaranteed only while the keys are kept secret.\nEnergy Management System: A device that manages the local loads (consumption and production) based on local and/or contractual constraints and/or contractual incentives. It has additional inputs, such as sensors and controls from e.g. PV, battery storage.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -164,7 +164,7 @@
     }
   },
   {
-    "content": "High level communication: Bidirectional digital communication using protocol and messages and physical and data link layers specified in ISO 15118 series \\[ISO15118-1]\nIdle State: In both use cases and sequence diagrams, Idle state is referred as the state in which a Charging Station is not performing any use case related tasks. Condition during which the equipment can promptly provide a primary function but is not doing so.\nIntegrity: Data cannot be altered without authorization. See also Message authentication.",
+    "content": "High level communication: Bidirectional digital communication using protocol and messages and physical and data link layers specified in ISO 15118 series [ISO15118-1]\nIdle State: In both use cases and sequence diagrams, Idle state is referred as the state in which a Charging Station is not performing any use case related tasks. Condition during which the equipment can promptly provide a primary function but is not doing so.\nIntegrity: Data cannot be altered without authorization. See also Message authentication.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -216,7 +216,7 @@
     }
   },
   {
-    "content": "# Terminology\n\nPublic-key cryptography: \"Cryptographic scheme where a public key is published and henceforth can be used for encryption of messages or verification of digital signatures. Each public key has a counterpart, the corresponding private key. This key must be kept secret and is used for decryption or digital signing of messages. Public-key primitives have a high computational complexity for encryption and therefore are mostly used as part of a hybrid encryption scheme where the public key is used to communicate a common symmetric session key under which all further communication is encrypted. Certificates administered by a public-key infrastructure are used to establish the authenticity of the public key. See also ENISA, reference OCPP Security \\[12]. The most popular public-key encryption scheme is RSA. Digital signatures can be generated most efficiently with elliptic-curve based (EC) mechanisms.\"\nPublic-key infrastructure: System to generate, administer, and revoke certificates.\nResume regular transaction: Used in sequence diagrams to indicate that this use case/sequence diagram has ended, but the transaction has not ended and will continue, but that is outside of scope of that specific use case.",
+    "content": "# Terminology\n\nPublic-key cryptography: \"Cryptographic scheme where a public key is published and henceforth can be used for encryption of messages or verification of digital signatures. Each public key has a counterpart, the corresponding private key. This key must be kept secret and is used for decryption or digital signing of messages. Public-key primitives have a high computational complexity for encryption and therefore are mostly used as part of a hybrid encryption scheme where the public key is used to communicate a common symmetric session key under which all further communication is encrypted. Certificates administered by a public-key infrastructure are used to establish the authenticity of the public key. See also ENISA, reference OCPP Security [12]. The most popular public-key encryption scheme is RSA. Digital signatures can be generated most efficiently with elliptic-curve based (EC) mechanisms.\"\nPublic-key infrastructure: System to generate, administer, and revoke certificates.\nResume regular transaction: Used in sequence diagrams to indicate that this use case/sequence diagram has ended, but the transaction has not ended and will continue, but that is outside of scope of that specific use case.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -467,7 +467,7 @@
     }
   },
   {
-    "content": "# Sequence Diagram: TLS with Basic Authentication sequence diagram\n\nClient Hello: \nServer Hello: \nServer Certificate: \nServer Hello Done: \nClientKeyExchange: \n\\[ChangeCipherSpec]: \nFinished: \nHTTP GET / ProtectedData (Encrypted Communication): \nHTTP GET / ProtectedData: Authorization Basic Username/Password",
+    "content": "# Sequence Diagram: TLS with Basic Authentication sequence diagram\n\nClient Hello: \nServer Hello: \nServer Certificate: \nServer Hello Done: \nClientKeyExchange: \n[ChangeCipherSpec]: \nFinished: \nHTTP GET / ProtectedData (Encrypted Communication): \nHTTP GET / ProtectedData: Authorization Basic Username/Password",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -521,7 +521,7 @@
     }
   },
   {
-    "content": "# 1.6. Installation\n\nThis section is normative.\n\nUnique credentials should be used to authenticate each Charging Station to the CSMS, whether they are the password used for HTTP Basic Authentication (see Charging Station Authentication) or the Charging Station certificate. These unique credentials have to be put on the Charging Station at some point during manufacturing or installation.\n\n",
+    "content": "# 1.6. Installation\n\nThis section is normative.\n\nUnique credentials should be used to authenticate each Charging Station to the CSMS, whether they are the password used for HTTP Basic Authentication (see Charging Station Authentication) or the Charging Station certificate. These unique credentials have to be put on the Charging Station at some point during manufacturing or installation.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -1375,7 +1375,7 @@
     }
   },
   {
-    "content": "# Table 96. K03 - Requirements\n\nK03.FR.01 (Precondition: The Local Controller MAY impose charging limits on a Charging Station.): ",
+    "content": "# Table 96. K03 - Requirements\n\nK03.FR.01 (Precondition: The Local Controller MAY impose charging limits on a Charging Station.):",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -1527,7 +1527,7 @@
     }
   },
   {
-    "content": "# Stopping Transaction\n\n- PowerDeliveryReq(ChargeProgress=Stop)\n- Contactor Open\n- PowerDeliveryRes()\n- SessionStopReq(ChargingSession=Terminate)\n- SessionStopRes()\n- TransactionEventRequest(eventType = Updated, triggerReason = ChargingStateChanged, chargingState = EVConnected, ...)\n- TransactionEventResponse(...)\n\nUser disconnects cable\n\n- TransactionEventRequest(eventType = Ended, triggerReason = EVCommunicationLost, chargingState = Idle, ...)\n- TransactionEventResponse(...)\n\nFigure 120. Sequence with Authorization and Scheduling with ISO 15118-2\n\n\nNOTE: The time-out on the ChargeParameterDiscoveryReq is 2 seconds, but this can be prolonged up to 60 seconds to wait for charging profile (SAScheduleList) to be provided by the CSMS. See ISO 15118-2 [ISO15118-2].\n\nNOTE: Please note that it is highly RECOMMENDED to use one of the TLS based security profiles from functional block A, not doing this might \"break\" the ISO 15118 security.\n\nIn order to control the amount of power that an EV may draw from a Charging Station, some form of vehicle to grid communication is necessary. OCPP has been designed to support the ISO 15118 standard for communication between the EV and Charging Station (EVSE). However, it is anticipated that for the coming years, the majority of EVs will only support the control pilot PWM signal IEC61851, so care has been taken to support smart charging with this as well.\n\nNOTE: A mapping of the ISO 15118 and OCPP terminology is provided in ISO 15118 and OCPP terminology mapping and abbreviations used in ISO 15118 are listed in ISO 15118 Abbreviations.",
+    "content": "# Stopping Transaction\n\n- PowerDeliveryReq(ChargeProgress=Stop)\n- Contactor Open\n- PowerDeliveryRes()\n- SessionStopReq(ChargingSession=Terminate)\n- SessionStopRes()\n- TransactionEventRequest(eventType = Updated, triggerReason = ChargingStateChanged, chargingState = EVConnected, ...)\n- TransactionEventResponse(...)\n\nUser disconnects cable\n\n- TransactionEventRequest(eventType = Ended, triggerReason = EVCommunicationLost, chargingState = Idle, ...)\n- TransactionEventResponse(...)\n\nFigure 120. Sequence with Authorization and Scheduling with ISO 15118-2\n\nNOTE: The time-out on the ChargeParameterDiscoveryReq is 2 seconds, but this can be prolonged up to 60 seconds to wait for charging profile (SAScheduleList) to be provided by the CSMS. See ISO 15118-2 [ISO15118-2].\n\nNOTE: Please note that it is highly RECOMMENDED to use one of the TLS based security profiles from functional block A, not doing this might \"break\" the ISO 15118 security.\n\nIn order to control the amount of power that an EV may draw from a Charging Station, some form of vehicle to grid communication is necessary. OCPP has been designed to support the ISO 15118 standard for communication between the EV and Charging Station (EVSE). However, it is anticipated that for the coming years, the majority of EVs will only support the control pilot PWM signal IEC61851, so care has been taken to support smart charging with this as well.\n\nNOTE: A mapping of the ISO 15118 and OCPP terminology is provided in ISO 15118 and OCPP terminology mapping and abbreviations used in ISO 15118 are listed in ISO 15118 Abbreviations.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -1583,7 +1583,7 @@
     }
   },
   {
-    "content": "# 2.3. 15118 communication set-up\n\nAt the beginning of a 15118 communication session the EV will initiate a TLS Connection. In this request, the car presents its known V2G root certificates.\n\nDuring the TLS handshake, the EVCC can request the OCSP status of the Charging Station and intermediate certificates using OCSP stapling as defined in IETF RFC 6961. The Charging Station can retrieve this information by sending a GetCertificateStatusRequest to the CSMS, see use case M06 - Get Charging Station Certificate status.\n\n\n\nThe TLS Start will include a list of all known V2G Root Certificates by the EV.\n\nstartTLS(ListOfRootCertificates)\n\nThe TLS response will include OCSP revocation status information on the CSO Sub-CA certificates.\n\nStartTLSresponse()\n\nFor readability reasons, some intermediate messages are not displayed here.\n\nThe EV sends its Contact Certificate and MO Sub-CA certificates to the Charging Station.\n\nFigure 122. Communication set-up",
+    "content": "# 2.3. 15118 communication set-up\n\nAt the beginning of a 15118 communication session the EV will initiate a TLS Connection. In this request, the car presents its known V2G root certificates.\n\nDuring the TLS handshake, the EVCC can request the OCSP status of the Charging Station and intermediate certificates using OCSP stapling as defined in IETF RFC 6961. The Charging Station can retrieve this information by sending a GetCertificateStatusRequest to the CSMS, see use case M06 - Get Charging Station Certificate status.\n\nThe TLS Start will include a list of all known V2G Root Certificates by the EV.\n\nstartTLS(ListOfRootCertificates)\n\nThe TLS response will include OCSP revocation status information on the CSO Sub-CA certificates.\n\nStartTLSresponse()\n\nFor readability reasons, some intermediate messages are not displayed here.\n\nThe EV sends its Contact Certificate and MO Sub-CA certificates to the Charging Station.\n\nFigure 122. Communication set-up",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

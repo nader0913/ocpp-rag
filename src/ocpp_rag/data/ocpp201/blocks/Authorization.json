@@ -13,7 +13,7 @@
     }
   },
   {
-    "content": "# C. Authorization\n\nC01.FR.11: Field: language1 SHALL be different from field language2.\nC01.FR.12: It is RECOMMENDED to implement messages in English as fall-back.\nC01.FR.13 (Precondition: If both language1 AND language2 don\u2019t match installed languages in the Charging Station): It is RECOMMENDED to show messages to the EV Driver in English.\nC01.FR.17: Language SHALL be specified as RFC-4646 tags, see: \\[RFC5646], example: US English is: \"en-US\".\nC01.FR.18 (Precondition: If the IdToken is valid AND the EV driver is NOT allowed to charge at the type of EVSE(s) this Charging Station provides.): The CSMS SHALL send an AuthorizeResponse with idTokenInfo.status NotAllowedTypeEVSE.",
+    "content": "# C. Authorization\n\nC01.FR.11: Field: language1 SHALL be different from field language2.\nC01.FR.12: It is RECOMMENDED to implement messages in English as fall-back.\nC01.FR.13 (Precondition: If both language1 AND language2 don\u2019t match installed languages in the Charging Station): It is RECOMMENDED to show messages to the EV Driver in English.\nC01.FR.17: Language SHALL be specified as RFC-4646 tags, see: [RFC5646], example: US English is: \"en-US\".\nC01.FR.18 (Precondition: If the IdToken is valid AND the EV driver is NOT allowed to charge at the type of EVSE(s) this Charging Station provides.): The CSMS SHALL send an AuthorizeResponse with idTokenInfo.status NotAllowedTypeEVSE.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",
@@ -103,7 +103,7 @@
     }
   },
   {
-    "content": "# C. Authorization\n\nC04.FR.03: A Charging Station MAY store keyCodes in the Authorization Cache.\nC04.FR.04 (Precondition: If an idToken of type keyCode is used): The Charging Station or CSMS SHALL NOT show the IdToken in any logging. key codes should never appear in logs.\nC04.FR.05: Language SHALL be specified as RFC-5646 tags, see: \\[RFC5646], for example: US English is: \"en-US\".\nC04.FR.06 (Precondition: If an idToken of type keyCode is used): It is RECOMMENDED to take measures to prevent brute force attacks, for example by increasing backoff times after attempts to enter an incorrect keyCode.",
+    "content": "# C. Authorization\n\nC04.FR.03: A Charging Station MAY store keyCodes in the Authorization Cache.\nC04.FR.04 (Precondition: If an idToken of type keyCode is used): The Charging Station or CSMS SHALL NOT show the IdToken in any logging. key codes should never appear in logs.\nC04.FR.05: Language SHALL be specified as RFC-5646 tags, see: [RFC5646], for example: US English is: \"en-US\".\nC04.FR.06 (Precondition: If an idToken of type keyCode is used): It is RECOMMENDED to take measures to prevent brute force attacks, for example by increasing backoff times after attempts to enter an incorrect keyCode.",
     "metadata": {
       "doc_id": "ocpp201_part2",
       "doc_title": "OCPP 2.0.1 Part 2 - Specification",

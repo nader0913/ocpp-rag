@@ -1,17 +1,5 @@
 [
   {
-    "content": "# G. Availability\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "G. Availability",
-      "heading_path": "G. Availability",
-      "functional_block": "Availability"
-    }
-  },
-  {
     "content": "# G. Availability\n\n- Initial: Reserved; Cable plugin: -; Cable unplug: -\n- Initial: Unavailable; Cable plugin: -; Cable unplug: -\n- Initial: Faulted; Cable plugin: -; Cable unplug: -",
     "metadata": {
       "doc_id": "ocpp201_part2",

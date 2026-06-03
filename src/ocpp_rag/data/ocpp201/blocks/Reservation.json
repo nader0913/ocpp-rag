@@ -1,17 +1,5 @@
 [
   {
-    "content": "# H. Reservation\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "H. Reservation",
-      "heading_path": "H. Reservation",
-      "functional_block": "Reservation"
-    }
-  },
-  {
     "content": "# H. Reservation\n\nEV Driver    CSMS    Charging Station\n\nreserve\n\nReserveNowRequest(ConnectorType is specified AND no evseId)\n\nReserveNowResponse(status = Accepted)\n\nopt notification\n\nFigure 79. Sequence Diagram: S3 - Reserve a connector type at a Charging Station",
     "metadata": {
       "doc_id": "ocpp201_part2",

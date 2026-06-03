@@ -116,7 +116,7 @@
     }
   },
   {
-    "content": "# 1.3. References\n\n\\[IEC61851-1]: IEC 61851-1 2017: EV conductive charging system - Part 1: General requirements. <https://webstore.iec.ch/publication/33644>\n\\[IEC62559-2:2015]: Definition of the templates for use cases, actor list and requirements list. <https://webstore.iec.ch/publication/22349>\n\\[ISO15118-1]: ISO 15118-1 specifies terms and definitions, general requirements and use cases as the basis for the other parts of ISO 15118. It provides a general overview and a common understanding of aspects influencing the charge process, payment and load leveling. <https://webstore.iec.ch/publication/9272>\n\\[OCPP1.5]: <http://www.openchargealliance.org/downloads/>\n\\[OCPP1.6]: <http://www.openchargealliance.org/downloads/>",
+    "content": "# 1.3. References\n\n[IEC61851-1]: IEC 61851-1 2017: EV conductive charging system - Part 1: General requirements. <https://webstore.iec.ch/publication/33644>\n[IEC62559-2:2015]: Definition of the templates for use cases, actor list and requirements list. <https://webstore.iec.ch/publication/22349>\n[ISO15118-1]: ISO 15118-1 specifies terms and definitions, general requirements and use cases as the basis for the other parts of ISO 15118. It provides a general overview and a common understanding of aspects influencing the charge process, payment and load leveling. <https://webstore.iec.ch/publication/9272>\n[OCPP1.5]: <http://www.openchargealliance.org/downloads/>\n[OCPP1.6]: <http://www.openchargealliance.org/downloads/>",
     "metadata": {
       "doc_id": "ocpp201_part0",
       "doc_title": "OCPP 2.0.1 Part 0 - Introduction",

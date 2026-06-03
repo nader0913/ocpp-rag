@@ -1,17 +1,5 @@
 [
   {
-    "content": "# B. Provisioning\n\nOCPP 2.0.1 Edition 4 - \u00a9 Open Charge Alliance 2025",
-    "metadata": {
-      "doc_id": "ocpp201_part2",
-      "doc_title": "OCPP 2.0.1 Part 2 - Specification",
-      "ocpp_version": "2.0.1",
-      "content_type": "block_intro",
-      "heading": "B. Provisioning",
-      "heading_path": "B. Provisioning",
-      "functional_block": "Provisioning"
-    }
-  },
-  {
     "content": "# B. Provisioning\n\nB01.FR.06 (Precondition: The Charging Station has received BootNotificationResponse. AND Charging Station is configured to use Heartbeats for time synchronization TimeSource): The Charging Station SHALL synchronize the Charging Station\u2019s internal clock with the supplied CSMS\u2019s current time.\nB01.FR.07 (Precondition: When a Charging Station or an EVSE is set to status Unavailable by a Change Availability command.): The Unavailable status MUST be persistent across reboots.\nB01.FR.08 (Precondition: Between the physical power-on/reboot and the successful completion of a BootNotification, where the CSMS returns Accepted or Pending.): The Charging Station SHALL NOT send any other OCPP requests to the CSMS (except BootNotificationRequest). This includes cached OCPP messages that are still present in the Charging Station from prior sessions.\nB01.FR.09 (Precondition: B01.FR.01): The Charging Station SHALL indicate the reason for sending the BootNotificationRequest message in the reason field.",
     "metadata": {
       "doc_id": "ocpp201_part2",
