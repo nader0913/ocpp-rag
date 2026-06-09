@@ -4,20 +4,12 @@ version = "1.0.0"
 description = "MCP server with RAG knowledge base for OCPP 1.6, OCPP 2.0.1, and EV charging standards"
 readme = "README.md"
 license = {text = "Polyform-Noncommercial-1.0.0"}
-authors = [{name = "Nader Ouerdiane", email = "ouerdiane.nader@gmail.com"}]
+authors = [{name = "Nader Ouerdiane", email = "nader.business.mail@gmail.com"}]
 requires-python = ">=3.12"
 dependencies = [
     "chromadb>=1.5.9",
     "mcp[cli]>=1.0.0",
 ]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=8.0",
-]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
 
 [build-system]
 requires = ["hatchling"]

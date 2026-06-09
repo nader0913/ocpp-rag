@@ -7,15 +7,85 @@ from pathlib import Path
 
 import chromadb
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
-from mcp.server.fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP, Image
 
 from .config import CHROMA_DIR, COLLECTION_NAME
 
 DATA_DIR = Path(__file__).parent / "data"
+FIGURES_DIR = DATA_DIR / "figures"
+USE_CASES_DIR = DATA_DIR / "ocpp201" / "use_cases"
 
 mcp = FastMCP("ocpp-rag")
 
 _collection_cache = None
+_figure_manifest_cache = None
+
+
+def _load_figure_manifest() -> list[dict]:
+    """Load the figure manifest (figure_num, title, caption_page, files)."""
+    global _figure_manifest_cache
+    if _figure_manifest_cache is None:
+        with open(FIGURES_DIR / "_manifest.json") as f:
+            _figure_manifest_cache = json.load(f)
+    return _figure_manifest_cache
+
+
+def _normalize_figure_ref(figure: str) -> str:
+    """Strip 'figure'/'fig' prefix and '.png' suffix, returning the bare number."""
+    num = figure.strip().lower().removesuffix(".png").strip()
+    for prefix in ("figure", "fig"):
+        if num.startswith(prefix):
+            num = num[len(prefix):].strip()
+    return num
+
+
+def _resolve_figure(figure: str) -> dict | None:
+    """Resolve a loose figure reference to its manifest entry.
+
+    Accepts forms like "fig10", "10", "fig10.png", or a title substring.
+    """
+    manifest = _load_figure_manifest()
+    raw = figure.strip().lower()
+    num = _normalize_figure_ref(figure)
+
+    # Exact figure number match (most common).
+    for entry in manifest:
+        if entry["figure_num"] == num:
+            return entry
+
+    # Exact filename match.
+    for entry in manifest:
+        for fname in entry["files"]:
+            low = fname.lower()
+            if low == raw or low.startswith(f"fig{num}_") or low == f"fig{num}.png":
+                return entry
+
+    # Title substring match (only when a meaningful query was given).
+    if len(raw) >= 3:
+        for entry in manifest:
+            if raw in entry["title"].lower():
+                return entry
+
+    return None
+
+
+def _use_case_figures(use_case_id: str) -> list[dict]:
+    """Return the figures referenced by a use case, resolved to titles."""
+    fpath = USE_CASES_DIR / f"{use_case_id.upper()}.json"
+    if not fpath.exists():
+        return []
+    with open(fpath) as f:
+        data = json.load(f)
+    refs = data.get("structured", {}).get("figures") or data.get("figures") or []
+    figures = []
+    for ref in refs:
+        entry = _resolve_figure(ref)
+        figures.append({
+            "ref": ref,
+            "figure_num": entry["figure_num"] if entry else None,
+            "title": entry["title"] if entry else None,
+        })
+    return figures
 
 
 def _load_all_chunks():
@@ -194,11 +264,18 @@ def get_use_case(use_case_id: str, ocpp_version: str = "2.0.1") -> dict | None:
             "functional_block": meta.get("functional_block"),
         })
 
-    return {
+    result = {
         "use_case_id": use_case_id,
         "ocpp_version": ocpp_version,
         "chunks": chunks,
     }
+
+    if ocpp_version == "2.0.1":
+        figures = _use_case_figures(use_case_id)
+        if figures:
+            result["figures"] = figures
+
+    return result
 
 
 @mcp.tool()
@@ -360,6 +437,59 @@ def list_documents() -> list[dict]:
         doc_info[doc_id]["chunk_count"] += 1
 
     return sorted(doc_info.values(), key=lambda d: d["doc_id"])
+
+
+@mcp.tool()
+def list_figures(query: str | None = None) -> list[dict]:
+    """List the OCPP 2.0.1 figures (sequence diagrams, topologies, PKI, etc.).
+
+    Returns each figure's number and title. Use this to discover which diagram
+    to fetch, then call `get_figure` to view it.
+
+    Args:
+        query: Optional case-insensitive substring to filter figure titles
+            (e.g. "cold boot", "smart charging", "certificate").
+    """
+    manifest = _load_figure_manifest()
+    q = query.strip().lower() if query else None
+
+    figures = []
+    for entry in manifest:
+        if q and q not in entry["title"].lower():
+            continue
+        figures.append({
+            "figure_num": entry["figure_num"],
+            "title": entry["title"],
+        })
+
+    figures.sort(key=lambda f: int(f["figure_num"]) if f["figure_num"].isdigit() else 0)
+    return figures
+
+
+@mcp.tool()
+def get_figure(figure: str) -> list:
+    """Retrieve an OCPP 2.0.1 figure as a viewable image.
+
+    Returns the diagram itself (rendered inline) along with its number and
+    title. Useful for sequence diagrams, state machines, topology diagrams,
+    and PKI hierarchies referenced by use cases.
+
+    Args:
+        figure: A figure reference - e.g. "fig10", "10", "fig10.png", or a
+            title substring like "cold boot". Use the figure numbers returned
+            by `get_use_case` or `list_figures`.
+    """
+    entry = _resolve_figure(figure)
+    if entry is None:
+        return [f"No figure found matching '{figure}'. Use list_figures to browse available figures."]
+
+    caption = f"Figure {entry['figure_num']}: {entry['title']}"
+    content: list = [caption]
+    for fname in entry["files"]:
+        fpath = FIGURES_DIR / fname
+        if fpath.exists():
+            content.append(Image(path=str(fpath)))
+    return content
 
 
 @mcp.tool()

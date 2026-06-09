@@ -49,6 +49,8 @@ The ChromaDB index builds automatically on first run (~30 seconds).
 | `get_component_variable` | Query device model components and variables from the OCPP 2.0.1 appendices. |
 | `list_documents` | List all indexed documents with chunk counts. |
 | `compare_versions` | Search a topic across OCPP 1.6 and 2.0.1 side by side. |
+| `list_figures` | Browse the 146 OCPP 2.0.1 figures by title, optionally filtered by a search term. |
+| `get_figure` | Retrieve a figure as a viewable image (sequence diagrams, topologies, PKI hierarchies) by number, filename, or title. |
 
 ## What's Inside
 
@@ -80,7 +82,7 @@ The ChromaDB index builds automatically on first run (~30 seconds).
 
 ### Figures
 
-146 cleanly extracted diagrams from the OCPP 2.0.1 specification: sequence diagrams, state machines, topology diagrams, PKI hierarchies, and more.
+146 cleanly extracted diagrams from the OCPP 2.0.1 specification: sequence diagrams, state machines, topology diagrams, PKI hierarchies, and more. Browse them with `list_figures` and view any diagram inline with `get_figure` — use cases returned by `get_use_case` include the figure numbers they reference.
 
 ## Data Structure
 
@@ -132,13 +134,6 @@ Each use case is stored as structured JSON with proper fields:
 - *"What are the California pricing requirements for OCPP?"*
 - *"What security profiles exist in OCPP 1.6?"*
 
-## Running Tests
-
-```bash
-uv sync --extra dev
-uv run pytest
-```
-
 ## Configuration
 
 The ChromaDB index is cached at `~/.cache/ocpp-rag/chroma_db/`. Override with:
@@ -153,4 +148,4 @@ This project is licensed under the [Polyform Noncommercial License 1.0.0](LICENS
 
 **Free** for personal use, research, education, non-profits, and government institutions.
 
-**Commercial use** requires a separate license. Contact [ouerdiane.nader@gmail.com](mailto:ouerdiane.nader@gmail.com) for commercial licensing.
+**Commercial use** requires a separate license. Contact [nader.business.mail@gmail.com](mailto:nader.business.mail@gmail.com) for commercial licensing.
